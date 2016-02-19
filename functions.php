@@ -158,6 +158,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-weather-word-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-sports-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-news-headlines-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-columnists-widget.php';
 
 		wpcom_vip_require_lib( 'codebird' );
 
@@ -423,6 +424,7 @@ class CST {
 		register_widget( 'CST_Weather_Word_Widget' );
 		register_widget( 'CST_Sports_Headlines_Widget' );
 		register_widget( 'CST_News_Headlines_Widget' );
+		register_widget( 'CST_Columnists_Content_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
