@@ -202,6 +202,21 @@ class CST_Frontend {
 				case 'sports':
 					wp_enqueue_style( 'chicagosuntimes-sports', get_template_directory_uri() . '/assets/css/sports-theme.css', array( 'google-fonts', 'fontawesome' ) );
 					break;
+				case 'politics':
+					wp_enqueue_style( 'chicagosuntimes-politics', get_template_directory_uri() . '/assets/css/politics-theme.css', array( 'google-fonts', 'fontawesome' ) );
+					break;
+				case 'entertainment':
+					wp_enqueue_style( 'chicagosuntimes-entertainment', get_template_directory_uri() . '/assets/css/entertainment-theme.css', array( 'google-fonts', 'fontawesome' ) );
+					break;
+				case 'lifestyles':
+					wp_enqueue_style( 'chicagosuntimes-lifestyles', get_template_directory_uri() . '/assets/css/lifestyles-theme.css', array( 'google-fonts', 'fontawesome' ) );
+					break;
+				case 'columnists':
+					wp_enqueue_style( 'chicagosuntimes-columnists', get_template_directory_uri() . '/assets/css/columnists-theme.css', array( 'google-fonts', 'fontawesome' ) );
+					break;
+				case 'opinion':
+					wp_enqueue_style( 'chicagosuntimes-opinion', get_template_directory_uri() . '/assets/css/opinion-theme.css', array( 'google-fonts', 'fontawesome' ) );
+					break;
 				case 'news':
 					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 					break;
