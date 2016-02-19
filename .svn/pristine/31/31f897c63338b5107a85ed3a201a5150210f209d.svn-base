@@ -1,0 +1,200 @@
+.post {
+
+	.post-meta {
+		font-size: 0.75rem;
+		line-height: 0.9rem;
+		color: $social_grey;
+		
+		.developing {
+			display: inline-block;
+
+			.triangle-top-right {
+				position: relative;
+				height: 0;
+				width: 0;
+				border-top: 8px solid $black;
+				border-left: 9px solid transparent;
+				right: 23px;
+				top: 21px;
+			}
+
+			.developing-text {
+				position: relative;
+				text-transform: uppercase;
+				font-weight: 700;
+				color: $white;
+				background: $social_grey;
+				padding: 4px;
+				right: 32px;
+				bottom: 8px;
+			}
+
+			.right-ribbon {
+				display: inline-block;
+				position: relative;
+				height: 0;
+				width: 0;
+				border-top: 12px solid $social_grey;
+				border-right: 12px solid transparent;
+				border-bottom: 13px solid $social_grey;
+				right: 36px;
+			}
+
+			
+		}
+
+		.post-section-taxonomy,
+		.post-embed-source {
+			position: relative;
+
+			a {
+				color: $red;
+				text-transform: uppercase;
+				font-weight: 700;
+			}
+
+			a:hover {
+				color: $social_grey;
+			}
+
+
+		}
+
+		&.sticky-taxonomy {
+			.post-section-taxonomy,
+			.post-embed-source {
+				bottom: 8px;
+				right: 31px;
+			}
+		}
+
+	}
+
+
+
+	.post-meta-byline {
+		margin-bottom: 20px;
+
+		div {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		.post-meta-author {
+			font-family: $open_sans;
+			font-weight: 700;
+			font-size: 1rem;
+
+			a {
+				color: $black;
+			}
+
+		}
+
+		.post-meta-author-contact {
+
+			a {
+				color: $social_grey;
+
+				&:hover {
+					color: $red;
+				}
+			}
+
+			.fa {
+				width: 20px;
+				height: 20px;
+				font-size: 20px;
+				margin-right: 10px
+			}
+
+			.fa:hover {
+				color: $red;
+			}
+		}
+
+	}
+
+	.post-social {
+
+		@media #{$medium-up} {
+			background-color: $social_grey;
+		}
+
+		&.twitter:hover {
+			background-color: $twitter_blue;
+		}
+
+		&.facebook:hover {
+			background-color: $facebook_blue;
+		}
+
+		.fa {
+			color: $white;
+		}
+
+	}
+
+	.post-meta-social {
+		position: absolute;
+		top: 30px;
+		left: 0;
+		
+		.fa {
+			font-size: 1rem;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			padding-left: 14px;
+			padding-right: 14px;
+		}
+
+		a {
+			display: block;
+			height: 40px;
+			width: 40px;
+		}
+
+	}
+
+	.post-meta-bottom {
+
+		.fa {
+
+			&.post-taxonomy {
+				color: $social_grey;
+				padding-right: 4px;
+			}
+
+		}
+
+		.post-meta-taxonomy-terms {
+			color: $social_grey;
+			text-transform: uppercase;
+			font-family: $open_sans;
+			font-weight: 700;
+			line-height: 1.4rem;
+
+			a {
+				color: $social_grey;
+				white-space: nowrap;
+
+				body.single & {
+					padding-right: 14px;
+				}
+			}
+
+			a:hover {
+				color: $red;
+			}
+
+		}
+
+		.post-meta-taxonomy-terms:hover {
+			a:hover .fa {
+				color: $red;
+			}
+		}
+
+	}
+
+}

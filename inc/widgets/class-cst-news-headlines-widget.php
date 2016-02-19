@@ -1,0 +1,186 @@
+<?php
+
+/**
+ * Class CST_Category_Headlines_Widget
+ *
+ * Version 2
+ *
+ */
+
+class CST_News_Headlines_Widget extends WP_Widget {
+
+	private $headlines = array(
+		'cst_category_headlines_one',
+		'cst_category_headlines_two',
+		'cst_category_headlines_three',
+		'cst_category_headlines_four',
+		'cst_category_headlines_five',
+		'cst_category_headlines_six',
+	);
+
+	private $titles = array(
+		'Headline One',
+		'Headline Two',
+		'Headline Three',
+		'Headline Four',
+		'Headline Five',
+		'Headline National Fallback',
+	);
+
+	public function __construct() {
+		parent::__construct(
+			'cst_category_headlines',
+			esc_html__( 'CST Category Headline Posts', 'chicagosuntimes' ),
+			array(
+				'description' => esc_html__( 'Displays Home/Section from selected Headlines.', 'chicagosuntimes' ),
+			)
+		);
+
+		add_action( 'wp_ajax_cst_category_headlines_get_posts', array( $this, 'cst_category_headlines_get_posts' ) );
+	}
+
+	/**
+	 * Get all published posts to display in Select2 dropdown
+	 */
+	public function cst_category_headlines_get_posts() {
+
+		if ( ! wp_verify_nonce( $_GET['nonce'], 'cst_category_headlines' )
+			 || ! current_user_can( 'edit_others_posts' ) ) {
+			wp_send_json_error();
+		}
+
+		$term = sanitize_text_field( $_GET['searchTerm'] );
+
+		$search_args = array(
+			'post_type'		=> array( 'cst_article', 'cst_embed', 'cst_link' ),
+			's'				=> $term,
+			'post_status'   => 'publish',
+			'no_found_rows'	=> true,
+		);
+
+		$search_query = new WP_Query( $search_args );
+
+		$returning = array();
+		$posts = array();
+
+		if ( $search_query->have_posts() ):
+
+			while ( $search_query->have_posts() ) : $search_query->the_post();
+				$obj = get_post( get_the_ID() );
+				if ( $obj ) {
+					$content_type = get_post_type( $obj->ID );
+					$posts['id'] = get_the_ID();
+					$posts['text'] = $obj->post_title . ' [' . $content_type . ']';
+					array_push( $returning, $posts );
+				}
+
+			endwhile;
+		endif;
+
+		echo json_encode( $returning );
+		exit();
+
+	}
+
+	public function enqueue_scripts() {
+
+		wp_enqueue_script( 'cst_category_headlines', get_template_directory_uri() . '/assets/js/category-headlines-widget.js', array( 'jquery' ) );
+		wp_localize_script( 'cst_category_headlines', 'CSTCategoryHeadlinesData', array(
+			'placeholder_text'	=> esc_html__( 'Search for content to feature', 'chicagosuntimes' ),
+			'nonce'				=> wp_create_nonce( 'cst_category_headlines' ),
+		) );
+		wp_enqueue_style( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' );
+		wp_enqueue_script( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.min.js' );
+
+	}
+
+	/**
+	 * Outputs the content of the widget
+	 *
+	 * @param array $args
+	 * @param array $instance
+	 */
+	public function widget( $args, $instance ) {
+
+		$widget_posts = array();
+		foreach ( $this->headlines as $array_member ) {
+			if ( $instance[ $array_member ] ) {
+				$widget_posts[] = absint( $instance[ $array_member ] );
+			}
+		}
+
+		if ( ! empty( $widget_posts ) ) {
+
+			$found = $this->get_headline_posts( $widget_posts );
+			
+
+		}
+
+	}
+
+	/**
+	 * @param $widget_posts Array of integers representing post ids
+	 * @return array Of found posts
+	 *
+	 */
+	public function get_headline_posts( $widget_posts ) {
+
+		$widget_posts_query = array(
+			'post__in' => $widget_posts,
+			'post_type' => 'any',
+			'orderby'	=> 'post__in',
+		);
+		$display_these_posts = new \WP_Query( $widget_posts_query );
+		$display_these_posts->have_posts();
+		$found = $display_these_posts->get_posts();
+
+		return $found;
+	}
+
+	/**
+	 * Outputs the options form on admin
+	 *
+	 * @param array $instance The widget options
+	 */
+	public function form( $instance ) {
+
+		$this->enqueue_scripts();
+		$count = 0;
+		foreach ( $this->headlines as $array_member ) {
+			$headline = ! empty( $instance[ $array_member ] ) ? $instance[ $array_member ] : '';
+			$obj = get_post( $headline );
+			if ( $obj ) {
+				$content_type = get_post_type( $obj->ID );
+				$story_title = $obj->post_title . ' [' . $content_type . ']';
+			} else {
+				$story_title = '';
+			}
+			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
+			?>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( $array_member ) ); ?>"><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
+				<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $array_member ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $array_member ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;" />
+			</p>
+
+			<?php
+			$count++;
+		}
+
+	}
+
+	/**
+	 * Processing widget options on save
+	 *
+	 * @param array $new_instance The new options
+	 * @param array $old_instance The previous options
+	 *
+	 * @return array
+	 */
+	public function update( $new_instance, $old_instance ) {
+		$instance = $old_instance;
+		foreach ( $this->headlines as $array_member ) {
+			$instance[ $array_member ] = $new_instance[ $array_member ];
+		}
+		return $instance;
+	}
+}

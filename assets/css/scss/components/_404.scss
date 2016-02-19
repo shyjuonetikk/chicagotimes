@@ -1,0 +1,29 @@
+body.error404 {
+	background-color: $white;
+    height: inherit;
+	#main {
+		margin-top: 3rem;
+		
+		h1, h2, h3, p {
+			color: $black;
+		}
+	}
+  .left-off-canvas-menu {
+    overflow-y:inherit;
+  }
+
+    .exit-off-canvas {
+      height: 100%;
+    }
+  .off-canvas-wrap {
+    overflow-y: hidden;
+    &.inner-wrap {
+      min-height: inherit;
+      overflow-y: hidden;
+    }
+    &.move-right {
+      height: 100%;
+      overflow: inherit;
+    }
+  }
+}

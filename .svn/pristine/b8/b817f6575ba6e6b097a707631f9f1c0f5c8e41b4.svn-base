@@ -1,0 +1,1 @@
+<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/suntimes_logo-black.svg" style="padding-top:20px;width:240px;" class="cst_logo" />

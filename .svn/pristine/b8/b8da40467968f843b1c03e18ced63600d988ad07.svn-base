@@ -1,0 +1,70 @@
+<div id="index-sidebar-anchor"></div>
+
+<aside class="sidebar show-for-large-up" id="index-sidebar">
+
+	<ul class="widgets">
+		<?php
+			$primary_section = get_queried_object();
+			$primary_slug = $primary_section->slug;
+			if( $primary_section->taxonomy == 'cst_section' ) {
+				if( $primary_section->parent != 0 ) {
+					if( $primary_slug != 'sports' || $primary_slug != 'news' ) {
+						$parent_terms = get_term( $primary_section->parent, 'cst_section' );
+						if( $parent_terms->slug != 'sports' && $parent_terms->slug != 'news' ) {
+							$child_terms = get_term( $parent_terms->parent, 'cst_section' );
+							$primary_slug = $child_terms->slug;
+						} else {
+							$primary_slug = $parent_terms->slug;
+						}
+					}
+				} 
+			} else {
+				$primary_slug = 'news';
+			}
+
+			switch ($primary_slug) {
+				case 'news' :
+					dynamic_sidebar( 'chiwire' );
+					break;
+				case 'sports' : ?>
+					<a href="http://www.suntimes.com/pickem" target="_blank">
+						<img src="http://www.suntimes.com/csp/cms/sites/STM/assets/img/rickandrick-joust-300px-2.jpg" alt="picks against ricks sun-times sports">
+					</a>
+
+					<iframe scrolling="no" src="https://joust.com/contest/ricks/leaderboard/group/4?embedded=true&amp;utm_source=pickwithricks" style="height:250px;width:100%;overflow:hidden;" allowtransparency="true" frameborder="0"></iframe>
+									
+				<?php
+					dynamic_sidebar( 'sportswire' );
+					break;
+				default:
+					dynamic_sidebar( 'chiwire' );
+					break;
+			}
+		?>
+	</ul>
+
+	<div id="fixed-footer-container">
+		<div id="footer-fixed">
+			<div class="footer-logo">
+				<a href="http://www.chicagosuntimes.com"><?php get_template_part( 'parts/images/sidebar-fixed-footer-company-logo' ); ?></a>
+					<?php get_template_part( 'parts/images/sidebar-fixed-footer-site-logo'); ?>
+			</div>
+			<div class="footer-more-info">
+				<ul>
+					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>advertiser/"><?php esc_html_e( 'Advertise', 'chicagosuntimes' ); ?></a> |</li>
+					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>privacy-policy/"><?php esc_html_e( 'Privacy Policy', 'chicagosuntimes' ); ?></a> |</li>
+					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>terms-of-use/"><?php esc_html_e( 'Terms', 'chicagosuntimes' ); ?></a> |</li>
+					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>advertiser/"><?php esc_html_e( 'About Us', 'chicagosuntimes' ); ?></a> |</li>
+					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>about-our-ads/"><?php esc_html_e( 'About Our Ads', 'chicagosuntimes' ); ?></a> |</li>
+					<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>about-sponsored-content/"><?php esc_html_e( 'About Sponsored Content', 'chicagosuntimes' ); ?></a></li>
+				</ul>
+				<span class="copyright">Copyright &copy; <?php echo date( 'Y' ); ?>. Sun-Times Media, LLC All Rights Reserved.</span>
+				<p class="vip-text"><a href="http://vip.wordpress.com" target="_blank">Powered by WordPress.com VIP</a></p>
+			</div>
+			<div class="footer-bottom">
+				<span><?php esc_html_e( 'Chicago Sun-Times Network', 'chicagosuntimes' ); ?></span> <span id="view-more-information"><i id="footer-circle" class="fa fa-chevron-circle-down"></i></span>
+			</div>
+		</div>
+	</div>
+
+</aside>

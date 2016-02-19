@@ -1,0 +1,27 @@
+tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-menus {
+	margin-left: 5px;
+	color: #bbb;
+}
+
+.widget-error {
+	margin: 5px 0 15px;
+	border-left: 4px solid #dd3d36;
+	background: #fff;
+	-moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+	padding: 1px 12px;
+}
+
+#postexcerpt .inside p:nth-child(0) {
+	visibility: hidden;
+}
+
+.media-frame-content label[data-setting="caption"] #character-limit {
+	width: 65%;
+	float: right;
+}
+
+.media-frame-content label[data-setting="caption"] #character-limit span {
+	float: none;
+}
