@@ -59,7 +59,7 @@ class CST_Newspaper_Cover_Widget extends WP_Widget {
         }
         ?>
         <div class="large-12 medium-6 small-12 columns widget_cst_todays_paper_widget">
-            <h2 class="widgettitle"><?php esc_html( 'Today\'s Cover', 'chicagosuntimes' ); ?></h2>
+            <h2 class="widgettitle"><?php echo esc_html( 'Today\'s Cover', 'chicagosuntimes' ); ?></h2>
             <div class="todays-paper-container">
                 <div class="todays-paper-front">
                     <a href="">
