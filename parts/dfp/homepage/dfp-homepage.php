@@ -17,34 +17,34 @@
 	googletag.cmd.push(function() {
 
 		if ( window.innerWidth > 640 ) {
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [1,1], 'div-gpt-interstitial')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [1,1], 'div-gpt-interstitial')
 			.addService(googletag.pubads()).setTargeting("pos","1x1");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [728, 90], 'div-gpt-atf-leaderboard')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [728, 90], 'div-gpt-atf-leaderboard')
 			.addService(googletag.pubads()).setTargeting("pos","atf leaderboard");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [728, 90], 'div-gpt-btf-leaderboard')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [728, 90], 'div-gpt-btf-leaderboard')
 			.addService(googletag.pubads()).setTargeting("pos","btf leaderboard");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [2, 2], 'div-gpt-sbb')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [2, 2], 'div-gpt-sbb')
 			.addService(googletag.pubads()).setTargeting("pos","sbb");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [1363, 1000], 'div-gpt-wallpaper')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [1363, 1000], 'div-gpt-wallpaper')
 			.addService(googletag.pubads()).setTargeting("pos","wallpaper");
 		}
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250]], 'div-gpt-rr-cube-1')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 1");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [[300, 250], [300, 600]], 'div-gpt-rr-cube-2')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250]], 'div-gpt-rr-cube-2')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 2");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [[300, 250], [300, 600]], 'div-gpt-rr-cube-3')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250]], 'div-gpt-rr-cube-3')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 3");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [[300, 250], [300, 600]], 'div-gpt-rr-cube-4')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250]], 'div-gpt-rr-cube-4')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 4");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [[300, 250], [300, 600]], 'div-gpt-rr-cube-5')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250], [300, 600]], 'div-gpt-rr-cube-5')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 5");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 6");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [300, 250], 'div-gpt-ad-wire1')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [300, 250], 'div-gpt-ad-wire1')
 			.addService(googletag.pubads()).setTargeting("pos","wire cube 1");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [300, 250], 'div-gpt-ad-wire2')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [300, 250], 'div-gpt-ad-wire2')
 			.addService(googletag.pubads()).setTargeting("pos","wire cube 2");
-			googletag.defineSlot('/61924087/suntimes.com/suntimes.idex', [300, 250], 'div-gpt-ad-wire3')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [300, 250], 'div-gpt-ad-wire3')
 			.addService(googletag.pubads()).setTargeting("pos","wire cube 3");
 	googletag.pubads().enableSingleRequest();
 	googletag.enableServices();
