@@ -160,6 +160,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-news-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-columnists-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newspaper-cover-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-breaking-news-widget.php';
 
 		wpcom_vip_require_lib( 'codebird' );
 
@@ -427,6 +428,7 @@ class CST {
 		register_widget( 'CST_News_Headlines_Widget' );
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
+		register_widget( 'CST_Breaking_News_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
