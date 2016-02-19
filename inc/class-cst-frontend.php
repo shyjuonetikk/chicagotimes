@@ -9,6 +9,8 @@ class CST_Frontend {
 
 	private $nav_title_filter;
 
+	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists' );
+
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -185,7 +187,7 @@ class CST_Frontend {
 			if( $section_obj->taxonomy == 'cst_section' ) {
 				if( $section_obj->parent != 0 ) {
 					$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-					if( $parent_terms->slug != 'sports' && $parent_terms->slug != 'news' ) {
+					if( $parent_terms->slug != 'sports' && $parent_terms->slug != 'news' && $parent_terms->slug != 'politics' ) {
 						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 						$section_slug = $child_terms->slug;
 					} else {
@@ -234,6 +236,21 @@ class CST_Frontend {
 					switch ( $current_section->slug ) {
 						case 'sports':
 							wp_enqueue_style( 'chicagosuntimes-sports', get_template_directory_uri() . '/assets/css/sports-theme.css', array( 'google-fonts', 'fontawesome' ) );
+							break;
+						case 'politics':
+							wp_enqueue_style( 'chicagosuntimes-politics', get_template_directory_uri() . '/assets/css/politics-theme.css', array( 'google-fonts', 'fontawesome' ) );
+							break;
+						case 'entertainment':
+							wp_enqueue_style( 'chicagosuntimes-entertainment', get_template_directory_uri() . '/assets/css/entertainment-theme.css', array( 'google-fonts', 'fontawesome' ) );
+							break;
+						case 'lifestyles':
+							wp_enqueue_style( 'chicagosuntimes-lifestyles', get_template_directory_uri() . '/assets/css/lifestyles-theme.css', array( 'google-fonts', 'fontawesome' ) );
+							break;
+						case 'columnists':
+							wp_enqueue_style( 'chicagosuntimes-columnists', get_template_directory_uri() . '/assets/css/columnists-theme.css', array( 'google-fonts', 'fontawesome' ) );
+							break;
+						case 'opinion':
+							wp_enqueue_style( 'chicagosuntimes-opinion', get_template_directory_uri() . '/assets/css/opinion-theme.css', array( 'google-fonts', 'fontawesome' ) );
 							break;
 						case 'news':
 							wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );

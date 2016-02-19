@@ -4,9 +4,9 @@
 	$primary_slug = 'news';
 		if( $primary_section->taxonomy == 'cst_section') {
 			if( $primary_section->parent != 0 ) {
-				if( $primary_slug != 'sports' || $primary_slug != 'news' ) {
+				if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 					$parent_terms = get_term( $primary_section->parent, 'cst_section' );
-					if( $parent_terms->slug != 'sports' && $parent_terms->slug != 'news' ) {
+					if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 						$primary_slug = $child_terms->slug;
 					} else {
@@ -20,9 +20,9 @@
 			$obj = \CST\Objects\Post::get_by_post_id( $primary_section->ID );
 			$primary_section = $obj->get_primary_section();
 			$primary_slug = $primary_section->slug;
-				if( $primary_slug != 'sports' && $primary_slug != 'news' ) {
+				if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 					$parent_terms = get_term( $primary_section->parent, 'cst_section' );
-					if( $parent_terms->slug != 'sports' && $parent_terms->slug != 'news' ) {
+					if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 						$primary_slug = $child_terms->slug;
 					} else {

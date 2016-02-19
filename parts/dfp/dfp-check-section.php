@@ -22,7 +22,7 @@
 				$dfp_term   = get_term( $dfp_parent, 'cst_section' );
 				$dfp_slug   = $dfp_term->slug;
 
-				if( $dfp_slug != 'sports' && $dfp_slug != 'news' ) :
+				if( ! in_array( $dfp_slug, CST_Frontend::$post_sections ) ) :
 					// The original slug is a grandchild, so get the child parent slug
 					$dfp_term   = get_term( $dfp_term->parent, 'cst_section' );
 					$dfp_slug   = $dfp_term->slug;

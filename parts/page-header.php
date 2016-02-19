@@ -113,7 +113,7 @@ if ( is_singular() ) {
 		if( $section_obj->taxonomy == 'cst_section' ) {
 			if( $section_obj->parent != 0 ) {
 				$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-				if( $parent_terms->slug != 'sports' && $parent_terms->slug != 'news' ) {
+				if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 					$section_slug = $child_terms->slug;
 				} else {

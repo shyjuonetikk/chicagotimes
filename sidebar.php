@@ -10,7 +10,7 @@
 				if( $primary_section->parent != 0 ) {
 					if( $primary_slug != 'sports' || $primary_slug != 'news' ) {
 						$parent_terms = get_term( $primary_section->parent, 'cst_section' );
-						if( $parent_terms->slug != 'sports' && $parent_terms->slug != 'news' ) {
+						if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 							$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 							$primary_slug = $child_terms->slug;
 						} else {
