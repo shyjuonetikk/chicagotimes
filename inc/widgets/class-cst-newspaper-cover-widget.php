@@ -22,9 +22,8 @@ class CST_Newspaper_Cover_Widget extends WP_Widget {
      */
     public function cst_get_image_id($image_url) {
 
-        global $wpdb;
-        $attachment = $wpdb->get_col( $wpdb->prepare("SELECT ID FROM $wpdb->posts WHERE guid='%s';", $image_url ) ); 
-        return $attachment[0];
+        $attachment_id = wpcom_vip_attachment_url_to_postid( $image_url );
+        return $attachment_id;
         
     }
 
