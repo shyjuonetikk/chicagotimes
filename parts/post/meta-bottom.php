@@ -46,25 +46,6 @@ if ( ! $obj ) {
 </div>
 <?php if ( is_singular() && ! is_preview() && ! in_array( $obj->get_post_type(), array( 'cst_liveblog', 'cst_embed' ) ) ) : ?>
 	<div class="columns medium-9 medium-offset-1 end">
-		<script type="text/javascript">
-			if ( typeof disqus_shortname == 'undefined' ) {
-				disqus_shortname = '<?php echo esc_js( CST_DISQUS_SHORTNAME ); ?>';
-			}
-			if ( typeof disqus_identifier == 'undefined' ) {
-				disqus_identifier = '';
-			}
-			if ( typeof disqus_url == 'undefined' ) {
-				disqus_url = '';
-			}
-		</script>
-		<div class="post-comments" data-disqus-identifier="<?php echo (int) $obj->get_id(); ?>" data-disqus-url="<?php echo esc_url( $obj->get_permalink() ); ?>">
-			<div>
-				<a class="show-for-medium-up" data-disqus-identifier="<?php echo (int) $obj->get_id(); ?>" href="<?php $obj->the_permalink(); ?>#disqus_thread"><?php esc_html_e( 'Comments', 'chicagosuntimes' ); ?></a>
-				<i class="fa fa-comment"></i>
-				<i class="fa fa-times"></i>
-			</div>
-			
-		</div>
 		<div id="addthis-<?php the_id(); ?>" class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" addthis:title="<?php echo esc_attr( $obj->get_twitter_share_text() ); ?>">
 			<a class="addthis_button_facebook" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" addthis:title="<?php echo esc_attr( $obj->get_title() ); ?>"></a>
 			<a class="addthis_button_twitter" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" addthis:title="<?php echo esc_attr( $obj->get_twitter_share_text() ); ?>"></a>
@@ -72,8 +53,6 @@ if ( ! $obj ) {
 			<a class="addthis_button_compact"></a>
 		</div>
 		<hr class="end-of-post-line">
-	</div>
-	<div class="columns medium-9 medium-offset-1 end post-comment-thread-wrap">
 	</div>
 <?php endif; ?>
 <div class="post-meta post-meta-top mobile-bottom hide-for-medium-up">
