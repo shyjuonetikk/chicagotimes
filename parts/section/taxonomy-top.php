@@ -1,7 +1,8 @@
 <?php if( ! is_tax( 'cst_topic' ) && ! is_tax( 'cst_person' ) && ! is_tax( 'cst_location' ) ) : ?>
 <?php $section_front = get_queried_object()->slug; ?>
 <?php if ( $section_front ) : ?>
-	<a href="" class="section-front"><?php echo esc_html_e( $section_front ); ?></a>
+	<?php $section_front_spacing = str_replace( '-', ' ', $section_front ); ?>
+	<a href="" class="section-front"><?php echo esc_html_e( $section_front_spacing ); ?></a>
 <?php endif; ?>
 <?php else: ?>
 <div id="section-top">
