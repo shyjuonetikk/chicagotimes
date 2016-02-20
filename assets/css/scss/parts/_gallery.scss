@@ -74,6 +74,12 @@ body.post-gallery-lightbox-active {
 		z-index: 100;
 	}
 
+	#cst-close-gallery-button:hover {
+		.fa {
+			color: $red;
+		}
+	}
+
 	#cst-gallery-slides-wrap,
 	.slides,
 	.slick-list,
@@ -87,12 +93,25 @@ body.post-gallery-lightbox-active {
 		bottom: 0;
 		left: 0;
 		right: 0;
+		background: $black;
+		border-left: 2px solid $white;
+
+		#cst-gallery-title {
+			margin-top: 20px;
+
+			h2 {
+				font-size: 1.25rem;
+				line-height: 1.25rem;
+				font-weight: 700;
+				color: $light_grey;
+			}
+		}
 
 		#cst-gallery-slide-caption {
 			font-family: $open_sans;
 			font-size: 1rem;
 			line-height: 1.5rem;
-			padding-top: 30px;
+			padding-top: 10px;
 			padding-bottom: 30px;
 			z-index: 99999;
 
@@ -148,6 +167,10 @@ body.post-gallery-lightbox-active {
 					padding-left: 30px;
 				}
 
+			}
+
+			a:hover {
+				opacity: .5;
 			}
 		}
 
