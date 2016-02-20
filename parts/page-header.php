@@ -31,6 +31,12 @@
 			<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
 		</div>
 		<?php endif; ?>
+		<div id="social-links" class="show-for-medium-up">
+			<ul>
+			    <li class="facebook"><a href="<?php echo esc_url( 'https://www.facebook.com/thechicagosuntimes' ); ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
+			    <li class="twitter"><a href="<?php echo esc_url( 'https://twitter.com/suntimes' ); ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
+			</ul>
+		</div>
 
 		<a href="#" class="left-off-canvas-toggle" id="burger-bar">
 			<i class="fa fa-bars"></i>
