@@ -1,0 +1,21 @@
+{
+  "name": "chicagosuntimes",
+  "version": "2.0.0",
+  "main": "Gruntfile.js",
+  "author": "Chicago Sun-Times",
+  "license": "Proprietary",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Wrapports/cst-vip-v2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wrapports/cst-vip-v2/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-sass": "~0.6.1",
+    "grunt-contrib-watch": "~0.5.3"
+  }
+}
