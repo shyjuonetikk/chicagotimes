@@ -77,10 +77,10 @@
 				if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
 					wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false ) );
 				} else {
-					wp_nav_menu( array( 'theme_location' => 'chiwire-menu', 'fallback_cb' => false ) );
+					wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
 				}
 			} else {
-				wp_nav_menu( array( 'theme_location' => 'chiwire-menu', 'fallback_cb' => false ) );
+				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
 			}?>
 		</ul>
 		<?php get_template_part( 'parts/menu-footer-fixed') ?>

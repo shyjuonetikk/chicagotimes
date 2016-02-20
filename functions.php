@@ -461,15 +461,22 @@ class CST {
 
 		register_nav_menus(
 			array(
-				'chiwire-menu'	    => esc_html__( 'Chiwire', 'chicagosuntimes' ),
-				'trending-menu'     => esc_html__( 'Trending', 'chicagosuntimes' ),
-				'cst-menu'		    => esc_html__( 'Sun-Times Network', 'chicagosuntimes' ),
-				'homepage-menu'     => esc_html__( 'Homepage', 'chicagosuntimes' ),
-				'homepage-trending' => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
-				'news-menu'         => esc_html__( 'News', 'chicagosuntimes' ),
-				'news-trending'     => esc_html__( 'News Trending', 'chicagosuntimes' ),
-				'sports-menu'       => esc_html__( 'Sports', 'chicagosuntimes' ),
-				'sports-trending'   => esc_html__( 'Sports Trending', 'chicagosuntimes' ),
+				'homepage-menu'     	=> esc_html__( 'Homepage', 'chicagosuntimes' ),
+				'homepage-footer-menu'  => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
+				'news-menu'         	=> esc_html__( 'News', 'chicagosuntimes' ),
+				'news-trending'     	=> esc_html__( 'News Trending', 'chicagosuntimes' ),
+				'sports-menu'       	=> esc_html__( 'Sports', 'chicagosuntimes' ),
+				'sports-trending'   	=> esc_html__( 'Sports Trending', 'chicagosuntimes' ),
+				'politics-menu'     	=> esc_html__( 'Politics', 'chicagosuntimes' ),
+				'politics-trending' 	=> esc_html__( 'Politics Trending', 'chicagosuntimes' ),
+				'entertainment-menu'    => esc_html__( 'Entertainment', 'chicagosuntimes' ),
+				'entertainment-trending'=> esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
+				'lifestyles-menu'      	=> esc_html__( 'Lifestyles', 'chicagosuntimes' ),
+				'lifestyles-trending'   => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
+				'opinion-menu'       	=> esc_html__( 'Opinion', 'chicagosuntimes' ),
+				'opinion-trending'   	=> esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
+				'columnists-menu'       => esc_html__( 'Columnists', 'chicagosuntimes' ),
+				'columnists-trending'   => esc_html__( 'Columnists Trending', 'chicagosuntimes' )
 			)
 		);
 
