@@ -937,6 +937,48 @@
 	}
 }
 
+.social-follow-us {
+	position: relative;
+	border-top: 3px solid $grey;
+	border-bottom: 3px solid $grey;
+	text-align: center;
+	
+	p {
+		font-size: 1.5rem;
+		font-weight: 700;
+		float: left;
+		text-transform: uppercase;
+		margin: 0;
+		padding: 0;
+	}
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			display: inline-block;
+			margin: 4px 8px;
+
+			a {
+				.fa {
+					font-size: 2rem;
+				}
+				.fa-facebook-square {
+					color: $facebook_blue;
+				}
+				.fa-twitter-square {
+					color: $twitter_blue;
+				}
+				.fa:hover {
+					opacity: .75;
+				}
+			}
+		}
+	}
+}
+
 /* FOOTER */
 	footer {
 		.row {

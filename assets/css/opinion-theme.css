@@ -2722,6 +2722,33 @@ body.post-gallery-lightbox-active {
           color: #CDCDCD; }
       .homepage_wrapper .widget_cst_stng_wire_widget ul li:hover {
         background: #FFFFFF; }
+  .homepage_wrapper .social-follow-us {
+    position: relative;
+    border-top: 3px solid #CCCCCC;
+    border-bottom: 3px solid #CCCCCC;
+    text-align: center; }
+    .homepage_wrapper .social-follow-us p {
+      font-size: 1.5rem;
+      font-weight: 700;
+      float: left;
+      text-transform: uppercase;
+      margin: 0;
+      padding: 0; }
+    .homepage_wrapper .social-follow-us ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0; }
+      .homepage_wrapper .social-follow-us ul li {
+        display: inline-block;
+        margin: 4px 8px; }
+        .homepage_wrapper .social-follow-us ul li a .fa {
+          font-size: 2rem; }
+        .homepage_wrapper .social-follow-us ul li a .fa-facebook-square {
+          color: #3C5A96; }
+        .homepage_wrapper .social-follow-us ul li a .fa-twitter-square {
+          color: #59ADEB; }
+        .homepage_wrapper .social-follow-us ul li a .fa:hover {
+          opacity: .75; }
   .homepage_wrapper footer .row {
     max-width: 82.5rem !important;
     width: 100%; }
