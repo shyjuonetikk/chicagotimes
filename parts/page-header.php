@@ -43,19 +43,24 @@
 
 		<div id="trending-container">
 		<?php 	if ( $current_obj ) {
-					switch( $conditional_nav->slug ) {
-						case 'news': ?>
+					if( in_array( $conditional_nav->slug, CST_Frontend::$post_sections ) ) {
+						switch( $conditional_nav->slug ) {
+							case 'news': ?>
+							<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
+						<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
+								break;
+							case 'sports': ?>
+							<span class="menu-label"><?php _e( 'Chicago Teams', 'chicagosuntimes' ); ?></span>
+						<?php	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
+								break;
+							default: ?>
+							<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
+						<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
+								break;
+						}
+					} else { ?>
 						<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
-					<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
-							break;
-						case 'sports': ?>
-						<span class="menu-label"><?php _e( 'Chicago Teams', 'chicagosuntimes' ); ?></span>
-					<?php	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
-							break;
-						default: ?>
-						<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
-					<?php	wp_nav_menu( array( 'theme_location' => 'trending-menu', 'fallback_cb' => false ) );
-							break;
+						<?php 	wp_nav_menu( array( 'theme_location' => 'news-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu', 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
 					}
 				}
 		?>
