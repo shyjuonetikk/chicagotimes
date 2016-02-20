@@ -7,7 +7,7 @@
 	</div>
 	<?php endif; ?>
 
-	<div class="slides">
+	<div class="slides" data-gallery-title="<?php echo esc_html( $obj->the_title() ); ?>">
 		<?php foreach( $obj->get_gallery_image_ids() as $slide_number => $image_id ) :
 			$image = get_post( $image_id );
 			if ( ! $image ) {
