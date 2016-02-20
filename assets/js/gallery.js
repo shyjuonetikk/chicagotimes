@@ -114,6 +114,10 @@
 			$('body').addClass('post-gallery-lightbox-active');
 
 			var slides = el.closest('.post-gallery').find('.slides').clone();
+			
+			var gallery_title = $('.slides').data('gallery-title');
+			$('#cst-gallery-title').html( '<h2>' + gallery_title + '</h2>' );
+
 			this.slidesWrap.html( slides );
 			this.slidesWrap.find('.slide').each($.proxy( function( key, value ){
 				var el = $( value );
