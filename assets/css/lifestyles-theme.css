@@ -232,6 +232,36 @@ header#header {
     header#header #weather .description {
       font-weight: 600;
       font-size: 0.75rem; }
+  header#header #social-links {
+    position: absolute;
+    right: 90px;
+    top: 10px;
+    color: #FFFFFF;
+    text-transform: uppercase;
+    font-family: "Open Sans", Arial, sans-serif; }
+    header#header #social-links ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0; }
+      header#header #social-links ul li {
+        display: inline-block;
+        margin: 4px 8px;
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+        text-align: center; }
+        header#header #social-links ul li a .fa {
+          font-size: 1rem; }
+        header#header #social-links ul li a .fa-facebook {
+          color: #FFFFFF; }
+        header#header #social-links ul li a .fa-twitter {
+          color: #FFFFFF; }
+        header#header #social-links ul li a .fa:hover {
+          opacity: .75; }
+      header#header #social-links ul li.facebook {
+        background: #3C5A96; }
+      header#header #social-links ul li.twitter {
+        background: #59ADEB; }
   header#header section#primary-navigation {
     height: 50px;
     z-index: 100100; }
