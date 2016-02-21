@@ -2,7 +2,7 @@
 <?php $section_front = get_queried_object()->slug; ?>
 <?php if ( $section_front ) : ?>
 	<?php $section_front_spacing = str_replace( '-', ' ', $section_front ); ?>
-	<a href="" class="section-front"><?php echo esc_html_e( $section_front_spacing ); ?></a>
+	<a href="" class="section-front"><?php esc_html_e( $section_front_spacing ); ?></a>
 <?php endif; ?>
 <?php else: ?>
 <div id="section-top">
