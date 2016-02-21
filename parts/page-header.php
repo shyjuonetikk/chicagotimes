@@ -65,7 +65,7 @@
 								break;
 						}
 					} else { ?>
-						<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
+						<span class="menu-label"><?php esc_html_e( 'Trending', 'chicagosuntimes' ); ?></span>
 						<?php 	wp_nav_menu( array( 'theme_location' => 'news-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu', 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
 					}
 				}
