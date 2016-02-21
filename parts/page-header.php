@@ -112,11 +112,11 @@ if ( is_singular() ) {
 	}
 ?>
 
-<?php if ( ! is_404() ) : ?>
-<div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" >
-	<?php get_template_part( 'parts/dfp/dfp-sbb' ); ?>
-</div>
-<?php endif; ?>
+<?php 
+	if ( ! is_404() ) :
+		get_template_part( 'parts/dfp/dfp-sbb' );
+	endif; 
+?>
 
 <?php if ( ! is_single() ) : ?>
 	<?php if ( is_tax() ){
