@@ -156,14 +156,13 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-secondary-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-more-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-weather-word-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-sports-headlines-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-news-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-columnists-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newspaper-cover-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-breaking-news-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ndn-video-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-stng-wire-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-social-follow-us-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-category-headlines-widget.php';
 
 		wpcom_vip_require_lib( 'codebird' );
 
@@ -427,14 +426,13 @@ class CST {
 		register_widget( 'CST_Homepage_Secondary_Headlines_Widget' );
 		register_widget( 'CST_Homepage_More_Headlines_Widget' );
 		register_widget( 'CST_Weather_Word_Widget' );
-		register_widget( 'CST_Sports_Headlines_Widget' );
-		register_widget( 'CST_News_Headlines_Widget' );
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
 		register_widget( 'CST_Breaking_News_Widget' );
 		register_widget( 'CST_NDN_Video_Widget' );
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
+		register_widget( 'CST_Category_Headlines_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
