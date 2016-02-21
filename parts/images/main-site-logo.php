@@ -37,19 +37,19 @@
 <?php endif; ?>
 
 <?php if ( 'sports' == $section ) : ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'sports', 'cst_section' ) ); ?>"><?php esc_html_e( 'Sports Wire', 'chicagosuntimes' ); ?></a>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'sports', 'cst_section' ) ); ?>"><?php esc_html_e( 'Sports', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'news' == $section ) : ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'news', 'cst_section' ) ); ?>"><?php esc_html_e( 'News Wire', 'chicagosuntimes' ); ?></a>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'news', 'cst_section' ) ); ?>"><?php esc_html_e( 'News', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'politics' == $section ) : ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'politics', 'cst_section' ) ); ?>"><?php esc_html_e( 'Politics Wire', 'chicagosuntimes' ); ?></a>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'politics', 'cst_section' ) ); ?>"><?php esc_html_e( 'Politics', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'entertainment' == $section ) : ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'entertainment', 'cst_section' ) ); ?>"><?php esc_html_e( 'Entertainment Wire', 'chicagosuntimes' ); ?></a>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'entertainment', 'cst_section' ) ); ?>"><?php esc_html_e( 'Entertainment', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'lifestyles' == $section ) : ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'lifestyles', 'cst_section' ) ); ?>"><?php esc_html_e( 'Lifestyles Wire', 'chicagosuntimes' ); ?></a>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'lifestyles', 'cst_section' ) ); ?>"><?php esc_html_e( 'Lifestyles', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'opinion' == $section ) : ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'opinion', 'cst_section' ) ); ?>"><?php esc_html_e( 'Opinion Wire', 'chicagosuntimes' ); ?></a>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'opinion', 'cst_section' ) ); ?>"><?php esc_html_e( 'Opinion', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'columnists' == $section ) : ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'columnists', 'cst_section' ) ); ?>"><?php esc_html_e( 'Columnists Wire', 'chicagosuntimes' ); ?></a>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'columnists', 'cst_section' ) ); ?>"><?php esc_html_e( 'Columnists', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'obits' == $section ) : ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'obits', 'cst_section' ) ); ?>"><?php esc_html_e( 'Obits Wire', 'chicagosuntimes' ); ?></a>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'obits', 'cst_section' ) ); ?>"><?php esc_html_e( 'Obits', 'chicagosuntimes' ); ?></a>
 <?php endif; ?>
