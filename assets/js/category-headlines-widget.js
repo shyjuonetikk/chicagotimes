@@ -1,3 +1,4 @@
+/* global CSTCategoryHeadlinesData */
 (function( $ ){
 
     var CSTCategoryHeadlinesWidget = {
@@ -5,6 +6,7 @@
         init: function() {
 
             this.bindEvents();
+            this.setSort();
 
         },
 
@@ -98,6 +100,28 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
+            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+                var el = widget.find(".cst-category-headlines-nine");
+                if ( el.length ) {
+                    this.loadSelect2( el );
+                }
+            }, this ) );
+
+            $(".cst-category-headlines-nine").each( $.proxy( function( key, el ){
+                this.loadSelect2( $( el ) );
+            }, this ) );
+
+            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+                var el = widget.find(".cst-category-headlines-ten");
+                if ( el.length ) {
+                    this.loadSelect2( el );
+                }
+            }, this ) );
+
+            $(".cst-category-headlines-ten").each( $.proxy( function( key, el ){
+                this.loadSelect2( $( el ) );
+            }, this ) );
+
         },
 
         /**
@@ -106,7 +130,7 @@
         loadSelect2: function( el ) {
 
             el.select2({
-                placeholder: CSTCategoryHeadlinesData.placeholder_text,
+                placeholder: CSTSectionHeadlinesData.placeholder_text,
                 minimumInputLength: 0,
                 allowClear: true,
                 ajax: {
@@ -116,7 +140,7 @@
                     data: function ( term ) {
                         return {
                             action: 'cst_category_headlines_get_posts',
-                            nonce: CSTCategoryHeadlinesData.nonce,
+                            nonce: CSTSectionHeadlinesData.nonce,
                             searchTerm: term
                         };
                     },
@@ -129,27 +153,22 @@
                 }
             });
 
-        }
+        },
 
+      setSort: function () {
+        jQuery('.cst-headline-sort').sortable({
+
+          revert: true,
+          cursor: 'move'
+
+        });
+      }
     };
 
     $(document).ready(function(){
 
         CSTCategoryHeadlinesWidget.init();
 
-    });
-
-    jQuery(document).ajaxSuccess(function(e, xhr, settings) {
-
-        if ( settings.dataType == 'json' ) {
-            return;
-        }
-        if ( settings.data.match(/add_new=multi/) ) {
-            return;
-        }
-        if ( settings.data.match(/action=save-widget/) && settings.data.match(/widget-cst_category_headlines/) ) {
-            CSTCategoryHeadlinesWidget.init();
-        }
     });
 
 }( jQuery ) );
