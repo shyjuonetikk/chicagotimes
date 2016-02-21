@@ -98,10 +98,8 @@ body.error404 {
   z-index: 2; }
 
 .dfp#div-gpt-atf-leaderboard {
-  margin-top: 30px; }
-
-.dfp#div-gpt-atf-leaderboard > div {
-  margin-top: 30px; }
+  margin-top: 10px;
+  margin-bottom: 10px; }
 
 .dfp.dfp-wire-cube-placeholder {
   width: 300px;
