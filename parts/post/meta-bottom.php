@@ -27,18 +27,21 @@ if ( ! $obj ) {
 		<div class="post-meta-taxonomy-terms">
 		<?php if ( $topic ) :
 			$topic = array_shift( $topic );
+			$topic_link = wpcom_vip_get_term_link( $topic->name, 'cst_topic' );
 			?>
-			<span class="fa post-taxonomy">#</span> <?php echo esc_html( $topic->name ); ?>
+			<span class="fa post-taxonomy">#</span> <a href="<?php echo esc_url( $topic_link ); ?>"><?php echo esc_html( $topic->name ); ?></a>
 		<?php endif; ?>
 		<?php if ( $person ) :
 			$person = array_shift( $person );
+			$person_link = wpcom_vip_get_term_link( $person->name, 'cst_person' );
 			?>
-			<i class="fa fa-male post-taxonomy"></i> <?php echo esc_html( $person->name ); ?>
+			<i class="fa fa-male post-taxonomy"></i> <a href="<?php echo esc_url( $person_link ); ?>"><?php echo esc_html( $person->name ); ?></a>
 		<?php endif; ?>
 		<?php if ( $location ) :
 			$location = array_shift( $location );
+			$location_link = wpcom_vip_get_term_link( $location->name, 'cst_location' );
 			?>
-			<i class="fa fa-location-arrow post-taxonomy"></i> <?php echo esc_html( $location->name ); ?>
+			<i class="fa fa-location-arrow post-taxonomy"></i> <a href="<?php echo esc_url( $location_link ); ?>"><?php echo esc_html( $location->name ); ?></a>
 		<?php endif; ?>
 		</div>
 	<?php endif; ?>
