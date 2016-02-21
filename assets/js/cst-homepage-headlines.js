@@ -149,17 +149,4 @@
 
     });
 
-    jQuery(document).ajaxSuccess(function(e, xhr, settings) {
-
-        if ( settings.dataType == 'json' ) {
-            return;
-        }
-        if ( settings.data.match(/add_new=multi/) ) {
-            return;
-        }
-        if ( settings.data.match(/action=save-widget/) && settings.data.match(/widget-cst_homepage_headlines/) ) {
-            CSTHomepageHeadlinesWidget.init();
-        }
-    });
-
 }( jQuery ) );
