@@ -24,6 +24,7 @@
 			this.wrap = $('#cst-gallery-wrap');
 			this.slidesWrap = this.wrap.find('#cst-gallery-slides-wrap');
 			this.ad = $('#cst-gallery-slide-ad');
+			this.galleryTitle = $('#cst-gallery-title');
 			this.bindEvents();
 
 		},
@@ -110,13 +111,16 @@
 
 			this.backdrop.show();
 			this.wrap.show();
+			this.galleryTitle.text('');
 
 			$('body').addClass('post-gallery-lightbox-active');
 
 			var slides = el.closest('.post-gallery').find('.slides').clone();
 			
 			var gallery_title = $('.slides').data('gallery-title');
-			$('#cst-gallery-title').html( '<h2>' + gallery_title + '</h2>' );
+			var title = jQuery( '<h2 />' );
+				title.text( gallery_title );
+				this.galleryTitle.append( title );
 
 			this.slidesWrap.html( slides );
 			this.slidesWrap.find('.slide').each($.proxy( function( key, value ){
