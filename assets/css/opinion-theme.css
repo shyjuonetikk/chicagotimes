@@ -282,7 +282,8 @@ header#header {
       display: inline-block;
       overflow-y: hidden;
       height: 50px;
-      padding-top: 5px; }
+      padding-top: 5px;
+      padding-right: 5px; }
       @media only screen and (max-width: 40em) {
         header#header section#primary-navigation #logo-wrap {
           margin-left: 55px; } }
@@ -295,7 +296,9 @@ header#header {
         header#header section#primary-navigation a#suntimes-logo img {
           width: 227px; } }
     header#header section#primary-navigation a#newsfeed-logo {
-      display: none; }
+      display: none;
+      text-shadow: 1px 1px #F0F0F0;
+      text-transform: uppercase; }
       header#header section#primary-navigation a#newsfeed-logo img {
         width: 204px; }
         @media only screen and (max-width: 40em) {

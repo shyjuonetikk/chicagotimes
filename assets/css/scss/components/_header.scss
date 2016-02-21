@@ -120,6 +120,7 @@ header#header {
 			overflow-y: hidden;
 			height: 50px;
 			padding-top: 5px;
+			padding-right: 5px;
 
 			@media #{$small-only} {
 				margin-left: 55px;
@@ -142,6 +143,8 @@ header#header {
 
 		a#newsfeed-logo {
 			display: none;
+			text-shadow: 1px 1px $light_grey;
+			text-transform: uppercase;
 
 			img {
 				width: 204px;
