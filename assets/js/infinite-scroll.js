@@ -207,6 +207,10 @@
 					window.location.hash = uri.replace( home_uri, '' ).slice( 1 );
 					CSTAnalytics.currentURL = window.location.origin + uri;
 				}
+				
+				window._taboola = window._taboola || [];
+				_taboola.push({mode:'thumbnails-c', container: taboola_container_id, placement: 'Below Article Thumbnails', target_type: 'mix'});
+				_taboola.push({article:'auto', url:uri});
 
 				document.title = wp_title;
 

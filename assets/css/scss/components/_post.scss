@@ -212,6 +212,47 @@ article.post {
 
 .single {
 
+	.taboola-container {
+		position: relative;
+		display: block;
+		clear: both;
+
+		.thumbnails-c {
+
+			.syndicatedItem {
+
+				.video-title {
+					font-family: 'Open Sans', sans-serif;
+					line-height: 18px;
+				}
+
+				.branding {
+					font-family: 'Open Sans', sans-serif;
+				}
+			}
+
+			.videoCube:hover {
+				.thumbBlock {
+					opacity: .5;
+				}
+				
+				.video-label-box {
+					.video-title {
+						text-decoration: none;
+						opacity: .5;
+					}
+				}
+			}
+
+			@media (min-width: 737px) {
+				.videoCube {
+					margin: 0;
+					margin-left: 2%;
+				}
+			}
+		}
+	}
+
 	.ad-container {
 		position: relative;
 		display: block;

@@ -1102,6 +1102,25 @@ article.post {
     float: left;
     margin-top: 20px; }
 
+.single .taboola-container {
+  position: relative;
+  display: block;
+  clear: both; }
+  .single .taboola-container .thumbnails-c .syndicatedItem .video-title {
+    font-family: 'Open Sans', sans-serif;
+    line-height: 18px; }
+  .single .taboola-container .thumbnails-c .syndicatedItem .branding {
+    font-family: 'Open Sans', sans-serif; }
+  .single .taboola-container .thumbnails-c .videoCube:hover .thumbBlock {
+    opacity: .5; }
+  .single .taboola-container .thumbnails-c .videoCube:hover .video-label-box .video-title {
+    text-decoration: none;
+    opacity: .5; }
+  @media (min-width: 737px) {
+    .single .taboola-container .thumbnails-c .videoCube {
+      margin: 0;
+      margin-left: 2%; } }
+
 .single .ad-container {
   position: relative;
   display: block;

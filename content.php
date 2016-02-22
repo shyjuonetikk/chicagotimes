@@ -48,6 +48,12 @@
 			?>
 		</article>
 
+		<?php if ( is_singular() ) : ?>
+		<section class="taboola-container">
+		<?php get_template_part( 'parts/taboola/taboola-container' ); ?>
+		</section>
+		<?php endif; ?>
+
 		<section class="ad-container">
 			<?php
 			global $wp_query;

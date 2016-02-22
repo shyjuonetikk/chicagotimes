@@ -44,6 +44,10 @@
 	} else {
 		get_template_part( 'parts/dfp/dfp-check-section' );
 	}
+
+	if ( is_singular() ) {
+		get_template_part( 'parts/taboola/taboola-header' );
+	}
 	?>
 
 	<?php wp_head(); ?>
