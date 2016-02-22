@@ -1,5 +1,17 @@
 .wire {
 
+	.ad-container {
+		position: relative;
+		display: block;
+		text-align: center;
+		clear: both;
+		
+		.dfp-cube {
+			display: inline-block;
+			margin: 5px;
+		}
+	}
+	
 	@media #{$small-only} {
 		margin-top: 30px;
 	}
