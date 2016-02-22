@@ -212,6 +212,12 @@ article.post {
 
 .single {
 
+	.taboola-container {
+		position: relative;
+		display: block;
+		clear: both;
+	}
+
 	.ad-container {
 		position: relative;
 		display: block;

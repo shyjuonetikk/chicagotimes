@@ -1102,6 +1102,11 @@ article.post {
     float: left;
     margin-top: 20px; }
 
+.single .taboola-container {
+  position: relative;
+  display: block;
+  clear: both; }
+
 .single .ad-container {
   position: relative;
   display: block;
