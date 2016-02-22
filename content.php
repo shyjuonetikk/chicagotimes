@@ -48,32 +48,38 @@
 			?>
 		</article>
 
-		<?php
-		global $wp_query;
-		if ( is_singular() ) {
+		<section class="ad-container">
+			<?php
+			global $wp_query;
+			if ( is_singular() ) {
 
-		// After the 1st post
-			if ( empty( $_GET['infinity'] ) ) {
-				echo CST()->get_template_part( 'dfp/dfp-wire-cube-1' );
-			}
-		// After the 4th post
-			if ( isset( $_GET['infinity'], $_POST['page'] ) && 'scrolling' === $_GET['infinity'] && 3 === (int) $_POST['page'] ) {
-				echo CST()->get_template_part( 'dfp/dfp-wire-cube-2' );
-			}
+			// After the 1st post
+				if ( empty( $_GET['infinity'] ) ) {
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-2' );
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-3' );
+				}
+			// After the 4th post
+				if ( isset( $_GET['infinity'], $_POST['page'] ) && 'scrolling' === $_GET['infinity'] && 3 === (int) $_POST['page'] ) {
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-4' );
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-5' );
+				}
 
-		} else {
+			} else {
 
-		// After the 3rd post
-			if ( 0 === $wp_query->query_vars['paged'] && 2 === $wp_query->current_post ) {
-				echo CST()->get_template_part( 'dfp/dfp-wire-cube-1' );
-			}
-		// After the 9th post (Infinite Scroll is 7 per page)
-			if ( 1 === $wp_query->query_vars['paged'] && 1 === $wp_query->current_post ) {
-				echo CST()->get_template_part( 'dfp/dfp-wire-cube-2' );
-			}
+			// After the 3rd post
+				if ( 0 === $wp_query->query_vars['paged'] && 2 === $wp_query->current_post ) {
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-1' );
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-2' );
+				}
+			// After the 9th post (Infinite Scroll is 7 per page)
+				if ( 1 === $wp_query->query_vars['paged'] && 1 === $wp_query->current_post ) {
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-2' );
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-3' );
+				}
 
-		}
-		?>
+			}
+			?>
+		</section>
 
 		<?php if ( is_singular() ) : ?>
 		</div>
