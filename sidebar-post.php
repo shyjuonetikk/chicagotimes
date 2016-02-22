@@ -66,7 +66,7 @@ if( $current_obj ) {
 		$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 		echo CST()->get_template_part( 'sidebar/post', array( 'obj' => $obj ) );
 		if( $post_count == 2 ) {
-			echo '<li class="sidebar-ad">' . CST()->get_template_part( 'dfp/dfp-article-sidebar-cube' ) . '</li>';
+			echo '<li class="sidebar-ad">' . CST()->get_template_part( 'dfp/dfp-rr-cube-1' ) . '</li>';
 		}
 		endwhile; ?>
 

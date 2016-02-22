@@ -3,8 +3,10 @@
 	var CSTAds = {
 
 		scrollUnits: [
-			'div-gpt-wire-cube-1',
-			'div-gpt-wire-cube-2'
+			'div-gpt-rr-cube-2',
+			'div-gpt-rr-cube-3',
+			'div-gpt-rr-cube-4',
+			'div-gpt-rr-cube-5'
 		],
 
 		currentScrollUnit: '',
@@ -54,7 +56,7 @@
 			}
 
 			// If there's a placeholder getting close to the top
-			var placeholder = $('#main .dfp-wire-cube-placeholder').last();
+			var placeholder = $('#main .ad-container .dfp-wire-cube-placeholder').last();
 			if ( placeholder.length && ( placeholder.offset().top + placeholder.outerHeight() ) > ( scrollTop - 200 ) ) {
 				this.displayPreviousScrollAd();
 			}
@@ -67,15 +69,29 @@
 		displayNextScrollAd: function() {
 
 			var nextScrollUnit = this.getNextScrollUnit();
-
+			
 			// Create the next unit if it isn't created,
 			var el = $( '#' + nextScrollUnit );
 			var placeholder = $('<div />').addClass('dfp dfp-cube dfp-wire-cube-placeholder' );
 			// we need a placeholder to prevent a lurch
 			el.before( placeholder );
 
-			$('#main article.post').eq( this.startPost ).after( el );
+			if ( this.nextScrollUnit === 'div-gpt-rr-cube-2' ) {
+				var el2 = $( '#div-gpt-rr-cube-3' );
+				// we need a placeholder to prevent a lurch
+				nextScrollUnit2 = 'div-gpt-rr-cube-3';
+			} else {
+				var el2 = $( '#div-gpt-rr-cube-5' );
+				// we need a placeholder to prevent a lurch
+				nextScrollUnit2 = 'div-gpt-rr-cube-5';
+			}
+			el2.before( placeholder );
+
+			$('#main .ad-container').eq( this.startPost ).append( el );
+			$('#main .ad-container').eq( this.startPost ).append( el2 );
 			this.triggerUnitRefresh( nextScrollUnit );
+			this.triggerUnitRefresh( nextScrollUnit2 );
+			this.triggerUnitRefresh( 'div-gpt-rr-cube-1' );
 
 			this.startPost = this.startPost + this.betweenPosts;
 
@@ -86,7 +102,7 @@
 		 */
 		displayPreviousScrollAd: function() {
 
-			var placeholder = $('#main .dfp-wire-cube-placeholder').last();
+			var placeholder = $('#main .ad-container').last();
 			var prevScrollUnit = this.getPreviousScrollUnit();
 			var el = $('#'+prevScrollUnit);
 			placeholder.after( el );
@@ -104,10 +120,10 @@
 		 */
 		getNextScrollUnit: function() {
 
-			if ( this.currentScrollUnit === 'div-gpt-wire-cube-1' ) {
-				this.currentScrollUnit = 'div-gpt-wire-cube-2';
+			if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
+				this.currentScrollUnit = 'div-gpt-rr-cube-3';
 			} else {
-				this.currentScrollUnit = 'div-gpt-wire-cube-1';
+				this.currentScrollUnit = 'div-gpt-rr-cube-2';
 			}
 
 			return this.currentScrollUnit;
@@ -120,10 +136,10 @@
 		 */
 		getPreviousScrollUnit: function() {
 
-			if ( this.currentScrollUnit === 'div-gpt-wire-cube-1' ) {
-				this.currentScrollUnit = 'div-gpt-wire-cube-2';
+			if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
+				this.currentScrollUnit = 'div-gpt-rr-cube-3';
 			} else {
-				this.currentScrollUnit = 'div-gpt-wire-cube-1';
+				this.currentScrollUnit = 'div-gpt-rr-cube-2';
 			}
 
 			return this.currentScrollUnit;
