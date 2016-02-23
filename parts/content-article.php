@@ -19,7 +19,7 @@
 			</div>
 		<?php endif; ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
-		<div class="post-content columns medium-9 medium-offset-1 end">
+		<div class="post-content columns medium-9 medium-offset-1 p402_premium end" itemprop="articleBody">
 			<?php $obj->the_content(); ?>
 			<?php
 			$user_logins = array();
