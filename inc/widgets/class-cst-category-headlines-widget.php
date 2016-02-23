@@ -129,7 +129,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
                     <div class="slide">
                         <div class="slide-inner">
                             <?php if ( $obj->get_featured_image_url() ) : ?>
-                                <a href="<?php esc_url( $obj->the_permalink() ); ?>">
+                                <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                                     <div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url() ); ?>')">
                                         <div class="gradient-overlay"></div>
                                     </div>
@@ -140,7 +140,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
                             <?php if ( $section = $obj->get_primary_section() ) : ?>
                                 <h4><?php echo esc_html( $section->name ); ?></h4>
                             <?php endif; ?>
-                            <h3><a href="<?php esc_url( $obj->the_permalink() ); ?>"><?php esc_html( $obj->the_title() ); ?></a></h3>
+                            <h3><a href="<?php echo esc_url( $obj->the_permalink() ); ?>"><?php esc_html( $obj->the_title() ); ?></a></h3>
                         </div>
                     </div>
                 <?php }
@@ -194,7 +194,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
             }
             $dashed_array_member = preg_replace( '/_/', '-', $array_member );
             ?>
-                <p class="ui-state-default" id=i<?php echo $count; ?>>
+                <p class="ui-state-default" id=i<?php echo intval( $count ); ?>>
                     <label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
                     <input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;" />
                 </p>
