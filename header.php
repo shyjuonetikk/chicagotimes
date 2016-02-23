@@ -41,13 +41,20 @@
 	<?php
 	if ( is_front_page() || is_page() ) {
 		get_template_part( 'parts/dfp/homepage/dfp-homepage' );
-	} else {
-		get_template_part( 'parts/dfp/dfp-check-section' );
-		get_template_part( 'parts/vendors/adsupply-popunder-header' );
 	}
 
 	if ( is_singular() ) {
-		get_template_part( 'parts/taboola/taboola-header' );
+		$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+		if ( $current_obj ) {
+			$primary_section = $current_obj->get_primary_parent_section();
+			if( $primary_section->slug == 'sponsored' ) {
+				get_template_part( 'parts/vendors/nativo-header' );
+			} else {
+				get_template_part( 'parts/dfp/dfp-check-section' );
+			}
+			get_template_part( 'parts/vendors/adsupply-popunder-header' );
+			get_template_part( 'parts/taboola/taboola-header' );
+		}
 	}
 	?>
 
