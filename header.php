@@ -41,6 +41,8 @@
 	<?php
 	if ( is_front_page() || is_page() ) {
 		get_template_part( 'parts/dfp/homepage/dfp-homepage' );
+	} else {
+		get_template_part( 'parts/dfp/dfp-check-section' );
 	}
 
 	if ( is_singular() ) {
