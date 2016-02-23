@@ -51,6 +51,7 @@
 			$primary_section = $current_obj->get_primary_parent_section();
 			if( $primary_section->slug == 'sponsored' ) {
 				get_template_part( 'parts/vendors/nativo-header' );
+				get_template_part( 'parts/vendors/nativo-content-header' );
 			} else {
 				get_template_part( 'parts/dfp/dfp-check-section' );
 			}
