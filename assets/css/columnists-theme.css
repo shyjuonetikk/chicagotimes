@@ -2821,6 +2821,8 @@ body.post-gallery-lightbox-active {
           color: #59ADEB; }
         .homepage_wrapper .social-follow-us ul li a .fa:hover {
           opacity: .75; }
+  .homepage_wrapper li.widget_cst_ad_widget {
+    list-style-type: none; }
   .homepage_wrapper footer .row {
     max-width: 82.5rem !important;
     width: 100%; }
