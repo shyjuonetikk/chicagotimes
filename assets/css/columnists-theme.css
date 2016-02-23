@@ -2274,7 +2274,8 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .dfp-cube {
     padding: 0; }
   .homepage_wrapper #div-gpt-sbb {
-    background-color: transparent; }
+    background-color: transparent;
+    margin-bottom: 10px; }
   @media (max-width: 1024px) {
     .homepage_wrapper .dfp-cube {
       text-align: center;
