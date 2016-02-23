@@ -26,7 +26,7 @@
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
                                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                                         <p><?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
-                                        <span>BY <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_secondary_well_posts[0]->post_author ) ); ?></span>
+                                        <span>By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_secondary_well_posts[0]->post_author ) ); ?></span>
                                     </div>
                                 </a>
                             </div>
@@ -54,7 +54,7 @@
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
                                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                                         <p><?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
-                                        <span>BY <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_secondary_well_posts[1]->post_author ) ); ?></span>
+                                        <span>By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_secondary_well_posts[1]->post_author ) ); ?></span>
                                     </div>
                                 </a>
                             </div>
@@ -85,7 +85,7 @@
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
                                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                                         <p><?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
-                                        <span>BY <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_secondary_well_posts[2]->post_author ) ); ?></span>
+                                        <span>By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_secondary_well_posts[2]->post_author ) ); ?></span>
                                     </div>
                                 </a>
                             </div>
@@ -108,7 +108,7 @@
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
                                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                                         <p><?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
-                                        <span>BY <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_secondary_well_posts[3]->post_author ) ); ?></span>
+                                        <span>By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_secondary_well_posts[3]->post_author ) ); ?></span>
                                     </div>
                                 </a>
                             </div>
