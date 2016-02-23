@@ -42,7 +42,7 @@
 		                'ignore_sticky_posts'   => true,
 		                'posts_per_page'        => 5,
 		                'post_status'           => 'publish',
-		                'cst_section'           =>  array( 'politics', 'early-often' ),
+		                'cst_section'           =>  'politics',
 	                );
 	                CST()->frontend->cst_homepage_content_block( $query ); ?>
             </div>
