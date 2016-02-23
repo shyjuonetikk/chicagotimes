@@ -43,6 +43,7 @@
 		get_template_part( 'parts/dfp/homepage/dfp-homepage' );
 	} else {
 		get_template_part( 'parts/dfp/dfp-check-section' );
+		get_template_part( 'parts/vendors/adsupply-popunder-header' );
 	}
 
 	if ( is_singular() ) {
