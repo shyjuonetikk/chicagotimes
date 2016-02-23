@@ -54,6 +54,8 @@
 			case 'opinion':
 				dynamic_sidebar( 'opinion_headlines' );
 				break;
+			case 'sponsored':
+				break;
 			default:
 				dynamic_sidebar( 'news_headlines' );
 				break;
