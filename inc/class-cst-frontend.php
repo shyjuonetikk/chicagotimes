@@ -145,6 +145,10 @@ class CST_Frontend {
 			wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
 		}
 
+		if( ! is_user_logged_in() && is_singular() ) {
+			wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
+		}
+
 			wp_enqueue_script( 'chicagosuntimes-ndn', 'http://launch.newsinc.com/js/embed.js' );
 
 
