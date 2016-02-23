@@ -29,7 +29,7 @@ class CST_NDN_Video_Widget extends WP_Widget {
     }
 
     public function update( $new_instance, $old_instance ) {
-
+        $new_instance = $old_instance;
     }
 
 }
