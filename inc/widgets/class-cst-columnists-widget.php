@@ -97,7 +97,7 @@ class CST_Columnists_Content_Widget extends WP_Widget {
                 <?php if( $obj->get_featured_image_html() ) : ?>
                 <div class="columnists-story-image <?php echo ( $obj->get_post_type() != 'cst_article' ? 'hover-state' : 'columnists-article' ); ?>">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
-                        <?php echo $obj->get_featured_image_html( 'chiwire-featured-content-widget' ); ?>
+                        <?php echo $obj->get_featured_image_html( 'chiwire-article' ); ?>
                         <?php if ( $obj->get_post_type() != 'cst_article' ) { ?>
                             <i class="fa fa-<?php echo esc_attr( $obj->get_font_icon() ); ?>"></i>
                         <?php } ?>
