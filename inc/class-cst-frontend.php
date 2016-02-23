@@ -9,7 +9,7 @@ class CST_Frontend {
 
 	private $nav_title_filter;
 
-	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists' );
+	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'sponsored' );
 
 	public static function get_instance() {
 
@@ -224,6 +224,7 @@ class CST_Frontend {
 					wp_enqueue_style( 'chicagosuntimes-opinion', get_template_directory_uri() . '/assets/css/opinion-theme.css', array( 'google-fonts', 'fontawesome' ) );
 					break;
 				case 'news':
+				case 'sponsored':
 					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 					break;
 				default:
@@ -257,6 +258,7 @@ class CST_Frontend {
 							wp_enqueue_style( 'chicagosuntimes-opinion', get_template_directory_uri() . '/assets/css/opinion-theme.css', array( 'google-fonts', 'fontawesome' ) );
 							break;
 						case 'news':
+						case 'sponsored':
 							wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 							break;
 						default:
