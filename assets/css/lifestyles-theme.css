@@ -295,13 +295,14 @@ header#header {
           width: 227px; } }
     header#header section#primary-navigation a#newsfeed-logo {
       display: none;
-      text-shadow: 1px 1px #F0F0F0;
       text-transform: uppercase; }
       header#header section#primary-navigation a#newsfeed-logo img {
         width: 204px; }
         @media only screen and (max-width: 40em) {
           header#header section#primary-navigation a#newsfeed-logo img {
             width: 170px; } }
+    header#header section#primary-navigation a#newsfeed-logo:hover {
+      color: #F0F0F0; }
     @media only screen and (max-width: 40em) {
       header#header section#primary-navigation #trending-container {
         display: none; }

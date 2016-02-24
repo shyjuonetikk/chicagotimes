@@ -143,7 +143,6 @@ header#header {
 
 		a#newsfeed-logo {
 			display: none;
-			text-shadow: 1px 1px $light_grey;
 			text-transform: uppercase;
 
 			img {
@@ -152,6 +151,10 @@ header#header {
 					width: 170px;
 				}
 			}
+		}
+
+		a#newsfeed-logo:hover {
+			color: $light_grey;
 		}
 		
 		@media #{$small-only} {
