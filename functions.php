@@ -290,6 +290,8 @@ class CST {
 		add_filter( 'wpcom_sitemap_post_types', array( $this, 'filter_sitemap_post_types' ) );
 		add_filter( 'wpcom_sitemap_news_sitemap_post_types', array( $this, 'filter_sitemap_post_types' ) );
 
+		add_filter( 'rest_api_allowed_post_types', array( $this, 'filter_rest_api_post_types' ) );
+
 		/**
 		 * Remove avatar references from RSS feed
 		 */
@@ -979,6 +981,19 @@ class CST {
 		}
 
 		return $link;
+	}
+
+	/**
+	 * Allow post_types in this array to be queried on and returned in the WordPress REST API 1.1
+	 * @param array $allowed_post_types
+	 * @return array
+	 */
+
+	public function filter_rest_api_post_types( $allowed_post_types ) {
+
+		$allowed_post_types[] = 'cst_article';
+
+		return $allowed_post_types;
 	}
 
 	/**
