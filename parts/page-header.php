@@ -139,12 +139,12 @@ if ( is_singular() ) {
 	} ?>
 	<?php if ( $section_slug ) : ?>
 		<?php if ( 'sports' == $section_slug ) : ?>
-			<section id="comscore" class="row">
+			<section id="comscore" class="row grey-background">
 				<div class="large-8 columns">
 					<iframe src="http://scores.suntimes.com/sports-scores/score-carousel.aspx?Leagues=NFL;MLB;NBA;NHL&amp;numVisible=4" scrolling="no" frameborder="0" style="border:0; width:625px; height:90px;">Live Scores</iframe>
 				</div>
 			</section>
-			<section id="rss" class="row">
+			<section id="rss" class="row grey-background">
 				<div class="large-8 columns">
 					<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss">Subscribe to Sports</a>
 				</div>
