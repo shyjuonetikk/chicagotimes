@@ -166,6 +166,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-stng-wire-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-social-follow-us-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-category-headlines-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chatter-site-widget.php';
 
 		wpcom_vip_require_lib( 'codebird' );
 
@@ -436,6 +437,7 @@ class CST {
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
 		register_widget( 'CST_Category_Headlines_Widget' );
+		register_widget( 'CST_Chatter_Site_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
