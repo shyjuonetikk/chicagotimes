@@ -88,11 +88,15 @@ class CST_Columnists_Content_Widget extends WP_Widget {
             return;
         }
         $primary_section = $obj->get_primary_parent_section();
-
         ?>
         
         <div class="large-12 medium-6 small-12 columns widget_cst_columnists_content_widget">
             <h2 class="widgettitle"><?php esc_html_e( 'Today\'s Voice', 'chicagosuntimes' ); ?></h2>
+            <?php
+                foreach( $obj->get_authors() as $i => $author ) {
+                    echo $author->get_avatar( 40 );
+                }
+            ?>
             <div class="columnists-story">
                 <?php if( $obj->get_featured_image_html() ) : ?>
                 <div class="columnists-story-image <?php echo ( $obj->get_post_type() != 'cst_article' ? 'hover-state' : 'columnists-article' ); ?>">
