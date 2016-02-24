@@ -20,7 +20,7 @@
                 endif;
             ?>
             <div class="row">
-                <div class="large-12 columns">
+                <div class="large-12 columns content-wrapper">
                     <?php get_template_part( 'parts/homepage/featured-story-wells' ); ?>
                     <?php get_template_part( 'parts/homepage/column-wells' ); ?>
                 </div>
