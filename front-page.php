@@ -21,7 +21,11 @@
             ?>
             <div class="row">
                 <div class="large-12 columns content-wrapper">
-                    <?php get_template_part( 'parts/homepage/featured-story-wells' ); ?>
+                    <?php 
+                        if ( is_active_sidebar( 'homepage_featured_story' ) ) :
+                            dynamic_sidebar( 'homepage_featured_story' ); 
+                        endif;
+                    ?>
                     <?php get_template_part( 'parts/homepage/column-wells' ); ?>
                 </div>
             </div>
