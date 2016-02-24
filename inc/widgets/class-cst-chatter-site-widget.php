@@ -34,7 +34,7 @@ class CST_Chatter_Site_Widget extends WP_Widget {
                   if( count( $chatter_items ) > 0 ) :
                       foreach( $chatter_items as $chatter_item ) { ?>
             <li>
-                <a href="<?php echo esc_url( $chatter_item->get_permalink() ); ?>">
+                <a href="<?php echo esc_url( $chatter_item->get_permalink() ); ?>" target="_blank">
                     <span class='section'><?php echo esc_html( $chatter_site ); ?></span><span class='chatter'><?php echo esc_html( 'CHATTER' ); ?></span>
                     <span class='time'><?php echo human_time_diff( strtotime( $chatter_item->get_date('j F Y g:i a') ) ); ?></span><br />
                     <span class='title'><?php echo $chatter_item->get_title(); ?></span>
