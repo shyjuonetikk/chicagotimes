@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 	
-	<section class="row">
+	<section class="row grey-background">
 		<div id="main" class="wire columns large-8">
 			<div id="fixed-back-to-top" class="hide-back-to-top">
 				<a id="back-to-top" href="#">
