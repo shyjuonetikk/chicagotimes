@@ -55,11 +55,13 @@
 				this.breakingNews.css('display', 'none');
 			}, this ) );
 
-			this.sbbTop.on( "click", $.proxy( function (e) {
-				e.preventDefault();
-				alert('yes');
-				this.sbbBottom.slideToggle( "slow" );
-			}, this ) );
+			this.dfpSBB.mouseover(function() {
+				$( "#dfp-sbb-top" ).hide();
+				$( "#dfp-sbb-bottom" ).show();
+			}).mouseout(function() {
+				$( "#dfp-sbb-top" ).show();
+				$( "#dfp-sbb-bottom" ).hide();
+			});
 
 			this.closeInterstitial.on( "click", $.proxy( function (e) {
 				e.preventDefault();
