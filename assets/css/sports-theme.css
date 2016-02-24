@@ -9,11 +9,13 @@ body {
   margin: 0;
   padding: 0; }
 
-body {
+body, .grey-background {
   background-color: #F0F0F0;
   font-family: "Open Sans", Arial, sans-serif;
   color: #282828;
-  height: auto; }
+  height: auto;
+  position: relative;
+  z-index: 2; }
 
 body.single {
   background-color: #FFFFFF; }
@@ -128,6 +130,7 @@ body.error404 {
   background-color: #F0F0F0;
   position: relative;
   width: 100%;
+  max-width: 1000px;
   height: auto;
   z-index: 2; }
   .dfp.dfp-sbb #dfp-sbb-top img {
@@ -178,7 +181,8 @@ body.error404 {
     position: absolute;
     left: 0;
     right: 0;
-    background-color: #F0F0F0; }
+    background-color: #F0F0F0;
+    z-index: 1; }
     .dfp-wallpaper img {
       position: relative;
       width: 100%; }
@@ -193,7 +197,8 @@ body.error404 {
     position: absolute;
     left: 0;
     right: 0;
-    background-color: #F0F0F0; }
+    background-color: #F0F0F0;
+    z-index: 1; }
     .dfp-wallpaper img {
       display: none; }
     .dfp-wallpaper iframe {
@@ -625,317 +630,293 @@ ul#menu-sun-times-network {
 #wpadminbar {
   z-index: 999999; }
 
-.wire .ad-container {
+.wire {
   position: relative;
-  display: block;
-  text-align: center;
-  clear: both; }
-  .wire .ad-container .dfp-cube {
-    display: inline-block;
-    margin: 5px; }
-
-@media only screen and (max-width: 40em) {
-  .wire {
-    margin-top: 30px; } }
-
-.wire .taxonomy-image {
-  margin-top: 15px; }
-
-.wire a.section-front {
-  font-size: 2.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  display: block;
-  margin-top: 10px;
-  text-shadow: -1px 0px #3E3E3E; }
-
-.wire #section-top {
-  padding: 15px;
-  margin-top: 30px;
-  margin-bottom: 15px;
-  background-color: #3E3E3E; }
-  .wire #section-top h2 {
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
-    font-size: 2.0rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    margin: 0;
-    text-shadow: 3px 3px #3E3E3E; }
-    .wire #section-top h2 .fa {
-      width: 25px; }
-  @media only screen and (max-width: 40em) {
-    .wire #section-top h2 {
-      font-size: 1.25rem; } }
-  .wire #section-top .author-bio p {
-    color: #9A9A9A;
-    margin-bottom: 0px; }
-  .wire #section-top #section-description {
-    margin-top: .75rem;
-    color: #9A9A9A; }
-    .wire #section-top #section-description p {
-      margin-top: .25rem;
-      margin-bottom: .25rem;
-      font-weight: 600; }
-    @media only screen and (max-width: 40em) {
-      .wire #section-top #section-description {
-        margin-top: 0; }
-        .wire #section-top #section-description p {
-          font-size: .875rem; } }
-  .wire #section-top.author h1 {
-    font-size: 2rem;
-    line-height: 2.5rem;
-    font-family: "Open Sans", Arial, sans-serif;
-    font-weight: 800;
-    margin-bottom: 15px; }
-  .wire #section-top.author h4 {
-    font-size: 1.3rem;
-    line-height: 1.6rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: #9A9A9A;
-    margin: 0px; }
-  .wire #section-top.author .author-content {
-    font-family: "Merriweather", Georgia, serif; }
-  .wire #section-top.author .fa {
-    color: #9A9A9A; }
-  .wire #section-top.author span.author-twitter a, .wire #section-top.author span.author-email a {
-    color: #9A9A9A;
-    padding-right: 10px; }
-  .wire #section-top.author .avatar {
-    width: 80px;
-    height: 80px;
-    -webkit-border-radius: 40px;
-    -moz-border-radius: 40px;
-    -ms-border-radius: 40px;
-    -o-border-radius: 40px;
-    border-radius: 40px; }
-  .wire #section-top #section-share {
-    color: #FFFFFF;
-    height: auto; }
-    .wire #section-top #section-share .fa {
-      font-size: 1.5rem;
-      margin-right: 15px;
-      margin-top: 15px;
-      color: #FFFFFF; }
-    .wire #section-top #section-share .fa-facebook:hover {
-      color: #9A9A9A; }
-    .wire #section-top #section-share .fa-twitter:hover {
-      color: #9A9A9A; }
-
-.wire .post .post-meta-top {
-  padding-top: 15px;
-  padding-left: 15px;
-  padding-right: 15px; }
-
-.wire .post h1 {
-  margin-left: 15px;
-  margin-right: 15px; }
-
-.wire .post h1 a {
-  color: #282828; }
-
-.wire .post h1 a:hover {
-  color: #9A9A9A; }
-
-.wire .post .post-excerpt p {
-  margin-top: -10px;
-  margin-bottom: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-bottom: 15px;
-  font-family: "Open Sans", Arial, sans-serif;
-  color: #484848;
-  font-weight: 600;
-  font-size: 0.9rem;
-  line-height: 1.25rem; }
-
-.wire .post .post-lead-media {
-  position: relative; }
-  .wire .post .post-lead-media img {
-    z-index: 999; }
-  .wire .post .post-lead-media .fa {
-    font-size: 80px;
-    color: #282828;
-    display: none; }
-
-.wire .post.type-cst_embed .hover-state {
-  margin-top: 15px; }
-
-.wire .post .hover-state:hover, .wire .post h1:hover + .hover-state {
-  background: #34485E; }
-  .wire .post .hover-state:hover .fa, .wire .post h1:hover + .hover-state .fa {
+  z-index: 2; }
+  .wire .ad-container {
+    position: relative;
     display: block;
-    position: absolute;
-    z-index: 200;
-    top: 50%;
-    left: 50%;
-    margin-left: -40px;
-    margin-top: -40px;
-    color: #FFFFFF; }
-  .wire .post .hover-state:hover img, .wire .post h1:hover + .hover-state img {
-    opacity: .5;
-    background: #3E3E3E; }
-
-.wire .post .embed-content {
-  padding-left: 15px;
-  padding-right: 15px; }
-  .wire .post .embed-content .tweet-body a {
-    color: #282828; }
-  .wire .post .embed-content .tweet-body a:hover {
-    color: #34485E; }
-  @media only screen and (min-width: 40.063em) {
-    .wire .post .embed-content .instagram-body {
-      margin-top: 10px; } }
-  .wire .post .embed-content .instagram-body a {
-    color: #282828; }
-  .wire .post .embed-content .instagram-body a:hover {
-    color: #34485E; }
-  .wire .post .embed-content .instagram-body p {
-    margin: 5px 0 0 0;
-    margin-bottom: 5px; }
-    @media only screen and (max-width: 40em) {
-      .wire .post .embed-content .instagram-body p {
-        margin-left: 0px;
-        font-weight: 700;
-        font-family: "Open Sans", Arial, sans-serif;
-        font-size: 1rem;
-        line-height: 1.25rem; } }
-  .wire .post .embed-content .instagram-body .instagram-image {
-    margin-bottom: 10px; }
-  .wire .post .embed-content .instagram-byline {
-    font-family: "Open Sans", Arial, sans-serif;
-    font-size: 1rem; }
-    .wire .post .embed-content .instagram-byline .fa {
-      color: #34485E; }
-      @media only screen and (max-width: 40em) {
-        .wire .post .embed-content .instagram-byline .fa {
-          display: none; } }
-    .wire .post .embed-content .instagram-byline a {
-      color: #282828;
-      font-weight: 700; }
-      @media only screen and (max-width: 40em) {
-        .wire .post .embed-content .instagram-byline a {
-          color: #34485E;
-          text-transform: uppercase;
-          font-weight: 700;
-          font-size: 0.75rem; } }
-    .wire .post .embed-content .instagram-byline a:hover {
-      color: #34485E; }
-
-.wire .post .liveblog-entry {
-  padding-left: 15px;
-  padding-right: 15px; }
-  .wire .post .liveblog-entry .liveblog-author-avatar {
-    float: left;
-    width: 65px; }
-  .wire .post .liveblog-entry .liveblog-author-name {
-    font-family: "Open Sans", Arial, sans-serif;
-    font-weight: 700;
-    font-size: 1rem; }
-  .wire .post .liveblog-entry .liveblog-meta-time {
-    font-size: 0.75rem;
-    line-height: 0.9rem;
-    margin-left: 5px; }
-    .wire .post .liveblog-entry .liveblog-meta-time a {
-      color: #9A9A9A; }
-  .wire .post .liveblog-entry .liveblog-entry-text {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-family: "Merriweather", Georgia, serif;
-    font-size: 1rem;
-    margin-left: 65px; }
-  .wire .post .liveblog-entry .liveblog-entry-actions {
-    display: none; }
-
-@media only screen and (max-width: 40em) {
-  .wire .post .liveblog-entry {
-    display: none; } }
-
-@media only screen and (min-width: 40.063em) {
-  .wire .post .post-meta-bottom {
-    border-top: rgba(154, 154, 154, 0.5) 1px solid; } }
-
-.wire .post .post-meta-bottom .post-social {
-  float: left; }
+    text-align: center;
+    clear: both; }
+    .wire .ad-container .dfp-cube {
+      display: inline-block;
+      margin: 5px; }
   @media only screen and (max-width: 40em) {
-    .wire .post .post-meta-bottom .post-social {
-      background: #FFFFFF; } }
-
-.wire .post .post-meta-bottom .fa {
-  font-size: 1rem;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  padding-left: 14px;
-  padding-right: 14px; }
-  @media only screen and (min-width: 40.063em) {
-    .wire .post .post-meta-bottom .fa {
-      padding-top: 9px; } }
-  .wire .post .post-meta-bottom .fa.post-type {
-    background-color: #9A9A9A;
-    color: #FFFFFF; }
-  .wire .post .post-meta-bottom .fa.post-taxonomy {
-    padding-right: 4px; }
-
-.wire .post .post-meta-bottom .post-meta-taxonomy-terms {
-  height: 35px;
-  overflow: hidden; }
-
-.wire .post .post-meta-bottom .fa-reply:hover, .wire .post .post-meta-bottom .fa-retweet:hover, .wire .post .post-meta-bottom .fa-star:hover {
-  background: #34485E; }
-
-.wire .post .post-meta-side .fa {
-  color: #9A9A9A;
-  background: #FFFFFF;
-  font-size: 1rem;
-  padding: 5px; }
-
-@media only screen and (max-width: 40em) {
-  .wire .post .top-date {
-    display: none; } }
-
-@media only screen and (max-width: 40em) {
-  .wire .cst-embed-twitter .embed-content .tweet-byline .fa-twitter {
-    display: none; }
-  .wire .cst-embed-twitter .embed-content .tweet-byline .tweet-username {
-    color: #34485E;
-    text-transform: uppercase;
+    .wire {
+      margin-top: 30px; } }
+  .wire .taxonomy-image {
+    margin-top: 15px; }
+  .wire a.section-front {
+    font-size: 2.2rem;
     font-weight: 700;
-    font-size: 0.75rem; }
-  .wire .cst-embed-twitter .embed-content .tweet-byline .tweet-display-name {
-    display: none; } }
-
-@media only screen and (max-width: 40em) {
-  .wire .cst-embed-twitter .embed-content .tweet-body {
-    padding-bottom: 5px; }
-  .wire .cst-embed-twitter .embed-content a p {
+    text-transform: uppercase;
+    display: block;
+    margin-top: 10px;
+    text-shadow: -1px 0px #3E3E3E; }
+  .wire #section-top {
+    padding: 15px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    background-color: #3E3E3E; }
+    .wire #section-top h2 {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: normal;
+      font-size: 2.0rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      margin: 0;
+      text-shadow: 3px 3px #3E3E3E; }
+      .wire #section-top h2 .fa {
+        width: 25px; }
+    @media only screen and (max-width: 40em) {
+      .wire #section-top h2 {
+        font-size: 1.25rem; } }
+    .wire #section-top .author-bio p {
+      color: #9A9A9A;
+      margin-bottom: 0px; }
+    .wire #section-top #section-description {
+      margin-top: .75rem;
+      color: #9A9A9A; }
+      .wire #section-top #section-description p {
+        margin-top: .25rem;
+        margin-bottom: .25rem;
+        font-weight: 600; }
+      @media only screen and (max-width: 40em) {
+        .wire #section-top #section-description {
+          margin-top: 0; }
+          .wire #section-top #section-description p {
+            font-size: .875rem; } }
+    .wire #section-top.author h1 {
+      font-size: 2rem;
+      line-height: 2.5rem;
+      font-family: "Open Sans", Arial, sans-serif;
+      font-weight: 800;
+      margin-bottom: 15px; }
+    .wire #section-top.author h4 {
+      font-size: 1.3rem;
+      line-height: 1.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #9A9A9A;
+      margin: 0px; }
+    .wire #section-top.author .author-content {
+      font-family: "Merriweather", Georgia, serif; }
+    .wire #section-top.author .fa {
+      color: #9A9A9A; }
+    .wire #section-top.author span.author-twitter a, .wire #section-top.author span.author-email a {
+      color: #9A9A9A;
+      padding-right: 10px; }
+    .wire #section-top.author .avatar {
+      width: 80px;
+      height: 80px;
+      -webkit-border-radius: 40px;
+      -moz-border-radius: 40px;
+      -ms-border-radius: 40px;
+      -o-border-radius: 40px;
+      border-radius: 40px; }
+    .wire #section-top #section-share {
+      color: #FFFFFF;
+      height: auto; }
+      .wire #section-top #section-share .fa {
+        font-size: 1.5rem;
+        margin-right: 15px;
+        margin-top: 15px;
+        color: #FFFFFF; }
+      .wire #section-top #section-share .fa-facebook:hover {
+        color: #9A9A9A; }
+      .wire #section-top #section-share .fa-twitter:hover {
+        color: #9A9A9A; }
+  .wire .post .post-meta-top {
+    padding-top: 15px;
+    padding-left: 15px;
+    padding-right: 15px; }
+  .wire .post h1 {
+    margin-left: 15px;
+    margin-right: 15px; }
+  .wire .post h1 a {
+    color: #282828; }
+  .wire .post h1 a:hover {
+    color: #9A9A9A; }
+  .wire .post .post-excerpt p {
+    margin-top: -10px;
+    margin-bottom: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-bottom: 15px;
     font-family: "Open Sans", Arial, sans-serif;
+    color: #484848;
+    font-weight: 600;
+    font-size: 0.9rem;
+    line-height: 1.25rem; }
+  .wire .post .post-lead-media {
+    position: relative; }
+    .wire .post .post-lead-media img {
+      z-index: 999; }
+    .wire .post .post-lead-media .fa {
+      font-size: 80px;
+      color: #282828;
+      display: none; }
+  .wire .post.type-cst_embed .hover-state {
+    margin-top: 15px; }
+  .wire .post .hover-state:hover, .wire .post h1:hover + .hover-state {
+    background: #34485E; }
+    .wire .post .hover-state:hover .fa, .wire .post h1:hover + .hover-state .fa {
+      display: block;
+      position: absolute;
+      z-index: 200;
+      top: 50%;
+      left: 50%;
+      margin-left: -40px;
+      margin-top: -40px;
+      color: #FFFFFF; }
+    .wire .post .hover-state:hover img, .wire .post h1:hover + .hover-state img {
+      opacity: .5;
+      background: #3E3E3E; }
+  .wire .post .embed-content {
+    padding-left: 15px;
+    padding-right: 15px; }
+    .wire .post .embed-content .tweet-body a {
+      color: #282828; }
+    .wire .post .embed-content .tweet-body a:hover {
+      color: #34485E; }
+    @media only screen and (min-width: 40.063em) {
+      .wire .post .embed-content .instagram-body {
+        margin-top: 10px; } }
+    .wire .post .embed-content .instagram-body a {
+      color: #282828; }
+    .wire .post .embed-content .instagram-body a:hover {
+      color: #34485E; }
+    .wire .post .embed-content .instagram-body p {
+      margin: 5px 0 0 0;
+      margin-bottom: 5px; }
+      @media only screen and (max-width: 40em) {
+        .wire .post .embed-content .instagram-body p {
+          margin-left: 0px;
+          font-weight: 700;
+          font-family: "Open Sans", Arial, sans-serif;
+          font-size: 1rem;
+          line-height: 1.25rem; } }
+    .wire .post .embed-content .instagram-body .instagram-image {
+      margin-bottom: 10px; }
+    .wire .post .embed-content .instagram-byline {
+      font-family: "Open Sans", Arial, sans-serif;
+      font-size: 1rem; }
+      .wire .post .embed-content .instagram-byline .fa {
+        color: #34485E; }
+        @media only screen and (max-width: 40em) {
+          .wire .post .embed-content .instagram-byline .fa {
+            display: none; } }
+      .wire .post .embed-content .instagram-byline a {
+        color: #282828;
+        font-weight: 700; }
+        @media only screen and (max-width: 40em) {
+          .wire .post .embed-content .instagram-byline a {
+            color: #34485E;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.75rem; } }
+      .wire .post .embed-content .instagram-byline a:hover {
+        color: #34485E; }
+  .wire .post .liveblog-entry {
+    padding-left: 15px;
+    padding-right: 15px; }
+    .wire .post .liveblog-entry .liveblog-author-avatar {
+      float: left;
+      width: 65px; }
+    .wire .post .liveblog-entry .liveblog-author-name {
+      font-family: "Open Sans", Arial, sans-serif;
+      font-weight: 700;
+      font-size: 1rem; }
+    .wire .post .liveblog-entry .liveblog-meta-time {
+      font-size: 0.75rem;
+      line-height: 0.9rem;
+      margin-left: 5px; }
+      .wire .post .liveblog-entry .liveblog-meta-time a {
+        color: #9A9A9A; }
+    .wire .post .liveblog-entry .liveblog-entry-text {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      font-family: "Merriweather", Georgia, serif;
+      font-size: 1rem;
+      margin-left: 65px; }
+    .wire .post .liveblog-entry .liveblog-entry-actions {
+      display: none; }
+  @media only screen and (max-width: 40em) {
+    .wire .post .liveblog-entry {
+      display: none; } }
+  @media only screen and (min-width: 40.063em) {
+    .wire .post .post-meta-bottom {
+      border-top: rgba(154, 154, 154, 0.5) 1px solid; } }
+  .wire .post .post-meta-bottom .post-social {
+    float: left; }
+    @media only screen and (max-width: 40em) {
+      .wire .post .post-meta-bottom .post-social {
+        background: #FFFFFF; } }
+  .wire .post .post-meta-bottom .fa {
     font-size: 1rem;
-    line-height: 1.25rem;
-    font-weight: 700; }
-  .wire .cst-embed-twitter .embed-content a p:hover {
-    color: #9A9A9A; } }
-
-@media only screen and (min-width: 40.063em) {
-  .wire .cst-embed-twitter .embed-content .tweet-byline,
-  .wire .cst-embed-twitter .embed-content .tweet-body {
-    margin-left: 65px; } }
-
-@media only screen and (max-width: 40em) {
-  .wire .cst-embed-twitter .post-meta-top {
-    display: none; } }
-
-@media only screen and (max-width: 40em) {
-  .wire .cst-embed-instagram .post-meta-top {
-    display: none; }
-  .wire .cst-embed-instagram .embed-content {
-    padding-top: 10px; }
-  .wire .cst-embed-instagram .instagram-image {
-    display: none; }
-  .wire .cst-embed-instagram .instagram-byline {
-    margin-left: 0px; } }
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 14px;
+    padding-right: 14px; }
+    @media only screen and (min-width: 40.063em) {
+      .wire .post .post-meta-bottom .fa {
+        padding-top: 9px; } }
+    .wire .post .post-meta-bottom .fa.post-type {
+      background-color: #9A9A9A;
+      color: #FFFFFF; }
+    .wire .post .post-meta-bottom .fa.post-taxonomy {
+      padding-right: 4px; }
+  .wire .post .post-meta-bottom .post-meta-taxonomy-terms {
+    height: 35px;
+    overflow: hidden; }
+  .wire .post .post-meta-bottom .fa-reply:hover, .wire .post .post-meta-bottom .fa-retweet:hover, .wire .post .post-meta-bottom .fa-star:hover {
+    background: #34485E; }
+  .wire .post .post-meta-side .fa {
+    color: #9A9A9A;
+    background: #FFFFFF;
+    font-size: 1rem;
+    padding: 5px; }
+  @media only screen and (max-width: 40em) {
+    .wire .post .top-date {
+      display: none; } }
+  @media only screen and (max-width: 40em) {
+    .wire .cst-embed-twitter .embed-content .tweet-byline .fa-twitter {
+      display: none; }
+    .wire .cst-embed-twitter .embed-content .tweet-byline .tweet-username {
+      color: #34485E;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.75rem; }
+    .wire .cst-embed-twitter .embed-content .tweet-byline .tweet-display-name {
+      display: none; } }
+  @media only screen and (max-width: 40em) {
+    .wire .cst-embed-twitter .embed-content .tweet-body {
+      padding-bottom: 5px; }
+    .wire .cst-embed-twitter .embed-content a p {
+      font-family: "Open Sans", Arial, sans-serif;
+      font-size: 1rem;
+      line-height: 1.25rem;
+      font-weight: 700; }
+    .wire .cst-embed-twitter .embed-content a p:hover {
+      color: #9A9A9A; } }
+  @media only screen and (min-width: 40.063em) {
+    .wire .cst-embed-twitter .embed-content .tweet-byline,
+    .wire .cst-embed-twitter .embed-content .tweet-body {
+      margin-left: 65px; } }
+  @media only screen and (max-width: 40em) {
+    .wire .cst-embed-twitter .post-meta-top {
+      display: none; } }
+  @media only screen and (max-width: 40em) {
+    .wire .cst-embed-instagram .post-meta-top {
+      display: none; }
+    .wire .cst-embed-instagram .embed-content {
+      padding-top: 10px; }
+    .wire .cst-embed-instagram .instagram-image {
+      display: none; }
+    .wire .cst-embed-instagram .instagram-byline {
+      margin-left: 0px; } }
 
 body.search {
   background: #FFFFFF; }
@@ -1550,92 +1531,93 @@ section#subscribe {
     .cst-embed-twitter .embed-content .tweet-body {
       margin-left: 60px; } }
 
-.sidebar#index-sidebar {
-  margin-top: 30px; }
-  .sidebar#index-sidebar.fixed-bottom {
-    position: fixed;
-    bottom: 0px;
-    width: 303.328125px; }
-
-.sidebar#post-sidebar {
-  background-color: #F0F0F0;
-  padding: 10px;
-  width: 320px;
-  top: 0;
-  left: 0;
-  position: absolute;
-  bottom: 0;
-  z-index: 9999;
-  overflow: hidden; }
-  @media only screen and (max-width: 75em) {
-    .sidebar#post-sidebar {
-      width: 220px; }
-      .sidebar#post-sidebar #div-gpt-article-sidebar-cube {
-        display: none; } }
-  .sidebar#post-sidebar.sidebar-fixed {
-    position: fixed; }
-  .sidebar#post-sidebar.loading-latest ul {
-    opacity: 0.4; }
-  .sidebar#post-sidebar .load-buttons {
-    margin-top: 15px; }
-    .sidebar#post-sidebar .load-buttons .button {
-      padding-top: 0.5rem;
-      padding-right: 1rem;
-      padding-bottom: 0.53rem;
-      padding-left: 1rem;
-      text-transform: uppercase;
-      font-weight: 700;
-      font-size: 0.75rem;
-      font-family: "Open Sans", Arial, sans-serif; }
-      .sidebar#post-sidebar .load-buttons .button#latest {
-        background-color: #9A9A9A;
-        display: inline-block; }
-        .sidebar#post-sidebar .load-buttons .button#latest:hover {
-          cursor: default; }
-      .sidebar#post-sidebar .load-buttons .button#load-latest {
-        background-color: #34485E;
+.sidebar {
+  position: relative;
+  z-index: 2; }
+  .sidebar#index-sidebar {
+    margin-top: 30px; }
+    .sidebar#index-sidebar.fixed-bottom {
+      position: fixed;
+      bottom: 0px;
+      width: 303.328125px; }
+  .sidebar#post-sidebar {
+    background-color: #F0F0F0;
+    padding: 10px;
+    width: 320px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden; }
+    @media only screen and (max-width: 75em) {
+      .sidebar#post-sidebar {
+        width: 220px; }
+        .sidebar#post-sidebar #div-gpt-article-sidebar-cube {
+          display: none; } }
+    .sidebar#post-sidebar.sidebar-fixed {
+      position: fixed; }
+    .sidebar#post-sidebar.loading-latest ul {
+      opacity: 0.4; }
+    .sidebar#post-sidebar .load-buttons {
+      margin-top: 15px; }
+      .sidebar#post-sidebar .load-buttons .button {
+        padding-top: 0.5rem;
+        padding-right: 1rem;
+        padding-bottom: 0.53rem;
+        padding-left: 1rem;
+        text-transform: uppercase;
+        font-weight: 700;
+        font-size: 0.75rem;
+        font-family: "Open Sans", Arial, sans-serif; }
+        .sidebar#post-sidebar .load-buttons .button#latest {
+          background-color: #9A9A9A;
+          display: inline-block; }
+          .sidebar#post-sidebar .load-buttons .button#latest:hover {
+            cursor: default; }
+        .sidebar#post-sidebar .load-buttons .button#load-latest {
+          background-color: #34485E;
+          display: none; }
+          .sidebar#post-sidebar .load-buttons .button#load-latest:hover,
+          .sidebar#post-sidebar .load-buttons .button#load-latest .active-loading {
+            background-color: #9A9A9A; }
+      .sidebar#post-sidebar .load-buttons.filtered #latest {
         display: none; }
-        .sidebar#post-sidebar .load-buttons .button#load-latest:hover,
-        .sidebar#post-sidebar .load-buttons .button#load-latest .active-loading {
-          background-color: #9A9A9A; }
-    .sidebar#post-sidebar .load-buttons.filtered #latest {
-      display: none; }
-    .sidebar#post-sidebar .load-buttons.filtered #load-latest {
-      display: inline-block; }
-  .sidebar#post-sidebar ul.latest-posts {
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-top: 0;
-    padding-left: 10px;
-    margin-left: -10px;
-    overflow-y: hidden;
-    overflow-x: hidden; }
-    .sidebar#post-sidebar ul.latest-posts:hover {
-      overflow-y: scroll; }
-    .sidebar#post-sidebar ul.latest-posts li.post {
-      padding: 15px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      background-color: #FFFFFF;
-      margin-right: -10px; }
-      .sidebar#post-sidebar ul.latest-posts li.post.active {
-        border-left: 10px solid #34485E;
-        margin-left: -10px; }
-      .sidebar#post-sidebar ul.latest-posts li.post h3 {
-        font-size: 0.8rem;
-        line-height: 0.95rem;
-        font-weight: 700; }
-      .sidebar#post-sidebar ul.latest-posts li.post a:hover {
-        color: #9A9A9A; }
-      .sidebar#post-sidebar ul.latest-posts li.post .post-meta .post-relative-date {
-        margin-left: 5px; }
-      .sidebar#post-sidebar ul.latest-posts li.post:first-child {
-        margin-top: 0px; }
-      .sidebar#post-sidebar ul.latest-posts li.post:last-child {
-        margin-bottom: 0px; }
-
-.sidebar ul {
-  list-style-type: none; }
+      .sidebar#post-sidebar .load-buttons.filtered #load-latest {
+        display: inline-block; }
+    .sidebar#post-sidebar ul.latest-posts {
+      margin-right: 0;
+      margin-bottom: 0;
+      margin-top: 0;
+      padding-left: 10px;
+      margin-left: -10px;
+      overflow-y: hidden;
+      overflow-x: hidden; }
+      .sidebar#post-sidebar ul.latest-posts:hover {
+        overflow-y: scroll; }
+      .sidebar#post-sidebar ul.latest-posts li.post {
+        padding: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: #FFFFFF;
+        margin-right: -10px; }
+        .sidebar#post-sidebar ul.latest-posts li.post.active {
+          border-left: 10px solid #34485E;
+          margin-left: -10px; }
+        .sidebar#post-sidebar ul.latest-posts li.post h3 {
+          font-size: 0.8rem;
+          line-height: 0.95rem;
+          font-weight: 700; }
+        .sidebar#post-sidebar ul.latest-posts li.post a:hover {
+          color: #9A9A9A; }
+        .sidebar#post-sidebar ul.latest-posts li.post .post-meta .post-relative-date {
+          margin-left: 5px; }
+        .sidebar#post-sidebar ul.latest-posts li.post:first-child {
+          margin-top: 0px; }
+        .sidebar#post-sidebar ul.latest-posts li.post:last-child {
+          margin-bottom: 0px; }
+  .sidebar ul {
+    list-style-type: none; }
 
 @media only screen and (min-width: 64.063em) {
   #fixed-footer-container {

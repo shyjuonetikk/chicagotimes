@@ -1,5 +1,7 @@
 .wire {
-
+	position: relative;
+	z-index: 2;
+	
 	.ad-container {
 		position: relative;
 		display: block;

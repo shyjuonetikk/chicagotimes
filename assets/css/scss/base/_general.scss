@@ -4,11 +4,13 @@ body {
 	padding: 0;
 }
 
-body {
+body, .grey-background {
 	background-color: $light_grey;
 	font-family: $open_sans;
 	color: $black;
 	height: auto;
+	position: relative;
+	z-index: 2;
 }
 
 body.single {

@@ -51,6 +51,7 @@
 		background-color:$light_grey;
 		position:relative;
 		width:100%;
+		max-width: 1000px;
 		height:auto;
 		z-index:2;
 
@@ -130,6 +131,7 @@
 		left:0;
 		right:0;
 		background-color: $light_grey;
+		z-index: 1;
 		img {
 			position:relative;
 			width:100%;
@@ -151,6 +153,7 @@
 		left:0;
 		right:0;
 		background-color: $light_grey;
+		z-index: 1;
 		img {
 			display:none;
 		}
