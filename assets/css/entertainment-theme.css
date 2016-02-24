@@ -2285,6 +2285,14 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .dfp-cube {
       text-align: center;
       padding: 10px; } }
+  .homepage_wrapper #div-gpt-wallpaper {
+    z-index: 1; }
+  .homepage_wrapper .dfp-atf-leaderboard, .homepage_wrapper .dfp-btf-leaderboard {
+    text-align: center;
+    margin: 0 auto;
+    display: block; }
+  .homepage_wrapper .dfp-atf-leaderboard {
+    margin-bottom: 20px; }
   @media (min-width: 1250px) {
     .homepage_wrapper .logo-wrapper.large-logo {
       display: block; } }
@@ -2377,12 +2385,11 @@ body.post-gallery-lightbox-active {
       width: 100%; }
     .homepage_wrapper .columns {
       padding: 0 5px 0 0; } }
-  .homepage_wrapper .dfp-atf-leaderboard, .homepage_wrapper .dfp-btf-leaderboard {
-    text-align: center;
-    margin: 0 auto;
-    display: block; }
-  .homepage_wrapper .dfp-atf-leaderboard {
-    margin-bottom: 20px; }
+  .homepage_wrapper .content-wrapper {
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+    height: auto; }
   .homepage_wrapper h2.section-title {
     background-color: #3E3E3E;
     height: 10px;

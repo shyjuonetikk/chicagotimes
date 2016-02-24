@@ -175,6 +175,20 @@
 		}
 	}
 
+	#div-gpt-wallpaper {
+		z-index: 1;
+	}
+
+	.dfp-atf-leaderboard, .dfp-btf-leaderboard {
+		text-align: center;
+		margin: 0 auto;
+		display: block;
+	}
+
+	.dfp-atf-leaderboard {
+		margin-bottom: 20px;
+	}
+
 /* HEADER */
 	.logo-wrapper.large-logo {
 		@media (min-width: 1250px) {
@@ -331,14 +345,11 @@
 	}
 }
 
-	.dfp-atf-leaderboard, .dfp-btf-leaderboard {
-		text-align: center;
-		margin: 0 auto;
-		display: block;
-	}
-
-	.dfp-atf-leaderboard {
-		margin-bottom: 20px;
+	.content-wrapper {
+		position: relative;
+		z-index: 2;
+		overflow: hidden;
+		height: auto;
 	}
 
 	h2.section-title {
