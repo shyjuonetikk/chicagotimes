@@ -2712,8 +2712,6 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper .widget_cst_featured_content_widget, .homepage_wrapper .widget_cst_columnists_content_widget {
         margin: 20px 0 20px 0;
         padding: 10px 0 10px 0; } }
-    .homepage_wrapper .widget_cst_featured_content_widget .avatar, .homepage_wrapper .widget_cst_columnists_content_widget .avatar {
-      border-radius: 20px; }
     .homepage_wrapper .widget_cst_featured_content_widget h2.widgettitle, .homepage_wrapper .widget_cst_columnists_content_widget h2.widgettitle {
       text-transform: uppercase;
       font-size: 1.75rem;

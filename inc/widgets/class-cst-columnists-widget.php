@@ -94,7 +94,7 @@ class CST_Columnists_Content_Widget extends WP_Widget {
             <h2 class="widgettitle"><?php esc_html_e( 'Today\'s Voice', 'chicagosuntimes' ); ?></h2>
             <?php
                 foreach( $obj->get_authors() as $i => $author ) {
-                    echo $author->get_avatar( 40 );
+                    echo $author->get_avatar( 80 );
                 }
             ?>
             <div class="columnists-story">
