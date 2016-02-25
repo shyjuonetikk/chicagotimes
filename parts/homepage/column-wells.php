@@ -49,19 +49,32 @@
         </div>
         <div class="large-3 medium-6 columns">
             <div class="section-list">
-                <h3 class="entertainment-border"><a href="<?php echo esc_url( home_url( '/' ) . 'section/entertainment/' ); ?>"><?php esc_html_e( 'Entertainment', 'chicagosuntimes' ); ?></a></h3>
-	                <?php $query = array(
-		                'post_type'             => array( 'cst_article' ),
-		                'ignore_sticky_posts'   => true,
-		                'posts_per_page'        => 5,
-		                'post_status'           => 'publish',
-		                'cst_section'           => 'entertainment',
-	                );
-	                CST()->frontend->cst_homepage_content_block( $query ); ?>
+                <h3><a href="<?php echo esc_url( home_url( '/' ) . 'section/the-watchdogs/' ); ?>"><?php esc_html_e( 'The Watchdogs', 'chicagosuntimes' ); ?></a></h3>
+                    <?php $query = array(
+                        'post_type'             => array( 'cst_article' ),
+                        'ignore_sticky_posts'   => true,
+                        'posts_per_page'        => 5,
+                        'post_status'           => 'publish',
+                        'cst_section'           => 'the-watchdogs',
+                    );
+                    CST()->frontend->cst_homepage_content_block( $query ); ?>
             </div>
         </div>
     </div>
     <div class="row">
+        <div class="large-3 medium-6 columns">
+            <div class="section-list">
+                <h3 class="entertainment-border"><a href="<?php echo esc_url( home_url( '/' ) . 'section/entertainment/' ); ?>"><?php esc_html_e( 'Entertainment', 'chicagosuntimes' ); ?></a></h3>
+                    <?php $query = array(
+                        'post_type'             => array( 'cst_article' ),
+                        'ignore_sticky_posts'   => true,
+                        'posts_per_page'        => 5,
+                        'post_status'           => 'publish',
+                        'cst_section'           => 'entertainment',
+                    );
+                    CST()->frontend->cst_homepage_content_block( $query ); ?>
+            </div>
+        </div>
         <div class="large-3 medium-6 columns">
             <div class="section-list">
                 <h3 class="columnists-border"><a href="<?php echo esc_url( home_url( '/' ) . 'section/columnists/' ); ?>"><?php esc_html_e( 'Columnists', 'chicagosuntimes' ); ?></a></h3>
@@ -97,19 +110,6 @@
 		                'posts_per_page'        => 5,
 		                'post_status'           => 'publish',
 		                'cst_section'           => 'lifestyles',
-	                );
-	                CST()->frontend->cst_homepage_content_block( $query ); ?>
-            </div>
-        </div>
-        <div class="large-3 medium-6 columns">
-            <div class="section-list">
-                <h3><a href="<?php echo esc_url( home_url( '/' ) . 'section/the-watchdogs/' ); ?>"><?php esc_html_e( 'The Watchdogs', 'chicagosuntimes' ); ?></a></h3>
-	                <?php $query = array(
-		                'post_type'             => array( 'cst_article' ),
-		                'ignore_sticky_posts'   => true,
-		                'posts_per_page'        => 5,
-		                'post_status'           => 'publish',
-		                'cst_section'           => 'the-watchdogs',
 	                );
 	                CST()->frontend->cst_homepage_content_block( $query ); ?>
             </div>
