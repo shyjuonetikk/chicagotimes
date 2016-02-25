@@ -20,6 +20,8 @@ class CST_Chatter_Site_Widget extends WP_Widget {
             $feed_url = 'http://sportschatter.com/api/2.0/get_posts/';
         } elseif( $chatter_site == 'sports' ) {
             $feed_url = 'http://sportschatter.com/api/2.0/get_posts/';
+        } elseif( $chatter_site == 'celeb' ) {
+            $feed_url = 'http://celebchatter.com/api/2.0/get_posts/';
         } else {
             $feed_url = 'http://politicschatter.com/api/2.0/get_posts/';
         }
@@ -67,6 +69,12 @@ class CST_Chatter_Site_Widget extends WP_Widget {
             <label for="<?php echo $this->get_field_id('cst_chatter_site'); ?>">
                 <?php esc_html_e( 'SportsChatter', 'chicagosuntimes' ); ?>
                 <input class="" id="<?php echo $this->get_field_id('cst_sports_chatter'); ?>" name="<?php echo $this->get_field_name('cst_chatter_site'); ?>" type="radio" value="<?php esc_html_e( 'sports' ); ?>" <?php if( $chatter_site === 'sports') { echo 'checked="checked"'; } ?> />
+            </label>
+        </p>
+        <p>
+            <label for="<?php echo $this->get_field_id('cst_chatter_site'); ?>">
+                <?php esc_html_e( 'CelebChatter', 'chicagosuntimes' ); ?>
+                <input class="" id="<?php echo $this->get_field_id('cst_celeb_chatter'); ?>" name="<?php echo $this->get_field_name('cst_chatter_site'); ?>" type="radio" value="<?php esc_html_e( 'celeb' ); ?>" <?php if( $chatter_site === 'celeb') { echo 'checked="checked"'; } ?> />
             </label>
         </p>
         <hr/>
