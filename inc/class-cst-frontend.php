@@ -823,6 +823,26 @@ class CST_Frontend {
 	}
 
 	/**
+	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
+	 * @param int $count
+	 * @return json array
+	 */
+	public function cst_get_chatter_site($json_feed) {
+
+		$response = vip_safe_wp_remote_get( $json_feed . '?count=1' );
+		if ( is_wp_error( $response ) ) :
+			return;
+		else :
+			$posts = json_decode( wp_remote_retrieve_body( $response ) );
+			if ( ! $posts ) {
+				return;
+			}
+			return $posts;
+		endif;
+
+	}
+
+	/**
 	 * Fetch and output content from the specified section
 	 * @param $content_query
 	 */
