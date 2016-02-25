@@ -17,11 +17,11 @@ class CST_Chatter_Site_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
         $chatter_site = $instance['cst_chatter_site'];
         if( empty( $chatter_site ) ) {
-            $feed_url = 'http://sportschatter.com/feed/?post_type=slideshow';
+            $feed_url = 'http://sportschatter.com/api/2.0/get_posts/';
         } elseif( $chatter_site == 'sports' ) {
-            $feed_url = 'http://sportschatter.com/feed/?post_type=slideshow';
+            $feed_url = 'http://sportschatter.com/api/2.0/get_posts/';
         } else {
-            $feed_url = 'http://politicschatter.com/feed/?post_type=slideshow';
+            $feed_url = 'http://politicschatter.com/api/2.0/get_posts/';
         }
 
         echo $args['before_widget'];
@@ -30,17 +30,16 @@ class CST_Chatter_Site_Widget extends WP_Widget {
 
         ?>
         <ul class="widget-recent-posts">
-            <?php $chatter_items = CST()->frontend->cst_homepage_fetch_feed( $feed_url, 5 );
-                  if( count( $chatter_items ) > 0 ) :
-                      foreach( $chatter_items as $chatter_item ) { ?>
+            <?php $chatter_item = CST()->frontend->cst_get_chatter_site( $feed_url ); 
+                    $thumbnail = $chatter_item->posts['0']->thumbnail->url;
+                    $thumbnail = str_replace( 'https://' . $chatter_site . 'chatter.mas.wordpress-prod-wp.aggrego.com' , 'http://wp-ag.s3.amazonaws.com', $thumbnail );
+            ?>
             <li>
-                <a href="<?php echo esc_url( $chatter_item->get_permalink() ); ?>" target="_blank">
-                    <span class='section'><?php echo esc_html( $chatter_site ); ?></span><span class='chatter'><?php echo esc_html( 'CHATTER' ); ?></span>
-                    <span class='time'><?php echo human_time_diff( strtotime( $chatter_item->get_date('j F Y g:i a') ) ); ?></span><br />
-                    <span class='title'><?php echo $chatter_item->get_title(); ?></span>
+                <a href="<?php echo esc_url( $chatter_item->posts['0']->url ); ?>" target="_blank">
+                    <img src="<?php echo esc_html( $thumbnail ); ?>" style="width:290px;height:200px;" /><br />
+                    <span class='title'><?php echo $chatter_item->posts['0']->title; ?></span>
                 </a>
             </li>
-            <?php }; endif; ?>
         </ul>
         <?php
         echo $args['after_widget'];
