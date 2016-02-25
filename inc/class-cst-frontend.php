@@ -829,11 +829,11 @@ class CST_Frontend {
 	 */
 	public function cst_get_chatter_site($json_feed) {
 
-		$response = vip_safe_wp_remote_get( $json_feed . '?count=1' );
+		$response = wpcom_vip_file_get_contents( $json_feed . '?count=1' );
 		if ( is_wp_error( $response ) ) :
 			return;
 		else :
-			$posts = json_decode( wp_remote_retrieve_body( $response ) );
+			$posts = json_decode( $response );
 			if ( ! $posts ) {
 				return;
 			}
