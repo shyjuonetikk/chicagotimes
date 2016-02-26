@@ -2430,6 +2430,7 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper section#main-well .main-article-container .article-title h3 {
         padding: 0px 20px 0px 20px;
         font-family: 'Open Sans', serif;
+        font-weight: 700;
         color: #F0F0F0; }
         @media (min-width: 569px) {
           .homepage_wrapper section#main-well .main-article-container .article-title h3 {
@@ -2496,7 +2497,8 @@ body.post-gallery-lightbox-active {
         .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
           line-height: 18px;
           font-family: 'Open Sans', serif;
-          color: #F0F0F0; }
+          color: #F0F0F0;
+          font-weight: 700; }
           @media (min-width: 569px) {
             .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
               font-size: 16px; } }
@@ -2545,7 +2547,8 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper section#secondary-wells .article-container .article-title h3 {
         line-height: 18px;
         font-family: 'Open Sans', serif;
-        color: #F0F0F0; }
+        color: #F0F0F0;
+        font-weight: 700; }
         @media (min-width: 569px) {
           .homepage_wrapper section#secondary-wells .article-container .article-title h3 {
             font-size: 16px; } }
