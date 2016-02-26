@@ -27,6 +27,9 @@
 			.addService(googletag.pubads()).setTargeting("pos","sbb");
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [1363, 1000], 'div-gpt-wallpaper')
 			.addService(googletag.pubads()).setTargeting("pos","wallpaper");
+		} else {
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [728, 90], 'div-gpt-mobile-leaderboard')
+			.addService(googletag.pubads()).setTargeting("pos","mobile leaderboard");	
 		}
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250]], 'div-gpt-rr-cube-1')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 1");
@@ -40,12 +43,6 @@
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 5");
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 6");
-			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [300, 250], 'div-gpt-ad-wire1')
-			.addService(googletag.pubads()).setTargeting("pos","wire cube 1");
-			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [300, 250], 'div-gpt-ad-wire2')
-			.addService(googletag.pubads()).setTargeting("pos","wire cube 2");
-			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [300, 250], 'div-gpt-ad-wire3')
-			.addService(googletag.pubads()).setTargeting("pos","wire cube 3");
 	googletag.pubads().enableSingleRequest();
 	googletag.enableServices();
 	});

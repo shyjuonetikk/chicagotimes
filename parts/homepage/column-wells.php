@@ -2,6 +2,7 @@
 <div class="row">
     <div class="large-12 columns dfp-atf-leaderboard">
         <?php get_template_part( 'parts/dfp/homepage/dfp-atf-leaderboard' ); ?>
+        <?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
     </div>
 </div>
 <h2 class="section-title"><span><?php esc_html_e( 'More From', 'chicagosuntimes' ); ?></span></h2>
