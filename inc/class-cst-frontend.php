@@ -147,6 +147,7 @@ class CST_Frontend {
 
 		if( ! is_user_logged_in() && is_singular() ) {
 			wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
+			wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 		}
 
 			wp_enqueue_script( 'chicagosuntimes-ndn', 'http://launch.newsinc.com/js/embed.js' );

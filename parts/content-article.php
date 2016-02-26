@@ -20,6 +20,9 @@
 		<?php endif; ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
 		<div class="post-content columns medium-9 medium-offset-1 p402_premium end" itemprop="articleBody">
+		<script>
+          window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>
+        </script>
 			<?php $obj->the_content(); ?>
 			<?php
 			$user_logins = array();
