@@ -180,6 +180,7 @@ class CST {
 		wpcom_vip_load_plugin( 'wpcom-thumbnail-editor' );
 		wpcom_vip_load_plugin( 'zoninator' );
 		wpcom_vip_load_plugin( 'maintenance-mode' );
+		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
 
 		// Options are loaded on Bitly::__construct
 		add_filter( 'pre_option_bitly_settings', function() {
