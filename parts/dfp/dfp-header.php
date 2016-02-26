@@ -39,6 +39,12 @@
 			.addService(googletag.pubads())
 			.setTargeting("pos","btf leaderboard");
 
+		} else {
+
+			CSTAdTags['div-gpt-atf-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [728, 90], 'div-gpt-mobile-leaderboard')
+			.addService(googletag.pubads())
+			.setTargeting("pos","mobile leaderboard");
+
 		}
 
 		CSTAdTags['div-gpt-rr-cube-1'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [300, 250], 'div-gpt-rr-cube-1')
