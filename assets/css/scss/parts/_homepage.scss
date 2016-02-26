@@ -168,10 +168,18 @@
 		width: 100%;
 	}
 
-	@media (max-width: 1024px) {
+	@media (min-width: 481px) and (max-width: 1024px) {
 		.dfp-cube {
 			text-align: center;
 			padding: 10px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.dfp-cube {
+			min-width: 300px;
+			width: 100%;
+			padding: 0;
 		}
 	}
 

@@ -2263,10 +2263,15 @@ body.post-gallery-lightbox-active {
     text-align: center;
     max-width: 980px;
     width: 100%; }
-  @media (max-width: 1024px) {
+  @media (min-width: 481px) and (max-width: 1024px) {
     .homepage_wrapper .dfp-cube {
       text-align: center;
       padding: 10px; } }
+  @media (max-width: 480px) {
+    .homepage_wrapper .dfp-cube {
+      min-width: 300px;
+      width: 100%;
+      padding: 0; } }
   .homepage_wrapper #div-gpt-wallpaper {
     z-index: 1; }
   .homepage_wrapper .dfp-atf-leaderboard, .homepage_wrapper .dfp-btf-leaderboard {
