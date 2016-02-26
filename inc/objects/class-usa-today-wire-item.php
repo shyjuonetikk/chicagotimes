@@ -219,7 +219,7 @@ class USA_Today_Wire_Item extends Post {
             return false;
         }
 
-        if ( $coauthors_plus && $guest_author = $coauthors_plus->guest_authors->get_guest_author_by( 'post_name', 'associated-press' ) ) {
+        if ( $coauthors_plus && $guest_author = $coauthors_plus->guest_authors->get_guest_author_by( 'post_name', 'usa-today' ) ) {
             $coauthors_plus->add_coauthors( $article->get_id(), array( $guest_author->user_nicename ), false );
         }
 
