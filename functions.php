@@ -42,6 +42,7 @@ class CST {
 		// $this->merlin = CST_Merlin::get_instance();
 		$this->shortcodes = CST_Shortcode_Manager::get_instance();
 		$this->wire_curator = CST_Wire_Curator::get_instance();
+		$this->usa_today_wire_curator = CST_USA_Today_Wire_Curator::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
 
@@ -134,6 +135,7 @@ class CST {
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-wire-curator.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-usa-today-wire-curator.php';
 
 		// Objects
 		require_once dirname( __FILE__ ) . '/inc/objects/class-post.php';
@@ -149,6 +151,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/objects/class-ap-wire-item.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-video.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-attachment.php';
+		require_once dirname( __FILE__ ) . '/inc/objects/class-usa-today-wire-item.php';
 
 		// Widgets
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-widget.php';
