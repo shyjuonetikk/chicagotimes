@@ -2302,7 +2302,8 @@ body.post-gallery-lightbox-active {
         text-transform: uppercase;
         text-align: left; }
       .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section {
-        text-align: center; }
+        text-align: center;
+        z-index: 3; }
         .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .logo-wrapper {
           position: relative;
           margin-bottom: 10px; }
