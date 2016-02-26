@@ -23,7 +23,7 @@
 			.addService(googletag.pubads()).setTargeting("pos","atf leaderboard");
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [728, 90], 'div-gpt-btf-leaderboard')
 			.addService(googletag.pubads()).setTargeting("pos","btf leaderboard");
-			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [2, 2], 'div-gpt-sbb')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[2, 2], [970, 90]], 'div-gpt-sbb')
 			.addService(googletag.pubads()).setTargeting("pos","sbb");
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [1363, 1000], 'div-gpt-wallpaper')
 			.addService(googletag.pubads()).setTargeting("pos","wallpaper");
