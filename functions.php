@@ -172,6 +172,9 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chatter-site-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-featured-story-widget.php';
 
+		// API Endpoints
+		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
+
 		wpcom_vip_require_lib( 'codebird' );
 
 		wpcom_vip_load_plugin( 'co-authors-plus' );
@@ -225,6 +228,47 @@ class CST {
 			}
 
 		}, 999 );
+
+		// API Endpoint registration here for the moment as it needs to be late enough
+		// for the core rest_api functions to have already been registered
+		add_action( 'rest_api_init', function () {
+			register_rest_route( 'cst/v1', '/section/(?P<slug>[a-zA-Z-0-9]+)', array(
+				'methods' => 'GET',
+				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_handler' ),
+				'args' => array(
+					'slug' => array(
+						'validate_callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_validate' )
+					),
+				),
+			) );
+			register_rest_route( 'cst/v1', '/cst_article/(?P<id>\d+)', array(
+				'methods' => 'GET',
+				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_article_handler' ),
+				'args' => array(
+					'id' => array(
+						'validate_callback' => 'absint'
+					),
+				),
+			) );
+			register_rest_route( 'cst/v1', '/media/(?P<id>\d+)', array(
+				'methods' => 'GET',
+				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_media_handler' ),
+				'args' => array(
+					'id' => array(
+						'validate_callback' => 'absint'
+					),
+				),
+			) );
+			register_rest_route( 'cst/v1', '/author/(?P<id>\d+)', array(
+				'methods' => 'GET',
+				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_author_handler' ),
+				'args' => array(
+					'id' => array(
+						'validate_callback' => 'absint'
+					),
+				),
+			) );
+		} );
 
 	}
 
