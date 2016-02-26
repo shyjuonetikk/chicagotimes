@@ -31,6 +31,10 @@
 				this.addSectionWarning();
 			}
 
+			if ( $(this.titleContent).length ) {
+				this.limitTheField( this.titleContent, 65 );
+			}
+
 		},
 
 		cacheElements: function() {
@@ -41,6 +45,8 @@
 			this.attachmentCaption = $('#attachment_caption');
 
 			this.cstSectionBox = $('#cst_section-adder');
+
+			this.titleContent = $('#titlewrap #title');
 		},
 
 		/**
