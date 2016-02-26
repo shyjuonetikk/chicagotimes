@@ -2570,47 +2570,47 @@ body.post-gallery-lightbox-active {
         background: rgba(0, 0, 0, 0.5); }
         .homepage_wrapper section#secondary-wells .article-container a:hover .article-title p {
           display: block; }
-  .homepage_wrapper section#more-stories-wells {
-    background-color: #FFFFFF; }
-    .homepage_wrapper section#more-stories-wells img {
-      max-height: 170px; }
-    .homepage_wrapper section#more-stories-wells a h3 {
-      margin: 0;
-      padding: 0;
-      line-height: 28px;
-      font-weight: 700; }
-    .homepage_wrapper section#more-stories-wells a:hover h3 {
-      color: #3E3E3E; }
-    .homepage_wrapper section#more-stories-wells a:hover img {
-      opacity: .875; }
-    .homepage_wrapper section#more-stories-wells p {
-      margin-top: 15px;
-      line-height: 18px; }
-    .homepage_wrapper section#more-stories-wells span {
+  .homepage_wrapper section#more-stories-wells img {
+    max-height: 170px; }
+  .homepage_wrapper section#more-stories-wells a h3 {
+    margin: 0;
+    padding: 0;
+    line-height: 28px;
+    font-weight: 700; }
+  .homepage_wrapper section#more-stories-wells a:hover h3 {
+    color: #3E3E3E; }
+  .homepage_wrapper section#more-stories-wells a:hover img {
+    opacity: .875; }
+  .homepage_wrapper section#more-stories-wells a:hover ~ p {
+    display: block; }
+  .homepage_wrapper section#more-stories-wells p {
+    margin-top: 15px;
+    line-height: 18px;
+    display: none; }
+  .homepage_wrapper section#more-stories-wells span {
+    font-size: 14px; }
+    .homepage_wrapper section#more-stories-wells span a {
       font-size: 14px;
-      text-transform: uppercase; }
-      .homepage_wrapper section#more-stories-wells span a {
-        font-size: 14px;
-        text-transform: uppercase;
-        color: #282828;
-        text-decoration: none; }
-    .homepage_wrapper section#more-stories-wells .article-image {
-      position: relative;
-      display: block;
-      margin-bottom: 10px; }
-    .homepage_wrapper section#more-stories-wells .article-image:hover:after {
-      content: '';
-      width: 50%;
-      height: 0;
-      border-style: solid;
-      border-width: 10px 0 0 0;
-      position: absolute;
-      left: 15px;
-      top: 0; }
-    @media (min-width: 1200px) {
-      .homepage_wrapper section#more-stories-wells .columns {
-        padding-left: 0.9375rem;
-        padding-right: 0.9375rem; } }
+      text-transform: uppercase;
+      color: #282828;
+      text-decoration: none; }
+  .homepage_wrapper section#more-stories-wells .article-image {
+    position: relative;
+    display: block;
+    margin-bottom: 10px; }
+  .homepage_wrapper section#more-stories-wells .article-image:hover:after {
+    content: '';
+    width: 50%;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 0 0 0;
+    position: absolute;
+    left: 15px;
+    top: 0; }
+  @media (min-width: 1200px) {
+    .homepage_wrapper section#more-stories-wells .columns {
+      padding-left: 0.9375rem;
+      padding-right: 0.9375rem; } }
   .homepage_wrapper section#section-column-wells .section-list {
     background-color: #FFFFFF;
     border-radius: 5px;

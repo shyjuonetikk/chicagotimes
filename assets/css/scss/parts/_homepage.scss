@@ -626,7 +626,6 @@
 	}
 
 	section#more-stories-wells {
-		background-color: $white;
 
 		img {
 			max-height: 170px;
@@ -651,14 +650,18 @@
 			}
 		}
 
+		a:hover ~ p {
+			display: block;
+		}
+
 		p {
 			margin-top: 15px;
 			line-height: 18px;
+			display: none;
 		}
 
 		span {
 			font-size: 14px;
-			text-transform: uppercase;
 
 			a {
 				font-size: 14px;
