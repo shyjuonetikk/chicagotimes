@@ -232,12 +232,16 @@ class CST {
 		// API Endpoint registration here for the moment as it needs to be late enough
 		// for the core rest_api functions to have already been registered
 		add_action( 'rest_api_init', function () {
-			register_rest_route( 'cst/v1', '/section/(?P<slug>[a-zA-Z-0-9]+)', array(
+			register_rest_route( 'cst/v1', '/section/(?P<slug>[a-zA-Z-0-9]+)/(?P<count>\d+)', array(
 				'methods' => 'GET',
 				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_handler' ),
 				'args' => array(
 					'slug' => array(
-						'validate_callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_validate' )
+						'validate_callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_validate' ),
+						'required' => true,
+					),
+					'count' => array(
+						'validate_callback' => 'absint'
 					),
 				),
 			) );
