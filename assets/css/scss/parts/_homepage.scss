@@ -160,18 +160,28 @@
 	}
 
 	#div-gpt-sbb {
-		background-color: transparent;
+		background-color: $light_grey;
 		margin: 0 auto;
-		margin-bottom: 20px;
-		text-align: center;
-		max-width: 980px;
+		max-width: 1073px;
 		width: 100%;
+		padding: 0 0 10px 10px;
+
+		iframe {
+			width: 970px;
+			height: 90px;
+		}
 	}
 
 	@media (min-width: 481px) and (max-width: 1024px) {
 		.dfp-cube {
 			text-align: center;
 			padding: 10px;
+		}
+	}
+
+	@media (min-width: 1026px) {
+		.widget.widget_cst_ad_widget {
+			margin-bottom: 20px;
 		}
 	}
 
@@ -937,7 +947,7 @@
 		margin-left: 0;
 		margin-top: 10px;
 		@media (min-width: 737px) {
-			height: 400px;
+			height: 300px;
 		}
 		@media (max-width: 736px) {
 			height: 300px;

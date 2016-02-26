@@ -125,7 +125,6 @@ body.error404 {
         margin-left: -2.1rem; } }
 
 .dfp.dfp-sbb {
-  text-align: center;
   overflow: hidden;
   background-color: #F0F0F0;
   position: relative;
@@ -2257,16 +2256,21 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .dfp-cube {
     padding: 0; }
   .homepage_wrapper #div-gpt-sbb {
-    background-color: transparent;
+    background-color: #F0F0F0;
     margin: 0 auto;
-    margin-bottom: 20px;
-    text-align: center;
-    max-width: 980px;
-    width: 100%; }
+    max-width: 1073px;
+    width: 100%;
+    padding: 0 0 10px 10px; }
+    .homepage_wrapper #div-gpt-sbb iframe {
+      width: 970px;
+      height: 90px; }
   @media (min-width: 481px) and (max-width: 1024px) {
     .homepage_wrapper .dfp-cube {
       text-align: center;
       padding: 10px; } }
+  @media (min-width: 1026px) {
+    .homepage_wrapper .widget.widget_cst_ad_widget {
+      margin-bottom: 20px; } }
   @media (max-width: 480px) {
     .homepage_wrapper .dfp-cube {
       min-width: 300px;
@@ -2778,7 +2782,7 @@ body.post-gallery-lightbox-active {
       overflow: auto; }
       @media (min-width: 737px) {
         .homepage_wrapper .widget_cst_stng_wire_widget ul {
-          height: 400px; } }
+          height: 300px; } }
       @media (max-width: 736px) {
         .homepage_wrapper .widget_cst_stng_wire_widget ul {
           height: 300px;
