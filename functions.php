@@ -259,15 +259,6 @@ class CST {
 					),
 				),
 			) );
-			register_rest_route( 'cst/v1', '/author/(?P<id>\d+)', array(
-				'methods' => 'GET',
-				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_author_handler' ),
-				'args' => array(
-					'id' => array(
-						'validate_callback' => 'absint'
-					),
-				),
-			) );
 		} );
 
 	}

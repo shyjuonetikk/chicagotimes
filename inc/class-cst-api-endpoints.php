@@ -115,19 +115,5 @@ class CST_API_Endpoints {
 		}
 		return $content;
 	}
-
-	public function cst_author_handler( $request ){
-
-		$id = (int) $request->get_param( 'id' );
-		$user = get_userdata( $id );
-		$types = get_post_types( array( 'public' => true ), 'names' );
-		// Abort if not present / valid
-		if ( empty( $id ) || empty( $user->ID ) ) {
-			return new WP_Error( 'chicagosuntimes', __( 'Invalid resource id.' ), array( 'status' => 404 ) );
-		}
-		if ( null == $id ) {
-			return new WP_Error( 'chicagosuntimes', 'Invalid author', array( 'status' => 404 ) );
-		}
-
-	}
+	
 }
