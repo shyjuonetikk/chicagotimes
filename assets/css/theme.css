@@ -2379,7 +2379,8 @@ body.post-gallery-lightbox-active {
     position: relative;
     z-index: 2;
     overflow: hidden;
-    height: auto; }
+    height: auto;
+    background-color: #F0F0F0; }
   .homepage_wrapper h2.section-title {
     background-color: #3E3E3E;
     height: 10px;
