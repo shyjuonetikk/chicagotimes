@@ -2316,6 +2316,8 @@ body.post-gallery-lightbox-active {
           .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item {
             border-top: 2px solid;
             display: inline; } }
+  .homepage_wrapper .top-bar-section {
+    z-index: 3; }
   .homepage_wrapper .breaking-news-story {
     background: #34485E;
     width: 100%;

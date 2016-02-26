@@ -257,6 +257,10 @@
 		}
 	}
 
+	.top-bar-section {
+		z-index: 3;
+	}
+
 /* BREAKING NEWS */
 .breaking-news-story {
 	background: $red;
