@@ -2663,7 +2663,7 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .widget_cst_featured_content_widget:nth-of-type(1) {
     margin-top: 5px;
     padding: 0; }
-  .homepage_wrapper #ndn-widget-embed {
+  .homepage_wrapper .ndn_embed {
     list-style-type: none;
     height: 200px;
     position: relative;
