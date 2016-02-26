@@ -774,19 +774,15 @@
 	padding: 0;
 }
 
-.widget_cst_ndn_video {
+#ndn-widget-embed {
 	list-style-type: none;
 	height: 200px;
 	position: relative;
 	z-index: 1;
 	min-width: 300px;
 	width: 100%;
-
-	.ndn_embed {
-		width: 300px;
-		min-height: 168px;
-		height: 100%;
-	}
+	min-height: 168px;
+	height: 100%;
 }
 
 .widget_cst_todays_paper_widget {
