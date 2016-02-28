@@ -41,12 +41,10 @@
 	<?php
 	if ( is_front_page() || is_page() ) {
 		get_template_part( 'parts/dfp/homepage/dfp-homepage' );
+	} elseif( is_search() ) {
+		get_template_part( 'parts/dfp/dfp-search' );
 	} else {
-		if( is_search() ) {
-			get_template_part( 'parts/dfp/dfp-search' );
-		} else {
-			get_template_part( 'parts/dfp/dfp-check-section' );
-		}
+		get_template_part( 'parts/dfp/dfp-check-section' );
 	}
 
 	if ( is_singular() ) {
@@ -56,8 +54,6 @@
 			if( $primary_section->slug == 'sponsored' ) {
 				get_template_part( 'parts/vendors/nativo-header' );
 				get_template_part( 'parts/vendors/nativo-content-header' );
-			} else {
-				get_template_part( 'parts/dfp/dfp-check-section' );
 			}
 			get_template_part( 'parts/vendors/adsupply-popunder-header' );
 			get_template_part( 'parts/taboola/taboola-header' );
