@@ -138,7 +138,7 @@ if ( is_singular() ) {
 			$section_slug = 'news';
 		}
 	} ?>
-	<?php if ( $section_slug ) : ?>
+	<?php if ( isset( $section_slug ) ) : ?>
 		<?php if ( 'sports' == $section_slug ) : ?>
 			<section id="comscore" class="row grey-background">
 				<div class="large-8 columns">

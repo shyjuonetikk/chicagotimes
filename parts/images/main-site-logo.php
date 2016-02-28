@@ -24,15 +24,16 @@
 	<?php 
 
 	$section = null;
+	if( is_singular() ) {
+		$post = \CST\Objects\Post::get_by_post_id( $obj->ID );
 
-	$post = \CST\Objects\Post::get_by_post_id( $obj->ID );
+		if ( $post ) {
+			$parent_section = $post->get_primary_parent_section();
 
-	if ( $post ) {
-		$parent_section = $post->get_primary_parent_section();
-
-		if ( $parent_section ) {
-			$section = $parent_section->slug;
-		} 
+			if ( $parent_section ) {
+				$section = $parent_section->slug;
+			} 
+		}
 	} ?>
 <?php endif; ?>
 
