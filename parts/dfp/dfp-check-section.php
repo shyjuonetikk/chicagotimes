@@ -20,6 +20,17 @@ global $dfp_child;
 			get_template_part( 'parts/dfp/dfp-header' );
 		endif; 
 	else :
+		$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+
+		if ( $obj ) {
+			$parent_section = $obj->get_primary_parent_section();
+
+			if ( $parent_section ) {
+				$dfp_slug = $parent_section->slug;
+			} 
+		} else {
+			$dfp_slug = 'news';
+		}
 		get_template_part( 'parts/dfp/dfp-header' ); 
 	endif;
 ?>
