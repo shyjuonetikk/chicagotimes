@@ -116,7 +116,12 @@ if ( is_singular() ) {
 <?php 
 	if ( ! is_404() ) :
 		get_template_part( 'parts/dfp/dfp-sbb' );
-	endif; 
+	endif;
+
+	if ( is_singular() ) :
+		get_template_part( 'parts/dfp/dfp-atf-leaderboard' );
+		get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
+	endif;
 ?>
 
 <?php if ( ! is_single() ) : ?>
