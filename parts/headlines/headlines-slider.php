@@ -2,7 +2,7 @@
 <?php
 	$primary_section = get_queried_object();
 	$primary_slug = 'news';
-		if( $primary_section->taxonomy == 'cst_section') {
+		if( isset( $primary_section ) && $primary_section->taxonomy == 'cst_section') {
 			if( $primary_section->parent != 0 ) {
 				if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 					$parent_terms = get_term( $primary_section->parent, 'cst_section' );
