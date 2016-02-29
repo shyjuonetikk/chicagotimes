@@ -1,6 +1,8 @@
+var CSTAds;
+
 (function( $ ){
 
-	var CSTAds = {
+	CSTAds = {
 
 		scrollUnits: [
 			'div-gpt-rr-cube-2',
@@ -19,8 +21,8 @@
 		init: function() {
 
 			if ( $('body.single').length ) {
-				this.startPost = 6;
-				this.betweenPosts = 3;
+				this.startPost = 2;
+				this.betweenPosts = 2;
 			} else {
 				this.startPost = 14;
 				this.betweenPosts = 6;
@@ -69,29 +71,15 @@
 		displayNextScrollAd: function() {
 
 			var nextScrollUnit = this.getNextScrollUnit();
-			
+
 			// Create the next unit if it isn't created,
 			var el = $( '#' + nextScrollUnit );
 			var placeholder = $('<div />').addClass('dfp dfp-cube dfp-wire-cube-placeholder' );
 			// we need a placeholder to prevent a lurch
 			el.before( placeholder );
 
-			if ( this.nextScrollUnit === 'div-gpt-rr-cube-2' ) {
-				var el2 = $( '#div-gpt-rr-cube-3' );
-				// we need a placeholder to prevent a lurch
-				nextScrollUnit2 = 'div-gpt-rr-cube-3';
-			} else {
-				var el2 = $( '#div-gpt-rr-cube-5' );
-				// we need a placeholder to prevent a lurch
-				nextScrollUnit2 = 'div-gpt-rr-cube-5';
-			}
-			el2.before( placeholder );
-
 			$('#main .ad-container').eq( this.startPost ).append( el );
-			$('#main .ad-container').eq( this.startPost ).append( el2 );
 			this.triggerUnitRefresh( nextScrollUnit );
-			this.triggerUnitRefresh( nextScrollUnit2 );
-			this.triggerUnitRefresh( 'div-gpt-rr-cube-1' );
 
 			this.startPost = this.startPost + this.betweenPosts;
 
@@ -156,7 +144,7 @@
 					var unitInstance = CSTAdTags[unit];
 					googletag.pubads().refresh([unitInstance]);
 				});
-			}
+            } 
 
 		}
 
