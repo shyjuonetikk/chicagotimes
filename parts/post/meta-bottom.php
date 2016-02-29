@@ -27,7 +27,7 @@ if ( ! $obj ) {
 		<div class="post-meta-taxonomy-terms">
 		<?php if ( $topic ) :
 			$topic = array_shift( $topic );
-			$topic_link = wpcom_vip_get_term_link( $topic->name, 'cst_topic' );
+			$topic_link = wpcom_vip_get_term_link( $topic->slug, 'cst_topic' );
 			?>
 			<span class="fa post-taxonomy">#</span> <a href="<?php echo esc_url( $topic_link ); ?>"><?php echo esc_html( $topic->name ); ?></a>
 		<?php endif; ?>
