@@ -19,7 +19,7 @@ class CST_API_Endpoints {
 	 * Are we being asked for a term we actually have?
 	 */
 	public function cst_section_validate( $param, $request ) {
-		$term = term_exists( $param, 'cst_section' );
+		$term = wpcom_vip_term_exists( $param, 'cst_section' );
 		return sanitize_title( $term );
 	}
 
