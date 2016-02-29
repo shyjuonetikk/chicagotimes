@@ -191,6 +191,22 @@
         .addService(googletag.pubads())
         .setTargeting("pos","rr cube 6");
 
+        CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [300, 250], 'div-gpt-gallery-1')
+        .addService(googletag.pubads())
+        .setTargeting("pos","gallery 1");
+
+        CSTAdTags['div-gpt-gallery-2'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [300, 250], 'div-gpt-gallery-2')
+        .addService(googletag.pubads())
+        .setTargeting("pos","gallery 2");
+        
+        CSTAdTags['div-gpt-gallery-3'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [300, 250], 'div-gpt-gallery-3')
+        .addService(googletag.pubads())
+        .setTargeting("pos","gallery 3");
+
+        CSTAdTags['div-gpt-gallery-4'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [300, 250], 'div-gpt-gallery-4')
+        .addService(googletag.pubads())
+        .setTargeting("pos","gallery 4");
+
         // Enable services
         googletag.enableServices();
 
