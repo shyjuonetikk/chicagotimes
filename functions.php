@@ -81,6 +81,9 @@ class CST {
 		add_image_size( 'homepage-columns', 228, 134, true );
 		add_image_size( 'newspaper', 297, 287, true );
 
+		$editor_role = get_role( 'editor' );
+		$editor_role->add_cap( 'edit_theme_options' );
+
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
