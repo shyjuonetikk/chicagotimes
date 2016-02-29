@@ -81,8 +81,7 @@ class CST {
 		add_image_size( 'homepage-columns', 228, 134, true );
 		add_image_size( 'newspaper', 297, 287, true );
 
-		$editor_role = get_role( 'editor' );
-		$editor_role->add_cap( 'edit_theme_options' );
+		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
 
 		$this->setup_actions();
 		$this->setup_filters();
