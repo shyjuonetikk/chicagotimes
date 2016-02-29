@@ -162,7 +162,7 @@ class CST_API_Endpoints {
 
 		$media = new \WP_Query( array(
 				'post_type' => 'attachment',
-				'post_parent' => $content->ID,
+				'post_parent' => (int)$content->ID,
 				'no_found_rows'	=> true,
 				'post_status' => 'inherit',
 				'fields' => array( 'ID' )
