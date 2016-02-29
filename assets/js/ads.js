@@ -22,7 +22,7 @@ var CSTAds;
 
 			if ( $('body.single').length ) {
 				this.startPost = 2;
-				this.betweenPosts = 2;
+				this.betweenPosts = 1;
 			} else {
 				this.startPost = 14;
 				this.betweenPosts = 6;
