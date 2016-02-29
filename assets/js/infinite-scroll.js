@@ -211,10 +211,10 @@
 				window._taboola = window._taboola || [];
 				_taboola.push({mode:'thumbnails-c', container: taboola_container_id, placement: 'Below Article Thumbnails', target_type: 'mix'});
 				_taboola.push({article:'auto', url:uri});
-
 				document.title = wp_title;
 
 				CSTAnalytics.triggerPageview();
+				CSTAds.triggerUnitRefresh( 'div-gpt-rr-cube-1' );
 			} else {
 				CSTInfiniteScroll.originalDetermineURL();
 
