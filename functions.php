@@ -702,42 +702,42 @@ class CST {
 			),
 		) );
 
-//		$this->post_types[] = 'cst_liveblog';
-//		register_post_type( 'cst_liveblog', array(
-//			'hierarchical'      => false,
-//			'public'            => true,
-//			'show_in_nav_menus' => true,
-//			'menu_position'     => 11,
-//			'menu_icon'         => 'dashicons-format-status',
-//			'show_ui'           => true,
-//			'supports'          => array(
-//				'title',
-//				'editor',
-//				'author',
-//				'bitly',
-//			),
-//			'has_archive'       => 'liveblogs',
-//			'rewrite'           => array(
-//				'slug'          => 'cst_liveblog',
-//				),
-//
-//			'query_var'         => true,
-//			'labels'            => array(
-//				'name'                => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
-//				'singular_name'       => esc_html__( 'Liveblog', 'chicagosuntimes' ),
-//				'all_items'           => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
-//				'new_item'            => esc_html__( 'New Liveblog', 'chicagosuntimes' ),
-//				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-//				'add_new_item'        => esc_html__( 'Add New Liveblog', 'chicagosuntimes' ),
-//				'edit_item'           => esc_html__( 'Edit Liveblog', 'chicagosuntimes' ),
-//				'view_item'           => esc_html__( 'View Liveblog', 'chicagosuntimes' ),
-//				'search_items'        => esc_html__( 'Search Liveblogs', 'chicagosuntimes' ),
-//				'not_found'           => esc_html__( 'No Liveblogs found', 'chicagosuntimes' ),
-//				'not_found_in_trash'  => esc_html__( 'No Liveblogs found in trash', 'chicagosuntimes' ),
-//				'parent_item_colon'   => esc_html__( 'Parent Liveblog', 'chicagosuntimes' ),
-//				'menu_name'           => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
-//			),
-//		) );
+		$this->post_types[] = 'cst_liveblog';
+		register_post_type( 'cst_liveblog', array(
+			'hierarchical'      => false,
+			'public'            => true,
+			'show_in_nav_menus' => true,
+			'menu_position'     => 11,
+			'menu_icon'         => 'dashicons-format-status',
+			'show_ui'           => true,
+			'supports'          => array(
+				'title',
+				'editor',
+				'author',
+				'bitly',
+			),
+			'has_archive'       => 'liveblogs',
+			'rewrite'           => array(
+				'slug'          => 'cst_liveblog',
+				),
+
+			'query_var'         => true,
+			'labels'            => array(
+				'name'                => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
+				'singular_name'       => esc_html__( 'Liveblog', 'chicagosuntimes' ),
+				'all_items'           => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
+				'new_item'            => esc_html__( 'New Liveblog', 'chicagosuntimes' ),
+				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
+				'add_new_item'        => esc_html__( 'Add New Liveblog', 'chicagosuntimes' ),
+				'edit_item'           => esc_html__( 'Edit Liveblog', 'chicagosuntimes' ),
+				'view_item'           => esc_html__( 'View Liveblog', 'chicagosuntimes' ),
+				'search_items'        => esc_html__( 'Search Liveblogs', 'chicagosuntimes' ),
+				'not_found'           => esc_html__( 'No Liveblogs found', 'chicagosuntimes' ),
+				'not_found_in_trash'  => esc_html__( 'No Liveblogs found in trash', 'chicagosuntimes' ),
+				'parent_item_colon'   => esc_html__( 'Parent Liveblog', 'chicagosuntimes' ),
+				'menu_name'           => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
+			),
+		) );
 
 		$this->post_types[] = 'cst_video';
 		register_post_type( 'cst_video', array(
