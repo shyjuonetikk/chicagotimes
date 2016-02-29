@@ -145,16 +145,16 @@ class CST_Admin {
 		// Hide posts menu because we don't use posts
 		unset( $menu[ 5 ] );
 
-		// Orient video, media, liveblog and zones
-		$liveblog = array(
-			esc_html__( 'Liveblogs', 'chicagosuntimes' ),
-			'edit_posts',
-			'edit.php?post_type=cst_liveblog',
-			'',
-			'menu-top menu-icon-cst_liveblog',
-			'menu-posts-cst_liveblog',
-			'dashicons-format-status',
-		);
+//		// Orient video, media, liveblog and zones
+//		$liveblog = array(
+//			esc_html__( 'Liveblogs', 'chicagosuntimes' ),
+//			'edit_posts',
+//			'edit.php?post_type=cst_liveblog',
+//			'',
+//			'menu-top menu-icon-cst_liveblog',
+//			'menu-posts-cst_liveblog',
+//			'dashicons-format-status',
+//		);
 		$media = $menu[ 10 ];
 		$zones = $menu[ 11 ];
 		$video = $menu[ 12 ];
@@ -162,11 +162,6 @@ class CST_Admin {
 		if ( isset( $menu[ 25 ] ) ) {
 			$menu[ 25 ][ 2 ] = 'https://cstbreakingnews.disqus.com/admin/moderate/';
 		}
-
-		$menu[ 10 ] = $liveblog;
-		$menu[ 11 ] = $video;
-		$menu[ 12 ] = $media;
-		$menu[ 13 ] = $zones;
 
 		// Modify standard taxonomy links
 		$taxonomies = array( 'cst_section', 'cst_person', 'cst_location', 'cst_topic' );
