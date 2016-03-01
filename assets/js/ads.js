@@ -74,9 +74,6 @@ var CSTAds;
 
 			// Create the next unit if it isn't created,
 			var el = $( '#' + nextScrollUnit );
-			var placeholder = $('<div />').addClass('dfp dfp-cube dfp-wire-cube-placeholder' );
-			var placeholder2 = $('<div />').addClass('dfp dfp-cube dfp-wire-cube-placeholder' );
-			// we need a placeholder to prevent a lurch
 			
 			if( nextScrollUnit == 'div-gpt-rr-cube-2' ) {
 				var el2 = $('#div-gpt-rr-cube-3');
@@ -85,16 +82,14 @@ var CSTAds;
 				var el2 = $('#div-gpt-rr-cube-5');
 				var nextScrollUnit2 = 'div-gpt-rr-cube-5';
 			}
-			//el2.before( placeholder2 );
-			//el.before( placeholder );
+			
 			$('#main .ad-container').eq( this.startPost ).append( el );
 			$('#main .ad-container').eq( this.startPost ).append( el2 );
 			this.triggerUnitRefresh( nextScrollUnit );
 			this.triggerUnitRefresh( nextScrollUnit2 );
 
 			this.startPost = this.startPost + this.betweenPosts;
-			console.log(nextScrollUnit);
-			console.log(nextScrollUnit2);
+		
 		},
 
 		/**
