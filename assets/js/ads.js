@@ -75,14 +75,26 @@ var CSTAds;
 			// Create the next unit if it isn't created,
 			var el = $( '#' + nextScrollUnit );
 			var placeholder = $('<div />').addClass('dfp dfp-cube dfp-wire-cube-placeholder' );
+			var placeholder2 = $('<div />').addClass('dfp dfp-cube dfp-wire-cube-placeholder' );
 			// we need a placeholder to prevent a lurch
-			el.before( placeholder );
-
+			
+			if( nextScrollUnit == 'div-gpt-rr-cube-2' ) {
+				var el2 = $('#div-gpt-rr-cube-3');
+				var nextScrollUnit2 = 'div-gpt-rr-cube-3';
+			} else {
+				var el2 = $('#div-gpt-rr-cube-5');
+				var nextScrollUnit2 = 'div-gpt-rr-cube-5';
+			}
+			//el2.before( placeholder2 );
+			//el.before( placeholder );
 			$('#main .ad-container').eq( this.startPost ).append( el );
+			$('#main .ad-container').eq( this.startPost ).append( el2 );
 			this.triggerUnitRefresh( nextScrollUnit );
+			this.triggerUnitRefresh( nextScrollUnit2 );
 
 			this.startPost = this.startPost + this.betweenPosts;
-
+			console.log(nextScrollUnit);
+			console.log(nextScrollUnit2);
 		},
 
 		/**
@@ -93,10 +105,19 @@ var CSTAds;
 			var placeholder = $('#main .ad-container').last();
 			var prevScrollUnit = this.getPreviousScrollUnit();
 			var el = $('#'+prevScrollUnit);
+			if( prevScrollUnit == 'div-gpt-rr-cube-2' ) {
+				var el2 = $('#div-gpt-rr-cube-3');
+				var prevScrollUnit2 = 'div-gpt-rr-cube-3';
+			} else {
+				var el2 = $('#div-gpt-rr-cube-5');
+				var prevScrollUnit2 = 'div-gpt-rr-cube-5';
+			}
 			placeholder.after( el );
+			placeholder.after( el2 );
 			placeholder.remove();
 
 			this.triggerUnitRefresh( prevScrollUnit );
+			this.triggerUnitRefresh( prevScrollUnit2 );
 			this.startPost = this.startPost - this.betweenPosts;
 
 		},
@@ -109,7 +130,7 @@ var CSTAds;
 		getNextScrollUnit: function() {
 
 			if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
-				this.currentScrollUnit = 'div-gpt-rr-cube-3';
+				this.currentScrollUnit = 'div-gpt-rr-cube-4';
 			} else {
 				this.currentScrollUnit = 'div-gpt-rr-cube-2';
 			}
@@ -125,7 +146,7 @@ var CSTAds;
 		getPreviousScrollUnit: function() {
 
 			if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
-				this.currentScrollUnit = 'div-gpt-rr-cube-3';
+				this.currentScrollUnit = 'div-gpt-rr-cube-4';
 			} else {
 				this.currentScrollUnit = 'div-gpt-rr-cube-2';
 			}
