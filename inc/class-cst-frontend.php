@@ -796,15 +796,21 @@ class CST_Frontend {
 
 	public function cst_homepage_fetch_feed($feed_url, $max_display) {
 
-		$headlines = fetch_feed( $feed_url );
-        if ( ! is_wp_error( $headlines ) ) : 
-            $maxitems = $headlines->get_item_quantity( $max_display ); 
-            $items = $headlines->get_items( 0, $maxitems );
-            return $items;
-        else :
-        	return;
-        endif;
-
+		$cache_key = md5( $feed_url . (int) $max_display );
+		$cached_feed = wp_cache_get( $cache_key ); //VIP: for some reason fetch_feed is not caching this properly.
+		if ( $cached_feed === false ) {
+			$headlines = fetch_feed( $feed_url );
+			if ( ! is_wp_error( $headlines ) ) :
+				$maxitems = $headlines->get_item_quantity( $max_display );
+				$items    = $headlines->get_items( 0, $maxitems );
+				wp_cache_set( $cache_key, $items, 'default', 15 * MINUTE_IN_SECONDS );
+				return $items;
+			else :
+				return; //todo: VIP note: cache when the feed is not found.
+			endif;
+		}else{
+			return $cached_feed;
+		}
 	}
 
 	/**
@@ -853,35 +859,43 @@ class CST_Frontend {
 	 */
 	public function cst_homepage_content_block( $content_query ) {
 
-		$items = new \WP_Query( $content_query );
-		if ( $items->have_posts() ) {
-			$count = $content_query['posts_per_page'];
-			while( $items->have_posts() ) {
-				$items->the_post();
-				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-				if ( $count == $content_query['posts_per_page'] ) {
-					if ( 'image' == $obj->get_featured_media_type() ) {
-						$featured_image_id = $obj->get_featured_image_id();
-						if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
-							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
-							<?php echo $attachment->get_html( 'homepage-columns' ); ?>
-							</a>
-							<?php
+		$cache_key = md5( serialize($content_query) );
+		$cached_content = wp_cache_get( $cache_key );
+		if ($cached_content === false ){
+			$items = new \WP_Query( $content_query );
+			ob_start();
+			if ( $items->have_posts() ) {
+				$count = $content_query['posts_per_page'];
+				while( $items->have_posts() ) {
+					$items->the_post();
+					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+					if ( $count == $content_query['posts_per_page'] ) {
+						if ( 'image' == $obj->get_featured_media_type() ) {
+							$featured_image_id = $obj->get_featured_image_id();
+							if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
+								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+								<?php echo $attachment->get_html( 'homepage-columns' ); ?>
+								</a>
+								<?php
+							}
 						}
-					}
+						?>
+					<ul>
+					<?php }
+					$count--;
 					?>
-				<ul>
-				<?php }
-				$count--;
-				?>
-				<li>
-					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
-						<?php echo esc_html( $obj->get_title() ); ?>
-					</a>
-				</li>
-			<?php } ?>
-			</ul>
-			<?php
+					<li>
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+							<?php echo esc_html( $obj->get_title() ); ?>
+						</a>
+					</li>
+				<?php } ?>
+				</ul>
+				<?php
+			}
+			$cached_content = ob_get_clean();
+			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
+		echo $cached_content;
 	}
 }

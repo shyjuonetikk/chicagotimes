@@ -39,9 +39,12 @@ if ( ! $obj ) {
 		<?php endif; ?>
 		<?php if ( $location ) :
 			$location = array_shift( $location );
-			$location_link = wpcom_vip_get_term_link( $location->name, 'cst_location' );
+			$location_link = wpcom_vip_get_term_link( $location->name, 'cst_location' );         if ( ! is_wp_error( $location_link) ){
+				?>
+				<i class="fa fa-location-arrow post-taxonomy"></i> <a href="<?php echo esc_url( $location_link ); ?>"><?php echo esc_html( $location->name ); ?></a>
+				<?php
+			}
 			?>
-			<i class="fa fa-location-arrow post-taxonomy"></i> <a href="<?php echo esc_url( $location_link ); ?>"><?php echo esc_html( $location->name ); ?></a>
 		<?php endif; ?>
 		</div>
 	<?php endif; ?>
