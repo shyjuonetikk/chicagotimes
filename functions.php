@@ -351,7 +351,14 @@ class CST {
 			}
 			return $classes;
 		});
-
+		
+		/**
+		 * Filter to whitelist chicago.suntimes.com as suggested in VIP ticket
+		 * https://wordpressvip.zendesk.com/hc/en-us/requests/50256
+		 *
+		 * Precautionary measure.
+		 */
+		add_filter( 'allowed_redirect_hosts' , array( $this, 'vip_quickstart_add_test_hosts' ) );
 	}
 
 	/**
@@ -926,6 +933,17 @@ class CST {
 			),
 		) );
 
+	}
+
+	/**
+	 * Filter to whitelist chicago.suntimes.com as suggested in VIP ticket
+	 * https://wordpressvip.zendesk.com/hc/en-us/requests/50256
+	 *
+	 * Precautionary measure.
+	 */
+	function vip_quickstart_add_test_hosts( $content ) {
+		$content[] = 'chicago.suntimes.com';
+		return $content;
 	}
 
 	/**
