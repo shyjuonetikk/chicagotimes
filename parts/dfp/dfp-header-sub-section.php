@@ -11,6 +11,9 @@
         case 'the-watchdogs':
             $dfp_child = 'thewatchdogs';
             break;
+        case 'health-care':
+            $dfp_child = 'healthcare';
+            break;
         // Opinion Sub-Sections
         case 'letters':
             $dfp_child = 'letterstotheeditor';
