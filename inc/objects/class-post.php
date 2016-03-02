@@ -453,6 +453,22 @@ abstract class Post {
 
 	}
 
+	public function get_grandchild_parent_section() {
+		$sections = $this->get_taxonomy_terms( 'cst_section' );
+		if( ! $sections ) :
+			return;
+		endif;
+
+		$primary_child = array_shift( $sections );
+		$parent_details = get_term( $primary_child->parent, 'cst_section' );
+		if( $parent_details->parent != 0 ) {
+			$parent_details = get_term( $parent_details->parent, 'cst_section' );
+		}
+		
+		return $parent_details;
+
+	}
+
 	/**
 	 * Get the child sections of the post
 	 *
