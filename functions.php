@@ -1324,3 +1324,10 @@ if ( ! function_exists( 'GC_menu_set_dropdown' ) ) :
 
 endif;
 add_filter( 'wp_nav_menu_objects', 'GC_menu_set_dropdown', 10, 2 );
+
+function GC_force_published_status_front_end( $query ){
+	if ( ( is_category() || is_home() ) && $query->is_main_query() ){
+		$query->post_status = 'publish'; //force to only show posts that are published so it can levrage the indexes more efficiently.
+	}
+}
+add_action( 'pre_get_posts', 'GC_force_published_status_front_end' );
