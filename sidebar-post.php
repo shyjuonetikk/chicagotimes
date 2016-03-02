@@ -7,12 +7,16 @@ $included_section_ids = array();
 if( $current_obj ) {
 	$section = $current_obj->get_primary_parent_section();
 
-	if ( $section ) {
-		$included_section_ids = array( $section->term_id );
-		if ( 0 != $section->parent )  {
-			array_push( $included_section_ids, $section->parent );
-		}
+	if( ! $section ) {
+		$section = $current_obj->get_grandchild_parent_section();
 	}
+
+		if ( $section ) {
+			$included_section_ids = array( $section->term_id );
+			if ( 0 != $section->parent )  {
+				array_push( $included_section_ids, $section->parent );
+			}
+		}
 }
 
 ?>
