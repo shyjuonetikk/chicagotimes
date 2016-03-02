@@ -2326,6 +2326,8 @@ body.post-gallery-lightbox-active {
             width: 300px;
             display: block;
             margin: 0 auto; }
+        .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .dropdown li a {
+          line-height: 30px !important; }
         .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage {
           display: inline-table; }
           .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item {
