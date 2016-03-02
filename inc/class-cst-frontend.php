@@ -238,7 +238,11 @@ class CST_Frontend {
 
 			if ( $current_obj ) {
 				$current_section = $current_obj->get_primary_parent_section();
-				if ( $current_section ) {
+				if ( ! $current_section ) {
+					$current_section = $current_obj->get_grandchild_parent_section();
+				}
+
+				if( $current_section ) {
 					switch ( $current_section->slug ) {
 						case 'sports':
 							wp_enqueue_style( 'chicagosuntimes-sports', get_template_directory_uri() . '/assets/css/sports-theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -268,6 +272,7 @@ class CST_Frontend {
 					}
 				} else {
 					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
+					echo '<h2>OOOOO</h2>';
 				}
 			}
 
