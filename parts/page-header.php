@@ -1,6 +1,12 @@
 <?php $current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 	if ( $current_obj ) {
 		$conditional_nav = $current_obj->get_primary_parent_section();
+		if( ! $conditional_nav ) {
+			$conditional_nav = $current_obj->get_child_parent_section();
+			if( ! in_array( $conditional_nav, CST_Frontend::$post_sections ) ) {
+				$conditional_nav = $current_obj->get_grandchild_parent_section();
+			}
+		}
 	} else {
 		$conditional_nav = 'menu';
 	}
