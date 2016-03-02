@@ -272,7 +272,6 @@ class CST_Frontend {
 					}
 				} else {
 					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
-					echo '<h2>OOOOO</h2>';
 				}
 			}
 
