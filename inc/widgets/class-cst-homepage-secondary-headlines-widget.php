@@ -124,7 +124,7 @@ class CST_Homepage_Secondary_Headlines_Widget extends WP_Widget {
 
         $widget_posts_query = array(
             'post__in' => $widget_posts,
-            'post_type' => 'any',
+            'post_type'     => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery' ),
             'orderby'   => 'post__in',
         );
         $display_these_posts = new \WP_Query( $widget_posts_query );
