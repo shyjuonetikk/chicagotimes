@@ -268,6 +268,9 @@ class CST {
 			) );
 		} );
 
+		remove_all_actions( 'do_feed_rss2' );
+		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
+
 	}
 
 	/**
@@ -1278,6 +1281,14 @@ class CST {
 		endif;
 
 		return $section;
+	}
+
+	public function cst_custom_feed_rss2( $for_comments ) {
+	    $rss_template = get_template_directory() . '/feeds/feed-rss2.php';
+	    if( file_exists( $rss_template ) )
+	        load_template( $rss_template );
+	    else
+	        do_feed_rss2( $for_comments ); // Call default function
 	}
 
 }
