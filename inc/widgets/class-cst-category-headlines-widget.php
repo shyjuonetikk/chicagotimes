@@ -130,7 +130,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
                         <div class="slide-inner">
                             <?php if ( $obj->get_featured_image_url() ) : ?>
                                 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
-                                    <div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url() ); ?>')">
+                                    <div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url( 'chiwire-header-medium' ) ); ?>')">
                                         <div class="gradient-overlay"></div>
                                     </div>
                                 </a>
