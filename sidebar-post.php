@@ -29,6 +29,7 @@ if( $current_obj ) {
 				'taxonomy'  => 'cst_section',
 				'field'     => 'id',
 				'terms'     => $included_section_ids,
+				'include_children' => false,
 			)
 		)
 		);
