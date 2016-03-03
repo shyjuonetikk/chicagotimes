@@ -27,7 +27,6 @@ do_action( 'rss_tag_pre', 'rss2' );
     xmlns:atom="http://www.w3.org/2005/Atom"
     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
     xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
-    xmlns:media= "http://search.yahoo.com/mrss/"
     <?php
     /**
      * Fires at the end of the RSS root to add namespaces.
@@ -118,6 +117,28 @@ do_action( 'rss_tag_pre', 'rss2' );
         <content:encoded><![CDATA[<?php the_excerpt_rss(); ?>]]></content:encoded>
     <?php endif; ?>
 <?php endif; ?>
+<?php $sections     = $obj->get_sections(); ?>
+<?php $people       = $obj->get_people(); ?>
+<?php $locations    = $obj->get_locations(); ?>
+<?php foreach( $sections as $section ) { ?>
+        <category domain="cst_section" nicename="<?php echo $section->slug; ?>"><![CDATA[<?php echo $section->slug; ?>]]></category>
+<?php } ?>
+<?php 
+    if( $people ) {
+        foreach( $people as $person ) { ?>
+        <category domain="cst_person" nicename="<?php echo $person->slug; ?>"><![CDATA[<?php echo $person->slug; ?>]]></category>
+<?php 
+        }
+    } 
+?>
+<?php 
+    if( $locations ) {
+        foreach( $locations as $location ) { ?>
+        <category domain="cst_location" nicename="<?php echo $location->slug; ?>"><![CDATA[<?php echo $location->slug; ?>]]></category>
+<?php 
+        }
+    } 
+?>
         <wfw:commentRss><?php echo esc_url( get_post_comments_feed_link(null, 'rss2') ); ?></wfw:commentRss>
         <slash:comments><?php echo get_comments_number(); ?></slash:comments>
 <?php rss_enclosure(); ?>
