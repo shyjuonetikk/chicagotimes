@@ -98,6 +98,7 @@ class CST_Infinite_Scroll {
 							'taxonomy'  => 'cst_section',
 							'field'     => 'slug',
 							'terms'     => $query_args['cst_section'],
+							'include_children' => false,
 							)
 						)
 					);
