@@ -2424,6 +2424,12 @@ body.post-gallery-lightbox-active {
       border-bottom: none;
       padding: 0 10px;
       font-style: italic; }
+  .homepage_wrapper .mobile-top-news {
+    font-size: 30px;
+    text-align: left;
+    margin-left: 25px;
+    display: block;
+    font-weight: 700; }
   .homepage_wrapper section#main-well .main-article-container {
     position: relative;
     height: auto; }
