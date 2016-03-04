@@ -16,7 +16,7 @@ class CST_Social_Follow_Us_Widget extends WP_Widget {
 
     public function widget( $args, $instance ) {
     ?>
-    <div class="large-12 medium-6 small-6 social-follow-us">
+    <div class="large-12 medium-6 small-12 columns social-follow-us">
     <?php
         get_template_part( 'parts/homepage/social-follow-us' );
     ?>
