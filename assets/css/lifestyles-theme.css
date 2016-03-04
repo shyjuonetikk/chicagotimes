@@ -2874,7 +2874,9 @@ body.post-gallery-lightbox-active {
     list-style-type: none; }
   .homepage_wrapper footer .row {
     max-width: 82.5rem !important;
-    width: 100%; }
+    width: 100%;
+    position: relative;
+    z-index: 3; }
   .homepage_wrapper footer .columns {
     padding: 0; }
   .homepage_wrapper footer h5 {

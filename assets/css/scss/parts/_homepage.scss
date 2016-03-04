@@ -1058,6 +1058,8 @@ li.widget_cst_ad_widget {
 		.row {
 			max-width: 82.5rem !important;
 			width: 100%;
+			position: relative;
+			z-index: 3;
 		}
 
 		.columns {
