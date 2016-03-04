@@ -40,8 +40,12 @@ abstract class Post {
 		if ( '\CST\Objects\Post' == $class ) {
 			return false;
 		}
+		if ( class_exists( $class ) ){
+			return new $class( $post_id );
+		}else{
+			return false;
+		}
 
-		return new $class( $post_id );
 	}
 
 	/**
@@ -233,9 +237,13 @@ abstract class Post {
 	public function get_authors() {
 
 		$authors = get_coauthors( $this->get_id() );
-		foreach( $authors as &$author ) {
+		foreach( $authors as $key => &$author ) {
 			if ( $author->type == 'guest-author' ) {
-				$author = new Guest_Author( $author );
+				if ( class_exists( 'Guest_Author' ) ){
+					$author = new Guest_Author( $author );
+				}else{
+					unset( $authors[$key] ); //VIP dirty hack to remove guest authors if class not found
+				}
 			} else {
 				$author = new User( $author );
 			}
