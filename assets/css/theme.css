@@ -2568,6 +2568,9 @@ body.post-gallery-lightbox-active {
             display: block; }
   .homepage_wrapper section#secondary-wells .dfp-cube {
     text-align: center; }
+    @media (max-width: 1024px) and (min-width: 481px) {
+      .homepage_wrapper section#secondary-wells .dfp-cube {
+        padding: 0; } }
   .homepage_wrapper section#secondary-wells .article-container {
     margin-bottom: 20px;
     height: 225px;
@@ -2712,6 +2715,8 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .widget_cst_featured_content_widget:nth-of-type(1) {
     margin-top: 5px;
     padding: 0; }
+  .homepage_wrapper .ndn_embed.columns {
+    padding: 0; }
   .homepage_wrapper .ndn_embed {
     list-style-type: none;
     height: 200px;
@@ -2841,7 +2846,8 @@ body.post-gallery-lightbox-active {
     position: relative;
     border-top: 3px solid #CCCCCC;
     border-bottom: 3px solid #CCCCCC;
-    text-align: center; }
+    text-align: center;
+    margin-bottom: 10px; }
     .homepage_wrapper .social-follow-us p {
       font-size: 1.5rem;
       font-weight: 700;

@@ -597,6 +597,10 @@
 
 		.dfp-cube {
 			text-align: center;
+
+			@media (max-width: 1024px) and (min-width: 481px) {
+				padding: 0;
+			}
 		}
 
 		.article-container {
@@ -822,6 +826,10 @@
 	padding: 0;
 }
 
+.ndn_embed.columns {
+	padding:0;
+}
+
 .ndn_embed {
 	list-style-type: none;
 	height: 200px;
@@ -1003,7 +1011,8 @@
 	border-top: 3px solid $grey;
 	border-bottom: 3px solid $grey;
 	text-align: center;
-	
+	margin-bottom: 10px;
+
 	p {
 		font-size: 1.5rem;
 		font-weight: 700;
