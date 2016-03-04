@@ -170,9 +170,25 @@ header#header {
 			a#burger-bar {
 				position:absolute;
 			}
+
+			#mobile-home {
+				display: none;
+				position: absolute;
+				right: 15px;
+				top: 10px;
+
+				a {
+					color: $white;
+					font-size: 1.55rem;
+				}
+			}
 		}
 		
 		@media #{$xmedium-up} {
+
+			#mobile-home {
+				display: none;
+			}
 
 			#trending-container {
 				font-weight: 700;
