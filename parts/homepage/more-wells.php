@@ -7,27 +7,33 @@
             <div class="row">
                 <?php 
                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_posts[0]->ID );
-                    $primary_section = $obj->get_primary_parent_section();
-                ?>
-                <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
-                    <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
-                        <?php
-                            if ( 'image' == $obj->get_featured_media_type() ) {
-                                $featured_image_id = $obj->get_featured_image_id();
-                                if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
-                                    echo $attachment->get_html( 'homepage-columns' );
-                                }
-                            }
+                    if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+                        $primary_section = $obj->get_primary_parent_section();
                         ?>
-                    </a>
-                </div>
-                <div class="large-8 medium-8 small-12 columns">
-                    <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
-                        <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
-                    </a>
-                    <?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
-                    <span class="author">By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_more_well_posts[0]->post_author ) ); ?></span>
-                </div>
+                        <div
+                            class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
+                            <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
+                                <?php
+                                if ( is_callable([$obj, 'get_featured_media_type']) &&  'image' == $obj->get_featured_media_type() ) {
+                                    $featured_image_id = $obj->get_featured_image_id();
+                                    if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
+                                        echo $attachment->get_html( 'homepage-columns' );
+                                    }
+                                }
+                                ?>
+                            </a>
+                        </div>
+                        <div class="large-8 medium-8 small-12 columns">
+                            <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
+                                <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
+                            </a>
+                            <?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
+                            <span
+                                class="author">By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_more_well_posts[ 0 ]->post_author ) ); ?></span>
+                        </div>
+                        <?php
+                    }
+                ?>
             </div>
             <hr/>
             <div class="row">
@@ -38,7 +44,7 @@
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                         <?php
-                            if ( 'image' == $obj->get_featured_media_type() ) {
+                            if ( is_callable([$obj, 'get_featured_media_type']) && 'image' == $obj->get_featured_media_type() ) {
                                 $featured_image_id = $obj->get_featured_image_id();
                                 if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                     echo $attachment->get_html( 'homepage-columns' );
@@ -96,7 +102,7 @@
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                         <?php
-                            if ( 'image' == $obj->get_featured_media_type() ) {
+                            if ( is_callable([$obj, 'get_featured_media_type']) && 'image' == $obj->get_featured_media_type() ) {
                                 $featured_image_id = $obj->get_featured_image_id();
                                 if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                     echo $attachment->get_html( 'homepage-columns' );

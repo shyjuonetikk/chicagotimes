@@ -797,13 +797,14 @@ class CST_Frontend {
 	public function cst_homepage_fetch_feed($feed_url, $max_display) {
 
 		$cache_key = md5( $feed_url . (int) $max_display );
-		$cached_feed = wp_cache_get( $cache_key ); //VIP: for some reason fetch_feed is not caching this properly.
+		$cached_feed = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
 		if ( $cached_feed === false ) {
 			$headlines = fetch_feed( $feed_url );
 			if ( ! is_wp_error( $headlines ) ) :
 				$maxitems = $headlines->get_item_quantity( $max_display );
 				$items    = $headlines->get_items( 0, $maxitems );
 				wp_cache_set( $cache_key, $items, 'default', 15 * MINUTE_IN_SECONDS );
+				$test = strlen(serialize($items));
 				return $items;
 			else :
 				return; //todo: VIP note: cache when the feed is not found.
@@ -820,7 +821,7 @@ class CST_Frontend {
 	 */
 	public function cst_homepage_get_aggregate() {
 
-		$response = vip_safe_wp_remote_get( 'http://chicago.suntimes.com/api/1.2/get_posts/?page=1&count=15' );
+		$response = wpcom_vip_file_get_contents( 'http://chicago.suntimes.com/api/1.2/get_posts/?page=1&count=15' );
 		if ( is_wp_error( $response ) ) :
 			return;
 		else :
