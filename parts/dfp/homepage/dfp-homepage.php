@@ -28,7 +28,7 @@
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [1363, 1000], 'div-gpt-wallpaper')
 			.addService(googletag.pubads()).setTargeting("pos","wallpaper");
 		} else {
-			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [728, 90], 'div-gpt-mobile-leaderboard')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [320, 50], 'div-gpt-mobile-leaderboard')
 			.addService(googletag.pubads()).setTargeting("pos","mobile leaderboard");	
 		}
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250]], 'div-gpt-rr-cube-1')
