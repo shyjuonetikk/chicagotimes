@@ -89,8 +89,9 @@ do_action( 'rss_tag_pre', 'rss2' );
 
         <guid isPermaLink="false"><?php the_guid(); ?></guid>
 <?php 
-    $featured_image_id = $obj->get_featured_image_id();
-    if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) : 
+    if( $obj ) :
+        $featured_image_id = $obj->get_featured_image_id();
+        if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) : 
 ?>
         <media:content url="<?php echo esc_url( $attachment->get_url() ); ?>">
             <media:thumbnail url="<?php echo esc_url( $attachment->get_url() ); ?>"/>
@@ -105,7 +106,10 @@ do_action( 'rss_tag_pre', 'rss2' );
             length="0"
             type="<?php echo esc_html( get_post_mime_type( $featured_image_id ) ); ?>" 
         />
-<?php endif; ?>
+<?php 
+        endif; 
+    endif;
+?>
 <?php if (get_option('rss_use_excerpt')) : ?>
         <description><![CDATA[<?php the_excerpt_rss(); ?>]]></description>
 <?php else : ?>
@@ -117,26 +121,46 @@ do_action( 'rss_tag_pre', 'rss2' );
         <content:encoded><![CDATA[<?php the_excerpt_rss(); ?>]]></content:encoded>
     <?php endif; ?>
 <?php endif; ?>
-<?php $sections     = $obj->get_sections(); ?>
-<?php $people       = $obj->get_people(); ?>
-<?php $locations    = $obj->get_locations(); ?>
-<?php foreach( $sections as $section ) { ?>
-        <category domain="cst_section" nicename="<?php echo $section->slug; ?>"><![CDATA[<?php echo $section->slug; ?>]]></category>
-<?php } ?>
 <?php 
-    if( $people ) {
-        foreach( $people as $person ) { ?>
-        <category domain="cst_person" nicename="<?php echo $person->slug; ?>"><![CDATA[<?php echo $person->slug; ?>]]></category>
-<?php 
-        }
-    } 
+    if( $obj ) {
+        $sections     = $obj->get_sections();
+        $people       = $obj->get_people();
+        $locations    = $obj->get_locations();
+        $topics       = $obj->get_topics();
 ?>
-<?php 
-    if( $locations ) {
-        foreach( $locations as $location ) { ?>
-        <category domain="cst_location" nicename="<?php echo $location->slug; ?>"><![CDATA[<?php echo $location->slug; ?>]]></category>
-<?php 
+    <?php 
+        if( $sections ) {
+            foreach( $sections as $section ) { ?>
+            <category domain="cst_section" nicename="<?php echo esc_html( $section->slug ); ?>"><![CDATA[<?php echo esc_html( $section->slug ); ?>]]></category>
+    <?php 
+            }
         }
+    ?>
+    <?php 
+        if( $people ) {
+            foreach( $people as $person ) { ?>
+            <category domain="cst_person" nicename="<?php echo esc_html( $person->slug ); ?>"><![CDATA[<?php echo esc_html( $person->slug ); ?>]]></category>
+    <?php 
+            }
+        } 
+    ?>
+    <?php 
+        if( $locations ) {
+            foreach( $locations as $location ) { ?>
+            <category domain="cst_location" nicename="<?php echo esc_html( $location->slug ); ?>"><![CDATA[<?php echo esc_html( $location->slug ); ?>]]></category>
+    <?php 
+            }
+        } 
+    ?>
+    <?php 
+        if( $topics ) {
+            foreach( $topics as $topic ) { ?>
+            <category domain="cst_topic" nicename="<?php echo esc_html( $topic->slug ); ?>"><![CDATA[<?php echo esc_html( $topic->slug ); ?>]]></category>
+    <?php 
+            }
+        } 
+    ?>
+<?php 
     } 
 ?>
         <wfw:commentRss><?php echo esc_url( get_post_comments_feed_link(null, 'rss2') ); ?></wfw:commentRss>
