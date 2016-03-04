@@ -1,5 +1,5 @@
 <!-- BreakingNews.Index -->
-<div id='div-gpt-mobile-leaderboard' class='dfp dfp-leaderboard dfp-centered show-for-small-only'>
+<div id='div-gpt-mobile-leaderboard' class='dfp dfp-mobile-leaderboard dfp-centered show-for-small-only'>
 <script>
     if ( window.innerWidth < 640 ) {
         googletag.cmd.push(function() {
