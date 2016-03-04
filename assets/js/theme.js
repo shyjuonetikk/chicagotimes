@@ -60,6 +60,7 @@
 			this.closeInterstitial = $('#dfp-interstitial-close');
 			this.cstLogo = $('header #suntimes-logo');
 			this.nfLogo = $('header #newsfeed-logo');
+			this.mobileHome = $('header #mobile-home');
 			this.dfpWallpaper = $('#div-gpt-wallpaper');
 			this.dfpWallpaperImg = $('#div-gpt-wallpaper img')
 			this.dfpLeaderboard = $('#div-gpt-atf-leaderboard');
@@ -239,6 +240,7 @@
 				if ( this.nfLogo.is(':hidden') ) {
 					this.cstLogo.hide();
 					this.nfLogo.show('slide', { direction: 'down' } );
+					this.mobileHome.show('slide', { direction: 'down' } );
 				}
 
 			} else {
@@ -255,6 +257,7 @@
 
 				if ( this.nfLogo.is(':visible') ) {
 					this.nfLogo.hide();
+					this.mobileHome.hide();
 					this.cstLogo.show('slide', { direction: 'up' } );
 				}
 

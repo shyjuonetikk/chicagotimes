@@ -54,6 +54,10 @@
 			<?php get_template_part( 'parts/images/main-site-logo'); ?>
 		</div>
 
+		<div id="mobile-home">
+			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa fa-home"></i></a>
+		</div>
+
 		<div id="trending-container">
 		<?php 	if ( $current_obj ) {
 					if( in_array( $conditional_nav->slug, CST_Frontend::$post_sections ) ) {
