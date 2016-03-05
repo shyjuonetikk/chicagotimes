@@ -2133,6 +2133,9 @@ body.post-gallery-lightbox-active {
   .post .post-meta-byline .post-meta-author-contact .fa:hover {
     color: #00AE04; }
 
+.post .byline-author {
+  color: #282828; }
+
 @media only screen and (min-width: 40.063em) {
   .post .post-social {
     background-color: #9A9A9A; } }
