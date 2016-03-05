@@ -1,5 +1,8 @@
 <div class="post-meta post-meta-byline columns medium-11 medium-offset-1 end">
-	<?php foreach( $obj->get_authors() as $i => $author ) : ?>
+<?php
+	$byline = $obj->get_byline();
+	if( ! $byline ) {
+		foreach( $obj->get_authors() as $i => $author ) : ?>
 	<div class="post-meta-author"><a href="<?php echo esc_url( $author->get_permalink() ); ?>"><?php echo esc_html( $author->get_display_name() ); ?></a></div>
 	<?php
 		$twitter_username = $author->get_twitter_username();
@@ -15,4 +18,7 @@
 			echo '<div class="post-meta-author-contact">' . implode( ' | ', $parts ) . '</div>';
 		} ?>
 	<?php endforeach; ?>
+<?php } else { ?>
+	<div class="post-meta-author byline-author"><?php echo esc_html( $byline ); ?></div>
+<?php } ?>
 </div>
