@@ -563,6 +563,21 @@ abstract class Post {
 	}
 
 	/**
+	 * Get the byline field for the post
+	 *
+	 * @return string
+	 */
+	public function get_byline() {
+
+		if ( $byline = $this->get_fm_field( 'freelancer_byline' ) ) {
+			return $byline;
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
 	 * Get the SEO title for the post
 	 *
 	 * @return string
