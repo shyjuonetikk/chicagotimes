@@ -9,6 +9,11 @@
                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_posts[0]->ID );
                     if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
                         $primary_section = $obj->get_primary_parent_section();
+                        if( $byline = $obj->get_byline() ) {
+                            $author = $byline;
+                        } else {
+                            $author = get_the_author_meta( 'display_name', $homepage_more_well_posts[0]->post_author );
+                        }
                         ?>
                         <div
                             class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
@@ -29,7 +34,7 @@
                             </a>
                             <?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
                             <span
-                                class="author">By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_more_well_posts[ 0 ]->post_author ) ); ?></span>
+                                class="author">By <?php echo esc_html( $author ); ?></span>
                         </div>
                         <?php
                     }
@@ -40,6 +45,11 @@
                <?php 
                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_posts[1]->ID );
                     $primary_section = $obj->get_primary_parent_section();
+                    if( $byline = $obj->get_byline() ) {
+                        $author = $byline;
+                    } else {
+                        $author = get_the_author_meta( 'display_name', $homepage_more_well_posts[1]->post_author );
+                    }
                 ?>
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
@@ -58,7 +68,7 @@
                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                     </a>
                     <?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
-                    <span class="author">By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_more_well_posts[1]->post_author ) ); ?></span>
+                    <span class="author">By <?php echo esc_html( $author ); ?></span>
                 </div>
             </div>
             <hr/>
@@ -72,6 +82,11 @@
                 <?php 
                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_posts[2]->ID );
                     $primary_section = $obj->get_primary_parent_section();
+                    if( $byline = $obj->get_byline() ) {
+                        $author = $byline;
+                    } else {
+                        $author = get_the_author_meta( 'display_name', $homepage_more_well_posts[2]->post_author );
+                    }
                 ?>
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
@@ -90,7 +105,7 @@
                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                     </a>
                     <?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
-                    <span class="author">By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_more_well_posts[2]->post_author ) ); ?></span>
+                    <span class="author">By <?php echo esc_html( $author ); ?></span>
                 </div>
             </div>
             <hr/>
@@ -98,6 +113,11 @@
                 <?php 
                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_posts[3]->ID );
                     $primary_section = $obj->get_primary_parent_section();
+                    if( $byline = $obj->get_byline() ) {
+                        $author = $byline;
+                    } else {
+                        $author = get_the_author_meta( 'display_name', $homepage_more_well_posts[3]->post_author );
+                    }
                 ?>
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
@@ -116,7 +136,7 @@
                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                     </a>
                     <?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
-                    <span class="author">By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_more_well_posts[3]->post_author ) ); ?></span>
+                    <span class="author">By <?php echo esc_html( $author ); ?></span>
                 </div>
             </div>
         </section>

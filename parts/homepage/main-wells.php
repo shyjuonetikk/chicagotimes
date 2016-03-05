@@ -5,16 +5,17 @@
         <div class="large-8 medium-12 columns">
             <section id="main-well">
                 <div class="row">
+            <?php 
+                $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[2]->ID );
+                if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+                    $primary_section = $obj->get_primary_parent_section();
+                    if( $byline = $obj->get_byline() ) {
+                        $author = $byline;
+                    } else {
+                        $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[2]->post_author );
+                    }
+            ?>
                     <div class="large-12 medium-12 columns main-article-container">
-                        <?php 
-                            $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[2]->ID );
-                            $primary_section = $obj->get_primary_parent_section();
-                            if( $byline = $obj->get_byline() ) {
-                                $author = $byline;
-                            } else {
-                                $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[2]->post_author );
-                            }
-                        ?>
                         <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                             <?php
                                 if ( 'image' == $obj->get_featured_media_type() ) {
@@ -31,18 +32,22 @@
                             </div>
                         </a>
                     </div>
+                    <?php
+                }
+            ?>
                     <div class="large-12 medium-12 columns left-main-well">
+                <?php 
+                    $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[1]->ID );
+                    if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+                        $primary_section = $obj->get_primary_parent_section();
+                        if( $byline = $obj->get_byline() ) {
+                            $author = $byline;
+                        } else {
+                            $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[1]->post_author );
+                        }
+                ?>
                         <div class="large-6 medium-6 columns">
                             <div class="article-container">
-                                <?php 
-                                    $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[1]->ID );
-                                    $primary_section = $obj->get_primary_parent_section();
-                                    if( $byline = $obj->get_byline() ) {
-                                        $author = $byline;
-                                    } else {
-                                        $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[1]->post_author );
-                                    }
-                                ?>
                                 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                                     <?php
                                         if ( 'image' == $obj->get_featured_media_type() ) {
@@ -60,17 +65,21 @@
                                 </a>
                             </div>
                         </div>
+                        <?php
+                    }
+                ?>
+                <?php 
+                    $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
+                    if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+                        $primary_section = $obj->get_primary_parent_section();
+                        if( $byline = $obj->get_byline() ) {
+                            $author = $byline;
+                        } else {
+                            $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[0]->post_author );
+                        }
+                ?>
                         <div class="large-6 medium-6 columns">
                             <div class="article-container">
-                                <?php 
-                                    $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
-                                    $primary_section = $obj->get_primary_parent_section();
-                                    if( $byline = $obj->get_byline() ) {
-                                        $author = $byline;
-                                    } else {
-                                        $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[0]->post_author );
-                                    }
-                                ?>
                                 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                                     <?php
                                         if ( 'image' == $obj->get_featured_media_type() ) {
@@ -88,6 +97,9 @@
                                 </a>
                             </div>
                         </div>
+                        <?php
+                    }
+                ?>
                     </div>
                 </div>
             </section>
