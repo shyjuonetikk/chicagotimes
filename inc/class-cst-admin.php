@@ -223,6 +223,13 @@ class CST_Admin {
 			) );
 		$post->add_meta_box( esc_html__( 'Production', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
 
+		$fm = new Fieldmanager_Textfield( array(
+			'name'    => 'freelancer_byline',
+			'label'   => false,
+			'description'           => esc_html__( 'Only the Byline Author will be displayed.', 'chicagosuntimes' ),
+			) );
+		$fm->add_meta_box( esc_html__( 'Freelancer Byline', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
+
 		/**
 		 * Link
 		 */
