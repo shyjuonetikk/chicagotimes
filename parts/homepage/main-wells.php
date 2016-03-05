@@ -18,8 +18,7 @@
                     <div class="large-12 medium-12 columns main-article-container">
                         <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                             <?php
-                                if ( 'image' == $obj->get_featured_media_type() ) {
-                                    $featured_image_id = $obj->get_featured_image_id();
+                                if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                     if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                         echo $attachment->get_html( 'chiwire-header-large' );
                                     }
@@ -50,8 +49,7 @@
                             <div class="article-container">
                                 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                                     <?php
-                                        if ( 'image' == $obj->get_featured_media_type() ) {
-                                            $featured_image_id = $obj->get_featured_image_id();
+                                        if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                             if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                                 echo $attachment->get_html( 'chiwire-header-large' );
                                             }
@@ -82,8 +80,7 @@
                             <div class="article-container">
                                 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                                     <?php
-                                        if ( 'image' == $obj->get_featured_media_type() ) {
-                                            $featured_image_id = $obj->get_featured_image_id();
+                                        if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                             if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                                 echo $attachment->get_html( 'chiwire-header-large' );
                                             }

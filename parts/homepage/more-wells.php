@@ -19,8 +19,7 @@
                             class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                             <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                                 <?php
-                                if ( is_callable([$obj, 'get_featured_media_type']) &&  'image' == $obj->get_featured_media_type() ) {
-                                    $featured_image_id = $obj->get_featured_image_id();
+                                if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                     if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                         echo $attachment->get_html( 'homepage-columns' );
                                     }
@@ -54,8 +53,7 @@
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                         <?php
-                            if ( is_callable([$obj, 'get_featured_media_type']) && 'image' == $obj->get_featured_media_type() ) {
-                                $featured_image_id = $obj->get_featured_image_id();
+                            if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                 if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                     echo $attachment->get_html( 'homepage-columns' );
                                 }
@@ -91,8 +89,7 @@
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                         <?php
-                            if ( 'image' == $obj->get_featured_media_type() ) {
-                                $featured_image_id = $obj->get_featured_image_id();
+                            if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                 if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                     echo $attachment->get_html( 'homepage-columns' );
                                 }
@@ -122,8 +119,7 @@
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                         <?php
-                            if ( is_callable([$obj, 'get_featured_media_type']) && 'image' == $obj->get_featured_media_type() ) {
-                                $featured_image_id = $obj->get_featured_image_id();
+                            if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                 if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
                                     echo $attachment->get_html( 'homepage-columns' );
                                 }
