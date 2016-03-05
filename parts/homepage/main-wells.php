@@ -9,6 +9,11 @@
                         <?php 
                             $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[2]->ID );
                             $primary_section = $obj->get_primary_parent_section();
+                            if( $byline = $obj->get_byline() ) {
+                                $author = $byline;
+                            } else {
+                                $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[2]->post_author );
+                            }
                         ?>
                         <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                             <?php
@@ -22,7 +27,7 @@
                             <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
                                 <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                                 <p><?php echo esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
-                                <span>By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_main_well_posts[2]->post_author ) ); ?></span>
+                                <span>By <?php echo esc_html( $author ); ?></span>
                             </div>
                         </a>
                     </div>
@@ -32,6 +37,11 @@
                                 <?php 
                                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[1]->ID );
                                     $primary_section = $obj->get_primary_parent_section();
+                                    if( $byline = $obj->get_byline() ) {
+                                        $author = $byline;
+                                    } else {
+                                        $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[1]->post_author );
+                                    }
                                 ?>
                                 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                                     <?php
@@ -45,7 +55,7 @@
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
                                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                                         <p><?php echo esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
-                                        <span>By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_main_well_posts[1]->post_author ) ); ?></span>
+                                        <span>By <?php echo esc_html( $author ); ?></span>
                                     </div>
                                 </a>
                             </div>
@@ -55,6 +65,11 @@
                                 <?php 
                                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
                                     $primary_section = $obj->get_primary_parent_section();
+                                    if( $byline = $obj->get_byline() ) {
+                                        $author = $byline;
+                                    } else {
+                                        $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[0]->post_author );
+                                    }
                                 ?>
                                 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                                     <?php
@@ -68,7 +83,7 @@
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
                                         <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
                                         <p><?php echo esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
-                                        <span>By <?php echo esc_html( get_the_author_meta( 'display_name', $homepage_main_well_posts[0]->post_author ) ); ?></span>
+                                        <span>By <?php echo esc_html( $author ); ?></span>
                                     </div>
                                 </a>
                             </div>
