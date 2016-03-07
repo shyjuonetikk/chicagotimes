@@ -9,11 +9,14 @@ global $dfp_child;
 				$dfp_slug = $dfp_obj->slug;
 				get_template_part( 'parts/dfp/dfp-header' );
 			else :
-				$dfp_child  = $dfp_obj->slug;
 				$dfp_parent = $dfp_obj->parent;
 				$dfp_term   = get_term( $dfp_parent, 'cst_section' );
-				$dfp_parent = $dfp_term->slug;
-				get_template_part( 'parts/dfp/dfp-header-sub-section' );
+				$dfp_slug 	= $dfp_term->slug;
+				if( $dfp_term->parent != 0 ) {
+					$dfp_term   = get_term( $dfp_term->parent, 'cst_section' );
+					$dfp_slug 	= $dfp_term->slug;
+				}
+				get_template_part( 'parts/dfp/dfp-header' );
 
 			endif;
 		else :
