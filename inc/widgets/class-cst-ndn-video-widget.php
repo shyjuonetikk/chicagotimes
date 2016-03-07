@@ -16,11 +16,13 @@ class CST_NDN_Video_Widget extends WP_Widget {
 
     public function widget( $args, $instance ) {
     ?>
-    <div class="large-12 medium-6 small-6 columns ndn_embed">
-    <?php
-        get_template_part( 'parts/dfp/homepage/ndn-video' );
-    ?>
-    </div>
+    <li class="ndn_embed">
+        <div class="large-12 medium-6 small-6 columns">
+        <?php
+            get_template_part( 'parts/dfp/homepage/ndn-video' );
+        ?>
+        </div>
+    </li>
     <?php
     }
 
