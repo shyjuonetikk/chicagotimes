@@ -327,9 +327,10 @@ header#header {
         header#header section#primary-navigation #mobile-home a {
           color: #FFFFFF;
           font-size: 1.55rem; } }
-    @media only screen and (min-width: 48em) {
+    @media only screen and (min-width: 40.063em) {
       header#header section#primary-navigation #mobile-home {
-        display: none; }
+        display: none; } }
+    @media only screen and (min-width: 48em) {
       header#header section#primary-navigation #trending-container {
         font-weight: 700;
         text-transform: uppercase;

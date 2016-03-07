@@ -184,11 +184,14 @@ header#header {
 			}
 		}
 		
-		@media #{$xmedium-up} {
+		@media #{$medium-up} {
 
 			#mobile-home {
 				display: none;
 			}
+		}
+
+		@media #{$xmedium-up} {
 
 			#trending-container {
 				font-weight: 700;
