@@ -1640,6 +1640,10 @@ section#subscribe {
           margin-bottom: 0px; }
   .sidebar ul {
     list-style-type: none; }
+  .sidebar .ndn_embed {
+    min-width: 300px;
+    min-height: 168px;
+    padding: 0; }
 
 @media only screen and (min-width: 64.063em) {
   #fixed-footer-container {
