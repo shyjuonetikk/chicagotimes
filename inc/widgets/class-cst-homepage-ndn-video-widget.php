@@ -1,14 +1,14 @@
 <?php
 
-class CST_NDN_Video_Widget extends WP_Widget {
+class CST_Homepage_NDN_Video_Widget extends WP_Widget {
 
     public function __construct() {
 
         parent::__construct(
-            'cst_ndn_video',
-            esc_html__( 'CST NDN Video', 'chicagosuntimes' ),
+            'cst_homepage_ndn_video',
+            esc_html__( 'CST Homepage NDN Video', 'chicagosuntimes' ),
             array(
-                'description' => esc_html__( 'Display the NDN Video.', 'chicagosuntimes' ),
+                'description' => esc_html__( 'Display the Homepage NDN Video.', 'chicagosuntimes' ),
             )
         );
 
@@ -19,7 +19,7 @@ class CST_NDN_Video_Widget extends WP_Widget {
     <li class="ndn_embed">
         <div class="large-12 medium-6 small-6 columns">
         <?php
-            get_template_part( 'parts/vendors/ndn-video-embed' );
+            get_template_part( 'parts/dfp/homepage/ndn-video' );
         ?>
         </div>
     </li>
