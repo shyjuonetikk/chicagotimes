@@ -510,6 +510,7 @@ article.post {
 	float: left;
 	margin-bottom: 15px;
 	width: 100%;
+	list-style-type: none;
 	
 	@media #{$small-only} {
 		height: 216px;
