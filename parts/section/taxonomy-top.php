@@ -1,7 +1,13 @@
 <?php if( ! is_tax( 'cst_topic' ) && ! is_tax( 'cst_person' ) && ! is_tax( 'cst_location' ) ) : ?>
 <?php $section_front = get_queried_object()->slug; ?>
 <?php if ( $section_front ) : ?>
-	<?php $section_front_spacing = str_replace( '-', ' ', $section_front ); ?>
+	<?php 
+		if( $section_front == 'obituaries-obituaries' ) :
+			$section_front_spacing = 'obituaries';
+		else :
+			$section_front_spacing = str_replace( '-', ' ', $section_front ); 
+		endif;
+	?>
 	<a href="" class="section-front"><?php esc_html_e( $section_front_spacing ); ?></a>
 <?php endif; ?>
 <?php else: ?>
