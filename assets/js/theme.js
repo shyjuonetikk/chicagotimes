@@ -240,7 +240,9 @@
 				if ( this.nfLogo.is(':hidden') ) {
 					this.cstLogo.hide();
 					this.nfLogo.show('slide', { direction: 'down' } );
-					this.mobileHome.show('slide', { direction: 'down' } );
+					if ( $(window).width() <= 640 ) {
+						this.mobileHome.show('slide', { direction: 'down' } );
+					}
 				}
 
 			} else {
