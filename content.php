@@ -74,13 +74,13 @@
 
 			// After the 3rd post
 				if ( 0 === $wp_query->query_vars['paged'] && 2 === $wp_query->current_post ) {
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-1' );
 					echo CST()->get_template_part( 'dfp/dfp-rr-cube-2' );
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-3' );
 				}
 			// After the 9th post (Infinite Scroll is 7 per page)
 				if ( 1 === $wp_query->query_vars['paged'] && 1 === $wp_query->current_post ) {
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-2' );
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-3' );
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-4' );
+					echo CST()->get_template_part( 'dfp/dfp-rr-cube-5' );
 				}
 
 			}
