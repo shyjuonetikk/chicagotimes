@@ -19,7 +19,7 @@ class CST_NDN_Video_Widget extends WP_Widget {
     <li class="ndn_embed">
         <div class="large-12 medium-6 small-6 columns">
         <?php
-            get_template_part( 'parts/dfp/homepage/ndn-video' );
+            get_template_part( 'parts/vendors/ndn-video-embed' );
         ?>
         </div>
     </li>
