@@ -1110,10 +1110,12 @@ article.post {
 .single .taboola-container {
   position: relative;
   display: block;
-  clear: both; }
+  clear: both;
+  margin: 0 auto; }
   .single .taboola-container .thumbnails-c .syndicatedItem .video-title {
     font-family: 'Open Sans', sans-serif;
-    line-height: 18px; }
+    line-height: 16px;
+    font-size: 14px; }
   .single .taboola-container .thumbnails-c .syndicatedItem .branding {
     font-family: 'Open Sans', sans-serif; }
   .single .taboola-container .thumbnails-c .videoCube:hover .thumbBlock {
@@ -1125,6 +1127,22 @@ article.post {
     .single .taboola-container .thumbnails-c .videoCube {
       margin: 0;
       margin-left: 2%; } }
+
+@media only screen and (min-width: 64.063em) {
+  .single .taboola-container {
+    max-width: 615px; } }
+
+@media only screen and (min-width: 48em) and (max-width: 64em) {
+  .single .taboola-container {
+    max-width: 600px; } }
+
+@media only screen and (min-width: 40.063em) and (max-width: 47.398em) {
+  .single .taboola-container {
+    max-width: 500px; } }
+
+@media only screen and (max-width: 40em) {
+  .single .taboola-container {
+    max-width: 300px; } }
 
 .single .ad-container {
   position: relative;
