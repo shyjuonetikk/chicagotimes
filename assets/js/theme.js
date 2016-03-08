@@ -276,32 +276,30 @@
 			}
 
 			// Sticky sharing tools on the articles, as well as logic for the currently viewing post
-			if ( $( 'body.single' ).length && $(window).width() > 782 ) {
+			if ( $( 'body.single' ).length ) {
 
 				$('#main .post' ).each( $.proxy( function( key, value ) {
 					var el = $(value);
 					var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
 					var bottomBreakPoint = topBreakPoint + el.height() - 80;
 
-					if ( $('#main .post.cst-sharing-absolute' ).length == 0 ) {
-						if ( ! el.hasClass('type-cst_embed' ) ) {
-							el.addClass('cst-sharing-absolute').removeClass('cst-sharing-relative');
-						}
-					}
-
 					if ( scrollTop > topBreakPoint && scrollTop < bottomBreakPoint && ! el.hasClass('cst-active-scroll-post') ) {
-						$('#main .post' ).addClass('cst-sharing-relative').removeClass('cst-sharing-absolute cst-active-scroll-post');
+						$('#main .post' ).removeClass('cst-active-scroll-post');
+
+						if( $(window).width() > 736 ) {
+							$('#main .post' ).addClass('cst-sharing-relative').removeClass('cst-sharing-absolute');
+							if ( ! el.hasClass('type-cst_embed' ) ) {
+								el.addClass('cst-sharing-absolute').removeClass('cst-sharing-relative');
+							}
+						}
 
 						el.addClass('cst-active-scroll-post');
-						if ( ! el.hasClass('type-cst_embed' ) ) {
-							el.addClass('cst-sharing-absolute').removeClass('cst-sharing-relative');
+					}
+					if( $(window).width() > 736 ) {
+						if ( scrollTop < topBreakPoint || scrollTop > bottomBreakPoint && el.hasClass('cst-sharing-absolute' ) ) {
+							el.removeClass('cst-sharing-absolute').addClass('cst-sharing-relative');
 						}
 					}
-
-					if ( scrollTop < topBreakPoint || scrollTop > bottomBreakPoint && el.hasClass('cst-sharing-absolute' ) ) {
-						el.removeClass('cst-sharing-absolute').addClass('cst-sharing-relative');
-					}
-
 				}, this ) );
 
 			}
