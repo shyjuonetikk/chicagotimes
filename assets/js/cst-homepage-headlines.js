@@ -6,7 +6,6 @@
         init: function() {
 
             this.bindEvents();
-          this.setSort();
 
         },
 
@@ -52,54 +51,6 @@
                 }
             }, this ) );
 
-            $(".cst-homepage-headlines-four").each( $.proxy( function( key, el ){
-                this.loadSelect2( $( el ) );
-            }, this ) );
-
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
-                var el = widget.find(".cst-homepage-headlines-five");
-                if ( el.length ) {
-                    this.loadSelect2( el );
-                }
-            }, this ) );
-
-            $(".cst-homepage-headlines-five").each( $.proxy( function( key, el ){
-                this.loadSelect2( $( el ) );
-            }, this ) );
-
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
-                var el = widget.find(".cst-homepage-headlines-six");
-                if ( el.length ) {
-                    this.loadSelect2( el );
-                }
-            }, this ) );
-
-            $(".cst-homepage-headlines-six").each( $.proxy( function( key, el ){
-                this.loadSelect2( $( el ) );
-            }, this ) );
-
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
-                var el = widget.find(".cst-homepage-headlines-seven");
-                if ( el.length ) {
-                    this.loadSelect2( el );
-                }
-            }, this ) );
-
-            $(".cst-homepage-headlines-seven").each( $.proxy( function( key, el ){
-                this.loadSelect2( $( el ) );
-            }, this ) );
-
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
-                var el = widget.find(".cst-homepage-headlines-eight");
-                if ( el.length ) {
-                    this.loadSelect2( el );
-                }
-            }, this ) );
-
-            $(".cst-homepage-headlines-eight").each( $.proxy( function( key, el ){
-                //this.loadSelect2( $( el ) );
-            }, this ) );
-
         },
 
         /**
@@ -131,16 +82,7 @@
                 }
             });
 
-        },
-
-      setSort: function () {
-        jQuery('.cst-headline-sort').sortable({
-
-          revert: true,
-          cursor: 'move'
-
-        });
-      }
+        }
     };
 
     $(document).ready(function(){

@@ -16,9 +16,9 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	);
 
 	private $titles = array(
-		'Lower left',
-		'Upper left',
-		'Center large',
+		'Main Story',
+		'Left Story',
+		'Right Story',
 	);
 
 	public function __construct() {
@@ -144,9 +144,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 
 		$this->enqueue_scripts();
 		$count = 0;
-		?>
-		<div class="cst-headline-sort ui-sortable">
-		<?php
+		
 		foreach ( $this->headlines as $array_member ) {
 			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
 			$obj = get_post( $headline );
@@ -159,14 +157,14 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
 			?>
 				<p class="ui-state-default" id=i<?php echo $count; ?>>
-					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
+					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
+						<?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?>
+					</label>
 					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;" />
 				</p>
 			<?php
 			$count++;
-		}?>
-		</div>
-		<?php
+		}
 
 	}
 

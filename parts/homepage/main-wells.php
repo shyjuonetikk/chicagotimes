@@ -6,13 +6,13 @@
             <section id="main-well">
                 <div class="row">
             <?php 
-                $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[2]->ID );
+                $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
                 if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
                     $primary_section = $obj->get_primary_parent_section();
                     if( $byline = $obj->get_byline() ) {
                         $author = $byline;
                     } else {
-                        $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[2]->post_author );
+                        $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[0]->post_author );
                     }
             ?>
                     <div class="large-12 medium-12 columns main-article-container">
@@ -67,13 +67,13 @@
                     }
                 ?>
                 <?php 
-                    $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
+                    $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[2]->ID );
                     if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
                         $primary_section = $obj->get_primary_parent_section();
                         if( $byline = $obj->get_byline() ) {
                             $author = $byline;
                         } else {
-                            $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[0]->post_author );
+                            $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[2]->post_author );
                         }
                 ?>
                         <div class="large-6 medium-6 columns">
