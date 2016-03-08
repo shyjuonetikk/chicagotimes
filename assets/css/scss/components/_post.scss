@@ -228,6 +228,7 @@ article.post {
 		position: relative;
 		display: block;
 		clear: both;
+		margin: 0 auto;
 
 		.thumbnails-c {
 
@@ -235,7 +236,8 @@ article.post {
 
 				.video-title {
 					font-family: 'Open Sans', sans-serif;
-					line-height: 18px;
+					line-height: 16px;
+					font-size: 14px;
 				}
 
 				.branding {
@@ -262,6 +264,30 @@ article.post {
 					margin-left: 2%;
 				}
 			}
+		}
+	}
+
+	@media #{$large-up} {
+		.taboola-container {
+			max-width: 615px;
+		}
+	}
+
+	@media #{$xmedium-only} {
+		.taboola-container {
+			max-width: 600px;
+		}
+	}
+
+	@media #{$medium-only} {
+		.taboola-container {
+			max-width: 500px;
+		}
+	}
+
+	@media #{$small-only} {
+		.taboola-container {
+			max-width: 300px;
 		}
 	}
 
