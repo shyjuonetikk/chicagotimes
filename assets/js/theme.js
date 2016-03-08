@@ -283,12 +283,6 @@
 					var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
 					var bottomBreakPoint = topBreakPoint + el.height() - 80;
 
-					if ( $('#main .post.cst-sharing-absolute' ).length == 0 ) {
-						if ( ! el.hasClass('type-cst_embed' ) ) {
-							el.addClass('cst-sharing-absolute').removeClass('cst-sharing-relative');
-						}
-					}
-
 					if ( scrollTop > topBreakPoint && scrollTop < bottomBreakPoint && ! el.hasClass('cst-active-scroll-post') ) {
 						$('#main .post' ).addClass('cst-sharing-relative').removeClass('cst-sharing-absolute cst-active-scroll-post');
 
