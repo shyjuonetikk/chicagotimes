@@ -10,9 +10,9 @@
 class CST_Homepage_Headlines_Widget extends WP_Widget {
 
 	private $headlines = array(
-		'cst_homepage_headlines_three',
 		'cst_homepage_headlines_one',
 		'cst_homepage_headlines_two',
+		'cst_homepage_headlines_three',
 	);
 
 	private $titles = array(
