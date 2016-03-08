@@ -276,7 +276,7 @@
 			}
 
 			// Sticky sharing tools on the articles, as well as logic for the currently viewing post
-			if ( $( 'body.single' ).length && $(window).width() > 782 ) {
+			if ( $( 'body.single' ).length ) {
 
 				$('#main .post' ).each( $.proxy( function( key, value ) {
 					var el = $(value);
