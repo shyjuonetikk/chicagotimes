@@ -2828,6 +2828,9 @@ body.post-gallery-lightbox-active {
           line-height: 14px; }
           .homepage_wrapper .widget_cst_featured_content_widget .featured-story .featured-story-body h3 a, .homepage_wrapper .widget_cst_featured_content_widget .featured-story .columnists-story-body h3 a, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story .featured-story-body h3 a, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story .columnists-story-body h3 a, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story .featured-story-body h3 a, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story .columnists-story-body h3 a, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story .featured-story-body h3 a, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story .columnists-story-body h3 a {
             color: #FFFFFF; }
+  @media (max-width: 1025px) {
+    .homepage_wrapper .widget_cst_columnists_content_widget, .homepage_wrapper .widget_cst_stng_wire_widget, .homepage_wrapper .widget_cst_todays_paper_widget {
+      margin: 10px 0 10px 0; } }
   .homepage_wrapper .widget_cst_stng_wire_widget {
     padding-left: 0;
     font-size: 12px; }

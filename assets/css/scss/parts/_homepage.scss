@@ -951,6 +951,12 @@
 	}
 }
 
+@media (max-width: 1025px) {
+	.widget_cst_columnists_content_widget, .widget_cst_stng_wire_widget, .widget_cst_todays_paper_widget {
+		margin: 10px 0 10px 0;
+	}
+}
+
 .widget_cst_stng_wire_widget {
 	padding-left: 0;
 	font-size: 12px;

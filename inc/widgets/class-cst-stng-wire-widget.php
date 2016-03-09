@@ -34,7 +34,7 @@ class CST_STNG_Wire_Widget extends WP_Widget {
                                 title="<?php printf( __( 'Posted %s', 'cst-homepage' ), $stng_item->get_date('j F Y | g:i a') ); ?>">
                                 <?php echo esc_html( $stng_item->get_title() ); ?>
                             </a>
-                            <em><?php echo esc_html_e( 'STNG Wire', 'chicagosuntimes' ); ?></em>
+                            <em><?php echo esc_html_e( 'Sun-Times Wire', 'chicagosuntimes' ); ?></em>
                         </li>
                       <?php 
                       }
