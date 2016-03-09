@@ -71,12 +71,25 @@ h6 {
     margin-right: 0px; } }
 
 body.error404 {
-  background-color: #FFFFFF;
+  background-color: #F0F0F0;
   height: inherit; }
-  body.error404 #main {
-    margin-top: 3rem; }
-    body.error404 #main h1, body.error404 #main h2, body.error404 #main h3, body.error404 #main p {
-      color: #282828; }
+  body.error404 h1 {
+    font-weight: 700; }
+  body.error404 p {
+    padding-top: 20px; }
+  body.error404 .search-wrap {
+    margin-top: 20px; }
+    body.error404 .search-wrap #search-input {
+      font-size: 1.25rem;
+      border: 2px ridge;
+      padding: 5px;
+      width: 250px; }
+    body.error404 .search-wrap #search-button {
+      font-size: 1.5rem;
+      color: #333333;
+      margin-left: 10px; }
+    body.error404 .search-wrap #search-button:hover {
+      color: #BDBDBD; }
   body.error404 .left-off-canvas-menu {
     overflow-y: inherit; }
   body.error404 .exit-off-canvas {

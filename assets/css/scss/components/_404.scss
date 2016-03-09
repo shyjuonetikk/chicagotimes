@@ -1,22 +1,47 @@
 body.error404 {
-	background-color: $white;
-    height: inherit;
-	#main {
-		margin-top: 3rem;
-		
-		h1, h2, h3, p {
-			color: $black;
-		}
-	}
+	background-color: $light_grey;
+  height: inherit;
+
+  h1 {
+    font-weight: 700;
+  }
+
+  p {
+    padding-top: 20px;
+  }
+
+  .search-wrap {
+    margin-top: 20px;
+
+    #search-input {
+      font-size: 1.25rem;
+      border: 2px ridge;
+      padding: 5px;
+      width: 250px;
+    }
+
+    #search-button {
+      font-size: 1.5rem;
+      color: $menu_black;
+      margin-left: 10px;
+    }
+
+    #search-button:hover {
+      color: $red;
+    }
+  }
+
   .left-off-canvas-menu {
     overflow-y:inherit;
   }
 
-    .exit-off-canvas {
-      height: 100%;
-    }
+  .exit-off-canvas {
+    height: 100%;
+  }
+
   .off-canvas-wrap {
     overflow-y: hidden;
+    
     &.inner-wrap {
       min-height: inherit;
       overflow-y: hidden;
@@ -26,4 +51,5 @@ body.error404 {
       overflow: inherit;
     }
   }
+
 }
