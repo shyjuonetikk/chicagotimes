@@ -133,6 +133,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-customizer.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-infinite-scroll.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-liveblog.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-elections.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
