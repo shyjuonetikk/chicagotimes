@@ -73,7 +73,7 @@
 <div id="ie8-user" style="display:none;"></div>
 
 <?php 
-	if ( is_front_page() ) {
+	if ( is_front_page() || is_404() ) {
 		get_template_part( 'parts/homepage/header' );
 	} else {
 		get_template_part( 'parts/page-header' );
