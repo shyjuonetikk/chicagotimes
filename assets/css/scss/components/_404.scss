@@ -2,6 +2,11 @@ body.error404 {
 	background-color: $light_grey;
   height: inherit;
 
+  .row {
+    width:100%;
+    max-width:none;
+  }
+
   h1 {
     font-weight: 700;
   }

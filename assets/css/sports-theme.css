@@ -73,6 +73,9 @@ h6 {
 body.error404 {
   background-color: #F0F0F0;
   height: inherit; }
+  body.error404 .row {
+    width: 100%;
+    max-width: none; }
   body.error404 h1 {
     font-weight: 700; }
   body.error404 p {
