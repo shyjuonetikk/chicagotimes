@@ -1,6 +1,6 @@
 <?php get_header(); ?>
     
-    <section class="row grey-background" style="width:100%;max-width:none;">
+    <section class="row grey-background">
         <div class="404content columns large-12 text-center large-centered">
 
             <h1><?php esc_html_e( 'Page Not Found', 'chicagosuntimes' ); ?></h1>
