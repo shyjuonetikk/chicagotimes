@@ -84,7 +84,20 @@ do_action( 'rss_tag_pre', 'rss2' );
         <link><?php the_permalink_rss() ?></link>
         <comments><?php comments_link_feed(); ?></comments>
         <pubDate><?php echo mysql2date('D, d M Y H:i:s +0000', get_post_time('Y-m-d H:i:s', true), false); ?></pubDate>
+<?php
+    if( $obj ) :
+        $byline = $obj->get_byline();
+        if( ! $byline ) {
+            foreach( $obj->get_authors() as $i => $author ) { ?>
         <dc:creator><![CDATA[<?php the_author() ?>]]></dc:creator>
+<?php
+            }
+        } 
+?>
+        <dc:creator><![CDATA[<?php echo esc_html( $byline ); ?>]]></dc:creator>
+<?php
+    endif;
+?>
         <?php the_category_rss('rss2') ?>
 
         <guid isPermaLink="false"><?php the_guid(); ?></guid>

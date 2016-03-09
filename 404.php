@@ -1,18 +1,22 @@
 <?php get_header(); ?>
-<?php get_template_part( 'parts/homepage/navigation' ); ?>
+    
+    <section class="row grey-background">
+        <div class="404content columns large-12 text-center large-centered">
 
-	<section class="row">
+            <h1><?php esc_html_e( 'Page Not Found', 'chicagosuntimes' ); ?></h1>
 
-		<div id="main" class="columns large-8 text-center large-centered">
+            <p>
+                <?php esc_html_e( "We're sorry, but we seem to have lost this page.", 'chicagosuntimes' ); ?>
+            </p>
 
-			<h1><?php esc_html_e( 'Page Not Found', 'chicagosuntimes' ); ?></h1>
+            <form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                <input id="search-input" placeholder="<?php esc_attr_e( 'search...', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" />
+                <a href="#" id="search-button" class="search-in">
+                    <i class="fa fa-search"></i>
+                </a>
+            </form>
 
-			<p style="padding-top:20px;"><?php esc_html_e( "We're sorry, but we seem to have lost this page.", 'chicagosuntimes' ); ?></p>
+        </div>
+    </section>
 
-			<p><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/company-logo-black' ); ?></a></p>
-
-		</div>
-
-	</section>
-<?php get_template_part( 'parts/homepage/footer' ); ?>
 <?php get_footer(); ?>
