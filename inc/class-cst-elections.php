@@ -15,6 +15,7 @@ class CST_Elections {
 		'primary-election-results' => 'http://interactives.ap.org/2016/primary-election-results/?STATE=%1$s&date=%2$s&SITEID=%3$s',
 		'state-presidential-caucus-table' => 'http://hosted.ap.org/dynamic/files/elections/2016/by_%1$s/IL_Page_%2$s%4$s.html?SITE=%3$s&SECTION=POLITICS',
 		'presidential-caucus-table' => 'http://hosted.ap.org/dynamic/files/elections/2016/by_%1$s/IL_Page_%2$s%4$s.html?SITE=%3$s&SECTION=POLITICS',
+		'vote-results-widget' => 'http://hosted.ap.org/elections/2016/by_race/IL_%1$s%2$s.js?SITE=%3$s&SECTION=POLITICS',
 	);
 
 	public function __construct() {
@@ -50,6 +51,31 @@ class CST_Elections {
 	}
 
 	/**
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	public function vote_results_widget( $atts ) {
+		$attributes = shortcode_atts( array(
+			'counts' => false,
+			'siteid' => $this->site_id,
+			'racenumber' => 14999,
+		), $atts );
+
+		$attributes['racenumber'] = (int) $attributes['racenumber'];
+		$attributes['counts'] = ( true === $attributes['counts'] ) ? '_D' : '';
+
+		$remote_url = sprintf( esc_url( $this->shortcodes['vote-results-widget'] ), $attributes['racenumber'], $attributes['counts'], $attributes['siteid'] );
+		$response = vip_safe_wp_remote_get( $remote_url );
+		if ( ! is_wp_error( $response ) ) {
+			$body = wp_remote_retrieve_body( $response );
+			return '<script>' . $body . '</script>';
+		} else {
+			return '';
+		}
+	}
+
+	/**
 	 *
 	 * Collect and return for display primary election results
 	 * @param $atts
@@ -70,7 +96,7 @@ class CST_Elections {
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', sprintf( $this->shortcodes['primary-election-results'], $attributes['state'], $attributes['date'], $attributes['siteid'] ),
+</iframe>', sprintf( esc_url( $this->shortcodes['primary-election-results'] ), $attributes['state'], $attributes['date'], $attributes['siteid'] ),
 			$attributes['width'],
 		$attributes['height'] );
 
@@ -110,7 +136,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', sprintf( $this->shortcodes['presidential-caucus-table'], $attributes['type'], $attributes['date'], $attributes['siteid'], $attributes['vd'] ),
+</iframe>', sprintf( esc_url( $this->shortcodes['presidential-caucus-table'] ), $attributes['type'], $attributes['date'], $attributes['siteid'], $attributes['vd'] ),
 				$attributes['width'],
 			$attributes['height'] );
 
