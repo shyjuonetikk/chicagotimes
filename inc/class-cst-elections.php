@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Shortcodes for Hosted AP Election scripts / codes
+ * Shortcodes for Hosted AP Election scripts / codes March 2016
  */
 
 class CST_Elections {
@@ -11,10 +11,8 @@ class CST_Elections {
 	private $election_state = 'IL';
 
 	private $shortcodes = array(
-		'delegate-tracker' => 'http://interactives.ap.org/2016/delegate-tracker/',
+		'election-2016' => 'http://hosted.ap.org/dynamic/files/elections/2016/by_%1$s/IL_%2$s%4$s.html?SITE=%3$s&SECTION=POLITICS',
 		'primary-election-results' => 'http://interactives.ap.org/2016/primary-election-results/?STATE=%1$s&date=%2$s&SITEID=%3$s',
-		'state-presidential-caucus-table' => 'http://hosted.ap.org/dynamic/files/elections/2016/by_%1$s/IL_Page_%2$s%4$s.html?SITE=%3$s&SECTION=POLITICS',
-		'presidential-caucus-table' => 'http://hosted.ap.org/dynamic/files/elections/2016/by_%1$s/IL_Page_%2$s%4$s.html?SITE=%3$s&SECTION=POLITICS',
 		'vote-results-widget' => 'http://hosted.ap.org/elections/2016/by_race/IL_%1$s%2$s.js?SITE=%3$s&SECTION=POLITICS',
 	);
 
@@ -35,19 +33,40 @@ class CST_Elections {
 
 	}
 
-	public function delegate_tracker( $atts ) {
+	public function election_2016( $atts ) {
+		$available_types = array(
+			'state',
+			'county',
+			'cd',
+		);
 		$attributes = shortcode_atts( array(
-			'image' => 'true',
+			'state' => $this->election_state,
+			'date' => $this->election_date,
+			'siteid' => $this->site_id,
 			'width' => '100%',
-			'height' => '600px',
+			'height' => '400px',
+			'type' => 'state',
+			'page' => 'US_Senate',
+			'counts' => false,
 		), $atts );
 
-		$html = sprintf( '<iframe src="%1$s%2$s" class="ap-embed" width="%3$s" height="%4$s" style="border: 1px solid #eee;">
+		if ( in_array( $attributes['type'], $available_types, true ) ) {
+			$attributes['vd'] = ( 'cd' === $attributes['type'] ) ? '_VD' : '';
+			$attributes['vd'] = ( true === $attributes['counts'] ) ? '_D' : $attributes['vd'];
+
+			$html             = sprintf( '<iframe src="%1$s"
+  class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
- Your browser does not support the <code>iframe</code> HTML tag.
- Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', esc_url( $this->shortcodes['delegate-tracker'] ), '?image=' . $attributes['image'], $attributes['width'], $attributes['height'] );
-		return $html;
+Your browser does not support the <code>iframe</code> HTML tag.
+Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
+</iframe>', sprintf( esc_url( $this->shortcodes['election-2016'] ), $attributes['type'], $attributes['page'] . '_' . $attributes['date'], $attributes['siteid'], $attributes['vd'] ),
+				$attributes['width'],
+			$attributes['height'] );
+
+			return $html;
+		} else {
+			return '';
+		}
 	}
 
 	/**
@@ -101,50 +120,6 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 		$attributes['height'] );
 
 		return $html;
-	}
-
-	/**
-	 * @param $atts
-	 *
-	 * Handle State and Presidential by state, county and CD
-	 *
-	 * @return string
-	 *
-	 */
-	public function state_presidential_caucus_table( $atts ) {
-		$available_types = array(
-			'state',
-			'county',
-			'cd',
-		);
-		$attributes = shortcode_atts( array(
-			'state' => $this->election_state,
-			'date' => $this->election_date,
-			'siteid' => $this->site_id,
-			'width' => '100%',
-			'height' => '600px',
-			'type' => 'state',
-			'counts' => false,
-		), $atts );
-
-		if ( in_array( $attributes['type'], $available_types, true ) ) {
-			$attributes['vd'] = ( 'cd' === $attributes['type'] ) ? '_VD' : '';
-			$attributes['vd'] = ( true === $attributes['counts'] ) ? '_D' : $attributes['vd'];
-
-			$html             = sprintf( '<iframe src="%1$s"
-  class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
- <!-- The following message will be displayed to users with unsupported browsers: -->
-Your browser does not support the <code>iframe</code> HTML tag.
-Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', sprintf( esc_url( $this->shortcodes['presidential-caucus-table'] ), $attributes['type'], $attributes['date'], $attributes['siteid'], $attributes['vd'] ),
-				$attributes['width'],
-			$attributes['height'] );
-
-			return $html;
-		} else {
-				return '';
-		}
-
 	}
 }
 
