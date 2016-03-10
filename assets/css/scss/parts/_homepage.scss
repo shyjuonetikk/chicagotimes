@@ -204,6 +204,12 @@
 		margin-bottom: 20px;
 	}
 
+	@media (max-width: 769px) {
+		#div-gpt-btf-leaderboard {
+			display: none;
+		}
+	}
+
 /* HEADER */
 	.logo-wrapper.large-logo {
 		@media (min-width: 1250px) {

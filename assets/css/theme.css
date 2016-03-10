@@ -2351,6 +2351,9 @@ body.post-gallery-lightbox-active {
     display: block; }
   .homepage_wrapper .dfp-atf-leaderboard {
     margin-bottom: 20px; }
+  @media (max-width: 769px) {
+    .homepage_wrapper #div-gpt-btf-leaderboard {
+      display: none; } }
   @media (min-width: 1250px) {
     .homepage_wrapper .logo-wrapper.large-logo {
       display: block; } }
