@@ -2329,9 +2329,6 @@ body.post-gallery-lightbox-active {
     max-width: 1073px;
     width: 100%;
     padding: 0 0 10px 10px; }
-    .homepage_wrapper #div-gpt-sbb iframe {
-      width: 970px;
-      height: 90px; }
   @media (min-width: 481px) and (max-width: 1024px) {
     .homepage_wrapper .dfp-cube {
       text-align: center;
