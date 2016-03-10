@@ -71,12 +71,6 @@
             </div>
             <hr/>
             <div class="row">
-                <div class="large-12 columns dfp-btf-leaderboard">
-                    <?php get_template_part( 'parts/dfp/homepage/dfp-btf-leaderboard' ); ?>
-                </div>
-            </div>
-            <hr/>
-            <div class="row">
                 <?php 
                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_posts[2]->ID );
                     $primary_section = $obj->get_primary_parent_section();
@@ -133,6 +127,13 @@
                     </a>
                     <?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
                     <span class="author">By <?php echo esc_html( $author ); ?></span>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="large-12 columns dfp-btf-leaderboard show-for-medium-up">
+                    <?php get_template_part( 'parts/dfp/homepage/dfp-btf-leaderboard' ); ?>
+                    <?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
                 </div>
             </div>
         </section>
