@@ -356,7 +356,7 @@ class CST {
 			}
 			return $classes;
 		});
-		
+
 		/**
 		 * Filter to whitelist chicago.suntimes.com as suggested in VIP ticket
 		 * https://wordpressvip.zendesk.com/hc/en-us/requests/50256
@@ -364,6 +364,9 @@ class CST {
 		 * Precautionary measure.
 		 */
 		add_filter( 'allowed_redirect_hosts' , array( $this, 'vip_quickstart_add_test_hosts' ) );
+		//
+		add_filter( 'post_updated_messages', array( $this, 'cpt_messages' ) );
+
 	}
 
 	/**
@@ -806,6 +809,56 @@ class CST {
 
 	}
 
+	/**
+	 * @return mixed
+	 *
+	 * Messages relating to our custom post types during the authoring/editing process
+	 *
+	 * Replaces things like "Post updated" with "Article updated" etc
+	 *
+	 */
+	public function cpt_messages( ) {
+
+
+		$post             = get_post();
+		$post_type        = get_post_type( $post );
+		$post_type_object = get_post_type_object( $post_type );
+
+		$messages[$post_type] = array(
+			0  => '', // Unused. Messages start at index 1.
+			1  => __( $post_type_object->labels->singular_name . ' updated.', 'chicagosuntimes' ),
+			2  => __( 'Custom field updated.', 'chicagosuntimes' ),
+			3  => __( 'Custom field deleted.', 'chicagosuntimes' ),
+			4  => __( $post_type_object->labels->singular_name . ' updated.', 'chicagosuntimes' ),
+			/* translators: %s: date and time of the revision */
+			5  => isset( $_GET['revision'] ) ? sprintf( __( $post_type_object->labels->singular_name . ' restored to revision from %s', 'chicagosuntimes' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6  => __( $post_type_object->labels->singular_name . ' published.', 'chicagosuntimes' ),
+			7  => __( $post_type_object->labels->singular_name . ' saved.', 'chicagosuntimes' ),
+			8  => __( $post_type_object->labels->singular_name . ' submitted.', 'chicagosuntimes' ),
+			9  => sprintf(
+				__( 'Article scheduled for: <strong>%1$s</strong>.', 'chicagosuntimes' ),
+				// translators: Publish box date format, see http://php.net/date
+				date_i18n( __( 'M j, Y @ G:i', 'chicagosuntimes' ), strtotime( $post->post_date ) )
+			),
+			10 => __( $post_type_object->labels->singular_name . ' draft updated.', 'chicagosuntimes' )
+		);
+
+		if ( $post_type_object->publicly_queryable ) {
+			$permalink = get_permalink( $post->ID );
+
+			$view_link = sprintf( ' <a href="%s">%s</a>', esc_url( $permalink ), __( 'View ' . $post_type_object->labels->singular_name , 'chicagosuntimes' ) );
+			$messages[ $post_type ][1] .= $view_link;
+			$messages[ $post_type ][6] .= $view_link;
+			$messages[ $post_type ][9] .= $view_link;
+
+			$preview_permalink = add_query_arg( 'preview', 'true', $permalink );
+			$preview_link = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url( $preview_permalink ), __( 'Preview ' . $post_type_object->singular_name , 'chicagosuntimes' ) );
+			$messages[ $post_type ][8]  .= $preview_link;
+			$messages[ $post_type ][10] .= $preview_link;
+		}
+
+		return $messages;
+	}
 	/**
 	 * Register custom taxonomies for the theme
 	 */
