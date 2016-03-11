@@ -20,16 +20,21 @@ window.YieldMo = {
       return
 
     var contentTag = tags["content"];
-    if(paragraphsCount >= 1 && contentTag != "")
+    if(paragraphsCount >= 1 && contentTag != "") {
       insertParagraphAfter(paragraphs[1], this._yieldMoHTMLTag(contentTag));
+      jQuery('#div-gpt-mobile-leaderboard').detach().appendTo('.cst-active-scroll-post .post-content');
 
-    var footerTag = tags["footer"];
+      var footerTag = tags["footer"];
 
-    if(footerTag != ""){
-      newNode = this._yieldMoHTMLTag(footerTag);
-      jQuery('.cst-active-scroll-post').append(newNode)
+      if(footerTag != ""){
+        newNode = this._yieldMoHTMLTag(footerTag);
+        jQuery('.cst-active-scroll-post').append(newNode)
+      }
+      this._insertYieldMoJS()
+      this._refreshMobileDFPPosition()
+      
     }
-    this._insertYieldMoJS()
+
   },
 
   /* Private methods */
@@ -68,14 +73,19 @@ window.YieldMo = {
         s+= (r<0.1?Math.floor(r*100):String.fromCharCode(Math.floor(r*26) + (r>0.5?97:65)));
       }
     return s;
+  },
+
+  _refreshMobileDFPPosition: function(){
+    CSTAds.triggerUnitRefresh( 'div-gpt-mobile-leaderboard' );
+    console.log('moile refresh');
   }
 
 }
 
 function insertParagraphAfter(referenceNode, html){
-      var newNode = document.createElement("p")
-      newNode.innerHTML = html
-      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-      return newNode
-  }
+    var newNode = document.createElement("p")
+    newNode.innerHTML = html
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    return newNode
+}
 
