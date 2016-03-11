@@ -5,7 +5,12 @@
 		foreach( $obj->get_authors() as $i => $author ) : ?>
 	<div class="post-meta-author"><a href="<?php echo esc_url( $author->get_permalink() ); ?>"><?php echo esc_html( $author->get_display_name() ); ?></a></div>
 	<?php
-		$twitter_username = $author->get_twitter_username();
+		if( $author->get_type() == 'guest-author' ) {
+			$twitter_username = $author->get_guest_twitter_username();
+		} else {
+			$twitter_username = $author->get_twitter_username();
+		}
+		
 		$email_address = $author->get_email();
 		if ( $twitter_username || $email_address ) {
 			$parts = array();
