@@ -105,7 +105,7 @@ class CST_Featured_Content_Widget extends WP_Widget {
 			<div class="featured-story-body">
 		 	<?php if ( $section = $obj->get_primary_section() ) : ?>
 				<span class="section">
-					<a href="<?php echo esc_url( get_term_link( $section ) ); ?>"><?php echo esc_html( $section->name ); ?></a> 
+					<a href="<?php echo esc_url( wpcom_vip_get_term_link( $section ) ); ?>"><?php echo esc_html( $section->name ); ?></a> 
 				</span><br/>
 			<?php endif; ?>
 				<h3 class="title">
