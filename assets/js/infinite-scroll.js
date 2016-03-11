@@ -214,7 +214,6 @@
 					_taboola.push({article:'auto', url:uri});
 				}
 				if(window.SECTIONS_FOR_YIELD_MO){
-					console.log('YIELDMO EXISTS');
 					window.YieldMo && YieldMo.inject(window.SECTIONS_FOR_YIELD_MO)
 			    }
 				document.title = wp_title;
