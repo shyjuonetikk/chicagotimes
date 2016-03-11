@@ -16,6 +16,15 @@ class CST_Elections {
 		'vote-results-widget' => 'http://hosted.ap.org/elections/2016/by_race/IL_%1$s%2$s.js?SITE=%3$s&SECTION=POLITICS',
 	);
 
+	private static $instance;
+
+	public static function get_instance() {
+
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new CST_Elections();
+		}
+		return self::$instance;
+	}
 	public function __construct() {
 
 		$this->setup_short_codes();
@@ -84,7 +93,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 		$attributes['racenumber'] = (int) $attributes['racenumber'];
 		$attributes['counts'] = ( true === $attributes['counts'] ) ? '_D' : '';
 
-		$remote_url = sprintf( esc_url( $this->shortcodes['vote-results-widget'] ), $attributes['racenumber'], $attributes['counts'], $attributes['siteid'] );
+		$remote_url = sprintf( esc_url( $this->shortcodes['vote-results-widget'] ), esc_attr( $attributes['racenumber'] ), esc_attr( $attributes['counts'] ), esc_attr( $attributes['siteid'] ) );
 		$response = vip_safe_wp_remote_get( $remote_url );
 		if ( ! is_wp_error( $response ) ) {
 			$body = wp_remote_retrieve_body( $response );
@@ -115,11 +124,33 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', sprintf( esc_url( $this->shortcodes['primary-election-results'] ), $attributes['state'], $attributes['date'], $attributes['siteid'] ),
-			$attributes['width'],
-		$attributes['height'] );
+</iframe>', sprintf( esc_url( $this->shortcodes['primary-election-results'] ), esc_attr( $attributes['state'] ), esc_attr( $attributes['date'] ), esc_attr( $attributes['siteid'] ) ),
+			esc_attr( $attributes['width'] ),
+		esc_attr( $attributes['height'] ) );
 
 		return $html;
+	}
+
+	/**
+	 * Homepage section
+	 */
+	public function election_shortcode() {
+		?>
+		<div class=" row">
+			<div class="large-12 columns content-wrapper">
+				<div class="elections-2016">
+					<hr/>
+					<h2 class="section-title"><span><?php esc_html_e( 'Elections 2016', 'chicagosuntimes' ); ?></span></h2>
+					<hr/>
+					<?php
+					if ( is_active_sidebar( 'election_2016_headlines' ) ) {
+						dynamic_sidebar( 'election_2016_headlines' );
+					}
+					?>
+				</div>
+			</div>
+		</div>
+		<?php
 	}
 }
 
