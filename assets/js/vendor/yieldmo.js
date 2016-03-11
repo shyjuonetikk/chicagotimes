@@ -21,14 +21,15 @@ window.YieldMo = {
 
     var contentTag = tags["content"];
     if(paragraphsCount >= 1 && contentTag != "") {
-      insertParagraphAfter(paragraphs[1], this._yieldMoHTMLTag(contentTag));
+      yieldmoContentNode = this._yieldMoHTMLTag(contentTag);
+      jQuery(paragraphs[1]).append(yieldmoContentNode);
       jQuery('#div-gpt-mobile-leaderboard').detach().appendTo('.cst-active-scroll-post .post-content');
 
       var footerTag = tags["footer"];
 
       if(footerTag != ""){
-        newNode = this._yieldMoHTMLTag(footerTag);
-        jQuery('.cst-active-scroll-post').append(newNode)
+        yieldmoFooterNode = this._yieldMoHTMLTag(footerTag);
+        jQuery('.cst-active-scroll-post').append(yieldmoFooterNode)
       }
       this._insertYieldMoJS()
       this._refreshMobileDFPPosition()
@@ -62,7 +63,12 @@ window.YieldMo = {
 
   _yieldMoHTMLTag: function(tag){
     var random = this._randString(10);
-    return "<div id='" + tag + "' class='ym' data-id='" + random + "'></div>";
+        yieldmo_div = jQuery('<div />');
+        yieldmo_div.attr( 'id', tag );
+        yieldmo_div.attr( 'class', 'ym' );
+        yieldmo_div.attr( 'data-id', random );
+
+    return yieldmo_div;
   },
 
   _randString: function(characters){
@@ -79,12 +85,5 @@ window.YieldMo = {
     CSTAds.triggerUnitRefresh( 'div-gpt-mobile-leaderboard' );
   }
 
-}
-
-function insertParagraphAfter(referenceNode, html){
-    var newNode = document.createElement("p")
-    newNode.innerHTML = html
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-    return newNode
 }
 
