@@ -5,11 +5,12 @@ window.YieldMo = {
      Contains all the logic for setting up yield mo tags
      */
   inject: function(sectionNames){
-    var postContent = document.querySelector("*[itemprop*='articleBody']")
-    if(!postContent)
-      return
+    postContent = jQuery('#main').find('.cst-active-scroll-post');
+    if ( ! postContent.length ) {
+      return;
+    }
 
-    var paragraphs = Array.prototype.slice.call(jQuery(postContent).children("p"))
+    var paragraphs = Array.prototype.slice.call(jQuery('.cst-active-scroll-post p'))
     var paragraphsCount = paragraphs.length
     if(!paragraphsCount)
       return
@@ -19,21 +20,22 @@ window.YieldMo = {
       return
 
     var contentTag = tags["content"];
-    if(paragraphsCount >= 6 && contentTag != "")
-      insertParagraphAfter(paragraphs[1], this._yieldMoHTMLTag(contentTag));
+    if(paragraphsCount >= 1 && contentTag != "") {
+      yieldmoContentNode = this._yieldMoHTMLTag(contentTag);
+      jQuery(paragraphs[1]).append(yieldmoContentNode);
+      jQuery('#div-gpt-mobile-leaderboard').detach().appendTo('.cst-active-scroll-post .post-content');
 
-    var contentTag = tags["content2"];
-    if(paragraphsCount >= 11 && contentTag != "")
-      insertParagraphAfter(paragraphs[5], this._yieldMoHTMLTag(contentTag));
+      var footerTag = tags["footer"];
 
-    var footerTag = tags["footer"];
-
-    if(footerTag != ""){
-      var newNode = document.createElement("p")
-      newNode.innerHTML = this._yieldMoHTMLTag(footerTag);
-      postContent.appendChild(newNode)
+      if(footerTag != ""){
+        yieldmoFooterNode = this._yieldMoHTMLTag(footerTag);
+        jQuery('.cst-active-scroll-post').append(yieldmoFooterNode)
+      }
+      this._insertYieldMoJS()
+      this._refreshMobileDFPPosition()
+      
     }
-    this._insertYieldMoJS()
+
   },
 
   /* Private methods */
@@ -60,15 +62,28 @@ window.YieldMo = {
   },
 
   _yieldMoHTMLTag: function(tag){
-    return "<div id='" + tag + "' class='ym'></div>";
+    var random = this._randString(10);
+        yieldmo_div = jQuery('<div />');
+        yieldmo_div.attr( 'id', tag );
+        yieldmo_div.attr( 'class', 'ym' );
+        yieldmo_div.attr( 'data-id', random );
+
+    return yieldmo_div;
+  },
+
+  _randString: function(characters){
+    var s = "";
+    var x = characters;
+      while(s.length<x&&x>0){
+        var r = Math.random();
+        s+= (r<0.1?Math.floor(r*100):String.fromCharCode(Math.floor(r*26) + (r>0.5?97:65)));
+      }
+    return s;
+  },
+
+  _refreshMobileDFPPosition: function(){
+    CSTAds.triggerUnitRefresh( 'div-gpt-mobile-leaderboard' );
   }
 
 }
-
-function insertParagraphAfter(referenceNode, html){
-      var newNode = document.createElement("p")
-      newNode.innerHTML = html
-      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-      return newNode
-  }
 
