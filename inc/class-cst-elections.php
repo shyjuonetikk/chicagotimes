@@ -53,7 +53,7 @@ class CST_Elections {
 			'date' => $this->election_date,
 			'siteid' => $this->site_id,
 			'width' => '100%',
-			'height' => '400px',
+			'height' => '250px',
 			'type' => 'state',
 			'page' => 'US_Senate',
 			'counts' => false,

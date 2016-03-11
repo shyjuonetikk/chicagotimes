@@ -1,4 +1,4 @@
-<?php global $homepage_election_well_posts; ?>
+<?php global $homepage_election_well_posts, $election_sections; ?>
 <section id="election-more-stories-wells" class="large-6 columns">
 	<div class="row">
 		<?php
@@ -129,11 +129,10 @@
 <div class="large-6 columns">
 	<?php
 	if ( shortcode_exists( 'election-2016' ) ) {
-		echo do_shortcode( '[election-2016 page="US_Senate"]' );
+		echo do_shortcode( '[election-2016 page="' . $election_sections['section_id_upper'] . '"]' );
 	}
 	if ( shortcode_exists( 'election-2016' ) ) {
-		echo do_shortcode( '[election-2016 page="States_Attorney"]' );
+		echo do_shortcode( '[election-2016 page="' . $election_sections['section_id_lower'] . '"]' );
 	}
 	?>
 </div>
-

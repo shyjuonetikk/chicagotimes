@@ -6,89 +6,89 @@
  * Version 2
  *
  */
-
 class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 
-    private $headlines = array(
-        'cst_election_2016_more_headlines_one',
-        'cst_election_2016_more_headlines_two',
-        'cst_election_2016_more_headlines_three',
-        'cst_election_2016_more_headlines_four',
-    );
+	private $headlines = array(
+		'cst_election_2016_more_headlines_one',
+		'cst_election_2016_more_headlines_two',
+		'cst_election_2016_more_headlines_three',
+		'cst_election_2016_more_headlines_four',
+	);
 
-    private $titles = array(
-        'Headline One',
-        'Headline Two',
-        'Headline Three',
-        'Headline Four',
-    );
+	private $titles = array(
+		'Headline One',
+		'Headline Two',
+		'Headline Three',
+		'Headline Four',
+	);
 
-    public function __construct() {
-        parent::__construct(
-            'cst_election_2016_more_headlines',
-            esc_html__( 'CST Election 2016 More Headlines', 'chicagosuntimes' ),
-            array(
-                'description' => esc_html__( 'Displays Election Specific Headlines.', 'chicagosuntimes' ),
-            )
-        );
+	public function __construct() {
+		parent::__construct(
+			'cst_election_2016_more_headlines',
+			esc_html__( 'CST Election 2016 More Headlines', 'chicagosuntimes' ),
+			array(
+				'description' => esc_html__( 'Displays Election Specific Headlines.', 'chicagosuntimes' ),
+			)
+		);
 
-        add_action( 'wp_ajax_cst_election_2016_more_headlines_get_posts', array( $this, 'cst_election_2016_more_headlines_get_posts' ) );
-    }
+		add_action( 'wp_ajax_cst_election_2016_more_headlines_get_posts', array( $this, 'cst_election_2016_more_headlines_get_posts' ) );
+	}
 
-    /**
-     * Get all published posts to display in Select2 dropdown
-     */
-    public function cst_election_2016_more_headlines_get_posts() {
+	/**
+	 * Get all published posts to display in Select2 dropdown
+	 */
+	public function cst_election_2016_more_headlines_get_posts() {
 
-        if ( ! wp_verify_nonce( $_GET['nonce'], 'cst_election_2016_more_headlines' )
-             || ! current_user_can( 'edit_others_posts' ) ) {
-            wp_send_json_error();
-        }
+		if ( ! wp_verify_nonce( $_GET['nonce'], 'cst_election_2016_more_headlines' )
+		     || ! current_user_can( 'edit_others_posts' )
+		) {
+			wp_send_json_error();
+		}
 
-        $term = sanitize_text_field( $_GET['searchTerm'] );
+		$term = sanitize_text_field( $_GET['searchTerm'] );
 
-        $search_args = array(
-            'post_type'     => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery' ),
-            's'             => $term,
-            'post_status'   => 'publish',
-            'no_found_rows' => true,
-        );
+		$search_args = array(
+			'post_type'     => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery' ),
+			's'             => $term,
+			'post_status'   => 'publish',
+			'no_found_rows' => true,
+		);
 
-        $search_query = new WP_Query( $search_args );
+		$search_query = new WP_Query( $search_args );
 
-        $returning = array();
-        $posts = array();
+		$returning = array();
+		$posts     = array();
 
-        if ( $search_query->have_posts() ):
+		if ( $search_query->have_posts() ):
 
-            while ( $search_query->have_posts() ) : $search_query->the_post();
-                $obj = get_post( get_the_ID() );
-                if ( $obj ) {
-                    $content_type = get_post_type( $obj->ID );
-                    $posts['id'] = get_the_ID();
-                    $posts['text'] = $obj->post_title . ' [' . $content_type . ']';
-                    array_push( $returning, $posts );
-                }
+			while ( $search_query->have_posts() ) : $search_query->the_post();
+				$obj = get_post( get_the_ID() );
+				if ( $obj ) {
+					$content_type  = get_post_type( $obj->ID );
+					$posts['id']   = get_the_ID();
+					$posts['text'] = $obj->post_title . ' [' . $content_type . ']';
+					array_push( $returning, $posts );
+				}
 
-            endwhile;
-        endif;
+			endwhile;
+		endif;
 
-        echo json_encode( $returning );
-        exit();
+		echo json_encode( $returning );
+		exit();
 
-    }
+	}
 
-    public function enqueue_scripts() {
+	public function enqueue_scripts() {
 
-        wp_enqueue_script( 'cst_election_2016_more_headlines', get_template_directory_uri() . '/assets/js/cst-homepage-election-headlines.js', array( 'jquery' ) );
-        wp_localize_script( 'cst_election_2016_more_headlines', 'CSTElectionHeadlinesData', array(
-            'placeholder_text'  => esc_html__( 'Search for content to feature', 'chicagosuntimes' ),
-            'nonce'             => wp_create_nonce( 'cst_election_2016_more_headlines' ),
-        ) );
-        wp_enqueue_style( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' );
-        wp_enqueue_script( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.min.js' );
-	    wp_enqueue_style( 'dashicons' );
-    }
+		wp_enqueue_script( 'cst_election_2016_more_headlines', get_template_directory_uri() . '/assets/js/cst-homepage-election-headlines.js', array( 'jquery' ) );
+		wp_localize_script( 'cst_election_2016_more_headlines', 'CSTElectionHeadlinesData', array(
+			'placeholder_text' => esc_html__( 'Search for content to feature', 'chicagosuntimes' ),
+			'nonce'            => wp_create_nonce( 'cst_election_2016_more_headlines' ),
+		) );
+		wp_enqueue_style( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' );
+		wp_enqueue_script( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.min.js' );
+		wp_enqueue_style( 'dashicons' );
+	}
 
 	/**
 	 * Outputs the content of the widget
@@ -98,10 +98,10 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		global $homepage_election_well_posts;
+		global $homepage_election_well_posts, $election_sections;
 		$widget_posts = array();
 
-		for ( $count = 0; $count < count( $instance ); $count++) {
+		for ( $count = 0; $count < 4; $count++) {
 			if ( $instance[ $count ] ) {
 				$widget_posts[] = absint( $instance[ $count ] );
 			}
@@ -110,6 +110,8 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 		if ( ! empty( $widget_posts ) ) {
 
 			$homepage_election_well_posts = $this->get_headline_posts( $widget_posts );
+			$election_sections['section_id_upper'] = $instance['section_id_upper'];
+			$election_sections['section_id_lower'] = $instance['section_id_lower'];
 //			get_template_part( 'parts/homepage/election-secondary-wells' );
 			get_template_part( 'parts/homepage/election-more-wells' );
 
@@ -145,6 +147,12 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 	public function form( $instance ) {
 
 		$this->enqueue_scripts();
+		$section_names = array(
+			'US_Senate' => 'US Senate',
+			'States_Attorney' => 'States Attorney',
+			'Circuit_Court_Clerk' => 'Circuit Court Clerk',
+		);
+
 		$count = 0;
 		?>
 		<div class="cst-election-2016-headline-sort ui-sortable">
@@ -168,6 +176,24 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 				$count++;
 			}?>
 		</div>
+		<div>
+		<label for="<?php echo $this->get_field_id( 'section_id_upper' ); ?>"><?php _e( 'Right sections upper:' ); ?></label>
+		<select name="<?php echo $this->get_field_name( 'section_id_upper' ); ?>" id="<?php echo $this->get_field_id( 'section_id_upper' ); ?>">
+			<?php
+			foreach ( $section_names as $section_name => $value ) {?>
+				<option value="<?php echo esc_attr( $section_name ); ?>" <?php echo esc_attr( $instance['section_id_upper'] === $section_name ? 'selected' : '' ); ?>><?php echo esc_attr( $value ); ?></option>
+			<?php } ?>
+		</select>
+		</div>
+		<div>
+		<label for="<?php echo $this->get_field_id( 'section_id_lower' ); ?>"><?php _e( 'Right sections lowper:' ); ?></label>
+		<select name="<?php echo $this->get_field_name( 'section_id_lower' ); ?>" id="<?php echo $this->get_field_id( 'section_id_lower' ); ?>">
+			<?php
+			foreach ( $section_names as $section_name => $value ) {?>
+				<option value="<?php echo esc_attr( $section_name ); ?>" <?php echo esc_attr( $instance['section_id_lower'] === $section_name ? 'selected' : '' ); ?>><?php echo esc_attr( $value ); ?></option>
+			<?php } ?>
+		</select>
+		</div>
 		<?php
 
 	}
@@ -182,10 +208,11 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$total = count( $new_instance );
-		for ( $count = 0; $count < $total; $count++ ) {
+		for ( $count = 0; $count < 4; $count++ ) {
 			$instance[] = intval( array_shift( $new_instance ) );
 		}
+		$instance['section_id_upper'] = $new_instance['section_id_upper'];
+		$instance['section_id_lower'] = $new_instance['section_id_lower'];
 		return $instance;
 	}
 }
