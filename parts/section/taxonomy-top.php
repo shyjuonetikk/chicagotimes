@@ -32,7 +32,7 @@
 		<?php endif; ?>
 		<?php if( ! is_tax( 'cst_section' ) ) : ?>
 		<?php
-			$share_link = rawurlencode( get_term_link( get_queried_object() ) );
+			$share_link = rawurlencode( wpcom_vip_get_term_link( get_queried_object() ) );
 			$text = ( get_queried_object()->description ) ? rawurlencode( get_queried_object()->description ) : rawurlencode( get_queried_object()->name );
 			$twitter_args = array(
 				'url'        => $share_link,

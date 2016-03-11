@@ -23,7 +23,7 @@ if ( ! $obj ) {
 		<span class="right-ribbon"></span>
 	</span>
 <?php endif; ?>
-<span class="post-section-taxonomy"><a href="<?php echo esc_url( get_term_link( $section ) ); ?>"><?php echo esc_html( $section->name ); ?></a></span>
+<span class="post-section-taxonomy"><a href="<?php echo esc_url( wpcom_vip_get_term_link( $section ) ); ?>"><?php echo esc_html( $section->name ); ?></a></span>
 <?php endif; ?>
 <?php if ( !is_sticky() ) : ?>
 	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_post_date() ); ?></span>
