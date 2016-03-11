@@ -63,7 +63,8 @@ class CST_Elections {
 			$attributes['vd'] = ( 'cd' === $attributes['type'] ) ? '_VD' : '';
 			$attributes['vd'] = ( true === $attributes['counts'] ) ? '_D' : $attributes['vd'];
 
-			$html             = sprintf( '<iframe src="%1$s"
+			$html = '<h3>' . str_replace( '_',' ', esc_attr( $attributes['page'] ) ) . '</h3>';
+			$html .= sprintf( '<iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
