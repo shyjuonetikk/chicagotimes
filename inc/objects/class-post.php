@@ -242,7 +242,7 @@ abstract class Post {
 				if ( class_exists( 'Guest_Author' ) ){
 					$author = new Guest_Author( $author );
 				}else{
-					unset( $authors[$key] ); //VIP dirty hack to remove guest authors if class not found
+					$author = new User( $author );
 				}
 			} else {
 				$author = new User( $author );
