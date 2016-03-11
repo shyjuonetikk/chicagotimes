@@ -77,7 +77,6 @@ window.YieldMo = {
 
   _refreshMobileDFPPosition: function(){
     CSTAds.triggerUnitRefresh( 'div-gpt-mobile-leaderboard' );
-    console.log('moile refresh');
   }
 
 }
