@@ -13,7 +13,6 @@ class CST_Elections {
 	private $shortcodes = array(
 		'election-2016' => 'http://hosted.ap.org/dynamic/files/elections/2016/by_%1$s/IL_%2$s%4$s.html?SITE=%3$s&SECTION=POLITICS',
 		'primary-election-results' => 'http://interactives.ap.org/2016/primary-election-results/?STATE=%1$s&date=%2$s&SITEID=%3$s',
-		'vote-results-widget' => 'http://hosted.ap.org/elections/2016/by_race/IL_%1$s%2$s.js?SITE=%3$s&SECTION=POLITICS',
 	);
 
 	private static $instance;
@@ -80,31 +79,6 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 	}
 
 	/**
-	 * @param $atts
-	 *
-	 * @return string
-	 */
-	public function vote_results_widget( $atts ) {
-		$attributes = shortcode_atts( array(
-			'counts' => false,
-			'siteid' => $this->site_id,
-			'racenumber' => 14999,
-		), $atts );
-
-		$attributes['racenumber'] = (int) $attributes['racenumber'];
-		$attributes['counts'] = ( true === $attributes['counts'] ) ? '_D' : '';
-
-		$remote_url = sprintf( esc_url( $this->shortcodes['vote-results-widget'] ), esc_attr( $attributes['racenumber'] ), esc_attr( $attributes['counts'] ), esc_attr( $attributes['siteid'] ) );
-		$response = vip_safe_wp_remote_get( $remote_url );
-		if ( ! is_wp_error( $response ) ) {
-			$body = wp_remote_retrieve_body( $response );
-			return '<script>' . $body . '</script>';
-		} else {
-			return '';
-		}
-	}
-
-	/**
 	 *
 	 * Collect and return for display primary election results
 	 * @param $atts
@@ -140,9 +114,6 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 		<div class=" row">
 			<div class="large-12 columns content-wrapper">
 				<div class="elections-2016">
-					<hr/>
-					<h2 class="section-title"><span><?php esc_html_e( 'Elections 2016', 'chicagosuntimes' ); ?></span></h2>
-					<hr/>
 					<?php
 					if ( is_active_sidebar( 'election_2016_headlines' ) ) {
 						dynamic_sidebar( 'election_2016_headlines' );

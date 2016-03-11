@@ -13,6 +13,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 		'cst_election_2016_more_headlines_two',
 		'cst_election_2016_more_headlines_three',
 		'cst_election_2016_more_headlines_four',
+		'cst_election_2016_more_headlines_five',
 	);
 
 	private $titles = array(
@@ -20,6 +21,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 		'Headline Two',
 		'Headline Three',
 		'Headline Four',
+		'Headline Five',
 	);
 
 	public function __construct() {
@@ -59,7 +61,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 		$returning = array();
 		$posts     = array();
 
-		if ( $search_query->have_posts() ):
+		if ( $search_query->have_posts() ) {
 
 			while ( $search_query->have_posts() ) : $search_query->the_post();
 				$obj = get_post( get_the_ID() );
@@ -71,7 +73,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 				}
 
 			endwhile;
-		endif;
+		}
 
 		echo json_encode( $returning );
 		exit();
@@ -101,7 +103,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 		global $homepage_election_well_posts, $election_sections;
 		$widget_posts = array();
 
-		for ( $count = 0; $count < 4; $count++) {
+		for ( $count = 0; $count < 5; $count++ ) {
 			if ( $instance[ $count ] ) {
 				$widget_posts[] = absint( $instance[ $count ] );
 			}
@@ -112,7 +114,6 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 			$homepage_election_well_posts = $this->get_headline_posts( $widget_posts );
 			$election_sections['section_id_upper'] = $instance['section_id_upper'];
 			$election_sections['section_id_lower'] = $instance['section_id_lower'];
-//			get_template_part( 'parts/homepage/election-secondary-wells' );
 			get_template_part( 'parts/homepage/election-more-wells' );
 
 		}
@@ -177,7 +178,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 			}?>
 		</div>
 		<div>
-		<label for="<?php echo $this->get_field_id( 'section_id_upper' ); ?>"><?php _e( 'Right sections upper:' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'section_id_upper' ); ?>"><?php esc_attr_e( 'Right sections upper:' ); ?></label>
 		<select name="<?php echo $this->get_field_name( 'section_id_upper' ); ?>" id="<?php echo $this->get_field_id( 'section_id_upper' ); ?>">
 			<?php
 			foreach ( $section_names as $section_name => $value ) {?>
@@ -186,7 +187,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 		</select>
 		</div>
 		<div>
-		<label for="<?php echo $this->get_field_id( 'section_id_lower' ); ?>"><?php _e( 'Right sections lowper:' ); ?></label>
+		<label for="<?php echo $this->get_field_id( 'section_id_lower' ); ?>"><?php esc_attr_e( 'Right sections lower:' ); ?></label>
 		<select name="<?php echo $this->get_field_name( 'section_id_lower' ); ?>" id="<?php echo $this->get_field_id( 'section_id_lower' ); ?>">
 			<?php
 			foreach ( $section_names as $section_name => $value ) {?>
@@ -208,7 +209,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		for ( $count = 0; $count < 4; $count++ ) {
+		for ( $count = 0; $count < 5; $count++ ) {
 			$instance[] = intval( array_shift( $new_instance ) );
 		}
 		$instance['section_id_upper'] = $new_instance['section_id_upper'];
