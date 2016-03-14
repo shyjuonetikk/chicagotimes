@@ -38,6 +38,8 @@
 			this.interstitial = $('#div-gpt-interstitial');
 			this.interstitialContainer = $('#dfp-interstitial-container');
 			this.closeInterstitial = $('#dfp-interstitial-close');
+			this.searchButton = $('#search-button');
+			this.searchInput = $('#search-input');
 
 		},
 
@@ -67,6 +69,29 @@
 				e.preventDefault();
 				this.interstitial.css('display', 'none');
 				this.interstitialContainer.css('display', 'none');
+			}, this ) );
+
+			this.searchButton.on( "click", $.proxy( function (e) {
+
+				e.preventDefault();
+
+				if( this.searchButton.hasClass('search-in')) {
+					this.searchButton.removeClass('search-in').addClass('search-out');
+				} else {
+					this.searchButton.removeClass('search-out').addClass('search-in');
+				}
+
+				if ( this.searchInput.is(':visible') ) {
+
+					if ( this.searchInput.val().length ) {
+						this.searchInput.closest('form').trigger( 'submit' );
+					} else {
+						this.searchInput.toggle( "slide", { direction: "right" }  );
+					}
+				} else {
+
+					this.searchInput.toggle( "slide", { direction: "right" } );
+				}
 			}, this ) );
 
 		},
