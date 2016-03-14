@@ -216,6 +216,10 @@
 				if(window.SECTIONS_FOR_YIELD_MO){
 					window.YieldMo && YieldMo.inject(window.SECTIONS_FOR_YIELD_MO)
 			    }
+
+			    if(window.AggregoChatter){
+					window.AggregoChatter && AggregoChatter.inject()
+			    }
 				document.title = wp_title;
 
 				CSTAnalytics.triggerPageview();
