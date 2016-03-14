@@ -1317,6 +1317,12 @@ article.post {
     .single .ndn_embed {
       height: 518px; } }
 
+.single .agg-collage {
+  margin-top: 20px;
+  border-top: 2px solid #F0F0F0;
+  border-bottom: 2px solid #F0F0F0;
+  padding: 10px 0 10px 0; }
+
 section#subscribe {
   background: #FFFFFF;
   display: block;
