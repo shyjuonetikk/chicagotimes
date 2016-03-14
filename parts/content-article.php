@@ -20,8 +20,19 @@
 		<?php endif; ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
 		<div class="post-content columns medium-9 medium-offset-1 p402_premium end" itemprop="articleBody">
+		<?php 
+			if ( $agg_primary_section = $obj->get_primary_section() ) : 
+				if( $agg_primary_section->parent != 0 ) {
+					$agg_primary_section = $obj->get_grandchild_parent_section();
+				}
+				$agg_primary_section_slug = $agg_primary_section->slug;
+			else :
+				$agg_primary_section_slug = 'politics';
+			endif;
+		?>
 		<script>
-          window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>
+          window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
+          window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo json_encode( $agg_primary_section_slug ); ?>;
         </script>
 			<?php $obj->the_content(); ?>
 			<?php
