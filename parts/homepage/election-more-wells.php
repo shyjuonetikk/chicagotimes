@@ -1,6 +1,11 @@
 <?php global $homepage_election_well_posts, $election_sections; ?>
 <style type="text/css">
 	@media only screen and (min-width: 40.063em) {
+		.elections-2016 {
+			margin-bottom: 10px;
+			float:left;
+			height: auto;
+		}
 		.election-2016 h3 {
 			font-size:1.0875rem;
 			font-weight: bold;
