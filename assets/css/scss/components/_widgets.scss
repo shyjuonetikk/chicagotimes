@@ -338,4 +338,31 @@
 		}
 
 	}
+
+	.search-widget {
+		padding: 0;
+		margin-bottom: 20px;
+
+		#search-input {
+			font-size: 1.25rem;
+			border: 2px ridge;
+			padding: 5px;
+			width: 250px;
+			float: left;
+	    }
+
+	    #search-button {
+	      	display: block;
+			font-size: 20px;
+			padding: 0;
+			color: $menu_black;
+			float: left;
+			margin: 8px 0 0 20px;
+			background: transparent;
+	    }
+
+	    #search-button:hover {
+			color: $red;
+	    }
+	}
 }

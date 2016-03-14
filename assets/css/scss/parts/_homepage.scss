@@ -1055,6 +1055,27 @@
 	}
 }
 
+.search-widget {
+	padding: 0;
+
+	#search-input {
+      font-size: 1.25rem;
+      border: 2px ridge;
+      padding: 5px;
+      width: 250px;
+    }
+
+    #search-button {
+      font-size: 1.5rem;
+      color: $menu_black;
+      margin-left: 10px;
+    }
+
+    #search-button:hover {
+      color: $red;
+    }
+}
+
 li.widget_cst_ad_widget {
 	list-style-type: none;	
 }
