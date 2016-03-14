@@ -217,8 +217,8 @@
 					window.YieldMo && YieldMo.inject(window.SECTIONS_FOR_YIELD_MO)
 			    }
 
-			    if(window.AggregoChatter){
-					window.AggregoChatter && AggregoChatter.inject()
+			    if(window.AggregoChatter && window.SECTIONS_FOR_AGGREGO_CHATTER){
+					window.AggregoChatter && AggregoChatter.inject(window.SECTIONS_FOR_AGGREGO_CHATTER)
 			    }
 				document.title = wp_title;
 
