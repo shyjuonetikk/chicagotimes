@@ -57,4 +57,13 @@ body.error404 {
     }
   }
 
+	.home-page-link {
+		color: $black;
+
+		&:hover,
+		&:active,
+		&:visited {
+			color: $black;
+		}
+	}
 }
