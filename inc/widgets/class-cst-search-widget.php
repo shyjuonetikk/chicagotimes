@@ -16,14 +16,21 @@ class CST_Search_Widget extends WP_Widget {
 
     public function widget( $args, $instance ) {
     ?>
-    <div class="large-12 medium-6 small-12 columns social-follow-us">
-    <?php
-        if( is_front_page() ) :
-            get_template_part( 'parts/homepage/social-follow-us' );
-        else :
-            get_template_part( 'parts/sidebar/search-widget' );
-        endif;
-    ?>
+    <div class="row">
+        <div class="large-12 medium-6 small-12 columns search-widget">
+            <form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+                <input id="search-input" placeholder="<?php esc_attr_e( 'search...', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" />
+        <?php if( is_front_page() ) : ?>
+                <a href="#" id="search-button" class="search-in">
+                    <i class="fa fa-search"></i>
+                </a>
+        <?php else : ?>
+                <button type="submit" id="search-button" class="search-in">
+                    <i class="fa fa-search"></i>
+                </button>
+        <?php endif; ?>
+            </form>
+        </div>
     </div>
     <?php
     }
