@@ -273,6 +273,7 @@ class CST {
 
 		remove_all_actions( 'do_feed_rss2' );
 		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
+		add_action('do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1);
 
 	}
 
@@ -1349,6 +1350,12 @@ class CST {
 	        do_feed_rss2( $for_comments ); // Call default function
 	}
 
+	/**
+	 * Load customized AP configured feed.
+	 */
+	function cst_rss_AP_atom() {
+		load_template( TEMPLATEPATH . '/feeds/feed-AP-atom.php' );
+	}
 }
 
 /**
