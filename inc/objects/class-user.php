@@ -112,12 +112,30 @@ class User extends Author {
 	}
 
 	/**
+	 * Get the type of the user
+	 *
+	 * @return string
+	 */
+	public function get_type() {
+		return $this->user->type;
+	}
+
+	/**
 	 * Get the Twitter username for this user
 	 *
 	 * @return string
 	 */
 	public function get_twitter_username() {
 		return $this->get_gravatar_detail( 'twitter_username' );
+	}
+
+	/**
+	 * Get the Twitter username for this geust user
+	 *
+	 * @return string
+	 */
+	public function get_guest_twitter_username() {
+		return $this->get_meta( 'cap-twitter' );
 	}
 
 	/**
@@ -167,6 +185,16 @@ class User extends Author {
 
 		return $ret;
 
+	}
+
+	/**
+	 * Get a meta value for a guest author post
+	 *
+	 * @param string
+	 * @return mixed
+	 */
+	protected function get_meta( $key ) {
+		return get_post_meta( $this->get_id(), $key, true );
 	}
 
 }
