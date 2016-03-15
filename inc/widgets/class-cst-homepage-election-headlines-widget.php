@@ -11,7 +11,7 @@ class CST_Elections_2016_More_Headlines_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'cst_election_2016_more_headlines',
-			esc_html__( 'CST Election AP Widgets', 'chicagosuntimes' ),
+			esc_html__( 'CST Election AP content', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays Election AP Widgets.', 'chicagosuntimes' ),
 			)
