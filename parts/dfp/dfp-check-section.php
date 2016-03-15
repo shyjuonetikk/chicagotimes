@@ -2,6 +2,7 @@
 global $dfp_slug;
 global $dfp_parent;
 global $dfp_child;
+global $dfp_grandchild;
 	if( is_tax() ) :
 		$dfp_obj = get_queried_object();
 		if( $dfp_obj->taxonomy == 'cst_section' ) :
