@@ -127,6 +127,15 @@
         case 'mid-west':
             $dfp_child = 'midwest';
             break;
+        case 'dear-abby':
+            $dfp_child = 'dearabby';
+            break;
+        case 'health-fitness':
+            $dfp_child = 'healthfitness';
+            break;
+        case 'relationship-advice':
+            $dfp_child = 'relationshipadvice';
+            break;
         default:
             break;
     }
