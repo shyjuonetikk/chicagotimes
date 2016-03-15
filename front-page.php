@@ -18,6 +18,7 @@
                 </div>
             </div>
             <?php 
+            do_action( 'above-homepage-headlines' );
                 if ( is_active_sidebar( 'homepage_headlines' ) ) :
                     dynamic_sidebar( 'homepage_headlines' ); 
                 endif;

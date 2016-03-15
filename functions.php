@@ -133,6 +133,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-customizer.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-infinite-scroll.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-liveblog.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-elections.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -163,6 +164,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-secondary-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-more-headlines-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-election-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-weather-word-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-columnists-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newspaper-cover-widget.php';
@@ -274,6 +276,10 @@ class CST {
 		remove_all_actions( 'do_feed_rss2' );
 		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
 		add_action('do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1);
+		// Uses class-cst-elections.php
+		if ( class_exists( 'CST_Elections' ) ) {
+			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
+		}
 
 	}
 
@@ -484,6 +490,12 @@ class CST {
 			'name'        => esc_html__( 'Obits Headlines', 'chicagosuntimes' ),
 		) );
 
+		if ( class_exists( 'CST_Elections' ) ) {
+			register_sidebar( array(
+				'id'          => 'election_2016_headlines',
+				'name'        => esc_html__( 'Election 2016 AP Widgets', 'chicagosuntimes' ),
+			) );
+		}
 	}
 
 	/**
@@ -499,6 +511,7 @@ class CST {
 		register_widget( 'CST_Homepage_Headlines_Widget' );
 		register_widget( 'CST_Homepage_Secondary_Headlines_Widget' );
 		register_widget( 'CST_Homepage_More_Headlines_Widget' );
+		register_widget( 'CST_Elections_2016_More_Headlines_Widget' );
 		register_widget( 'CST_Weather_Word_Widget' );
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
@@ -855,7 +868,7 @@ class CST {
 			$messages[ $post_type ][9] .= $view_link;
 
 			$preview_permalink = add_query_arg( 'preview', 'true', $permalink );
-			$preview_link = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url( $preview_permalink ), __( 'Preview ' . $post_type_object->singular_name , 'chicagosuntimes' ) );
+			$preview_link = sprintf( ' <a target="_blank" href="%s">%s</a>', esc_url( $preview_permalink ), __( 'Preview ' . $post_type_object->labels->singular_name , 'chicagosuntimes' ) );
 			$messages[ $post_type ][8]  .= $preview_link;
 			$messages[ $post_type ][10] .= $preview_link;
 		}
