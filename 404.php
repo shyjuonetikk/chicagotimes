@@ -15,7 +15,7 @@
                     <i class="fa fa-search"></i>
                 </a>
             </form>
-	        <a class="home-page-link" href="<?php echo home_url( '/' ) ?>"><?php esc_html_e( 'Back to the Chicago Sun-Times home page.', 'chicagosuntimes') ; ?></a>
+	        <a class="home-page-link" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Back to the Chicago Sun-Times home page.', 'chicagosuntimes') ; ?></a>
         </div>
     </section>
 

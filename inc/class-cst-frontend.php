@@ -172,6 +172,8 @@ class CST_Frontend {
 			for ( $i = 1;  $i <= 9;  $i++) {
 				$analytics_data['dimension' . $i] = $obj->get_ga_dimension( $i );
 			}
+
+			wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
 		}
 
 		wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
