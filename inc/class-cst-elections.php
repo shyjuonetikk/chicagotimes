@@ -68,9 +68,9 @@ class CST_Elections {
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', sprintf( esc_url( $this->shortcodes['election-2016'] ), $attributes['type'], $attributes['page'] . '_' . $attributes['date'], $attributes['siteid'], $attributes['vd'] ),
-				$attributes['width'],
-			$attributes['height'] );
+</iframe>', sprintf( esc_url( $this->shortcodes['election-2016'] ), esc_attr( $attributes['type']), esc_attr( $attributes['page'] ) . '_' . esc_attr( $attributes['date'] ), esc_attr( $attributes['siteid'] ), esc_attr( $attributes['vd'] ) ),
+				esc_attr( $attributes['width'] ),
+			esc_attr( $attributes['height'] ) );
 
 			return $html;
 		} else {

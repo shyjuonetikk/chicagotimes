@@ -492,7 +492,7 @@ class CST {
 		if ( class_exists( 'CST_Elections' ) ) {
 			register_sidebar( array(
 				'id'          => 'election_2016_headlines',
-				'name'        => esc_html__( 'Election 2016 Headlines', 'chicagosuntimes' ),
+				'name'        => esc_html__( 'Election 2016 AP Widgets', 'chicagosuntimes' ),
 			) );
 		}
 	}
