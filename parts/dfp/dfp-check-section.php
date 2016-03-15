@@ -13,10 +13,20 @@ global $dfp_child;
 				$dfp_term   = get_term( $dfp_parent, 'cst_section' );
 				$dfp_slug 	= $dfp_term->slug;
 				if( $dfp_term->parent != 0 ) {
-					$dfp_term   = get_term( $dfp_term->parent, 'cst_section' );
-					$dfp_slug 	= $dfp_term->slug;
+					$dfp_parent_term   	= get_term( $dfp_term->parent, 'cst_section' );
+					if( $dfp_parent_term->parent == 0 ) {
+						$dfp_parent 		= $dfp_parent_term->slug;
+						$dfp_child 			= $dfp_term->slug;
+						$dfp_grandchild 	= $dfp_obj->slug;
+						get_template_part( 'parts/dfp/dfp-header-grandchild-section' );
+					} else {
+						get_template_part( 'parts/dfp/dfp-header' );			
+					}
+				} else {
+					$dfp_parent = $dfp_term->slug;
+					$dfp_child  = $dfp_obj->slug;
+					get_template_part( 'parts/dfp/dfp-header-sub-section' );
 				}
-				get_template_part( 'parts/dfp/dfp-header' );
 
 			endif;
 		else :
