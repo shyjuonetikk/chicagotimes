@@ -1342,10 +1342,11 @@ article.post {
   @media only screen and (min-width: 48em) {
     .single .ndn_embed {
       height: 518px; } }
+
 .single .agg-collage {
   margin-top: 20px;
-  border-top: 2px solid #f0f0f0;
-  border-bottom: 2px solid #f0f0f0;
+  border-top: 2px solid #F0F0F0;
+  border-bottom: 2px solid #F0F0F0;
   padding: 10px 0 10px 0; }
 
 section#subscribe {
@@ -1631,6 +1632,19 @@ section#subscribe {
       position: fixed;
       bottom: 0px;
       width: 303.328125px; }
+  .sidebar#post-sidebar-right {
+    background-color: #F0F0F0;
+    padding: 10px;
+    width: 160px;
+    top: 0;
+    right: 0;
+    position: absolute;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden; }
+    @media only screen and (max-width: 75em) {
+      .sidebar#post-sidebar-right {
+        display: none !important; } }
   .sidebar#post-sidebar {
     background-color: #F0F0F0;
     padding: 10px;
@@ -1641,11 +1655,6 @@ section#subscribe {
     bottom: 0;
     z-index: 9999;
     overflow: hidden; }
-    @media only screen and (max-width: 75em) {
-      .sidebar#post-sidebar {
-        width: 220px; }
-        .sidebar#post-sidebar #div-gpt-article-sidebar-cube {
-          display: none; } }
     .sidebar#post-sidebar.sidebar-fixed {
       position: fixed; }
     .sidebar#post-sidebar.loading-latest ul {

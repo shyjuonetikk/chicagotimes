@@ -12,6 +12,22 @@
 		}
 	}
 
+	&#post-sidebar-right {
+		background-color: $light_grey;
+		padding: 10px;
+		width: 160px;
+		top: 0;
+		right: 0;
+		position: absolute;
+		bottom: 0;
+		z-index:9999;
+		overflow: hidden;
+
+		@media #{$overlap-down} {
+			display: none !important;
+		}
+	}
+
 	&#post-sidebar {
 		background-color: $light_grey;
 		padding: 10px;
@@ -22,14 +38,6 @@
 		bottom: 0;
 		z-index:9999;
 		overflow: hidden;
-
-		@media #{$overlap-down} {
-			width: 220px;
-
-			#div-gpt-article-sidebar-cube {
-				display:none;
-			}
-		}
 
 		&.sidebar-fixed {
 			position: fixed;
