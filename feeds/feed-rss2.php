@@ -89,12 +89,15 @@ do_action( 'rss_tag_pre', 'rss2' );
         $byline = $obj->get_byline();
         if( ! $byline ) {
             foreach( $obj->get_authors() as $i => $author ) { ?>
-        <dc:creator><![CDATA[<?php the_author() ?>]]></dc:creator>
+        <dc:creator><![CDATA[<?php echo esc_html( $author->get_display_name() ); ?>]]></dc:creator>
 <?php
             }
-        } 
+        } else { 
 ?>
         <dc:creator><![CDATA[<?php echo esc_html( $byline ); ?>]]></dc:creator>
+<?php
+        }
+?>
 <?php
     endif;
 ?>
