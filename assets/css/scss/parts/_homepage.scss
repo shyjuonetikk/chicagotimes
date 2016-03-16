@@ -219,6 +219,24 @@
 			display: none !important;
 		}
 	}
+	header {
+		.contain-to-grid {
+			.top-bar {
+				.top-bar-section {
+					#menu-homepage-left, #menu-homepage {
+						.menu-item {
+							&.obit-external {
+								display: block;
+							}
+							&.hide-obit-external {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 	@media only screen and (min-width: 78.063em) { 
 
 		header {
@@ -278,6 +296,12 @@
 							.menu-item {
 								border-top: 2px solid;
 								display: inline;
+								&.obit-external {
+									display: none;
+								}
+								&.hide-obit-external {
+									display: block;
+								}
 							}
 						}
 		    		}
