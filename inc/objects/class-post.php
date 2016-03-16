@@ -578,6 +578,21 @@ abstract class Post {
 	}
 
 	/**
+	 * Get the newsletter field for the post
+	 *
+	 * @return string
+	 */
+	public function get_newsletter_tag() {
+
+		if ( $newsletter_tag = $this->get_fm_field( 'newsletter_tags' ) ) {
+			return $newsletter_tag;
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
 	 * Get the SEO title for the post
 	 *
 	 * @return string
