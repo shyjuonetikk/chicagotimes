@@ -1267,11 +1267,10 @@ article.post {
   @media only screen and (min-width:48em) {
     .single .ndn_embed {
       height: 518px; } }
-
 .single .agg-collage {
   margin-top: 20px;
-  border-top: 2px solid #F0F0F0;
-  border-bottom: 2px solid #F0F0F0;
+  border-top: 2px solid #f0f0f0;
+  border-bottom: 2px solid #f0f0f0;
   padding: 10px 0 10px 0; }
 
 section#subscribe {
@@ -2315,6 +2314,10 @@ body.post-gallery-lightbox-active {
   @media (max-width: 1249px) {
     .homepage_wrapper .logo-wrapper.large-logo {
       display: none !important; } }
+  .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
+    display: block; }
+  .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
+    display: none; }
   @media only screen and (min-width: 78.063em) {
     .homepage_wrapper header .contain-to-grid .top-bar {
       max-width: 100%;
@@ -2350,7 +2353,11 @@ body.post-gallery-lightbox-active {
           display: inline-table; }
           .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item {
             border-top: 2px solid;
-            display: inline; } }
+            display: inline; }
+            .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
+              display: none; }
+            .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
+              display: block; } }
   .homepage_wrapper .top-bar-section {
     z-index: 3; }
   .homepage_wrapper .breaking-news-story {
