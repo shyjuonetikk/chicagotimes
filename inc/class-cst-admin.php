@@ -234,7 +234,7 @@ class CST_Admin {
 			'name' 	  => 'newsletter_tags',
 			'description' => esc_html__( 'Used to identify stories that should appear in the Newsletters.', 'chicagosuntimes' ),
 			'options' => array(
-				'No_Story'				=> 'No Story',
+				'No_Newsletter'				=> 'No Newsletter',
 				'Top_Story'		=> 'Top Story',
 				'Hero' 	=> 'Hero Story'
 				)
