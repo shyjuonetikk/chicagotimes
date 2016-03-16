@@ -143,6 +143,7 @@ do_action( 'rss_tag_pre', 'rss2' );
         $people       = $obj->get_people();
         $locations    = $obj->get_locations();
         $topics       = $obj->get_topics();
+        $newsletter   = $obj->get_newsletter_tag();
 ?>
     <?php 
         if( $sections ) {
@@ -174,6 +175,13 @@ do_action( 'rss_tag_pre', 'rss2' );
             <category domain="cst_topic" nicename="<?php echo esc_html( $topic->slug ); ?>"><![CDATA[<?php echo esc_html( $topic->slug ); ?>]]></category>
     <?php 
             }
+        } 
+    ?>
+
+    <?php 
+        if( $newsletter ) { ?>
+            <category domain="cst_newsletter" nicename="<?php echo esc_html( $newsletter ); ?>"><![CDATA[<?php echo esc_html( $newsletter); ?>]]></category>
+    <?php 
         } 
     ?>
 <?php 
