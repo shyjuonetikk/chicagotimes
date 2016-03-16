@@ -29,11 +29,13 @@ window.AggregoChatter = {
       var anchorTag = 'politics';
     }
 
-    if(paragraphsCount >= 1) {
-      aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
-      jQuery(paragraphs[2]).append(aggregoChatterContentNode);
+    if( ! jQuery('.cst-active-scroll-post .agg-collage' ).length ) {
+      if(paragraphsCount >= 1) {
+        aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
+        jQuery(paragraphs[2]).append(aggregoChatterContentNode);
 
-      this._insertAggregoChatterJS(domainTag, anchorTag);      
+        this._insertAggregoChatterJS(domainTag, anchorTag);      
+      }
     }
 
   },
