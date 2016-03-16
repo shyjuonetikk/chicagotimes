@@ -230,6 +230,17 @@ class CST_Admin {
 			) );
 		$fm->add_meta_box( esc_html__( 'Freelancer Byline', 'chicagosuntimes' ), array( 'cst_article', 'cst_gallery' ), 'normal', 'high' );
 
+		$fm = new Fieldmanager_Select( array( 
+			'name' 	  => 'newsletter_tags',
+			'description' => esc_html__( 'Used to identify stories that should appear in the Newsletters.', 'chicagosuntimes' ),
+			'options' => array(
+				'No_Story'				=> 'No Story',
+				'Top_Story'		=> 'Top Story',
+				'Hero' 	=> 'Hero Story'
+				)
+			) );
+		$fm->add_meta_box( esc_html__( 'Newsletter Tag', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
+
 		/**
 		 * Link
 		 */
