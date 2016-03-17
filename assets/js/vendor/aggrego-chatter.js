@@ -16,16 +16,16 @@ window.AggregoChatter = {
       return
 
     if(sectionNames == 'politics') {
-      var domainTag = 'politicschatter';
+      var domainTag = 'politics';
       var anchorTag = 'politics';
     } else if(sectionNames == 'entertainment') {
-      var domainTag = 'celebchatter';
+      var domainTag = 'celeb';
       var anchorTag = 'entertainment';
     } else if(sectionNames == 'sports') {
-      var domainTag = 'sportschatter';
+      var domainTag = 'sports';
       var anchorTag = 'sports';
     } else {
-      var domainTag = 'politicschatter';
+      var domainTag = 'politics';
       var anchorTag = 'politics';
     }
 
@@ -34,7 +34,15 @@ window.AggregoChatter = {
         aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
         jQuery(paragraphs[2]).append(aggregoChatterContentNode);
 
-        this._insertAggregoChatterJS(domainTag, anchorTag);      
+        var title = jQuery( '<h4 />' );
+            title.attr( 'class', 'agg-sponsored' );
+            title.text( 'Promoted Stories from ');
+            chatter = jQuery( '<span />' );
+            chatter.text( domainTag + 'Chatter' );
+            jQuery(title).append(chatter);
+            jQuery('.agg-collage').before( title );
+
+        this._insertAggregoChatterJS(domainTag, anchorTag);
       }
     }
 
@@ -43,7 +51,7 @@ window.AggregoChatter = {
   /* Private methods */
   _insertAggregoChatterJS: function(domainTag, anchorTag){
     var script = document.createElement('script');
-    script.src = "http://suntimes." + domainTag + ".com/widgets/2.0/collage/" + anchorTag + ".js?anchor=" + anchorTag;
+    script.src = "http://suntimes." + domainTag + "chatter.com/widgets/2.0/collage/" + anchorTag + ".js?anchor=" + anchorTag;
     document.getElementsByTagName('head')[0].appendChild(script);
   },
 
