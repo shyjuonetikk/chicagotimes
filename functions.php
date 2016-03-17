@@ -178,6 +178,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-ndn-video-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-search-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-ncaa-scoreboard-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-ncaa-news-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -526,6 +527,7 @@ class CST {
 		register_widget( 'CST_Homepage_NDN_Video_Widget' );
 		register_widget( 'CST_Search_Widget' );
 		register_widget( 'CST_AP_NCAA_Scoreboard_Widget' );
+		register_widget( 'CST_AP_NCAA_News_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
