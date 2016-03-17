@@ -34,7 +34,11 @@ window.AggregoChatter = {
         aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
         jQuery(paragraphs[2]).append(aggregoChatterContentNode);
 
-        this._insertAggregoChatterJS(domainTag, anchorTag);      
+        var title = jQuery( '<h2 />' );
+            title.text( 'Promoted Stories from ' );
+            jQuery('.agg-collage').append( title );
+
+        this._insertAggregoChatterJS(domainTag, anchorTag);
       }
     }
 
