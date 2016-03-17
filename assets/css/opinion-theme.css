@@ -1342,10 +1342,11 @@ article.post {
   @media only screen and (min-width: 48em) {
     .single .ndn_embed {
       height: 518px; } }
+
 .single .agg-collage {
   margin-top: 20px;
-  border-top: 2px solid #f0f0f0;
-  border-bottom: 2px solid #f0f0f0;
+  border-top: 2px solid #F0F0F0;
+  border-bottom: 2px solid #F0F0F0;
   padding: 10px 0 10px 0; }
 
 section#subscribe {
@@ -2014,6 +2015,21 @@ section#subscribe {
       background: transparent; }
     .widgets .search-widget #search-button:hover {
       color: #BDBDBD; }
+  .widgets li.ap_ncaa_cbb_scoreboard_widget {
+    overflow: hidden; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget h1.widget-title {
+      background-color: #282828 !important;
+      color: #FFFFFF !important;
+      font-size: 0.75rem !important;
+      line-height: 0.9rem !important;
+      text-transform: uppercase !important;
+      font-weight: 700 !important;
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+      padding-top: 5px !important;
+      padding-bottom: 5px !important; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget .columns {
+      padding: 0; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }
