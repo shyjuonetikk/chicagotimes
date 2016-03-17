@@ -1344,10 +1344,20 @@ article.post {
       height: 518px; } }
 
 .single .agg-collage {
-  margin-top: 20px;
+  margin-top: 5px;
   border-top: 2px solid #F0F0F0;
   border-bottom: 2px solid #F0F0F0;
   padding: 10px 0 10px 0; }
+
+.single h4.agg-sponsored {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #9A9A9A;
+  font-weight: 600;
+  text-transform: uppercase; }
+  .single h4.agg-sponsored span {
+    text-transform: capitalize;
+    color: #D22D42; }
 
 section#subscribe {
   background: #FFFFFF;
