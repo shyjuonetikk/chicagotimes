@@ -366,12 +366,16 @@
 	    }
 	}
 
-	li.ap_ncaa_cbb_scoreboard_widget {
+	li.ap_ncaa_cbb_scoreboard_widget, li.ap_ncaa_cbb_news_widget {
 		overflow: hidden;
 
 		h1.widget-title {
 			background-color: $black !important;
 			color: $white !important;
+			a {
+				color: $white !important;
+				font-size: 0.75rem !important;
+			}
 			font-size: 0.75rem !important;
 			line-height: 0.9rem !important;
 			text-transform: uppercase !important;
@@ -384,6 +388,17 @@
 
 		.columns {
 			padding: 0;
+		}
+
+		#ap-new-widgets {
+			background: transparent !important;
+
+			.title-block {
+
+				.inner-frame {
+					padding: 0 !important;
+				}
+			}
 		}
 	}
 }

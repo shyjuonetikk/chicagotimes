@@ -2015,9 +2015,9 @@ section#subscribe {
       background: transparent; }
     .widgets .search-widget #search-button:hover {
       color: #00AE04; }
-  .widgets li.ap_ncaa_cbb_scoreboard_widget {
+  .widgets li.ap_ncaa_cbb_scoreboard_widget, .widgets li.ap_ncaa_cbb_news_widget {
     overflow: hidden; }
-    .widgets li.ap_ncaa_cbb_scoreboard_widget h1.widget-title {
+    .widgets li.ap_ncaa_cbb_scoreboard_widget h1.widget-title, .widgets li.ap_ncaa_cbb_news_widget h1.widget-title {
       background-color: #282828 !important;
       color: #FFFFFF !important;
       font-size: 0.75rem !important;
@@ -2028,8 +2028,15 @@ section#subscribe {
       padding-right: 5px !important;
       padding-top: 5px !important;
       padding-bottom: 5px !important; }
-    .widgets li.ap_ncaa_cbb_scoreboard_widget .columns {
+      .widgets li.ap_ncaa_cbb_scoreboard_widget h1.widget-title a, .widgets li.ap_ncaa_cbb_news_widget h1.widget-title a {
+        color: #FFFFFF !important;
+        font-size: 0.75rem !important; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget .columns, .widgets li.ap_ncaa_cbb_news_widget .columns {
       padding: 0; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget #ap-new-widgets, .widgets li.ap_ncaa_cbb_news_widget #ap-new-widgets {
+      background: transparent !important; }
+      .widgets li.ap_ncaa_cbb_scoreboard_widget #ap-new-widgets .title-block .inner-frame, .widgets li.ap_ncaa_cbb_news_widget #ap-new-widgets .title-block .inner-frame {
+        padding: 0 !important; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }
