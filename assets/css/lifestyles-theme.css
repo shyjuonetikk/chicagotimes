@@ -1342,8 +1342,7 @@ article.post {
     color: #873AFA; }
 
 .single .ndn_embed {
-  float: left;
-  margin-bottom: 15px;
+  margin-bottom: 20px !important;
   width: 100%;
   list-style-type: none; }
   @media only screen and (max-width: 40em) {
@@ -1352,9 +1351,6 @@ article.post {
   @media only screen and (min-width: 40.063em) and (max-width: 47.398em) {
     .single .ndn_embed {
       height: 414px; } }
-  @media only screen and (min-width: 48em) {
-    .single .ndn_embed {
-      height: 518px; } }
 
 .single .agg-collage {
   margin-top: 5px;
@@ -1679,6 +1675,8 @@ section#subscribe {
     .sidebar#post-sidebar .widget_cst_ad_widget {
       list-style-type: none;
       margin-bottom: 20px; }
+    .sidebar#post-sidebar .widget_cst_ad_widget:nth-child(1) {
+      margin-top: 0 !important; }
     .sidebar#post-sidebar.sidebar-fixed {
       position: fixed; }
     .sidebar#post-sidebar.loading-latest ul {
