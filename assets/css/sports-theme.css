@@ -692,9 +692,13 @@ ul#menu-sun-times-network {
     font-size: 2.2rem;
     font-weight: 700;
     text-transform: uppercase;
-    display: block;
+    display: inline-block;
     margin-top: 10px;
     text-shadow: -1px 0px #3E3E3E; }
+  .wire a.section-front-sponsor {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: 30px; }
   .wire #section-top {
     padding: 15px;
     margin-top: 30px;
