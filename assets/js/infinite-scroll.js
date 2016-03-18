@@ -213,6 +213,10 @@
 					_taboola.push({mode:'thumbnails-c', container: taboola_container_id, placement: 'Below Article Thumbnails', target_type: 'mix'});
 					_taboola.push({article:'auto', url:uri});
 				}
+
+				var scrollTop = $(window).scrollTop();
+				jQuery('#post-sidebar').css('top', scrollTop);
+				
 				if(window.SECTIONS_FOR_YIELD_MO){
 					window.YieldMo && YieldMo.inject(window.SECTIONS_FOR_YIELD_MO)
 			    }
