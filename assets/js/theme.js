@@ -40,7 +40,7 @@
 			this.fixedBackToTop = $('#fixed-back-to-top');
 			this.backToTop = $('#back-to-top');
 			this.primaryNavigation = $('#primary-navigation');
-			this.postSidebar = $('#post-sidebar');
+			this.postSidebar = $('.article-sidebar');
 			this.postBody = $('#post-body');
 			this.offCanvasList = $('.off-canvas-menu');
 			this.searchButton = $('#search-button');
@@ -304,7 +304,7 @@
 
 			}
 
-			this.positionAndSizePostSidebar();
+			//this.positionAndSizePostSidebar();
 
 		},
 
