@@ -6,7 +6,7 @@
 
 	<div class="row">
 
-		<div id="main" class="columns large-9 large-offset-2 medium-offset-3 end">
+		<div id="main" class="columns large-9 end">
 			<?php
 				if ( is_singular() ) :
 					get_template_part( 'parts/dfp/dfp-atf-leaderboard' );
@@ -42,8 +42,9 @@
 		</div>
 
 	</div>
-		<?php get_sidebar( 'right' ); ?>
+
 	</section>
 
+	<?php get_sidebar( 'right' ); ?>
 
 <?php get_footer(); ?>
