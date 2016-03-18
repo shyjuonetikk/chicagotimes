@@ -6,7 +6,7 @@
 
 	<div class="row">
 
-		<div id="main" class="columns large-9 end">
+		<div id="main" class="columns large-10 end">
 			<?php
 				if ( is_singular() ) :
 					get_template_part( 'parts/dfp/dfp-atf-leaderboard' );
