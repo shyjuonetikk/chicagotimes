@@ -10,7 +10,7 @@
 	?>
 	<a href="" class="section-front"><?php esc_html_e( $section_front_spacing ); ?></a>
 	<?php if( $section_front_spacing == 'television' ) : ?>
-		<a href="http://www.wciu.com" class="section-front-sponsor">Brought to you by
+		<a href="http://www.wciu.com" target="_blank" class="section-front-sponsor">Brought to you by
 			<img src="<?php echo get_template_directory_uri(); ?>/assets/images/wciu-logo.png" alt="WCIU LOGO">
 		</a>
 	<?php endif; ?>
