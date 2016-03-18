@@ -308,6 +308,16 @@ article.post {
 
 	#post-body {
 
+		@media (max-width: 1200px) {
+			.row {
+				margin-left: 0;
+
+				#main {
+					padding-left: 0;
+				}
+			}
+		}
+
 		@media #{$small-only} {
 			margin-top: 30px;
 		}
@@ -555,10 +565,24 @@ article.post {
 }
 
 .agg-collage {
-	margin-top: 20px;
+	margin-top: 5px;
 	border-top: 2px solid $light_grey;
 	border-bottom: 2px solid $light_grey;
 	padding: 10px 0 10px 0;
+}
+
+h4.agg-sponsored {
+	margin-top: 20px;
+	font-size: 1rem;
+	color: $social_grey;
+	font-weight: 600;
+	text-transform: uppercase;
+
+	span {
+		text-transform: capitalize;
+		color: $red;
+	}
+
 }
 
 }

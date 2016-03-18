@@ -110,12 +110,20 @@ body.error404 {
     body.error404 .home-page-link:hover, body.error404 .home-page-link:active, body.error404 .home-page-link:visited {
       color: #282828; }
 
+#div-gpt-btf-leaderboard {
+  position: relative;
+  z-index: 2; }
+
 .dfp.dfp-centered {
   margin-left: auto;
   margin-right: auto; }
 
 .dfp.dfp-leaderboard {
   width: 728px;
+  position: relative;
+  z-index: 2; }
+
+.dfp#div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }
 
@@ -1199,6 +1207,11 @@ article.post {
 
 .single #post-body {
   position: relative; }
+  @media (max-width: 1200px) {
+    .single #post-body .row {
+      margin-left: 0; }
+      .single #post-body .row #main {
+        padding-left: 0; } }
   @media only screen and (max-width: 40em) {
     .single #post-body {
       margin-top: 30px; } }
@@ -1344,10 +1357,20 @@ article.post {
       height: 518px; } }
 
 .single .agg-collage {
-  margin-top: 20px;
+  margin-top: 5px;
   border-top: 2px solid #F0F0F0;
   border-bottom: 2px solid #F0F0F0;
   padding: 10px 0 10px 0; }
+
+.single h4.agg-sponsored {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #9A9A9A;
+  font-weight: 600;
+  text-transform: uppercase; }
+  .single h4.agg-sponsored span {
+    text-transform: capitalize;
+    color: #D5C35F; }
 
 section#subscribe {
   background: #FFFFFF;
@@ -1632,29 +1655,30 @@ section#subscribe {
       position: fixed;
       bottom: 0px;
       width: 303.328125px; }
-  .sidebar#post-sidebar-right {
+  .sidebar#post-sidebar-left {
     background-color: #F0F0F0;
     padding: 10px;
     width: 160px;
     top: 0;
-    right: 0;
+    left: 0;
     position: absolute;
     bottom: 0;
-    z-index: 9999;
-    overflow: hidden; }
-    @media only screen and (max-width: 75em) {
-      .sidebar#post-sidebar-right {
+    z-index: 1; }
+    @media (max-width: 1300px) {
+      .sidebar#post-sidebar-left {
         display: none !important; } }
   .sidebar#post-sidebar {
     background-color: #F0F0F0;
     padding: 10px;
     width: 320px;
     top: 0;
-    left: 0;
+    right: 0;
     position: absolute;
     bottom: 0;
-    z-index: 9999;
-    overflow: hidden; }
+    z-index: 1; }
+    .sidebar#post-sidebar .widget_cst_ad_widget {
+      list-style-type: none;
+      margin-bottom: 20px; }
     .sidebar#post-sidebar.sidebar-fixed {
       position: fixed; }
     .sidebar#post-sidebar.loading-latest ul {
@@ -2023,6 +2047,28 @@ section#subscribe {
       background: transparent; }
     .widgets .search-widget #search-button:hover {
       color: #D5C35F; }
+  .widgets li.ap_ncaa_cbb_scoreboard_widget, .widgets li.ap_ncaa_cbb_news_widget {
+    overflow: hidden; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget h1.widget-title, .widgets li.ap_ncaa_cbb_news_widget h1.widget-title {
+      background-color: #282828 !important;
+      color: #FFFFFF !important;
+      font-size: 0.75rem !important;
+      line-height: 0.9rem !important;
+      text-transform: uppercase !important;
+      font-weight: 700 !important;
+      padding-left: 5px !important;
+      padding-right: 5px !important;
+      padding-top: 5px !important;
+      padding-bottom: 5px !important; }
+      .widgets li.ap_ncaa_cbb_scoreboard_widget h1.widget-title a, .widgets li.ap_ncaa_cbb_news_widget h1.widget-title a {
+        color: #FFFFFF !important;
+        font-size: 0.75rem !important; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget .columns, .widgets li.ap_ncaa_cbb_news_widget .columns {
+      padding: 0; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget #ap-new-widgets, .widgets li.ap_ncaa_cbb_news_widget #ap-new-widgets {
+      background: transparent !important; }
+      .widgets li.ap_ncaa_cbb_scoreboard_widget #ap-new-widgets .title-block .inner-frame, .widgets li.ap_ncaa_cbb_news_widget #ap-new-widgets .title-block .inner-frame {
+        padding: 0 !important; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }
