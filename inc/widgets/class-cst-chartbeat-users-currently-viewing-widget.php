@@ -20,7 +20,7 @@ class CST_Chartbeat_Currently_Viewing_Widget extends WP_Widget {
 
         echo $args['before_title'] . esc_html( 'Users Currently Viewing' ) . $args['after_title'];
 
-        $response = wpcom_vip_file_get_contents( 'http://api.chartbeat.com/live/toppages/v3/?apikey=fc777b52f4c9fb3b0d8ea9aa9ebafcf3&host=chicago.suntimes.com&section=news,%20sports,%20entertainment,%20lifestyles,%20columnists,%20politics&all_platforms=1&types=0&limit=5
+        $response = wpcom_vip_file_get_contents( 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=news,%20sports,%20entertainment,%20lifestyles,%20columnists,%20politics&all_platforms=1&types=0&limit=5
 ' );
         $result = json_decode( $response );
         if( $result ) {
