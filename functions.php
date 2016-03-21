@@ -116,6 +116,8 @@ class CST {
 
 		define( 'CST_MAPQUEST_API_KEY', 'Fmjtd%7Cluurnu6bn1%2C8g%3Do5-9wbgdy' );
 
+		define( 'CST_CHARTBEAT_API_KEY', 'fc777b52f4c9fb3b0d8ea9aa9ebafcf3' );
+
 		define( 'CST_DEFAULT_SECTION', 'news' );
 
 		define( 'VIP_MAINTENANCE_MODE', false );
@@ -179,6 +181,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-search-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-ncaa-scoreboard-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-ncaa-news-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chartbeat-users-currently-viewing-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -528,6 +531,7 @@ class CST {
 		register_widget( 'CST_Search_Widget' );
 		register_widget( 'CST_AP_NCAA_Scoreboard_Widget' );
 		register_widget( 'CST_AP_NCAA_News_Widget' );
+		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
