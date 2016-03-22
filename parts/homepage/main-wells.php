@@ -12,7 +12,9 @@
                     if( $byline = $obj->get_byline() ) {
                         $author = $byline;
                     } else {
-                        $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[0]->post_author );
+                        $authors = $obj->get_authors();
+                        $author_data = $authors[0];
+                        $author = $author_data->get_display_name();
                     }
             ?>
                     <div class="large-12 medium-12 columns main-article-container">
@@ -42,7 +44,9 @@
                         if( $byline = $obj->get_byline() ) {
                             $author = $byline;
                         } else {
-                            $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[1]->post_author );
+                            $authors = $obj->get_authors();
+                            $author_data = $authors[0];
+                            $author = $author_data->get_display_name();
                         }
                 ?>
                         <div class="large-6 medium-6 columns">
@@ -73,7 +77,9 @@
                         if( $byline = $obj->get_byline() ) {
                             $author = $byline;
                         } else {
-                            $author = get_the_author_meta( 'display_name', $homepage_main_well_posts[2]->post_author );
+                            $authors = $obj->get_authors();
+                            $author_data = $authors[0];
+                            $author = $author_data->get_display_name();
                         }
                 ?>
                         <div class="large-6 medium-6 columns">
