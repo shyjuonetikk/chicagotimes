@@ -15,7 +15,9 @@
                         if( $byline = $obj->get_byline() ) {
                             $author = $byline;
                         } else {
-                            $author = get_the_author_meta( 'display_name', $homepage_secondary_well_posts[0]->post_author );
+                            $authors = $obj->get_authors();
+                            $author_data = $authors[0];
+                            $author = $author_data->get_display_name();
                         }
                 ?>
                         <div class="large-6 medium-6 small-12 columns">
@@ -51,7 +53,9 @@
                         if( $byline = $obj->get_byline() ) {
                             $author = $byline;
                         } else {
-                            $author = get_the_author_meta( 'display_name', $homepage_secondary_well_posts[1]->post_author );
+                            $authors = $obj->get_authors();
+                            $author_data = $authors[0];
+                            $author = $author_data->get_display_name();
                         }
                 ?>
                         <div class="large-6 medium-6 small-12 columns">
@@ -90,7 +94,9 @@
                         if( $byline = $obj->get_byline() ) {
                             $author = $byline;
                         } else {
-                            $author = get_the_author_meta( 'display_name', $homepage_secondary_well_posts[2]->post_author );
+                            $authors = $obj->get_authors();
+                            $author_data = $authors[0];
+                            $author = $author_data->get_display_name();
                         }
                 ?>
                         <div class="large-6 medium-6 small-12 columns">
@@ -121,7 +127,9 @@
                         if( $byline = $obj->get_byline() ) {
                             $author = $byline;
                         } else {
-                            $author = get_the_author_meta( 'display_name', $homepage_secondary_well_posts[3]->post_author );
+                            $authors = $obj->get_authors();
+                            $author_data = $authors[0];
+                            $author = $author_data->get_display_name();
                         }
                 ?>
                         <div class="large-6 medium-6 small-12 columns">

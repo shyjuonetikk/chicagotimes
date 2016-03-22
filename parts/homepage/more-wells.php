@@ -12,7 +12,9 @@
                         if( $byline = $obj->get_byline() ) {
                             $author = $byline;
                         } else {
-                            $author = get_the_author_meta( 'display_name', $homepage_more_well_posts[0]->post_author );
+                            $authors = $obj->get_authors();
+                            $author_data = $authors[0];
+                            $author = $author_data->get_display_name();
                         }
                         ?>
                         <div
@@ -47,7 +49,9 @@
                     if( $byline = $obj->get_byline() ) {
                         $author = $byline;
                     } else {
-                        $author = get_the_author_meta( 'display_name', $homepage_more_well_posts[1]->post_author );
+                        $authors = $obj->get_authors();
+                        $author_data = $authors[0];
+                        $author = $author_data->get_display_name();
                     }
                 ?>
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
@@ -77,7 +81,9 @@
                     if( $byline = $obj->get_byline() ) {
                         $author = $byline;
                     } else {
-                        $author = get_the_author_meta( 'display_name', $homepage_more_well_posts[2]->post_author );
+                        $authors = $obj->get_authors();
+                        $author_data = $authors[0];
+                        $author = $author_data->get_display_name();
                     }
                 ?>
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
@@ -107,7 +113,9 @@
                     if( $byline = $obj->get_byline() ) {
                         $author = $byline;
                     } else {
-                        $author = get_the_author_meta( 'display_name', $homepage_more_well_posts[3]->post_author );
+                        $authors = $obj->get_authors();
+                        $author_data = $authors[0];
+                        $author = $author_data->get_display_name();
                     }
                 ?>
                 <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
