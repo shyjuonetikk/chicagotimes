@@ -692,9 +692,13 @@ ul#menu-sun-times-network {
     font-size: 2.2rem;
     font-weight: 700;
     text-transform: uppercase;
-    display: block;
+    display: inline-block;
     margin-top: 10px;
     text-shadow: -1px 0px #3E3E3E; }
+  .wire a.section-front-sponsor {
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-left: 30px; }
   .wire #section-top {
     padding: 15px;
     margin-top: 30px;
@@ -1846,30 +1850,30 @@ section#subscribe {
       margin-bottom: 0; }
     .widgets li.widget.widget_cst_ad_widget, .widgets li.widget.widget_image {
       background-color: transparent; }
-  .widgets ul.widget-recent-posts {
+  .widgets ul.widget-recent-posts, .widgets ul.widget-chartbeat-currently-viewing {
     background-color: #F0F0F0;
     margin-left: 0 !important;
     font-size: 12px;
     font-weight: 700; }
-    .widgets ul.widget-recent-posts li {
+    .widgets ul.widget-recent-posts li, .widgets ul.widget-chartbeat-currently-viewing li {
       background: #FFFFFF;
       margin-bottom: 2px;
       padding: 5px; }
-      .widgets ul.widget-recent-posts li > a {
+      .widgets ul.widget-recent-posts li > a, .widgets ul.widget-chartbeat-currently-viewing li > a {
         display: block; }
-      .widgets ul.widget-recent-posts li a {
+      .widgets ul.widget-recent-posts li a, .widgets ul.widget-chartbeat-currently-viewing li a {
         color: #282828; }
-    .widgets ul.widget-recent-posts li:hover a, .widgets ul.widget-recent-posts li:hover span, .widgets ul.widget-recent-posts li:hover {
+    .widgets ul.widget-recent-posts li:hover a, .widgets ul.widget-recent-posts li:hover span, .widgets ul.widget-recent-posts li:hover, .widgets ul.widget-chartbeat-currently-viewing li:hover a, .widgets ul.widget-chartbeat-currently-viewing li:hover span, .widgets ul.widget-chartbeat-currently-viewing li:hover {
       background: #D22D42;
       color: #FFFFFF; }
-    .widgets ul.widget-recent-posts .section {
+    .widgets ul.widget-recent-posts .section, .widgets ul.widget-chartbeat-currently-viewing .section {
       color: #D22D42;
       text-transform: uppercase;
       font-weight: 700; }
-    .widgets ul.widget-recent-posts .title a {
+    .widgets ul.widget-recent-posts .title a, .widgets ul.widget-chartbeat-currently-viewing .title a {
       color: #282828;
       font-weight: 700; }
-    .widgets ul.widget-recent-posts .time {
+    .widgets ul.widget-recent-posts .time, .widgets ul.widget-chartbeat-currently-viewing .time {
       color: #9A9A9A; }
   .widgets li.widget.widget_cst_twitter_widget {
     background-color: transparent;
