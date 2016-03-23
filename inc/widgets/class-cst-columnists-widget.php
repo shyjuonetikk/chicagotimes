@@ -94,7 +94,20 @@ class CST_Columnists_Content_Widget extends WP_Widget {
             <h2 class="widgettitle"><?php esc_html_e( 'Today\'s Voice', 'chicagosuntimes' ); ?></h2>
             <?php
                 foreach( $obj->get_authors() as $i => $author ) {
-                    echo $author->get_avatar( 80 );
+	                if ( $author->get_type() === 'guest-author' ) {
+		                global $coauthors_plus;
+		                $guest_author = $coauthors_plus->get_coauthor_by( 'ID', $author->get_id() );
+		                $guest_author_gravatar_html = $coauthors_plus->guest_authors->get_guest_author_thumbnail( $guest_author, 80 );
+		                if ( null === $guest_author_gravatar_html ) {
+			                echo $author->get_avatar( 80 );
+		                } else {
+			                echo $guest_author_gravatar_html;
+		                }
+		                break; // Show only one - the first
+	                } else {
+		                echo $author->get_avatar( 80 );
+		                break; // Show only one - the first
+	                }
                 }
             ?>
             <div class="columnists-story">
