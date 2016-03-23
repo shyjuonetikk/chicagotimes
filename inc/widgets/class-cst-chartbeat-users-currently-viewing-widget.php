@@ -18,7 +18,7 @@ class CST_Chartbeat_Currently_Viewing_Widget extends WP_Widget {
 
         echo $args['before_widget'];
 
-        echo $args['before_title'] . esc_html( 'Users Currently Viewing' ) . $args['after_title'];
+        echo $args['before_title'] . esc_html( 'Currently Trending' ) . $args['after_title'];
 
         $feed_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=news,%20sports,%20entertainment,%20lifestyles,%20columnists,%20politics&all_platforms=1&types=0&limit=5
 ';
