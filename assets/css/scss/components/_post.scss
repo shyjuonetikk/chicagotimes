@@ -323,11 +323,19 @@ article.post {
 		}
 
 		position: relative;
+		float: left;
 
 		.dfp-wire-cube {
 			padding-top: 30px;
 			clear: left;
 		}
+		@media (min-width: 1300px){
+			float:none;
+		}
+		@media (max-width: 1024px){
+			float:none;
+		}
+
 	}
 
 	.post.cst-sharing-absolute {
