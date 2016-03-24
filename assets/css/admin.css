@@ -25,3 +25,49 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 .media-frame-content label[data-setting="caption"] #character-limit span {
 	float: none;
 }
+
+#newswire .sidebar-name {
+    background: #D22D42;
+}
+#sportswire .sidebar-name {
+    background: #34485E;
+}
+#sportswire .sidebar-name h2 {
+    color: #ffffff;
+}
+#entertainmentwire .sidebar-name {
+    background: #00AE04;
+}
+#entertainmentwire .sidebar-name h2 {
+    color: #ffffff;
+}
+#politicswire .sidebar-name {
+    background: #29AAE2;
+}
+#politicswire .sidebar-name h2 {
+    color: #ffffff;
+}
+#opinionwire .sidebar-name {
+    background: #BDBDBD;
+}
+#opinionwire .sidebar-name h2 {
+    color: #ffffff;
+}
+#lifestyleswire .sidebar-name {
+    background: #873AFA;
+}
+#lifestyleswire .sidebar-name h2 {
+    color: #ffffff;
+}
+#columnistswire .sidebar-name {
+    background: #D5C35F;
+}
+#columnistswire .sidebar-name h2 {
+    color: #ffffff;
+}
+#obitswire .sidebar-name {
+    background: #222222;
+}
+#obitswire .sidebar-name h2 {
+    color: #ffffff;
+}

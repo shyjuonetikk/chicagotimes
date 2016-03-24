@@ -239,6 +239,20 @@ class CST {
 					'href'      => get_edit_term_link( $term->term_id, $term->taxonomy, 'post' ),
 					) );
 			}
+			$workflow_args = array(
+				'id' => 'cst-workflow',
+				'title' => 'Workflow',
+				'meta' => array( 'class' => 'cst-workflow' ),
+			);
+			if ( current_user_can( 'edit_theme_options' ) ) {
+				$wp_admin_bar->add_node( $workflow_args );
+				$wp_admin_bar->add_menu( array(
+					'id' => 'cst-workflow-01',
+					'title' => 'Widgets',
+					'parent' => 'cst-workflow',
+					'href' => esc_url( admin_url() . 'widgets.php' ),
+				) );
+			}
 
 		}, 999 );
 
