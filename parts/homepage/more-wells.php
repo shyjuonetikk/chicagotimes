@@ -109,16 +109,20 @@
             <div class="row">
                 <?php 
                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_posts[3]->ID );
-                    $primary_section = $obj->get_primary_parent_section();
-                    if( $byline = $obj->get_byline() ) {
-                        $author = $byline;
-                    } else {
-                        $authors = $obj->get_authors();
-                        $author_data = $authors[0];
-                        $author = $author_data->get_display_name();
-                    }
+                    $author = '';
+                    $primary_section_name = '';
+                    if ( $obj ) {
+                        $primary_section = $obj->get_primary_parent_section();
+                        $primary_section_name = $primary_section->name;
+                        if( $byline = $obj->get_byline() ) {
+                            $author = $byline;
+                        } else {
+                            $authors = $obj->get_authors();
+                            $author_data = $authors[0];
+                            $author = $author_data->get_display_name();
+                        }
                 ?>
-                <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-triangle">
+                <div class="large-4 medium-4 small-12 columns article-image <?php echo esc_html( strtolower( $primary_section_name ) ); ?>-triangle">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
                         <?php
                             if ( $featured_image_id = $obj->get_featured_image_id() ) {
@@ -136,6 +140,9 @@
                     <?php echo esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
                     <span class="author">By <?php echo esc_html( $author ); ?></span>
                 </div>
+                <?php
+                }
+                ?>
             </div>
             <hr/>
             <div class="row">
