@@ -441,11 +441,15 @@ abstract class Post {
 			while ( $section = array_shift( $sections ) ) {
 				if( $section->parent == 0 ) {
 					return $section;
+				} else {
+					$section = $this->get_grandchild_parent_section();
+					return $section;
 				}
 			}
+		} else {
+			$news = wpcom_vip_get_term_by( 'slug', 'news', 'cst_section' );
+			return $news;
 		}
-
-		return false;
 
 	}
 
