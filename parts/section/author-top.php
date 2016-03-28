@@ -18,10 +18,10 @@ if ( is_a( $author, 'CST\Objects\User' ) ) {
 		$author              = $coauthors_plus->get_coauthor_by( 'login', $author_name );
 		$guest_author        = $coauthors_plus->get_coauthor_by( 'ID', $author->ID );
 		$author_avatar_html  = coauthors_get_avatar( $guest_author, 80 );
-		$author_display_name = $author->user_nicename;
+		$author_display_name = $author->display_name;
 		$author_description  = $author->description;
 		$author_twitter      = $guest_author->twitter;
-		$author_email        = $guest_author->user_email;
+		$author_email        = $author->user_email;
 	}
 	?>
 <div id="section-top" class="author">
