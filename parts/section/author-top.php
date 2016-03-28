@@ -3,9 +3,9 @@
 </a>
 <?php $author = new \CST\Objects\User( get_queried_object_id() ) ?>
 <?php
-$author_avatar_html = false;
+$author_email       = false;
 $author_description = false;
-$author_twitter = false;
+$author_twitter     = false;
 if ( is_a( $author, 'CST\Objects\User' ) ) {
 	if ( $author->is_cst_author() && $author->get_id() ) {
 		$author_avatar_html  = $author->get_avatar( 80 );
@@ -23,8 +23,7 @@ if ( is_a( $author, 'CST\Objects\User' ) ) {
 		$author_twitter      = $guest_author->twitter;
 		$author_email        = $guest_author->user_email;
 	}
-}
-?>
+	?>
 <div id="section-top" class="author">
 	<div class="row">
 		<div class="small-2 columns">
@@ -36,25 +35,27 @@ if ( is_a( $author, 'CST\Objects\User' ) ) {
 			</h2>
 			<p>
 				<?php if ( $author_twitter ) : ?>
-				<span class="author-twitter"><i class="fa fa-twitter"></i>
+					<span class="author-twitter"><i class="fa fa-twitter"></i>
 					<a href="<?php echo esc_url( sprintf( 'https://twitter.com/%s', $author_twitter ) ); ?>">
-					<?php echo esc_html( '@' . $author_twitter ); ?>
+						<?php echo esc_html( '@' . $author_twitter ); ?>
 					</a>
 				</span>
 				<?php endif; ?>
 				<?php if ( $author_email ) : ?>
-				<span class="author-email"><i class="fa fa-envelope"></i>
+					<span class="author-email"><i class="fa fa-envelope"></i>
 					<a href="<?php echo esc_attr( 'mailto:' . $author_email ); ?>">
-					<?php echo esc_html( $author_email ); ?>
+						<?php echo esc_html( $author_email ); ?>
 					</a>
 				</span>
 				<?php endif; ?>
 			</p>
 		</div>
 		<?php if ( $author_description ) : ?>
-		<div class="small-12 columns">
-			 <small class="author-bio"><?php echo wp_kses_post( wpautop( $author_description ) ); ?></small>
-		</div>
+			<div class="small-12 columns">
+				<small class="author-bio"><?php echo wp_kses_post( wpautop( $author_description ) ); ?></small>
+			</div>
 		<?php endif; ?>
 	</div>
 </div>
+<?php
+}
