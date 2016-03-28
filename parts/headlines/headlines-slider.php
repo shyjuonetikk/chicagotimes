@@ -22,7 +22,7 @@
 			}
 		} elseif( is_single() ) {
 			$obj = \CST\Objects\Post::get_by_post_id( $primary_section->ID );
-			$primary_section = $obj->get_primary_section();
+			$primary_section = $obj->get_primary_parent_section();
 			$primary_slug = $primary_section->slug;
 				if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 					$parent_terms = get_term( $primary_section->parent, 'cst_section' );
