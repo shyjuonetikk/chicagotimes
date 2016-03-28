@@ -447,8 +447,8 @@ abstract class Post {
 				}
 			}
 		} else {
-			$news = wpcom_vip_get_term_by( 'slug', 'news', 'cst_section' );
-			return $news;
+			$section = wpcom_vip_get_term_by( 'slug', 'news', 'cst_section' );
+			return $section;
 		}
 
 	}
