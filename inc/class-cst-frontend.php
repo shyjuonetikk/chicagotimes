@@ -77,8 +77,6 @@ class CST_Frontend {
 		add_filter( 'nav_menu_link_attributes', array( $this, 'filter_nav_menu_link_attributes' ), 10, 3 );
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
-		add_filter( 'coauthors_guest_author_fields', array( $this, 'filter_coauthors_guest_author_fields' ), 10, 2 );
-
 	}
 
 	/**
@@ -517,41 +515,6 @@ class CST_Frontend {
 
 		return $tags;
 
-	}
-
-	/**
-	 * Hook into Co Authors Plus's filter_coauthors_guest_author_fields to add new fields
-	 * to the Guest Author (profile) edit page
-	 *
-	 * @param  array $fields_to_return The current Guest Author fields
-	 * @param  array $groups           The field groups
-	 * @return array                   The filtered array of fields
-	 */
-	public function filter_coauthors_guest_author_fields( $fields_to_return, $groups ) {
-
-		if ( 'social' === $groups[0] || 'all' === $groups[0] ){
-
-			$fields_to_return['twitter'] = array(
-				'key'      			=> 'twitter',
-				'label'    			=> esc_html__( 'Twitter Username', 'chicagosuntimes' ),
-				'group'    			=> 'social',
-			);
-
-			$fields_to_return['instagram'] = array(
-				'key'      			=> 'instagram',
-				'label'    			=> esc_html__( 'Instagram Username', 'chicagosuntimes' ),
-				'group'    			=> 'social'
-			);
-
-			$fields_to_return['tumblr_url'] = array(
-				'key'      			=> 'tumblr_url',
-				'label'    			=> esc_html__( 'Tumblr URL', 'chicagosuntimes' ),
-				'group'    			=> 'social',
-				'sanitize_function' => 'esc_url_raw'
-			);
-		}
-
-		return apply_filters( 'coauthors_social_fields', $fields_to_return );
 	}
 
 	/**
