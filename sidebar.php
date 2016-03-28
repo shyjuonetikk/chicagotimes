@@ -4,23 +4,8 @@
 
 	<ul class="widgets">
 		<?php
-			$primary_section = get_queried_object();
-			$primary_slug = $primary_section->slug;
-			if( $primary_section->taxonomy == 'cst_section' ) {
-				if( $primary_section->parent != 0 ) {
-					if( $primary_slug != 'sports' || $primary_slug != 'news' ) {
-						$parent_terms = get_term( $primary_section->parent, 'cst_section' );
-						if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
-							$child_terms = get_term( $parent_terms->parent, 'cst_section' );
-							$primary_slug = $child_terms->slug;
-						} else {
-							$primary_slug = $parent_terms->slug;
-						}
-					}
-				} 
-			} else {
-				$primary_slug = 'news';
-			}
+		$cst = CST_Frontend::get_instance();
+		$primary_slug = $cst->slug_detection();
 
 			switch ($primary_slug) {
 				case 'news' :
