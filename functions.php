@@ -241,7 +241,7 @@ class CST {
 			}
 			$workflow_args = array(
 				'id' => 'cst-workflow',
-				'title' => 'Workflow',
+				'title' => 'Workflow Tools',
 				'meta' => array( 'class' => 'cst-workflow' ),
 			);
 			if ( current_user_can( 'edit_theme_options' ) ) {
@@ -253,6 +253,18 @@ class CST {
 					'href' => esc_url( admin_url() . 'widgets.php' ),
 				) );
 			}
+			$wp_admin_bar->add_menu( array(
+				'id' => 'cst-workflow-02',
+				'title' => 'AP Wire Items',
+				'parent' => 'cst-workflow',
+				'href' => esc_url( admin_url() . 'edit.php?post_type=cst_wire_item' ),
+			) );
+			$wp_admin_bar->add_menu( array(
+				'id' => 'cst-workflow-03',
+				'title' => 'USA Today Wire Items',
+				'parent' => 'cst-workflow',
+				'href' => esc_url( admin_url() . 'edit.php?post_type=cst_usa_today_item' ),
+			) );
 
 		}, 999 );
 
