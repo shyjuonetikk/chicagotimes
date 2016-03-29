@@ -27,7 +27,7 @@ if ( is_a( $author, 'CST\Objects\User' ) ) {
 <div id="section-top" class="author">
 	<div class="row">
 		<div class="small-2 columns">
-			<?php echo $author_avatar_html; ?>
+			<?php echo esc_html( $author_avatar_html ); ?>
 		</div>
 		<div class="small-10 columns">
 			<h2>
