@@ -21,6 +21,8 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		'Right Story',
 	);
 
+	private $cache_key_stub;
+
 	public function __construct() {
 		parent::__construct(
 			'cst_homepage_headlines',
@@ -29,7 +31,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				'description' => esc_html__( 'Displays Home/Section from selected Headlines.', 'chicagosuntimes' ),
 			)
 		);
-
+		$this->cache_key_stub = 'homepage-headlines-widget';
 		add_action( 'wp_ajax_cst_homepage_headlines_get_posts', array( $this, 'cst_homepage_headlines_get_posts' ) );
 	}
 
@@ -120,15 +122,17 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 *
 	 */
 	public function get_headline_posts( $widget_posts ) {
-
-		$widget_posts_query = array(
-			'post__in' => $widget_posts,
-			'post_type' => 'any',
-			'orderby'	=> 'post__in',
-		);
-		$display_these_posts = new \WP_Query( $widget_posts_query );
-		$display_these_posts->have_posts();
-		$found = $display_these_posts->get_posts();
+		if ( false === ( $found = wp_cache_get( $this->cache_key_stub ) ) ) {
+			$widget_posts_query = array(
+				'post__in' => $widget_posts,
+				'post_type' => 'any',
+				'orderby'	=> 'post__in',
+			);
+			$display_these_posts = new \WP_Query( $widget_posts_query );
+			$display_these_posts->have_posts();
+			$found = $display_these_posts->get_posts();
+			wp_cache_set( $this->cache_key_stub, $found, '', 1 * HOUR_IN_SECONDS );
+		}
 
 		return $found;
 	}
@@ -182,6 +186,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		for ( $count = 0; $count < $total; $count++ ) {
 			$instance[] = intval( array_shift( $new_instance ) );
 		}
+		wp_cache_delete( $this->cache_key_stub );
 		return $instance;
 	}
 }
