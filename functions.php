@@ -226,6 +226,7 @@ class CST {
 		/*
 		 * Remove "New Post" from admin bar because we don't have posts,
 		 * Add "Edit Tag" to frontend because it's missing on WordPress.com
+		 * Add Workflow tools admin menu links
 		 */
 		add_action( 'admin_bar_menu', function( $wp_admin_bar ) {
 			$wp_admin_bar->remove_menu('ab-new-post');
@@ -267,6 +268,7 @@ class CST {
 			) );
 
 		}, 999 );
+		add_action( 'restrict_manage_posts', array( $this, 'cst_author_filter' ) );
 
 		// API Endpoint registration here for the moment as it needs to be late enough
 		// for the core rest_api functions to have already been registered
@@ -1403,6 +1405,18 @@ class CST {
 	function cst_rss_AP_atom() {
 		load_template( TEMPLATEPATH . '/feeds/feed-AP-atom.php' );
 	}
+
+	/**
+	 * Add filter dropdown to Admin edit screens for Articles, Links, Embeds etc.
+	 */
+	function cst_author_filter() {
+		$args = array( 'name' => 'author', 'show_option_all' => 'View all authors' );
+		if ( isset( $_GET['user'] ) ) {
+			$args['selected'] = $_GET['user'];
+		}
+		wp_dropdown_users( $args );
+	}
+
 }
 
 /**
