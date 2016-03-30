@@ -31,7 +31,8 @@ class CST_Homepage_Secondary_Headlines_Widget extends WP_Widget {
             esc_html__( 'CST Homepage Secondary Headlines', 'chicagosuntimes' ),
             array(
                 'description' => esc_html__( 'Displays Secondary Headlines.', 'chicagosuntimes' ),
-            )
+            ),
+	        array( 'width' => '400' )
         );
 		$this->cache_key_stub = 'homepage-secondary-headlines-widget';
         add_action( 'wp_ajax_cst_homepage_secondary_headlines_get_posts', array( $this, 'cst_homepage_secondary_headlines_get_posts' ) );

@@ -414,40 +414,6 @@ class CST {
 	 * Register the sidebars for the theme
 	 */
 	private function register_sidebars() {
-
-		register_sidebar( array(
-			'id'          => 'newswire',
-			'name'        => esc_html__( 'NewsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'sportswire',
-			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'entertainmentwire',
-			'name'        => esc_html__( 'EntertainmentWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'politicswire',
-			'name'        => esc_html__( 'PoliticsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'lifestyleswire',
-			'name'        => esc_html__( 'LifestylesWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'opinionwire',
-			'name'        => esc_html__( 'OpinionWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'columnistswire',
-			'name'        => esc_html__( 'ColumnistsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'obitswire',
-			'name'        => esc_html__( 'ObitsWire', 'chicagosuntimes' ),
-		) );
-
 		register_sidebar( array(
 			'id'          => 'homepage_breaking_news',
 			'name'        => esc_html__( 'Homepage Breaking News', 'chicagosuntimes' ),
@@ -482,45 +448,69 @@ class CST {
 			'id'          => 'homepage_sidebar_three',
 			'name'        => esc_html__( 'Bottom Homepage Sidebar', 'chicagosuntimes' ),
 		) );
-
 		register_sidebar( array(
 			'id'          => 'news_headlines',
 			'name'        => esc_html__( 'News Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'newswire',
+			'name'        => esc_html__( 'NewsWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'sports_headlines',
 			'name'        => esc_html__( 'Sports Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'sportswire',
+			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'entertainment_headlines',
 			'name'        => esc_html__( 'Entertainment Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'entertainmentwire',
+			'name'        => esc_html__( 'EntertainmentWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'politics_headlines',
 			'name'        => esc_html__( 'Politics Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'politicswire',
+			'name'        => esc_html__( 'PoliticsWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'lifestyles_headlines',
 			'name'        => esc_html__( 'Lifestyles Headlines', 'chicagosuntimes' ),
 		) );
-
 		register_sidebar( array(
-			'id'          => 'columnists_headlines',
-			'name'        => esc_html__( 'Columnists Headlines', 'chicagosuntimes' ),
+			'id'          => 'lifestyleswire',
+			'name'        => esc_html__( 'LifestylesWire', 'chicagosuntimes' ),
 		) );
-
 		register_sidebar( array(
 			'id'          => 'opinion_headlines',
 			'name'        => esc_html__( 'Opinion Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'opinionwire',
+			'name'        => esc_html__( 'OpinionWire', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'columnists_headlines',
+			'name'        => esc_html__( 'Columnists Headlines', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'columnistswire',
+			'name'        => esc_html__( 'ColumnistsWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'obits_headlines',
 			'name'        => esc_html__( 'Obits Headlines', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'obitswire',
+			'name'        => esc_html__( 'ObitsWire', 'chicagosuntimes' ),
 		) );
 
 		if ( class_exists( 'CST_Elections' ) ) {

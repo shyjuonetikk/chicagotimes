@@ -9,7 +9,8 @@ class CST_Columnists_Content_Widget extends WP_Widget {
             esc_html__( 'CST Columnists Content', 'chicagosuntimes' ),
             array(
                 'description' => esc_html__( 'Set columnists Content displayed in the sidebar.', 'chicagosuntimes' ),
-            )
+            ),
+	        array( 'width' => '400' )
         );
 
         add_action( 'wp_ajax_cst_columnists_content_get_posts', array( $this, 'cst_columnists_content_get_posts' ) );

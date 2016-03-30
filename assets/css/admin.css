@@ -6,7 +6,7 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 .widget-error {
 	margin: 5px 0 15px;
 	border-left: 4px solid #dd3d36;
-	background: #fff;
+	border-top:2px solid #fff;
 	-moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
 	-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
 	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
@@ -26,48 +26,48 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 	float: none;
 }
 
-#newswire .sidebar-name {
-    background: #D22D42;
+#newswire .sidebar-name, #news_headlines .sidebar-name {
+    border-top:2px solid #D22D42;
 }
-#sportswire .sidebar-name {
-    background: #34485E;
+#sportswire .sidebar-name, #sports_headlines .sidebar-name {
+    border-top:2px solid #34485E;
 }
 #sportswire .sidebar-name h2 {
-    color: #ffffff;
+    margin-top: -2px;
 }
-#entertainmentwire .sidebar-name {
-    background: #00AE04;
+#entertainmentwire .sidebar-name, #entertainment_headlines .sidebar-name {
+    border-top:2px solid #00AE04;
 }
 #entertainmentwire .sidebar-name h2 {
-    color: #ffffff;
+    margin-top: -2px;
 }
-#politicswire .sidebar-name {
-    background: #29AAE2;
+#politicswire .sidebar-name, #politics_headlines .sidebar-name {
+    border-top:2px solid #29AAE2;
 }
 #politicswire .sidebar-name h2 {
-    color: #ffffff;
+    margin-top: -2px;
 }
-#opinionwire .sidebar-name {
-    background: #BDBDBD;
+#opinionwire .sidebar-name, #opinion_headlines .sidebar-name {
+    border-top:2px solid #BDBDBD;
 }
 #opinionwire .sidebar-name h2 {
-    color: #ffffff;
+    margin-top: -2px;
 }
-#lifestyleswire .sidebar-name {
-    background: #873AFA;
+#lifestyleswire .sidebar-name, #lifestyles_headlines .sidebar-name {
+    border-top:2px solid #873AFA;
 }
 #lifestyleswire .sidebar-name h2 {
-    color: #ffffff;
+    margin-top: -2px;
 }
-#columnistswire .sidebar-name {
-    background: #D5C35F;
+#columnistswire .sidebar-name, #columnists_headlines .sidebar-name {
+    border-top:2px solid #D5C35F;
 }
 #columnistswire .sidebar-name h2 {
-    color: #ffffff;
+    margin-top: -2px;
 }
-#obitswire .sidebar-name {
-    background: #222222;
+#obitswire .sidebar-name, #obits_headlines .sidebar-name {
+    border-top:2px solid #222222;
 }
 #obitswire .sidebar-name h2 {
-    color: #ffffff;
+    margin-top: -2px;
 }
