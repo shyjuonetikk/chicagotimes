@@ -26,9 +26,11 @@ if ( is_a( $author, 'CST\Objects\User' ) ) {
 	?>
 <div id="section-top" class="author">
 	<div class="row">
+	<?php if ( $author->is_cst_author() && $author->get_id() ) { ?>
 		<div class="small-2 columns">
-			<?php echo esc_html( $author_avatar_html ); ?>
+			<?php echo $author->get_avatar( 80 ); ?>
 		</div>
+	<?php } ?>
 		<div class="small-10 columns">
 			<h2>
 				<?php echo esc_html( $author_display_name ); ?>
