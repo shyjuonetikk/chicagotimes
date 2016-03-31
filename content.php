@@ -66,8 +66,7 @@
 				}
 				// After the 4th post
 				if ( isset( $_GET['infinity'], $_POST['page'] ) && 'scrolling' === $_GET['infinity'] && 1 === (int) $_POST['page'] ) {
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-4' );
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-5' );
+					echo CST()->get_template_part( 'dfp/dfp-btf-leaderboard' );
 				}
 
 			} else {
