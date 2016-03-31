@@ -112,4 +112,5 @@
         </div>
     </div>
 </div>
+<?php get_template_part( 'parts/dfp/homepage/dfp-billboard' ); ?>
 <?php get_template_part( 'parts/dfp/homepage/dfp-sbb' ); ?>
