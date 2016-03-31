@@ -59,4 +59,6 @@ if ( is_a( $author, 'CST\Objects\User' ) ) {
 	</div>
 </div>
 <?php
+		}
 }
+?>
