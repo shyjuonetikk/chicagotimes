@@ -215,7 +215,9 @@
 				}
 
 				var scrollTop = $(window).scrollTop();
-				jQuery('#post-sidebar').css('top', scrollTop);
+				var active_post_position = jQuery('.cst-active-scroll-post').position().top + 460;
+				var ad_container_height = jQuery('.cst-active-scroll-post .ad-container').height();
+				jQuery('#post-sidebar').css('top', active_post_position + 'px');
 				
 				if(window.SECTIONS_FOR_YIELD_MO){
 					window.YieldMo && YieldMo.inject(window.SECTIONS_FOR_YIELD_MO)
