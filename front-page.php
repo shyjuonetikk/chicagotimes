@@ -8,9 +8,6 @@
             <div class="row">
                 <div class="large-12 content-wrapper">
                         <div class="row">
-                            <div class="large-12 columns show-for-medium-up">
-                                <?php get_template_part( 'parts/dfp/homepage/dfp-billboard' ); ?>
-                            </div>
                             <div class="large-12 columns dfp-atf-leaderboard show-for-medium-up">
                                 <?php get_template_part( 'parts/dfp/homepage/dfp-atf-leaderboard' ); ?>
                             </div>
