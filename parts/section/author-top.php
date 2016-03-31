@@ -26,6 +26,7 @@ if ( is_a( $author, 'CST\Objects\User' ) ) {
 	?>
 <div id="section-top" class="author">
 	<div class="row">
+	<?php if ( method_exists( $author, 'is_cst_author' ) && $author->is_cst_author() && $author->get_id() ) { ?>
 		<div class="small-2 columns">
 			<?php echo wp_kses_post( $author_avatar_html ); ?>
 		</div>
