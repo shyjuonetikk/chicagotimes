@@ -196,5 +196,9 @@ class User extends Author {
 	protected function get_meta( $key ) {
 		return get_post_meta( $this->get_id(), $key, true );
 	}
+	
+	function is_cst_author() {
+		return $this->user;
+	}
 
 }
