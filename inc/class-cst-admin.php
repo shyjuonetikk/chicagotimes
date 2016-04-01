@@ -68,7 +68,7 @@ class CST_Admin {
 			}
 
 		});
-
+		add_action( 'restrict_manage_posts', array( $this, 'action_author_filter' ) );
 		add_action( 'pre_get_posts', function( $query ) {
 			global $pagenow;
 
@@ -682,6 +682,17 @@ class CST_Admin {
 
 	public function filter_featured_image_instruction( $content ) {
 		return $content .= '<p>' . esc_html__( 'This is the image that displays on the homepage, at the top of an article, and on social media. Required minimum image width 640px.', 'chicagosuntimes' ) . '</p>';
+	}
+
+	/**
+	 * Add filter dropdown to Admin edit screens for Articles, Links, Embeds etc.
+	 */
+	function action_author_filter() {
+		$args = array( 'name' => 'author', 'show_option_all' => 'View all authors' );
+		if ( isset( $_GET['user'] ) ) {
+			$args['selected'] = $_GET['user'];
+		}
+		wp_dropdown_users( $args );
 	}
 
 }
