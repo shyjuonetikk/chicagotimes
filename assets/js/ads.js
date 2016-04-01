@@ -86,6 +86,7 @@ var CSTAds;
 			} else {
 				$('#main .ad-container').eq( this.startPost ).append( el );
 				this.triggerUnitRefresh( nextScrollUnit );
+				this.triggerUnitRefresh( nextScrollUnit2 );
 			}
 			
 			this.startPost = this.startPost + this.betweenPosts;
