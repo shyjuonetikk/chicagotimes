@@ -229,7 +229,7 @@
 				document.title = wp_title;
 
 				CSTAnalytics.triggerPageview();
-				CSTAds.triggerUnitRefresh( 'div-gpt-rr-cube-1' );
+				
 			} else {
 				CSTInfiniteScroll.originalDetermineURL();
 
