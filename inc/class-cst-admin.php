@@ -223,6 +223,62 @@ class CST_Admin {
 			) );
 		$post->add_meta_box( esc_html__( 'Production', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
 
+		$terms_group = new \Fieldmanager_Group( '', array(
+			'name'        => 'cst_preferred_terms',
+			'tabbed'      => true,
+		) );
+		$terms_group->children['choose_topic'] = new \Fieldmanager_Group( esc_html__( 'Choose Featured Topic', 'chicagosuntimes' ), array(
+			'name'             => 'choose_topic',
+			'children'         => array(
+				'featured_option_topic'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select Topic', 'chicagosuntimes' ), array(
+					'name'             => 'featured_option_topic',
+					'attributes'       => array(
+						'placeholder'  => esc_html__( 'Search by Topic title', 'chicagosuntimes' ),
+						'size'         => 45,
+						'style'        => 'background:#f8f8f8;color:#111',
+					),
+					'datasource'       => new \Fieldmanager_Datasource_Term( array(
+						'taxonomy' => 'cst_topic',
+						'taxonomy_save_to_terms' => false,
+					) )
+				) )
+			)));
+		$terms_group->children['choose_location'] = new \Fieldmanager_Group( esc_html__( 'Choose Featured Location', 'chicagosuntimes' ), array(
+			'name'             => 'choose_location',
+			'children'         => array(
+				'featured_option_location'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select Location', 'chicagosuntimes' ), array(
+					'name'             => 'featured_option_location',
+					'attributes'       => array(
+						'placeholder'  => esc_html__( 'Search by Location title', 'chicagosuntimes' ),
+						'size'         => 45,
+						'style'        => 'background:#f8f8f8;color:#111',
+					),
+					'datasource'       => new \Fieldmanager_Datasource_Term( array(
+						'taxonomy' => 'cst_location',
+						'taxonomy_save_to_terms' => false,
+					) )
+				) )
+			)));
+		$terms_group->children['choose_person'] = new \Fieldmanager_Group( esc_html__( 'Choose Featured Person', 'chicagosuntimes' ), array(
+			'name'             => 'choose_person',
+			'children'         => array(
+				'featured_option_person'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select Person', 'chicagosuntimes' ), array(
+					'name'             => 'featured_option_person',
+					'attributes'       => array(
+						'placeholder'  => esc_html__( 'Search by Person', 'chicagosuntimes' ),
+						'size'         => 45,
+						'style'        => 'background:#f8f8f8;color:#111',
+					),
+					'datasource'       => new \Fieldmanager_Datasource_Term( array(
+						'taxonomy' => 'cst_person',
+						'taxonomy_save_to_terms' => false,
+					) )
+				) )
+			),
+		) );
+		$terms_group->add_meta_box( esc_html__( 'Article Preferences', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
+
+
 		$fm = new Fieldmanager_Textfield( array(
 			'name'    => 'freelancer_byline',
 			'label'   => false,
