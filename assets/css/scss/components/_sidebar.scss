@@ -165,6 +165,16 @@
 		list-style-type: none;
 	}
 
+	.letters-to-the-editor-widget {
+		list-style-type: none;
+		margin-bottom: 20px;
+		height: 40px;
+
+		img:hover {
+			opacity: .75;
+		}
+	}
+
 }
 
 @media #{$large-up} {
