@@ -45,21 +45,24 @@ if ( ! $obj ) {
 		<div class="post-meta-taxonomy-terms">
 		<?php if ( $topic ) :
 			$topic_link = wpcom_vip_get_term_link( $topic->slug, 'cst_topic' );
+			if ( ! is_wp_error( $topic_link ) ){
 			?>
 			<span class="fa post-taxonomy">#</span> <a href="<?php echo esc_url( $topic_link ); ?>"><?php echo esc_html( $topic->name ); ?></a>
+			<?php } ?>
 		<?php endif; ?>
 		<?php if ( $person ) :
 			$person_link = wpcom_vip_get_term_link( $person->name, 'cst_person' );
+			if ( ! is_wp_error( $person_link ) ){
 			?>
 			<i class="fa fa-male post-taxonomy"></i> <a href="<?php echo esc_url( $person_link ); ?>"><?php echo esc_html( $person->name ); ?></a>
+			<?php } ?>]
 		<?php endif; ?>
 		<?php if ( $location ) :
-			$location_link = wpcom_vip_get_term_link( $location->name, 'cst_location' );         if ( ! is_wp_error( $location_link) ){
+			$location_link = wpcom_vip_get_term_link( $location->name, 'cst_location' );
+			if ( ! is_wp_error( $location_link ) ){
 				?>
 				<i class="fa fa-location-arrow post-taxonomy"></i> <a href="<?php echo esc_url( $location_link ); ?>"><?php echo esc_html( $location->name ); ?></a>
-				<?php
-			}
-			?>
+			<?php }	?>
 		<?php endif; ?>
 		</div>
 	<?php endif; ?>
