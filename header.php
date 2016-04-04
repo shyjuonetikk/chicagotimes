@@ -37,6 +37,7 @@
 	<?php } ?>
 	<script type="text/javascript" src="http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
 	<?php get_template_part( 'parts/analytics/google' ); ?>
+	<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
 	
 	<?php
 	if ( is_front_page() || is_page() ) {
@@ -50,7 +51,6 @@
 	if ( is_singular() ) {
 		$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 		if ( $current_obj ) {
-			get_template_part( 'parts/vendors/nativo-content-header' );
 			get_template_part( 'parts/vendors/adsupply-popunder-header' );
 			get_template_part( 'parts/taboola/taboola-header' );
 		}
