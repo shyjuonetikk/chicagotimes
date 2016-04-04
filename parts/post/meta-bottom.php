@@ -55,7 +55,7 @@ if ( ! $obj ) {
 			if ( ! is_wp_error( $person_link ) ) {
 			?>
 			<i class="fa fa-male post-taxonomy"></i> <a href="<?php echo esc_url( $person_link ); ?>"><?php echo esc_html( $person->name ); ?></a>
-			<?php } ?>]
+			<?php } ?>
 		<?php endif; ?>
 		<?php if ( $location ) :
 			$location_link = wpcom_vip_get_term_link( $location->name, 'cst_location' );
