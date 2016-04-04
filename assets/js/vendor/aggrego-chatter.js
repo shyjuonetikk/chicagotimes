@@ -29,7 +29,7 @@ window.AggregoChatter = {
       var anchorTag = 'politics';
     }
 
-    if( ! jQuery('.cst-active-scroll-post .agg-collage' ).length ) {
+    if( ! jQuery('.cst-active-scroll-post' ).hasClass('chatter-inserted') ) {
       if(paragraphsCount >= 1) {
         aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
         jQuery(paragraphs[2]).append(aggregoChatterContentNode);
@@ -40,9 +40,10 @@ window.AggregoChatter = {
             chatter = jQuery( '<span />' );
             chatter.text( domainTag + 'Chatter' );
             jQuery(title).append(chatter);
-            jQuery('.agg-collage').before( title );
+            jQuery('.cst-active-scroll-post .agg-collage').before( title );
 
         this._insertAggregoChatterJS(domainTag, anchorTag);
+        jQuery('.cst-active-scroll-post').addClass('chatter-inserted');
       }
     }
 
