@@ -226,6 +226,7 @@ class CST_Admin {
 		$terms_group = new \Fieldmanager_Group( '', array(
 			'name'        => 'cst_preferred_terms',
 			'tabbed'      => true,
+			'persist_active_tab' => false,
 		) );
 		$terms_group->children['choose_topic'] = new \Fieldmanager_Group( esc_html__( 'Choose Featured Topic', 'chicagosuntimes' ), array(
 			'name'             => 'choose_topic',
