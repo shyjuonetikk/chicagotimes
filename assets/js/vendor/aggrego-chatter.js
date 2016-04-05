@@ -33,10 +33,8 @@ window.AggregoChatter = {
       if(paragraphsCount >= 1) {
         aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
         if( jQuery(paragraphs[2]).hasClass('wp-caption-text') ) {
-          console.log('has caption text');
           jQuery(paragraphs[1]).append(aggregoChatterContentNode);
         } else {
-          console.log('no');
           jQuery(paragraphs[2]).append(aggregoChatterContentNode);
         }
 
