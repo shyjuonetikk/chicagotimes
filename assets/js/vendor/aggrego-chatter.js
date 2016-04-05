@@ -32,7 +32,13 @@ window.AggregoChatter = {
     if( ! jQuery('.cst-active-scroll-post' ).hasClass('chatter-inserted') ) {
       if(paragraphsCount >= 1) {
         aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
-        jQuery(paragraphs[2]).append(aggregoChatterContentNode);
+        if( jQuery(paragraphs[2]).hasClass('wp-caption-text') ) {
+          console.log('has caption text');
+          jQuery(paragraphs[1]).append(aggregoChatterContentNode);
+        } else {
+          console.log('no');
+          jQuery(paragraphs[2]).append(aggregoChatterContentNode);
+        }
 
         var title = jQuery( '<h4 />' );
             title.attr( 'class', 'agg-sponsored' );
