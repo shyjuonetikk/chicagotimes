@@ -27,8 +27,8 @@
                                 }
                             ?>
                             <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
-                                <p><?php echo esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
+                                <h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
+                                <?php esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?>
                                 <span>By <?php echo esc_html( $author ); ?></span>
                             </div>
                         </a>
@@ -60,8 +60,8 @@
                                         }
                                     ?>
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                        <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
-                                        <p><?php echo esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
+                                        <h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
+                                        <?php esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?>
                                         <span>By <?php echo esc_html( $author ); ?></span>
                                     </div>
                                 </a>
@@ -93,8 +93,8 @@
                                         }
                                     ?>
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                        <h3><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
-                                        <p><?php echo esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?></p>
+                                        <h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
+                                        <?php esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?>
                                         <span>By <?php echo esc_html( $author ); ?></span>
                                     </div>
                                 </a>
