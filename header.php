@@ -59,10 +59,10 @@
 	?>
 
 	<?php wp_head(); ?>
-	<?php get_template_part( 'parts/analytics/comscore' ); ?>
 </head>
 
 <body <?php body_class(); ?>>
+<?php get_template_part( 'parts/analytics/comscore' ); ?>
 <div id="ie8-user" style="display:none;"></div>
 
 <?php 
