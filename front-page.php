@@ -34,6 +34,5 @@
                 </div>
             </div>
         <?php get_template_part( 'parts/homepage/footer' ); ?>
-    </div>
 </div>
 <?php get_footer(); ?>
