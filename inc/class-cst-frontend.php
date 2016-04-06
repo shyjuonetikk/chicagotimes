@@ -122,7 +122,7 @@ class CST_Frontend {
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
 
 		// Fonts
-		wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800|Open+Sans+Condensed:300,300italic,700|Merriweather:400,300,300italic,400italic,700,700italic,900,900italic|Montserrat:400,700' );
+		wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Raleway|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800|Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' );
 		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 		wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 

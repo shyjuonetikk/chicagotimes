@@ -1757,6 +1757,12 @@ section#subscribe {
     padding: 0;
     margin-bottom: 10px;
     list-style-type: none; }
+  .sidebar .letters-to-the-editor-widget {
+    list-style-type: none;
+    margin-bottom: 20px;
+    height: 40px; }
+    .sidebar .letters-to-the-editor-widget img:hover {
+      opacity: .75; }
 
 @media only screen and (min-width: 64.063em) {
   #fixed-footer-container {

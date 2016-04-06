@@ -29,10 +29,14 @@ window.AggregoChatter = {
       var anchorTag = 'politics';
     }
 
-    if( ! jQuery('.cst-active-scroll-post .agg-collage' ).length ) {
+    if( ! jQuery('.cst-active-scroll-post' ).hasClass('chatter-inserted') ) {
       if(paragraphsCount >= 1) {
         aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
-        jQuery(paragraphs[2]).append(aggregoChatterContentNode);
+        if( jQuery(paragraphs[2]).hasClass('wp-caption-text') ) {
+          jQuery(paragraphs[1]).append(aggregoChatterContentNode);
+        } else {
+          jQuery(paragraphs[2]).append(aggregoChatterContentNode);
+        }
 
         var title = jQuery( '<h4 />' );
             title.attr( 'class', 'agg-sponsored' );
@@ -40,9 +44,10 @@ window.AggregoChatter = {
             chatter = jQuery( '<span />' );
             chatter.text( domainTag + 'Chatter' );
             jQuery(title).append(chatter);
-            jQuery('.agg-collage').before( title );
+            jQuery('.cst-active-scroll-post .agg-collage').before( title );
 
         this._insertAggregoChatterJS(domainTag, anchorTag);
+        jQuery('.cst-active-scroll-post').addClass('chatter-inserted');
       }
     }
 
