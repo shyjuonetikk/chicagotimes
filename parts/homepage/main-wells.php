@@ -1,7 +1,7 @@
 <?php global $homepage_main_well_posts; ?>
 <div class="row">
     <div class="large-12 content-wrapper">
-    <h2 class="mobile-top-news show-for-small-only"><?php esc_html_e( 'Top News' ); ?></h2>
+    <h2 class="mobile-top-news show-for-small-only"><?php esc_html_e( 'Top News', 'chicagosuntimes' ); ?></h2>
         <div class="large-8 medium-12 columns">
             <section id="main-well">
                 <div class="row">
