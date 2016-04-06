@@ -32,10 +32,6 @@
 	<meta name="msapplication-square150x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-150x150.png" />
 	<meta name="msapplication-wide310x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x150.png" />
 	<meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
-	<?php if( is_front_page() ) { ?>
-		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-	<?php } ?>
 	<script type="text/javascript" src="http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
 	<?php get_template_part( 'parts/analytics/google' ); ?>
 	<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
