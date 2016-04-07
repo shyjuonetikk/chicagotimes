@@ -118,7 +118,7 @@ if ( is_singular() ) {
 ?>
 
 <?php 
-	if( ! is_single() ) { 
+	if( is_tax() ) { 
 		get_template_part( 'parts/dfp/dfp-wallpaper' ); 
 	}
 ?>
