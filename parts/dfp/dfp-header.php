@@ -41,7 +41,7 @@
 
 <?php if( is_singular() ) : ?>
 
-            CSTAdTags['div-gpt-sky-scraper'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [160, 600], 'div-gpt-sky-scraper')
+            CSTAdTags['div-gpt-sky-scraper'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [160, 600], 'div-gpt-sky-scraper')
             .addService(googletag.pubads())
             .setTargeting("pos","SkyScraper");
 
