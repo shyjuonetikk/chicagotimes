@@ -114,6 +114,12 @@ body.error404 {
   position: relative;
   z-index: 2; }
 
+#div-gpt-billboard {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 10px 0; }
+
 .dfp.dfp-centered {
   margin-left: auto;
   margin-right: auto; }

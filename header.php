@@ -11,7 +11,8 @@
 <head>
 	<?php get_template_part( 'parts/analytics/chartbeat-header' ); ?>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
-	<meta name="viewport" content="width=device-width">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width">
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
@@ -31,10 +32,6 @@
 	<meta name="msapplication-square150x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-150x150.png" />
 	<meta name="msapplication-wide310x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x150.png" />
 	<meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
-	<?php if( is_front_page() ) { ?>
-		<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-	<?php } ?>
 	<script type="text/javascript" src="http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
 	<?php get_template_part( 'parts/analytics/google' ); ?>
 	<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
@@ -58,7 +55,6 @@
 	?>
 
 	<?php wp_head(); ?>
-	<?php get_template_part( 'parts/analytics/comscore' ); ?>
 </head>
 
 <body <?php body_class(); ?>>
