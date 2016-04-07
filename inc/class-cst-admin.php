@@ -228,15 +228,15 @@ class CST_Admin {
 			'tabbed'      => true,
 			'persist_active_tab' => false,
 		) );
-		$terms_group->children['choose_topic'] = new \Fieldmanager_Group( esc_html__( 'Choose Featured Topic', 'chicagosuntimes' ), array(
+		$terms_group->children['choose_topic'] = new \Fieldmanager_Group( esc_html__( 'Choose Topic', 'chicagosuntimes' ), array(
 			'name'             => 'choose_topic',
+			'description' => 'Please select the single Topic to display below the article',
 			'children'         => array(
-				'featured_option_topic'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select Topic', 'chicagosuntimes' ), array(
+				'featured_option_topic'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select existing Topic', 'chicagosuntimes' ), array(
 					'name'             => 'featured_option_topic',
 					'attributes'       => array(
-						'placeholder'  => esc_html__( 'Search by Topic title', 'chicagosuntimes' ),
+						'placeholder'  => esc_html__( 'Search by existing Topic title', 'chicagosuntimes' ),
 						'size'         => 45,
-						'style'        => 'background:#f8f8f8;color:#111',
 					),
 					'datasource'       => new \Fieldmanager_Datasource_Term( array(
 						'taxonomy' => 'cst_topic',
@@ -244,15 +244,15 @@ class CST_Admin {
 					) )
 				) )
 			)));
-		$terms_group->children['choose_location'] = new \Fieldmanager_Group( esc_html__( 'Choose Featured Location', 'chicagosuntimes' ), array(
+		$terms_group->children['choose_location'] = new \Fieldmanager_Group( esc_html__( 'Choose Location', 'chicagosuntimes' ), array(
 			'name'             => 'choose_location',
+			'description' => 'Please select the single Location to display below the article',
 			'children'         => array(
-				'featured_option_location'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select Location', 'chicagosuntimes' ), array(
+				'featured_option_location'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select existing Location', 'chicagosuntimes' ), array(
 					'name'             => 'featured_option_location',
 					'attributes'       => array(
-						'placeholder'  => esc_html__( 'Search by Location title', 'chicagosuntimes' ),
+						'placeholder'  => esc_html__( 'Search by existing Location title', 'chicagosuntimes' ),
 						'size'         => 45,
-						'style'        => 'background:#f8f8f8;color:#111',
 					),
 					'datasource'       => new \Fieldmanager_Datasource_Term( array(
 						'taxonomy' => 'cst_location',
@@ -260,15 +260,15 @@ class CST_Admin {
 					) )
 				) )
 			)));
-		$terms_group->children['choose_person'] = new \Fieldmanager_Group( esc_html__( 'Choose Featured Person', 'chicagosuntimes' ), array(
+		$terms_group->children['choose_person'] = new \Fieldmanager_Group( esc_html__( 'Choose Person', 'chicagosuntimes' ), array(
 			'name'             => 'choose_person',
+			'description' => 'Please select the single Person to display below the article',
 			'children'         => array(
-				'featured_option_person'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select Person', 'chicagosuntimes' ), array(
+				'featured_option_person'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select existing Person', 'chicagosuntimes' ), array(
 					'name'             => 'featured_option_person',
 					'attributes'       => array(
-						'placeholder'  => esc_html__( 'Search by Person', 'chicagosuntimes' ),
+						'placeholder'  => esc_html__( 'Search by existing Person', 'chicagosuntimes' ),
 						'size'         => 45,
-						'style'        => 'background:#f8f8f8;color:#111',
 					),
 					'datasource'       => new \Fieldmanager_Datasource_Term( array(
 						'taxonomy' => 'cst_person',
