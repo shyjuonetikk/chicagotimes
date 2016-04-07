@@ -11,6 +11,7 @@
         get_template_part( 'parts/vendors/zedo-footer' );
     endif;
 ?>
+<?php get_template_part( 'parts/analytics/comscore' ); ?>
 <?php get_template_part( 'parts/analytics/chartbeat-footer' ); ?>
 </body>
 </html>

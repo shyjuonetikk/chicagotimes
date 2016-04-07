@@ -73,6 +73,11 @@
 		.addService(googletag.pubads())
 		.setTargeting("pos","rr cube 6");
 
+		CSTAdTags['div-gpt-billboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [970, 250], 'div-gpt-billboard')
+        .addService(googletag.pubads())
+        .setTargeting("pos","Billboard")
+        .setCollapseEmptyDiv(true,true);
+
 <?php else : ?>
 
 		CSTAdTags['div-gpt-rr-cube-4'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [300, 250], 'div-gpt-rr-cube-4')
