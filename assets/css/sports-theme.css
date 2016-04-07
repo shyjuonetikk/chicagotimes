@@ -1216,13 +1216,25 @@ article.post {
     margin: 5px; }
 
 .single #post-body {
-  position: relative; }
+  position: relative;
+  float: left; }
+  @media (max-width: 1200px) {
+    .single #post-body .row {
+      margin-left: 0; }
+      .single #post-body .row #main {
+        padding-left: 0; } }
   @media only screen and (max-width: 40em) {
     .single #post-body {
       margin-top: 30px; } }
   .single #post-body .dfp-wire-cube {
     padding-top: 30px;
     clear: left; }
+  @media (min-width: 1300px) {
+    .single #post-body {
+      float: none; } }
+  @media (max-width: 1024px) {
+    .single #post-body {
+      float: none; } }
 
 .single .post.cst-sharing-absolute .post-meta-social {
   position: fixed;
@@ -1347,8 +1359,7 @@ article.post {
     color: #34485E; }
 
 .single .ndn_embed {
-  float: left;
-  margin-bottom: 15px;
+  margin-bottom: 20px !important;
   width: 100%;
   list-style-type: none; }
   @media only screen and (max-width: 40em) {
@@ -1357,9 +1368,6 @@ article.post {
   @media only screen and (min-width: 40.063em) and (max-width: 47.398em) {
     .single .ndn_embed {
       height: 414px; } }
-  @media only screen and (min-width: 48em) {
-    .single .ndn_embed {
-      height: 518px; } }
 
 .single .agg-collage {
   margin-top: 5px;
@@ -1660,21 +1668,32 @@ section#subscribe {
       position: fixed;
       bottom: 0px;
       width: 303.328125px; }
+  .sidebar#post-sidebar-left {
+    background-color: #F0F0F0;
+    padding: 10px;
+    width: 160px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    bottom: 0;
+    z-index: 1; }
+    @media (max-width: 1300px) {
+      .sidebar#post-sidebar-left {
+        display: none !important; } }
   .sidebar#post-sidebar {
     background-color: #F0F0F0;
     padding: 10px;
     width: 320px;
     top: 0;
-    left: 0;
+    right: 0;
     position: absolute;
     bottom: 0;
-    z-index: 9999;
-    overflow: hidden; }
-    @media only screen and (max-width: 75em) {
-      .sidebar#post-sidebar {
-        width: 220px; }
-        .sidebar#post-sidebar #div-gpt-article-sidebar-cube {
-          display: none; } }
+    z-index: 1; }
+    .sidebar#post-sidebar .widget_cst_ad_widget {
+      list-style-type: none;
+      margin-bottom: 20px; }
+    .sidebar#post-sidebar .widget_cst_ad_widget:nth-child(1) {
+      margin-top: 0 !important; }
     .sidebar#post-sidebar.sidebar-fixed {
       position: fixed; }
     .sidebar#post-sidebar.loading-latest ul {

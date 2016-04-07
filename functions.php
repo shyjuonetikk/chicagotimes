@@ -389,6 +389,14 @@ class CST {
 	private function register_sidebars() {
 
 		register_sidebar( array(
+			'id'          => 'articleleft',
+			'name'        => esc_html__( 'Article Left', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'articleright',
+			'name'        => esc_html__( 'Article Right', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
 			'id'          => 'newswire',
 			'name'        => esc_html__( 'NewsWire', 'chicagosuntimes' ),
 		) );

@@ -40,7 +40,7 @@
 			this.fixedBackToTop = $('#fixed-back-to-top');
 			this.backToTop = $('#back-to-top');
 			this.primaryNavigation = $('#primary-navigation');
-			this.postSidebar = $('#post-sidebar');
+			this.postSidebar = $('.article-sidebar');
 			this.postBody = $('#post-body');
 			this.offCanvasList = $('.off-canvas-menu');
 			this.searchButton = $('#search-button');
@@ -304,7 +304,7 @@
 
 			}
 
-			this.positionAndSizePostSidebar();
+			//this.positionAndSizePostSidebar();
 
 		},
 
@@ -381,11 +381,6 @@
 			var scrollTop = $(window).scrollTop();
 
 			var postSidebarTop = this.scrollToolbarHeight;
-			if ( this.postBody.length && ! this.postSidebar.hasClass('sidebar-fixed') && scrollTop + postSidebarTop > this.postBody.offset().top ) {
-				this.postSidebar.addClass('sidebar-fixed').removeClass('sidebar-normal');
-			} else if ( this.postBody.length && this.postSidebar.hasClass('sidebar-fixed') && scrollTop + postSidebarTop < this.postBody.offset().top ) {
-				this.postSidebar.addClass('sidebar-normal').removeClass('sidebar-fixed');
-			}
 
 			if ( ! this.postSidebar.hasClass('sidebar-normal') && ! this.postSidebar.hasClass('sidebar-fixed') ) {
 				this.postSidebar.addClass('sidebar-normal');
@@ -402,12 +397,6 @@
 				}
 			}
 
-			var newHeight = $(window).height() - this.scrollToolbarHeight;
-			if ( newHeight + 'px' != this.postSidebar.css('height' ) ) {
-				this.postSidebar.css('height', newHeight + 'px' );
-			}
-
-			this.postSidebar.css('display', '');
 
 		},
 

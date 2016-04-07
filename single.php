@@ -1,12 +1,12 @@
 <?php get_header(); ?>
 
-	<?php get_sidebar( 'post' ); ?>
+	<?php get_sidebar( 'left' ); ?>
 
 	<section id="post-body">
 
 	<div class="row">
 
-		<div id="main" class="columns large-10 large-offset-2 end">
+		<div id="main" class="columns large-10 end">
 			<?php
 				if ( is_singular() ) :
 					get_template_part( 'parts/dfp/dfp-atf-leaderboard' );
@@ -44,5 +44,7 @@
 	</div>
 
 	</section>
+
+	<?php get_sidebar( 'right' ); ?>
 
 <?php get_footer(); ?>
