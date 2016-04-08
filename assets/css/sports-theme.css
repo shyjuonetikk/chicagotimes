@@ -1681,7 +1681,7 @@ section#subscribe {
       width: 303.328125px; }
   .sidebar#post-sidebar-left {
     background-color: #F0F0F0;
-    padding: 10px;
+    padding: 10px 0 0 0;
     width: 160px;
     top: 0;
     left: 0;
@@ -1691,6 +1691,10 @@ section#subscribe {
     @media (max-width: 1300px) {
       .sidebar#post-sidebar-left {
         display: none !important; } }
+    .sidebar#post-sidebar-left .fixed-bottom {
+      position: fixed;
+      bottom: 0px;
+      width: 160px; }
   .sidebar#post-sidebar {
     background-color: #F0F0F0;
     padding: 10px;
