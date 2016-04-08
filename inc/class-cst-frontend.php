@@ -126,6 +126,8 @@ class CST_Frontend {
 		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 		wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 
+		$this->action_load_section_styling();
+
 		// If we are on a 404 page don't try and load scripts/css that we won't be using.
 		if( !is_404() ) {
 			if ( ! is_front_page() || ! is_page() ) {
@@ -153,7 +155,6 @@ class CST_Frontend {
 			wp_enqueue_script( 'chicagosuntimes-ndn', 'http://launch.newsinc.com/js/embed.js' );
 
 
-			$this->action_load_section_styling();
 			if ( ! is_front_page() || ! is_page() ) {
 				wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 					'home_url'                           => esc_url_raw( home_url() ),
