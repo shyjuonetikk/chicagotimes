@@ -8,4 +8,11 @@ ga('create', 'UA-52083976-1', 'auto', {name: 'BNA'});
 ga('BNA.require', 'displayfeatures');
 ga('create', 'UA-53290409-1', 'auto', {name: 'networkGlobal'});
 ga('networkGlobal.require', 'displayfeatures');
+<?php
+// taken from here: http://www.labnol.org/internet/track-404-error-pages/13509/
+if ( is_404() ) { ?>
+/* Track 404 Errors */
+var url = "/404/?url=" + window.location.pathname + window.location.search + "&from=" + document.referrer;
+ga('send', 'pageview', url);
+<?php } ?>
 </script>
