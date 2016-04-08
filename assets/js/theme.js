@@ -47,6 +47,8 @@
 			this.searchInput = $('#search-input');
 			this.rightSidebar = $('#index-sidebar');
 			this.rightSidebarAnchor = $('#index-sidebar-anchor');
+			this.leftSidebar = $('.stick-sidebar-left');
+			this.nativoSponsored = $('#nativo-sponsored');
 			this.footerFixed = $('#fixed-footer-container');
 			this.footerBottom = this.footerFixed.find('.footer-bottom');
 			this.footerMoreInfo = $('.footer-more-info');
@@ -304,7 +306,7 @@
 
 			}
 
-			//this.positionAndSizePostSidebar();
+			this.positionAndSizePostSidebar();
 
 		},
 
@@ -397,6 +399,15 @@
 				}
 			}
 
+			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - $('#wpadminbar').height() ) / 2 ) < scrollTop ) {
+				if ( ! this.leftSidebar.hasClass('fixed-bottom') ) {
+					this.leftSidebar.addClass('fixed-bottom');
+				}
+			} else {
+				if ( this.leftSidebar.hasClass('fixed-bottom') ) {
+					this.leftSidebar.removeClass('fixed-bottom');
+				}
+			}
 
 		},
 
