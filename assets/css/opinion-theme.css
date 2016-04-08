@@ -241,6 +241,16 @@ body.error404 {
     .dfp-wallpaper iframe {
       width: 0%; } }
 
+@media (max-width: 320px) {
+  .single .post-row {
+    padding-left: 10px !important; }
+  .single .ad-container {
+    width: 300px;
+    text-align: left !important; }
+    .single .ad-container .dfp-cube {
+      margin: 0 !important;
+      margin-bottom: 5px !important; } }
+
 #ie8-user {
   text-align: center;
   margin-top: 20px; }
@@ -1164,7 +1174,8 @@ article.post {
   margin-bottom: 0px; }
 
 .single #div-gpt-mobile-leaderboard {
-  margin-top: 0px; }
+  margin-top: 0px;
+  height: 60px; }
 
 .single #newsfeed-logo {
   margin-top: 20px; }
