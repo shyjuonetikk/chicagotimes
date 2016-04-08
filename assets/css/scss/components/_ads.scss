@@ -183,3 +183,21 @@
 		}
 	}
 }
+
+@media (max-width: 320px) {
+	.single {
+		.post-row {
+			padding-left: 10px !important;
+		}
+
+		.ad-container {
+			width: 300px;
+			text-align: left !important;
+
+			.dfp-cube {
+				margin: 0 !important;
+				margin-bottom: 5px !important;
+			}
+		}
+	}
+}
