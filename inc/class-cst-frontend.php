@@ -824,25 +824,6 @@ class CST_Frontend {
 		}
 	}
 
-	/**
-	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
-	 * @param int $count
-	 * @return json array
-	 */
-	public function cst_homepage_get_aggregate() {
-
-		$response = wpcom_vip_file_get_contents( 'http://chicago.suntimes.com/api/1.2/get_posts/?page=1&count=15' );
-		if ( is_wp_error( $response ) ) :
-			return;
-		else :
-			$posts = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( ! $posts ) {
-				return;
-			}
-			return $posts;
-		endif;
-
-	}
 
 	/**
 	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
