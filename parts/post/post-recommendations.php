@@ -9,6 +9,6 @@
                     'orderby'               => 'rand',
                     'cst_section'           => 'dear-abby',
                 );
-        CST()->frontend->cst_recommendation_block( $query );
+        CST()->frontend->cst_dear_abby_recommendation_block( $query );
     endif;
 ?>

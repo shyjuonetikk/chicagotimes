@@ -910,6 +910,40 @@ class CST_Frontend {
 		echo $cached_content;
 	}
 
+	/**
+	 * Fetch and output content from the specified section
+	 * @param $content_query
+	 */
+	public function cst_dear_abby_recommendation_block( $content_query ) {
+
+		$cache_key = md5( serialize($content_query) );
+		$cached_content = wp_cache_get( $cache_key );
+		if ($cached_content === false ){
+			$items = new \WP_Query( $content_query );
+			ob_start();
+			if ( $items->have_posts() ) { ?>
+			<div class="large-12">
+				<h3>Previously from Dear Abby</h3>
+			<?php
+				while( $items->have_posts() ) {
+					$items->the_post();
+					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+				?>
+					<div class="columns large-3">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+							<?php echo esc_html( $obj->get_title() ); ?>
+						</a>
+					</div>
+				<?php } ?>
+			</div>
+			<?php
+			}
+			$cached_content = ob_get_clean();
+			wp_cache_set( $cache_key, $cached_content, 'default', 30 );
+		}
+		echo $cached_content;
+	}
+
 	public function cst_nativo_determine_positions($slug) {
 
         $positions = array();
