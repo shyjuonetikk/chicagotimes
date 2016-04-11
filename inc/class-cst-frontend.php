@@ -330,11 +330,18 @@ class CST_Frontend {
 
 	/**
 	 * Filter the title on single posts
+	 * @param $wp_title
+	 *
+	 * @return string
 	 */
 	public function filter_wp_title( $wp_title ) {
 
-		if ( empty( $wp_title ) && ( is_home() || is_front_page() ) || is_404() ) {
+		if ( empty( $wp_title ) && ( is_home() || is_front_page() ) ) {
 			return 'Chicago Sun-Times: Chicago news, sports, politics, entertainment';
+		}
+
+		if ( is_404() ) {
+			return 'Page not found - Chicago Sun-Times';
 		}
 
 		if ( is_tax() ) {
