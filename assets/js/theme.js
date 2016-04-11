@@ -63,6 +63,7 @@
 			this.cstLogo = $('header #suntimes-logo');
 			this.nfLogo = $('header #newsfeed-logo');
 			this.mobileHome = $('header #mobile-home');
+			this.tabletHome = $('header #logo-wrap #tablet-home');
 			this.dfpWallpaper = $('#div-gpt-wallpaper');
 			this.dfpWallpaperImg = $('#div-gpt-wallpaper img')
 			this.dfpLeaderboard = $('#div-gpt-atf-leaderboard');
@@ -245,6 +246,9 @@
 					if ( $(window).width() <= 640 ) {
 						this.mobileHome.show('slide', { direction: 'down' } );
 					}
+					if ( $(window).width() > 640 && $(window).width() < 981 ) {
+						this.tabletHome.show('slide', { direction: 'down' } );
+					}
 				}
 
 			} else {
@@ -262,6 +266,7 @@
 				if ( this.nfLogo.is(':visible') ) {
 					this.nfLogo.hide();
 					this.mobileHome.hide();
+					this.tabletHome.hide();
 					this.cstLogo.show('slide', { direction: 'up' } );
 				}
 

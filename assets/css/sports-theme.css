@@ -337,6 +337,21 @@ header#header {
       @media only screen and (max-width: 40em) {
         header#header section#primary-navigation #logo-wrap {
           margin-left: 55px; } }
+      @media (min-width: 981px) {
+        header#header section#primary-navigation #logo-wrap #tablet-home {
+          display: none; } }
+      @media (min-width: 641px) and (max-width: 980px) {
+        header#header section#primary-navigation #logo-wrap #tablet-home {
+          display: none;
+          position: absolute;
+          top: 3px;
+          left: 55px;
+          font-size: 40px; }
+          header#header section#primary-navigation #logo-wrap #tablet-home .fa {
+            color: #FFFFFF; } }
+      @media (max-width: 640px) {
+        header#header section#primary-navigation #logo-wrap #tablet-home {
+          display: none; } }
     header#header section#primary-navigation a#suntimes-logo img {
       width: 334px; }
       @media only screen and (min-width: 40.063em) and (max-width: 47.398em) {
@@ -673,6 +688,9 @@ ul#menu-sun-times-network {
   #newsfeed-logo img {
     width: 272px;
     height: 34px; }
+  @media (min-width: 641px) and (max-width: 981px) {
+    #newsfeed-logo {
+      margin-left: 40px; } }
   @media only screen and (max-width: 40em) {
     #newsfeed-logo {
       margin-top: -10px;
