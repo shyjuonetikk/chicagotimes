@@ -922,14 +922,14 @@ class CST_Frontend {
 			$items = new \WP_Query( $content_query );
 			ob_start();
 			if ( $items->have_posts() ) { ?>
-			<div class="large-12">
+			<div class="large-10 medium-offset-1 post-recommendations">
 				<h3>Previously from Dear Abby</h3>
 			<?php
 				while( $items->have_posts() ) {
 					$items->the_post();
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 				?>
-					<div class="columns large-3">
+					<div class="columns large-3 medium-6 small-12 recommended-post">
 						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
