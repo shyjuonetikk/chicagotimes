@@ -221,6 +221,7 @@ article.post {
 
 	#div-gpt-mobile-leaderboard {
 		margin-top: 0px;
+		height: 60px;
 	}
 
 	#newsfeed-logo {
@@ -308,16 +309,34 @@ article.post {
 
 	#post-body {
 
+		@media (max-width: 1200px) {
+			.row {
+				margin-left: 0;
+
+				#main {
+					padding-left: 0;
+				}
+			}
+		}
+
 		@media #{$small-only} {
 			margin-top: 30px;
 		}
 
 		position: relative;
+		float: left;
 
 		.dfp-wire-cube {
 			padding-top: 30px;
 			clear: left;
 		}
+		@media (min-width: 1300px){
+			float:none;
+		}
+		@media (max-width: 1024px){
+			float:none;
+		}
+
 	}
 
 	.post.cst-sharing-absolute {
@@ -536,8 +555,7 @@ article.post {
 	}
 
 .ndn_embed {
-	float: left;
-	margin-bottom: 15px;
+	margin-bottom: 20px !important;
 	width: 100%;
 	list-style-type: none;
 	
@@ -549,9 +567,6 @@ article.post {
 		height: 414px;
 	}
 
-	@media #{$xmedium-up} {
-		height: 518px;
-	}
 }
 
 .agg-collage {

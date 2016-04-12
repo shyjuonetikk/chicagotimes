@@ -213,6 +213,12 @@
 					_taboola.push({mode:'thumbnails-c', container: taboola_container_id, placement: 'Below Article Thumbnails', target_type: 'mix'});
 					_taboola.push({article:'auto', url:uri});
 				}
+
+				var scrollTop = $(window).scrollTop();
+				var active_post_position = jQuery('.cst-active-scroll-post').position().top + 460;
+				var ad_container_height = jQuery('.cst-active-scroll-post .ad-container').height();
+				jQuery('#post-sidebar').css('top', active_post_position + 'px');
+				
 				if(window.SECTIONS_FOR_YIELD_MO){
 					window.YieldMo && YieldMo.inject(window.SECTIONS_FOR_YIELD_MO)
 			    }
@@ -223,7 +229,7 @@
 				document.title = wp_title;
 
 				CSTAnalytics.triggerPageview();
-				CSTAds.triggerUnitRefresh( 'div-gpt-rr-cube-1' );
+				
 			} else {
 				CSTInfiniteScroll.originalDetermineURL();
 

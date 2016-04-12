@@ -40,13 +40,15 @@
 			this.fixedBackToTop = $('#fixed-back-to-top');
 			this.backToTop = $('#back-to-top');
 			this.primaryNavigation = $('#primary-navigation');
-			this.postSidebar = $('#post-sidebar');
+			this.postSidebar = $('.article-sidebar');
 			this.postBody = $('#post-body');
 			this.offCanvasList = $('.off-canvas-menu');
 			this.searchButton = $('#search-button');
 			this.searchInput = $('#search-input');
 			this.rightSidebar = $('#index-sidebar');
 			this.rightSidebarAnchor = $('#index-sidebar-anchor');
+			this.leftSidebar = $('.stick-sidebar-left');
+			this.nativoSponsored = $('#nativo-sponsored');
 			this.footerFixed = $('#fixed-footer-container');
 			this.footerBottom = this.footerFixed.find('.footer-bottom');
 			this.footerMoreInfo = $('.footer-more-info');
@@ -61,6 +63,7 @@
 			this.cstLogo = $('header #suntimes-logo');
 			this.nfLogo = $('header #newsfeed-logo');
 			this.mobileHome = $('header #mobile-home');
+			this.tabletHome = $('header #logo-wrap #tablet-home');
 			this.dfpWallpaper = $('#div-gpt-wallpaper');
 			this.dfpWallpaperImg = $('#div-gpt-wallpaper img')
 			this.dfpLeaderboard = $('#div-gpt-atf-leaderboard');
@@ -243,6 +246,9 @@
 					if ( $(window).width() <= 640 ) {
 						this.mobileHome.show('slide', { direction: 'down' } );
 					}
+					if ( $(window).width() > 640 && $(window).width() < 981 ) {
+						this.tabletHome.show('slide', { direction: 'down' } );
+					}
 				}
 
 			} else {
@@ -260,6 +266,7 @@
 				if ( this.nfLogo.is(':visible') ) {
 					this.nfLogo.hide();
 					this.mobileHome.hide();
+					this.tabletHome.hide();
 					this.cstLogo.show('slide', { direction: 'up' } );
 				}
 
@@ -381,11 +388,6 @@
 			var scrollTop = $(window).scrollTop();
 
 			var postSidebarTop = this.scrollToolbarHeight;
-			if ( this.postBody.length && ! this.postSidebar.hasClass('sidebar-fixed') && scrollTop + postSidebarTop > this.postBody.offset().top ) {
-				this.postSidebar.addClass('sidebar-fixed').removeClass('sidebar-normal');
-			} else if ( this.postBody.length && this.postSidebar.hasClass('sidebar-fixed') && scrollTop + postSidebarTop < this.postBody.offset().top ) {
-				this.postSidebar.addClass('sidebar-normal').removeClass('sidebar-fixed');
-			}
 
 			if ( ! this.postSidebar.hasClass('sidebar-normal') && ! this.postSidebar.hasClass('sidebar-fixed') ) {
 				this.postSidebar.addClass('sidebar-normal');
@@ -402,12 +404,15 @@
 				}
 			}
 
-			var newHeight = $(window).height() - this.scrollToolbarHeight;
-			if ( newHeight + 'px' != this.postSidebar.css('height' ) ) {
-				this.postSidebar.css('height', newHeight + 'px' );
+			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - $('#wpadminbar').height() ) / 2 ) < scrollTop ) {
+				if ( ! this.leftSidebar.hasClass('fixed-bottom') ) {
+					this.leftSidebar.addClass('fixed-bottom');
+				}
+			} else {
+				if ( this.leftSidebar.hasClass('fixed-bottom') ) {
+					this.leftSidebar.removeClass('fixed-bottom');
+				}
 			}
-
-			this.postSidebar.css('display', '');
 
 		},
 

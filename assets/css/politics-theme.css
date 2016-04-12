@@ -241,6 +241,16 @@ body.error404 {
     .dfp-wallpaper iframe {
       width: 0%; } }
 
+@media (max-width: 320px) {
+  .single .post-row {
+    padding-left: 10px !important; }
+  .single .ad-container {
+    width: 300px;
+    text-align: left !important; }
+    .single .ad-container .dfp-cube {
+      margin: 0 !important;
+      margin-bottom: 5px !important; } }
+
 #ie8-user {
   text-align: center;
   margin-top: 20px; }
@@ -327,6 +337,21 @@ header#header {
       @media only screen and (max-width: 40em) {
         header#header section#primary-navigation #logo-wrap {
           margin-left: 55px; } }
+      @media (min-width: 981px) {
+        header#header section#primary-navigation #logo-wrap #tablet-home {
+          display: none; } }
+      @media (min-width: 641px) and (max-width: 980px) {
+        header#header section#primary-navigation #logo-wrap #tablet-home {
+          display: none;
+          position: absolute;
+          top: 3px;
+          left: 55px;
+          font-size: 40px; }
+          header#header section#primary-navigation #logo-wrap #tablet-home .fa {
+            color: #FFFFFF; } }
+      @media (max-width: 640px) {
+        header#header section#primary-navigation #logo-wrap #tablet-home {
+          display: none; } }
     header#header section#primary-navigation a#suntimes-logo img {
       width: 334px; }
       @media only screen and (min-width: 40.063em) and (max-width: 47.398em) {
@@ -663,6 +688,9 @@ ul#menu-sun-times-network {
   #newsfeed-logo img {
     width: 272px;
     height: 34px; }
+  @media (min-width: 641px) and (max-width: 981px) {
+    #newsfeed-logo {
+      margin-left: 40px; } }
   @media only screen and (max-width: 40em) {
     #newsfeed-logo {
       margin-top: -10px;
@@ -1164,7 +1192,8 @@ article.post {
   margin-bottom: 0px; }
 
 .single #div-gpt-mobile-leaderboard {
-  margin-top: 0px; }
+  margin-top: 0px;
+  height: 60px; }
 
 .single #newsfeed-logo {
   margin-top: 20px; }
@@ -1216,13 +1245,25 @@ article.post {
     margin: 5px; }
 
 .single #post-body {
-  position: relative; }
+  position: relative;
+  float: left; }
+  @media (max-width: 1200px) {
+    .single #post-body .row {
+      margin-left: 0; }
+      .single #post-body .row #main {
+        padding-left: 0; } }
   @media only screen and (max-width: 40em) {
     .single #post-body {
       margin-top: 30px; } }
   .single #post-body .dfp-wire-cube {
     padding-top: 30px;
     clear: left; }
+  @media (min-width: 1300px) {
+    .single #post-body {
+      float: none; } }
+  @media (max-width: 1024px) {
+    .single #post-body {
+      float: none; } }
 
 .single .post.cst-sharing-absolute .post-meta-social {
   position: fixed;
@@ -1347,8 +1388,7 @@ article.post {
     color: #29AAE2; }
 
 .single .ndn_embed {
-  float: left;
-  margin-bottom: 15px;
+  margin-bottom: 20px !important;
   width: 100%;
   list-style-type: none; }
   @media only screen and (max-width: 40em) {
@@ -1357,9 +1397,6 @@ article.post {
   @media only screen and (min-width: 40.063em) and (max-width: 47.398em) {
     .single .ndn_embed {
       height: 414px; } }
-  @media only screen and (min-width: 48em) {
-    .single .ndn_embed {
-      height: 518px; } }
 
 .single .agg-collage {
   margin-top: 5px;
@@ -1660,21 +1697,36 @@ section#subscribe {
       position: fixed;
       bottom: 0px;
       width: 303.328125px; }
+  .sidebar#post-sidebar-left {
+    background-color: #F0F0F0;
+    padding: 10px 0 0 0;
+    width: 160px;
+    top: 0;
+    left: 0;
+    position: absolute;
+    bottom: 0;
+    z-index: 1; }
+    @media (max-width: 1300px) {
+      .sidebar#post-sidebar-left {
+        display: none !important; } }
+    .sidebar#post-sidebar-left .fixed-bottom {
+      position: fixed;
+      bottom: 0px;
+      width: 160px; }
   .sidebar#post-sidebar {
     background-color: #F0F0F0;
     padding: 10px;
     width: 320px;
     top: 0;
-    left: 0;
+    right: 0;
     position: absolute;
     bottom: 0;
-    z-index: 9999;
-    overflow: hidden; }
-    @media only screen and (max-width: 75em) {
-      .sidebar#post-sidebar {
-        width: 220px; }
-        .sidebar#post-sidebar #div-gpt-article-sidebar-cube {
-          display: none; } }
+    z-index: 1; }
+    .sidebar#post-sidebar .widget_cst_ad_widget {
+      list-style-type: none;
+      margin-bottom: 20px; }
+    .sidebar#post-sidebar .widget_cst_ad_widget:nth-child(1) {
+      margin-top: 0 !important; }
     .sidebar#post-sidebar.sidebar-fixed {
       position: fixed; }
     .sidebar#post-sidebar.loading-latest ul {
