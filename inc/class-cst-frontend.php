@@ -126,58 +126,59 @@ class CST_Frontend {
 		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 		wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 
-		if( !is_front_page() || !is_page() ) {
-		// Scripty-scripts
-			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
-			wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9' );
+		$this->action_load_section_styling();
 
-		// Slick
-			wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
-			wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
-		}
+		// If we are on a 404 page don't try and load scripts/css that we won't be using.
+		if( !is_404() ) {
+			if ( ! is_front_page() || ! is_page() ) {
+				// Scripty-scripts
+				wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
+				wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9' );
 
-		// The theme
-		if( ! is_front_page() ) {
-			wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
-		} elseif( is_front_page() ) {
-			wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
-		} else {
-			wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
-		}
-
-		if( ! is_user_logged_in() && is_singular() ) {
-			wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
-			wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
-		}
+				// Slick
+				wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
+				wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
+			}
+			// The theme
+			if( ! is_front_page() ) {
+				wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+			} elseif( is_front_page() ) {
+				wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
+			} else {
+				wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+			}
+			if( ! is_user_logged_in() && is_singular() ) {
+				wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
+				wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
+			}
 
 			wp_enqueue_script( 'chicagosuntimes-ndn', 'http://launch.newsinc.com/js/embed.js' );
 
 
-		$this->action_load_section_styling();
+			if ( ! is_front_page() || ! is_page() ) {
+				wp_localize_script( 'chicagosuntimes', 'CSTData', array(
+					'home_url'                           => esc_url_raw( home_url() ),
+					'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
+				) );
+				wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
+				wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
+				wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
+				wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
+				$analytics_data = array(
+					'is_singular'     => is_singular(),
+				);
+				if ( is_singular() && $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() ) ) {
+					for ( $i = 1;  $i <= 9;  $i++) {
+						$analytics_data['dimension' . $i] = $obj->get_ga_dimension( $i );
+					}
 
-		
-		if ( ! is_front_page() || ! is_page() ) {
-		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
-			'home_url'                           => esc_url_raw( home_url() ),
-			'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
-			) );
-		wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
-		wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
-		wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
-		wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
-		$analytics_data = array(
-			'is_singular'     => is_singular(),
-			);
-		if ( is_singular() && $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() ) ) {
-			for ( $i = 1;  $i <= 9;  $i++) {
-				$analytics_data['dimension' . $i] = $obj->get_ga_dimension( $i );
+					wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
+				}
+
+				wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
 			}
-
-			wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
 		}
 
-		wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
-		}
 		wp_localize_script( 'chicagosuntimes', 'CSTIE', array('cst_theme_url' => get_template_directory_uri() ) );
 
 	}
@@ -329,11 +330,18 @@ class CST_Frontend {
 
 	/**
 	 * Filter the title on single posts
+	 * @param $wp_title
+	 *
+	 * @return string
 	 */
 	public function filter_wp_title( $wp_title ) {
 
-		if ( empty( $wp_title ) && ( is_home() || is_front_page() ) || is_404() ) {
+		if ( empty( $wp_title ) && ( is_home() || is_front_page() ) ) {
 			return 'Chicago Sun-Times: Chicago news, sports, politics, entertainment';
+		}
+
+		if ( is_404() ) {
+			return 'Page not found - Chicago Sun-Times';
 		}
 
 		if ( is_tax() ) {
@@ -816,25 +824,6 @@ class CST_Frontend {
 		}
 	}
 
-	/**
-	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
-	 * @param int $count
-	 * @return json array
-	 */
-	public function cst_homepage_get_aggregate() {
-
-		$response = wpcom_vip_file_get_contents( 'http://chicago.suntimes.com/api/1.2/get_posts/?page=1&count=15' );
-		if ( is_wp_error( $response ) ) :
-			return;
-		else :
-			$posts = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( ! $posts ) {
-				return;
-			}
-			return $posts;
-		endif;
-
-	}
 
 	/**
 	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
@@ -902,6 +891,84 @@ class CST_Frontend {
 		echo $cached_content;
 	}
 
+	public function cst_nativo_determine_positions($slug) {
+
+        $positions = array();
+        switch( $slug ) {
+
+            case 'news':
+                $positions = array( 'News1', 'News2' );
+                break;
+            case 'chicago':
+                $positions = array('NewsChi1', 'NewsChi2' );
+                break;
+            case 'crime':
+                $positions = array( 'NewsCrime1', 'NewsCrime2' );
+                break;
+            case 'the-watchdogs':
+                $positions = array( 'NewsWatch1', 'NewsWatch2' );
+                break;
+            case 'nation-world':
+                $positions = array( 'NewsNation1', 'NewsNation2' );
+                break;
+            case 'education':
+                $positions = array( 'NewsEdu1', 'NewsEdu2' );
+                break;
+            case 'transportation':
+                $positions = array( 'NewsTrans1', 'NewsTrans2' );
+                break;
+            case 'business':
+                $positions = array( 'NewsBus1', 'NewsBus2' );
+                break;
+            case 'sneed':
+                $positions = array( 'NewsSneed1', 'NewsSneed2' );
+                break;
+            case 'chicago-politics':
+                $positions = array( 'PolChi1', 'PolChi2' );
+                break;
+            case 'springfield-politics':
+                $positions = array( 'PolSpring1', 'PolSpring2' );
+                break;
+            case 'washington-politics':
+                $positions = array( 'PolWash1', 'PolWash2' );
+                break;
+            case 'lynn-sweet-politics':
+                $positions = array( 'PolSweet1', 'PolSweet2' );
+                break;
+            case 'rick-morrissey':
+                $positions = array( 'SportsMorrissey1', 'SportsMorrissey2' );
+                break;
+            case 'rick-telander':
+                $positions = array( 'SportsTelander1', 'SportsTelander2' );
+                break;
+            case 'cubs-baseball':
+                $positions = array( 'SportsCubs1', 'SportsCubs2' );
+                break;
+            case 'white-sox':
+                $positions = array( 'SportsSox1', 'SportsSox2' );
+                break;
+            case 'bears':
+                $positions = array( 'SportsBears1', 'SportsBears2' );
+                break;
+            case 'blackhawks':
+                $positions = array( 'SportsHawks1', 'SportsHawks2' );
+                break;
+            case 'bulls':
+                $positions = array( 'SportsBulls1', 'SportsBulls2' );
+                break;
+            case 'outdoor':
+                $positions = array( 'SportsOutdoor1', 'SportsOutdoor2' );
+                break;
+            case 'fire':  
+                $positions = array( 'SportsFire1', 'SportsFire2' );
+                break;
+            case 'colleges':
+                $positions = array( 'SportsColleges1', 'SportsColleges2' );
+                break;
+        }
+        return $positions;
+    }
+
 	/**
 	 * @return string
 	 * 
@@ -951,4 +1018,5 @@ class CST_Frontend {
 		
 		return $primary_slug;
 	}
+
 }

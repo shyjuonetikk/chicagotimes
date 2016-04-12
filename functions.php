@@ -414,6 +414,15 @@ class CST {
 	 * Register the sidebars for the theme
 	 */
 	private function register_sidebars() {
+
+		register_sidebar( array(
+			'id'          => 'articleleft',
+			'name'        => esc_html__( 'Article Left', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'articleright',
+			'name'        => esc_html__( 'Article Right', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'homepage_breaking_news',
 			'name'        => esc_html__( 'Homepage Breaking News', 'chicagosuntimes' ),

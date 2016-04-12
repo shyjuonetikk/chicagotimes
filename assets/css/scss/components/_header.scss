@@ -125,6 +125,27 @@ header#header {
 			@media #{$small-only} {
 				margin-left: 55px;
 			}
+
+			#tablet-home {
+
+				@media (min-width: 981px) {
+					display: none;
+				}
+				@media (min-width: 641px) and (max-width: 980px) {
+					display: none;
+					position: absolute;
+				    top: 3px;
+				    left: 55px;
+				    font-size: 40px;
+				    
+				    .fa {
+				    	color: $white;
+				    }
+				}
+				@media (max-width: 640px) {
+					display: none;
+				}
+			}
 		}
 
 		a#suntimes-logo {
@@ -637,6 +658,9 @@ ul#menu-sun-times-network {
 		height: 34px;
 	}
 	margin-top: 30px;
+	@media (min-width: 641px) and (max-width: 981px) {
+		margin-left: 40px;
+	}
 
 	@media #{$small-only} {
 		margin-top: -10px;

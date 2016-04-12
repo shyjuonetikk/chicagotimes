@@ -78,16 +78,17 @@ var CSTAds;
 			if( nextScrollUnit == 'div-gpt-rr-cube-2' ) {
 				var el2 = $('#div-gpt-rr-cube-3');
 				var nextScrollUnit2 = 'div-gpt-rr-cube-3';
+
+				$('#main .ad-container').eq( this.startPost ).append( el );
+				$('#main .ad-container').eq( this.startPost ).append( el2 );
+				this.triggerUnitRefresh( nextScrollUnit );
+				this.triggerUnitRefresh( nextScrollUnit2 );
 			} else {
-				var el2 = $('#div-gpt-rr-cube-5');
-				var nextScrollUnit2 = 'div-gpt-rr-cube-5';
+				$('#main .ad-container').eq( this.startPost ).append( el );
+				this.triggerUnitRefresh( nextScrollUnit );
+				this.triggerUnitRefresh( nextScrollUnit2 );
 			}
 			
-			$('#main .ad-container').eq( this.startPost ).append( el );
-			$('#main .ad-container').eq( this.startPost ).append( el2 );
-			this.triggerUnitRefresh( nextScrollUnit );
-			this.triggerUnitRefresh( nextScrollUnit2 );
-
 			this.startPost = this.startPost + this.betweenPosts;
 		
 		},
@@ -124,10 +125,19 @@ var CSTAds;
 		 */
 		getNextScrollUnit: function() {
 
-			if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
-				this.currentScrollUnit = 'div-gpt-rr-cube-4';
+			if( jQuery('.cst-active-scroll-post').length ) {
+				if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
+					this.currentScrollUnit = 'div-gpt-btf-leaderboard';
+				} else {
+					this.currentScrollUnit = 'div-gpt-rr-cube-2';
+				}
+				console.log('article page');
 			} else {
-				this.currentScrollUnit = 'div-gpt-rr-cube-2';
+				if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
+					this.currentScrollUnit = 'div-gpt-rr-cube-4';
+				} else {
+					this.currentScrollUnit = 'div-gpt-rr-cube-2';
+				}
 			}
 
 			return this.currentScrollUnit;

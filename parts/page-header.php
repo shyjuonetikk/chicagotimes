@@ -52,6 +52,10 @@
 		<div id="logo-wrap">
 			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/company-logo'); ?></a>
 			<?php get_template_part( 'parts/images/main-site-logo'); ?>
+
+			<div id="tablet-home">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa fa-home"></i></a>
+			</div>
 		</div>
 
 		<div id="mobile-home">
@@ -118,7 +122,7 @@ if ( is_singular() ) {
 ?>
 
 <?php 
-	if( ! is_single() ) { 
+	if( is_tax() ) { 
 		get_template_part( 'parts/dfp/dfp-wallpaper' ); 
 	}
 ?>
