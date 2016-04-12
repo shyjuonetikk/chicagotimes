@@ -747,7 +747,7 @@ class CST_Admin {
 	function action_author_filter() {
 		$args = array( 'name' => 'author', 'show_option_all' => 'View all authors' );
 		if ( isset( $_GET['user'] ) ) {
-			$args['selected'] = $_GET['user'];
+			$args['selected'] = intval ( $_GET['user'] );
 		}
 		wp_dropdown_users( $args );
 	}
