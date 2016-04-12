@@ -41,7 +41,8 @@ class CST_Category_Headlines_Widget extends WP_Widget {
             esc_html__( 'CST Category Main Headline Posts', 'chicagosuntimes' ),
             array(
                 'description' => esc_html__( 'Displays Section Headlines.', 'chicagosuntimes' ),
-            )
+            ),
+	        array( 'width' => '400' )
         );
 
         add_action( 'wp_ajax_cst_category_headlines_get_posts', array( $this, 'cst_category_headlines_get_posts' ) );

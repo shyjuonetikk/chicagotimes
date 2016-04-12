@@ -29,7 +29,8 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			esc_html__( 'CST Homepage Main Headline Posts', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays Home/Section from selected Headlines.', 'chicagosuntimes' ),
-			)
+			),
+			array( 'width' => '400' )
 		);
 		$this->cache_key_stub = 'homepage-headlines-widget';
 		add_action( 'wp_ajax_cst_homepage_headlines_get_posts', array( $this, 'cst_homepage_headlines_get_posts' ) );
