@@ -812,7 +812,7 @@ class CST_Frontend {
 	 * Fetch and output content from the specified section
 	 * @param $content_query
 	 */
-	public function cst_homepage_content_block( $content_query ) {
+	public function cst_homepage_content_block( $content_query, $nativo_slug = NULL ) {
 
 		$cache_key = md5( serialize($content_query) );
 		$cached_content = wp_cache_get( $cache_key );
@@ -835,7 +835,11 @@ class CST_Frontend {
 							}
 						}
 						?>
-					<ul>
+			<?php if( $nativo_slug != NULL ) { ?>
+				<ul id="<?php echo esc_html( $nativo_slug ); ?>">
+			<?php } else { ?>
+				<ul>
+			<?php } ?>
 					<?php }
 					$count--;
 					?>
