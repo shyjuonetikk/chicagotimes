@@ -21,11 +21,23 @@ if ( ! $obj ) {
 	<?php endif; ?>
 	<?php
 	$topic    = $obj->get_topics();
+	if ( ! is_array( $topic ) ) {
+		$topic = array();
+	}
 	$topic    = array_shift( $topic );
+
 	$person   = $obj->get_people();
+	if ( ! is_array( $person ) ) {
+		$person = array();
+	}
 	$person   = array_shift( $person );
+
 	$location = $obj->get_locations();
+	if ( ! is_array( $location ) ) {
+		$location = array();
+	}
 	$location = array_shift( $location );
+
 	$preferred_terms = $obj->get_preferred_terms( 'cst_preferred_terms' );
 	if ( $preferred_terms ) {
 		$preferred_topic = $preferred_terms['choose_topic']['featured_option_topic'];
