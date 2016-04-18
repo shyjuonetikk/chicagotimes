@@ -39,68 +39,77 @@ class Chicago_Command extends WP_CLI_Command {
 		 * Right column : Suntimesmedia.wordpress.com account name
 		 */
 		$author_mapping = array(
-			"akeefe"             => "akeefecst",
-			"akukulka"           => "akukulkacst",
-			"agrimm"             => "grimmsuntimes",
-			"arezincst"          => "arezincst",
-			"bbarker"            => "bbarkercst",
-			"cdeluca"            => "chrisdcst",
-			"cfuscocst"          => "cfuscocst",
-			"danielbrown"        => "dbrowncst",
-			"dbowman"            => "bowmanoutside",
-			"fgattuso"           => "fgattusocst",
-			"herb-gould"         => "hgouldcst",
-			"jagrest"            => "jagrestcst",
-			"jkirk"              => "jkirkcst",
-			"jmayescst"          => "jmayescst",
-			"joneillcst"         => "joneillcst",
-			"jowen"              => "jowencst",
-			"jsilver"            => "jsilvercst",
-			"lfitzpatrick"       => "lfitzpatrickcst",
-			"luke-wilusz"        => "lwiluszcst",
-			"marmentroutcst"     => "marmentroutcst",
-			"mmitchell"          => "marymcst",
-			"marym"              => "marymcst",
-			"maureen-o'donnell"  => "modonnell791",
-			"mcorradino"         => "mcorradino",
-			"mcotter"            => "mpottercst",
-			"mdoubek"            => "mdudekcst",
-			"mdumke"             => "mdumke",
-			"mgarcia"            => "mgarciasuntimescom",
-			"ihejirika"          => "mihejirikacst",
-			"psaltzmancst"       => "psaltzmancst",
-			"rheincst"           => "rheincst",
-			"RUMMANA-HUSSAIN"    => "rhussaincst",
-			"scharles"           => "scharlescst",
-			"sesposito"          => "sespositocst",
-			"sfornek"            => "sfornekcst",
-			"sgreenberg"         => "sgreenbergcst",
-			"salicea"            => "saliceacst",
-			"swarmbircst"        => "swarmbircst",
-			"tfrisbie"           => "tfrisbiecst",
-			"tina-sfondeles"     => "tsfondelescst",
-			"tmcnamee"           => "tmcnameecst",
-			"tnovak"             => "tnovakcst",
-			"van-schouwen"       => "dvanschouwencst",
+			"akeefe"             => array( "akeefecst" => 101943013 ),
+			"akukulka"           => array( "akukulkacst" => 101796416 ),
+			"agrimm"             => array( "grimmsuntimes" => 100348879 ),
+			"arezincst"          => array( "arezincst" => 70352817 ),
+			"bbarker"            => array( "bbarkercst"=> 70352819 ),
+			"cdeluca"            => array( "chrisdcst"=> 70352827 ),
+			"cfuscocst"          => array( "cfuscocst"=> 70352826 ),
+			"danielbrown"        => array( "dbrowncst"=> 101809872 ),
+			"dbowman"            => array( "bowmanoutside"=> 101986605 ),
+			"fgattuso"           => array( "fgattusocst"=> 101789189 ),
+			"herb-gould"         => array( "hgouldcst"=> 70352843 ),
+			"jagrest"            => array( "jagrestcst"=> 70352845 ),
+			"jkirk"              => array( "jkirkcst"=> 101783400 ),
+			"jmayescst"          => array( "jmayescst"=> 70352852 ),
+			"joneillcst"         => array( "joneillcst"=> 70352853 ),
+			"jowen"              => array( "jowencst"=> 70352854 ),
+			"jsilver"            => array( "jsilvercst"=> 101802833 ),
+			"lfitzpatrick"       => array( "lfitzpatrickcst"=> 70352857 ),
+			"luke-wilusz"        => array( "lwiluszcst"=> 70352861 ),
+			"marmentroutcst"     => array( "marmentroutcst"=> 70352863 ),
+			"mmitchell"          => array( "marymcst"=> 70352864 ),
+			"marym"              => array( "marymcst"=> 70352864 ),
+			"maureen-o'donnell"  => array( "modonnell791"=> 72099276 ),
+			"mcorradino"         => array( "mcorradino"=> 75642309 ),
+			"mcotter"            => array( "mpottercst"=> 70352880 ),
+			"mdoubek"            => array( "mdudekcst"=> 70352868 ),
+			"mdumke"             => array( "mdumke"=> 101845049 ),
+			"mgarcia"            => array( "mgarciasuntimescom"=> 101640087 ),
+			"ihejirika"          => array( "mihejirikacst"=> 70352871 ),
+			"psaltzmancst"       => array( "psaltzmancst"=> 70352892 ),
+			"rheincst"           => array( "rheincst"=> 70352894 ),
+			"RUMMANA-HUSSAIN"    => array( "rhussaincst"=> 70352895 ),
+			"scharles"           => array( "scharlescst"=> 70352898 ),
+			"sesposito"          => array( "sespositocst"=> 72506209 ),
+			"sfornek"            => array( "sfornekcst"=> 70352901 ),
+			"sgreenberg"         => array( "sgreenbergcst"=> 70352902 ),
+			"salicea"            => array( "saliceacst"=> 101846592 ),
+			"swarmbircst"        => array( "swarmbircst"=> 70352909 ),
+			"tfrisbie"           => array( "tfrisbiecst"=> 70352913 ),
+			"tina-sfondeles"     => array( "tsfondelescst"=> tsfondelescst ),
+			"tmcnamee"           => array( "tmcnameecst"=> 70352915 ),
+			"tnovak"             => array( "tnovakcst"=> 72101282 ),
+			"van-schouwen"       => array( "dvanschouwencst"=> 70352835 ),
 		);
 
 		$content_file = $assoc_args['content'];
 		$dry_mode = ! empty ( $assoc_args['dry-run'] );
 
 		if ( $content_handle = @fopen( $content_file, 'r' ) ) {
-			WP_CLI::success( $content_file . " found and will be used\n" );
-			while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) { // read each line
+			// Go - we have a csv file to read
+			WP_CLI::success( $content_file . " found and will be used" );
+			while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
+				// Read each line to get the variables listed out below
 				list( $remote_post_id, $staging_post_id, $remote_author_slug,
 					$remote_author_nickname, $remote_author_id, $remote_author_name, $legacy_url
 					) = explode( ',', $buffer );
 				if ( 'unavailable' !== $remote_post_id ) {
-					// get post by ID as the content ids imported from staging to VIP matched.
-					if ( ! $dry_mode && get_post( $staging_post_id ) ) {
-						WP_CLI::warning( "Changing $staging_post_id to be $remote_author_name for $legacy_url\n" );
+					// If we have a valid remote post ID
+					// First try get content by this ID as the content ids imported from staging to VIP matched.
+					$content_to_be_updated = get_post( $staging_post_id );
+					if ( ! $dry_mode ) {
+						WP_CLI::line( "Changing $staging_post_id to be $remote_author_slug/$remote_author_name for $legacy_url" );
+						wp_update_post( array(
+							'ID' => $staging_post_id,
+							'author' => $author_id,
+
+						));
 					} else {
 						// However, if no id match try by slug
-						WP_CLI::warning( "Could not find $staging_post_id - trying by post slug\n" );
-						if ( 1 == preg_match( '\/\d{3,8}\/(.+)', $legacy_url, $matches ) ) {
+						WP_CLI::warning( "Could not find $staging_post_id - trying by post slug" );
+						if ( 1 == preg_match( '#\/\d{3,8}\/(.+)#', $legacy_url, $matches ) ) {
 							$the_slug = $matches[0];
 							$args=array(
 								'name'           => $the_slug,
@@ -113,7 +122,7 @@ class Chicago_Command extends WP_CLI_Command {
 
 							} else {
 								if( ! empty( $my_posts ) ) {
-									WP_CLI::warning( '[dry]ID on the first post found ' . $my_posts[0]->ID . "\n" );
+									WP_CLI::warning( '[dry]ID on the first post found ' . $my_posts[0]->ID );
 								}
 							}
 						} else {
