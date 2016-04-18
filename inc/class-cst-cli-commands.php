@@ -90,12 +90,22 @@ class Chicago_Command extends WP_CLI_Command {
 		if ( $content_handle = @fopen( $content_file, 'r' ) ) {
 			// Go - we have a csv file to read
 			WP_CLI::success( $content_file . " found and will be used" );
+			$counter = 0;
 			while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
 				// Read each line to get the variables listed out below
 				list( $remote_post_id, $staging_post_id, $remote_author_slug,
 					$remote_author_nickname, $remote_author_id, $remote_author_name, $legacy_url
 					) = explode( ',', $buffer );
 				if ( 'unavailable' !== $remote_post_id ) {
+					$counter++;
+					if ( 0 == ( $counter % 10 ) ) {
+						if ( $dry_mode ) {
+							WP_CLI::warning( "Yawn - $counter" );
+						} else {
+							WP_CLI::line( "Yawn - $counter" );
+						}
+						sleep(1);
+					}
 					// If we have a valid remote post ID (from our legacy system prior to import)
 					$found_content_by_id = get_post( $staging_post_id );
 					// First try and get content by the staging ID as the content ids imported from staging to VIP matched.
@@ -125,17 +135,26 @@ class Chicago_Command extends WP_CLI_Command {
 								}
 							}
 							// This is the bit that does stuff
-							$new_author_id = $author_mapping[ $remote_author_slug ][1];
-							$new_author_slug = $author_mapping[ $remote_author_slug ][0];
-							WP_CLI::line( "[id]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
-							WP_CLI::line( "[slug]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
-							if ( ! $dry_mode ) {
-								WP_CLI::success( " ! Dry run mode" );
+							// Do we have the author in our array?
+							if ( in_array( $remote_author_slug, $author_mapping ) ) {
+								$new_author = $author_mapping[ $remote_author_slug ];
+								if ( is_array( $new_author ) ) {
+									$new_author_id = $new_author[1];
+									$new_author_slug = $new_author[0];
+									WP_CLI::line( "[id]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
+									WP_CLI::line( "[slug]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
+									if ( ! $dry_mode ) {
+										WP_CLI::success( " ! Dry run mode" );
 //								if ( $staging_post_id == wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) ) ) {
 //									WP_CLI::success( "[$staging_post_id] now authored by " );
 //								}
-							} else {
-								WP_CLI::success( "Dry run mode" );
+									} else {
+										WP_CLI::success( "Dry run mode" );
+									}
+								} else {
+									WP_CLI::error( "No author id specified for $new_author" );
+								}
+
 							}
 						}
 					} else {
