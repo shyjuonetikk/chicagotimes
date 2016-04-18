@@ -17,15 +17,27 @@ class Chicago_Command extends WP_CLI_Command {
 	 * ---
 	 * default: cst-content.csv
 	 * ---
+	 * [--dry-run]
+	 * : Don't make changes - perform a dry run
+	 * ---
+	 * default: 1
+	 * ---
 	 * ## EXAMPLES
 	 *
 	 *     wp chicago reassign author_name --content=cst-content.csv
 	 *
-	 * @when before_wp_load
 	 */
 	function reassign( $args, $assoc_args ) {
 		list( $name ) = $args;
 
+		/**
+		 * $author_mapping
+		 * Author list array built from existing Suntimesmedia.wordpress.com accounts
+		 * and staging site accounts
+		 *
+		 * left column : staging site account name
+		 * Right column : Suntimesmedia.wordpress.com account name
+		 */
 		$author_mapping = array(
 			"akeefe"             => "akeefecst",
 			"akukulka"           => "akukulkacst",
@@ -73,18 +85,40 @@ class Chicago_Command extends WP_CLI_Command {
 		);
 
 		$content_file = $assoc_args['content'];
-		WP_CLI::success( $content_file . ' will be used' );
+		$dry_mode = ! empty ( $assoc_args['dry-run'] );
+
 		if ( $content_handle = @fopen( $content_file, 'r' ) ) {
-			echo "Start\n";
-			while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
+			WP_CLI::success( $content_file . " found and will be used\n" );
+			while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) { // read each line
 				list( $remote_post_id, $staging_post_id, $remote_author_slug,
 					$remote_author_nickname, $remote_author_id, $remote_author_name, $legacy_url
 					) = explode( ',', $buffer );
 				if ( 'unavailable' !== $remote_post_id ) {
-					if ( get_post( $staging_post_id ) ) {
-						echo "Changing $staging_post_id to be $remote_author_name for $legacy_url\n";
+					// get post by ID as the content ids imported from staging to VIP matched.
+					if ( ! $dry_mode && get_post( $staging_post_id ) ) {
+						WP_CLI::warning( "Changing $staging_post_id to be $remote_author_name for $legacy_url\n" );
 					} else {
-						echo "Could not find $staging_post_id\n";
+						// However, if no id match try by slug
+						WP_CLI::warning( "Could not find $staging_post_id - trying by post slug\n" );
+						if ( 1 == preg_match( '\/\d{3,8}\/(.+)', $legacy_url, $matches ) ) {
+							$the_slug = $matches[0];
+							$args=array(
+								'name'           => $the_slug,
+								'post_type'      => 'cst_article',
+								'post_status'    => 'publish',
+								'posts_per_page' => 1
+							);
+							$my_posts = get_posts( $args );
+							if ( ! $dry_mode && ! empty( $my_posts ) ) {
+
+							} else {
+								if( ! empty( $my_posts ) ) {
+									WP_CLI::warning( '[dry]ID on the first post found ' . $my_posts[0]->ID . "\n" );
+								}
+							}
+						} else {
+
+						}
 					}
 				}
 			}
