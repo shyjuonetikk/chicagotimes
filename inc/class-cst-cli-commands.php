@@ -100,11 +100,11 @@ class Chicago_Command extends WP_CLI_Command {
 					$counter++;
 					if ( 0 == ( $counter % 10 ) ) {
 						if ( $dry_mode ) {
-							WP_CLI::warning( "Yawn - $counter" );
+							WP_CLI::warning( "<Yawn> - $counter" );
 						} else {
 							WP_CLI::line( "Yawn - $counter" );
 						}
-						sleep(1);
+						sleep(0.5);
 					}
 					// If we have a valid remote post ID (from our legacy system prior to import)
 					$found_content_by_id = get_post( $staging_post_id );
@@ -123,25 +123,32 @@ class Chicago_Command extends WP_CLI_Command {
 							$my_posts = get_posts( $args );
 							if ( ! empty( $my_posts ) ) {
 								// YES! content that matches by slug - let's notify intention to change the author of that content
-								$new_author_id = $author_mapping[ $remote_author_slug ][1];
-								WP_CLI::line( "[slug]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
-								if ( ! $dry_mode ) {
-									WP_CLI::success( " ! Dry run mode" );
+								if ( in_array( $remote_author_slug, $author_mapping ) ) {
+									$new_author = $author_mapping[ $remote_author_slug ];
+									if ( is_array( $new_author ) ) {
+										$new_author_id   = $new_author[1];
+										$new_author_slug = $new_author[0];
+										WP_CLI::line( "[slug]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
+										if ( ! $dry_mode ) {
+											WP_CLI::success( " ! Dry run mode" );
 //								if ( $staging_post_id == wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) ) ) {
 //									WP_CLI::success( "[$staging_post_id] now authored by " );
 //								}
-								} else {
-									WP_CLI::success( "Dry run mode" );
+										} else {
+											WP_CLI::success( "Dry run mode" );
+										}
+									}
 								}
 							}
-							// This is the bit that does stuff
+							// Found content by slug
 							// Do we have the author in our array?
 							if ( in_array( $remote_author_slug, $author_mapping ) ) {
 								$new_author = $author_mapping[ $remote_author_slug ];
 								if ( is_array( $new_author ) ) {
+									// We have new author now get the id for use in wp_update_post
 									$new_author_id = $new_author[1];
 									$new_author_slug = $new_author[0];
-									WP_CLI::line( "[id]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
+									WP_CLI::line( "[slug]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
 									WP_CLI::line( "[slug]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
 									if ( ! $dry_mode ) {
 										WP_CLI::success( " ! Dry run mode" );
@@ -158,11 +165,27 @@ class Chicago_Command extends WP_CLI_Command {
 							}
 						}
 					} else {
-						// This is the bit that does stuff
+						// Found content by id
 						// Get new author ID from our author_mapping array
-						$new_author_id = $author_mapping[ $remote_author_slug ][1];
-						WP_CLI::line( "[id]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
-						WP_CLI::line( "[id]wp_update_post : ID=>$staging_post_id author=>$new_author_id for $legacy_url" );
+						if ( in_array( $remote_author_slug, $author_mapping ) ) {
+							$new_author = $author_mapping[ $remote_author_slug ];
+							if ( is_array( $new_author ) ) {
+								$new_author_id   = $new_author[1];
+								$new_author_slug = $new_author[0];
+								WP_CLI::line( "[id]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
+								WP_CLI::line( "[id]wp_update_post : ID=>$staging_post_id author=>$new_author_id for $legacy_url" );
+								if ( ! $dry_mode ) {
+									WP_CLI::success( " ! Dry run mode" );
+//								if ( $staging_post_id == wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) ) ) {
+//									WP_CLI::success( "[$staging_post_id] now authored by " );
+//								}
+								} else {
+									WP_CLI::success( "Dry run mode" );
+								}
+							} else {
+								WP_CLI::error( "[id]No author id specified for $new_author" );
+							}
+						}
 					}
 				}
 			}
