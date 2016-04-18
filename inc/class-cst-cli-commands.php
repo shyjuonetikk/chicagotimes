@@ -78,7 +78,7 @@ class Chicago_Command extends WP_CLI_Command {
 			"salicea"            => array( "saliceacst"=> 101846592 ),
 			"swarmbircst"        => array( "swarmbircst"=> 70352909 ),
 			"tfrisbie"           => array( "tfrisbiecst"=> 70352913 ),
-			"tina-sfondeles"     => array( "tsfondelescst"=> tsfondelescst ),
+			"tina-sfondeles"     => array( "tsfondelescst"=> 70352918 ),
 			"tmcnamee"           => array( "tmcnameecst"=> 70352915 ),
 			"tnovak"             => array( "tnovakcst"=> 72101282 ),
 			"van-schouwen"       => array( "dvanschouwencst"=> 70352835 ),
@@ -96,38 +96,54 @@ class Chicago_Command extends WP_CLI_Command {
 					$remote_author_nickname, $remote_author_id, $remote_author_name, $legacy_url
 					) = explode( ',', $buffer );
 				if ( 'unavailable' !== $remote_post_id ) {
-					// If we have a valid remote post ID
-					// First try get content by this ID as the content ids imported from staging to VIP matched.
-					$content_to_be_updated = get_post( $staging_post_id );
-					if ( ! $dry_mode ) {
-						WP_CLI::line( "Changing $staging_post_id to be $remote_author_slug/$remote_author_name for $legacy_url" );
-						wp_update_post( array(
-							'ID' => $staging_post_id,
-							'author' => $author_id,
-
-						));
-					} else {
-						// However, if no id match try by slug
-						WP_CLI::warning( "Could not find $staging_post_id - trying by post slug" );
+					// If we have a valid remote post ID (from our legacy system prior to import)
+					$found_content_by_id = get_post( $staging_post_id );
+					// First try and get content by the staging ID as the content ids imported from staging to VIP matched.
+					if ( null == $found_content_by_id ) {
+						// No content found by id - try by slug from post_meta legacyUrl (provided by csv file)
 						if ( 1 == preg_match( '#\/\d{3,8}\/(.+)#', $legacy_url, $matches ) ) {
+							// Use remainder of legacy url as slug (as originally intended) to search for content.
 							$the_slug = $matches[0];
-							$args=array(
+							$args     = array(
 								'name'           => $the_slug,
 								'post_type'      => 'cst_article',
 								'post_status'    => 'publish',
 								'posts_per_page' => 1
 							);
 							$my_posts = get_posts( $args );
-							if ( ! $dry_mode && ! empty( $my_posts ) ) {
-
-							} else {
-								if( ! empty( $my_posts ) ) {
-									WP_CLI::warning( '[dry]ID on the first post found ' . $my_posts[0]->ID );
+							if ( ! empty( $my_posts ) ) {
+								// YES! content that matches by slug - let's notify intention to change the author of that content
+								$new_author_id = $author_mapping[ $remote_author_slug ][1];
+								WP_CLI::line( "[slug]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
+								if ( ! $dry_mode ) {
+									WP_CLI::success( " ! Dry run mode" );
+//								if ( $staging_post_id == wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) ) ) {
+//									WP_CLI::success( "[$staging_post_id] now authored by " );
+//								}
+								} else {
+									WP_CLI::success( "Dry run mode" );
 								}
 							}
-						} else {
-
+							// This is the bit that does stuff
+							$new_author_id = $author_mapping[ $remote_author_slug ][1];
+							$new_author_slug = $author_mapping[ $remote_author_slug ][0];
+							WP_CLI::line( "[id]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
+							WP_CLI::line( "[slug]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
+							if ( ! $dry_mode ) {
+								WP_CLI::success( " ! Dry run mode" );
+//								if ( $staging_post_id == wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) ) ) {
+//									WP_CLI::success( "[$staging_post_id] now authored by " );
+//								}
+							} else {
+								WP_CLI::success( "Dry run mode" );
+							}
 						}
+					} else {
+						// This is the bit that does stuff
+						// Get new author ID from our author_mapping array
+						$new_author_id = $author_mapping[ $remote_author_slug ][1];
+						WP_CLI::line( "[id]Changing $staging_post_id to be $remote_author_slug/$new_author_id for $legacy_url" );
+						WP_CLI::line( "[id]wp_update_post : ID=>$staging_post_id author=>$new_author_id for $legacy_url" );
 					}
 				}
 			}
