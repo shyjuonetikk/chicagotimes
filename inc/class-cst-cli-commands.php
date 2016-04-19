@@ -84,13 +84,28 @@ class Chicago_Command extends WP_CLI_Command {
 
 	private $change_count_slug = 0;
 	private $change_count_id   = 0;
+	private $sleep_mod         = 10;
+	private $sleep_time        = 0.5;
 
+	/**
+	 * @param $args
+	 * @param $assoc_args
+	 *
+	 * Reassign author based on author referenced in legacyUrl article mapped to new author
+	 *
+	 */
 	function reassign( $args, $assoc_args ) {
 		if ( isset( $assoc_args['content'] ) ) {
 			$content_file      = $assoc_args['content'];
 		}
-		$dry_mode          = ! empty ( $assoc_args['dry-run'] );
+		if ( isset( $assoc_args['sleep-mod'] ) ) {
+			$this->sleep_mod      = intval( $assoc_args['sleep-mod'] );
+		}
+		if ( isset( $assoc_args['sleep-time'] ) ) {
+			$this->sleep_mod      = intval( $assoc_args['sleep-time'] );
+		}
 
+		$dry_mode          = ! empty ( $assoc_args['dry-run'] );
 		$sleep_counter     = 0;
 		$slug_args     = array(
 			'post_type'      => 'cst_article',
@@ -109,22 +124,25 @@ class Chicago_Command extends WP_CLI_Command {
 						$remote_author_nickname, $remote_author_id, $remote_author_name, $legacy_url
 						) = explode( ',', $buffer );
 					if ( 'unavailable' !== $remote_post_id ) {
+						// Unavailable (around 242) covers content that exists but we appear to have no record
+						// of the original author
 						$this->process_sleep_counter( $sleep_counter, $dry_mode );
 						// If we have a valid remote post ID (from our legacy system prior to import)
 						$found_content_by_id = get_post( $staging_post_id );
-						// First try and get content by the staging ID as the content ids imported from staging to VIP matched.
+						// First try and get content by the ID as the content ids imported from staging to VIP matched.
 						if ( null == $found_content_by_id ) {
 							// No content found by id
 							// 2nd and last resort - try and find by slug from post_meta legacyUrl (provided by csv file)
 							if ( 1 == preg_match( '#\/\d{3,9}\/(.+)#', $legacy_url, $matches ) ) {
-								// Use remainder of legacy url as slug (as originally intended) to search for content.
+								// Use remainder of legacy url as slug to search for content.
 								$the_slug = $matches[0];
 								$slug_args['name'] = $the_slug;
 								$my_posts = get_posts( $slug_args );
 								if ( ! empty( $my_posts ) ) {
 									// Found content by slug
-									WP_CLI::warning( "Found by slug $legacy_url" );
+									WP_CLI::line( "Found by slug $legacy_url" );
 									// Do we have the author in our array - ie do we know who to map it to?
+									// Lets find out...
 									$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode);
 								}
 							} else {
@@ -155,17 +173,17 @@ class Chicago_Command extends WP_CLI_Command {
 	 * @param $sleep_counter
 	 * @param $dry_mode
 	 *
-	 * Display a sleep notice every 10 iterations.
+	 * Display a sleep notice every $sleep_mod iterations.
 	 */
 	private function process_sleep_counter( $sleep_counter, $dry_mode ) {
 		$sleep_counter++;
-		if ( 0 == ( $sleep_counter % 10 ) ) {
+		if ( 0 == ( $sleep_counter % $this->sleep_mod ) ) {
 			if ( $dry_mode ) {
 				WP_CLI::warning( "<Yawn> - $sleep_counter" );
 			} else {
 				WP_CLI::line( "Yawn - $sleep_counter" );
 			}
-			sleep(0.35);
+			sleep($this->sleep_time);
 		}
 	}
 
@@ -179,26 +197,29 @@ class Chicago_Command extends WP_CLI_Command {
 	 * If it's not a dry-run then update the content item author otherwise note the action that would have been taken
 	 */
 	private function update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode) {
+
 		if ( array_key_exists( $remote_author_slug, $this->author_mapping ) ) {
+			// Do author lookup
 			$new_author = $this->author_mapping[ $remote_author_slug ];
 			if ( is_array( $new_author ) ) {
+				// Get new author id and slug
 				$new_author_id   = $new_author[1];
 				$new_author_slug = $new_author[0];
 				WP_CLI::line( "[id]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
 				if ( ! $dry_mode ) {
+//					if ( $staging_post_id == wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) ) ) {
+//						WP_CLI::success( "[id]$staging_post_id now authored by $new_author_slug" );
+//					}
 					$this->change_count_id++;
-					WP_CLI::success( " [id]! FOR REAL mode - $this->change_count_id" );
-//								if ( $staging_post_id == wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) ) ) {
-//									WP_CLI::success( "[$staging_post_id] now authored by " );
-//								}
 				} else {
 					$this->change_count_id++;
 					WP_CLI::success( "[id]Dry run mode - $this->change_count_id" );
 				}
 			} else {
-				WP_CLI::error( "[id]No author id specified for $new_author" );
+				WP_CLI::warning( "[id]No author id found/specified for $new_author" );
 			}
 		}
+
 	}
 }
 
