@@ -177,6 +177,8 @@ class CST_Frontend {
 
 				wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
 			}
+		} else {
+			wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
 		}
 
 		wp_localize_script( 'chicagosuntimes', 'CSTIE', array('cst_theme_url' => get_template_directory_uri() ) );
