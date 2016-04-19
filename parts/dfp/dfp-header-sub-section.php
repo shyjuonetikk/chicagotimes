@@ -225,7 +225,7 @@
 
         CSTAdTags['div-gpt-billboard'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [970, 250], 'div-gpt-billboard')
         .addService(googletag.pubads())
-        .setTargeting("pos","Billboard")
+        .setTargeting("pos","Billboard 970x250")
         .setCollapseEmptyDiv(true,true);
 
 <?php else : ?>
