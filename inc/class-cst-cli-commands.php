@@ -96,13 +96,15 @@ class Chicago_Command extends WP_CLI_Command {
 	 */
 	function reassign( $args, $assoc_args ) {
 		if ( isset( $assoc_args['content'] ) ) {
-			$content_file      = $assoc_args['content'];
+			$content_file = $assoc_args['content'];
 		}
 		if ( isset( $assoc_args['sleep-mod'] ) ) {
-			$this->sleep_mod      = intval( $assoc_args['sleep-mod'] );
+			$this->sleep_mod = intval( $assoc_args['sleep-mod'] );
 		}
 		if ( isset( $assoc_args['sleep-time'] ) ) {
-			$this->sleep_mod      = intval( $assoc_args['sleep-time'] );
+			if ( is_float( $assoc_args['sleep-time'] ) ) {
+				$this->sleep_mod = $assoc_args['sleep-time'];
+			}
 		}
 
 		$dry_mode          = ! empty ( $assoc_args['dry-run'] );
@@ -118,6 +120,7 @@ class Chicago_Command extends WP_CLI_Command {
 			if ( $content_handle = @fopen( $content_file, 'r' ) ) {
 				// Go - we have a csv file to read
 				WP_CLI::success( $content_file . " found and will be used :-)" );
+				$read_first_line_buffer = fgets( $content_handle, 4096 );
 				while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
 					// Read each line to get the variables listed out below
 					list( $remote_post_id, $staging_post_id, $remote_author_slug,
@@ -179,7 +182,7 @@ class Chicago_Command extends WP_CLI_Command {
 		$sleep_counter++;
 		if ( 0 == ( $sleep_counter % $this->sleep_mod ) ) {
 			if ( $dry_mode ) {
-				WP_CLI::warning( "<Yawn> - $sleep_counter" );
+				WP_CLI::line( "<Yawn> - $sleep_counter" );
 			} else {
 				WP_CLI::line( "Yawn - $sleep_counter" );
 			}
@@ -194,7 +197,8 @@ class Chicago_Command extends WP_CLI_Command {
 	 * @param $dry_mode
 	 *
 	 * Update counters for id and slug
-	 * If it's not a dry-run then update the content item author otherwise note the action that would have been taken
+	 * If it's not a dry-run then run wp_update_post the content item author
+	 * otherwise note the action that would have been taken
 	 */
 	private function update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode) {
 
@@ -207,9 +211,15 @@ class Chicago_Command extends WP_CLI_Command {
 				$new_author_slug = $new_author[0];
 				WP_CLI::line( "[id]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
 				if ( ! $dry_mode ) {
-//					if ( $staging_post_id == wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) ) ) {
-//						WP_CLI::success( "[id]$staging_post_id now authored by $new_author_slug" );
-//					}
+					$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) );
+					if ( is_wp_error( $updated_post_id ) ) {
+						$errors = $updated_post_id->get_error_messages();
+						foreach ( $errors as $error ) {
+							WP_CLI::warning( "[$staging_post_id] $error" );
+						}
+					} else {
+						WP_CLI::success( "[id]$staging_post_id now authored by $new_author_slug [$new_author_id]" );
+					}
 					$this->change_count_id++;
 				} else {
 					$this->change_count_id++;
