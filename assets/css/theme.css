@@ -2524,6 +2524,9 @@ body.post-gallery-lightbox-active {
       padding: 0;
       margin: 10px 0 10px 0;
       text-align: center; } }
+  @media (max-width: 568px) {
+    .homepage_wrapper .dfp-mobile-leaderboard {
+      padding-left: 0; } }
   .homepage_wrapper #div-gpt-wallpaper {
     z-index: 1; }
   .homepage_wrapper .dfp-atf-leaderboard, .homepage_wrapper .dfp-btf-leaderboard {
