@@ -64,15 +64,18 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 
 		if ( ! empty ( $content_file ) ) {
 			if ( $content_handle = @fopen( $content_file, 'r' ) ) {
+
 				// Go - we have a csv file to read
 				WP_CLI::success( $content_file . " found and will be used :-)" );
 				$read_first_line_buffer = fgets( $content_handle, 4096 );
 				while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
+
 					// Read each line to get the variables listed out below
 					list( $remote_post_id, $staging_post_id, $remote_author_slug,
 						$remote_author_nickname, $remote_author_id, $remote_author_name, $legacy_url
 						) = explode( ',', $buffer );
 					if ( 'unavailable' !== $remote_post_id ) {
+
 						// Unavailable (around 242) covers content that exists but we appear to have no record
 						// of the original author
 						$sleep_counter = $this->process_sleep_counter( $sleep_counter, $dry_mode );
@@ -82,17 +85,21 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 						// First try and get content by the ID as the content ids imported from staging to VIP matched.
 
 						if ( null == $found_content_by_id ) {
+
 							// No content found by id
 							// 2nd and last resort - try and find by slug from post_meta legacyUrl (provided by csv file)
 							if ( 1 == preg_match( '#\/\d{3,9}\/(.+)#', $legacy_url, $matches ) ) {
+
 								// Use remainder of legacy url as slug to search for content.
 								$the_slug          = $matches[0];
 								$slug_args['name'] = $the_slug;
 								// Let's get the post by slug given it's likely not to have changed
+
 								$my_posts          = get_posts( $slug_args );
 								if ( ! empty( $my_posts ) ) {
 									// Found content by slug, yay!
 									WP_CLI::line( "Found by slug $legacy_url" );
+
 									// Do we have the author in our array - ie do we know who to map it to?
 									// Lets find out...and apply the change
 									$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
@@ -101,8 +108,8 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 								WP_CLI::warning( "[slug]No content found by slug for $legacy_url" );
 							}
 						} else {
-							// Found content by id
-							// Get new author ID from our author_mapping array
+							// Do we have the author in our array - ie do we know who to map it to?
+							// Lets find out...and apply the change
 							$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
 						}
 					}
@@ -148,23 +155,26 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 	 * @param $dry_mode
 	 *
 	 * Update counters for id and slug
-	 * If it's not a dry-run then run wp_update_post the content item author
+	 * If it's not a dry-run then run wp_update_post to apply the author change
 	 * then we tell coauthors about it
-	 * otherwise note the action that would have been taken
+	 * otherwise in full dry run mode note the action that would have been taken
 	 */
 	private function update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode ) {
 
 		if ( array_key_exists( $remote_author_slug, $this->author_mapping ) ) {
 			global $coauthors_plus;
+
 			// Do author lookup from our pre-formed array
 			$new_author = $this->author_mapping[ $remote_author_slug ];
 			if ( is_array( $new_author ) ) {
+
 				// Get new author id and slug
 				$new_author_id   = $new_author[1];
 				$new_author_slug = $new_author[0];
 				WP_CLI::line( "[id]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
 				if ( ! $dry_mode ) {
 					if ( 6988 == $staging_post_id ) { // change only id 6988 for test purposes
+
 						$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
 						$co_authors      = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
 						if ( is_wp_error( $updated_post_id ) ) {
@@ -193,7 +203,7 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 	 * and staging site accounts
 	 *
 	 * left column : staging site account name
-	 * Right column : array( Suntimesmedia.wordpress.com account name, related account/user id )
+	 * Right column : array( Suntimesmedia.wordpress.com account name, related WordPress.com account/user id )
 	 */
 	private $author_mapping = array(
 		"akeefe"            => array( "akeefecst", 101943013 ),
