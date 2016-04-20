@@ -235,18 +235,15 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				} else {
 					// Get new author id and slug
 					WP_CLI::line( WP_CLI::colorize( "[%y*live* by id%n]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url$legacy_url" ) );
-					if ( 6988 == $staging_post_id ) { // change only id 6988 for test purposes
-
-						$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
-						$co_authors      = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
-						if ( is_wp_error( $updated_post_id ) ) {
-							$errors = $updated_post_id->get_error_messages();
-							foreach ( $errors as $error ) {
-								WP_CLI::warning( "[$updated_post_id] $error" );
-							}
-						} else {
-							WP_CLI::success( "[*live*id]$updated_post_id now authored by $new_author_slug [$new_author_id]" );
+					$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
+					$co_authors      = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
+					if ( is_wp_error( $updated_post_id ) ) {
+						$errors = $updated_post_id->get_error_messages();
+						foreach ( $errors as $error ) {
+							WP_CLI::warning( "[$updated_post_id] $error" );
 						}
+					} else {
+						WP_CLI::success( "[*live*id]$updated_post_id now authored by $new_author_slug [$new_author_id]" );
 					}
 				}
 			} else {
