@@ -76,9 +76,11 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 						// Unavailable (around 242) covers content that exists but we appear to have no record
 						// of the original author
 						$sleep_counter = $this->process_sleep_counter( $sleep_counter, $dry_mode );
-						// If we have a valid remote post ID (from our legacy system prior to import)
+
 						$found_content_by_id = get_post( $staging_post_id );
+						// If we have a valid remote post ID (from our legacy system prior to import)
 						// First try and get content by the ID as the content ids imported from staging to VIP matched.
+
 						if ( null == $found_content_by_id ) {
 							// No content found by id
 							// 2nd and last resort - try and find by slug from post_meta legacyUrl (provided by csv file)
@@ -86,12 +88,13 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 								// Use remainder of legacy url as slug to search for content.
 								$the_slug          = $matches[0];
 								$slug_args['name'] = $the_slug;
+								// Let's get the post by slug given it's likely not to have changed
 								$my_posts          = get_posts( $slug_args );
 								if ( ! empty( $my_posts ) ) {
-									// Found content by slug
+									// Found content by slug, yay!
 									WP_CLI::line( "Found by slug $legacy_url" );
 									// Do we have the author in our array - ie do we know who to map it to?
-									// Lets find out...
+									// Lets find out...and apply the change
 									$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
 								}
 							} else {
@@ -146,13 +149,14 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 	 *
 	 * Update counters for id and slug
 	 * If it's not a dry-run then run wp_update_post the content item author
+	 * then we tell coauthors about it
 	 * otherwise note the action that would have been taken
 	 */
 	private function update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode ) {
 
 		if ( array_key_exists( $remote_author_slug, $this->author_mapping ) ) {
 			global $coauthors_plus;
-			// Do author lookup
+			// Do author lookup from our pre-formed array
 			$new_author = $this->author_mapping[ $remote_author_slug ];
 			if ( is_array( $new_author ) ) {
 				// Get new author id and slug
@@ -160,7 +164,7 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 				$new_author_slug = $new_author[0];
 				WP_CLI::line( "[id]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
 				if ( ! $dry_mode ) {
-					if ( 6988 == $staging_post_id ) { // change only id 6988
+					if ( 6988 == $staging_post_id ) { // change only id 6988 for test purposes
 						$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
 						$co_authors      = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
 						if ( is_wp_error( $updated_post_id ) ) {
