@@ -125,7 +125,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 
 			// Unavailable (around 242) covers content that exists but we appear to have no record
 			// of the original author
-			$sleep_counter = $this->process_sleep_counter( $this->sleep_counter, $dry_mode );
+			$this->process_sleep_counter( $dry_mode );
 
 			$found_content_by_id = get_post( $staging_post_id );
 			// If we have a valid remote post ID (from our legacy system prior to import)
@@ -152,32 +152,34 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 						$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
 					} else {
 						WP_CLI::warning( "[slug]Search by slug failed: $the_slug legacy url: $legacy_url" );
-						$this->sleep_counter++;
 					}
 				} else {
 					WP_CLI::warning( "[slug]No slug match for $legacy_url" );
-					$this->sleep_counter++;
 				}
 			} else {
 				// Do we have the author in our array - ie do we know who to map it to?
 				// Lets find out...and apply the change
 				$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
-				$this->sleep_counter++;
 			}
 		}
 	}
 
+	/**
+	 * @param $file_handle
+	 *
+	 * Read from author mapping file and set up author lookup array
+	 */
 	private function set_author_mapping( $file_handle ) {
 
-		// read and discard header row from csv file
-		$read_first_line_buffer = fgets( $file_handle, 4096 );
-		while ( false !== ( $author_buffer = fgets( $file_handle, 4096 ) ) ) {
-			// Read each line to get the variables listed out below
-			list( $legacy_author, $wpcom_author, $wpcom_author_id
-				) = explode( ',', $author_buffer );
-			$this->author_mapping[] = array( $legacy_author, array( $wpcom_author, $wpcom_author_id) );
+		$temp_array = array();
+		while ( false !== ( $author_buffer = fgets( $file_handle ) ) ) {
+			list( $legacy_author, $wpcom_author, $wpcom_author_id ) = explode( ',' , $author_buffer );
+			$wpcom_author_id = intval( $wpcom_author_id ) ;
+			array_push( $temp_array, $legacy_author, array( $wpcom_author, $wpcom_author_id )  );
 		}
-
+		if ( ! empty( $temp_array ) ) {
+			$this->author_mapping = $temp_array;
+		}
 	}
 
 	/**
@@ -187,18 +189,17 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 	 * @return mixed | $sleep_counter
 	 * Display a sleep notice every $sleep_mod iterations.
 	 */
-	private function process_sleep_counter( $sleep_counter, $dry_mode ) {
-		$sleep_counter ++;
-		if ( 0 == ( $sleep_counter % $this->sleep_mod ) ) {
+	private function process_sleep_counter( $dry_mode ) {
+		$this->sleep_counter++;
+		if ( 0 == ( $this->sleep_counter % $this->sleep_mod ) ) {
 			if ( $dry_mode ) {
-				WP_CLI::line( "<Yawn> - $sleep_counter" );
+				WP_CLI::line( "<Yawn> - $this->sleep_counter" );
 			} else {
-				WP_CLI::line( "Yawn - $sleep_counter" );
+				WP_CLI::line( "Yawn - $this->sleep_counter" );
 			}
 			sleep( 1 );
 		}
 
-		return $sleep_counter;
 	}
 
 	/**
@@ -238,10 +239,10 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 						} else {
 							WP_CLI::success( "[id]$updated_post_id now authored by $new_author_slug [$new_author_id]" );
 						}
-						$this->change_count_id ++;
+						$this->change_count_id++;
 					}
 				} else {
-					$this->change_count_id ++;
+					$this->change_count_id++;
 					WP_CLI::success( "[id]Dry run mode - $this->change_count_id" );
 				}
 			} else {
@@ -255,54 +256,11 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 	 * Author list array built from existing Suntimesmedia.wordpress.com accounts
 	 * and staging site accounts
 	 *
-	 * left column : staging site account name
-	 * Right column : array( Suntimesmedia.wordpress.com account name, related WordPress.com account/user id )
+	 * Provide csv as a paramter with:
+	 * legacy author slug, wpcom author slug, wpcom author id
+	 *
 	 */
-	private $author_mapping = array(
-//		"akeefe"            => array( "akeefecst", 101943013 ),
-//		"akukulka"          => array( "akukulkacst", 101796416 ),
-//		"agrimm"            => array( "grimmsuntimes", 100348879 ),
-//		"arezincst"         => array( "arezincst", 70352817 ),
-//		"bbarker"           => array( "bbarkercst", 70352819 ),
-//		"cdeluca"           => array( "chrisdcst", 70352827 ),
-//		"cfuscocst"         => array( "cfuscocst", 70352826 ),
-//		"danielbrown"       => array( "dbrowncst", 101809872 ),
-//		"dbowman"           => array( "bowmanoutside", 101986605 ),
-//		"fgattuso"          => array( "fgattusocst", 101789189 ),
-//		"herb-gould"        => array( "hgouldcst", 70352843 ),
-//		"jagrest"           => array( "jagrestcst", 70352845 ),
-//		"jkirk"             => array( "jkirkcst", 101783400 ),
-//		"jmayescst"         => array( "jmayescst", 70352852 ),
-//		"joneillcst"        => array( "joneillcst", 70352853 ),
-//		"jowen"             => array( "jowencst", 70352854 ),
-//		"jsilver"           => array( "jsilvercst", 101802833 ),
-//		"lfitzpatrick"      => array( "lfitzpatrickcst", 70352857 ),
-//		"luke-wilusz"       => array( "lwiluszcst", 70352861 ),
-//		"marmentroutcst"    => array( "marmentroutcst", 70352863 ),
-//		"mmitchell"         => array( "marymcst", 70352864 ),
-//		"marym"             => array( "marymcst", 70352864 ),
-//		"maureen-o'donnell" => array( "modonnell791", 72099276 ),
-//		"mcorradino"        => array( "mcorradino", 75642309 ),
-//		"mcotter"           => array( "mpottercst", 70352880 ),
-//		"mdoubek"           => array( "mdudekcst", 70352868 ),
-//		"mdumke"            => array( "mdumke", 101845049 ),
-//		"mgarcia"           => array( "mgarciasuntimescom", 101640087 ),
-//		"ihejirika"         => array( "mihejirikacst", 70352871 ),
-//		"psaltzmancst"      => array( "psaltzmancst", 70352892 ),
-//		"rheincst"          => array( "rheincst", 70352894 ),
-//		"RUMMANA-HUSSAIN"   => array( "rhussaincst", 70352895 ),
-//		"scharles"          => array( "scharlescst", 70352898 ),
-//		"sesposito"         => array( "sespositocst", 72506209 ),
-//		"sfornek"           => array( "sfornekcst", 70352901 ),
-//		"sgreenberg"        => array( "sgreenbergcst", 70352902 ),
-//		"salicea"           => array( "saliceacst", 101846592 ),
-//		"swarmbircst"       => array( "swarmbircst", 70352909 ),
-//		"tfrisbie"          => array( "tfrisbiecst", 70352913 ),
-//		"tina-sfondeles"    => array( "tsfondelescst", 70352918 ),
-//		"tmcnamee"          => array( "tmcnameecst", 70352915 ),
-//		"tnovak"            => array( "tnovakcst", 72101282 ),
-//		"van-schouwen"      => array( "dvanschouwencst", 70352835 ),
-	);
+	private $author_mapping;
 
 	private $change_count_slug = 0;
 	private $change_count_id = 0;
