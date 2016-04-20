@@ -1,8 +1,10 @@
 <?php
+
 /**
- * Implements example command.
+ * Suntimesmedia WP-CLI commands.
+ *
  */
-class Chicago_Command extends WP_CLI_Command {
+class Suntimesmedia_Command extends WP_CLI_Command {
 
 	/**
 	 * Reassigns the author of content according to supplied author map.
@@ -22,78 +24,28 @@ class Chicago_Command extends WP_CLI_Command {
 	 * ---
 	 * default: 1
 	 * ---
+	 * [--sleep-mod]
+	 * : Time between sleeps
+	 * ---
+	 * default: 10
+	 * ---
+	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp chicago reassign author_name --content=cst-content.csv
+	 *     wp suntimesmedia reassign author_name --content=cst-content.csv
 	 *
 	 */
 
-	/**
-	 * $author_mapping
-	 * Author list array built from existing Suntimesmedia.wordpress.com accounts
-	 * and staging site accounts
-	 *
-	 * left column : staging site account name
-	 * Right column : array( Suntimesmedia.wordpress.com account name, related account id )
-	 */
-	private $author_mapping = array(
-		"akeefe"             => array( "akeefecst" ,101943013 ),
-		"akukulka"           => array( "akukulkacst" ,101796416 ),
-		"agrimm"             => array( "grimmsuntimes", 100348879 ),
-		"arezincst"          => array( "shayeseditor", 2 ),
-		"bbarker"            => array( "bbarkercst",70352819 ),
-		"cdeluca"            => array( "chrisdcst",70352827 ),
-		"cfuscocst"          => array( "cfuscocst",70352826 ),
-		"danielbrown"        => array( "dbrowncst",101809872 ),
-		"dbowman"            => array( "bowmanoutside",101986605 ),
-		"fgattuso"           => array( "fgattusocst",101789189 ),
-		"herb-gould"         => array( "hgouldcst",70352843 ),
-		"jagrest"            => array( "jagrestcst",70352845 ),
-		"jkirk"              => array( "jkirkcst",101783400 ),
-		"jmayescst"          => array( "jmayescst",70352852 ),
-		"joneillcst"         => array( "joneillcst",70352853 ),
-		"jowen"              => array( "jowencst",70352854 ),
-		"jsilver"            => array( "jsilvercst",101802833 ),
-		"lfitzpatrick"       => array( "lfitzpatrickcst",70352857 ),
-		"luke-wilusz"        => array( "lwiluszcst",70352861 ),
-		"marmentroutcst"     => array( "marmentroutcst",70352863 ),
-		"mmitchell"          => array( "marymcst",70352864 ),
-		"marym"              => array( "marymcst",70352864 ),
-		"maureen-o'donnell"  => array( "modonnell791",72099276 ),
-		"mcorradino"         => array( "mcorradino",75642309 ),
-		"mcotter"            => array( "mpottercst",70352880 ),
-		"mdoubek"            => array( "mdudekcst",70352868 ),
-		"mdumke"             => array( "mdumke",101845049 ),
-		"mgarcia"            => array( "mgarciasuntimescom",101640087 ),
-		"ihejirika"          => array( "mihejirikacst",70352871 ),
-		"psaltzmancst"       => array( "psaltzmancst",70352892 ),
-		"rheincst"           => array( "rheincst",70352894 ),
-		"RUMMANA-HUSSAIN"    => array( "rhussaincst",70352895 ),
-		"scharles"           => array( "scharlescst",70352898 ),
-		"sesposito"          => array( "sespositocst",72506209 ),
-		"sfornek"            => array( "sfornekcst",70352901 ),
-		"sgreenberg"         => array( "sgreenbergcst",70352902 ),
-		"salicea"            => array( "saliceacst",101846592 ),
-		"swarmbircst"        => array( "swarmbircst",70352909 ),
-		"tfrisbie"           => array( "tfrisbiecst",70352913 ),
-		"tina-sfondeles"     => array( "tsfondelescst",70352918 ),
-		"tmcnamee"           => array( "tmcnameecst",70352915 ),
-		"tnovak"             => array( "tnovakcst",72101282 ),
-		"van-schouwen"       => array( "dvanschouwencst",70352835 ),
-	);
-
-	private $change_count_slug = 0;
-	private $change_count_id   = 0;
-	private $sleep_mod         = 10;
-
-	/**
-	 * @param $args
-	 * @param $assoc_args
-	 *
-	 * Reassign author based on author referenced in legacyUrl article mapped to new author
-	 *
-	 */
 	function reassign( $args, $assoc_args ) {
+
+		/**
+		 * @param $args
+		 * @param $assoc_args
+		 *
+		 * Reassign author based on author referenced in legacyUrl article mapped to new author
+		 *
+		 */
+
 		if ( isset( $assoc_args['content'] ) ) {
 			$content_file = $assoc_args['content'];
 		}
@@ -101,16 +53,16 @@ class Chicago_Command extends WP_CLI_Command {
 			$this->sleep_mod = intval( $assoc_args['sleep-mod'] );
 		}
 
-		$dry_mode          = ! empty ( $assoc_args['dry-run'] );
-		$sleep_counter     = 0;
+		$dry_mode      = ! empty ( $assoc_args['dry-run'] );
+		$sleep_counter = 0;
 		$slug_args     = array(
-			'post_type'      => 'cst_article',
-			'post_status'    => 'publish',
-			'posts_per_page' => 1,
+			'post_type'        => 'cst_article',
+			'post_status'      => 'publish',
+			'posts_per_page'   => 1,
 			'suppress_filters' => false,
 		);
 
-		if ( ! empty ($content_file ) ) {
+		if ( ! empty ( $content_file ) ) {
 			if ( $content_handle = @fopen( $content_file, 'r' ) ) {
 				// Go - we have a csv file to read
 				WP_CLI::success( $content_file . " found and will be used :-)" );
@@ -132,15 +84,15 @@ class Chicago_Command extends WP_CLI_Command {
 							// 2nd and last resort - try and find by slug from post_meta legacyUrl (provided by csv file)
 							if ( 1 == preg_match( '#\/\d{3,9}\/(.+)#', $legacy_url, $matches ) ) {
 								// Use remainder of legacy url as slug to search for content.
-								$the_slug = $matches[0];
+								$the_slug          = $matches[0];
 								$slug_args['name'] = $the_slug;
-								$my_posts = get_posts( $slug_args );
+								$my_posts          = get_posts( $slug_args );
 								if ( ! empty( $my_posts ) ) {
 									// Found content by slug
 									WP_CLI::line( "Found by slug $legacy_url" );
 									// Do we have the author in our array - ie do we know who to map it to?
 									// Lets find out...
-									$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode);
+									$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
 								}
 							} else {
 								WP_CLI::warning( "[slug]No content found by slug for $legacy_url" );
@@ -148,7 +100,7 @@ class Chicago_Command extends WP_CLI_Command {
 						} else {
 							// Found content by id
 							// Get new author ID from our author_mapping array
-							$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode);
+							$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
 						}
 					}
 				}
@@ -173,15 +125,16 @@ class Chicago_Command extends WP_CLI_Command {
 	 * Display a sleep notice every $sleep_mod iterations.
 	 */
 	private function process_sleep_counter( $sleep_counter, $dry_mode ) {
-		$sleep_counter++;
+		$sleep_counter ++;
 		if ( 0 == ( $sleep_counter % $this->sleep_mod ) ) {
 			if ( $dry_mode ) {
 				WP_CLI::line( "<Yawn> - $sleep_counter" );
 			} else {
 				WP_CLI::line( "Yawn - $sleep_counter" );
 			}
-			sleep(1);
+			sleep( 1 );
 		}
+
 		return $sleep_counter;
 	}
 
@@ -195,7 +148,7 @@ class Chicago_Command extends WP_CLI_Command {
 	 * If it's not a dry-run then run wp_update_post the content item author
 	 * otherwise note the action that would have been taken
 	 */
-	private function update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode) {
+	private function update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode ) {
 
 		if ( array_key_exists( $remote_author_slug, $this->author_mapping ) ) {
 			global $coauthors_plus;
@@ -209,7 +162,7 @@ class Chicago_Command extends WP_CLI_Command {
 				if ( ! $dry_mode ) {
 					if ( 6988 == $staging_post_id ) { // change only id 6988
 						$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
-						$co_authors = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
+						$co_authors      = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
 						if ( is_wp_error( $updated_post_id ) ) {
 							$errors = $updated_post_id->get_error_messages();
 							foreach ( $errors as $error ) {
@@ -218,10 +171,10 @@ class Chicago_Command extends WP_CLI_Command {
 						} else {
 							WP_CLI::success( "[id]$updated_post_id now authored by $new_author_slug [$new_author_id]" );
 						}
-						$this->change_count_id++;
+						$this->change_count_id ++;
 					}
 				} else {
-					$this->change_count_id++;
+					$this->change_count_id ++;
 					WP_CLI::success( "[id]Dry run mode - $this->change_count_id" );
 				}
 			} else {
@@ -230,6 +183,63 @@ class Chicago_Command extends WP_CLI_Command {
 		}
 
 	}
+	/**
+	 * $author_mapping
+	 * Author list array built from existing Suntimesmedia.wordpress.com accounts
+	 * and staging site accounts
+	 *
+	 * left column : staging site account name
+	 * Right column : array( Suntimesmedia.wordpress.com account name, related account/user id )
+	 */
+	private $author_mapping = array(
+		"akeefe"            => array( "akeefecst", 101943013 ),
+		"akukulka"          => array( "akukulkacst", 101796416 ),
+		"agrimm"            => array( "grimmsuntimes", 100348879 ),
+		"arezincst"         => array( "arezincst", 70352817 ),
+		"bbarker"           => array( "bbarkercst", 70352819 ),
+		"cdeluca"           => array( "chrisdcst", 70352827 ),
+		"cfuscocst"         => array( "cfuscocst", 70352826 ),
+		"danielbrown"       => array( "dbrowncst", 101809872 ),
+		"dbowman"           => array( "bowmanoutside", 101986605 ),
+		"fgattuso"          => array( "fgattusocst", 101789189 ),
+		"herb-gould"        => array( "hgouldcst", 70352843 ),
+		"jagrest"           => array( "jagrestcst", 70352845 ),
+		"jkirk"             => array( "jkirkcst", 101783400 ),
+		"jmayescst"         => array( "jmayescst", 70352852 ),
+		"joneillcst"        => array( "joneillcst", 70352853 ),
+		"jowen"             => array( "jowencst", 70352854 ),
+		"jsilver"           => array( "jsilvercst", 101802833 ),
+		"lfitzpatrick"      => array( "lfitzpatrickcst", 70352857 ),
+		"luke-wilusz"       => array( "lwiluszcst", 70352861 ),
+		"marmentroutcst"    => array( "marmentroutcst", 70352863 ),
+		"mmitchell"         => array( "marymcst", 70352864 ),
+		"marym"             => array( "marymcst", 70352864 ),
+		"maureen-o'donnell" => array( "modonnell791", 72099276 ),
+		"mcorradino"        => array( "mcorradino", 75642309 ),
+		"mcotter"           => array( "mpottercst", 70352880 ),
+		"mdoubek"           => array( "mdudekcst", 70352868 ),
+		"mdumke"            => array( "mdumke", 101845049 ),
+		"mgarcia"           => array( "mgarciasuntimescom", 101640087 ),
+		"ihejirika"         => array( "mihejirikacst", 70352871 ),
+		"psaltzmancst"      => array( "psaltzmancst", 70352892 ),
+		"rheincst"          => array( "rheincst", 70352894 ),
+		"RUMMANA-HUSSAIN"   => array( "rhussaincst", 70352895 ),
+		"scharles"          => array( "scharlescst", 70352898 ),
+		"sesposito"         => array( "sespositocst", 72506209 ),
+		"sfornek"           => array( "sfornekcst", 70352901 ),
+		"sgreenberg"        => array( "sgreenbergcst", 70352902 ),
+		"salicea"           => array( "saliceacst", 101846592 ),
+		"swarmbircst"       => array( "swarmbircst", 70352909 ),
+		"tfrisbie"          => array( "tfrisbiecst", 70352913 ),
+		"tina-sfondeles"    => array( "tsfondelescst", 70352918 ),
+		"tmcnamee"          => array( "tmcnameecst", 70352915 ),
+		"tnovak"            => array( "tnovakcst", 72101282 ),
+		"van-schouwen"      => array( "dvanschouwencst", 70352835 ),
+	);
+
+	private $change_count_slug = 0;
+	private $change_count_id = 0;
+	private $sleep_mod = 10;
 }
 
-WP_CLI::add_command( 'chicago', 'Chicago_Command' );
+WP_CLI::add_command( 'suntimesmedia', 'Suntimesmedia_Command' );
