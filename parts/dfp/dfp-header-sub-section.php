@@ -186,6 +186,10 @@
             .addService(googletag.pubads())
             .setTargeting("pos","SkyScraper");
 
+            CSTAdTags['div-gpt-rr-cube-promo'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [300, 250], 'div-gpt-rr-cube-promo')
+            .addService(googletag.pubads())
+            .setTargeting("pos","rr cube promo");
+
 <?php endif; ?>
 
 
