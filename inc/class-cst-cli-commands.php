@@ -40,7 +40,7 @@ class Chicago_Command extends WP_CLI_Command {
 		"akeefe"             => array( "akeefecst" ,101943013 ),
 		"akukulka"           => array( "akukulkacst" ,101796416 ),
 		"agrimm"             => array( "grimmsuntimes", 100348879 ),
-		"arezincst"          => array( "arezincst", 70352817 ),
+		"arezincst"          => array( "shayeseditor", 2 ),
 		"bbarker"            => array( "bbarkercst",70352819 ),
 		"cdeluca"            => array( "chrisdcst",70352827 ),
 		"cfuscocst"          => array( "cfuscocst",70352826 ),
@@ -85,7 +85,6 @@ class Chicago_Command extends WP_CLI_Command {
 	private $change_count_slug = 0;
 	private $change_count_id   = 0;
 	private $sleep_mod         = 10;
-	private $sleep_time        = 0.5;
 
 	/**
 	 * @param $args
@@ -100,11 +99,6 @@ class Chicago_Command extends WP_CLI_Command {
 		}
 		if ( isset( $assoc_args['sleep-mod'] ) ) {
 			$this->sleep_mod = intval( $assoc_args['sleep-mod'] );
-		}
-		if ( isset( $assoc_args['sleep-time'] ) ) {
-			if ( is_float( $assoc_args['sleep-time'] ) ) {
-				$this->sleep_mod = $assoc_args['sleep-time'];
-			}
 		}
 
 		$dry_mode          = ! empty ( $assoc_args['dry-run'] );
@@ -129,7 +123,7 @@ class Chicago_Command extends WP_CLI_Command {
 					if ( 'unavailable' !== $remote_post_id ) {
 						// Unavailable (around 242) covers content that exists but we appear to have no record
 						// of the original author
-						$this->process_sleep_counter( $sleep_counter, $dry_mode );
+						$sleep_counter = $this->process_sleep_counter( $sleep_counter, $dry_mode );
 						// If we have a valid remote post ID (from our legacy system prior to import)
 						$found_content_by_id = get_post( $staging_post_id );
 						// First try and get content by the ID as the content ids imported from staging to VIP matched.
@@ -156,7 +150,6 @@ class Chicago_Command extends WP_CLI_Command {
 							// Get new author ID from our author_mapping array
 							$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode);
 						}
-						$sleep_counter++;
 					}
 				}
 			} else {
@@ -176,6 +169,7 @@ class Chicago_Command extends WP_CLI_Command {
 	 * @param $sleep_counter
 	 * @param $dry_mode
 	 *
+	 * @return mixed | $sleep_counter
 	 * Display a sleep notice every $sleep_mod iterations.
 	 */
 	private function process_sleep_counter( $sleep_counter, $dry_mode ) {
@@ -186,8 +180,9 @@ class Chicago_Command extends WP_CLI_Command {
 			} else {
 				WP_CLI::line( "Yawn - $sleep_counter" );
 			}
-			sleep($this->sleep_time);
+			sleep(1);
 		}
+		return $sleep_counter;
 	}
 
 	/**
@@ -203,6 +198,7 @@ class Chicago_Command extends WP_CLI_Command {
 	private function update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode) {
 
 		if ( array_key_exists( $remote_author_slug, $this->author_mapping ) ) {
+			global $coauthors_plus;
 			// Do author lookup
 			$new_author = $this->author_mapping[ $remote_author_slug ];
 			if ( is_array( $new_author ) ) {
@@ -211,16 +207,19 @@ class Chicago_Command extends WP_CLI_Command {
 				$new_author_slug = $new_author[0];
 				WP_CLI::line( "[id]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug] for $legacy_url" );
 				if ( ! $dry_mode ) {
-					$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'author' => $new_author_id ) );
-					if ( is_wp_error( $updated_post_id ) ) {
-						$errors = $updated_post_id->get_error_messages();
-						foreach ( $errors as $error ) {
-							WP_CLI::warning( "[$staging_post_id] $error" );
+					if ( 6988 == $staging_post_id ) { // change only id 6988
+						$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
+						$co_authors = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
+						if ( is_wp_error( $updated_post_id ) ) {
+							$errors = $updated_post_id->get_error_messages();
+							foreach ( $errors as $error ) {
+								WP_CLI::warning( "[$updated_post_id] $error" );
+							}
+						} else {
+							WP_CLI::success( "[id]$updated_post_id now authored by $new_author_slug [$new_author_id]" );
 						}
-					} else {
-						WP_CLI::success( "[id]$staging_post_id now authored by $new_author_slug [$new_author_id]" );
+						$this->change_count_id++;
 					}
-					$this->change_count_id++;
 				} else {
 					$this->change_count_id++;
 					WP_CLI::success( "[id]Dry run mode - $this->change_count_id" );
