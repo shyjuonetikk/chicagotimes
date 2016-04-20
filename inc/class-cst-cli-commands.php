@@ -4,7 +4,10 @@
  * Suntimesmedia WP-CLI commands.
  *
  */
-class Suntimesmedia_Command extends WP_CLI_Command {
+
+WP_CLI::add_command( 'suntimesmedia', 'Suntimesmedia_Command' );
+
+class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 
 	/**
 	 * Reassigns the author of content according to supplied author map.
@@ -18,6 +21,11 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 	 * : The csv list of content to be parsed for author changes
 	 * ---
 	 * default: cst-content.csv
+	 * ---
+	 * [--author-map=<author-map-filename>]
+	 * : The csv list of authors to be parsed for author changes
+	 * ---
+	 * default: cst-author-map-content.csv
 	 * ---
 	 * [--dry-run]
 	 * : Don't make changes - perform a dry run
@@ -54,65 +62,18 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 		}
 
 		$dry_mode      = ! empty ( $assoc_args['dry-run'] );
-		$sleep_counter = 0;
-		$slug_args     = array(
-			'post_type'        => 'cst_article',
-			'post_status'      => 'publish',
-			'posts_per_page'   => 1,
-			'suppress_filters' => false,
-		);
 
 		if ( ! empty ( $content_file ) ) {
 			if ( $content_handle = @fopen( $content_file, 'r' ) ) {
 
 				// Go - we have a csv file to read
 				WP_CLI::success( $content_file . " found and will be used :-)" );
+				// read and discard header row from csv file
 				$read_first_line_buffer = fgets( $content_handle, 4096 );
 				while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
 
-					// Read each line to get the variables listed out below
-					list( $remote_post_id, $staging_post_id, $remote_author_slug,
-						$remote_author_nickname, $remote_author_id, $remote_author_name, $legacy_url
-						) = explode( ',', $buffer );
-					if ( 'unavailable' !== $remote_post_id ) {
+					$this->process_author_change( $buffer, $dry_mode );
 
-						// Unavailable (around 242) covers content that exists but we appear to have no record
-						// of the original author
-						$sleep_counter = $this->process_sleep_counter( $sleep_counter, $dry_mode );
-
-						$found_content_by_id = get_post( $staging_post_id );
-						// If we have a valid remote post ID (from our legacy system prior to import)
-						// First try and get content by the ID as the content ids imported from staging to VIP matched.
-
-						if ( null == $found_content_by_id ) {
-
-							// No content found by id
-							// 2nd and last resort - try and find by slug from post_meta legacyUrl (provided by csv file)
-							if ( 1 == preg_match( '#\/\d{3,9}\/(.+)#', $legacy_url, $matches ) ) {
-
-								// Use remainder of legacy url as slug to search for content.
-								$the_slug          = $matches[0];
-								$slug_args['name'] = $the_slug;
-								// Let's get the post by slug given it's likely not to have changed
-
-								$my_posts          = get_posts( $slug_args );
-								if ( ! empty( $my_posts ) ) {
-									// Found content by slug, yay!
-									WP_CLI::line( "Found by slug $legacy_url" );
-
-									// Do we have the author in our array - ie do we know who to map it to?
-									// Lets find out...and apply the change
-									$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
-								}
-							} else {
-								WP_CLI::warning( "[slug]No content found by slug for $legacy_url" );
-							}
-						} else {
-							// Do we have the author in our array - ie do we know who to map it to?
-							// Lets find out...and apply the change
-							$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
-						}
-					}
 				}
 			} else {
 				WP_CLI::error( "$content_file unable to open for reading :-(" );
@@ -127,6 +88,68 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 
 	}
 
+	/**
+	 * @param $incoming_csv_line
+	 * @param $dry_mode
+	 * 
+	 * Line from imported csv file
+	 */
+	private function process_author_change( $incoming_csv_line, $dry_mode ) {
+		$sleep_counter = 0;
+		$slug_args     = array(
+			'post_type'        => 'cst_article',
+			'post_status'      => 'publish',
+			'posts_per_page'   => 1,
+			'suppress_filters' => false,
+		);
+
+		// Read each line to get the variables listed out below
+		list( $remote_post_id, $staging_post_id, $remote_author_slug,
+			$remote_author_nickname, $remote_author_id, $remote_author_name, $legacy_url
+			) = explode( ',', $incoming_csv_line );
+		if ( 'unavailable' !== $remote_post_id ) {
+
+			// Unavailable (around 242) covers content that exists but we appear to have no record
+			// of the original author
+			$sleep_counter = $this->process_sleep_counter( $sleep_counter, $dry_mode );
+
+			$found_content_by_id = get_post( $staging_post_id );
+			// If we have a valid remote post ID (from our legacy system prior to import)
+			// First try and get content by the ID as the content ids imported from staging to VIP matched.
+
+			if ( null == $found_content_by_id ) {
+
+				// No content found by id
+				// 2nd and last resort - try and find by slug from post_meta legacyUrl (provided by csv file)
+				if ( 1 == preg_match( '#\/\d{3,9}\/(.+)#', $legacy_url, $matches ) ) {
+
+					// Use remainder of legacy url as slug to search for content.
+					$the_slug          = $matches[0];
+					$slug_args['name'] = $the_slug;
+					// Let's get the post by slug given it's likely not to have changed
+
+					$my_posts          = get_posts( $slug_args );
+					if ( ! empty( $my_posts ) ) {
+						// Found content by slug, yay!
+						WP_CLI::line( "Found by slug $legacy_url" );
+
+						// Do we have the author in our array - ie do we know who to map it to?
+						// Lets find out...and apply the change
+						$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
+					} else {
+						WP_CLI::warning( "[slug]No post found by slug for $the_slug from legacy url: $legacy_url" );
+					}
+				} else {
+					WP_CLI::warning( "[slug]No content found by slug for $legacy_url" );
+				}
+			} else {
+				// Do we have the author in our array - ie do we know who to map it to?
+				// Lets find out...and apply the change
+				$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_mode );
+			}
+		}
+	}
+	
 	/**
 	 * @param $sleep_counter
 	 * @param $dry_mode
@@ -255,5 +278,3 @@ class Suntimesmedia_Command extends WP_CLI_Command {
 	private $change_count_id = 0;
 	private $sleep_mod = 10;
 }
-
-WP_CLI::add_command( 'suntimesmedia', 'Suntimesmedia_Command' );
