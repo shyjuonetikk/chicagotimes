@@ -30,11 +30,10 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 	 * ---
 	 *
 	 * [--live-run]
-	 * : Actually make changes
+	 * : Pass this parameter to actually make changes
 	 *
 	 * [--sleep-mod]
 	 * : Time, in iterations, between sleeps of 1 second
-	 *
 	 * ---
 	 * default: 10
 	 * ---
