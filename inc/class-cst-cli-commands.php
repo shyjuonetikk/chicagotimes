@@ -75,19 +75,20 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				if ( $author_map_handle = @fopen( $author_map_file, 'r' ) ) {
 					// Go - we have a csv file to read and we have an author map
 
-					$this->set_author_mapping( $author_map_handle );
-					WP_CLI::success( "$content_file and $author_map_file found and will be used :-)" );
-					// read and discard header row from csv file
-					$read_first_line_buffer = fgets( $content_handle, 4096 );
-					while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
+					if ( $this->set_author_mapping( $author_map_handle ) ) {
+						WP_CLI::success( WP_CLI::colorize( "%g$content_file%n and %g$author_map_file%n found and will be used :-)" ) );
+						// read and discard header row from csv file
+						$read_first_line_buffer = fgets( $content_handle, 4096 );
+						while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
 
-						$this->process_author_change( $buffer, $dry_mode );
+							$this->process_author_change( $buffer, $dry_mode );
 
+						}
 					}
 
 					fclose( $author_map_handle );
 				} else {
-					WP_CLI::error( "No author mapping filename supplied :-(" );
+					WP_CLI::error( "No author mapping filename found/supplied :-(" );
 				}
 				fclose( $content_handle );
 			} else {
@@ -166,6 +167,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 
 	/**
 	 * @param $file_handle
+	 * @return bool
 	 *
 	 * Read from author mapping file and set up author lookup array
 	 */
@@ -179,6 +181,9 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 		}
 		if ( ! empty( $temp_array ) ) {
 			$this->author_mapping = $temp_array;
+			return true;
+		} else {
+			return false;
 		}
 	}
 
