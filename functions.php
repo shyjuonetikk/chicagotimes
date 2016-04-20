@@ -87,6 +87,10 @@ class CST {
 		$this->setup_filters();
 		$this->register_sidebars();
 
+		// CLI scripts
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			require_once get_stylesheet_directory() . '/inc/class-cst-cli-commands.php';
+		}
 	}
 
 	/**
