@@ -2126,6 +2126,35 @@ section#subscribe {
       background: transparent !important; }
       .widgets li.ap_ncaa_cbb_scoreboard_widget #ap-new-widgets .title-block .inner-frame, .widgets li.ap_ncaa_cbb_news_widget #ap-new-widgets .title-block .inner-frame {
         padding: 0 !important; }
+  .widgets li.cst_newsletter_signup {
+    background: #FFFFFF;
+    height: auto;
+    overflow: hidden;
+    list-style-type: none; }
+    .widgets li.cst_newsletter_signup .columns {
+      padding: 0; }
+    .widgets li.cst_newsletter_signup h2.widgettitle {
+      background-color: #282828;
+      color: #FFFFFF;
+      font-size: 0.75rem;
+      line-height: 0.9rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding-left: 5px;
+      padding-right: 5px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      margin: 0; }
+    .widgets li.cst_newsletter_signup p {
+      padding: 5px;
+      margin-bottom: 0; }
+      .widgets li.cst_newsletter_signup p span {
+        font-style: italic; }
+      .widgets li.cst_newsletter_signup p .button.tiny {
+        margin: 0;
+        background: #BDBDBD; }
+      .widgets li.cst_newsletter_signup p .button:hover {
+        opacity: .5; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }
@@ -2602,6 +2631,15 @@ body.post-gallery-lightbox-active {
           font-size: 22px; }
         .homepage_wrapper .breaking-news-story h3 span .fa:hover {
           opacity: .75; }
+      .homepage_wrapper .breaking-news-story h3 .button {
+        background: #CD606E;
+        border-radius: 5px;
+        margin-bottom: 0px;
+        text-transform: uppercase;
+        text-shadow: 1px 1px #282828;
+        font-weight: 700; }
+      .homepage_wrapper .breaking-news-story h3 .button:hover {
+        opacity: .75; }
   @media (min-width: 1401px) {
     .homepage_wrapper .row {
       max-width: 67rem;
