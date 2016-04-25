@@ -360,6 +360,18 @@
 				opacity: .75;
 			}
 		}
+
+		.button {
+			background: $light_red;
+			border-radius: 5px;
+			margin-bottom: 0px;
+			text-transform: uppercase;
+			text-shadow: 1px 1px $black;
+			font-weight: 700;
+		}
+		.button:hover {
+			opacity: .75;
+		}
 	}
 }
 

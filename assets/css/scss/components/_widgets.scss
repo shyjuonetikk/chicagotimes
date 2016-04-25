@@ -401,4 +401,48 @@
 			}
 		}
 	}
+
+	li.cst_newsletter_signup {
+		background: $white;
+		height: auto;
+		overflow: hidden;
+		list-style-type: none;
+
+		.columns {
+			padding: 0;
+		}
+
+		h2.widgettitle {
+			background-color: $black;
+			color: $white;
+			font-size: 0.75rem;
+			line-height: 0.9rem;
+			text-transform: uppercase;
+			font-weight: 700;
+			padding-left: 5px;
+			padding-right: 5px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			margin: 0;
+		}
+
+		p {
+			padding: 5px;
+			margin-bottom: 0;
+
+			span {
+				font-style: italic;
+			}
+
+			.button.tiny {
+				margin: 0;
+				background: $red;
+			}
+			.button:hover {
+				opacity: .5;
+			}
+
+		}
+
+	}
 }
