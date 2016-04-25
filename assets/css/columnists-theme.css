@@ -36,6 +36,9 @@ body.single {
 a {
   color: #D5C35F; }
 
+#menu-homepage-footer ul, #menu-homepage-footer li {
+  display: inline; }
+
 h1,
 h2,
 h3,
@@ -2578,7 +2581,8 @@ body.post-gallery-lightbox-active {
     padding: 5px 0 1px 10px;
     border-bottom: 2px solid #282828;
     border-top: 5px solid #282828;
-    position: relative; }
+    position: relative;
+    z-index: 1; }
     .homepage_wrapper .breaking-news-story h3 {
       font-weight: 700;
       font-size: 18px; }

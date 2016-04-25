@@ -37,3 +37,9 @@ body.single {
 a {
 	color: $red;
 }
+
+#menu-homepage-footer {
+	ul, li {
+		display: inline;
+	}
+}
