@@ -240,6 +240,11 @@
 						}
 					}
 				}
+				@media only screen and (min-width: 78.063em) {
+					.top-bar-section li:not(.has-form) a:not(.button) {
+						padding: 0 12px;
+					}
+				}
 			}
 		}
 	}
@@ -268,7 +273,7 @@
 		    		ul li>a {
 		    			font-family: 'Raleway', sans-serif;
 		    			font-weight: 300;
-					    font-size: 13px;
+					    font-size: 11px;
 					    text-transform: uppercase;
 					    text-align: left;
 		    		}

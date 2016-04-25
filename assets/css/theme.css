@@ -2552,6 +2552,9 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
     display: none; }
   @media only screen and (min-width: 78.063em) {
+    .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
+      padding: 0 12px; } }
+  @media only screen and (min-width: 78.063em) {
     .homepage_wrapper header .contain-to-grid .top-bar {
       max-width: 100%;
       margin: 0 auto;
@@ -2568,7 +2571,7 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper header .contain-to-grid .top-bar ul li > a {
         font-family: 'Raleway', sans-serif;
         font-weight: 300;
-        font-size: 13px;
+        font-size: 11px;
         text-transform: uppercase;
         text-align: left; }
       .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section {
