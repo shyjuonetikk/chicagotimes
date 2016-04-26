@@ -906,8 +906,7 @@ class CST_Frontend {
                 $response = wpcom_vip_file_get_contents( $feed_url );
                 if ( ! is_wp_error( $response ) ) {
                     $result = json_decode( $response );
-                    //wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
-                    wp_cache_set( $cache_key, $result, 'default', 20 );
+                    wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
                 }
             }
             ?>
