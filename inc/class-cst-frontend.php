@@ -894,6 +894,35 @@ class CST_Frontend {
 		echo $cached_content;
 	}
 
+	/**
+	 * Fetch and output content from the specified section
+	 * @param $content_query
+	 */
+	public function cst_post_recommendation_block( $feed_url, $primary_section ) {
+
+		$cache_key = md5( $feed_url );
+            $result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+            if ( $result === false ) {
+                $response = wpcom_vip_file_get_contents( $feed_url );
+                if ( ! is_wp_error( $response ) ) {
+                    $result = json_decode( $response );
+                    //wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+                    wp_cache_set( $cache_key, $result, 'default', 20 );
+                }
+            }
+            ?>
+            <div class="large-10 medium-offset-1 post-recommendations">
+				<h3>Previously from <?php esc_html_e( $primary_section->name ); ?></h3>
+            <?php foreach( $result->pages as $item ) { ?>
+            	<div class="columns large-3 medium-6 small-12 recommended-post">
+					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
+						<?php echo esc_html( $item->title ); ?>
+					</a>
+				</div>
+            <?php }
+
+	}
+
 	public function cst_nativo_determine_positions($slug) {
 
         $positions = array();
