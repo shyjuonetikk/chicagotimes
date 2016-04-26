@@ -898,7 +898,7 @@ class CST_Frontend {
 	 * Fetch and output content from the specified section
 	 * @param $content_query
 	 */
-	public function cst_post_recommendation_block( $feed_url, $primary_section ) {
+	public function cst_post_recommendation_block( $feed_url, $section_name ) {
 
 		$cache_key = md5( $feed_url );
             $result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
@@ -912,7 +912,7 @@ class CST_Frontend {
             }
             ?>
             <div class="large-10 medium-offset-1 post-recommendations">
-				<h3>Previously from <?php esc_html_e( $primary_section->name ); ?></h3>
+				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
             <?php foreach( $result->pages as $item ) { ?>
             	<div class="columns large-3 medium-6 small-12 recommended-post">
 					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
