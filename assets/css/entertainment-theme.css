@@ -2130,7 +2130,8 @@ section#subscribe {
     background: #FFFFFF;
     height: auto;
     overflow: hidden;
-    list-style-type: none; }
+    list-style-type: none;
+    margin-bottom: 20px; }
     .widgets li.cst_newsletter_signup .columns {
       padding: 0; }
     .widgets li.cst_newsletter_signup h2.widgettitle {
