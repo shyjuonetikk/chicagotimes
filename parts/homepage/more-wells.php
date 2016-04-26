@@ -44,6 +44,7 @@
 				?>
 			</div>
 		<?php } ?>
+		<?php get_template_part( 'parts/vendors/nativo-home-1' ); ?>
 		<div class="row">
 			<div class="large-12 columns dfp-btf-leaderboard show-for-medium-up">
 				<?php get_template_part( 'parts/dfp/homepage/dfp-btf-leaderboard' ); ?>

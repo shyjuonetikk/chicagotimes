@@ -87,6 +87,10 @@ class CST {
 		$this->setup_filters();
 		$this->register_sidebars();
 
+		// CLI scripts
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			require_once get_stylesheet_directory() . '/inc/class-cst-cli-commands.php';
+		}
 	}
 
 	/**
@@ -183,6 +187,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-ncaa-news-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chartbeat-users-currently-viewing-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-letters-to-the-editor-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newsletter-signup-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -227,6 +232,7 @@ class CST {
 		/*
 		 * Remove "New Post" from admin bar because we don't have posts,
 		 * Add "Edit Tag" to frontend because it's missing on WordPress.com
+		 * Add Workflow tools admin menu links
 		 */
 		add_action( 'admin_bar_menu', function( $wp_admin_bar ) {
 			$wp_admin_bar->remove_menu('ab-new-post');
@@ -240,6 +246,32 @@ class CST {
 					'href'      => get_edit_term_link( $term->term_id, $term->taxonomy, 'post' ),
 					) );
 			}
+			$workflow_args = array(
+				'id' => 'cst-workflow',
+				'title' => 'Workflow Tools',
+				'meta' => array( 'class' => 'cst-workflow' ),
+			);
+			if ( current_user_can( 'edit_theme_options' ) ) {
+				$wp_admin_bar->add_node( $workflow_args );
+				$wp_admin_bar->add_menu( array(
+					'id' => 'cst-workflow-01',
+					'title' => 'Widgets',
+					'parent' => 'cst-workflow',
+					'href' => esc_url( admin_url() . 'widgets.php' ),
+				) );
+			}
+			$wp_admin_bar->add_menu( array(
+				'id' => 'cst-workflow-02',
+				'title' => 'AP Wire Items',
+				'parent' => 'cst-workflow',
+				'href' => esc_url( admin_url() . 'edit.php?post_type=cst_wire_item' ),
+			) );
+			$wp_admin_bar->add_menu( array(
+				'id' => 'cst-workflow-03',
+				'title' => 'USA Today Wire Items',
+				'parent' => 'cst-workflow',
+				'href' => esc_url( admin_url() . 'edit.php?post_type=cst_usa_today_item' ),
+			) );
 
 		}, 999 );
 
@@ -397,39 +429,6 @@ class CST {
 			'name'        => esc_html__( 'Article Right', 'chicagosuntimes' ),
 		) );
 		register_sidebar( array(
-			'id'          => 'newswire',
-			'name'        => esc_html__( 'NewsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'sportswire',
-			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'entertainmentwire',
-			'name'        => esc_html__( 'EntertainmentWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'politicswire',
-			'name'        => esc_html__( 'PoliticsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'lifestyleswire',
-			'name'        => esc_html__( 'LifestylesWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'opinionwire',
-			'name'        => esc_html__( 'OpinionWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'columnistswire',
-			'name'        => esc_html__( 'ColumnistsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
-			'id'          => 'obitswire',
-			'name'        => esc_html__( 'ObitsWire', 'chicagosuntimes' ),
-		) );
-
-		register_sidebar( array(
 			'id'          => 'homepage_breaking_news',
 			'name'        => esc_html__( 'Homepage Breaking News', 'chicagosuntimes' ),
 		) );
@@ -463,45 +462,69 @@ class CST {
 			'id'          => 'homepage_sidebar_three',
 			'name'        => esc_html__( 'Bottom Homepage Sidebar', 'chicagosuntimes' ),
 		) );
-
 		register_sidebar( array(
 			'id'          => 'news_headlines',
 			'name'        => esc_html__( 'News Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'newswire',
+			'name'        => esc_html__( 'NewsWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'sports_headlines',
 			'name'        => esc_html__( 'Sports Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'sportswire',
+			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'entertainment_headlines',
 			'name'        => esc_html__( 'Entertainment Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'entertainmentwire',
+			'name'        => esc_html__( 'EntertainmentWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'politics_headlines',
 			'name'        => esc_html__( 'Politics Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'politicswire',
+			'name'        => esc_html__( 'PoliticsWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'lifestyles_headlines',
 			'name'        => esc_html__( 'Lifestyles Headlines', 'chicagosuntimes' ),
 		) );
-
 		register_sidebar( array(
-			'id'          => 'columnists_headlines',
-			'name'        => esc_html__( 'Columnists Headlines', 'chicagosuntimes' ),
+			'id'          => 'lifestyleswire',
+			'name'        => esc_html__( 'LifestylesWire', 'chicagosuntimes' ),
 		) );
-
 		register_sidebar( array(
 			'id'          => 'opinion_headlines',
 			'name'        => esc_html__( 'Opinion Headlines', 'chicagosuntimes' ),
 		) );
-
+		register_sidebar( array(
+			'id'          => 'opinionwire',
+			'name'        => esc_html__( 'OpinionWire', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'columnists_headlines',
+			'name'        => esc_html__( 'Columnists Headlines', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'columnistswire',
+			'name'        => esc_html__( 'ColumnistsWire', 'chicagosuntimes' ),
+		) );
 		register_sidebar( array(
 			'id'          => 'obits_headlines',
 			'name'        => esc_html__( 'Obits Headlines', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'obitswire',
+			'name'        => esc_html__( 'ObitsWire', 'chicagosuntimes' ),
 		) );
 
 		if ( class_exists( 'CST_Elections' ) ) {
@@ -542,6 +565,7 @@ class CST {
 		register_widget( 'CST_AP_NCAA_News_Widget' );
 		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
 		register_widget( 'CST_Letters_To_Editor_Widget' );
+		register_widget( 'CST_Newsletter_Signup_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
@@ -1230,6 +1254,9 @@ class CST {
 	 * Add the gallery backdrop to the footer
 	 */
 	public function action_wp_footer_gallery_backdrop() {
+		if ( is_404() ) {
+			return;
+		}
 		echo $this->get_template_part( 'post/gallery-backdrop' );
 	}
 
@@ -1387,6 +1414,7 @@ class CST {
 	function cst_rss_AP_atom() {
 		load_template( TEMPLATEPATH . '/feeds/feed-AP-atom.php' );
 	}
+
 }
 
 /**

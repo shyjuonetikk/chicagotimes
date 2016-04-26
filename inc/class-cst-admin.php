@@ -68,7 +68,7 @@ class CST_Admin {
 			}
 
 		});
-
+		add_action( 'restrict_manage_posts', array( $this, 'action_author_filter' ) );
 		add_action( 'pre_get_posts', function( $query ) {
 			global $pagenow;
 
@@ -222,6 +222,63 @@ class CST_Admin {
 				),
 			) );
 		$post->add_meta_box( esc_html__( 'Production', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
+
+		$terms_group = new \Fieldmanager_Group( '', array(
+			'name'        => 'cst_preferred_terms',
+			'tabbed'      => true,
+			'persist_active_tab' => false,
+		) );
+		$terms_group->children['choose_topic'] = new \Fieldmanager_Group( esc_html__( 'Choose Topic', 'chicagosuntimes' ), array(
+			'name'             => 'choose_topic',
+			'description' => 'Please select the single Topic to display below the article',
+			'children'         => array(
+				'featured_option_topic'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select existing Topic', 'chicagosuntimes' ), array(
+					'name'             => 'featured_option_topic',
+					'attributes'       => array(
+						'placeholder'  => esc_html__( 'Search by existing Topic title', 'chicagosuntimes' ),
+						'size'         => 45,
+					),
+					'datasource'       => new \Fieldmanager_Datasource_Term( array(
+						'taxonomy' => 'cst_topic',
+						'taxonomy_save_to_terms' => false,
+					) )
+				) )
+			)));
+		$terms_group->children['choose_location'] = new \Fieldmanager_Group( esc_html__( 'Choose Location', 'chicagosuntimes' ), array(
+			'name'             => 'choose_location',
+			'description' => 'Please select the single Location to display below the article',
+			'children'         => array(
+				'featured_option_location'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select existing Location', 'chicagosuntimes' ), array(
+					'name'             => 'featured_option_location',
+					'attributes'       => array(
+						'placeholder'  => esc_html__( 'Search by existing Location title', 'chicagosuntimes' ),
+						'size'         => 45,
+					),
+					'datasource'       => new \Fieldmanager_Datasource_Term( array(
+						'taxonomy' => 'cst_location',
+						'taxonomy_save_to_terms' => false,
+					) )
+				) )
+			)));
+		$terms_group->children['choose_person'] = new \Fieldmanager_Group( esc_html__( 'Choose Person', 'chicagosuntimes' ), array(
+			'name'             => 'choose_person',
+			'description' => 'Please select the single Person to display below the article',
+			'children'         => array(
+				'featured_option_person'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select existing Person', 'chicagosuntimes' ), array(
+					'name'             => 'featured_option_person',
+					'attributes'       => array(
+						'placeholder'  => esc_html__( 'Search by existing Person', 'chicagosuntimes' ),
+						'size'         => 45,
+					),
+					'datasource'       => new \Fieldmanager_Datasource_Term( array(
+						'taxonomy' => 'cst_person',
+						'taxonomy_save_to_terms' => false,
+					) )
+				) )
+			),
+		) );
+		$terms_group->add_meta_box( esc_html__( 'Article Preferences', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
+
 
 		$fm = new Fieldmanager_Textfield( array(
 			'name'    => 'freelancer_byline',
@@ -682,6 +739,17 @@ class CST_Admin {
 
 	public function filter_featured_image_instruction( $content ) {
 		return $content .= '<p>' . esc_html__( 'This is the image that displays on the homepage, at the top of an article, and on social media. Required minimum image width 640px.', 'chicagosuntimes' ) . '</p>';
+	}
+
+	/**
+	 * Add filter dropdown to Admin edit screens for Articles, Links, Embeds etc.
+	 */
+	function action_author_filter() {
+		$args = array( 'name' => 'author', 'show_option_all' => 'View all authors' );
+		if ( isset( $_GET['user'] ) ) {
+			$args['selected'] = intval ( $_GET['user'] );
+		}
+		wp_dropdown_users( $args );
 	}
 
 }

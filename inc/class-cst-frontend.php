@@ -177,6 +177,8 @@ class CST_Frontend {
 
 				wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
 			}
+		} else {
+			wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
 		}
 
 		wp_localize_script( 'chicagosuntimes', 'CSTIE', array('cst_theme_url' => get_template_directory_uri() ) );
@@ -237,46 +239,9 @@ class CST_Frontend {
 			}
 
 		} elseif ( $obj = get_queried_object() ) {
-			$current_obj = \CST\Objects\Post::get_by_post_id( $obj->ID );
-
-			if ( $current_obj ) {
-				$current_section = $current_obj->get_primary_parent_section();
-				if ( ! $current_section ) {
-					$current_section = $current_obj->get_grandchild_parent_section();
-				}
-
-				if( $current_section ) {
-					switch ( $current_section->slug ) {
-						case 'sports':
-							wp_enqueue_style( 'chicagosuntimes-sports', get_template_directory_uri() . '/assets/css/sports-theme.css', array( 'google-fonts', 'fontawesome' ) );
-							break;
-						case 'politics':
-							wp_enqueue_style( 'chicagosuntimes-politics', get_template_directory_uri() . '/assets/css/politics-theme.css', array( 'google-fonts', 'fontawesome' ) );
-							break;
-						case 'entertainment':
-							wp_enqueue_style( 'chicagosuntimes-entertainment', get_template_directory_uri() . '/assets/css/entertainment-theme.css', array( 'google-fonts', 'fontawesome' ) );
-							break;
-						case 'lifestyles':
-							wp_enqueue_style( 'chicagosuntimes-lifestyles', get_template_directory_uri() . '/assets/css/lifestyles-theme.css', array( 'google-fonts', 'fontawesome' ) );
-							break;
-						case 'columnists':
-							wp_enqueue_style( 'chicagosuntimes-columnists', get_template_directory_uri() . '/assets/css/columnists-theme.css', array( 'google-fonts', 'fontawesome' ) );
-							break;
-						case 'opinion':
-							wp_enqueue_style( 'chicagosuntimes-opinion', get_template_directory_uri() . '/assets/css/opinion-theme.css', array( 'google-fonts', 'fontawesome' ) );
-							break;
-						case 'news':
-						case 'sponsored':
-							wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
-							break;
-						default:
-							wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
-							break;
-					}
-				} else {
+			
 					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
-				}
-			}
+
 
 		} else {
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -824,25 +789,6 @@ class CST_Frontend {
 		}
 	}
 
-	/**
-	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
-	 * @param int $count
-	 * @return json array
-	 */
-	public function cst_homepage_get_aggregate() {
-
-		$response = wpcom_vip_file_get_contents( 'http://chicago.suntimes.com/api/1.2/get_posts/?page=1&count=15' );
-		if ( is_wp_error( $response ) ) :
-			return;
-		else :
-			$posts = json_decode( wp_remote_retrieve_body( $response ) );
-			if ( ! $posts ) {
-				return;
-			}
-			return $posts;
-		endif;
-
-	}
 
 	/**
 	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
@@ -868,7 +814,7 @@ class CST_Frontend {
 	 * Fetch and output content from the specified section
 	 * @param $content_query
 	 */
-	public function cst_homepage_content_block( $content_query ) {
+	public function cst_homepage_content_block( $content_query, $nativo_slug = NULL ) {
 
 		$cache_key = md5( serialize($content_query) );
 		$cached_content = wp_cache_get( $cache_key );
@@ -891,7 +837,11 @@ class CST_Frontend {
 							}
 						}
 						?>
-					<ul>
+			<?php if( $nativo_slug != NULL ) { ?>
+				<ul id="<?php echo esc_html( $nativo_slug ); ?>">
+			<?php } else { ?>
+				<ul>
+			<?php } ?>
 					<?php }
 					$count--;
 					?>
@@ -1017,6 +967,9 @@ class CST_Frontend {
                 break;
             case 'colleges':
                 $positions = array( 'SportsColleges1', 'SportsColleges2' );
+                break;
+            default:
+            	$positions = array( 'News1', 'News2' );
                 break;
         }
         return $positions;

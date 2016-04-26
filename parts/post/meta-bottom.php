@@ -20,31 +20,61 @@ if ( ! $obj ) {
 	</div>
 	<?php endif; ?>
 	<?php
-		$topic = $obj->get_topics();
-		$person = $obj->get_people();
-		$location = $obj->get_locations();
-		if ( $topic || $person || $location ) : ?>
+	$topic    = $obj->get_topics();
+	if ( ! is_array( $topic ) ) {
+		$topic = array();
+	}
+	$topic    = array_shift( $topic );
+
+	$person   = $obj->get_people();
+	if ( ! is_array( $person ) ) {
+		$person = array();
+	}
+	$person   = array_shift( $person );
+
+	$location = $obj->get_locations();
+	if ( ! is_array( $location ) ) {
+		$location = array();
+	}
+	$location = array_shift( $location );
+
+	$preferred_terms = $obj->get_preferred_terms( 'cst_preferred_terms' );
+	if ( $preferred_terms ) {
+		$preferred_topic = $preferred_terms['choose_topic']['featured_option_topic'];
+		if ( $preferred_topic ) {
+			$topic = wpcom_vip_get_term_by( 'id', $preferred_topic, 'cst_topic' );
+		}
+		$preferred_location = $preferred_terms['choose_location']['featured_option_location'];
+		if ( $preferred_location ) {
+			$location = wpcom_vip_get_term_by( 'id', $preferred_location, 'cst_topic' );
+		}
+		$preferred_person = $preferred_terms['choose_person']['featured_option_person'];
+		if ( $preferred_person ) {
+			$person = wpcom_vip_get_term_by( 'id', $preferred_person, 'cst_topic' );
+		}
+	}
+	if ( $topic || $person || $location ) : ?>
 		<div class="post-meta-taxonomy-terms">
 		<?php if ( $topic ) :
-			$topic = array_shift( $topic );
 			$topic_link = wpcom_vip_get_term_link( $topic->slug, 'cst_topic' );
+			if ( ! is_wp_error( $topic_link ) ) {
 			?>
 			<span class="fa post-taxonomy">#</span> <a href="<?php echo esc_url( $topic_link ); ?>"><?php echo esc_html( $topic->name ); ?></a>
+			<?php } ?>
 		<?php endif; ?>
 		<?php if ( $person ) :
-			$person = array_shift( $person );
 			$person_link = wpcom_vip_get_term_link( $person->name, 'cst_person' );
+			if ( ! is_wp_error( $person_link ) ) {
 			?>
 			<i class="fa fa-male post-taxonomy"></i> <a href="<?php echo esc_url( $person_link ); ?>"><?php echo esc_html( $person->name ); ?></a>
+			<?php } ?>
 		<?php endif; ?>
 		<?php if ( $location ) :
-			$location = array_shift( $location );
-			$location_link = wpcom_vip_get_term_link( $location->name, 'cst_location' );         if ( ! is_wp_error( $location_link) ){
+			$location_link = wpcom_vip_get_term_link( $location->name, 'cst_location' );
+			if ( ! is_wp_error( $location_link ) ) {
 				?>
 				<i class="fa fa-location-arrow post-taxonomy"></i> <a href="<?php echo esc_url( $location_link ); ?>"><?php echo esc_html( $location->name ); ?></a>
-				<?php
-			}
-			?>
+			<?php }	?>
 		<?php endif; ?>
 		</div>
 	<?php endif; ?>

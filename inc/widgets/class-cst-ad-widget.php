@@ -10,6 +10,7 @@ class CST_Ad_Widget extends WP_Widget {
 		'dfp-rr-cube-4',
 		'dfp-rr-cube-5',
 		'dfp-rr-cube-6',
+		'dfp-rr-cube-promo',
 		'dfp-polar',
 		);
 

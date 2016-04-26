@@ -600,6 +600,24 @@ abstract class Post {
 	}
 
 	/**
+	 * Get the preferred term field for the article
+	 *
+	 * @param $term_field_name
+	 * 
+	 * @return bool|mixed
+	 */
+
+	public function get_preferred_terms( $term_field_name ) {
+
+		if ( $value = $this->get_fm_field( $term_field_name ) ) {
+			return $value;
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
 	 * Get the newsletter field for the post
 	 *
 	 * @return string
