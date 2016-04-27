@@ -1,22 +1,32 @@
 <?php if ( is_singular() ) {
-	$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+    $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+    $sections = $obj->get_sections();
+    $section_list = array();
+    if( $sections ) {
+        if ( isset( $obj ) && is_object( $obj ) ) {
+            foreach( $sections as $section ) {
+                array_push( $section_list, strtolower( $section->name ) );
+            }
+        }
+    }
 }
-	$domain = parse_url( home_url(), PHP_URL_HOST );
+    $domain = parse_url( home_url(), PHP_URL_HOST );
 ?>
 
 <script type='text/javascript'>
+console.log( '<?php echo implode( ', ', $section_list ); ?>');
 var _sf_async_config={};
 _sf_async_config.uid = 38241;
 _sf_async_config.domain = '<?php echo esc_js( $domain ); ?>';
 _sf_async_config.useCanonical = true;
 <?php if ( isset( $obj ) && is_object( $obj ) ) : ?>
-	<?php if ( $section = $obj->get_primary_section() ) : ?>
-		_sf_async_config.sections = '<?php echo esc_js( $section->name ); ?>';
-	<?php endif; ?>
-	<?php if ( $authors = $obj->get_authors() ) :
-		$author = array_shift( $authors ); ?>
-		_sf_async_config.authors = '<?php echo esc_js( $author->get_display_name() ); ?>';
-	<?php endif; ?>
+    <?php if ( $section = $obj->get_primary_section() ) : ?>
+        _sf_async_config.sections = '<?php echo esc_js( $section->name ); ?>';
+    <?php endif; ?>
+    <?php if ( $authors = $obj->get_authors() ) :
+        $author = array_shift( $authors ); ?>
+        _sf_async_config.authors = '<?php echo esc_js( $author->get_display_name() ); ?>';
+    <?php endif; ?>
 <?php endif; ?>
 (function(){
 function loadChartbeat()
