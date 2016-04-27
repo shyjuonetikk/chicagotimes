@@ -13,7 +13,7 @@
 	})();
 </script>
 
-<?php if( is_page( 'yieldmo-homepage' ) {
+<?php if( is_page( 'yieldmo-homepage' ) ) { ?>
 <script type='text/javascript'>
 	googletag.cmd.push(function() {
 
