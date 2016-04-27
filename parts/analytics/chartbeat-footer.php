@@ -14,14 +14,13 @@
 ?>
 
 <script type='text/javascript'>
-console.log( '<?php echo implode( ', ', $section_list ); ?>');
 var _sf_async_config={};
 _sf_async_config.uid = 38241;
 _sf_async_config.domain = '<?php echo esc_js( $domain ); ?>';
 _sf_async_config.useCanonical = true;
 <?php if ( isset( $obj ) && is_object( $obj ) ) : ?>
-    <?php if ( $section = $obj->get_primary_section() ) : ?>
-        _sf_async_config.sections = '<?php echo esc_js( $section->name ); ?>';
+    <?php if ( $section_list ) : ?>
+        _sf_async_config.sections = '<?php echo esc_js( implode( ', ', $section_list ) ); ?>';
     <?php endif; ?>
     <?php if ( $authors = $obj->get_authors() ) :
         $author = array_shift( $authors ); ?>
