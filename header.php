@@ -61,7 +61,7 @@
 <div id="ie8-user" style="display:none;"></div>
 
 <?php 
-	if ( is_front_page() || is_404() ) {
+	if ( is_front_page() || is_404() || is_page( 'yieldmo-homepage' ) ) {
 		get_template_part( 'parts/homepage/header' );
 	} else {
 		get_template_part( 'parts/page-header' );

@@ -15,6 +15,7 @@
 	})();
 </script>
 
+<?php if( $dfp_slug != 'yieldmo' ) { ?>
 <script type='text/javascript'>
 	googletag.cmd.push(function() {
 
@@ -131,3 +132,7 @@
 
 	});
 </script>
+
+<?php } else { ?>
+    <?php get_template_part( 'parts/dfp/dfp-yieldmo' ); ?>
+<?php } ?>
