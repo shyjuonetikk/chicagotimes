@@ -16,7 +16,6 @@
 </script>
 
 <?php if( $dfp_slug != 'yieldmo' ) { ?>
-<?php echo '<h2>' . $dfp_slug . '</h2>'; ?>
 <script type='text/javascript'>
 	googletag.cmd.push(function() {
 
