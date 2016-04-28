@@ -27,7 +27,7 @@
 				}
 				$agg_primary_section_slug = $agg_primary_section->slug;
 			else :
-				$agg_primary_section_slug = 'politics';
+				$agg_primary_section_slug = '';
 			endif;
 		?>
 		<script>

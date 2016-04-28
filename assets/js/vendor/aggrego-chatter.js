@@ -24,33 +24,31 @@ window.AggregoChatter = {
     } else if(sectionNames == 'sports') {
       var domainTag = 'sports';
       var anchorTag = 'sports';
-    } else {
-      var domainTag = 'politics';
-      var anchorTag = 'politics';
     }
 
-    if( ! jQuery('.cst-active-scroll-post' ).hasClass('chatter-inserted') ) {
-      if(paragraphsCount >= 1) {
-        aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
-        if( jQuery(paragraphs[2]).hasClass('wp-caption-text') ) {
-          jQuery(paragraphs[1]).append(aggregoChatterContentNode);
-        } else {
-          jQuery(paragraphs[2]).append(aggregoChatterContentNode);
+    if(domainTag && anchorTag) {
+      if( ! jQuery('.cst-active-scroll-post' ).hasClass('chatter-inserted') ) {
+        if(paragraphsCount >= 1) {
+          aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
+          if( jQuery(paragraphs[2]).hasClass('wp-caption-text') ) {
+            jQuery(paragraphs[1]).append(aggregoChatterContentNode);
+          } else {
+            jQuery(paragraphs[2]).append(aggregoChatterContentNode);
+          }
+
+          var title = jQuery( '<h4 />' );
+              title.attr( 'class', 'agg-sponsored' );
+              title.text( 'Promoted Stories from ');
+              chatter = jQuery( '<span />' );
+              chatter.text( domainTag + 'Chatter' );
+              jQuery(title).append(chatter);
+              jQuery('.cst-active-scroll-post .agg-collage').before( title );
+
+          this._insertAggregoChatterJS(domainTag, anchorTag);
+          jQuery('.cst-active-scroll-post').addClass('chatter-inserted');
         }
-
-        var title = jQuery( '<h4 />' );
-            title.attr( 'class', 'agg-sponsored' );
-            title.text( 'Promoted Stories from ');
-            chatter = jQuery( '<span />' );
-            chatter.text( domainTag + 'Chatter' );
-            jQuery(title).append(chatter);
-            jQuery('.cst-active-scroll-post .agg-collage').before( title );
-
-        this._insertAggregoChatterJS(domainTag, anchorTag);
-        jQuery('.cst-active-scroll-post').addClass('chatter-inserted');
       }
     }
-
   },
 
   /* Private methods */
