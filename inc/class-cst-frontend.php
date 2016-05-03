@@ -934,6 +934,9 @@ class CST_Frontend {
             case 'colleges':
                 $positions = array( 'SportsColleges1', 'SportsColleges2' );
                 break;
+            case 'entertainment':
+            	$positions = array( 'Entertainment1', 'Entertainment2' );
+            	break;
             default:
             	$positions = array( 'News1', 'News2' );
                 break;
