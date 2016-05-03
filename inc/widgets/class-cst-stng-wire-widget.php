@@ -20,7 +20,7 @@ class CST_STNG_Wire_Widget extends WP_Widget {
             $feed_url = 'http://www.suntimeswire.com/feed';
         }
     ?>
-        <div class="large-12 medium-12 small-12 columns widget_cst_stng_wire_widget">
+        <div class="large-12 medium-6 small-12 columns widget_cst_stng_wire_widget">
             <h2 class="widgettitle"><?php echo esc_html_e( 'Wire Updates', 'chicagosuntimes' ); ?></h2>
             <ul class="widget-stng-wire-posts">
               <?php
