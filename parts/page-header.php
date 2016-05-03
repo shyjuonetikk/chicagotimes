@@ -1,4 +1,6 @@
-<?php $current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+<?php 
+if( is_single() ) {
+	$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 	if ( $current_obj ) {
 		$conditional_nav = $current_obj->get_primary_parent_section();
 		if( ! $conditional_nav ) {
@@ -10,6 +12,26 @@
 	} else {
 		$conditional_nav = 'menu';
 	}
+} elseif( is_tax() ) {
+	$current_obj = get_queried_object();
+	if( $current_obj->taxonomy == 'cst_section' ) {
+		if( $current_obj->parent != 0 ) {
+			$parent_terms = get_term( $current_obj->parent, 'cst_section' );
+			if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+				$child_terms = get_term( $parent_terms->parent, 'cst_section' );
+				$conditional_nav = $child_terms;
+			} else {
+				$conditional_nav = $parent_terms;
+			}
+		} else {
+			$conditional_nav = $current_obj;
+		}
+	} else {
+		$conditional_nav = 'news';
+	}
+} else {
+	$conditional_nav = 'menu';
+}
 ?>
 <div class="off-canvas-wrap" data-offcanvas>
 	<?php 
