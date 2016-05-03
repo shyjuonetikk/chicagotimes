@@ -16,9 +16,11 @@ class CST_Homepage_NDN_Video_Widget extends WP_Widget {
 
     public function widget( $args, $instance ) {
     ?>
+    <div class="large-12 medium-6 small-6 columns">
         <?php
             get_template_part( 'parts/dfp/homepage/ndn-video' );
         ?>
+    </div>
     <?php
     }
 
