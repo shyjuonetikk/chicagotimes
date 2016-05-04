@@ -380,7 +380,7 @@ class CST_Admin {
 						)
 					) ),
 				'image'               => new \Fieldmanager_Media( esc_html__( 'Image', 'chicagosuntimes' ), array(
-					'description'     => esc_html__( 'Override the featured image with an image specific to Twitter. The image must be a minimum size of 120x120px. Images larger than 120x120px will be resized and cropped square based on its longest dimension.', 'chicagosuntimes' ),
+					'description'     => esc_html__( 'Override the featured image with an image specific to Twitter. The image must be a minimum size of 400x400px. Images larger than 400x400px will be resized and cropped square based on its longest dimension.', 'chicagosuntimes' ),
 					'button_label'    => esc_html__( 'Select an image', 'chicagosuntimes' ),
 					'modal_button_label' => esc_html__( 'Select image', 'chicagosuntimes' ),
 					'modal_title'     => esc_html__( 'Choose image', 'chicagosuntimes' ),
