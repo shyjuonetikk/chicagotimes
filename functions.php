@@ -75,7 +75,7 @@ class CST {
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
 		add_image_size( 'cst-gallery-mobile-horizontal', 800, 600, true );
-		add_image_size( 'twitter-card', 120, 120, true );
+		add_image_size( 'twitter-card', 400, 400, true );
 		add_image_size( 'facebook-open-graph', 1200, 630, true );
 		add_image_size( 'secondary-wells', 290, 190, true );
 		add_image_size( 'homepage-columns', 228, 134, true );
