@@ -48,6 +48,39 @@ class CST_AP_DNE_Widget extends WP_Widget {
                 </li>
             <?php
                 break;
+            case 'ap-summer-games-news-widget':
+            ?>
+                <li class="ap_ncaa_cbb_scoreboard_widget">
+                    <div class="large-12 medium-6 small-6 columns">
+                    <?php
+                        get_template_part( 'parts/vendors/ap-summer-games-news-widget' );
+                    ?>
+                    </div>
+                </li>
+            <?php
+                break;
+            case 'ap-summer-games-medal-count-widget':
+            ?>
+                <li class="ap_ncaa_cbb_scoreboard_widget">
+                    <div class="large-12 medium-6 small-6 columns">
+                    <?php
+                        get_template_part( 'parts/vendors/ap-summer-games-news-widget' );
+                    ?>
+                    </div>
+                </li>
+            <?php
+                break;
+            case 'ap-summer-games-event-schedule-widget':
+            ?>
+                <li class="ap_ncaa_cbb_scoreboard_widget">
+                    <div class="large-12 medium-6 small-6 columns">
+                    <?php
+                        get_template_part( 'parts/vendors/ap-summer-games-news-widget' );
+                    ?>
+                    </div>
+                </li>
+            <?php
+                break;
 
             default:
                 break;
