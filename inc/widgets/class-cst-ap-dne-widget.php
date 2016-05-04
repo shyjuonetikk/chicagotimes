@@ -7,7 +7,8 @@ class CST_AP_DNE_Widget extends WP_Widget {
         'ap-ncaa-scoreboard-widget',
         'ap-summer-games-news-widget',
         'ap-summer-games-medal-count-widget',
-        'ap-summer-games-event-schedule-widget'
+        'ap-summer-games-event-schedule-widget',
+        'ap-us-election-news-widget'
         );
 
     public function __construct() {
@@ -76,6 +77,17 @@ class CST_AP_DNE_Widget extends WP_Widget {
                     <div class="large-12 medium-6 small-6 columns">
                     <?php
                         get_template_part( 'parts/vendors/ap-summer-games-news-widget' );
+                    ?>
+                    </div>
+                </li>
+            <?php
+                break;
+            case 'ap-us-election-news-widget':
+            ?>
+                <li class="ap_ncaa_cbb_scoreboard_widget">
+                    <div class="large-12 medium-6 small-6 columns">
+                    <?php
+                        get_template_part( 'parts/vendors/ap-us-election-news-widget' );
                     ?>
                     </div>
                 </li>
