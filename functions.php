@@ -188,6 +188,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chartbeat-users-currently-viewing-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-letters-to-the-editor-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newsletter-signup-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-dne-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -566,6 +567,7 @@ class CST {
 		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
 		register_widget( 'CST_Letters_To_Editor_Widget' );
 		register_widget( 'CST_Newsletter_Signup_Widget' );
+		register_widget( 'CST_AP_DNE_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
