@@ -562,8 +562,6 @@ class CST {
 		register_widget( 'CST_Homepage_Featured_Story_Widget' );
 		register_widget( 'CST_Homepage_NDN_Video_Widget' );
 		register_widget( 'CST_Search_Widget' );
-		register_widget( 'CST_AP_NCAA_Scoreboard_Widget' );
-		register_widget( 'CST_AP_NCAA_News_Widget' );
 		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
 		register_widget( 'CST_Letters_To_Editor_Widget' );
 		register_widget( 'CST_Newsletter_Signup_Widget' );
