@@ -2991,6 +2991,9 @@ body.post-gallery-lightbox-active {
     min-height: 400px;
     height: 100%;
     margin-bottom: 20px; }
+    @media (max-width: 568px) and (min-width: 560px) {
+      .homepage_wrapper .ndn_embed {
+        margin: 0 auto; } }
   .homepage_wrapper .widget_cst_todays_paper_widget {
     display: block;
     position: relative;

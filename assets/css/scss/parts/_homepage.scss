@@ -891,6 +891,9 @@
 	min-height: 400px;
 	height: 100%;
 	margin-bottom: 20px;
+	@media (max-width: 568px) and (min-width: 560px) {
+		margin: 0 auto;
+	}
 }
 
 .widget_cst_todays_paper_widget {
