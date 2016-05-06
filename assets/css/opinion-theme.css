@@ -3042,6 +3042,10 @@ body.post-gallery-lightbox-active {
       position: relative;
       border-bottom: 10px solid #CCCCCC;
       font-weight: 700; }
+    @media (max-width: 320px) {
+      .homepage_wrapper .widget_cst_featured_content_widget img.avatar, .homepage_wrapper .widget_cst_columnists_content_widget img.avatar {
+        width: 40px;
+        height: 40px; } }
     .homepage_wrapper .widget_cst_featured_content_widget .featured-story, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story {
       position: relative;
       margin-top: 10px; }

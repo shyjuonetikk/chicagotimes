@@ -967,6 +967,13 @@
 		font-weight: 700;
 	}
 
+	img.avatar {
+		@media (max-width: 320px) {
+			width: 40px;
+			height: 40px;
+		}
+	}
+
 	.featured-story, .columnists-story {
 		position: relative;
 		margin-top:10px;
