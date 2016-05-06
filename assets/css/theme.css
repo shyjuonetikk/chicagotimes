@@ -2743,7 +2743,7 @@ body.post-gallery-lightbox-active {
       position: relative; }
     .homepage_wrapper section#main-well .main-article-container img {
       width: 100%;
-      height: 100%; }
+      height: auto; }
     .homepage_wrapper section#main-well .main-article-container .article-title {
       position: absolute;
       bottom: 0;
@@ -2809,7 +2809,7 @@ body.post-gallery-lightbox-active {
       position: relative; }
       .homepage_wrapper section#main-well .left-main-well .article-container img {
         width: 100%;
-        height: 100%; }
+        height: auto; }
       .homepage_wrapper section#main-well .left-main-well .article-container .article-title {
         position: absolute;
         bottom: 0;
@@ -2862,7 +2862,7 @@ body.post-gallery-lightbox-active {
     position: relative; }
     .homepage_wrapper section#secondary-wells .article-container img {
       width: 100%;
-      height: 100%; }
+      height: auto; }
     .homepage_wrapper section#secondary-wells .article-container .article-title {
       position: absolute;
       bottom: 0;
