@@ -875,6 +875,9 @@
 	padding: 0;
 }
 
+.homepage-no-padding {
+	padding-left: 0;
+}
 .ndn_embed.columns {
 	padding:0;
 }
@@ -1107,10 +1110,15 @@
 	padding: 0;
 
 	#search-input {
-      font-size: 1.25rem;
-      border: 2px ridge;
-      padding: 5px;
-      width: 250px;
+		font-size: 1.25rem;
+		border: 2px ridge;
+		padding: 5px;
+		@media (min-width: 981px) {
+			width: 250px;
+		}
+		@media (max-width: 980px) {
+			width: 80%;
+		}
     }
 
     #search-button {
