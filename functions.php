@@ -75,7 +75,7 @@ class CST {
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
 		add_image_size( 'cst-gallery-mobile-horizontal', 800, 600, true );
-		add_image_size( 'twitter-card', 120, 120, true );
+		add_image_size( 'twitter-card', 400, 400, true );
 		add_image_size( 'facebook-open-graph', 1200, 630, true );
 		add_image_size( 'secondary-wells', 290, 190, true );
 		add_image_size( 'homepage-columns', 228, 134, true );
@@ -188,6 +188,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chartbeat-users-currently-viewing-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-letters-to-the-editor-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newsletter-signup-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-dne-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -561,11 +562,10 @@ class CST {
 		register_widget( 'CST_Homepage_Featured_Story_Widget' );
 		register_widget( 'CST_Homepage_NDN_Video_Widget' );
 		register_widget( 'CST_Search_Widget' );
-		register_widget( 'CST_AP_NCAA_Scoreboard_Widget' );
-		register_widget( 'CST_AP_NCAA_News_Widget' );
 		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
 		register_widget( 'CST_Letters_To_Editor_Widget' );
 		register_widget( 'CST_Newsletter_Signup_Widget' );
+		register_widget( 'CST_AP_DNE_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
