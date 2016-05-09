@@ -19,22 +19,22 @@
 
         switch ( $ym_tag ) {
 
-            case 'carousel':
+            case 'YM_Carousel_Demo':
                 return $this->ym_carousel_demo();
                 break;
-            case 'video':
+            case 'YM_Video_Demo':
                 return $this->ym_video_demo();
                 break;
-            case 'window':
+            case 'YM_Window_Demo':
                 return $this->ym_window_demo();
                 break;
             case 'YM_Wrapper_Homepage_Demo':
                 return $this->ym_homepage_wrapper_demo();
                 break;
-            case 'article_wrapper':
+            case 'YM_Wrapper_Article_Demo':
                 return $this->ym_article_wrapper_demo();
                 break;
-            case 'maintsage':
+            case 'YM_Mainstage_Demo':
                 return $this->ym_mainstage_demo();
                 break;
             default:
