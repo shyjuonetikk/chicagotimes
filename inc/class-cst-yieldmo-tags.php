@@ -28,7 +28,7 @@
             case 'window':
                 return $this->ym_window_demo();
                 break;
-            case 'homepage_wrapper':
+            case 'YM_Wrapper_Homepage_Demo':
                 return $this->ym_homepage_wrapper_demo();
                 break;
             case 'article_wrapper':
