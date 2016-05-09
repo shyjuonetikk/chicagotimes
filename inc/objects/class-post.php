@@ -615,6 +615,21 @@ abstract class Post {
 	}
 
 	/**
+     * Get the yieldmo tag field for the post
+     *
+     * @return string
+     */
+    public function get_yieldmo_tag() {
+
+        if ( $yieldmo_tag = $this->get_fm_field( 'yieldmo_tags' ) ) {
+            return $yieldmo_tag;
+        } else {
+            return false;
+        }
+
+    }
+
+	/**
 	 * Get the SEO title for the post
 	 *
 	 * @return string
