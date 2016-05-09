@@ -307,7 +307,7 @@ class CST_Admin {
 				'YM_No_Demo'				=> 'No Tag Demo',
 				'YM_Carousel_Demo' 			=> 'Carousel Tag Demo',
 				'YM_Video_Demo'				=> 'Video Tag Demo',
-				'YM_Windo_Demo'				=> 'Window Tag Demo',
+				'YM_Window_Demo'				=> 'Window Tag Demo',
 				'YM_Wrapper_Article_Demo' 	=> 'Article Wrapper Tag Demo',
 				'YM_Wrapper_Homepage_Demo' 	=> 'Homepage Wrapper Tag Demo',
 				'YM_Mainstage_Demo' 		=> 'Mainstage Tag Demo',
