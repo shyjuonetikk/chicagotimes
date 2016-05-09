@@ -299,6 +299,7 @@ class CST_Admin {
 			) );
 		$fm->add_meta_box( esc_html__( 'Newsletter Tag', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
 
+	if( is_admin() ) {
 		$fm = new Fieldmanager_Select( array( 
 			'name' 	  => 'yieldmo_tags',
 			'description' => esc_html__( 'Used to test YieldMo Tags on Live Articles. Do not select an option if you do not know what this is.', 'chicagosuntimes' ),
@@ -312,7 +313,8 @@ class CST_Admin {
 				'YM_Mainstage_Demo' 		=> 'Mainstage Tag Demo',
 				)
 			) );
-		$fm->add_meta_box( esc_html__( 'YieldMo Test Tag', 'chicagosuntimes' ), array( 'cst_article', 'page' ), 'normal', 'high' );	
+		$fm->add_meta_box( esc_html__( 'YieldMo Test Tag', 'chicagosuntimes' ), array( 'cst_article', 'page' ), 'normal', 'high' );
+	}	
 
 		/**
 		 * Link
