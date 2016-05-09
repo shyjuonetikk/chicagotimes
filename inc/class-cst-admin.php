@@ -299,6 +299,21 @@ class CST_Admin {
 			) );
 		$fm->add_meta_box( esc_html__( 'Newsletter Tag', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
 
+		$fm = new Fieldmanager_Select( array( 
+			'name' 	  => 'yieldmo_tags',
+			'description' => esc_html__( 'Used to test YieldMo Tags on Live Articles. Do not select an option if you do not know what this is.', 'chicagosuntimes' ),
+			'options' => array(
+				'YM_No_Demo'				=> 'No Tag Demo',
+				'YM_Carousel_Demo' 			=> 'Carousel Tag Demo',
+				'YM_Video_Demo'				=> 'Video Tag Demo',
+				'YM_Windo_Demo'				=> 'Window Tag Demo',
+				'YM_Wrapper_Article_Demo' 	=> 'Article Wrapper Tag Demo',
+				'YM_Wrapper_Homepage_Demo' 	=> 'Homepage Wrapper Tag Demo',
+				'YM_Mainstage_Demo' 		=> 'Mainstage Tag Demo',
+				)
+			) );
+		$fm->add_meta_box( esc_html__( 'YieldMo Test Tag', 'chicagosuntimes' ), array( 'cst_article', 'page' ), 'normal', 'high' );	
+
 		/**
 		 * Link
 		 */
