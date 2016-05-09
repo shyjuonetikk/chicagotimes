@@ -35,6 +35,7 @@ class CST {
 			$this->frontend = CST_Frontend::get_instance();
 		}
 
+		$this->yieldmo_tags = CST_Yieldmo_Tags::get_instance();
 		$this->customizer = CST_Customizer::get_instance();
 		$this->liveblog = CST_Liveblog::get_instance();
 		$this->infinite_scroll = CST_Infinite_Scroll::get_instance();
@@ -145,6 +146,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-wire-curator.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-usa-today-wire-curator.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-yieldmo-tags.php';
 
 		// Objects
 		require_once dirname( __FILE__ ) . '/inc/objects/class-post.php';
