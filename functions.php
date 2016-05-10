@@ -416,6 +416,14 @@ class CST {
 		//
 		add_filter( 'post_updated_messages', array( $this, 'cpt_messages' ) );
 
+		/**
+		 * Apple News: allow editors and above to automatically
+		 * publish their posts on Apple News.
+		 */
+		add_filter( 'apple_news_publish_capability', function() {
+			return 'edit_others_posts';
+		}, 10, 0 );
+
 	}
 
 	/**
