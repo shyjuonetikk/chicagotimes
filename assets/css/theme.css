@@ -2663,7 +2663,7 @@ body.post-gallery-lightbox-active {
         opacity: .75; }
   @media (min-width: 1401px) {
     .homepage_wrapper .row {
-      max-width: 67rem;
+      max-width: 64rem;
       width: 100%; } }
   @media (min-width: 1335px) and (max-width: 1400px) {
     .homepage_wrapper .row {
