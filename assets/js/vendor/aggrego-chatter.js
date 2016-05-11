@@ -18,6 +18,9 @@ window.AggregoChatter = {
     if(sectionNames == 'politics') {
       var domainTag = 'politics';
       var anchorTag = 'politics';
+    } else if(sectionNames == 'news') {
+      var domainTag = 'politics';
+      var anchorTag = 'politics';
     } else if(sectionNames == 'entertainment') {
       var domainTag = 'celeb';
       var anchorTag = 'entertainment';
