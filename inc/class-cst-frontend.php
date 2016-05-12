@@ -147,7 +147,8 @@ class CST_Frontend {
 			} else {
 				wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
 			}
-			if( ! is_user_logged_in() && is_singular() ) {
+		
+			if( is_singular() && ! is_admin() ) {
 				wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 				wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 			}
