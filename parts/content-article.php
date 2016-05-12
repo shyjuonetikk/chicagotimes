@@ -34,15 +34,10 @@
             if( $yieldmo_tag ) {
                 $yieldmo_printed_tag = CST()->yieldmo_tags->ym_get_demo_tag( $yieldmo_tag );
                 esc_html_e( $yieldmo_printed_tag );
-            } else {
-            ?>
-            	<script>
-            		window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
-            	</script>
-            <?php
-            }
+            } 
 		?>
 		<script>
+			window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
 			window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo json_encode( $agg_primary_section_slug ); ?>;
 			if(window.AggregoChatter && window.SECTIONS_FOR_AGGREGO_CHATTER){
 				window.AggregoChatter && AggregoChatter.inject(window.SECTIONS_FOR_AGGREGO_CHATTER)
