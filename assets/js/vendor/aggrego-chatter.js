@@ -21,7 +21,7 @@ window.AggregoChatter = {
     } else if(sectionNames == 'news') {
       var domainTag = 'politics';
       var anchorTag = 'politics';
-    } else if(sectionNames == 'entertainment') {
+    } else if(sectionNames == 'entertainment' || sectionNames == 'lifestyles') {
       var domainTag = 'celeb';
       var anchorTag = 'entertainment';
     } else if(sectionNames == 'sports') {
