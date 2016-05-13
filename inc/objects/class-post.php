@@ -621,8 +621,8 @@ abstract class Post {
 	 */
 	public function get_chatter_widget_selection() {
 
-		if ( $chatter_selection = $this->get_fm_field( 'choose_chatter' ) ) {
-			return $chatter_selection;
+		if ( $chatter_selection = $this->get_fm_field( 'cst_preferred_terms' ) ) {
+			return $chatter_selection['choose_chatter']['chatter_widget_selection'];
 		} else {
 			return false;
 		}

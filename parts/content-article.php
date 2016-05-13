@@ -21,25 +21,43 @@
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
 		<div class="post-content columns medium-11 medium-offset-1 p402_premium end" itemprop="articleBody">
 		<?php 
-			if ( $agg_primary_section = $obj->get_primary_section() ) : 
-				if( $agg_primary_section->parent != 0 ) {
-					$agg_primary_section = $obj->get_grandchild_parent_section();
-				}
-				$agg_primary_section_slug = $agg_primary_section->slug;
-			else :
-				$agg_primary_section_slug = '';
-			endif;
+			$chatter_selection = $obj->get_chatter_widget_selection();
 
-			$yieldmo_tag = $obj->get_yieldmo_tag();
-            if( $yieldmo_tag ) {
-                $yieldmo_printed_tag = CST()->yieldmo_tags->ym_get_demo_tag( $yieldmo_tag );
-                esc_html_e( $yieldmo_printed_tag );
-            } 
+			if ( $chatter_selection ) : 
+				
+				switch( $chatter_selection ) {
+					case 'politics_chatter':
+						$agg_primary_section_slug = 'politics';
+						break;
+					case 'sports_chatter':
+						$agg_primary_section_slug = 'sports';
+						break;
+					case 'celeb_chatter':
+						$agg_primary_section_slug = 'entertainment';
+						break;
+					case 'no_chatter':
+						$agg_primary_section_slug = '';
+						break;
+					default:
+						break;
+				}
+
+			else :
+				if ( $agg_primary_section = $obj->get_primary_section() ) : 
+					if( $agg_primary_section->parent != 0 ) {
+						$agg_primary_section = $obj->get_grandchild_parent_section();
+					}
+					$agg_primary_section_slug = $agg_primary_section->slug;
+				else :
+					$agg_primary_section_slug = '';
+				endif;
+			endif;
 		?>
 		<script>
 			window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
 			window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo json_encode( $agg_primary_section_slug ); ?>;
 			if(window.AggregoChatter && window.SECTIONS_FOR_AGGREGO_CHATTER){
+				console.log('inject 1');
 				window.AggregoChatter && AggregoChatter.inject(window.SECTIONS_FOR_AGGREGO_CHATTER)
 			}
         </script>
