@@ -225,10 +225,7 @@ class CST {
 		add_action( 'init', array( $this, 'action_init_early' ), 2 );
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ), 11 );
 
-		// Sections are included in permalinks, so we need to make sure they're in rewrite rules
-		add_action( 'created_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
-		add_action( 'edited_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
-		add_action( 'delete_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
+		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
 		add_action( 'wp_footer', array( $this, 'action_wp_footer_gallery_backdrop' ) );
 
