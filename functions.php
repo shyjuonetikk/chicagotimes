@@ -1383,6 +1383,39 @@ class CST {
 	}
 
 	/**
+	 * Inject or return markup for featured image catering for featured
+	 * position or in body position
+	 *
+	 * @param \CST\Objects\Article $obj
+	 *
+	 * @return string
+	 */
+
+	public function featured_image_markup( \CST\Objects\Article $obj ) {
+
+		$featured_image_id = $obj->get_featured_image_id();
+		$output = '';
+		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) :
+			if ( doing_filter( 'the_content' ) ) {
+				$class = 'post-lead-media end';
+			} else {
+				$class = 'post-lead-media columns medium-11 medium-offset-1 end';
+			}
+			$output .= '<div class="' . esc_attr( $class ) . '">';
+			$output .= $attachment->get_html( 'cst-article-featured' );
+			if ( $caption = $attachment->get_caption() ) :
+				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
+			endif;
+			$output .= '</div>';
+		endif;
+
+		if ( doing_filter( 'the_content' ) ) {
+			return $output;
+		} else {
+			echo wp_kses( $output, 'post' );
+		}
+	}
+	/**
 	 * Get and return primary section slug
 	 * @return mixed|string
 	 */
