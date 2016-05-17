@@ -364,7 +364,7 @@ class CST_Frontend {
 	public function filter_article_featured_image( $content ) {
 
 		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
-		if ( false !== $obj ) {
+		if ( false !== $obj && $obj->get_post_type() === 'cst_article' ) {
 			if ( 'video' === $obj->get_featured_media_type() ) {
 				$exploded = explode( '</p>',$content );
 				array_splice( $exploded, 4, 0, CST()->featured_image_markup( $obj ) );
