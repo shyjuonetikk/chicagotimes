@@ -430,6 +430,24 @@ abstract class Post {
 	}
 
 	/**
+	 * Get the section slugs of the post
+	 *
+	 * @return array
+	 */
+	public function get_section_slugs() {
+		$sections = $this->get_taxonomy_terms( 'cst_section' );
+		$slugs = array();
+		if( $sections ) {
+			foreach( $sections as $section ) {
+				array_push( $slugs, $section->slug );
+			}
+			return $slugs;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * Get the parent section of the post
 	 *
 	 * @return array|bool

@@ -1417,6 +1417,23 @@ article.post {
     text-transform: capitalize;
     color: #29AAE2; }
 
+.single .post-recommendations {
+  position: relative;
+  margin: 0 auto;
+  padding-bottom: 25px;
+  float: left;
+  display: block; }
+  .single .post-recommendations h3 {
+    font-size: 1.25rem;
+    font-weight: 700; }
+  .single .post-recommendations .recommended-post {
+    position: relative;
+    padding-left: 0;
+    margin-bottom: 10px;
+    display: block; }
+    .single .post-recommendations .recommended-post a {
+      font-size: .85rem; }
+
 section#subscribe {
   background: #FFFFFF;
   display: block;

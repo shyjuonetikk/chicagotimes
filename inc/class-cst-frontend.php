@@ -885,6 +885,68 @@ class CST_Frontend {
 		echo $cached_content;
 	}
 
+	/**
+	 * Fetch and output content from the specified section
+	 * @param $content_query
+	 */
+	public function cst_dear_abby_recommendation_block( $content_query ) {
+
+		$cache_key = md5( serialize($content_query) );
+		$cached_content = wp_cache_get( $cache_key );
+		if ($cached_content === false ){
+			$items = new \WP_Query( $content_query );
+			ob_start();
+			if ( $items->have_posts() ) { ?>
+			<div class="large-10 medium-offset-1 post-recommendations">
+				<h3>Previously from Dear Abby</h3>
+			<?php
+				while( $items->have_posts() ) {
+					$items->the_post();
+					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+				?>
+					<div class="columns large-3 medium-6 small-12 recommended-post">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+							<?php echo esc_html( $obj->get_title() ); ?>
+						</a>
+					</div>
+				<?php } ?>
+			</div>
+			<?php
+			}
+			$cached_content = ob_get_clean();
+			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
+		}
+		echo $cached_content;
+	}
+
+	/**
+	 * Fetch and output content from the specified section
+	 * @param $content_query
+	 */
+	public function cst_post_recommendation_block( $feed_url, $section_name ) {
+
+		$cache_key = md5( $feed_url );
+            $result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+            if ( $result === false ) {
+                $response = wpcom_vip_file_get_contents( $feed_url );
+                if ( ! is_wp_error( $response ) ) {
+                    $result = json_decode( $response );
+                    wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+                }
+            }
+            ?>
+            <div class="large-10 medium-offset-1 post-recommendations">
+				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
+            <?php foreach( $result->pages as $item ) { ?>
+            	<div class="columns large-3 medium-6 small-12 recommended-post">
+					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
+						<?php echo esc_html( $item->title ); ?>
+					</a>
+				</div>
+            <?php }
+
+	}
+
 	public function cst_nativo_determine_positions($slug) {
 
         $positions = array();
