@@ -32,7 +32,9 @@ window.YieldMo = {
         jQuery('.cst-active-scroll-post').append(yieldmoFooterNode)
       }
       this._insertYieldMoJS()
-      this._refreshMobileDFPPosition()
+      if ( window.innerWidth < 640 ) {
+        this._refreshMobileDFPPosition();
+      }
       
     }
 

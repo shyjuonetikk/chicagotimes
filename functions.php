@@ -35,6 +35,7 @@ class CST {
 			$this->frontend = CST_Frontend::get_instance();
 		}
 
+		$this->yieldmo_tags = CST_Yieldmo_Tags::get_instance();
 		$this->customizer = CST_Customizer::get_instance();
 		$this->liveblog = CST_Liveblog::get_instance();
 		$this->infinite_scroll = CST_Infinite_Scroll::get_instance();
@@ -75,7 +76,7 @@ class CST {
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
 		add_image_size( 'cst-gallery-mobile-horizontal', 800, 600, true );
-		add_image_size( 'twitter-card', 120, 120, true );
+		add_image_size( 'twitter-card', 400, 400, true );
 		add_image_size( 'facebook-open-graph', 1200, 630, true );
 		add_image_size( 'secondary-wells', 290, 190, true );
 		add_image_size( 'homepage-columns', 228, 134, true );
@@ -145,6 +146,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-wire-curator.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-usa-today-wire-curator.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-yieldmo-tags.php';
 
 		// Objects
 		require_once dirname( __FILE__ ) . '/inc/objects/class-post.php';
@@ -188,6 +190,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chartbeat-users-currently-viewing-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-letters-to-the-editor-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newsletter-signup-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-dne-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -222,10 +225,7 @@ class CST {
 		add_action( 'init', array( $this, 'action_init_early' ), 2 );
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ), 11 );
 
-		// Sections are included in permalinks, so we need to make sure they're in rewrite rules
-		add_action( 'created_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
-		add_action( 'edited_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
-		add_action( 'delete_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
+		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
 		add_action( 'wp_footer', array( $this, 'action_wp_footer_gallery_backdrop' ) );
 
@@ -413,6 +413,14 @@ class CST {
 		//
 		add_filter( 'post_updated_messages', array( $this, 'cpt_messages' ) );
 
+		/**
+		 * Apple News: allow editors and above to automatically
+		 * publish their posts on Apple News.
+		 */
+		add_filter( 'apple_news_publish_capability', function() {
+			return 'edit_others_posts';
+		}, 10, 0 );
+
 	}
 
 	/**
@@ -561,11 +569,10 @@ class CST {
 		register_widget( 'CST_Homepage_Featured_Story_Widget' );
 		register_widget( 'CST_Homepage_NDN_Video_Widget' );
 		register_widget( 'CST_Search_Widget' );
-		register_widget( 'CST_AP_NCAA_Scoreboard_Widget' );
-		register_widget( 'CST_AP_NCAA_News_Widget' );
 		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
 		register_widget( 'CST_Letters_To_Editor_Widget' );
 		register_widget( 'CST_Newsletter_Signup_Widget' );
+		register_widget( 'CST_AP_DNE_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
@@ -1375,6 +1382,39 @@ class CST {
 		return ob_get_clean();
 	}
 
+	/**
+	 * Inject or return markup for featured image catering for featured
+	 * position or in body position
+	 *
+	 * @param \CST\Objects\Article $obj
+	 *
+	 * @return string
+	 */
+
+	public function featured_image_markup( \CST\Objects\Article $obj ) {
+
+		$featured_image_id = $obj->get_featured_image_id();
+		$output = '';
+		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) :
+			if ( doing_filter( 'the_content' ) ) {
+				$class = 'post-lead-media end';
+			} else {
+				$class = 'post-lead-media columns medium-11 medium-offset-1 end';
+			}
+			$output .= '<div class="' . esc_attr( $class ) . '">';
+			$output .= $attachment->get_html( 'cst-article-featured' );
+			if ( $caption = $attachment->get_caption() ) :
+				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
+			endif;
+			$output .= '</div>';
+		endif;
+
+		if ( doing_filter( 'the_content' ) ) {
+			return $output;
+		} else {
+			echo wp_kses( $output, 'post' );
+		}
+	}
 	/**
 	 * Get and return primary section slug
 	 * @return mixed|string

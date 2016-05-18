@@ -205,6 +205,7 @@ class CST_Admin {
 					'options'  => array(
 						'image'        => esc_html__( "Article's Featured Image", 'chicagosuntimes' ),
 						'gallery'      => esc_html__( 'Gallery', 'chicagosuntimes' ),
+						'video'      => esc_html__( 'Video', 'chicagosuntimes' ),
 						),
 					) ),
 				'featured_gallery'     => new \Fieldmanager_Autocomplete( esc_html__( 'Featured Gallery', 'chicagosuntimes' ), array(
@@ -218,7 +219,22 @@ class CST_Admin {
 							'post_type'     => array( 'cst_gallery' ),
 							),
 						) )
-					) )
+					) ),
+				'featured_video'          => new \Fieldmanager_Select( esc_html__( 'Choose video category', 'chicagosuntimes' ), array(
+					'name'     => 'featured_video',
+					'description' => 'Choosing this option replaces the featured image with a video embed element and automatically places the featured image further down the content.',
+					'options'  => array(
+						'cubs'       => esc_html__( "Chicago Cubs", 'chicagosuntimes' ),
+						'white-sox'  => esc_html__( 'Chicago White Sox', 'chicagosuntimes' ),
+						'bulls'      => esc_html__( "Chicago Bulls", 'chicagosuntimes' ),
+						'bears'      => esc_html__( 'Chicago Bears', 'chicagosuntimes' ),
+						'pga-golf'   => esc_html__( 'PGA Golf', 'chicagosuntimes' ),
+						'nascar'     => esc_html__( 'NASCAR', 'chicagosuntimes' ),
+						'ahl-wolves' => esc_html__( 'AHL Wolves', 'chicagosuntimes' ),
+						'college'    => esc_html__( 'College', 'chicagosuntimes' ),
+						'rio-2016'   => esc_html__( 'Rio 2016', 'chicagosuntimes' ),
+					),
+				) )
 				),
 			) );
 		$post->add_meta_box( esc_html__( 'Production', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
@@ -228,6 +244,20 @@ class CST_Admin {
 			'tabbed'      => true,
 			'persist_active_tab' => false,
 		) );
+		$terms_group->children['choose_chatter'] = new \Fieldmanager_Group( esc_html__( 'Choose Chatter Widget', 'chicagosuntimes' ), array(
+			'name'             => 'choose_chatter',
+			'description' => 'Please select the Chatter Widget to be injected into the article body',
+			'children'         => array(
+				'chatter_widget_selection'         => new \Fieldmanager_Select( esc_html__( 'Select the Chatter Widget injected into the article', 'chicagosuntimes' ), array(
+					'name'     => 'chatter_widget_selection',
+					'options'  => array(
+						'politics_chatter'   => esc_html__( 'Politics Chatter', 'chicagosuntimes' ),
+						'celeb_chatter'      => esc_html__( 'Celeb Chatter', 'chicagosuntimes' ),
+						'sports_chatter'     => esc_html__( 'Sports Chatter', 'chicagosuntimes' ),
+						'no_widget' 		 => esc_html__( 'No Chatter Widget', 'chicagosuntimes' ),
+						),
+					) )
+			)));
 		$terms_group->children['choose_topic'] = new \Fieldmanager_Group( esc_html__( 'Choose Topic', 'chicagosuntimes' ), array(
 			'name'             => 'choose_topic',
 			'description' => 'Please select the single Topic to display below the article',
@@ -298,6 +328,23 @@ class CST_Admin {
 				)
 			) );
 		$fm->add_meta_box( esc_html__( 'Newsletter Tag', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
+
+	if( is_admin() ) {
+		$fm = new Fieldmanager_Select( array( 
+			'name' 	  => 'yieldmo_tags',
+			'description' => esc_html__( 'Used to test YieldMo Tags on Live Articles. Do not select an option if you do not know what this is.', 'chicagosuntimes' ),
+			'options' => array(
+				'YM_No_Demo'				=> 'No Tag Demo',
+				'YM_Carousel_Demo' 			=> 'Carousel Tag Demo',
+				'YM_Video_Demo'				=> 'Video Tag Demo',
+				'YM_Window_Demo'				=> 'Window Tag Demo',
+				'YM_Wrapper_Article_Demo' 	=> 'Article Wrapper Tag Demo',
+				'YM_Wrapper_Homepage_Demo' 	=> 'Homepage Wrapper Tag Demo',
+				'YM_Mainstage_Demo' 		=> 'Mainstage Tag Demo',
+				)
+			) );
+		$fm->add_meta_box( esc_html__( 'YieldMo Test Tag', 'chicagosuntimes' ), array( 'cst_article', 'page' ), 'normal', 'high' );
+	}	
 
 		/**
 		 * Link
@@ -380,7 +427,7 @@ class CST_Admin {
 						)
 					) ),
 				'image'               => new \Fieldmanager_Media( esc_html__( 'Image', 'chicagosuntimes' ), array(
-					'description'     => esc_html__( 'Override the featured image with an image specific to Twitter. The image must be a minimum size of 120x120px. Images larger than 120x120px will be resized and cropped square based on its longest dimension.', 'chicagosuntimes' ),
+					'description'     => esc_html__( 'Override the featured image with an image specific to Twitter. The image must be a minimum size of 400x400px. Images larger than 400x400px will be resized and cropped square based on its longest dimension.', 'chicagosuntimes' ),
 					'button_label'    => esc_html__( 'Select an image', 'chicagosuntimes' ),
 					'modal_button_label' => esc_html__( 'Select image', 'chicagosuntimes' ),
 					'modal_title'     => esc_html__( 'Choose image', 'chicagosuntimes' ),

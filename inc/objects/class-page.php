@@ -13,4 +13,19 @@ class Page extends Post {
 		return 'link';
 	}
 
+    /**
+     * Get the yieldmo tag field for the page
+     *
+     * @return string
+     */
+    public function get_yieldmo_tag() {
+
+        if ( $yieldmo_tag = $this->get_fm_field( 'yieldmo_tags' ) ) {
+            return $yieldmo_tag;
+        } else {
+            return false;
+        }
+
+    }
+
 }

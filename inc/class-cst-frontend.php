@@ -71,6 +71,7 @@ class CST_Frontend {
 		add_filter( 'post_class', array( $this, 'filter_post_class' ) );
 
 		add_filter( 'wp_title', array( $this, 'filter_wp_title' ) );
+		add_filter( 'the_content', array( $this, 'filter_article_featured_image' ) );
 
 		add_filter( 'embed_oembed_html', array( $this, 'filter_embed_oembed_html' ), 10, 4 );
 
@@ -147,7 +148,8 @@ class CST_Frontend {
 			} else {
 				wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
 			}
-			if( ! is_user_logged_in() && is_singular() ) {
+		
+			if( is_singular() && ! is_admin() ) {
 				wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 				wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 			}
@@ -347,6 +349,29 @@ class CST_Frontend {
 		$post = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
 		return $post->get_seo_title();
 
+	}
+
+	/**
+	 * If using an embedded video (from SendToNews) insert the assigned featured image
+	 * ahead of the the 5th paragraph
+	 *
+	 * This functions runs as part of the_content filter
+	 *
+	 * @param $content
+	 *
+	 * @return string
+	 */
+	public function filter_article_featured_image( $content ) {
+
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( false !== $obj && $obj->get_post_type() === 'cst_article' ) {
+			if ( 'video' === $obj->get_featured_media_type() ) {
+				$exploded = explode( '</p>',$content );
+				array_splice( $exploded, 4, 0, CST()->featured_image_markup( $obj ) );
+				$content = join( '</p>',$exploded );
+			}
+		}
+		return $content;
 	}
 
 	/**
@@ -996,6 +1021,9 @@ class CST_Frontend {
             case 'colleges':
                 $positions = array( 'SportsColleges1', 'SportsColleges2' );
                 break;
+            case 'entertainment':
+            	$positions = array( 'Entertainment1', 'Entertainment2' );
+            	break;
             default:
             	$positions = array( 'News1', 'News2' );
                 break;
