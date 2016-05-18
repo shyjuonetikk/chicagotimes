@@ -22,6 +22,16 @@
 
 			if ( $chatter_selection ) : 
 				switch( $chatter_selection ) {
+					case 'default_chatter':
+						if ( $agg_primary_section = $obj->get_primary_section() ) : 
+							if( $agg_primary_section->parent != 0 ) {
+								$agg_primary_section = $obj->get_grandchild_parent_section();
+							}
+							$agg_primary_section_slug = $agg_primary_section->slug;
+						else :
+							$agg_primary_section_slug = '';
+						endif;
+						break;
 					case 'politics_chatter':
 						$agg_primary_section_slug = 'politics';
 						break;

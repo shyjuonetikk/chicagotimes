@@ -251,6 +251,7 @@ class CST_Admin {
 				'chatter_widget_selection'         => new \Fieldmanager_Select( esc_html__( 'Select the Chatter Widget injected into the article', 'chicagosuntimes' ), array(
 					'name'     => 'chatter_widget_selection',
 					'options'  => array(
+						'default_chatter' 	 => esc_html__( 'Article Section Chatter', 'chicagosuntimes' ),
 						'politics_chatter'   => esc_html__( 'Politics Chatter', 'chicagosuntimes' ),
 						'celeb_chatter'      => esc_html__( 'Celeb Chatter', 'chicagosuntimes' ),
 						'sports_chatter'     => esc_html__( 'Sports Chatter', 'chicagosuntimes' ),
