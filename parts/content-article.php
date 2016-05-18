@@ -24,7 +24,6 @@
 			$chatter_selection = $obj->get_chatter_widget_selection();
 
 			if ( $chatter_selection ) : 
-				
 				switch( $chatter_selection ) {
 					case 'politics_chatter':
 						$agg_primary_section_slug = 'politics';
@@ -41,7 +40,6 @@
 					default:
 						break;
 				}
-
 			else :
 				if ( $agg_primary_section = $obj->get_primary_section() ) : 
 					if( $agg_primary_section->parent != 0 ) {
@@ -56,10 +54,6 @@
 		<script>
 			window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
 			window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo json_encode( $agg_primary_section_slug ); ?>;
-			if(window.AggregoChatter && window.SECTIONS_FOR_AGGREGO_CHATTER){
-				console.log('inject 1');
-				window.AggregoChatter && AggregoChatter.inject(window.SECTIONS_FOR_AGGREGO_CHATTER)
-			}
         </script>
          <div id="z64aff56b-2200-4008-a1ce-12f9d32c7205" style='display:none' ></div>
 			<?php $obj->the_content(); ?>
