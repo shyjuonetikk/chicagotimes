@@ -205,6 +205,7 @@ class CST_Admin {
 					'options'  => array(
 						'image'        => esc_html__( "Article's Featured Image", 'chicagosuntimes' ),
 						'gallery'      => esc_html__( 'Gallery', 'chicagosuntimes' ),
+						'video'      => esc_html__( 'Video', 'chicagosuntimes' ),
 						),
 					) ),
 				'featured_gallery'     => new \Fieldmanager_Autocomplete( esc_html__( 'Featured Gallery', 'chicagosuntimes' ), array(
@@ -218,7 +219,22 @@ class CST_Admin {
 							'post_type'     => array( 'cst_gallery' ),
 							),
 						) )
-					) )
+					) ),
+				'featured_video'          => new \Fieldmanager_Select( esc_html__( 'Choose video category', 'chicagosuntimes' ), array(
+					'name'     => 'featured_video',
+					'description' => 'Choosing this option replaces the featured image with a video embed element and automatically places the featured image further down the content.',
+					'options'  => array(
+						'cubs'       => esc_html__( "Chicago Cubs", 'chicagosuntimes' ),
+						'white-sox'  => esc_html__( 'Chicago White Sox', 'chicagosuntimes' ),
+						'bulls'      => esc_html__( "Chicago Bulls", 'chicagosuntimes' ),
+						'bears'      => esc_html__( 'Chicago Bears', 'chicagosuntimes' ),
+						'pga-golf'   => esc_html__( 'PGA Golf', 'chicagosuntimes' ),
+						'nascar'     => esc_html__( 'NASCAR', 'chicagosuntimes' ),
+						'ahl-wolves' => esc_html__( 'AHL Wolves', 'chicagosuntimes' ),
+						'college'    => esc_html__( 'College', 'chicagosuntimes' ),
+						'rio-2016'   => esc_html__( 'Rio 2016', 'chicagosuntimes' ),
+					),
+				) )
 				),
 			) );
 		$post->add_meta_box( esc_html__( 'Production', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );

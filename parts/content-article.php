@@ -3,19 +3,16 @@
 
 	<?php if ( is_singular() ) : ?>
 		<?php
-		if ( 'image' == $obj->get_featured_media_type() ) :
-			$featured_image_id = $obj->get_featured_image_id();
-			if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) : ?>
-			<div class="post-lead-media columns medium-11 medium-offset-1 end">
-				<?php echo $attachment->get_html( 'cst-article-featured' );
-				if ( $caption = $attachment->get_caption() ) : ?>
-				<div class="image-caption"><?php echo wpautop( esc_html( $caption ) ); ?></div>
-				<?php endif; ?>
-			</div>
-			<?php endif; ?>
-		<?php elseif ( 'gallery' == $obj->get_featured_media_type() && $gallery = $obj->get_featured_gallery() ) : ?>
+		$media_type = $obj->get_featured_media_type();
+		if ( 'image' === $media_type ) :
+			CST()->featured_image_markup( $obj );
+		elseif ( 'gallery' === $media_type && $gallery = $obj->get_featured_gallery() ) : ?>
 			<div class="post-lead-media post-content columns medium-11 medium-offset-1 end">
 				<?php echo do_shortcode( '[cst-content id="' . $gallery->get_id() . '"]' ); ?>
+			</div>
+		<?php elseif ( 'video' === $media_type ) : ?>
+			<div class="post-lead-media post-content columns medium-11 medium-offset-1 end">
+				<?php echo $obj->get_featured_video_embed(); ?>
 			</div>
 		<?php endif; ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>

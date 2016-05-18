@@ -225,10 +225,7 @@ class CST {
 		add_action( 'init', array( $this, 'action_init_early' ), 2 );
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ), 11 );
 
-		// Sections are included in permalinks, so we need to make sure they're in rewrite rules
-		add_action( 'created_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
-		add_action( 'edited_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
-		add_action( 'delete_cst_section', 'wpcom_initiate_flush_rewrite_rules' );
+		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
 		add_action( 'wp_footer', array( $this, 'action_wp_footer_gallery_backdrop' ) );
 
@@ -1385,6 +1382,39 @@ class CST {
 		return ob_get_clean();
 	}
 
+	/**
+	 * Inject or return markup for featured image catering for featured
+	 * position or in body position
+	 *
+	 * @param \CST\Objects\Article $obj
+	 *
+	 * @return string
+	 */
+
+	public function featured_image_markup( \CST\Objects\Article $obj ) {
+
+		$featured_image_id = $obj->get_featured_image_id();
+		$output = '';
+		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) :
+			if ( doing_filter( 'the_content' ) ) {
+				$class = 'post-lead-media end';
+			} else {
+				$class = 'post-lead-media columns medium-11 medium-offset-1 end';
+			}
+			$output .= '<div class="' . esc_attr( $class ) . '">';
+			$output .= $attachment->get_html( 'cst-article-featured' );
+			if ( $caption = $attachment->get_caption() ) :
+				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
+			endif;
+			$output .= '</div>';
+		endif;
+
+		if ( doing_filter( 'the_content' ) ) {
+			return $output;
+		} else {
+			echo wp_kses( $output, 'post' );
+		}
+	}
 	/**
 	 * Get and return primary section slug
 	 * @return mixed|string
