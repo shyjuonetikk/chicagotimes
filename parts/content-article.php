@@ -57,6 +57,12 @@
 					$agg_primary_section_slug = '';
 				endif;
 			endif;
+
+			$yieldmo_tag = $obj->get_yieldmo_tag();
+            if( $yieldmo_tag ) {
+                $yieldmo_printed_tag = CST()->yieldmo_tags->ym_get_demo_tag( $yieldmo_tag );
+                esc_html_e( $yieldmo_printed_tag );
+            }
 		?>
 		<script>
 			window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
