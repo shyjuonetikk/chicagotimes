@@ -226,6 +226,14 @@
 			    if(window.SECTIONS_FOR_AGGREGO_CHATTER){
 					window.AggregoChatter && AggregoChatter.inject(window.SECTIONS_FOR_AGGREGO_CHATTER)
 			    }
+
+			    if(window.YIELDMO_DEMO_TAG) {
+			    	googletag.cmd.push( function() {
+						var unitInstance = window.YIELDMO_DEMO_TAG;
+						googletag.pubads().refresh([unitInstance]);
+					});
+			    	console.log('refreshed ' + window.YIELDMO_DEMO_TAG)
+			    }
 				document.title = wp_title;
 
 				CSTAnalytics.triggerPageview();
