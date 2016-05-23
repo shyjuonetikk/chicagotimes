@@ -131,7 +131,6 @@ var CSTAds;
 				} else {
 					this.currentScrollUnit = 'div-gpt-rr-cube-2';
 				}
-				console.log('article page');
 			} else {
 				if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
 					this.currentScrollUnit = 'div-gpt-rr-cube-4';
