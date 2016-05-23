@@ -229,10 +229,9 @@
 
 			    if(window.YIELDMO_DEMO_TAG) {
 			    	googletag.cmd.push( function() {
-						var unitInstance = window.YIELDMO_DEMO_TAG;
+						var unitInstance = googletag.defineSlot("/61924087/chicago.suntimes.com/chicago.suntimes.com.ym", [300, 250], '' + window.YIELDMO_DEMO_TAG + '');
 						googletag.pubads().refresh([unitInstance]);
 					});
-			    	console.log('refreshed ' + window.YIELDMO_DEMO_TAG)
 			    }
 				document.title = wp_title;
 
