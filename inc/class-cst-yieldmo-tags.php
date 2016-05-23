@@ -47,6 +47,12 @@
         if( is_singular() ) :
     ?>
         <div id="div-gpt-ym-carousel"></div>
+            <script>
+                googletag.cmd.push(function() {
+                    googletag.display('div-gpt-ym-carousel');
+                });
+            </script>
+        </div>
         <script>window.YIELDMO_DEMO_TAG = 'div-gpt-ym-carousel';</script>
     <?php else : ?>
         <div id="ym_1415038328455411872" class="ym"></div><script type="text/javascript">(function(e,t){if(t._ym===void 0){t._ym="";var m=e.createElement("script");m.type="text/javascript",m.async=!0,m.src="//static.yieldmo.com/ym.m5.js",(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(m)}else t._ym instanceof String||void 0===t._ym.chkPls||t._ym.chkPls()})(document,window);</script>
@@ -57,8 +63,14 @@
     public function ym_video_demo() {
         if( is_singular() ) :
     ?>
-        <div id="div-gpt-ym-video"></div>
         <script>window.YIELDMO_DEMO_TAG = 'div-gpt-ym-video';</script>
+        <div id="div-gpt-ym-video"></div>
+            <script>
+                googletag.cmd.push(function() {
+                    googletag.display('div-gpt-ym-video');
+                });
+            </script>
+        </div>
     <?php else : ?>
         <div id="ym_1415040035604248738" class="ym"></div><script type="text/javascript">(function(e,t){if(t._ym===void 0){t._ym="";var m=e.createElement("script");m.type="text/javascript",m.async=!0,m.src="//static.yieldmo.com/ym.m5.js",(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(m)}else t._ym instanceof String||void 0===t._ym.chkPls||t._ym.chkPls()})(document,window);</script>
     <?php
@@ -68,8 +80,14 @@
     public function ym_window_demo() {
         if( is_singular() ) :
     ?>
-        <div id="div-gpt-ym-window"></div>
         <script>window.YIELDMO_DEMO_TAG = 'div-gpt-ym-window';</script>
+        <div id="div-gpt-ym-window"></div>
+            <script>
+                googletag.cmd.push(function() {
+                    googletag.display('div-gpt-ym-window');
+                });
+            </script>
+        </div>
     <?php else : ?>
         <div id="ym_1415041620942108836" class="ym"></div><script type="text/javascript">(function(e,t){if(t._ym===void 0){t._ym="";var m=e.createElement("script");m.type="text/javascript",m.async=!0,m.src="//static.yieldmo.com/ym.m5.js",(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(m)}else t._ym instanceof String||void 0===t._ym.chkPls||t._ym.chkPls()})(document,window);</script>
     <?php
@@ -91,8 +109,14 @@
     public function ym_mainstage_demo() {
         if( is_singular() ) :
     ?>
-        <div id="div-gpt-ym-mainstage"></div>
         <script>window.YIELDMO_DEMO_TAG = 'div-gpt-ym-mainstage';</script>
+        <div id="div-gpt-ym-mainstage"></div>
+            <script>
+                googletag.cmd.push(function() {
+                    googletag.display('div-gpt-ym-mainstage');
+                });
+            </script>
+        </div>
     <?php else : ?>
         <div id="ym_1415042179262691494" class="ym"></div><script type="text/javascript">(function(e,t){if(t._ym===void 0){t._ym="";var m=e.createElement("script");m.type="text/javascript",m.async=!0,m.src="//static.yieldmo.com/ym.m5.js",(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(m)}else t._ym instanceof String||void 0===t._ym.chkPls||t._ym.chkPls()})(document,window);</script>
     <?php
