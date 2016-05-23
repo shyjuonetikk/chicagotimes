@@ -421,8 +421,51 @@ class CST {
 			return 'edit_others_posts';
 		}, 10, 0 );
 
+//		add_filter( 'instant_articles_render_post_template', function() {
+//			$b = get_stylesheet_directory_uri() . '/feeds/fbia-feed-template.php';
+//			return get_stylesheet_directory_uri() . '/feeds/fbia-feed-template.php';
+//		}, 10, 2 );
+		add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
+//		add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 10, 2 );
 	}
 
+	function cst_fbia_feed_template( $default_template, $banana ) {
+		$b = get_stylesheet_directory() . '/feeds/fbia-feed-template.php';
+		return get_stylesheet_directory() . '/feeds/fbia-feed-template.php';
+	}
+	/**
+	 * @param $category
+	 * @param $_post_id
+	 *
+	 * @return string
+	 *
+	 * Generate and return a category for the content in the Facebook Instant Article feed.
+	 */
+	function cst_fbia_category_kicker( $category, $_post_id ) {
+
+		$section = \CST\Objects\Post::get_by_post_id( $_post_id );
+		if ( false !== $section ) {
+			return ucfirst( $section->get_primary_parent_section()->slug );
+		} else {
+			return $category;
+		}
+	}
+
+	/**
+	 * @param $authors
+	 * @param $_post_id
+	 *
+	 * @return mixed
+	 */
+	function cst_fbia_authors( $authors, $_post_id ) {
+
+		$b = $authors;
+		foreach ( $authors as $author ) {
+			$a = $author;
+		}
+
+		return $authors;
+	}
 	/**
 	 * Register the sidebars for the theme
 	 */
