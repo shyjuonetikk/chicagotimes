@@ -311,9 +311,11 @@ class CST {
 			) );
 		} );
 
-		remove_all_actions( 'do_feed_rss2' );
-		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
-		add_action('do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1);
+		if ( ! defined( INSTANT_ARTICLES_SLUG ) ) {
+			remove_all_actions( 'do_feed_rss2' );
+			add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
+			add_action('do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1);
+		}
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
@@ -421,12 +423,9 @@ class CST {
 			return 'edit_others_posts';
 		}, 10, 0 );
 
-//		add_filter( 'instant_articles_render_post_template', function() {
-//			$b = get_stylesheet_directory_uri() . '/feeds/fbia-feed-template.php';
-//			return get_stylesheet_directory_uri() . '/feeds/fbia-feed-template.php';
-//		}, 10, 2 );
+		add_filter( 'instant_articles_render_post_template', array( $this, 'cst_fbia_feed_template' ), 10, 2 );
 		add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
-//		add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 10, 2 );
+		add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 10, 2 );
 	}
 
 	function cst_fbia_feed_template( $default_template, $banana ) {
