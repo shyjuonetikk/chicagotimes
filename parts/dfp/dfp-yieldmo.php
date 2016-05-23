@@ -32,22 +32,6 @@
             .addService(googletag.pubads())
             .setTargeting("pos","rr cube promo");
 
-            CSTAdTags['div-gpt-ym-carousel'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.ym'); ?>, [300, 250], 'div-gpt-ym-carousel')
-            .addService(googletag.pubads())
-            .setTargeting("pos","yieldmo carousel");
-
-            CSTAdTags['div-gpt-ym-mainstage'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.ym'); ?>, [300, 250], 'div-gpt-ym-mainstage')
-            .addService(googletag.pubads())
-            .setTargeting("pos","yieldmo mainstage");
-
-            CSTAdTags['div-gpt-ym-video'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.ym'); ?>, [300, 250], 'div-gpt-ym-video')
-            .addService(googletag.pubads())
-            .setTargeting("pos","yieldmo video");
-
-            CSTAdTags['div-gpt-ym-window'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.ym'); ?>, [300, 250], 'div-gpt-ym-window')
-            .addService(googletag.pubads())
-            .setTargeting("pos","yieldmo window");
-
 <?php endif; ?>
 
         } else {
@@ -55,6 +39,26 @@
             CSTAdTags['div-gpt-atf-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.test/chicago.suntimes.com.test.yieldmo/article'); ?>, [320, 50], 'div-gpt-mobile-leaderboard')
             .addService(googletag.pubads())
             .setTargeting("pos","mobile leaderboard");
+
+    <?php if( is_singular() ) : ?>
+
+            CSTAdTags['div-gpt-ym-carousel'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.ym'); ?>, [300, 250], 'div-gpt-ym-carousel')
+            .addService(googletag.pubads())
+            .setTargeting("pos","ym carousel");
+
+            CSTAdTags['div-gpt-ym-mainstage'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.ym'); ?>, [300, 250], 'div-gpt-ym-mainstage')
+            .addService(googletag.pubads())
+            .setTargeting("pos","ym mainstage");
+
+            CSTAdTags['div-gpt-ym-video'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.ym'); ?>, [300, 250], 'div-gpt-ym-video')
+            .addService(googletag.pubads())
+            .setTargeting("pos","ym video");
+
+            CSTAdTags['div-gpt-ym-window'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.ym'); ?>, [300, 250], 'div-gpt-ym-window')
+            .addService(googletag.pubads())
+            .setTargeting("pos","ym window");
+
+    <?php endif; ?>
 
         }
 
