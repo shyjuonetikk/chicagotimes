@@ -57,7 +57,7 @@ window.AggregoChatter = {
   /* Private methods */
   _insertAggregoChatterJS: function(domainTag, anchorTag){
     var script = document.createElement('script');
-    script.src = "http://suntimes." + domainTag + "chatter.com/widgets/2.0/collage/" + anchorTag + ".js?anchor=" + anchorTag;
+    script.src = "http://suntimes-" + domainTag + "-chatter.suntimes.com/widgets/2.0/collage/" + anchorTag + ".js?anchor=" + anchorTag;
     document.getElementsByTagName('head')[0].appendChild(script);
   },
 
