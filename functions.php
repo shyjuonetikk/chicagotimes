@@ -421,6 +421,7 @@ class CST {
 			return 'edit_others_posts';
 		}, 10, 0 );
 
+		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author'), 10, 2 );
 	}
 
 	/**
@@ -1453,6 +1454,33 @@ class CST {
 	 */
 	function cst_rss_AP_atom() {
 		load_template( TEMPLATEPATH . '/feeds/feed-AP-atom.php' );
+	}
+
+	/**
+	 * @param $byline
+	 * @param $post_id
+	 *
+	 * @return string
+	 *
+	 * Parse authors for WP authors and Guest authors and return the byline for use by Apple News
+	 */
+	function apple_news_author( $byline, $post_id ) {
+
+		$byline_author = '';
+		$article = \CST\Objects\Article::get_by_post_id( $post_id );
+		$authors = $article->get_authors();
+		if ( is_array( $authors ) ) {
+			$byline_parts = explode( '|', $byline );
+			array_shift( $byline_parts );
+			$count = count( $authors );
+			foreach ( $authors as $author ) {
+				$count--;
+				$byline_author .= $author->get_display_name() . ( 0 != $count ? ', ' : '' );
+			}
+			return $byline_author . ' | ' . implode( ' | ', $byline_parts );
+		} else {
+			return $byline;
+		}
 	}
 
 }
