@@ -36,6 +36,7 @@
 	<meta name="msapplication-wide310x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x150.png" />
 	<meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
 	<script type="text/javascript" src="http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
+	<meta name="apple-itunes-app" content="app-id=930568136">
 	<?php get_template_part( 'parts/analytics/google' ); ?>
 	<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
 	
