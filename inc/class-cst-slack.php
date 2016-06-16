@@ -37,6 +37,9 @@ class CST_Slack {
 	 */
 	public function new_content_payload( $post_id, $post, $update ) {
 
+		if ( $update ) {
+			return;
+		}
 		if ( 'publish' === $post->post_status ) {
 			$payload = $this->new_content_payload_to_json( $post_id, $post );
 			$this->send_payload( array(
