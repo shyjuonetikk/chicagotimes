@@ -45,7 +45,6 @@ class CST_Slack {
 		}
 	}
 
-
 	function send_payload( $payload ) {
 		$headers = array(
 			'content-type' => 'application/json',
@@ -68,7 +67,6 @@ class CST_Slack {
 	public function new_content_payload_to_json( $post_id, $post ) {
 
 		$obj                  = new \CST\Objects\Article( $post_id );
-		$section_name         = $this->get_section_name( $obj );
 		$author               = $this->get_author( $obj );
 		$attachment_thumb_url = '';
 		if ( has_post_thumbnail( $post_id ) ) {
@@ -90,36 +88,11 @@ class CST_Slack {
 				'footer'      => 'Chicago Sun-Times API',
 				'footer_icon' => esc_url( get_stylesheet_directory_uri() ) . '/assets/images/favicons/favicon-16x16.png',
 				'ts'          => time(),
-				'fields'      => array(
-					array(
-						'title' => 'Posted in: ',
-						'value' => $section_name,
-						'short' => true,
-					),
-				),
 			),
 		);
 		$payload['unfurl_links'] = true;
 		$payload['unfurl_media'] = true;
 		return json_encode( $payload );
-	}
-
-
-	/**
-	 * @param $obj
-	 *
-	 * @return string
-	 *
-	 * Get and return a section name
-	 */
-	public function get_section_name( $obj ) {
-		if ( $section = $obj->get_primary_section() ) {
-			$section_name = $section->name;
-		} else {
-			$section_name = 'Chicago News';
-		}
-
-		return $section_name;
 	}
 
 	/**
