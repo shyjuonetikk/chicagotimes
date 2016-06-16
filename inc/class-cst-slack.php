@@ -61,10 +61,9 @@ class CST_Slack {
 	/**
 	 * @param $post_id
 	 * @param $post
-	 * @param bool $update
 	 *
 	 * @return mixed|string|void
-	 * 
+	 *
 	 * Craft Slack API body payload and return json_encoded
 	 */
 	public function new_content_payload_to_json( $post_id, $post ) {
