@@ -25,7 +25,7 @@ class CST_Slack {
 	}
 
 	public function setup_actions() {
-		add_action( 'save_post_cst_article', array( $this, 'new_content_payload' ), 10, 3 );
+		add_action( 'transition_post_status', array( $this, 'new_content_payload' ), 10, 3 );
 	}
 
 	/**
@@ -35,13 +35,14 @@ class CST_Slack {
 	 * 
 	 * Share newly published (not updated) content to Slack channel
 	 */
-	public function new_content_payload( $post_id, $post, $update ) {
+	public function new_content_payload( $new_status, $old_status, $post ) {
 
-		if ( $update ) {
+		if ( 'publish' === $old_status ) {
 			return;
 		}
-		if ( 'publish' === $post->post_status ) {
-			$payload = $this->new_content_payload_to_json( $post_id, $post );
+
+		if ( 'publish' === $new_status ) {
+			$payload = $this->new_content_payload_to_json( $post->ID, $post );
 			$this->send_payload( array(
 				'body' => $payload,
 			) );
