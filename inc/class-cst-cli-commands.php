@@ -147,7 +147,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 
 						// Do we have the author in our array - ie do we know who to map it to?
 						// Lets find out...and apply the change
-						$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_run_mode );
+						$this->update_content_author( strtolower( $remote_author_slug ), $staging_post_id, $legacy_url, $dry_run_mode );
 						$this->change_count_slug++;
 					} else {
 						WP_CLI::warning( "[slug]Search by slug failed: $the_slug legacy url: $legacy_url" );
@@ -159,7 +159,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				// Yay ! - content found.
 				// Do we have the author in our array - ie do we know who to map it to?
 				// Lets find out...and apply the change
-				$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_run_mode );
+				$this->update_content_author( strtolower( $remote_author_slug ), $staging_post_id, $legacy_url, $dry_run_mode );
 				$this->change_count_id++;
 			}
 		}
@@ -201,6 +201,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				WP_CLI::line( "<Yawn - dry run> - $this->sleep_counter" );
 			} else {
 				WP_CLI::line( "Yawn - $this->sleep_counter" );
+				$this->stop_the_insanity();
 			}
 			sleep( 1 );
 		}
@@ -247,6 +248,8 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 			} else {
 				WP_CLI::warning( "[id]No author id found/specified for $new_author" );
 			}
+		} else {
+			WP_CLI::warning( "[id]No author id found/specified for $remote_author_slug in post $staging_post_id" );
 		}
 
 	}
