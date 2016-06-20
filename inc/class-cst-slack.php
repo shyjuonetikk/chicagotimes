@@ -25,13 +25,15 @@ class CST_Slack {
 	}
 
 	public function setup_actions() {
+		// Work from transition_post_status action (vs save_post) to better handle
+		// newly published content vs just updated
 		add_action( 'transition_post_status', array( $this, 'new_content_payload' ), 10, 3 );
 	}
 
 	/**
-	 * @param $post_id
 	 * @param $post
-	 * @param $update
+	 * @param $old_status
+	 * @param $new_status
 	 * 
 	 * Share newly published (not updated) content to Slack channel
 	 */
@@ -43,12 +45,19 @@ class CST_Slack {
 
 		if ( 'publish' === $new_status ) {
 			$payload = $this->new_content_payload_to_json( $post->ID, $post );
-			$this->send_payload( array(
-				'body' => $payload,
-			) );
+			if ( false !== $payload ) {
+				$this->send_payload( array(
+					'body' => $payload,
+				) );
+			}
 		}
 	}
 
+	/**
+	 * @param $payload
+	 *
+	 * Send json payload to Slack
+	 */
 	function send_payload( $payload ) {
 		$headers = array(
 			'content-type' => 'application/json',
