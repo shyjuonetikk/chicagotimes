@@ -44,6 +44,7 @@ class CST {
 		$this->shortcodes = CST_Shortcode_Manager::get_instance();
 		$this->wire_curator = CST_Wire_Curator::get_instance();
 		$this->usa_today_wire_curator = CST_USA_Today_Wire_Curator::get_instance();
+		$this->shia_kapos_wire_curator = CST_Shia_Kapos_Wire_Curator::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
 
@@ -147,6 +148,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-wire-curator.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-usa-today-wire-curator.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-yieldmo-tags.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-shia-kapos-wire-curator.php';
 
 		// Objects
 		require_once dirname( __FILE__ ) . '/inc/objects/class-post.php';
@@ -191,6 +193,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-letters-to-the-editor-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newsletter-signup-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-dne-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-shia-kapos-categories-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -574,6 +577,7 @@ class CST {
 		register_widget( 'CST_Letters_To_Editor_Widget' );
 		register_widget( 'CST_Newsletter_Signup_Widget' );
 		register_widget( 'CST_AP_DNE_Widget' );
+		register_widget( 'CST_Shia_Kapos_Categories_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
