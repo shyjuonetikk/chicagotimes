@@ -150,10 +150,10 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 						$this->update_content_author( strtolower( $remote_author_slug ), $staging_post_id, $legacy_url, $dry_run_mode );
 						$this->change_count_slug++;
 					} else {
-						WP_CLI::warning( "[slug]Search by slug failed: $the_slug legacy url: $legacy_url" );
+						WP_CLI::warning( "[slug] Search by slug failed: $the_slug legacy url: $legacy_url" );
 					}
 				} else {
-					WP_CLI::warning( "[slug]No slug match for $legacy_url" );
+					WP_CLI::warning( "[slug ]No slug match for $legacy_url" );
 				}
 			} else {
 				// Yay ! - content found.
@@ -203,7 +203,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				WP_CLI::line( "Yawn - $this->sleep_counter" );
 				$this->stop_the_insanity();
 			}
-			sleep( 1 );
+			sleep( 0.4 );
 		}
 
 	}
@@ -230,10 +230,10 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				$new_author_slug = $new_author[0];
 				$new_author_id   = $new_author[1];
 				if ( $dry_run_mode ) {
-					WP_CLI::success( WP_CLI::colorize( "[%w$this->change_count_id%n]Dry run: changing ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url $legacy_url " ) );
+					WP_CLI::success( WP_CLI::colorize( "[%w$this->change_count_id%n] Dry run: changing ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url $legacy_url " ) );
 				} else {
 					// Get new author id and slug
-					WP_CLI::success( WP_CLI::colorize( "[%y*live* by id%n]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url: $legacy_url" ) );
+					WP_CLI::success( WP_CLI::colorize( "[%y$this->change_count_id%n] Live: changing : ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url: $legacy_url" ) );
 					$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
 					$co_authors      = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
 					if ( is_wp_error( $updated_post_id ) ) {
@@ -242,14 +242,14 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 							WP_CLI::warning( "[Error - changing $updated_post_id] to be authored by $new_author_slug - $error" );
 						}
 					} else {
-						WP_CLI::line( "[*live*id]$updated_post_id now authored by $new_author_slug [$new_author_id]" );
+						WP_CLI::line( "[id] *Live*: $updated_post_id now authored by $new_author_slug [$new_author_id]" );
 					}
 				}
 			} else {
-				WP_CLI::warning( "[id]No author id found/specified for $new_author" );
+				WP_CLI::warning( "[id] No author id found/specified for $new_author" );
 			}
 		} else {
-			WP_CLI::warning( "[id]No author id found/specified for $remote_author_slug in post $staging_post_id" );
+			WP_CLI::warning( "[id] No author id found/specified for $remote_author_slug in post $staging_post_id" );
 		}
 
 	}
@@ -266,6 +266,6 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 
 	private $change_count_slug = 0;
 	private $change_count_id = 0;
-	private $sleep_mod = 10;
+	private $sleep_mod = 15;
 	private $sleep_counter = 0;
 }
