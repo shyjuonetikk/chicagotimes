@@ -44,11 +44,13 @@ class CST_Slack {
 		}
 
 		if ( 'publish' === $new_status ) {
-			$payload = $this->new_content_payload_to_json( $post->ID, $post );
-			if ( false !== $payload ) {
-				$this->send_payload( array(
-					'body' => $payload,
-				) );
+			if ( 'cst_article' === $post->post_type ) {
+				$payload = $this->new_content_payload_to_json( $post->ID, $post );
+				if ( false !== $payload ) {
+					$this->send_payload( array(
+						'body' => $payload,
+					) );
+				}
 			}
 		}
 	}
@@ -85,18 +87,18 @@ class CST_Slack {
 			$attachment_thumb_id = get_post_thumbnail_id( $post_id );
 			$attachment_thumb_url = wp_get_attachment_thumb_url( $attachment_thumb_id );
 		}
-		$payload['text']        = 'New content';
+		$payload['text']        = 'Story published';
 		$payload['attachments'] = array(
 			array(
-				'text'        => esc_html( wp_trim_words( $post->post_content, 20 ) . "\n" ),
-				'pretext'     => esc_attr( get_the_excerpt( $post_id ) ),
+				'text'        => html_entity_decode( wp_trim_words( $post->post_content, 20 ) . "\n" ),
+				'pretext'     => esc_attr( html_entity_decode( get_the_excerpt( $post_id ) ) ),
 				'fallback'    => wp_strip_all_tags( get_the_title( $post_id ) ),
 				'thumb_url'   => $attachment_thumb_url,
 				'image_url'   => $attachment_thumb_url,
 				'color'       => '#222222',
-				'author_name' => 'Author: ' . $author,
-				'title'       => htmlentities2( get_the_title( $post_id ) ),
+				'title'       => html_entity_decode( get_the_title( $post_id ) ),
 				'title_link'  => esc_url( wp_get_shortlink( $post_id ) ),
+				'author_name' => 'Author: ' . $author,
 				'footer'      => 'Chicago Sun-Times API',
 				'footer_icon' => esc_url( get_stylesheet_directory_uri() ) . '/assets/images/favicons/favicon-16x16.png',
 				'ts'          => time(),
