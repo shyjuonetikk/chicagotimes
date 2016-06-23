@@ -207,8 +207,10 @@ class CST {
 		wpcom_vip_load_plugin( 'zoninator' );
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
-		wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '2.11' );
-
+		if ( ! defined( 'WP_CLI' ) && ! WP_CLI ) {
+			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
+			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '2.11' );
+		}
 		// Options are loaded on Bitly::__construct
 		add_filter( 'pre_option_bitly_settings', function() {
 			return array(

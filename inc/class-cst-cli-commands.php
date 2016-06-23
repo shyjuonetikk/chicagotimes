@@ -79,7 +79,6 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 						// read and discard header row from csv file
 						$read_first_line_buffer = fgets( $content_handle, 4096 );
 						while ( false !== ( $buffer = fgets( $content_handle, 4096 ) ) ) {
-
 							$this->process_author_change( $buffer, $dry_run_mode );
 
 						}
@@ -127,11 +126,10 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 			// of the original author
 			$this->process_sleep_counter( $dry_run_mode );
 
-			$found_content_by_id = get_post( $staging_post_id );
+			$article_object = get_post( $staging_post_id );
 			// If we have a valid remote post ID (from our legacy system prior to import)
 			// First try and get content by the ID as the content ids imported from staging to VIP matched.
-
-			if ( null == $found_content_by_id ) {
+			if ( null == $article_object ) {
 
 				// No content found by id
 				// 2nd and last resort - try and find by slug from post_meta legacyUrl (provided by csv file)
@@ -149,19 +147,19 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 
 						// Do we have the author in our array - ie do we know who to map it to?
 						// Lets find out...and apply the change
-						$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_run_mode );
+						$this->update_content_author( strtolower( $remote_author_slug ), $staging_post_id, $legacy_url, $dry_run_mode );
 						$this->change_count_slug++;
 					} else {
-						//WP_CLI::warning( "[slug]Search by slug failed: $the_slug legacy url: $legacy_url" );
+						WP_CLI::warning( "[slug] Search by slug failed: $the_slug legacy url: $legacy_url" );
 					}
 				} else {
-					WP_CLI::warning( "[slug]No slug match for $legacy_url" );
+					WP_CLI::warning( "[slug ]No slug match for $legacy_url" );
 				}
 			} else {
 				// Yay ! - content found.
 				// Do we have the author in our array - ie do we know who to map it to?
 				// Lets find out...and apply the change
-				$this->update_content_author( $remote_author_slug, $staging_post_id, $legacy_url, $dry_run_mode );
+				$this->update_content_author( strtolower( $remote_author_slug ), $staging_post_id, $legacy_url, $dry_run_mode );
 				$this->change_count_id++;
 			}
 		}
@@ -203,6 +201,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				WP_CLI::line( "<Yawn - dry run> - $this->sleep_counter" );
 			} else {
 				WP_CLI::line( "Yawn - $this->sleep_counter" );
+				$this->stop_the_insanity();
 			}
 			sleep( 1 );
 		}
@@ -231,24 +230,31 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				$new_author_slug = $new_author[0];
 				$new_author_id   = $new_author[1];
 				if ( $dry_run_mode ) {
-					WP_CLI::success( WP_CLI::colorize( "[%w$this->change_count_id%n]Dry run: changing ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url $legacy_url " ) );
+					WP_CLI::success( WP_CLI::colorize( "[%w$this->change_count_id%n] Dry run: changing ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url $legacy_url " ) );
 				} else {
 					// Get new author id and slug
-					WP_CLI::line( WP_CLI::colorize( "[%y*live* by id%n]wp_update_post : ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url$legacy_url" ) );
-					$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
-					$co_authors      = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_author_slug ) );
-					if ( is_wp_error( $updated_post_id ) ) {
-						$errors = $updated_post_id->get_error_messages();
-						foreach ( $errors as $error ) {
-							WP_CLI::warning( "[$updated_post_id] $error" );
+					WP_CLI::success( WP_CLI::colorize( "[%y$this->change_count_id%n] Live: changing : ID=>$staging_post_id author=>$new_author_id [$new_author_slug]: legacy url: $legacy_url" ) );
+					$new_co_author = $coauthors_plus->get_coauthor_by( 'id', $new_author_id );
+					if ( $new_co_author ) {
+						$updated_post_id = wp_update_post( array( 'ID' => $staging_post_id, 'post_author' => $new_author_id ) );
+						$co_authors      = $coauthors_plus->add_coauthors( $staging_post_id, array( $new_co_author->user_nicename ) );
+						if ( is_wp_error( $updated_post_id ) ) {
+							$errors = $updated_post_id->get_error_messages();
+							foreach ( $errors as $error ) {
+								WP_CLI::warning( "[Error - changing $updated_post_id] to be authored by $new_author_slug - $error" );
+							}
+						} else {
+							WP_CLI::line( "[id] *Live*: $updated_post_id now authored by $new_author_slug [$new_author_id]" );
 						}
 					} else {
-						WP_CLI::success( "[*live*id]$updated_post_id now authored by $new_author_slug [$new_author_id]" );
+						WP_CLI::warning( "[id] No co-author id found/specified for $new_author_id" );
 					}
 				}
 			} else {
-				WP_CLI::warning( "[id]No author id found/specified for $new_author" );
+				WP_CLI::warning( "[id] No author id found/specified for $new_author" );
 			}
+		} else {
+			WP_CLI::warning( "[id] No author id found/specified for $remote_author_slug in post $staging_post_id" );
 		}
 
 	}
