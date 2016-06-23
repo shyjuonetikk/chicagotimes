@@ -203,7 +203,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 				WP_CLI::line( "Yawn - $this->sleep_counter" );
 				$this->stop_the_insanity();
 			}
-			sleep( 0.4 );
+			sleep( 1 );
 		}
 
 	}
