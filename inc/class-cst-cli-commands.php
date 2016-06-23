@@ -271,6 +271,6 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 
 	private $change_count_slug = 0;
 	private $change_count_id = 0;
-	private $sleep_mod = 15;
+	private $sleep_mod = 10;
 	private $sleep_counter = 0;
 }
