@@ -72,9 +72,10 @@ class Shia_Kapos_Wire_Item extends Post {
 
             $media_args = array(
                             'post_type'         => 'attachment',
-                            'posts_per_page'    => -1,
+                            'posts_per_page'    => 15,
                             'post_status'       => 'any',
-                            'post_parent'       =>  $post_id,
+                            'post_parent'       => $post_id,
+                            'suppress_filters'  => false,
                         );
 
             $attachment = get_posts( $media_args );
@@ -334,7 +335,7 @@ class Shia_Kapos_Wire_Item extends Post {
 
         // Terms need to exist in order to use wp_set_object_terms(), sadly
         foreach( $terms as $term ) {
-            if ( ! get_term_by( 'name', $term, $taxonomy ) ) {
+            if ( ! wpcom_vip_get_term_by( 'name', $term, $taxonomy ) ) {
                 wp_insert_term( $term, $taxonomy );
             }
         }
