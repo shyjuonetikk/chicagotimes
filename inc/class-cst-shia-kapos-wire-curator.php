@@ -494,7 +494,7 @@ class CST_Shia_Kapos_Wire_Curator {
         if ( ! $post || $this->post_type !== $post->post_type ) {
             wp_die( esc_html__( 'Invalid Kapos wire item ID', 'chicagosuntimes' ) );
         }
-
+        require_once 'objects/class-shia-kapos-wire-item.php';
         $item = new \CST\Objects\shia_kapos_Wire_Item( $post );
 
         switch ( $_GET['create'] ) {
