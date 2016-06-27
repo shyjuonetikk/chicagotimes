@@ -395,6 +395,234 @@ class CST_Admin {
 		$fm->add_meta_box( esc_html__( 'Video Description', 'chicagosuntimes' ), array( 'cst_video'), 'normal', 'high' );
 
 		/**
+		 * Subscribe Pages
+		 */
+		$subscribe_group = new \Fieldmanager_Group( '', array(
+			'name'        => 'cst_subscribe',
+			'tabbed'      => true,
+			) );
+		$subscribe_group->children['content'] = new \Fieldmanager_Group( esc_html__( 'Content', 'chicagosuntimes' ), array(
+			'name'                    => 'content',
+			'children'                => array(
+				'top_left'          => new \Fieldmanager_TextField( esc_html__( 'Top Left Text', 'chicagosuntimes' ), array(
+					'description'     => esc_html__( 'Title text the displays at the top left of the page', 'chicagosuntimes' ),
+					'attributes'      => array(
+						'style'           => 'width:100%',
+						)
+					) ),
+				'top_right'               => new \Fieldmanager_TextArea( esc_html__( 'Intro Text', 'chicagosuntimes' ), array(
+					'description'     => esc_html__( 'Text that displays at the top right of the page', 'chicagosuntimes' ),
+					'attributes'      => array(
+						'style'           => 'width:100%',
+						)
+					) ),
+				'benefits'               => new \Fieldmanager_TextArea( esc_html__( 'Benefits Text', 'chicagosuntimes' ), array(
+					'description'     => esc_html__( 'Small text that displays below the Print packages explaining the benefits agreement with The Washington Post', 'chicagosuntimes' ),
+					'attributes'      => array(
+						'style'           => 'width:100%',
+						)
+					) ),
+				'image'               => new \Fieldmanager_Media( esc_html__( 'Image', 'chicagosuntimes' ), array(
+					'description'     => esc_html__( 'Display an image at the top left of the page. Suggested image size is 300x40', 'chicagosuntimes' ),
+					'button_label'    => esc_html__( 'Select an image', 'chicagosuntimes' ),
+					'modal_button_label' => esc_html__( 'Select image', 'chicagosuntimes' ),
+					'modal_title'     => esc_html__( 'Choose image', 'chicagosuntimes' ),
+					) )
+				),
+			) );
+		$subscribe_group->add_meta_box( esc_html__( 'Subscribe Page Print Content', 'chicagosuntimes' ), 'page' );
+		$subscribe_print_group = new \Fieldmanager_Group( '', array(
+			'name'        => 'cst_subscribe_print',
+			'tabbed'      => true,
+			) );
+		$subscribe_print_group->children['print_package_1'] = new \Fieldmanager_Group( esc_html__( 'Package 1', 'chicagosuntimes' ), array(
+			'name'                    => 'print_package_1',
+			'children'                => array(
+				'package_title'    	  	=> new \Fieldmanager_TextField( esc_html__( 'Title', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The Title & Days of the package (ie: Daily Delivery (Monday - Sunday))', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'         => 'width:100%',
+						)
+					) ),
+				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_price'       	=> new \Fieldmanager_TextArea( esc_html__( 'Price', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The price of the package (ie: $18.99/month)', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_url'       	=> new \Fieldmanager_TextArea( esc_html__( 'Package URL', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The URL to the package purchase page', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) )
+				),
+			) );
+		$subscribe_print_group->children['print_package_2'] = new \Fieldmanager_Group( esc_html__( 'Package 2', 'chicagosuntimes' ), array(
+			'name'                    => 'print_package_2',
+			'children'                => array(
+				'package_title'    	  	=> new \Fieldmanager_TextField( esc_html__( 'Title', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The Title & Days of the package (ie: Daily Delivery (Monday - Sunday))', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'         => 'width:100%',
+						)
+					) ),
+				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_price'       	=> new \Fieldmanager_TextArea( esc_html__( 'Price', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The price of the package (ie: $18.99/month)', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_url'       	=> new \Fieldmanager_TextArea( esc_html__( 'Package URL', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The URL to the package purchase page', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) )
+				),
+			) );
+		$subscribe_print_group->children['print_package_3'] = new \Fieldmanager_Group( esc_html__( 'Package 3', 'chicagosuntimes' ), array(
+			'name'                    => 'print_package_3',
+			'children'                => array(
+				'package_title'    	  	=> new \Fieldmanager_TextField( esc_html__( 'Title', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The Title & Days of the package (ie: Daily Delivery (Monday - Sunday))', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'         => 'width:100%',
+						)
+					) ),
+				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_price'       	=> new \Fieldmanager_TextArea( esc_html__( 'Price', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The price of the package (ie: $18.99/month)', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_url'       	=> new \Fieldmanager_TextArea( esc_html__( 'Package URL', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The URL to the package purchase page', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) )
+				),
+			) );
+		$subscribe_print_group->add_meta_box( esc_html__( 'Subscribe Page Print Package Content', 'chicagosuntimes' ), 'page' );
+		$subscribe_digital_group = new \Fieldmanager_Group( '', array(
+			'name'        => 'cst_subscribe_digital',
+			'tabbed'      => true,
+			) );
+		$subscribe_digital_group->children['digital_package_1'] = new \Fieldmanager_Group( esc_html__( 'Package 1', 'chicagosuntimes' ), array(
+			'name'                    => 'digital_package_1',
+			'children'                => array(
+				'package_title'    	  	=> new \Fieldmanager_TextField( esc_html__( 'Title', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The Title & Days of the package (ie: Daily Delivery (Monday - Sunday))', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'         => 'width:100%',
+						)
+					) ),
+				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_price'       	=> new \Fieldmanager_TextArea( esc_html__( 'Price', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The price of the package (ie: $18.99/month)', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_url'       	=> new \Fieldmanager_TextArea( esc_html__( 'Package URL', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The URL to the package purchase page', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'image'               => new \Fieldmanager_Media( esc_html__( 'Image', 'chicagosuntimes' ), array(
+					'description'     => esc_html__( 'Display an image at the top left of the page. Suggested image size is 300x40', 'chicagosuntimes' ),
+					'button_label'    => esc_html__( 'Select an image', 'chicagosuntimes' ),
+					'modal_button_label' => esc_html__( 'Select image', 'chicagosuntimes' ),
+					'modal_title'     => esc_html__( 'Choose image', 'chicagosuntimes' ),
+					) )
+				),
+			) );
+		$subscribe_digital_group->children['digital_package_2'] = new \Fieldmanager_Group( esc_html__( 'Package 2', 'chicagosuntimes' ), array(
+			'name'                    => 'digital_package_2',
+			'children'                => array(
+				'package_title'    	  	=> new \Fieldmanager_TextField( esc_html__( 'Title', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The Title & Days of the package (ie: Daily Delivery (Monday - Sunday))', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'         => 'width:100%',
+						)
+					) ),
+				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_price'       	=> new \Fieldmanager_TextArea( esc_html__( 'Price', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The price of the package (ie: $18.99/month)', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_url'       	=> new \Fieldmanager_TextArea( esc_html__( 'Package URL', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The URL to the package purchase page', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) )
+				),
+			) );
+		$subscribe_digital_group->children['digital_package_3'] = new \Fieldmanager_Group( esc_html__( 'Package 3', 'chicagosuntimes' ), array(
+			'name'                    => 'digital_package_3',
+			'children'                => array(
+				'package_title'    	  	=> new \Fieldmanager_TextField( esc_html__( 'Title', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The Title & Days of the package (ie: Daily Delivery (Monday - Sunday))', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'         => 'width:100%',
+						)
+					) ),
+				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_price'       	=> new \Fieldmanager_TextArea( esc_html__( 'Price', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The price of the package (ie: $18.99/month)', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) ),
+				'package_url'       	=> new \Fieldmanager_TextArea( esc_html__( 'Package URL', 'chicagosuntimes' ), array(
+					'description'     	=> esc_html__( 'The URL to the package purchase page', 'chicagosuntimes' ),
+					'attributes'      	=> array(
+						'style'       	=> 'width:100%',
+						)
+					) )
+				),
+			) );
+		$subscribe_digital_group->add_meta_box( esc_html__( 'Subscribe Page Digital Package Content', 'chicagosuntimes' ), 'page' );
+
+		/**
 		 * Distribution settings
 		 */
 		$meta_group = new \Fieldmanager_Group( '', array(

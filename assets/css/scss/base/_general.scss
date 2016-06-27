@@ -38,6 +38,34 @@ a {
 	color: $red;
 }
 
+h2.subscribe-product {
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+
+footer {
+	position: relative;
+
+	.columns {
+		padding-left: 0;
+	}
+
+	.copyright {
+		font-size: .7rem;
+	}
+
+	#menu-homepage-footer {
+		ul {
+			margin-left: 0;
+		}
+		ul, li {
+			display: inline;
+			font-size: .7rem;
+		}
+	}
+}
+
 #menu-homepage-footer {
 	ul, li {
 		display: inline;

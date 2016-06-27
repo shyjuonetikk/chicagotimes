@@ -36,6 +36,22 @@ body.single {
 a {
   color: #29AAE2; }
 
+h2.subscribe-product {
+  text-transform: uppercase;
+  font-weight: 700; }
+
+footer {
+  position: relative; }
+  footer .columns {
+    padding-left: 0; }
+  footer .copyright {
+    font-size: .7rem; }
+  footer #menu-homepage-footer ul {
+    margin-left: 0; }
+  footer #menu-homepage-footer ul, footer #menu-homepage-footer li {
+    display: inline;
+    font-size: .7rem; }
+
 #menu-homepage-footer ul, #menu-homepage-footer li {
   display: inline; }
 
