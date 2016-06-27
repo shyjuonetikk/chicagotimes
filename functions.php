@@ -428,9 +428,11 @@ class CST {
 		}, 10, 0 );
 
 		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author'), 10, 2 );
-		add_filter( 'instant_articles_render_post_template', array( $this, 'cst_fbia_feed_template' ), 10, 2 );
-		add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
-		add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 10, 2 );
+		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
+//			add_filter( 'instant_articles_render_post_template', array( $this, 'cst_fbia_feed_template' ), 10, 2 );
+//			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
+			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 10, 2 );
+		}
 	}
 
 	function cst_fbia_feed_template( $default_template, $banana ) {
