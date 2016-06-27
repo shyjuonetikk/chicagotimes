@@ -91,7 +91,7 @@ class CST_Slack {
 		$payload['attachments'] = array(
 			array(
 				'text'        => html_entity_decode( wp_trim_words( $post->post_content, 20 ) . "\n" ),
-				'pretext'     => esc_attr( html_entity_decode( get_the_excerpt( $post_id ) ) ),
+				'pretext'     => html_entity_decode( get_the_excerpt( $post_id ) ),
 				'fallback'    => wp_strip_all_tags( get_the_title( $post_id ) ),
 				'thumb_url'   => $attachment_thumb_url,
 				'image_url'   => $attachment_thumb_url,
