@@ -44,6 +44,7 @@ class CST {
 		$this->shortcodes = CST_Shortcode_Manager::get_instance();
 		$this->wire_curator = CST_Wire_Curator::get_instance();
 		$this->usa_today_wire_curator = CST_USA_Today_Wire_Curator::get_instance();
+		$this->shia_kapos_wire_curator = CST_Shia_Kapos_Wire_Curator::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
 
@@ -141,12 +142,14 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-infinite-scroll.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-liveblog.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-elections.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-wire-curator.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-usa-today-wire-curator.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-yieldmo-tags.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-shia-kapos-wire-curator.php';
 
 		// Objects
 		require_once dirname( __FILE__ ) . '/inc/objects/class-post.php';
@@ -191,6 +194,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-letters-to-the-editor-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newsletter-signup-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-dne-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-shia-kapos-categories-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -204,8 +208,10 @@ class CST {
 		wpcom_vip_load_plugin( 'zoninator' );
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
-		wpcom_vip_load_plugin( 'facebook-instant-articles' );
-
+		if ( ! defined( 'WP_CLI' ) ) {
+			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
+			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '2.11' );
+		}
 		// Options are loaded on Bitly::__construct
 		add_filter( 'pre_option_bitly_settings', function() {
 			return array(
@@ -311,11 +317,9 @@ class CST {
 			) );
 		} );
 
-		if ( ! defined( INSTANT_ARTICLES_SLUG ) ) {
-			remove_all_actions( 'do_feed_rss2' );
-			add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
-			add_action('do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1);
-		}
+		remove_all_actions( 'do_feed_rss2' );
+		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
+		add_action('do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1);
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
@@ -423,6 +427,7 @@ class CST {
 			return 'edit_others_posts';
 		}, 10, 0 );
 
+		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author'), 10, 2 );
 		add_filter( 'instant_articles_render_post_template', array( $this, 'cst_fbia_feed_template' ), 10, 2 );
 		add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
 		add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 10, 2 );
@@ -615,6 +620,7 @@ class CST {
 		register_widget( 'CST_Letters_To_Editor_Widget' );
 		register_widget( 'CST_Newsletter_Signup_Widget' );
 		register_widget( 'CST_AP_DNE_Widget' );
+		register_widget( 'CST_Shia_Kapos_Categories_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
@@ -1495,6 +1501,33 @@ class CST {
 	 */
 	function cst_rss_AP_atom() {
 		load_template( TEMPLATEPATH . '/feeds/feed-AP-atom.php' );
+	}
+
+	/**
+	 * @param $byline
+	 * @param $post_id
+	 *
+	 * @return string
+	 *
+	 * Parse authors for WP authors and Guest authors and return the byline for use by Apple News
+	 */
+	function apple_news_author( $byline, $post_id ) {
+
+		$byline_author = '';
+		$article = \CST\Objects\Article::get_by_post_id( $post_id );
+		$authors = $article->get_authors();
+		if ( is_array( $authors ) ) {
+			$byline_parts = explode( '|', $byline );
+			array_shift( $byline_parts );
+			$count = count( $authors );
+			foreach ( $authors as $author ) {
+				$count--;
+				$byline_author .= $author->get_display_name() . ( 0 != $count ? ', ' : '' );
+			}
+			return $byline_author . ' | ' . implode( ' | ', $byline_parts );
+		} else {
+			return $byline;
+		}
 	}
 
 }

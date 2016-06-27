@@ -176,11 +176,10 @@ if ( is_singular() ) {
 	} ?>
 	<?php if ( isset( $section_slug ) ) : ?>
 		<?php get_template_part( 'parts/dfp/dfp-billboard' ); ?>
-		<?php get_template_part( 'parts/dfp/dfp-btf-leaderboard' ); ?>
 		<?php if ( 'sports' == $section_slug ) : ?>
 			<section id="comscore" class="row grey-background">
 				<div class="large-8 columns">
-					<iframe src="http://scores.suntimes.com/sports-scores/score-carousel.aspx?Leagues=NHL;NBA;MLB;NFL&amp;numVisible=4" scrolling="no" frameborder="0" style="border:0; width:625px; height:90px;">Live Scores</iframe>
+					<iframe src="http://scores.suntimes.com/sports-scores/score-carousel.aspx?Leagues=MLB;NFL;NHL;NBA&amp;numVisible=4" scrolling="no" frameborder="0" style="border:0; width:625px; height:90px;">Live Scores</iframe>
 				</div>
 			</section>
 		<?php endif; ?>
