@@ -177,7 +177,7 @@ class CST_Shia_Kapos_Wire_Curator {
      */
     public function action_admin_notices_feed_warning() {
         $admin_url = rawurlencode( 'edit.php?post_type=' . $this->post_type . '&page=shia_kapos_wire_curator_feed_url' );
-        echo '<div class="message error"><p>' . sprintf( __( 'No import feed specified. Please <a href=' . esc_url( "%s" ) . '>add a feed to import</a>.', 'chicagosuntimes' ), admin_url( esc_url( $admin_url ) ) ) . '</p></div>';
+        echo '<div class="message error"><p>' . sprintf( esc_html__( 'No import feed specified. Please <a href=' . esc_url( "%s" ) . '>add a feed to import</a>.', 'chicagosuntimes' ), admin_url( esc_url( $admin_url ) ) ) . '</p></div>';
     }
 
     /**
@@ -185,7 +185,7 @@ class CST_Shia_Kapos_Wire_Curator {
      */
     public function action_admin_notices_author_warning() {
         $admin_url = rawurlencode( 'edit.php?post_type=' . $this->post_type . '&page=shia_kapos_wire_curator_author' );
-        echo '<div class="message error"><p>' . sprintf( __( 'No author username specified. Please <a href=' . esc_url( "%s" ) . '>add an author</a>.', 'chicagosuntimes' ), admin_url( esc_url( $admin_url ) ) ) . '</p></div>';
+        echo '<div class="message error"><p>' . sprintf( esc_html__( 'No author username specified. Please <a href=' . esc_url( "%s" ) . '>add an author</a>.', 'chicagosuntimes' ), admin_url( esc_url( $admin_url ) ) ) . '</p></div>';
     }
 
     /**
@@ -193,7 +193,7 @@ class CST_Shia_Kapos_Wire_Curator {
      */
     public function action_admin_notices_validate_author_warning() {
         $admin_url = rawurlencode( 'edit.php?post_type=' . $this->post_type . '&page=shia_kapos_wire_curator_author' );
-        echo '<div class="message error"><p>' . sprintf( __( 'The author username set is not valid. Please <a href=' . esc_url( "%s" ) . '>set a valid author username</a>.', 'chicagosuntimes' ), admin_url( esc_url( $admin_url ) ) ) . '</p></div>';
+        echo '<div class="message error"><p>' . sprintf( esc_html__( 'The author username set is not valid. Please <a href=' . esc_url( "%s" ) . '>set a valid author username</a>.', 'chicagosuntimes' ), admin_url( esc_url( $admin_url ) ) ) . '</p></div>';
     }
 
     /**
@@ -279,6 +279,7 @@ class CST_Shia_Kapos_Wire_Curator {
      */
     public function action_manage_posts_custom_column( $column_name, $post_id ) {
 
+        require_once 'objects/class-shia-kapos-wire-item.php';
         $item = new \CST\Objects\Shia_Kapos_Wire_Item( $post_id );
 
         switch ( $column_name ) {
@@ -289,10 +290,10 @@ class CST_Shia_Kapos_Wire_Curator {
                 break;
 
             case 'cst_shia_kapos_wire_item_content':
-                echo $item->get_wire_promo_brief();
+                echo wp_kses_post( $item->get_wire_promo_brief() );
                 echo '<div class="cst-preview-data">';
                 echo '<div class="preview-headline">' . esc_html( $item->get_wire_headline() ) . '</div>';
-                echo '<div class="preview-content">' . $item->get_wire_content() . '</div>';
+                echo '<div class="preview-content">' . wp_kses_post( $item->get_wire_content() ) . '</div>';
                 echo '</div>';
                 break;
 
@@ -493,7 +494,7 @@ class CST_Shia_Kapos_Wire_Curator {
         if ( ! $post || $this->post_type !== $post->post_type ) {
             wp_die( esc_html__( 'Invalid Kapos wire item ID', 'chicagosuntimes' ) );
         }
-
+        require_once 'objects/class-shia-kapos-wire-item.php';
         $item = new \CST\Objects\shia_kapos_Wire_Item( $post );
 
         switch ( $_GET['create'] ) {
@@ -538,7 +539,7 @@ class CST_Shia_Kapos_Wire_Curator {
                 continue;
             }
 
-            $response = wp_remote_get( $feed, $args );
+            $response = vip_safe_wp_remote_get( $feed, $args );
 
             if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
                 continue;
@@ -548,6 +549,7 @@ class CST_Shia_Kapos_Wire_Curator {
             $xml = simplexml_load_string( $feed_data );
             print_r($xml);
             if( $xml ) {
+                require_once 'objects/class-shia-kapos-wire-item.php';
                 foreach( $xml->channel->item as $entry ) {
 
                     // Only 'text' type items will be processed
