@@ -429,16 +429,11 @@ class CST {
 
 		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author'), 10, 2 );
 		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
-//			add_filter( 'instant_articles_render_post_template', array( $this, 'cst_fbia_feed_template' ), 10, 2 );
-//			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
-			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 10, 2 );
+			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
+			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
 		}
 	}
 
-	function cst_fbia_feed_template( $default_template, $banana ) {
-		$b = get_stylesheet_directory() . '/feeds/fbia-feed-template.php';
-		return get_stylesheet_directory() . '/feeds/fbia-feed-template.php';
-	}
 	/**
 	 * @param $category
 	 * @param $_post_id
@@ -458,18 +453,30 @@ class CST {
 	}
 
 	/**
+	 * Loop through article authors and return and array of
+	 * formatted array of users and related user properties.
 	 * @param $authors
 	 * @param $_post_id
 	 *
 	 * @return mixed
 	 */
-	function cst_fbia_authors( $authors, $_post_id ) {
+	function cst_fbia_authors( $incoming_authors, $_post_id ) {
 
-		$b = $authors;
-		foreach ( $authors as $author ) {
-			$a = $author;
+		$author_list = get_coauthors( $_post_id );
+		$authors = array();
+		foreach ( $author_list as $wp_user ) {
+			$author = new stdClass;
+			$author->ID            = $wp_user->ID;
+			$author->display_name  = $wp_user->display_name;
+			$author->first_name    = $wp_user->first_name;
+			$author->last_name     = $wp_user->last_name;
+			$author->user_login    = $wp_user->user_login;
+			$author->user_nicename = $wp_user->user_nicename;
+			$author->user_email    = $wp_user->user_email;
+			$author->user_url      = $wp_user->user_url;
+			$author->bio           = $wp_user->description;
+			$authors[] = $author;
 		}
-
 		return $authors;
 	}
 	/**
