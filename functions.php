@@ -432,6 +432,7 @@ class CST {
 			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
 			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
 		}
+		add_filter( 'the_content', array( $this, 'cst_convert_protected_embeds' ) );
 	}
 
 	/**
@@ -478,6 +479,23 @@ class CST {
 			$authors[] = $author;
 		}
 		return $authors;
+	}
+
+	/**
+	 * @param $content
+	 *
+	 * @return mixed|void
+	 *
+	 * Handle WordPress.com protected iframe embeds.
+	 */
+	function cst_convert_protected_embeds( $content ) {
+		// Courtesy https://gist.github.com/rinatkhaziev/d6015a6bb3345da5c061
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+			return $content;
+		}
+
+		$content = preg_replace( '/(\[protected-iframe.*\])/', '<figure class="op-interactive"><iframe>$1</iframe></figure>', $content );
+		return wpcom_vip_protected_embed_to_original( $content );
 	}
 	/**
 	 * Register the sidebars for the theme
