@@ -47,7 +47,7 @@ class Shia_Kapos_Wire_Item extends Post {
             'post_type'         => 'cst_shia_kapos_item',
             'post_author'       => $shia_kapos_author_id,
             'post_status'       => 'publish',
-            'post_name'         => md5( 'shia_kapos_item' . $feed_entry->title ),
+            'post_name'         => md5( 'shia_kapos_item' . $feed_entry->assetId ),
             'post_date'         => get_date_from_gmt( $gmt_published ),
             'post_date_gmt'     => $gmt_published,
             );
