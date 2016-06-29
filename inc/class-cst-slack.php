@@ -43,6 +43,12 @@ class CST_Slack {
 			return;
 		}
 
+		if ( defined( 'WP_DEBUG' ) ) {
+			if ( WP_DEBUG === true ) {
+				return;
+			}
+		}
+
 		if ( 'publish' === $new_status ) {
 			if ( 'cst_article' === $post->post_type ) {
 				$payload = $this->new_content_payload_to_json( $post->ID, $post );
