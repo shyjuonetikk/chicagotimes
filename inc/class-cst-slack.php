@@ -34,13 +34,19 @@ class CST_Slack {
 	 * @param $post
 	 * @param $old_status
 	 * @param $new_status
-	 * 
+	 *
 	 * Share newly published (not updated) content to Slack channel
 	 */
 	public function new_content_payload( $new_status, $old_status, $post ) {
 
 		if ( 'publish' === $old_status ) {
 			return;
+		}
+
+		if ( defined( 'WP_DEBUG' ) ) {
+			if ( WP_DEBUG === true ) {
+				return;
+			}
 		}
 
 		if ( 'publish' === $new_status ) {
