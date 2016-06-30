@@ -510,18 +510,9 @@ class CST {
 		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
 			return $content;
 		}
-		if ( false !== preg_match_all( '/wp-image-(\d{1,6})/', $content, $matches ) ) {
-			 $image_ids = $matches[1];
-			foreach ( $image_ids as $image_id ) {
-				$image_array   = wp_get_attachment_image_src( $image_id, 'full' );
-				$vip_image_url = wpcom_vip_get_resized_attachment_url( $image_id, $image_array[1], $image_array[2] );
-
-				if ( 1 === preg_match( '/(wp-image-' . $image_id . '.+src=")(https?\:\/\/[a-zA-Z0-9\-\_\.\/]+)/i', $content, $image_url_match ) ) {
-					$content        = str_replace( $image_url_match[2], $vip_image_url, $content );
-				}
-				if ( 1 === preg_match( '/<img src="((https?\:\/\/[a-zA-Z0-9\-\_\.\/]+)(?:\?w=\d{1,4}))/i', $content, $image_url_match ) ) {
-					$content        = str_replace( $image_url_match[1], $image_url_match[2], $content );
-				}
+		if ( 0 !== preg_match_all( '/<img(?:[a-zA-Z\d-"\s=]+)src="((https?\:\/\/[a-zA-Z0-9\-\_\.\/]+)(?:\?w=\d{1,4})*)/i', $content, $matches ) ) {
+			for( $i=0; $i < count( $matches[1] ); $i++ ) {
+				$content = str_replace( $matches[1][ $i ], $matches[2][ $i ], $content );
 			}
 		}
 
