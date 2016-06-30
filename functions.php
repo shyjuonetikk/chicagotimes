@@ -519,6 +519,9 @@ class CST {
 				if ( 1 === preg_match( '/(wp-image-' . $image_id . '.+src=")(https?\:\/\/[a-zA-Z0-9\-\_\.\/]+)/i', $content, $image_url_match ) ) {
 					$content        = str_replace( $image_url_match[2], $vip_image_url, $content );
 				}
+				if ( 1 === preg_match( '/<img src="((https?\:\/\/[a-zA-Z0-9\-\_\.\/]+)(?:\?w=\d{1,4}))/i', $content, $image_url_match ) ) {
+					$content        = str_replace( $image_url_match[1], $image_url_match[2], $content );
+				}
 			}
 		}
 
