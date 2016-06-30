@@ -431,8 +431,10 @@ class CST {
 		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
 			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
 			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
+//			add_filter( 'instant_articles_transformer_rules_loaded', array( $this, 'cst_fbia_transformer_rules_loaded' ) , 12, 2 );
 		}
-		add_filter( 'the_content', array( $this, 'cst_convert_protected_embeds' ) );
+		add_filter( 'the_content', array( $this, 'cst_fbia_use_full_size_image' ) );
+		add_filter( 'the_content', array( $this, 'cst_fbia_convert_protected_embeds' ) );
 	}
 
 	/**
@@ -486,9 +488,9 @@ class CST {
 	 *
 	 * @return mixed|void
 	 *
-	 * Handle WordPress.com protected iframe embeds.
+	 * Handle WPCOM protected iframe embeds.
 	 */
-	function cst_convert_protected_embeds( $content ) {
+	function cst_fbia_convert_protected_embeds( $content ) {
 		// Courtesy https://gist.github.com/rinatkhaziev/d6015a6bb3345da5c061
 		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
 			return $content;
@@ -496,6 +498,29 @@ class CST {
 
 		$content = preg_replace( '/(\[protected-iframe.*\])/', '<figure class="op-interactive"><iframe>$1</iframe></figure>', $content );
 		return wpcom_vip_protected_embed_to_original( $content );
+	}
+	/**
+	 * @param $content
+	 *
+	 * @return mixed|void
+	 *
+	 * Return full size image for FBIA.
+	 */
+	function cst_fbia_use_full_size_image( $content ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+			return $content;
+		}
+		if ( false !== preg_match_all( '/wp-image-(\d{1,6})/', $content, $matches ) ) {
+			 $image_ids = $matches[1];
+			foreach ( $image_ids as $image_id ) {
+				$image_array = wp_get_attachment_image_src( $image_id, 'full' );
+
+				$matches_images = preg_match( '/(wp-image-' . $image_id . '.+src=")(https?\:\/\/[a-zA-Z0-9\-\_\.\/]+)/i', $content, $image_url_match );
+				$content = str_replace(  $image_url_match[2], $image_array[0], $content );
+			}
+		}
+
+		return $content;
 	}
 	/**
 	 * Register the sidebars for the theme
