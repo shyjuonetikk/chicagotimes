@@ -512,7 +512,7 @@ class CST {
 		}
 		if ( 0 !== preg_match_all( '/<img(?:[a-zA-Z\d-"\s=]+)src="((https?\:\/\/[a-zA-Z0-9\-\_\.\/]+)(?:\?w=\d{1,4})*)/i', $content, $matches ) ) {
 			for( $i=0; $i < count( $matches[1] ); $i++ ) {
-				$content = str_replace( $matches[1][ $i ], $matches[2][ $i ], $content );
+				$content = str_replace( $matches[1][ $i ], $matches[2][ $i ] . '?w=1280', $content );
 			}
 		}
 
