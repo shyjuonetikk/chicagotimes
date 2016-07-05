@@ -1509,7 +1509,8 @@ class CST {
 
 		switch ( $handle ) {
 			case 'chicagosuntimes-ndn':
-			$tag = str_replace( '<script type', '<script id=\'_nw2e-js\' type', $tag );
+				$tag = str_replace( '<script type', '<script id=\'_nw2e-js\' type', $tag );
+				break;
 		}
 		return $tag;
 	}
