@@ -431,11 +431,9 @@ class CST {
 		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
 			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
 			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
-//			add_filter( 'instant_articles_transformer_rules_loaded', array( $this, 'cst_fbia_transformer_rules_loaded' ) , 12, 2 );
 		}
-		add_filter( 'the_content', array( $this, 'cst_fbia_use_full_size_image' ) );
-//		add_filter( 'the_content', array( $this, 'cst_fbia_rebuild_caption_with_full_size_image' ) );
-		add_filter( 'the_content', array( $this, 'cst_fbia_convert_protected_embeds' ) );
+		add_filter( 'the_content', array( $this, 'cst_fbia_use_full_size_image' ), 5 );
+		add_filter( 'the_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 5 );
 	}
 
 	/**
