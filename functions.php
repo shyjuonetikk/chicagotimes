@@ -432,8 +432,9 @@ class CST {
 			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
 			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
 		}
-		add_filter( 'the_content', array( $this, 'cst_fbia_use_full_size_image' ), 5 );
-		add_filter( 'the_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 5 );
+		add_filter( 'the_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
+		add_filter( 'the_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
+		add_filter( 'the_content', array( $this, 'cst_fbia_gallery_content' ) );
 	}
 
 	/**
@@ -513,6 +514,26 @@ class CST {
 			for ( $i = 0; $i < count( $matches[1] ); $i++ ) {
 				$content = str_replace( $matches[1][ $i ], $matches[2][ $i ], $content );
 			}
+		}
+
+		return $content;
+	}
+	/**
+	 * @param $content
+	 *
+	 * @return mixed|void
+	 *
+	 * Custom handler to process the content within
+	 * a gallery post type for FBIA.
+	 */
+	function cst_fbia_gallery_content( $content ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+			return $content;
+		}
+		global $post;
+		if ( 'cst_gallery' === $post->post_type ) {
+			$obj = \CST\Objects\Post::get_by_post_id( $post->ID );
+			$content .= do_shortcode( '[cst-content id="' . $obj->get_id() . '"]' );
 		}
 
 		return $content;
