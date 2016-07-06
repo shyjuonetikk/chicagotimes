@@ -427,7 +427,12 @@ class CST {
 			return 'edit_others_posts';
 		}, 10, 0 );
 
-		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author'), 10, 2 );
+		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author' ), 10, 2 );
+
+		/**
+		 * Add the ability to pass parameters to enqueued scripts
+		 */
+		add_filter( 'script_loader_tag', array( $this, 'script_src_tag_attributes' ), 10, 3 );
 	}
 
 	/**
@@ -1488,6 +1493,26 @@ class CST {
 		} else {
 			return $byline;
 		}
+	}
+
+	/**
+	 * @param $tag
+	 * @param $handle
+	 * @param $src
+	 *
+	 * @return mixed
+	 *
+	 * Give our theme the ability to pass parameters to
+	 * third party scripts when enqueuing the script
+	 */
+	function script_src_tag_attributes( $tag, $handle, $src ) {
+
+		switch ( $handle ) {
+			case 'chicagosuntimes-ndn':
+				$tag = str_replace( '<script type', '<script id=\'_nw2e-js\' type', $tag );
+				break;
+		}
+		return $tag;
 	}
 
 }

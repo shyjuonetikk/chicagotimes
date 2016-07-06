@@ -25,4 +25,3 @@
     </div>
 </div>
 </footer>
-<script type="text/javascript" async src="http://launch.newsinc.com/js/embed.js" id="_nw2e-js"></script>
