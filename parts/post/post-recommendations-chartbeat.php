@@ -1,6 +1,6 @@
 <?php
 if( $obj ) {
-    $chartbeat_slug = 'news';
+    $chartbeat_slug = 'chicago%20news';
     $section_name   = 'News';
     $post_sections  = $obj->get_section_slugs();
     if( $post_sections ) {
