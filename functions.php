@@ -1495,26 +1495,6 @@ class CST {
 		}
 	}
 
-	/**
-	 * @param $tag
-	 * @param $handle
-	 * @param $src
-	 *
-	 * @return mixed
-	 *
-	 * Give our theme the ability to pass parameters to
-	 * third party scripts when enqueuing the script
-	 */
-	function script_src_tag_attributes( $tag, $handle, $src ) {
-
-		switch ( $handle ) {
-			case 'chicagosuntimes-ndn':
-				$tag = str_replace( '<script type', '<script id=\'_nw2e-js\' type', $tag );
-				break;
-		}
-		return $tag;
-	}
-
 }
 
 /**
