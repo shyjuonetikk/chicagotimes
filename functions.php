@@ -510,8 +510,9 @@ class CST {
 		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
 			return $content;
 		}
-		if ( 0 !== preg_match_all( '/<img(?:[a-zA-Z\d-"\s=]+)src="((https?\:\/\/[^\?"]+)(?:[^\'"]*))/i', $content, $matches ) ) {
-			for ( $i = 0; $i < count( $matches[1] ); $i++ ) {
+		if ( 0 !== preg_match_all( '/<img(?:[a-zA-Z\d-\|\~\."\s=]+)src="((https?\:\/\/[^\?"]+)(?:[^\'"]*))/i', $content, $matches ) ) {
+			$total_matches = count( $matches[1] );
+			for ( $i = 0; $i < $total_matches; $i++ ) {
 				$content = str_replace( $matches[1][ $i ], $matches[2][ $i ], $content );
 			}
 		}
@@ -530,10 +531,11 @@ class CST {
 		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
 			return $content;
 		}
-		global $post;
-		if ( 'cst_gallery' === $post->post_type ) {
-			$obj = \CST\Objects\Post::get_by_post_id( $post->ID );
-			$content .= do_shortcode( '[cst-content id="' . $obj->get_id() . '"]' );
+		if ( 'cst_gallery' === get_post_type() ) {
+			$gallery_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+			if ( false !== $gallery_obj ) {
+				$content .= do_shortcode( '[cst-content id="' . $gallery_obj->get_id() . '"]' );
+			}
 		}
 
 		return $content;
