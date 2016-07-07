@@ -34,7 +34,7 @@ class CST_Slack {
 	 * @param $post
 	 * @param $old_status
 	 * @param $new_status
-	 * 
+	 *
 	 * Share newly published (not updated) content to Slack channel
 	 */
 	public function new_content_payload( $new_status, $old_status, $post ) {

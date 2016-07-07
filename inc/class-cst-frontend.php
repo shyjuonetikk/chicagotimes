@@ -154,8 +154,6 @@ class CST_Frontend {
 				wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 			}
 
-			wp_enqueue_script( 'chicagosuntimes-ndn', 'http://launch.newsinc.com/js/embed.js' );
-
 
 			if ( ! is_front_page() || ! is_page() ) {
 				wp_localize_script( 'chicagosuntimes', 'CSTData', array(
