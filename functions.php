@@ -45,6 +45,7 @@ class CST {
 		$this->wire_curator = CST_Wire_Curator::get_instance();
 		$this->usa_today_wire_curator = CST_USA_Today_Wire_Curator::get_instance();
 		$this->shia_kapos_wire_curator = CST_Shia_Kapos_Wire_Curator::get_instance();
+		$this->chicago_wire_curator = CST_Chicago_Wire_Curator::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
 
@@ -150,6 +151,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-usa-today-wire-curator.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-yieldmo-tags.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shia-kapos-wire-curator.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-chicago-wire-curator.php';
 
 		// Objects
 		require_once dirname( __FILE__ ) . '/inc/objects/class-post.php';
@@ -428,14 +430,6 @@ class CST {
 		}, 10, 0 );
 
 		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author'), 10, 2 );
-		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
-			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
-			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
-		}
-		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
-		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
-		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
-	}
 		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
 			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
 			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
