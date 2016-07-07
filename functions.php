@@ -429,10 +429,6 @@ class CST {
 
 		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author' ), 10, 2 );
 
-		/**
-		 * Add the ability to pass parameters to enqueued scripts
-		 */
-		add_filter( 'script_loader_tag', array( $this, 'script_src_tag_attributes' ), 10, 3 );
 	}
 
 	/**
