@@ -9,23 +9,6 @@ ga('BNA.require', 'displayfeatures');
 ga('create', 'UA-53290409-1', 'auto', {name: 'networkGlobal'});
 ga('networkGlobal.require', 'displayfeatures');
 
-(function() {
-    if(!document.getElementsByClassName) return;
-    var ads = document.getElementsByClassName('afs_ads'),
-        ad  = ads[ads.length - 1];
-
-    if(!ad
-        || ad.innerHTML.length == 0
-        || ad.clientHeight === 0) {
-        console.log('quit clockin');
-        ga('set', 'dimension10', '1' );
-    } else {
-        console.log('ty for not blocking');
-        ga('set', 'dimension10', '0' );
-    }
-
-})();
-
 <?php
 // taken from here: http://www.labnol.org/internet/track-404-error-pages/13509/
 if ( is_404() ) { ?>
