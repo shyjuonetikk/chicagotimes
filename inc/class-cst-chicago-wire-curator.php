@@ -267,7 +267,7 @@ class CST_Chicago_Wire_Curator {
         $new_columns = array(
             'cst_chicago_wire_item_title'    => esc_html__( 'Title', 'chicagosuntimes' ),
             'cst_chicago_wire_item_content'  => esc_html__( 'Story Brief', 'chicagosuntimes' ),
-            'cst_chicago_wire_item_topics'  => esc_html__( 'Topics', 'chicagosuntimes' ),
+            'cst_chicago_wire_item_topics'   => esc_html__( 'Topics', 'chicagosuntimes' ),
             'cst_chicago_wire_item_date'     => esc_html__( 'Published', 'chicagosuntimes' ),
             );
 
@@ -547,7 +547,7 @@ class CST_Chicago_Wire_Curator {
 
             $feed_data = wp_remote_retrieve_body( $response );
             $xml = simplexml_load_string( $feed_data );
-            print_r($xml);
+            
             if( $xml ) {
                 require_once 'objects/class-chicago-wire-item.php';
                 foreach( $xml->channel->item as $entry ) {
@@ -556,11 +556,11 @@ class CST_Chicago_Wire_Curator {
                     if( $entry->title != '' ) {
 
                         // See if this was already imported, otherwise create
-                        if ( \CST\Objects\chicago_Wire_Item::get_by_original_id( sanitize_text_field( $entry->assetId ) ) ) {
+                        if ( \CST\Objects\Chicago_Wire_Item::get_by_original_id( sanitize_text_field( $entry->assetId ) ) ) {
                             continue;
                         }
 
-                        \CST\Objects\chicago_Wire_Item::create_from_simplexml( $entry );
+                        \CST\Objects\Chicago_Wire_Item::create_from_simplexml( $entry );
 
                     }
 

@@ -29,7 +29,6 @@ class Chicago_Wire_Item extends Post {
         $dc_children       = $feed_entry->children( $namespaces['dc'] );
         $content_children  = $feed_entry->children( $namespaces['content'] );
         $category_children = $feed_entry->category;
-        $gallery_children  = $feed_entry->gallery;
         $post_title        = (string) $feed_entry->title;
         $post_body         = (string) $content_children->encoded;
         $gmt_published     = date( 'Y-m-d H:i:s', strtotime( $feed_entry->pubDate ) );
@@ -57,64 +56,7 @@ class Chicago_Wire_Item extends Post {
             return $post_id;
         }
 
-        $gallery_ids = array();
-        if( $gallery_children ) {
-            foreach($gallery_children as $g_child) {
-                foreach( $g_child as $g_node ) {
-                    $image_id       = (int)$g_node->image[0];
-                    $image_title    = (string)$g_node->image[1];
-                    $image_url      = (string)$g_node->image[2];
-                    $image_caption  = (string)$g_node->image[3];
-                    media_sideload_image( $image_url, $post_id, $image_caption );
-                }
-
-            }
-
-            $media_args = array(
-                            'post_type'         => 'attachment',
-                            'posts_per_page'    => 15,
-                            'post_status'       => 'any',
-                            'post_parent'       => $post_id,
-                            'suppress_filters'  => false,
-                        );
-
-            $attachment = get_posts( $media_args );
-
-            if( isset( $attachment ) && is_array( $attachment ) ) {
-                $new_gallery_ids = array();
-                foreach( $attachment as $featured ) {
-                    $image_id = $featured->ID;
-                    array_push( $new_gallery_ids, $image_id );
-                }
-                $new_gallery = implode( ',', $new_gallery_ids );
-
-                $gallery_post_args = array(
-                    'post_title'   => $post_title,
-                    'post_content' => '',
-                    'post_status'  => 'publish',
-                    'post_date'    => get_date_from_gmt( $gmt_published ),
-                    'post_author'  => $chicago_author_id,
-                    'post_excerpt' => '',
-                    'post_type'    => 'cst_gallery',
-                );
-
-                $gallery_post_id = wp_insert_post( $gallery_post_args, true );
-
-                update_post_meta( $gallery_post_id, 'gallery_images', $new_gallery_ids, true );
-
-                $gallery_code = '[cst-content id="' . $gallery_post_id . '"]';
-                $post_content = wp_filter_post_kses( $post_body );
-                $post_body    = $gallery_code . '<p></p>' . $post_content;
-                $gallery_post = array(
-                    'ID'           => $post_id,
-                    'post_content' => $gallery_code . '<p></p>' . $post_content,
-                );
-
-                wp_update_post( $gallery_post );
-            }
-        }
-
-        $post = new chicago_Wire_Item( $post_id );
+        $post = new Chicago_Wire_Item( $post_id );
 
         // Process attributes from the item's XML node
 
@@ -129,11 +71,6 @@ class Chicago_Wire_Item extends Post {
 
         // promoBrief node
         $post->set_wire_promo_brief( wp_filter_post_kses( $feed_entry->description ) );
-
-        $post->store_wire_topics( $meta_topics );
-
-        $post->store_wire_gallery( $store_gallery );
-            
 
         return $post;
     }
@@ -153,7 +90,7 @@ class Chicago_Wire_Item extends Post {
             return false;
         }
 
-        return new chicago_Wire_Item( $post_id );
+        return new Chicago_Wire_Item( $post_id );
     }
 
     /**
@@ -235,33 +172,6 @@ class Chicago_Wire_Item extends Post {
      */
     public function set_wire_promo_brief( $wire_content ) {
         $this->set_meta( 'chicago_wire_promo_brief', $wire_content );
-    }
-
-    /**
-     * Set the topics for the wire item
-     *
-     * @param array
-     */
-    public function store_wire_topics( $topics ) {
-        $this->set_meta( 'chicago_wire_topics', $topics );
-    }
-
-    /**
-     * Set the topics for the wire item
-     *
-     * @param array
-     */
-    public function set_wire_topics( $topics ) {
-        $this->set_taxonomy_terms( 'cst_topic', $topics );
-    }
-
-    /**
-     * Set the gallery ids for the wire item
-     *
-     * @param array
-     */
-    public function store_wire_gallery( $gallery_ids ) {
-        $this->set_meta( 'chicago_wire_gallery', $gallery_ids );
     }
 
     /**
@@ -363,10 +273,6 @@ class Chicago_Wire_Item extends Post {
             $coauthors_plus->add_coauthors( $article->get_id(), array( $guest_author->user_nicename ), false );
         }
 
-        $topics = $this->get_wire_topics();
-        $topics_array = explode( ',', $topics );
-        $article->set_topics( $topics_array );
-        $article->set_sections( array( 'chicago-dot-com' ) );
         $this->set_meta( 'article_post_id', $article->get_id() );
 
         return $article;
