@@ -510,7 +510,7 @@ class CST {
 		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
 			return $content;
 		}
-		if ( 0 !== preg_match_all( '/<img(?:[a-zA-Z\d-\|\~\."\s=]+)src="((https?\:\/\/[^\?"]+)(?:[^\'"]*))/i', $content, $matches ) ) {
+		if ( 0 !== preg_match_all( '/<img(?:[\w-—\|\~\.\/"\s=]+)src="((https?\:\/\/[^\?"]+)(?:[^\'"]*))/i', $content, $matches ) ) {
 			$total_matches = count( $matches[1] );
 			for ( $i = 0; $i < $total_matches; $i++ ) {
 				$content = str_replace( $matches[1][ $i ], $matches[2][ $i ], $content );
