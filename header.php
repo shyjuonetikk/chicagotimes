@@ -59,6 +59,7 @@
 	?>
 
 	<?php wp_head(); ?>
+	<?php get_template_part( 'parts/analytics/adblocker' ); ?>
 </head>
 
 <body <?php body_class(); ?>>
