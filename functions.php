@@ -427,14 +427,119 @@ class CST {
 			return 'edit_others_posts';
 		}, 10, 0 );
 
-		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author' ), 10, 2 );
-
-		/**
-		 * Add the ability to pass parameters to enqueued scripts
-		 */
-		add_filter( 'script_loader_tag', array( $this, 'script_src_tag_attributes' ), 10, 3 );
+		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author'), 10, 2 );
+		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
+			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
+			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
+		}
+		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
+		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
+		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
 	}
 
+	/**
+	 * @param $category
+	 * @param $_post_id
+	 *
+	 * @return string
+	 *
+	 * Generate and return a category for the content in the Facebook Instant Article feed.
+	 */
+	function cst_fbia_category_kicker( $category, $_post_id ) {
+
+		$section = \CST\Objects\Post::get_by_post_id( $_post_id );
+		if ( false !== $section ) {
+			return ucfirst( $section->get_primary_parent_section()->slug );
+		} else {
+			return $category;
+		}
+	}
+
+	/**
+	 * Loop through article authors and return and array of
+	 * formatted array of users and related user properties.
+	 * @param $authors
+	 * @param $_post_id
+	 *
+	 * @return mixed
+	 */
+	function cst_fbia_authors( $incoming_authors, $_post_id ) {
+
+		$author_list = get_coauthors( $_post_id );
+		$authors = array();
+		foreach ( $author_list as $wp_user ) {
+			$author = new stdClass;
+			$author->ID            = $wp_user->ID;
+			$author->display_name  = $wp_user->display_name;
+			$author->first_name    = $wp_user->first_name;
+			$author->last_name     = $wp_user->last_name;
+			$author->user_login    = $wp_user->user_login;
+			$author->user_nicename = $wp_user->user_nicename;
+			$author->user_email    = $wp_user->user_email;
+			$author->user_url      = $wp_user->user_url;
+			$author->bio           = $wp_user->description;
+			$authors[] = $author;
+		}
+		return $authors;
+	}
+
+	/**
+	 * @param $content
+	 *
+	 * @return mixed|void
+	 *
+	 * Handle WPCOM protected iframe embeds.
+	 */
+	function cst_fbia_convert_protected_embeds( $content ) {
+		// Courtesy https://gist.github.com/rinatkhaziev/d6015a6bb3345da5c061
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+			return $content;
+		}
+
+		$content = preg_replace( '/(\[protected-iframe.*\])/', '<figure class="op-interactive"><iframe>$1</iframe></figure>', $content );
+		return wpcom_vip_protected_embed_to_original( $content );
+	}
+	/**
+	 * @param $content
+	 *
+	 * @return mixed|void
+	 *
+	 * Return full size image for FBIA.
+	 */
+	function cst_fbia_use_full_size_image( $content ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+			return $content;
+		}
+		if ( 0 !== preg_match_all( '/<img(?:[\w-—\|\~\.\/"\s=]+)src="((https?\:\/\/[^\?"]+)(?:[^\'"]*))/i', $content, $matches ) ) {
+			$total_matches = count( $matches[1] );
+			for ( $i = 0; $i < $total_matches; $i++ ) {
+				$content = str_replace( $matches[1][ $i ], $matches[2][ $i ], $content );
+			}
+		}
+
+		return $content;
+	}
+	/**
+	 * @param $content
+	 *
+	 * @return mixed|void
+	 *
+	 * Custom handler to process the content within
+	 * a gallery post type for FBIA.
+	 */
+	function cst_fbia_gallery_content( $content ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+			return $content;
+		}
+		if ( 'cst_gallery' === get_post_type() ) {
+			$gallery_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+			if ( false !== $gallery_obj ) {
+				$content .= do_shortcode( '[cst-content id="' . $gallery_obj->get_id() . '"]' );
+			}
+		}
+
+		return $content;
+	}
 	/**
 	 * Register the sidebars for the theme
 	 */
@@ -1493,26 +1598,6 @@ class CST {
 		} else {
 			return $byline;
 		}
-	}
-
-	/**
-	 * @param $tag
-	 * @param $handle
-	 * @param $src
-	 *
-	 * @return mixed
-	 *
-	 * Give our theme the ability to pass parameters to
-	 * third party scripts when enqueuing the script
-	 */
-	function script_src_tag_attributes( $tag, $handle, $src ) {
-
-		switch ( $handle ) {
-			case 'chicagosuntimes-ndn':
-				$tag = str_replace( '<script type', '<script id=\'_nw2e-js\' type', $tag );
-				break;
-		}
-		return $tag;
 	}
 
 }
