@@ -22,7 +22,14 @@ window.YieldMo = {
     var contentTag = tags["content"];
     if(paragraphsCount >= 1 && contentTag != "") {
       yieldmoContentNode = this._yieldMoHTMLTag(contentTag);
-      jQuery(paragraphs[1]).append(yieldmoContentNode);
+      yieldmoCraigNode = this._yieldMoCraigHTMLTag();
+      //jQuery(paragraphs[1]).append(yieldmoContentNode);
+      jQuery('#div-gpt-ym-craig').remove();
+      jQuery(paragraphs[1]).append(yieldmoCraigNode);
+      jQuery('<script>')
+          .attr('type', 'text/javascript')
+          .text('googletag.cmd.push(function() {googletag.display("div-gpt-ym-craig")})')
+          .appendTo(yieldmoCraigNode);
       jQuery('#div-gpt-mobile-leaderboard').detach().appendTo('.cst-active-scroll-post .post-content');
 
       var footerTag = tags["footer"];
@@ -73,6 +80,16 @@ window.YieldMo = {
     return yieldmo_div;
   },
 
+  _yieldMoCraigHTMLTag: function(){
+    var random = this._randString(10);
+        yieldmo_div = jQuery('<div />');
+        yieldmo_div.attr( 'id', 'div-gpt-ym-craig' );
+        yieldmo_div.attr( 'class', '' );
+        yieldmo_div.attr( 'data-id', random );
+        console.log('isnerted craig');
+    return yieldmo_div;
+  },
+
   _randString: function(characters){
     var s = "";
     var x = characters;
@@ -85,6 +102,8 @@ window.YieldMo = {
 
   _refreshMobileDFPPosition: function(){
     CSTAds.triggerUnitRefresh( 'div-gpt-mobile-leaderboard' );
+    CSTAds.triggerUnitRefresh( 'div-gpt-ym-craig' );
+    console.log('refreshed');
   }
 
 }
