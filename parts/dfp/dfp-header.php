@@ -58,6 +58,14 @@
 			.addService(googletag.pubads())
 			.setTargeting("pos","mobile leaderboard");
 
+        <?php if( is_singular() ) : ?>
+
+            CSTAdTags['div-gpt-ym-craig'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [300, 250], 'div-gpt-ym-craig')
+            .addService(googletag.pubads())
+            .setTargeting("pos","ym craig");
+
+        <?php endif; ?>
+
 		}
 
 		CSTAdTags['div-gpt-rr-cube-1'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [300, 250], 'div-gpt-rr-cube-1')

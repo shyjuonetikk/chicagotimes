@@ -11,6 +11,9 @@ if( $obj ) {
             $primary_section    = $obj->get_primary_parent_section();
             $section_name       = $primary_section->name;  
             $chartbeat_slug     = $primary_section->slug;
+            if( $chartbeat_slug == 'news' ) {
+                $chartbeat_slug = 'chicago%20news';
+            }
         endif;
     }
     $feed_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=' . $chartbeat_slug . '&sort_by=returning&now_on=1&limit=4';
