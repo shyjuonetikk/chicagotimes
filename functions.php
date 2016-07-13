@@ -492,7 +492,7 @@ class CST {
 	 */
 	function cst_fbia_convert_protected_embeds( $content ) {
 		// Courtesy https://gist.github.com/rinatkhaziev/d6015a6bb3345da5c061
-		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) && ! is_admin() ) {
 			return $content;
 		}
 
@@ -507,7 +507,7 @@ class CST {
 	 * Return full size image for FBIA.
 	 */
 	function cst_fbia_use_full_size_image( $content ) {
-		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) && ! is_admin() ) {
 			return $content;
 		}
 		if ( 0 !== preg_match_all( '/<img(?:[\w-—\|\~\.\/"\s=]+)src="((https?\:\/\/[^\?"]+)(?:[^\'"]*))/i', $content, $matches ) ) {
@@ -528,7 +528,7 @@ class CST {
 	 * a gallery post type for FBIA.
 	 */
 	function cst_fbia_gallery_content( $content ) {
-		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG )  && ! is_admin() ) {
 			return $content;
 		}
 		if ( 'cst_gallery' === get_post_type() ) {
