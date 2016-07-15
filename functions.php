@@ -1270,7 +1270,7 @@ class CST {
 				} else {
 					$section_slug = CST_DEFAULT_SECTION;
 				}
-				
+
 			} else {
 				$section_slug = $primary_section->slug;
 			}

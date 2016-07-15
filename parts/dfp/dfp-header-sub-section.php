@@ -203,7 +203,8 @@
 
             CSTAdTags['div-gpt-ym-craig'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [300, 250], 'div-gpt-ym-craig')
             .addService(googletag.pubads())
-            .setTargeting("pos","ym craig");
+            .setTargeting("pos","ym craig")
+            .setCollapseEmptyDiv(true,true);
 
     <?php endif; ?>
 
