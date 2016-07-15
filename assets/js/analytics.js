@@ -56,6 +56,22 @@ var CSTAnalytics;
 
 			}
 
+			adblock_div = jQuery('<div />');
+	        adblock_div.attr( 'class', 'afs_ads' );
+	        jQuery('body').append(adblock_div);
+
+			if( ! document.getElementsByClassName) return;
+		    var ads = document.getElementsByClassName('afs_ads'),
+		        ad  = ads[ads.length - 1];
+
+		    if( ! ad
+		        || ad.innerHTML.length == 0
+		        || ad.clientHeight === 0) {
+		    	data['dimension10'] = 1;
+		    } else {
+		    	data['dimension10'] = 0;
+		    }
+
 			ga('BNA.send', 'pageview', data );
 			ga('networkGlobal.send', 'pageview');
 

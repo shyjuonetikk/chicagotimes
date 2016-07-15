@@ -197,6 +197,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newsletter-signup-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-dne-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-shia-kapos-categories-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-tcx-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -494,7 +495,7 @@ class CST {
 	 */
 	function cst_fbia_convert_protected_embeds( $content ) {
 		// Courtesy https://gist.github.com/rinatkhaziev/d6015a6bb3345da5c061
-		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) && ! is_admin() ) {
 			return $content;
 		}
 
@@ -509,10 +510,10 @@ class CST {
 	 * Return full size image for FBIA.
 	 */
 	function cst_fbia_use_full_size_image( $content ) {
-		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) && ! is_admin() ) {
 			return $content;
 		}
-		if ( 0 !== preg_match_all( '/<img(?:[a-zA-Z\d-\|\~\."\s=]+)src="((https?\:\/\/[^\?"]+)(?:[^\'"]*))/i', $content, $matches ) ) {
+		if ( 0 !== preg_match_all( '/<img(?:[\w-—\|\~\.\/"\s=]+)src="((https?\:\/\/[^\?"]+)(?:[^\'"]*))/i', $content, $matches ) ) {
 			$total_matches = count( $matches[1] );
 			for ( $i = 0; $i < $total_matches; $i++ ) {
 				$content = str_replace( $matches[1][ $i ], $matches[2][ $i ], $content );
@@ -530,7 +531,7 @@ class CST {
 	 * a gallery post type for FBIA.
 	 */
 	function cst_fbia_gallery_content( $content ) {
-		if ( ! is_feed( INSTANT_ARTICLES_SLUG ) ) {
+		if ( ! is_feed( INSTANT_ARTICLES_SLUG )  && ! is_admin() ) {
 			return $content;
 		}
 		if ( 'cst_gallery' === get_post_type() ) {
@@ -693,6 +694,7 @@ class CST {
 		register_widget( 'CST_Newsletter_Signup_Widget' );
 		register_widget( 'CST_AP_DNE_Widget' );
 		register_widget( 'CST_Shia_Kapos_Categories_Widget' );
+		register_widget( 'CST_TCX_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
@@ -1270,7 +1272,7 @@ class CST {
 				} else {
 					$section_slug = CST_DEFAULT_SECTION;
 				}
-				
+
 			} else {
 				$section_slug = $primary_section->slug;
 			}
