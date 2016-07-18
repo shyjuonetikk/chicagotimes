@@ -24,7 +24,7 @@ class CST_TCX_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
 
         $current_tcx = isset( $instance['tcx_widget'] ) ? $instance['tcx_widget'] : '';
-        switch( $current_dne ) {
+        switch( $current_tcx ) {
             case 'weather':
             ?>
                 <li class="tcx_weather_widget">
@@ -70,14 +70,14 @@ class CST_TCX_Widget extends WP_Widget {
 
     public function form( $instance ) {
 
-        $current_dne = isset( $instance['tcx_widget'] ) ? $instance['tcx_widget'] : '';
+        $current_tcx = isset( $instance['tcx_widget'] ) ? $instance['tcx_widget'] : '';
     ?>
 
         <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'tcx_widget' ) ); ?>"><?php esc_html_e( 'DNE Widget', 'chicagosuntimes' ); ?>:</label>
-            <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'tcx_widget' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'tcx_widget' ) ); ?>" data-current-unit="<?php echo esc_attr( $current_dne ); ?>">
-            <?php foreach( $this->dne_widgets as $tcx_widget ) : ?>
-                <option value="<?php echo esc_attr( $tcx_widget ); ?>" <?php selected( $tcx_widget, $current_dne ); ?>><?php echo esc_html( $tcx_widget ); ?></option>
+            <label for="<?php echo esc_attr( $this->get_field_id( 'tcx_widget' ) ); ?>"><?php esc_html_e( 'TCX Widget', 'chicagosuntimes' ); ?>:</label>
+            <select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'tcx_widget' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'tcx_widget' ) ); ?>" data-current-unit="<?php echo esc_attr( $current_tcx ); ?>">
+            <?php foreach( $this->tcx_widgets as $tcx_widget ) : ?>
+                <option value="<?php echo esc_attr( $tcx_widget ); ?>" <?php selected( $tcx_widget, $current_tcx ); ?>><?php echo esc_html( $tcx_widget ); ?></option>
             <?php endforeach; ?>
             </select>
         </p>
@@ -90,7 +90,7 @@ class CST_TCX_Widget extends WP_Widget {
         
         $instance = array();
 
-        if ( in_array( $new_instance['tcx_widget'], $this->dne_widgets ) ) {
+        if ( in_array( $new_instance['tcx_widget'], $this->tcx_widgets ) ) {
             $instance['tcx_widget'] = $new_instance['tcx_widget'];
         }
 
