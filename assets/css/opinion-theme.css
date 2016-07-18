@@ -2243,6 +2243,10 @@ section#subscribe {
         background: #BDBDBD; }
       .widgets li.cst_newsletter_signup p .button:hover {
         opacity: .5; }
+  .widgets .tcx_widget {
+    margin: 20px 0 20px 0; }
+    .widgets .tcx_widget .columns {
+      padding-left: 0; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }

@@ -2243,6 +2243,10 @@ section#subscribe {
         background: #D22D42; }
       .widgets li.cst_newsletter_signup p .button:hover {
         opacity: .5; }
+  .widgets .tcx_widget {
+    margin: 20px 0 20px 0; }
+    .widgets .tcx_widget .columns {
+      padding-left: 0; }
 
 #nativo-sponsored {
   position: relative; }
