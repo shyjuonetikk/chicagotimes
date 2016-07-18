@@ -3,7 +3,6 @@
 class CST_TCX_Widget extends WP_Widget {
 
     protected $tcx_widgets = array(
-        'weather',
         'sports',
         'demographics',
         'finance'
@@ -25,15 +24,6 @@ class CST_TCX_Widget extends WP_Widget {
 
         $current_tcx = isset( $instance['tcx_widget'] ) ? $instance['tcx_widget'] : '';
         switch( $current_tcx ) {
-            case 'weather':
-            ?>
-                <li class="tcx_weather_widget">
-                    <div class="large-12 medium-6 small-6 columns">
-                    <script src="http://content.synapsys.us/embeds/weather/dynamic_300x600/partner.js"></script>
-                    </div>
-                </li>
-            <?php
-                break;
             case 'sports':
             ?>
                 <li class="tcx_sports_widget">
