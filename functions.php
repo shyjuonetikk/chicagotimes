@@ -211,7 +211,7 @@ class CST {
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
 		if ( ! defined( 'WP_CLI' ) ) {
 			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
-			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '2.11' );
+			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '3.0' );
 		}
 		// Options are loaded on Bitly::__construct
 		add_filter( 'pre_option_bitly_settings', function() {
