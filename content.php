@@ -45,6 +45,11 @@
 			echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
 			echo CST()->get_template_part( 'dfp/dfp-ym-craig' );
 			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
+			if ( $section = $obj->get_primary_section() ) :
+				if( $section->slug == 'entertainment' ) :
+					echo CST()->get_template_part( 'post/signup-entertainment-newsletter' );
+				endif;
+			endif;
 			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			if( is_singular() ) :
 				echo CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) );
