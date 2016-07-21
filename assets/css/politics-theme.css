@@ -2709,6 +2709,8 @@ body.post-gallery-lightbox-active {
     background: #29AAE2; }
   .homepage_wrapper .bears-cube-story {
     background: #34485E; }
+    .homepage_wrapper .bears-cube-story h3.title a:hover {
+      color: #DD4814; }
   .homepage_wrapper .breaking-news-story, .homepage_wrapper .bears-cube-story {
     width: 100%;
     margin-top: -3px;

@@ -330,7 +330,13 @@
 	background: $red;
 }
 .bears-cube-story {
-	background: $sports_blue
+	background: $sports_blue;
+
+	h3.title {
+		a:hover {
+			color: $bears_orange;
+		}
+	}
 }
 .breaking-news-story, .bears-cube-story {
 	width: 100%;
