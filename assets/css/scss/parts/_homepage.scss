@@ -326,8 +326,13 @@
 	}
 
 /* BREAKING NEWS */
-.breaking-news-story, .bears-cube-story {
+.breaking-news-story {
 	background: $red;
+}
+.bears-cube-story {
+	background: $sports_blue
+}
+.breaking-news-story, .bears-cube-story {
 	width: 100%;
 	margin-top: -3px;
 	padding: 5px 0 1px 10px;

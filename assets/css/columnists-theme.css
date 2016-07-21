@@ -2705,8 +2705,11 @@ body.post-gallery-lightbox-active {
               display: block; } }
   .homepage_wrapper .top-bar-section {
     z-index: 3; }
+  .homepage_wrapper .breaking-news-story {
+    background: #D5C35F; }
+  .homepage_wrapper .bears-cube-story {
+    background: #34485E; }
   .homepage_wrapper .breaking-news-story, .homepage_wrapper .bears-cube-story {
-    background: #D5C35F;
     width: 100%;
     margin-top: -3px;
     padding: 5px 0 1px 10px;
