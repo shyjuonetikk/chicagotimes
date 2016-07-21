@@ -2705,7 +2705,7 @@ body.post-gallery-lightbox-active {
               display: block; } }
   .homepage_wrapper .top-bar-section {
     z-index: 3; }
-  .homepage_wrapper .breaking-news-story {
+  .homepage_wrapper .breaking-news-story, .homepage_wrapper .bears-cube-story {
     background: #00AE04;
     width: 100%;
     margin-top: -3px;
@@ -2714,30 +2714,30 @@ body.post-gallery-lightbox-active {
     border-top: 5px solid #282828;
     position: relative;
     z-index: 1; }
-    .homepage_wrapper .breaking-news-story h3 {
+    .homepage_wrapper .breaking-news-story h3, .homepage_wrapper .bears-cube-story h3 {
       font-weight: 700;
       font-size: 18px; }
-      .homepage_wrapper .breaking-news-story h3 a {
+      .homepage_wrapper .breaking-news-story h3 a, .homepage_wrapper .bears-cube-story h3 a {
         color: #F0F0F0;
         text-shadow: 2px 1px #282828; }
-      .homepage_wrapper .breaking-news-story h3 span {
+      .homepage_wrapper .breaking-news-story h3 span, .homepage_wrapper .bears-cube-story h3 span {
         color: #FFFFFF;
         text-transform: uppercase; }
-        .homepage_wrapper .breaking-news-story h3 span .fa {
+        .homepage_wrapper .breaking-news-story h3 span .fa, .homepage_wrapper .bears-cube-story h3 span .fa {
           color: #F0F0F0;
           text-shadow: 1px 1px #3E3E3E;
           cursor: pointer;
           font-size: 22px; }
-        .homepage_wrapper .breaking-news-story h3 span .fa:hover {
+        .homepage_wrapper .breaking-news-story h3 span .fa:hover, .homepage_wrapper .bears-cube-story h3 span .fa:hover {
           opacity: .75; }
-      .homepage_wrapper .breaking-news-story h3 .button {
+      .homepage_wrapper .breaking-news-story h3 .button, .homepage_wrapper .bears-cube-story h3 .button {
         background: #CD606E;
         border-radius: 5px;
         margin-bottom: 0px;
         text-transform: uppercase;
         text-shadow: 1px 1px #282828;
         font-weight: 700; }
-      .homepage_wrapper .breaking-news-story h3 .button:hover {
+      .homepage_wrapper .breaking-news-story h3 .button:hover, .homepage_wrapper .bears-cube-story h3 .button:hover {
         opacity: .75; }
   @media (min-width: 1401px) {
     .homepage_wrapper .row {
