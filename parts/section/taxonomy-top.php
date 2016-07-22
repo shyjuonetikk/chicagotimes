@@ -9,6 +9,11 @@
 		endif;
 	?>
 	<a href="" class="section-front"><?php esc_html_e( $section_front_spacing ); ?></a>
+	<?php if( $section_front_spacing == 'bears' || $section_front_spacing == 'bears football' ) : ?>
+		<a href="http://terrysfordofpeotone.com/Chicago/For-Sale/New/" target="_blank" class="section-front-sponsor">
+			<img class="terry-ford" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/terry-ford-bears-logo-prod.png" alt="Terry Ford Logo">
+		</a>
+	<?php endif; ?>
 	<?php if( $section_front_spacing == 'television' ) : ?>
 		<a href="http://www.wciu.com" target="_blank" class="section-front-sponsor">Brought to you by
 			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/wciu-logo.png" alt="WCIU LOGO">
