@@ -330,15 +330,32 @@
 	background: $red;
 }
 .bears-cube-story {
-	background: $sports_blue;
 
 	h3.title {
 		a:hover {
-			color: $bears_orange;
+			opacity: .75;
 		}
 	}
+
+	.terry-ford {
+		max-width: 100px;
+		width: 100%;
+		position: absolute;
+	    right: 10px;
+	    top: 4px;
+	    background: white;
+	    padding: 4px;
+	}
 }
+
 .breaking-news-story, .bears-cube-story {
+	width: 100%;
+	margin-top: -3px;
+	padding: 5px 0 1px 10px;
+	border-bottom: 2px solid $black;
+    border-top: 5px solid $black;
+    position: relative;
+    z-index: 1;
 	width: 100%;
 	margin-top: -3px;
 	padding: 5px 0 1px 10px;
