@@ -17,13 +17,13 @@ class CST_Chatter_Site_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
         $chatter_site = $instance['cst_chatter_site'];
         if( empty( $chatter_site ) ) {
-            $feed_url = 'http://sportschatter.com/api/2.0/get_posts/';
+            $feed_url = 'http://sportschatter.com/wp-json/wp/v2/posts/';
         } elseif( $chatter_site == 'sports' ) {
-            $feed_url = 'http://sportschatter.com/api/2.0/get_posts/';
+            $feed_url = 'http://sportschatter.com/wp-json/wp/v2/posts/';
         } elseif( $chatter_site == 'celeb' ) {
-            $feed_url = 'http://celebchatter.com/api/2.0/get_posts/';
+            $feed_url = 'http://celebchatter.com/wp-json/wp/v2/posts/';
         } else {
-            $feed_url = 'http://politicschatter.com/api/2.0/get_posts/';
+            $feed_url = 'http://politicschatter.com/wp-json/wp/v2/posts/';
         }
 
         echo $args['before_widget'];
