@@ -75,18 +75,63 @@ class CST_Bears_Cube_Widget extends WP_Widget {
         }
 
         $bears_cube_story_id    = $instance['cst_bears_cube_story_id'];
+        $title = ! empty( $instance['cst_bears_cube_title'] ) ? $instance['cst_bears_cube_title'] : '';
         $obj = \CST\Objects\Post::get_by_post_id( $bears_cube_story_id );
 
-        if( !$obj) {
+        $section_bg_class = 'sports_bg';
+        if( ! $obj) {
             return;
+        } else {
+            if ( $section = $obj->get_primary_section() ) :
+                $primary_section = $section->slug;
+            else :
+                $primary_section = 'news';
+            endif;
+
+            $post_section = $obj->get_primary_parent_section();
+            if( ! $post_section ) {
+                $post_section = $obj->get_child_parent_section();
+                if( ! in_array( $post_section, CST_Frontend::$post_sections ) ) {
+                    $post_section = $obj->get_grandchild_parent_section();
+                }
+            }
+
+            switch( $post_section->slug ) {
+                case 'news':
+                    $section_bg_class = 'news_bg';
+                    break;
+                case 'entertainment':
+                    $section_bg_class = 'entertainment_bg';
+                    break;
+                case 'sports':
+                    $section_bg_class = 'sports_bg';
+                    break;
+                case 'politics':
+                    $section_bg_class = 'politics_bg';
+                    break;
+                case 'lifestyles':
+                    $section_bg_class = 'lifestyles_bg';
+                    break;
+                case 'opinion':
+                    $section_bg_class = 'opinion_bg';
+                    break;
+                default:
+                    break;
+            }
         }
         ?>
         
 
-        <div class="bears-cube-story">
+        <div class="bears-cube-story <?php echo $section_bg_class; ?>">
             <h3 class="title">
-                <span><i class="fa fa-times-circle-o close-bears-cube"></i> <?php echo esc_html_e( 'Bears Cube...', 'chicagosuntimes' ); ?></span> <a href="<?php echo $obj->the_permalink(); ?>"><?php echo esc_html( $obj->the_title() ); ?></a>
+                <span><i class="fa fa-times-circle-o close-bears-cube"></i> <?php echo esc_html_e( $title, 'chicagosuntimes' ); ?></span> <a href="<?php echo $obj->the_permalink(); ?>"><?php echo esc_html( $obj->the_title() ); ?></a>
+                    <?php echo ! empty( $post_section ) ? '<span>&mdash; (' . $post_section->name . ')</span>' : ''; ?>
             </h3>
+            <?php if ( $primary_section == 'bears' || $primary_section == 'bears-football' ) : ?>
+                <a href="http://terrysfordofpeotone.com/Chicago/For-Sale/New/" target="_blank" class="right">
+                    <img class="terry-ford" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/terry-ford-bears-logo-prod.png" alt="Terry Ford Logo">
+                </a>
+            <?php endif; ?>    
         </div>
 
         <?php
@@ -97,6 +142,7 @@ class CST_Bears_Cube_Widget extends WP_Widget {
 
         $this->enqueue_scripts();
 
+        $title = ! empty( $instance['cst_bears_cube_title'] ) ? $instance['cst_bears_cube_title'] : '';
         $bears_cube_story_id = ! empty( $instance['cst_bears_cube_story_id'] ) ? $instance['cst_bears_cube_story_id'] : '';
         $obj = \CST\Objects\Post::get_by_post_id( $bears_cube_story_id );
         if ( $obj ) {
@@ -108,6 +154,8 @@ class CST_Bears_Cube_Widget extends WP_Widget {
 
         ?>
             <p>
+                <label for="<?php echo esc_attr( $this->get_field_id( 'cst_bears_cube_title' ) ); ?>"><?php esc_html_e( 'Title:', 'chicagosuntimes' ); ?></label> 
+                <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'cst_bears_cube_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_bears_cube_title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
                 <label for="<?php echo esc_attr( $this->get_field_id( 'cst_bears_cube_story_id' ) ); ?>">
                     <?php esc_html_e( 'Bears Cube Content', 'chicagosuntimes' ); ?>:
                 </label>
@@ -120,6 +168,7 @@ class CST_Bears_Cube_Widget extends WP_Widget {
     public function update( $new_instance, $old_instance ) {
 
         $instance = array();
+        $instance['cst_bears_cube_title']    = sanitize_text_field( $new_instance['cst_bears_cube_title'] );
         $instance['cst_bears_cube_story_id'] = intval( $new_instance['cst_bears_cube_story_id'] );
 
         return $instance;
