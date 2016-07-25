@@ -27,52 +27,51 @@ class Chicago_Wire_Item extends Post {
         $namespaces        = $feed_entry->getNameSpaces(true);
         $wp_children       = $feed_entry->children( $namespaces['wp'] );
         $dc_children       = $feed_entry->children( $namespaces['dc'] );
-        $content_children  = $feed_entry->children( $namespaces['content'] );
+        //$content_children  = $feed_entry->children( $namespaces['content'] );
         $category_children = $feed_entry->category;
         $post_title        = (string) $feed_entry->title;
-        $post_body         = (string) $content_children->encoded;
+        //$post_body         = (string) $content_children->encoded;
+        $post_body         = (string) $feed_entry->description;
+        $external_url      = (string) $feed_entry->guid;
         $gmt_published     = date( 'Y-m-d H:i:s', strtotime( $feed_entry->pubDate ) );
+        $orig_post_id      = filter_var( $feed_entry->guid, FILTER_SANITIZE_NUMBER_INT );
+        $story = false;
 
-        $item_topics = '';
-        foreach( $category_children as $topic ) {
-            $item_topics .= $topic . ', ';
-        }
+            $post_args = array(
+                'post_title'        => sanitize_text_field( $post_title ),
+                'post_content'      => wp_filter_post_kses( $post_body ),
+                'post_type'         => 'cst_chicago_item',
+                'post_author'       => $chicago_author_id,
+                'post_status'       => 'publish',
+                'post_name'         => md5( 'chicago_item' . $orig_post_id ),
+                'post_date'         => get_date_from_gmt( $gmt_published ),
+                'post_date_gmt'     => $gmt_published,
+                );
+
+            $post_id = wp_insert_post( $post_args, true );
+            if ( is_wp_error( $post_id ) ) {
+                return $post_id;
+            }
+
+            $post = new Chicago_Wire_Item( $post_id );
+
+            // Process attributes from the item's XML node
+
+            $post->set_original_post_id( sanitize_text_field( $orig_post_id ) );
+            // Headline node
+            $post->set_wire_headline( sanitize_text_field( (string) $feed_entry->title ) );
+
+            // Set original URL
+            $post->set_external_url( sanitize_text_field( (string) $external_url ) );
         
-        $meta_topics = rtrim( $item_topics, ', ' );
+            // fullText node
+            $post->set_wire_content( wp_filter_post_kses( $post_body ) );
 
-        $post_args = array(
-            'post_title'        => sanitize_text_field( $post_title ),
-            'post_content'      => wp_filter_post_kses( $post_body ),
-            'post_type'         => 'cst_chicago_item',
-            'post_author'       => $chicago_author_id,
-            'post_status'       => 'publish',
-            'post_name'         => md5( 'chicago_item' . $feed_entry->assetId ),
-            'post_date'         => get_date_from_gmt( $gmt_published ),
-            'post_date_gmt'     => $gmt_published,
-            );
+            // promoBrief node
+            $post->set_wire_promo_brief( wp_filter_post_kses( $feed_entry->description ) );
 
-        $post_id = wp_insert_post( $post_args, true );
-        if ( is_wp_error( $post_id ) ) {
-            return $post_id;
-        }
-
-        $post = new Chicago_Wire_Item( $post_id );
-
-        // Process attributes from the item's XML node
-
-        // Headline node
-        $post->set_wire_headline( sanitize_text_field( (string) $feed_entry->title ) );
+            return $post;
         
-        // Attribution > Publication node
-        $post->set_wire_dateline( sanitize_text_field( (string) $feed_entry->attribution->publication ) );
-    
-        // fullText node
-        $post->set_wire_content( wp_filter_post_kses( $post_body ) );
-
-        // promoBrief node
-        $post->set_wire_promo_brief( wp_filter_post_kses( $feed_entry->description ) );
-
-        return $post;
     }
 
     /**
@@ -118,15 +117,6 @@ class Chicago_Wire_Item extends Post {
      */
     public function get_wire_dateline() {
         return $this->get_meta( 'chicago_wire_dateline' );
-    }
-
-    /**
-     * Set the item's wire dateline
-     *
-     * @param string
-     */
-    public function set_wire_dateline( $wire_dateline ) {
-        $this->set_meta( 'chicago_wire_dateline', $wire_dateline );
     }
 
     /**
@@ -205,6 +195,24 @@ class Chicago_Wire_Item extends Post {
      */
     public function set_external_url( $external_url ) {
         $this->set_meta( 'external_url', $external_url );
+    }
+
+     /**
+     * External URL for the AP Wire Item
+     *
+     * @return string
+     */
+    public function get_original_post_id() {
+        return $this->get_meta( 'chi_original_post_id' );
+    }
+
+    /**
+     * External URL for the AP Wire Item
+     *
+     * @param string
+     */
+    public function set_original_post_id( $original_post_id ) {
+        $this->set_meta( 'chi_original_post_id', $original_post_id );
     }
 
     /**

@@ -1,3 +1,9 @@
+.column-cst_chicago_wire_item_content img {
+    display: none;
+}
+#cst-chicago-wire-curator-preview-item-content img {
+    max-width: 720px;
+}
 .post-type-cst_chicago_item #post-query-submit {
     display: none;
 }

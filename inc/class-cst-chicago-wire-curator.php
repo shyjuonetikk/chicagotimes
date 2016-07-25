@@ -267,7 +267,7 @@ class CST_Chicago_Wire_Curator {
         $new_columns = array(
             'cst_chicago_wire_item_title'    => esc_html__( 'Title', 'chicagosuntimes' ),
             'cst_chicago_wire_item_content'  => esc_html__( 'Story Brief', 'chicagosuntimes' ),
-            'cst_chicago_wire_item_topics'   => esc_html__( 'Topics', 'chicagosuntimes' ),
+            'cst_chicago_wire_item_orig_post_id'  => esc_html__( 'Orig Post ID', 'chicagosuntimes' ),
             'cst_chicago_wire_item_date'     => esc_html__( 'Published', 'chicagosuntimes' ),
             );
 
@@ -290,15 +290,15 @@ class CST_Chicago_Wire_Curator {
                 break;
 
             case 'cst_chicago_wire_item_content':
-                echo wp_kses_post( $item->get_wire_promo_brief() );
+                echo wp_kses_post( substr( $item->get_wire_promo_brief(), 0, 450 ) );
                 echo '<div class="cst-preview-data">';
                 echo '<div class="preview-headline">' . esc_html( $item->get_wire_headline() ) . '</div>';
                 echo '<div class="preview-content">' . wp_kses_post( $item->get_wire_content() ) . '</div>';
                 echo '</div>';
                 break;
 
-            case 'cst_chicago_wire_item_topics':
-                echo '<strong>' . esc_html( $item->get_wire_topics() ) . '</strong>';
+            case 'cst_chicago_wire_item_orig_post_id':
+                echo '<strong>' . esc_html( $item->get_original_post_id() ) . '</strong>';
                 break;
 
             case 'cst_chicago_wire_item_date':
@@ -555,8 +555,10 @@ class CST_Chicago_Wire_Curator {
                     // Only 'text' type items will be processed
                     if( $entry->title != '' ) {
 
+                        $orig_post_id = filter_var( $entry->guid, FILTER_SANITIZE_NUMBER_INT );
+
                         // See if this was already imported, otherwise create
-                        if ( \CST\Objects\Chicago_Wire_Item::get_by_original_id( sanitize_text_field( $entry->assetId ) ) ) {
+                        if ( \CST\Objects\Chicago_Wire_Item::get_by_original_id( sanitize_text_field( $orig_post_id ) ) ) {
                             continue;
                         }
 
