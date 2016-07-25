@@ -824,7 +824,7 @@ class CST_Frontend {
 	 */
 	public function cst_get_chatter_site($json_feed) {
 
-		$response = wpcom_vip_file_get_contents( $json_feed . '?count=1' );
+		$response = wpcom_vip_file_get_contents( $json_feed );
 		if ( is_wp_error( $response ) ) :
 			return;
 		else :
