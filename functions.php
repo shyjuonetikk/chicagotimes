@@ -435,7 +435,10 @@ class CST {
 		}
 		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
 		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
-		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
+        add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
+        add_filter( 'instant_articles_post_types', function( $types ) {
+            return array( 'cst_article', 'cst_gallery' );
+        } );
 		add_filter( 'instant_articles_post_types', function( $types ) {
 			return array( 'cst_article', 'cst_gallery' );
 		} );
