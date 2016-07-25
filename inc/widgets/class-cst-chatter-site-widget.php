@@ -48,8 +48,8 @@ class CST_Chatter_Site_Widget extends WP_Widget {
                 <ul class="widget-recent-posts">
                     <li>
                         <a href="<?php echo esc_url( $base_url . '/' . $chatter_item_slug ); ?>" target="_blank">
-                            <img src="<?php echo esc_html( $featured_media_url ); ?>" style="width:290px;height:200px;" /><br />
-                            <span class='title'><?php echo $chatter_item['0']->title->rendered; ?></span>
+                            <img src="<?php echo esc_url( $featured_media_url ); ?>" style="width:290px;height:200px;" /><br />
+                            <span class='title'><?php esc_html_e( $chatter_item['0']->title->rendered ); ?></span>
                         </a>
                     </li>
                 </ul>
