@@ -17,33 +17,44 @@ class CST_Chatter_Site_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
         $chatter_site = $instance['cst_chatter_site'];
         if( empty( $chatter_site ) ) {
-            $feed_url = 'http://sportschatter.com/api/2.0/get_posts/';
+            $feed_url = 'http://sportschatter.com/wp-json/wp/v2/posts/';
+            $image_url = 'http://sportschatter.com/wp-json/wp/v2/media';
+            $base_url = 'http://www.sportschatter.com/sports-talk/slideshow';
         } elseif( $chatter_site == 'sports' ) {
-            $feed_url = 'http://sportschatter.com/api/2.0/get_posts/';
+            $feed_url = 'http://sportschatter.com/wp-json/wp/v2/posts/';
+            $image_url = 'http://sportschatter.com/wp-json/wp/v2/media';
+            $base_url = 'http://www.sportschatter.com/sports-talk/slideshow';
         } elseif( $chatter_site == 'celeb' ) {
-            $feed_url = 'http://celebchatter.com/api/2.0/get_posts/';
+            $feed_url = 'http://celebchatter.com/wp-json/wp/v2/posts/';
+            $image_url = 'http://celebchatter.com/wp-json/wp/v2/media';
+            $base_url = 'http://www.celebchatter.com/celeb/slideshow';
         } else {
-            $feed_url = 'http://politicschatter.com/api/2.0/get_posts/';
+            $feed_url = 'http://politicschatter.com/wp-json/wp/v2/posts/';
+            $image_url = 'http://politicschatter.com/wp-json/wp/v2/media';
+            $base_url = 'http://www.politicschatter.com/politics-talk/slideshow';
         }
 
         echo $args['before_widget'];
 
         echo $args['before_title'] . esc_html( $chatter_site . ' chatter' ) . $args['after_title'];
 
+            $chatter_item = CST()->frontend->cst_get_chatter_site( $feed_url ); 
+            $chatter_item_slug = $chatter_item['0']->slug;
+            $featured_media_id = $chatter_item['0']->featured_media;
+            if( $featured_media_id ) :
+                $featured_media = CST()->frontend->cst_get_chatter_site( $image_url . '/' . $featured_media_id );
+                $featured_media_url = $featured_media->media_details->sizes->medium->source_url;
         ?>
-        <ul class="widget-recent-posts">
-            <?php $chatter_item = CST()->frontend->cst_get_chatter_site( $feed_url ); 
-                    $thumbnail = $chatter_item->posts['0']->thumbnail->url;
-                    $thumbnail = str_replace( 'https://' . $chatter_site . 'chatter.mas.wordpress-prod-wp.aggrego.com' , 'http://wp-ag.s3.amazonaws.com', $thumbnail );
-            ?>
-            <li>
-                <a href="<?php echo esc_url( $chatter_item->posts['0']->url ); ?>" target="_blank">
-                    <img src="<?php echo esc_html( $thumbnail ); ?>" style="width:290px;height:200px;" /><br />
-                    <span class='title'><?php echo $chatter_item->posts['0']->title; ?></span>
-                </a>
-            </li>
-        </ul>
+                <ul class="widget-recent-posts">
+                    <li>
+                        <a href="<?php echo esc_url( $base_url . '/' . $chatter_item_slug ); ?>" target="_blank">
+                            <img src="<?php echo esc_url( $featured_media_url ); ?>" style="width:290px;height:200px;" /><br />
+                            <span class='title'><?php esc_html_e( $chatter_item['0']->title->rendered ); ?></span>
+                        </a>
+                    </li>
+                </ul>
         <?php
+            endif;
         echo $args['after_widget'];
     
     }
