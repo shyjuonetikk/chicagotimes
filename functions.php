@@ -198,6 +198,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-dne-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-shia-kapos-categories-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-tcx-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -213,7 +214,7 @@ class CST {
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
 		if ( ! defined( 'WP_CLI' ) ) {
 			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
-			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '2.11' );
+			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '3.0' );
 		}
 		// Options are loaded on Bitly::__construct
 		add_filter( 'pre_option_bitly_settings', function() {
@@ -437,7 +438,13 @@ class CST {
 		}
 		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
 		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
-		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
+        add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
+        add_filter( 'instant_articles_post_types', function( $types ) {
+            return array( 'cst_article', 'cst_gallery' );
+        } );
+		add_filter( 'instant_articles_post_types', function( $types ) {
+			return array( 'cst_article', 'cst_gallery' );
+		} );
 	}
 
 	/**
@@ -695,6 +702,7 @@ class CST {
 		register_widget( 'CST_AP_DNE_Widget' );
 		register_widget( 'CST_Shia_Kapos_Categories_Widget' );
 		register_widget( 'CST_TCX_Widget' );
+		register_widget( 'CST_Bears_Cube_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
