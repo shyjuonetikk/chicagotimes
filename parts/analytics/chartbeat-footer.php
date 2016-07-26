@@ -19,13 +19,13 @@ _sf_async_config.uid = 38241;
 _sf_async_config.domain = '<?php echo esc_js( $domain ); ?>';
 _sf_async_config.useCanonical = true;
 <?php if ( isset( $obj ) && is_object( $obj ) ) : ?>
-    <?php if ( $section_list ) : ?>
-        _sf_async_config.sections = '<?php echo esc_js( implode( ', ', $section_list ) ); ?>';
-    <?php endif; ?>
-    <?php if ( $authors = $obj->get_authors() ) :
-        $author = array_shift( $authors ); ?>
-        _sf_async_config.authors = '<?php echo esc_js( $author->get_display_name() ); ?>';
-    <?php endif; ?>
+	<?php if ( $section_list ) : ?>
+_sf_async_config.sections = '<?php echo esc_js( implode( ', ', $section_list ) ); ?>';
+	<?php endif; ?>
+	<?php if ( $authors = $obj->get_authors() ) :
+$author = array_shift( $authors ); ?>
+_sf_async_config.authors = '<?php echo esc_js( $author->get_display_name() ); ?>';
+	<?php endif; ?>
 <?php endif; ?>
 <?php if ( is_singular() ) { ?>
 var _cbq = window._cbq || [];
