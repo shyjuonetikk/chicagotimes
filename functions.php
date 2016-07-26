@@ -328,7 +328,9 @@ class CST {
 		if ( class_exists( 'CST_Elections' ) ) {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
-
+		add_action( 'cst_section_head_bears', array( $this, 'section_head_bears' ) );
+		add_action( 'cst_section_head_bears_football', array( $this, 'section_head_bears' ) );
+		add_action( 'cst_section_head_comscore', array( $this, 'section_head_comscore' ), 10, 2 );
 		add_action( 'cst_section_head_bears', array( $this, 'section_head_bears' ) );
 		add_action( 'cst_section_head_bears_football', array( $this, 'section_head_bears' ) );
 		add_action( 'cst_section_head_comscore', array( $this, 'section_head_comscore' ), 10, 2 );
@@ -445,9 +447,7 @@ class CST {
         add_filter( 'instant_articles_post_types', function( $types ) {
             return array( 'cst_article', 'cst_gallery' );
         } );
-		add_filter( 'instant_articles_post_types', function( $types ) {
-			return array( 'cst_article', 'cst_gallery' );
-		} );
+
 	}
 
 	/**
