@@ -470,7 +470,7 @@ class CST {
 		$excluded_sections = array(
 			'bears',
 			'bears_football',
-			'olympics-2016',
+			'olympics_2016',
 		);
 		if ( in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
