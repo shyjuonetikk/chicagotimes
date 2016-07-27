@@ -331,7 +331,7 @@ class CST {
 		add_action( 'cst_section_head_bears', array( $this, 'action_section_head_bears' ) );
 		add_action( 'cst_section_head_bears_football', array( $this, 'action_section_head_bears' ) );
 		add_action( 'cst_section_head_comscore', array( $this, 'action_section_head_comscore' ), 10, 2 );
-		add_action( 'cst_section_head_olympics', array( $this, 'action_section_head_olympics' ) );
+		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_section_head_olympics_2016' ) );
 	}
 
 	/**
@@ -470,7 +470,7 @@ class CST {
 		$excluded_sections = array(
 			'bears',
 			'bears_football',
-			'olympics',
+			'olympics-2016',
 		);
 		if ( in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
@@ -488,7 +488,7 @@ class CST {
 	/**
 	 * Function called from section_head action in parts/page-header.php
 	 */
-	function action_section_head_olympics() {
+	function action_section_head_olympics_2016() {
 		echo '
 <section class="row grey-background">
 	<div class="large-12 columns">
