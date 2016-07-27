@@ -29,7 +29,7 @@ _sf_async_config.authors = '<?php echo esc_js( $author->get_display_name() ); ?>
 <?php endif; ?>
 <?php if ( is_singular() ) { ?>
 var _cbq = window._cbq || [];
-_cbq.push(['_postid','<?php echo get_the_ID(); ?>']);
+_cbq.push(['_postid','<?php echo wp_json_encode( get_the_ID() ); ?>']);
 <?php } ?>
 (function(){
 function loadChartbeat()
