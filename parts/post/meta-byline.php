@@ -26,4 +26,14 @@
 <?php } else { ?>
 	<div class="post-meta-author byline-author"><?php echo esc_html( $byline ); ?></div>
 <?php } ?>
+<?php
+	if ( is_singular() ) :
+		if ( $obj->get_primary_section() ) :
+			$section = $obj->get_primary_section();
+			if( $section->slug == 'entertainment' ) :
+				echo CST()->get_template_part( 'post/signup-entertainment-newsletter' );
+			endif;
+		endif;
+	endif;
+?>
 </div>
