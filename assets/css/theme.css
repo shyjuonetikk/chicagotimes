@@ -2752,13 +2752,13 @@ body.post-gallery-lightbox-active {
       max-width: 72rem;
       width: 100%; }
     .homepage_wrapper .columns {
-      padding: 0 0.9375rem; } }
+      padding: 0 5px 0 0; } }
   @media (min-width: 1200px) and (max-width: 1275px) {
     .homepage_wrapper .row {
       max-width: 55rem;
       width: 100%; }
     .homepage_wrapper .columns {
-      padding: 0 5px 0 0; } }
+      padding: 0 0.9375rem; } }
   .homepage_wrapper .content-wrapper {
     position: relative;
     z-index: 2;
