@@ -36,7 +36,7 @@ class CST_Admin {
 
 		add_action( 'save_post', array( $this, 'action_save_post_late' ), 100 );
 
-		add_action( 'post_updated', array( $this, 'action_save_post_app_update' ), 100 );
+		add_action( 'transition_post_status', array( $this, 'action_save_post_app_update' ), 100 );
 
 		add_action( 'add_meta_boxes', array( $this, 'action_add_meta_boxes' ), 20, 2 );
 
@@ -890,15 +890,15 @@ class CST_Admin {
 
 	}
 
-	public function action_save_post_app_update($post_id, $after, $before) {
+	public function action_save_post_app_update($new_status, $old_status, $post) {
 
-		if( $post_id ) {
-			$obj = \CST\Objects\Post::get_by_post_id( $post_id );
-			if( ! $obj ) {
-				return;
-			}
+			if ( 'publish' == $new_status ) {
+				$post_id = get_the_ID();
+				$obj = \CST\Objects\Post::get_by_post_id( $post_id );
+				if( ! $obj ) {
+					return;
+				}
 
-			if( $obj->get_status() == 'publish' ) {
 				$story_title = $obj->get_title();
 	            $story_url   = $obj->get_permalink();
 
@@ -920,8 +920,6 @@ class CST_Admin {
 	            } 
 
 			}
-
-		}
 
 	}
 
