@@ -91,7 +91,7 @@ class CST_Columnists_Content_Widget extends WP_Widget {
         $primary_section = $obj->get_primary_parent_section();
         ?>
         
-        <div class="large-12 medium-6 small-12 columns widget_cst_columnists_content_widget">
+        <div class="large-12 medium-6 small-12 widget_cst_columnists_content_widget">
             <h2 class="widgettitle"><?php esc_html_e( 'Today\'s Voice', 'chicagosuntimes' ); ?></h2>
             <?php
                 foreach( $obj->get_authors() as $i => $author ) {

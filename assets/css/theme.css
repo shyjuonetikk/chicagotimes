@@ -3097,8 +3097,7 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .widget_cst_todays_paper_widget {
     display: block;
     position: relative;
-    height: auto;
-    padding: 0; }
+    height: auto; }
     .homepage_wrapper .widget_cst_todays_paper_widget img {
       position: relative;
       display: block; }
@@ -3127,11 +3126,12 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .widget_cst_todays_paper_widget:hover .todays-paper-back {
     display: block; }
   .homepage_wrapper .widget_cst_featured_content_widget, .homepage_wrapper .widget_cst_columnists_content_widget {
-    list-style-type: none; }
-    @media (min-width: 1025px) {
-      .homepage_wrapper .widget_cst_featured_content_widget, .homepage_wrapper .widget_cst_columnists_content_widget {
-        margin: 20px 0 20px 0;
-        padding: 10px 0 10px 0; } }
+    list-style-type: none;
+    /*	@media (min-width: 1025px) {
+		margin: 20px 0 20px 0;
+		padding: 10px 0 10px 0;
+	}
+*/ }
     .homepage_wrapper .widget_cst_featured_content_widget h2.widgettitle, .homepage_wrapper .widget_cst_columnists_content_widget h2.widgettitle {
       text-transform: uppercase;
       font-size: 1.75rem;

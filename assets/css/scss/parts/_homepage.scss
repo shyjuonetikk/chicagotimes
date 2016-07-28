@@ -941,7 +941,6 @@
 	display: block;
 	position: relative;
 	height: auto;
-	padding: 0;
 
 	img {
 		position: relative;
@@ -991,11 +990,11 @@
 .widget_cst_featured_content_widget, .widget_cst_columnists_content_widget {
 	list-style-type: none;
 
-	@media (min-width: 1025px) {
+/*	@media (min-width: 1025px) {
 		margin: 20px 0 20px 0;
 		padding: 10px 0 10px 0;
 	}
-
+*/
 	h2.widgettitle {
 		text-transform: uppercase;
 		font-size: 1.75rem;
