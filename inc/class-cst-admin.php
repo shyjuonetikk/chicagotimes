@@ -36,6 +36,8 @@ class CST_Admin {
 
 		add_action( 'save_post', array( $this, 'action_save_post_late' ), 100 );
 
+		add_action( 'transition_post_status', array( $this, 'action_save_post_app_update' ), 100, 3 );
+
 		add_action( 'add_meta_boxes', array( $this, 'action_add_meta_boxes' ), 20, 2 );
 
 		add_action( 'restrict_manage_posts', function() {
@@ -873,7 +875,6 @@ class CST_Admin {
 				if ( ! $video->get_featured_image_id() ) {
 					$video->fetch_featured_image();
 				}
-
 				break;
 
 		}
@@ -886,6 +887,39 @@ class CST_Admin {
 			}
 
 		}
+
+	}
+
+	public function action_save_post_app_update($new_status, $old_status, $post) {
+
+			if ( 'publish' == $new_status ) {
+				$post_id = get_the_ID();
+				$obj = \CST\Objects\Post::get_by_post_id( $post_id );
+				if( ! $obj ) {
+					return;
+				}
+
+				$story_title = $obj->get_title();
+	            $story_url   = $obj->get_permalink();
+
+	            $url = 'http://cst.atapi.net/push/_pushnotification.php?title=' . $story_title . '&url=' . $story_url;
+	            $response = wp_remote_post( $url, array(
+	                'method' => 'POST',
+	                'timeout' => 45,
+	                'redirection' => 5,
+	                'httpversion' => '1.0',
+	                'blocking' => true,
+	                'headers' => array(),
+	                'body' => array( 'title' => $story_title, 'url' => $story_url ),
+	                'cookies' => array()
+	                )
+	            );
+	            if ( is_wp_error( $response ) ) {
+	               $error_message = $response->get_error_message();
+	               return false;
+	            } 
+
+			}
 
 	}
 
