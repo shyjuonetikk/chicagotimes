@@ -858,6 +858,12 @@
     			padding-right: 0.9375rem;
 			}
 		}
+		.more-story {
+			border-top: 1px $grey solid;
+			&:first-child {
+				border-top:none;
+			}
+		}
 	}
 
 	section#section-column-wells {

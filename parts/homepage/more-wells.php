@@ -5,8 +5,7 @@
 <?php if ( is_array( $homepage_more_well_posts ) && ! empty( $homepage_more_well_posts ) ) { ?>
 	<section id="more-stories-wells">
 		<?php foreach ( $homepage_more_well_posts as $homepage_more_well_post ) { ?>
-			<hr/>
-			<div class="row">
+			<div class="row more-story">
 				<?php
 				$obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_post->ID );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {

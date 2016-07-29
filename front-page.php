@@ -24,7 +24,7 @@
                     dynamic_sidebar( 'homepage_headlines' ); 
                 endif;
             ?>
-            <div>
+            <div class="row">
                 <div class="large-12 columns content-wrapper">
                     <?php 
                         if ( is_active_sidebar( 'homepage_featured_story' ) ) :
