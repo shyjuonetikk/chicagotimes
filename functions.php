@@ -168,6 +168,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/objects/class-video.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-attachment.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-usa-today-wire-item.php';
+		require_once dirname( __FILE__ ) . '/inc/objects/class-chicago-wire-item.php';
 
 		// Widgets
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-widget.php';
