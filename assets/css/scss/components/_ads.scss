@@ -146,17 +146,6 @@
 
 }
 
-.top-section-ad {
-	width: 184px;
-	height: 90px;
-	border: 1px solid #ff9900;
-	&.left {
-		float: left;
-	}
-	&.right {
-		float: right;
-	}
-}
 @media #{$wallpaper-only} {
 	.dfp-wallpaper {
 		position:absolute;

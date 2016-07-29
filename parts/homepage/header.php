@@ -17,7 +17,6 @@
 				</ul>
 
 				<section class="top-bar-section">
-					<div class="top-section-ad left"></div>
 					<div class="logo-wrapper large-logo">
 						<div class="logo">
 							<img src="<?php echo get_template_directory_uri(); ?>/cst-white-logo.png" alt="CST LOGO">
@@ -35,7 +34,6 @@
 								) 
 						);
 					?>
-					<div class="top-section-ad right"></div>
 				</section>
 			</nav>
 
