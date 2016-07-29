@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<div class="homepage-content">
 <?php get_template_part( 'parts/dfp/homepage/dfp-wallpaper' ); ?>
             <?php 
                 if ( is_active_sidebar( 'homepage_breaking_news' ) ) :
@@ -23,7 +24,7 @@
                     dynamic_sidebar( 'homepage_headlines' ); 
                 endif;
             ?>
-            <div class="row">
+            <div>
                 <div class="large-12 columns content-wrapper">
                     <?php 
                         if ( is_active_sidebar( 'homepage_featured_story' ) ) :
@@ -33,6 +34,6 @@
                     <?php get_template_part( 'parts/homepage/column-wells' ); ?>
                 </div>
             </div>
-        <?php get_template_part( 'parts/homepage/footer' ); ?>
 </div>
+<?php get_template_part( 'parts/homepage/footer' ); ?>
 <?php get_footer(); ?>

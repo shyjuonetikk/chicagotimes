@@ -8,7 +8,7 @@
 				get_template_part( 'parts/dfp/dfp-mobile-leaderboard' ); 
 			?>
 			<hr/>
-			<div class="row">
+			<div>
 		        <div class="large-12 medium-6 small-12 search-widget">
 		            <form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 		            	<h3>Search Results for...</h3>

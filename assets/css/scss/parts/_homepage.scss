@@ -164,7 +164,7 @@
 		margin: 0 auto;
 		max-width: 1073px;
 		width: 100%;
-		padding: 0 0 10px 10px;
+		padding: 0 5px;
 	}
 
 	@media (min-width: 481px) and (max-width: 1024px) {
@@ -404,6 +404,23 @@
 }
 
 /* CONTENT */
+.homepage-content {
+	max-width: 57.4rem;
+	margin: 0 auto;
+	.main-well-container,
+	.secondary-well-container,
+	.secondary-well-upper,
+	.secondary-well-lower,
+	.secondary-well-bottom {
+		padding:0;
+		.columns:first-child {
+			padding:0 0.3375rem 0 0;
+		}
+		.columns:last-child {
+			padding:0 0 0 0.3375rem;
+		}
+	}
+}
 
 @media (min-width: 1401px) {
 	.row {
@@ -413,47 +430,75 @@
 }
 @media (min-width: 1335px) and (max-width: 1400px) {
 	.row {
-		max-width: 61rem;
 		width: 100%;
 	}
 
-	.columns {
-		padding: 0 5px 0 0;
-	}
 }
 
 @media (min-width: 1300px) and (max-width: 1334px) {
 	.row {
-		max-width: 59rem;
 		width: 100%;
 	}
 
-	.columns {
-		padding: 0 5px 0 0;
-	}
 }
 
 @media (min-width: 1276px) and (max-width: 1299px) {
 	.row {
-		max-width: 72rem;
 		width: 100%;
 	}
 
-	.columns {
-		padding: 0 5px 0 0;
-	}
 }
 
 @media (min-width: 1200px) and (max-width: 1275px) {
 	.row {
-		max-width: 55rem;
 		width: 100%;
 	}
+	.homepage-content {
+		max-width: 57.4rem;
+		margin: 0 auto;
+		.main-well-container,
+		.secondary-well-upper,
+		.secondary-well-lower,
+		.secondary-well-bottom {
+			padding:0;
+			.columns:first-child {
+				padding:0 0.3375rem 0 0;
+			}
+			.columns:last-child {
+				padding:0 0 0 0.3375rem;
+			}
+		}
+	}
 
-	.columns {
-		padding: 0 0.9375rem;
+	.secondary-well-container {
+		padding:0;
 	}
 }
+
+	@media ( max-width: 40rem) {
+		.homepage-content {
+			margin: 0 auto;
+			.main-well-container,
+			.secondary-well-container,
+			.secondary-well-upper,
+			.secondary-well-lower,
+			.secondary-well-bottom {
+				.columns:first-child {
+					padding-left: 0.9375rem;
+					padding-right: 0.9375rem;
+				}
+				.columns:last-child {
+					padding-left: 0.9375rem;
+					padding-right: 0.9375rem;
+				}
+			}
+		}
+		section#more-stories-wells {
+			.article-image {
+				padding-left: 1.5rem;
+			}
+		}
+	}
 
 	.content-wrapper {
 		position: relative;
@@ -515,10 +560,8 @@
 		.main-article-container {
 			position: relative;
 			height: auto;
-
-			@media (min-width: 1025px) {
-				margin-bottom: 20px;
-			}
+			margin-bottom: 10px;
+			padding:0;
 
 			a {
 				display: block;
@@ -604,8 +647,8 @@
 			}
 
 			.article-container {
-				margin-bottom: 20px;
-				height: 225px;
+				margin-bottom: 10px;
+				height: 250px;
 				overflow: hidden;
 				padding: 0;
 				position: relative;
@@ -676,13 +719,13 @@
 			text-align: center;
 
 			@media (max-width: 1024px) and (min-width: 481px) {
-				padding: 0;
+/*				padding: 0;*/
 			}
 		}
 
 		.article-container {
-			margin-bottom: 20px;
-			height: 225px;
+			margin-bottom: 10px;
+			height: 250px;
 			overflow: hidden;
 			padding: 0;
 			position: relative;

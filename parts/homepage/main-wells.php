@@ -2,9 +2,9 @@
 <div class="row">
     <div class="large-12 content-wrapper">
     <h2 class="mobile-top-news show-for-small-only"><?php esc_html_e( 'Top News', 'chicagosuntimes' ); ?></h2>
-        <div class="large-8 medium-12 columns">
+        <div class="large-8 medium-12 columns main-well-container">
             <section id="main-well">
-                <div class="row">
+                <div>
             <?php 
                 $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
                 if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
@@ -36,7 +36,7 @@
                     <?php
                 }
             ?>
-                    <div class="large-12 medium-12 columns left-main-well">
+                    <div class="large-12 medium-12 left-main-well">
                 <?php 
                     $obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[1]->ID );
                     if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
