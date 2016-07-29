@@ -3071,6 +3071,8 @@ body.post-gallery-lightbox-active {
       text-align: center;
       display: block;
       width: 100%; }
+  .homepage_wrapper .homepage-sidebar {
+    padding: 0 0 0 0.3375rem; }
   .homepage_wrapper .widget_cst_featured_content_widget:nth-of-type(1) {
     margin-top: 5px;
     padding: 0; }
@@ -3250,7 +3252,8 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .search-widget #search-input {
       font-size: 1.25rem;
       border: 2px ridge;
-      padding: 5px; }
+      padding: 5px;
+      margin-top: -1px; }
       @media (min-width: 981px) {
         .homepage_wrapper .search-widget #search-input {
           width: 250px; } }

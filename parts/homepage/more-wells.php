@@ -54,7 +54,7 @@
 	</section>
 <?php } ?>
 </div>
-<div class="large-4 columns">
+<div class="large-4 columns homepage-sidebar">
 	<?php if ( dynamic_sidebar( 'homepage_sidebar_two' ) ) {
 	} ?>
 	<?php if ( dynamic_sidebar( 'homepage_sidebar_three' ) ) {

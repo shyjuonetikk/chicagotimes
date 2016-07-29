@@ -107,7 +107,7 @@
                 </div>
             </section>
         </div>
-        <div class="large-4 columns">
+        <div class="large-4 columns homepage-sidebar">
             <?php get_template_part( 'parts/homepage/right-sidebar' ); ?>
         </div>
     </div>

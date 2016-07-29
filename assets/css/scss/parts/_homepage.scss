@@ -954,6 +954,9 @@
 
 /* SIDEBAR */
 
+	.homepage-sidebar {
+		padding: 0 0 0 0.3375rem;
+	}
 .widget_cst_featured_content_widget:nth-of-type(1) {
 	margin-top: 5px;
 	padding: 0;
@@ -1214,6 +1217,7 @@
 		font-size: 1.25rem;
 		border: 2px ridge;
 		padding: 5px;
+		margin-top: -1px;
 		@media (min-width: 981px) {
 			width: 250px;
 		}
