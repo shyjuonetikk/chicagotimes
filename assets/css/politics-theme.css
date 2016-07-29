@@ -25,6 +25,8 @@ body.single {
 
 hr {
   padding: 0 10px; }
+  hr.padme {
+    padding-bottom: 7px; }
 
 .clear-both {
   clear: both; }
@@ -3009,6 +3011,12 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper section#more-stories-wells .columns {
       padding-left: 0.9375rem;
       padding-right: 0.9375rem; } }
+  .homepage_wrapper section#more-stories-wells .more-story {
+    border-top: 1px #cccccc solid;
+    padding-top: 10px; }
+    .homepage_wrapper section#more-stories-wells .more-story:first-child {
+      border-top: none;
+      padding-top: 0; }
   .homepage_wrapper section#section-column-wells .section-list {
     background-color: white;
     border-radius: 5px;

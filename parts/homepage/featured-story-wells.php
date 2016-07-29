@@ -1,5 +1,5 @@
 <?php global $featured_homepage_story; ?>
-<hr/>
+<hr class="before">
 <h2 class="section-title"><span><?php echo esc_html_e( 'Featured Story', 'chicagosuntimes' ); ?></span></h2>
 <hr/>
 <section id="featured-story-wells">

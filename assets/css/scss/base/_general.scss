@@ -24,6 +24,9 @@ body.single {
 
 hr {
 	padding:0 10px;
+	&.before {
+		padding-bottom:7px;
+	}
 }
 .clear-both {
 	clear: both;

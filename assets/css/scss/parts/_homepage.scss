@@ -860,8 +860,10 @@
 		}
 		.more-story {
 			border-top: 1px $grey solid;
+			padding-top: 10px;
 			&:first-child {
 				border-top:none;
+				padding-top:0;
 			}
 		}
 	}
