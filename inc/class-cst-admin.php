@@ -36,7 +36,7 @@ class CST_Admin {
 
 		add_action( 'save_post', array( $this, 'action_save_post_late' ), 100 );
 
-		add_action( 'transition_post_status', array( $this, 'action_save_post_app_update' ), 100 );
+		add_action( 'transition_post_status', array( $this, 'action_save_post_app_update' ), 100, 3 );
 
 		add_action( 'add_meta_boxes', array( $this, 'action_add_meta_boxes' ), 20, 2 );
 
