@@ -1116,8 +1116,8 @@ class CST_Frontend {
 		}
 		?>
 		<div class="article-title <?php echo esc_attr( strtolower( $primary_section->name ) ); ?>-cat">
-			<h3><?php esc_html( $obj->get_title() ); ?></h3>
-			<?php esc_html( $obj->get_excerpt() ); ?>
+			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+			<?php echo wp_kses_post( apply_filters( 'the_excerpt', $obj->get_excerpt() ) ); ?>
 			<span>By <?php echo esc_html( $author ); ?></span>
 		</div>
 	</a>
