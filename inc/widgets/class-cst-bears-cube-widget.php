@@ -122,7 +122,7 @@ class CST_Bears_Cube_Widget extends WP_Widget {
         ?>
         
 
-        <div class="bears-cube-story <?php echo $section_bg_class; ?>">
+        <div class="bears-cube-story <?php echo esc_html( $section_bg_class ); ?>">
             <h3 class="title">
                 <span><i class="fa fa-times-circle-o close-bears-cube"></i> <?php echo esc_html_e( $title, 'chicagosuntimes' ); ?></span> <a href="<?php echo $obj->the_permalink(); ?>"><?php echo esc_html( $obj->the_title() ); ?></a>
                     <?php echo ! empty( $post_section ) ? '<span>&mdash; (' . $post_section->name . ')</span>' : ''; ?>
