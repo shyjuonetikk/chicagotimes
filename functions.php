@@ -328,10 +328,10 @@ class CST {
 		if ( class_exists( 'CST_Elections' ) ) {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
-		add_action( 'cst_section_head_bears', array( $this, 'action_section_head_bears' ) );
-		add_action( 'cst_section_head_bears_football', array( $this, 'action_section_head_bears' ) );
-		add_action( 'cst_section_head_comscore', array( $this, 'action_section_head_comscore' ), 10, 2 );
-		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_section_head_olympics_2016' ) );
+		add_action( 'cst_section_head_bears', array( $this, 'action_cst_section_head_bears' ) );
+		add_action( 'cst_section_head_bears_football', array( $this, 'action_cst_section_head_bears' ) );
+		add_action( 'cst_section_head_comscore', array( $this, 'action_cst_section_head_comscore' ), 10, 2 );
+		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_cst_section_head_olympics_2016' ) );
 	}
 
 	/**
@@ -451,7 +451,7 @@ class CST {
 	/**
 	 * Function called from section_head action
 	 */
-	function action_section_head_bears() {
+	function action_cst_section_head_bears() {
 		echo '
 <section class="bears-football row grey-backgound" style="position:relative;z-index:2;">
 	<iframe src="http://thecube.com/embed/659232" width="100%" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px;float:right;" href="//thecube.com">Share Events on The Cube</a></div>
@@ -465,7 +465,7 @@ class CST {
 	 * @param $section_slug
 	 * @param $action_slug
 	 */
-	function action_section_head_comscore( $section_slug, $action_slug ) {
+	function action_cst_section_head_comscore( $section_slug, $action_slug ) {
 		// dashes to underscores in excluded section name
 		$excluded_sections = array(
 			'bears',
@@ -488,7 +488,7 @@ class CST {
 	/**
 	 * Function called from section_head action in parts/page-header.php
 	 */
-	function action_section_head_olympics_2016() {
+	function action_cst_section_head_olympics_2016() {
 		echo '
 <section class="row grey-background">
 	<div class="large-12 columns">
