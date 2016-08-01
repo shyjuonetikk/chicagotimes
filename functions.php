@@ -332,6 +332,10 @@ class CST {
 		add_action( 'cst_section_head_bears_football', array( $this, 'action_cst_section_head_bears' ) );
 		add_action( 'cst_section_head_comscore', array( $this, 'action_cst_section_head_comscore' ), 10, 2 );
 		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_cst_section_head_olympics_2016' ) );
+		add_action( 'cst_section_head_olympics', array( $this, 'action_cst_section_head_olympics_2016' ) );
+
+		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
+		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
 	}
 
 	/**
@@ -474,6 +478,7 @@ class CST {
 			'bears',
 			'bears_football',
 			'olympics_2016',
+			'olympics',
 		);
 		if ( in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
@@ -494,26 +499,60 @@ class CST {
 	 */
 	function action_cst_section_head_olympics_2016() {
 		echo '
-<section class="row grey-background">
-	<div class="large-12 columns">
-		<div class="s2nPlayer-BQ3NYJzd" data-type="full"></div><script type="text/javascript" src="http://embed.sendtonews.com/player2/embedcode.php?fk=BQ3NYJzd&cid=4661" data-type="s2nScript"></script>
+<section class="grey-background">
+	<div class="row">
+		<div class="large-12">
+			<div class="s2nPlayer-BQ3NYJzd columns" data-type="full"></div><script type="text/javascript" src="http://embed.sendtonews.com/player2/embedcode.php?fk=BQ3NYJzd&cid=4661" data-type="s2nScript"></script>
+		</div>
 	</div>
 </section>
 		';
 	}
 	/**
-	 * Do not display section heading for the sections listed
+	 * Do not display section heading in the regular place for the sections listed
+	 *
+	 * @param $section_front_spacing
+	 *
+	 * Pretty title for section front
 	 */
-	function action_cst_section_section_front_heading( $section_front_spacing ) {
+	function action_cst_section_front_heading( $section_front_spacing ) {
 		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
 		$excluded_sections = array(
 			'olympics_2016',
+			'olympics',
 		);
 		if ( in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
 		}
 		?>
-<a href="" class="section-front"><?php esc_html_e( $section_front_spacing ); ?></a>	}
+<a href="" class="section-front"><?php esc_html( $section_front_spacing ); ?></a>
+	<?php
+	}
+	/**
+	 * Do not display section heading in the regular place for the sections listed
+	 *
+	 * @param $section_front_spacing
+	 *
+	 * Pretty title for section front
+	 */
+	function action_cst_section_front_upper_heading( ) {
+		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
+		$excluded_sections = array(
+			'olympics_2016',
+			'olympics',
+		);
+		if ( ! in_array( $action_slug, $excluded_sections, true ) ) {
+			return;
+		}
+		?>
+		<section class="row grey-background wire upper-heading">
+			<div class="columns medium-3 small-12">
+				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->slug ) ); ?></a>
+			</div>
+			<div class="columns medium-9 small-12">
+				<img src="http://placehold.it/728x90?text=728+by+90+(not+quite)">
+			</div>
+		</section>
 	<?php
 	}
 	/**
