@@ -450,6 +450,8 @@ class CST {
 
 	/**
 	 * Function called from section_head action
+	 *
+	 * Include the Bears video block from The Cube
 	 */
 	function action_cst_section_head_bears() {
 		echo '
@@ -461,6 +463,7 @@ class CST {
 
 	/**
 	 * Function called from section_head action in parts/page-header.php
+	 * Include or exclude the sports direct widget
 	 *
 	 * @param $section_slug
 	 * @param $action_slug
@@ -487,6 +490,7 @@ class CST {
 	}
 	/**
 	 * Function called from section_head action in parts/page-header.php
+	 * Embeds section video player for Olympics 2016
 	 */
 	function action_cst_section_head_olympics_2016() {
 		echo '
