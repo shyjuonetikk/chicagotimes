@@ -137,7 +137,7 @@
 				} else {
 					this.dfpWallpaper.addClass('dfp-wallpaper-fixed');
 				}
-			} else if( scrollTop < ( this.header.height() + 120 + this.breakingNews.height() ) ) {
+			} else if( scrollTop < ( this.header.height() + this.breakingNews.height() ) ) {
 				if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
 					this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
 					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 120 );
