@@ -502,6 +502,21 @@ class CST {
 		';
 	}
 	/**
+	 * Do not display section heading for the sections listed
+	 */
+	function action_cst_section_section_front_heading( $section_front_spacing ) {
+		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
+		$excluded_sections = array(
+			'olympics_2016',
+		);
+		if ( in_array( $action_slug, $excluded_sections, true ) ) {
+			return;
+		}
+		?>
+<a href="" class="section-front"><?php esc_html_e( $section_front_spacing ); ?></a>	}
+	<?php
+	}
+	/**
 	 * @param $category
 	 * @param $_post_id
 	 *
