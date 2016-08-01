@@ -22,13 +22,13 @@
                             <?php
                                 if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                     if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
-                                        echo $attachment->get_html( 'chiwire-header-large' );
+                                        echo wp_kses_post( $attachment->get_html( 'chiwire-header-large' ) );
                                     }
                                 }
                             ?>
                             <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                <h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
-                                <?php esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?>
+                                <h3><?php esc_html( $obj->the_title() ); ?></h3>
+                                <?php esc_html( $obj->the_excerpt() ); ?>
                                 <span>By <?php echo esc_html( $author ); ?></span>
                             </div>
                         </a>
@@ -55,13 +55,13 @@
                                     <?php
                                         if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                             if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
-                                                echo $attachment->get_html( 'chiwire-header-small' );
+                                                echo wp_kses_post( $attachment->get_html( 'chiwire-header-medium' ) );
                                             }
                                         }
                                     ?>
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                        <h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
-                                        <?php esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?>
+                                        <h3><?php esc_html( $obj->the_title() ); ?></h3>
+                                        <?php esc_html( $obj->the_excerpt() ); ?>
                                         <span>By <?php echo esc_html( $author ); ?></span>
                                     </div>
                                 </a>
@@ -88,13 +88,13 @@
                                     <?php
                                         if ( $featured_image_id = $obj->get_featured_image_id() ) {
                                             if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
-                                                echo $attachment->get_html( 'chiwire-header-small' );
+                                                echo wp_kses_post( $attachment->get_html( 'chiwire-header-medium' ) );
                                             }
                                         }
                                     ?>
                                     <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                        <h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
-                                        <?php esc_html_e ($obj->the_excerpt(), 'chicagosuntimes' ); ?>
+                                        <h3><?php esc_html( $obj->the_title() ); ?></h3>
+                                        <?php esc_html( $obj->the_excerpt() ); ?>
                                         <span>By <?php echo esc_html( $author ); ?></span>
                                     </div>
                                 </a>
