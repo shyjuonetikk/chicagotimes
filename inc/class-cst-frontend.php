@@ -1083,4 +1083,44 @@ class CST_Frontend {
 		return $primary_slug;
 	}
 
+	/**
+	* @param \CST\Objects\Post $obj
+	* @param $author
+	* @param $primary_section
+	* @param $image_size
+	* Display an article container and related markup in the homepage wells
+	*/
+	public function well_article_container_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large' ) {
+?>
+<div class="article-container">
+	<?php $this->well_article_markup( $obj, $author, $primary_section, $image_size ); ?>
+</div>
+<?php
+	}
+
+	/**
+	* @param \CST\Objects\Post $obj
+	* @param $author
+	* @param $primary_section
+	* @param $image_size
+	* Display an article anchor markup in the homepage wells
+	*/
+	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large' ) {
+?>
+	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
+		<?php
+		if ( $featured_image_id = $obj->get_featured_image_id() ) {
+			if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
+				echo wp_kses_post( $attachment->get_html( $image_size ) );
+			}
+		}
+		?>
+		<div class="article-title <?php echo esc_attr( strtolower( $primary_section->name ) ); ?>-cat">
+			<h3><?php esc_html( $obj->get_title() ); ?></h3>
+			<?php esc_html( $obj->get_excerpt() ); ?>
+			<span>By <?php echo esc_html( $author ); ?></span>
+		</div>
+	</a>
+<?php
+	}
 }

@@ -18,20 +18,7 @@
                     }
             ?>
                     <div class="large-12 medium-12 columns main-article-container">
-                        <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
-                            <?php
-                                if ( $featured_image_id = $obj->get_featured_image_id() ) {
-                                    if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
-                                        echo wp_kses_post( $attachment->get_html( 'chiwire-header-large' ) );
-                                    }
-                                }
-                            ?>
-                            <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                <h3><?php esc_html( $obj->the_title() ); ?></h3>
-                                <?php esc_html( $obj->the_excerpt() ); ?>
-                                <span>By <?php echo esc_html( $author ); ?></span>
-                            </div>
-                        </a>
+						<?php CST()->frontend->article_container_markup( $obj, $author, $primary_section ); ?>
                     </div>
                     <?php
                 }
@@ -51,20 +38,7 @@
                 ?>
                         <div class="large-6 medium-6 columns">
                             <div class="article-container">
-                                <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
-                                    <?php
-                                        if ( $featured_image_id = $obj->get_featured_image_id() ) {
-                                            if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
-                                                echo wp_kses_post( $attachment->get_html( 'chiwire-header-medium' ) );
-                                            }
-                                        }
-                                    ?>
-                                    <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                        <h3><?php esc_html( $obj->the_title() ); ?></h3>
-                                        <?php esc_html( $obj->the_excerpt() ); ?>
-                                        <span>By <?php echo esc_html( $author ); ?></span>
-                                    </div>
-                                </a>
+								<?php CST()->frontend->article_container_markup( $obj, $author, $primary_section, 'chiwire-header-medium' ); ?>
                             </div>
                         </div>
                         <?php
@@ -84,20 +58,7 @@
                 ?>
                         <div class="large-6 medium-6 columns">
                             <div class="article-container">
-                                <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
-                                    <?php
-                                        if ( $featured_image_id = $obj->get_featured_image_id() ) {
-                                            if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
-                                                echo wp_kses_post( $attachment->get_html( 'chiwire-header-medium' ) );
-                                            }
-                                        }
-                                    ?>
-                                    <div class="article-title <?php echo esc_html( strtolower( $primary_section->name ) ); ?>-cat">
-                                        <h3><?php esc_html( $obj->the_title() ); ?></h3>
-                                        <?php esc_html( $obj->the_excerpt() ); ?>
-                                        <span>By <?php echo esc_html( $author ); ?></span>
-                                    </div>
-                                </a>
+	                            <?php CST()->frontend->article_container_markup( $obj, $author, $primary_section, 'chiwire-header-medium' ); ?>
                             </div>
                         </div>
                         <?php
