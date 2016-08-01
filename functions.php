@@ -168,6 +168,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/objects/class-video.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-attachment.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-usa-today-wire-item.php';
+		require_once dirname( __FILE__ ) . '/inc/objects/class-chicago-wire-item.php';
 
 		// Widgets
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-widget.php';
@@ -328,7 +329,12 @@ class CST {
 		if ( class_exists( 'CST_Elections' ) ) {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
-
+		add_action( 'cst_section_head_bears', array( $this, 'section_head_bears' ) );
+		add_action( 'cst_section_head_bears_football', array( $this, 'section_head_bears' ) );
+		add_action( 'cst_section_head_comscore', array( $this, 'section_head_comscore' ), 10, 2 );
+		add_action( 'cst_section_head_bears', array( $this, 'section_head_bears' ) );
+		add_action( 'cst_section_head_bears_football', array( $this, 'section_head_bears' ) );
+		add_action( 'cst_section_head_comscore', array( $this, 'section_head_comscore' ), 10, 2 );
 	}
 
 	/**
@@ -442,9 +448,39 @@ class CST {
         add_filter( 'instant_articles_post_types', function( $types ) {
             return array( 'cst_article', 'cst_gallery' );
         } );
-		add_filter( 'instant_articles_post_types', function( $types ) {
-			return array( 'cst_article', 'cst_gallery' );
-		} );
+
+	}
+
+	/**
+	 * Function called from section_head action
+	 */
+	function section_head_bears() {
+		echo '
+<section class="bears-football row grey-backgound" style="position:relative;z-index:2;">
+	<iframe src="http://thecube.com/embed/659232" width="100%" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px;float:right;" href="//thecube.com">Share Events on The Cube</a></div>
+</section>';
+
+	}
+
+	/**
+	 * Function called from section_head action in parts/page-header.php
+	 *
+	 * @param $section_slug
+	 * @param $action_slug
+	 */
+	function section_head_comscore( $section_slug, $action_slug ) {
+		if ( 'bears' === $action_slug || 'bears_football' === $action_slug ) {
+			return;
+		}
+		if ( 'sports' === $section_slug ) {
+			echo '
+<section id="comscore" class="row grey-background">
+    <div class="large-8 columns">
+        <iframe src="http://scores.suntimes.com/sports-scores/score-carousel.aspx?Leagues=NHL;NBA;MLB;NFL&amp;numVisible=4" scrolling="no" frameborder="0" style="border:0; width:625px; height:90px;">Live Scores</iframe>
+    </div>
+</section>
+ 		';
+		}
 	}
 
 	/**
