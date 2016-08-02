@@ -69,7 +69,7 @@ class CST_Frontend {
 
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
-		add_action( 'header_sliding_billboard', array( $this, 'action_render_sliding_billboard' ) );
+		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 
 	}
 
@@ -1150,7 +1150,8 @@ class CST_Frontend {
 		';
 	}
 	/**
-	 * Do not display section heading in the regular place for the sections listed
+	 * Do not display section heading in the regular place
+	 *  for the listed section names (based on slug)
 	 *
 	 * @param $section_front_spacing
 	 *
@@ -1170,7 +1171,8 @@ class CST_Frontend {
 	<?php
 	}
 	/**
-	 * Do not display section heading in the regular place for the sections listed
+	 * Display section heading in the upper location
+	 * only for the sections listed
 	 *
 	 * @param $section_front_spacing
 	 *
@@ -1200,7 +1202,7 @@ class CST_Frontend {
 	/**
 	* Determine whether to display the sliding billboard markup
     */
-	function action_render_sliding_billboard() {
+	function action_maybe_render_sliding_billboard() {
 
 		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
 		$excluded_sections = array(
