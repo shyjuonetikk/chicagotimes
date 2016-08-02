@@ -547,7 +547,7 @@ class CST {
 		?>
 		<section class="row grey-background wire upper-heading">
 			<div class="columns medium-3 small-12">
-				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->slug ) ); ?></a>
+				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 			</div>
 			<div class="columns medium-9 small-12">
 				<img src="http://placehold.it/728x90?text=728+by+90+(not+quite)">
