@@ -399,13 +399,18 @@ class CST_Shia_Kapos_Wire_Curator {
      * @return array
      */
     public function validate_author($author_username) {
+
         $author_username = get_option( 'shia_kapos_wire_curator_author', array() );
         $shia_kapos_author_lookup    = get_user_by( 'login', $author_username );
-        if( is_object( $shia_kapos_author_lookup ) ) {
-            return true;
-        } else {
-            return false;
+        $blog_id = get_current_blog_id();
+        if( is_user_member_of_blog( $shia_kapos_author_lookup->ID, $blog_id ) ) {
+            if( is_object( $shia_kapos_author_lookup ) ) {
+                return true;
+            } else {
+                return false;
+            }
         }
+
     }
 
     /**
@@ -560,7 +565,11 @@ class CST_Shia_Kapos_Wire_Curator {
                             continue;
                         }
 
-                        \CST\Objects\Shia_Kapos_Wire_Item::create_from_simplexml( $entry );
+                        $user_id = get_current_user_id();
+                        $blog_id = get_current_blog_id();
+                        if( is_user_member_of_blog( $user_id, $blog_id ) ) {
+                            \CST\Objects\Shia_Kapos_Wire_Item::create_from_simplexml( $entry );
+                        }
 
                     }
 

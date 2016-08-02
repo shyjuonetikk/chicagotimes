@@ -471,29 +471,37 @@ class CST_Wire_Curator {
 			}
 
 			$feed_data = wp_remote_retrieve_body( $response );
-			$xml = simplexml_load_string( $feed_data );
-			foreach( $xml->entry as $entry ) {
+			if( $feed_data ) {
+				if( $xml ) {
+					$xml = simplexml_load_string( $feed_data );
+					foreach( $xml->entry as $entry ) {
 
-				// Only handle articles right now
-				$is_article = false;
-				foreach( $entry->link as $link ) {
-					if ( 'enclosure' === (string)$link['rel'] && 'AP Article' === (string)$link['title'] ) {
-						$is_article = true;
-						break;
+						// Only handle articles right now
+						$is_article = false;
+						foreach( $entry->link as $link ) {
+							if ( 'enclosure' === (string)$link['rel'] && 'AP Article' === (string)$link['title'] ) {
+								$is_article = true;
+								break;
+							}
+						}
+
+						if ( ! $is_article ) {
+							continue;
+						}
+
+						// See if this was already imported, otherwise create
+						if ( \CST\Objects\AP_Wire_Item::get_by_original_id( sanitize_text_field( $entry->id ) ) ) {
+							continue;
+						}
+
+						$user_id = get_current_user_id();
+                        $blog_id = get_current_blog_id();
+                        if( is_user_member_of_blog( $user_id, $blog_id ) ) {
+                            \CST\Objects\AP_Wire_Item::create_from_simplexml( $entry );
+                        }
+
 					}
 				}
-
-				if ( ! $is_article ) {
-					continue;
-				}
-
-				// See if this was already imported, otherwise create
-				if ( \CST\Objects\AP_Wire_Item::get_by_original_id( sanitize_text_field( $entry->id ) ) ) {
-					continue;
-				}
-
-				\CST\Objects\AP_Wire_Item::create_from_simplexml( $entry );
-
 			}
 
 			$this->set_last_refresh( time() );
