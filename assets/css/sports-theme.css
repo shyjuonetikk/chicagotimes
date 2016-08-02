@@ -2201,6 +2201,8 @@ section#subscribe {
       background: transparent !important; }
       .widgets li.ap_ncaa_cbb_scoreboard_widget #ap-new-widgets .title-block .inner-frame, .widgets li.ap_ncaa_cbb_news_widget #ap-new-widgets .title-block .inner-frame {
         padding: 0 !important; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget .button-left, .widgets li.ap_ncaa_cbb_scoreboard_widget .button-right, .widgets li.ap_ncaa_cbb_news_widget .button-left, .widgets li.ap_ncaa_cbb_news_widget .button-right {
+      padding: 0 0.5rem; }
   .widgets li.cst_newsletter_signup {
     background: white;
     height: auto;
