@@ -399,13 +399,19 @@ class CST_Chicago_Wire_Curator {
      * @return array
      */
     public function validate_author($author_username) {
+
+
         $author_username = get_option( 'chicago_wire_curator_author', array() );
         $chicago_author_lookup    = get_user_by( 'login', $author_username );
-        if( is_object( $chicago_author_lookup ) ) {
-            return true;
-        } else {
-            return false;
+        $blog_id = get_current_blog_id();
+        if( is_user_member_of_blog( $chicago_author_lookup->ID, $blog_id ) ) {
+            if( is_object( $chicago_author_lookup ) ) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        
     }
 
     /**
@@ -539,7 +545,7 @@ class CST_Chicago_Wire_Curator {
                 continue;
             }
 
-            $response = vip_safe_wp_remote_get( $feed, $args );
+            $response = vip_safe_wp_remote_get( $feed, '', 1, 3 );
 
             if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
                 continue;
@@ -562,7 +568,11 @@ class CST_Chicago_Wire_Curator {
                             continue;
                         }
 
-                        \CST\Objects\Chicago_Wire_Item::create_from_simplexml( $entry );
+                        $user_id = get_current_user_id();
+                        $blog_id = get_current_blog_id();
+                        if( is_user_member_of_blog( $user_id, $blog_id ) ) {
+                            \CST\Objects\Chicago_Wire_Item::create_from_simplexml( $entry );
+                        }
 
                     }
 

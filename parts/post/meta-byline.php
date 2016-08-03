@@ -28,11 +28,13 @@
 <?php } ?>
 <?php
 	if ( is_singular() ) :
-		if ( $obj->get_primary_section() ) :
-			$section = $obj->get_primary_section();
-			if( $section->slug == 'entertainment' ) :
-				echo CST()->get_template_part( 'post/signup-entertainment-newsletter' );
-			endif;
+		if ( $obj->get_sections() ) :
+			$post_sections = $obj->get_sections();
+			foreach( $post_sections as $section_check ) :
+				if( $section_check->slug == 'entertainment' ) :
+					echo CST()->get_template_part( 'post/signup-entertainment-newsletter' );
+				endif;
+			endforeach;
 		endif;
 	endif;
 ?>
