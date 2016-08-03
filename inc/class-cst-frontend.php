@@ -1140,12 +1140,10 @@ class CST_Frontend {
 	 */
 	function action_cst_section_head_olympics_2016() {
 		echo '
-<section class="grey-background">
-	<div class="row">
+<section class="row grey-background">
 		<div class="large-12">
 			<div class="s2nPlayer-BQ3NYJzd columns" data-type="full"></div><script type="text/javascript" src="http://embed.sendtonews.com/player2/embedcode.php?fk=BQ3NYJzd&cid=4661" data-type="s2nScript"></script>
 		</div>
-	</div>
 </section>
 		';
 	}
@@ -1193,7 +1191,7 @@ class CST_Frontend {
 				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 			</div>
 			<div class="columns medium-8 small-12">
-				<img src="http://placehold.it/728x90?text=Sponsor+banner+opportunity">
+				<img style="float:right;" src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/assets/images/EvanstonSubaruOlympicLogo-rgb.png'; ?>">
 			</div>
 		</section>
 	<?php
