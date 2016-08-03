@@ -52,7 +52,6 @@
 		</div>
 	</section>
 <?php } ?>
-</div>
 <div class="large-4 columns homepage-sidebar">
 	<?php if ( dynamic_sidebar( 'homepage_sidebar_two' ) ) {
 	} ?>

@@ -38,7 +38,7 @@
                 ?>
                         <div class="large-6 medium-6 columns">
                             <div class="article-container">
-								<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-medium' ); ?>
+								<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section ); ?>
                             </div>
                         </div>
                         <?php
@@ -58,7 +58,7 @@
                 ?>
                         <div class="large-6 medium-6 columns">
                             <div class="article-container">
-	                            <?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-medium' ); ?>
+	                            <?php CST()->frontend->well_article_markup( $obj, $author, $primary_section ); ?>
                             </div>
                         </div>
                         <?php

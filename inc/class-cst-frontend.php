@@ -1105,7 +1105,7 @@ class CST_Frontend {
 	* @param $image_size
 	* Display an article anchor markup in the homepage wells
 	*/
-	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large' ) {
+	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-small' ) {
 ?>
 	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
 		<?php
@@ -1122,5 +1122,22 @@ class CST_Frontend {
 		</div>
 	</a>
 <?php
+	}
+
+	/**
+	 * @param \CST\Objects\Post $obj
+	 *
+	 * @return string
+	 * Return author for use in homepage wells.
+	 */
+	public function get_article_author( \CST\Objects\Post $obj ) {
+		if( $byline = $obj->get_byline() ) {
+			$author = $byline;
+		} else {
+			$authors = $obj->get_authors();
+			$author_data = $authors[0];
+			$author = $author_data->get_display_name();
+		}
+		return $author;
 	}
 }

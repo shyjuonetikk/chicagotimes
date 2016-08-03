@@ -2894,7 +2894,7 @@ body.post-gallery-lightbox-active {
         margin-top: 10px; } }
     .homepage_wrapper section#main-well .left-main-well .article-container {
       margin-bottom: 10px;
-      height: 250px;
+      height: 225px;
       overflow: hidden;
       padding: 0;
       position: relative; }
@@ -2945,7 +2945,7 @@ body.post-gallery-lightbox-active {
     @media (max-width: 1024px) and (min-width: 481px) { }
   .homepage_wrapper section#secondary-wells .article-container {
     margin-bottom: 10px;
-    height: 250px;
+    height: 225px;
     overflow: hidden;
     padding: 0;
     position: relative; }
