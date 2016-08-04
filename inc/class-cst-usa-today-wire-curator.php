@@ -389,13 +389,18 @@ class CST_USA_Today_Wire_Curator {
      * @return array
      */
     public function validate_author($author_username) {
+
         $author_username = get_option( 'usa_today_wire_curator_author', array() );
         $usa_today_author_lookup    = get_user_by( 'login', $author_username );
-        if( is_object( $usa_today_author_lookup ) ) {
-            return true;
-        } else {
-            return false;
+        $blog_id = get_current_blog_id();
+        if( is_user_member_of_blog( $usa_today_author_lookup->ID, $blog_id ) ) {
+            if( is_object( $usa_today_author_lookup ) ) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        
     }
 
     /**
@@ -548,7 +553,11 @@ class CST_USA_Today_Wire_Curator {
                             continue;
                         }
 
-                        \CST\Objects\USA_Today_Wire_Item::create_from_simplexml( $entry );
+                        $user_id = get_current_user_id();
+                        $blog_id = get_current_blog_id();
+                        if( is_user_member_of_blog( $user_id, $blog_id ) ) {
+                            \CST\Objects\USA_Today_Wire_Item::create_from_simplexml( $entry );
+                        }
 
                     }
 
