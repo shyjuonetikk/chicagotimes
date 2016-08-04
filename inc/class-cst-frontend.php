@@ -61,6 +61,16 @@ class CST_Frontend {
 
 		}, 9 );
 
+		add_action( 'cst_section_head_bears', array( $this, 'action_cst_section_head_bears' ) );
+		add_action( 'cst_section_head_bears_football', array( $this, 'action_cst_section_head_bears' ) );
+		add_action( 'cst_section_head_comscore', array( $this, 'action_cst_section_head_comscore' ), 10, 2 );
+		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_cst_section_head_olympics_2016' ) );
+		add_action( 'cst_section_head_olympics', array( $this, 'action_cst_section_head_olympics_2016' ) );
+
+		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
+		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
+		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
+
 	}
 
 	/**
@@ -1081,6 +1091,130 @@ class CST_Frontend {
 		}
 		
 		return $primary_slug;
+	}
+
+		/**
+	 * Function called from section_head action
+	 *
+	 * Include the Bears video block from The Cube
+	 */
+	function action_cst_section_head_bears() {
+		echo '
+<section class="bears-football row grey-backgound" style="position:relative;z-index:2;">
+	<iframe src="http://thecube.com/embed/659232" width="100%" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px;float:right;" href="//thecube.com">Share Events on The Cube</a></div>
+</section>';
+
+	}
+
+	/**
+	 * Function called from section_head action in parts/page-header.php
+	 * Include or exclude the sports direct widget
+	 *
+	 * @param $section_slug
+	 * @param $action_slug
+	 */
+	function action_cst_section_head_comscore( $section_slug, $action_slug ) {
+		// dashes to underscores in excluded section name
+		$excluded_sections = array(
+			'bears',
+			'bears_football',
+			'olympics_2016',
+			'olympics',
+		);
+		if ( in_array( $action_slug, $excluded_sections, true ) ) {
+			return;
+		}
+		if ( 'sports' === $section_slug ) {
+			echo '
+<section id="comscore" class="row grey-background">
+    <div class="large-8 columns">
+        <iframe src="http://scores.suntimes.com/sports-scores/score-carousel.aspx?Leagues=NHL;NBA;MLB;NFL&amp;numVisible=4" scrolling="no" frameborder="0" style="border:0; width:625px; height:90px;">Live Scores</iframe>
+    </div>
+</section>
+ 		';
+		}
+	}
+	/**
+	 * Function called from section_head action in parts/page-header.php
+	 * Embeds section video player for Olympics 2016
+	 */
+	function action_cst_section_head_olympics_2016() {
+		echo '
+<section class="row grey-background">
+		<div class="large-12">
+			<div class="s2nPlayer-BQ3NYJzd columns" data-type="full"></div><script type="text/javascript" src="http://embed.sendtonews.com/player2/embedcode.php?fk=BQ3NYJzd&cid=4661" data-type="s2nScript"></script>
+		</div>
+</section>
+		';
+	}
+	/**
+	 * Do not display section heading in the regular place
+	 *  for the listed section names (based on slug)
+	 *
+	 * @param $section_front_spacing
+	 *
+	 * Pretty title for section front
+	 */
+	function action_cst_section_front_heading( $section_front_spacing ) {
+		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
+		$excluded_sections = array(
+			'olympics_2016',
+			'olympics',
+		);
+		if ( in_array( $action_slug, $excluded_sections, true ) ) {
+			return;
+		}
+		?>
+<a href="" class="section-front"><?php echo esc_html( $section_front_spacing ); ?></a>
+	<?php
+	}
+	/**
+	 * Display section heading in the upper location
+	 * only for the sections listed
+	 *
+	 * @param $section_front_spacing
+	 *
+	 * Pretty title for section front
+	 */
+	function action_cst_section_front_upper_heading( ) {
+		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
+		$excluded_sections = array(
+			'olympics_2016',
+			'olympics',
+		);
+		if ( ! in_array( $action_slug, $excluded_sections, true ) ) {
+			return;
+		}
+		?>
+		<section class="row grey-background wire upper-heading">
+			<div class="columns medium-4 small-12">
+				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+			</div>
+			<div class="columns medium-8 small-12">
+				<a href="http://www.evanstonsubaru.com/?utm_source=SunTimes&utm_medium=button&utm_campaign=Olympics" target="_blank">
+				<img style="float:right;" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/EvanstonSubaruOlympicLogo-rgb.png' ); ?>">
+				</a>
+			</div>
+		</section>
+	<?php
+	}
+
+	/**
+	* Determine whether to display the sliding billboard markup
+    */
+	function action_maybe_render_sliding_billboard() {
+
+		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
+		$excluded_sections = array(
+			'olympics_2016',
+			'olympics',
+		);
+		if ( in_array( $action_slug, $excluded_sections, true ) ) {
+			return;
+		}
+		if ( ! is_404() && ! is_singular() ) :
+			get_template_part( 'parts/dfp/dfp-sbb' );
+		endif;
 	}
 
 }
