@@ -1191,7 +1191,9 @@ class CST_Frontend {
 				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 			</div>
 			<div class="columns medium-8 small-12">
+				<a href="http://www.evanstonsubaru.com/?utm_source=SunTimes&utm_medium=button&utm_campaign=Olympics" target="_blank">
 				<img style="float:right;" src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/assets/images/EvanstonSubaruOlympicLogo-rgb.png'; ?>">
+				</a>
 			</div>
 		</section>
 	<?php
