@@ -200,6 +200,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-shia-kapos-categories-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-tcx-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -739,6 +740,7 @@ class CST {
 		register_widget( 'CST_Shia_Kapos_Categories_Widget' );
 		register_widget( 'CST_TCX_Widget' );
 		register_widget( 'CST_Bears_Cube_Widget' );
+		register_widget( 'CST_Drive_Chicago_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
