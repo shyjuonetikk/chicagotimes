@@ -1192,7 +1192,7 @@ class CST_Frontend {
 			</div>
 			<div class="columns medium-8 small-12">
 				<a href="http://www.evanstonsubaru.com/?utm_source=SunTimes&utm_medium=button&utm_campaign=Olympics" target="_blank">
-				<img style="float:right;" src="<?php echo esc_url( get_stylesheet_directory_uri() ) . '/assets/images/EvanstonSubaruOlympicLogo-rgb.png'; ?>">
+				<img style="float:right;" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/EvanstonSubaruOlympicLogo-rgb.png' ); ?>">
 				</a>
 			</div>
 		</section>
