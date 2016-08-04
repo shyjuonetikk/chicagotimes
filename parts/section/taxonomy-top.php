@@ -8,7 +8,7 @@
 			$section_front_spacing = str_replace( '-', ' ', $section_front ); 
 		endif;
 	?>
-	<a href="" class="section-front"><?php esc_html_e( $section_front_spacing ); ?></a>
+		<?php do_action( 'cst_section_front_heading', $section_front_spacing ); ?>
 	<?php if( $section_front_spacing == 'bears' || $section_front_spacing == 'bears football' ) : ?>
 		<a href="http://terrysfordofpeotone.com/Chicago/For-Sale/New/" target="_blank" class="section-front-sponsor">
 			<img class="terry-ford" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/terry-ford-bears-logo-prod.png" alt="Terry Ford Logo">
