@@ -15,10 +15,6 @@ class Chicago_Wire_Item extends Post {
     public static function create_from_simplexml( $feed_entry ) {
         global $edit_flow;
 
-        if ( ! current_user_can( $this->cap ) ) {
-            wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
-        }
-
         // Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
         if ( is_object( $edit_flow ) ) {
             $_POST['post_type'] = 'cst_chicago_item';
@@ -85,33 +81,15 @@ class Chicago_Wire_Item extends Post {
      * @return chicago_Wire_Item|false
      */
     public static function get_by_original_id( $original_id ) {
-
-        if( ! current_user_can( $this->cap ) ) {
-            wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
-        }
+        global $wpdb;
 
         $key = md5( 'chicago_item' . $original_id );
+        $post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name=%s LIMIT 0,1", $key ) );
+        if ( ! $post_id ) {
+            return false;
+        }
 
-        $args = array(
-                        'name'  => $key,
-                        'posts_per_page' => 1
-                    );
-
-        $chicago_query = new WP_Query( $args );
-
-        if( $chicago_query->have_posts() ) {
-            while( $chicago_query->have_posts() ) {
-                $chicago_post = $chicago_query->the_post();
-                $chicago_post_id = $chicago_post->post->ID;
-                break;
-            }
-
-            wp_reset_postdata();
-            if( is_numeric( $chicago_post_id ) ) {
-                return new Chicago_Wire_Item( $chicago_post_id );
-            }
-        } 
-
+        return new Chicago_Wire_Item( $post_id );
     }
 
     /**
