@@ -246,12 +246,16 @@
 							}
 						}
 					}
+					height:160px;
 				}
 				@media only screen and (min-width: 78.063em) {
 					.top-bar-section li:not(.has-form) a:not(.button) {
 						padding: 0 12px;
 					}
 				}
+			}
+			.cst-row {
+				margin: 0 auto;
 			}
 		}
 	}
@@ -264,8 +268,7 @@
 				.top-bar {
 				    max-width: 100%;
 				    margin: 0 auto;
-				    margin-bottom: 0;
-				    height: 125px;
+				    height: 168px;
 		    		line-height: 65px;
 
 		    		.small-logo {
@@ -291,12 +294,11 @@
 
 		    			.logo-wrapper {
 							position: relative;
-							margin-bottom:10px;
-							
 							.logo {
 								width: 300px;
 								display: block;
 								margin: 0 auto;
+								padding-top:10px;
 							}
 						}
 
@@ -430,34 +432,39 @@
 }
 
 @media (min-width: 1401px) {
-	.row {
+	.row,
+	.cst-row {
 		max-width: 64rem;
 		width: 100%;
 	}
 }
 @media (min-width: 1335px) and (max-width: 1400px) {
-	.row {
+	.row,
+	.cst-row {
 		width: 100%;
 	}
 
 }
 
 @media (min-width: 1300px) and (max-width: 1334px) {
-	.row {
+	.row,
+	.cst-row {
 		width: 100%;
 	}
 
 }
 
 @media (min-width: 1276px) and (max-width: 1299px) {
-	.row {
+	.row,
+	.cst-row {
 		width: 100%;
 	}
 
 }
 
 @media (min-width: 1200px) and (max-width: 1275px) {
-	.row {
+	.row,
+	.cst-row {
 		width: 100%;
 	}
 	.homepage-content {
