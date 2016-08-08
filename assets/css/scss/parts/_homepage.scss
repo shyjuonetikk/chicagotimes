@@ -998,6 +998,7 @@
 	display: block;
 	position: relative;
 	height: auto;
+	float:left;
 
 	img {
 		position: relative;
@@ -1229,18 +1230,13 @@
 		border: 2px ridge;
 		padding: 5px;
 		margin-top: -1px;
-		@media (min-width: 981px) {
-			width: 250px;
-		}
-		@media (max-width: 980px) {
-			width: 80%;
-		}
+		width: 98.4%;
     }
 
     #search-button {
       font-size: 1.5rem;
       color: $menu_black;
-      margin-left: 10px;
+      margin-left: -35px;
     }
 
     #search-button:hover {

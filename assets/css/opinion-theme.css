@@ -154,7 +154,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 641px, 767px */
 /* 768px, 1024px */
 /* 1025px, 1440px */
-/* 1200px */
+/* 1200px (approx 75em), 1300px (approx 81.250em), 1366px (approx 85.250em)  */
 /* 1300px */
 /* 1441px, 1920px */
 /* 1921px */
@@ -294,7 +294,7 @@ body.error404 {
       font-size: 1rem;
       font-weight: 700; }
 
-@media only screen and (min-width:75em) {
+@media only screen and (min-width:85.25em) {
   .dfp-wallpaper {
     position: absolute;
     left: 0;
@@ -310,7 +310,7 @@ body.error404 {
     position: fixed;
     bottom: 0; } }
 
-@media only screen and (max-width:75em) {
+@media only screen and (max-width:85.25em) {
   .dfp-wallpaper {
     position: absolute;
     left: 0;
@@ -2170,7 +2170,7 @@ section#subscribe {
       font-size: 1.25rem;
       border: 2px ridge;
       padding: 5px;
-      width: 250px;
+      width: 98.4%;
       float: left; }
     .widgets .search-widget #search-button {
       display: block;
@@ -2178,7 +2178,7 @@ section#subscribe {
       padding: 0;
       color: #333333;
       float: left;
-      margin: 8px 0 0 20px;
+      margin: 8px 0 0 -26px;
       background: transparent; }
     .widgets .search-widget #search-button:hover {
       color: #bdbdbd; }
@@ -3113,7 +3113,8 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .widget_cst_todays_paper_widget {
     display: block;
     position: relative;
-    height: auto; }
+    height: auto;
+    float: left; }
     .homepage_wrapper .widget_cst_todays_paper_widget img {
       position: relative;
       display: block; }
@@ -3271,17 +3272,12 @@ body.post-gallery-lightbox-active {
       font-size: 1.25rem;
       border: 2px ridge;
       padding: 5px;
-      margin-top: -1px; }
-      @media (min-width: 981px) {
-        .homepage_wrapper .search-widget #search-input {
-          width: 250px; } }
-      @media (max-width: 980px) {
-        .homepage_wrapper .search-widget #search-input {
-          width: 80%; } }
+      margin-top: -1px;
+      width: 98.4%; }
     .homepage_wrapper .search-widget #search-button {
       font-size: 1.5rem;
       color: #333333;
-      margin-left: 10px; }
+      margin-left: -35px; }
     .homepage_wrapper .search-widget #search-button:hover {
       color: #bdbdbd; }
   .homepage_wrapper li.widget_cst_ad_widget {
