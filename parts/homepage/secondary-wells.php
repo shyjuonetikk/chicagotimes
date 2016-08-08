@@ -30,10 +30,10 @@
 					</div>
 				</div>
 				<hr class="before-ad">
-				<div class="large-6 medium-6 small-12 columns dfp-cube">
+				<div class="large-6 medium-6 small-12 columns dfp-cube cube-left">
 					<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-3' ); ?>
 				</div>
-				<div class="large-6 medium-6 small-12 columns dfp-cube">
+				<div class="large-6 medium-6 small-12 columns dfp-cube cube-right">
 					<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-2' ); ?>
 				</div>
 				<hr class="after-ad">

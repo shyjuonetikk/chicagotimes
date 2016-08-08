@@ -2600,6 +2600,10 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .dfp-cube {
     padding: 0;
     margin-bottom: 5px; }
+  .homepage_wrapper .cube-left > .dfp-cube {
+    float: left; }
+  .homepage_wrapper .cube-right > .dfp-cube {
+    float: right; }
   .homepage_wrapper #div-gpt-sbb {
     background-color: #f0f0f0;
     margin: 0 auto 10px;
