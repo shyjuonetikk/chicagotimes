@@ -1,7 +1,7 @@
 <?php global $homepage_more_well_posts; ?>
-<hr/>
+<hr class="before">
 <h2 class="section-title"><span><?php esc_html_e( 'More Top Stories', 'chicagosuntimes' ); ?></span></h2>
-<hr/>
+<hr>
 <?php if ( is_array( $homepage_more_well_posts ) && ! empty( $homepage_more_well_posts ) ) { ?>
 	<section id="more-stories-wells">
 		<?php foreach ( $homepage_more_well_posts as $homepage_more_well_post ) { ?>
@@ -52,6 +52,7 @@
 		</div>
 	</section>
 <?php } ?>
+</div>
 <div class="large-4 columns homepage-sidebar">
 	<?php if ( dynamic_sidebar( 'homepage_sidebar_two' ) ) {
 	} ?>
@@ -62,5 +63,4 @@
 			<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-3' ); ?>
 		</div>
 	</div>
-</div>
 </div>

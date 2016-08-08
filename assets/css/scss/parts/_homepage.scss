@@ -157,14 +157,15 @@
 
 	.dfp-cube {
 		padding: 0;
+		margin-bottom: 5px;
 	}
 
 	#div-gpt-sbb {
 		background-color: $light_grey;
-		margin: 0 auto;
+		margin: 0 auto 10px;
 		max-width: 1073px;
 		width: 100%;
-		padding: 0 5px;
+		padding: 0 0 10px;
 	}
 
 	@media (min-width: 481px) and (max-width: 1024px) {
@@ -204,10 +205,6 @@
 		text-align: center;
 		margin: 0 auto;
 		display: block;
-	}
-
-	.dfp-atf-leaderboard {
-		margin-bottom: 20px;
 	}
 
 	@media (max-width: 769px) {

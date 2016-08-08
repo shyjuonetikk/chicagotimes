@@ -1,7 +1,7 @@
 <div class="homepage_wrapper">
 	<?php get_template_part( 'parts/dfp/homepage/dfp-interstitial' ); ?>
 	<!-- top logos -->
-	<header>
+	<header id="header">
 		<div class="contain-to-grid sticky">
 
 			<nav class="top-bar" data-topbar>

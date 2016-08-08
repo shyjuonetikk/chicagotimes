@@ -11,7 +11,7 @@
 							$primary_section = $obj->get_primary_parent_section();
 							$author          = CST()->frontend->get_article_author( $obj );
 							?>
-							<div class="large-6 medium-6 small-12 columns a">
+							<div class="large-6 medium-6 small-12 columns">
 								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small' ); ?>
 							</div>
 							<?php
@@ -21,7 +21,7 @@
 							$primary_section = $obj->get_primary_parent_section();
 							$author          = CST()->frontend->get_article_author( $obj );
 							?>
-							<div class="large-6 medium-6 small-12 columns b">
+							<div class="large-6 medium-6 small-12 columns">
 								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small' ); ?>
 							</div>
 							<?php
@@ -29,14 +29,14 @@
 						?>
 					</div>
 				</div>
-				<hr>
+				<hr class="before-ad">
 				<div class="large-6 medium-6 small-12 columns dfp-cube">
 					<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-3' ); ?>
 				</div>
 				<div class="large-6 medium-6 small-12 columns dfp-cube">
 					<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-2' ); ?>
 				</div>
-				<hr>
+				<hr class="after-ad">
 				<div class="secondary-well-bottom">
 					<div class="large-12 medium-12">
 						<?php

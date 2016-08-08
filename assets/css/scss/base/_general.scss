@@ -27,6 +27,10 @@ hr {
 	&.before {
 		padding-bottom:7px;
 	}
+	&.before-ad,
+	&.after-ad {
+		margin-bottom:10px;
+	}
 }
 .clear-both {
 	clear: both;

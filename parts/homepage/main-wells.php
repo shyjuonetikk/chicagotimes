@@ -18,7 +18,7 @@
                     }
             ?>
                     <div class="large-12 medium-12 columns main-article-container">
-						<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section ); ?>
+						<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-large' ); ?>
                     </div>
                     <?php
                 }

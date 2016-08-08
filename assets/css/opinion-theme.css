@@ -27,6 +27,8 @@ hr {
   padding: 0 10px; }
   hr.before {
     padding-bottom: 7px; }
+  hr.before-ad, hr.after-ad {
+    margin-bottom: 10px; }
 
 .clear-both {
   clear: both; }
@@ -251,8 +253,6 @@ body.error404 {
   max-width: 1000px;
   height: auto;
   z-index: 2; }
-  .dfp.dfp-sbb #dfp-sbb-top img {
-    margin-top: 15px; }
   .dfp.dfp-sbb #dfp-sbb-bottom {
     display: none; }
 
@@ -781,6 +781,10 @@ ul#menu-sun-times-network {
 
 #wpadminbar {
   z-index: 999999; }
+
+.upper-heading {
+  margin-bottom: 10px;
+  margin-top: 10px; }
 
 .wire {
   position: relative;
@@ -2200,6 +2204,8 @@ section#subscribe {
       background: transparent !important; }
       .widgets li.ap_ncaa_cbb_scoreboard_widget #ap-new-widgets .title-block .inner-frame, .widgets li.ap_ncaa_cbb_news_widget #ap-new-widgets .title-block .inner-frame {
         padding: 0 !important; }
+    .widgets li.ap_ncaa_cbb_scoreboard_widget .button-left, .widgets li.ap_ncaa_cbb_scoreboard_widget .button-right, .widgets li.ap_ncaa_cbb_news_widget .button-left, .widgets li.ap_ncaa_cbb_news_widget .button-right {
+      padding: 0 0.5rem; }
   .widgets li.cst_newsletter_signup {
     background: white;
     height: auto;
@@ -2572,13 +2578,14 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .dfp-atf-leaderboard img, .homepage_wrapper .dfp-btf-leaderboard img {
     width: 728px; }
   .homepage_wrapper .dfp-cube {
-    padding: 0; }
+    padding: 0;
+    margin-bottom: 5px; }
   .homepage_wrapper #div-gpt-sbb {
     background-color: #f0f0f0;
-    margin: 0 auto;
+    margin: 0 auto 10px;
     max-width: 1073px;
     width: 100%;
-    padding: 0 5px; }
+    padding: 0 0 10px; }
   @media (min-width: 481px) and (max-width: 1024px) {
     .homepage_wrapper .dfp-cube {
       text-align: center;
@@ -2602,8 +2609,6 @@ body.post-gallery-lightbox-active {
     text-align: center;
     margin: 0 auto;
     display: block; }
-  .homepage_wrapper .dfp-atf-leaderboard {
-    margin-bottom: 20px; }
   @media (max-width: 769px) {
     .homepage_wrapper #div-gpt-btf-leaderboard {
       display: none; } }
