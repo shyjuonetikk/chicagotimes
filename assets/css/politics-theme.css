@@ -3009,7 +3009,8 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper section#more-stories-wells .article-image {
     position: relative;
     display: block;
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    padding-left: 15px; }
   .homepage_wrapper section#more-stories-wells .article-image:hover:after {
     content: '';
     width: 50%;
