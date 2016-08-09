@@ -246,7 +246,7 @@
 							}
 						}
 					}
-					height:160px;
+					height:146px;
 				}
 				@media only screen and (min-width: 78.063em) {
 					.top-bar-section li:not(.has-form) a:not(.button) {
@@ -268,7 +268,7 @@
 				.top-bar {
 				    max-width: 100%;
 				    margin: 0 auto;
-				    height: 168px;
+				    height: 146px;
 		    		line-height: 65px;
 
 		    		.small-logo {
@@ -314,7 +314,6 @@
 							display: inline-table;
 
 							.menu-item {
-								border-top: 2px solid;
 								display: inline;
 								&.obit-external {
 									display: none;
