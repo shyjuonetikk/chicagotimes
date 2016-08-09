@@ -35,8 +35,6 @@
 			this.dfpWallpaper = $('#div-gpt-wallpaper');
 			this.header = $('header');
 			this.dfpSBB = $('#div-gpt-sbb');
-			this.sbbTop = $('#dfp-sbb-top');
-			this.sbbBottom = $('#dfp-sbb-bottom');
 			this.interstitial = $('#div-gpt-interstitial');
 			this.interstitialContainer = $('#dfp-interstitial-container');
 			this.closeInterstitial = $('#dfp-interstitial-close');
@@ -65,11 +63,11 @@
 			}, this ) );
 
 			this.dfpSBB.mouseover(function() {
-				this.sbbTop.hide();
-				this.sbbBottom.show();
+        $('#dfp-sbb-top').hide();
+        $('#dfp-sbb-bottom').show();
 			}).mouseout(function() {
-				this.sbbTop.show();
-				this.sbbBottom.hide();
+        $('#dfp-sbb-top').show();
+        $('#dfp-sbb-bottom').hide();
 			});
 
 			this.closeInterstitial.on( "click", $.proxy( function (e) {
