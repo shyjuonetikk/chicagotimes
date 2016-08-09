@@ -2186,8 +2186,8 @@ section#subscribe {
     .widgets .search-widget #search-input {
       font-size: 1.25rem;
       border: 2px ridge;
-      padding: 5px;
-      width: 98.4%;
+      padding: 5px 29px 5px 5px;
+      width: 100%;
       float: left; }
     .widgets .search-widget #search-button {
       display: block;
@@ -3295,11 +3295,13 @@ body.post-gallery-lightbox-active {
       border: 2px ridge;
       padding: 5px 29px 5px 5px;
       margin-top: -1px;
-      width: 98.4%; }
+      width: 100%; }
     .homepage_wrapper .search-widget #search-button {
       font-size: 1.5rem;
       color: #333333;
-      margin-left: -35px; }
+      position: absolute;
+      right: 5px;
+      top: 5px; }
     .homepage_wrapper .search-widget #search-button:hover {
       color: #29aae2; }
   .homepage_wrapper li.widget_cst_ad_widget {
