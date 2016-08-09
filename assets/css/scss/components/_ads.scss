@@ -76,10 +76,6 @@
 		height:auto;
 		z-index:2;
 
-		#dfp-sbb-top img {
-			margin-top:15px;
-		}
-
 		#dfp-sbb-bottom {
 			display:none;
 		}
@@ -144,6 +140,20 @@
 
 	}
 
+}
+
+.sponsor-ear {
+	width: 184px;
+	height: 90px;
+	margin-top: 10px;
+	&.left {
+		float: left;
+		margin-left: 10px;
+	}
+	&.right {
+		float: right;
+		margin-right: 10px;
+	}
 }
 
 @media #{$wallpaper-only} {

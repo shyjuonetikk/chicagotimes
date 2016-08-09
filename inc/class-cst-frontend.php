@@ -810,7 +810,7 @@ class CST_Frontend {
 
 		$cache_key = md5( $feed_url . (int) $max_display );
 		$cached_feed = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( $cached_feed === false ) {
+		if ( $cached_feed === false || WP_DEBUG ) {
 			$headlines = fetch_feed( $feed_url );
 			if ( ! is_wp_error( $headlines ) ) :
 				$maxitems = $headlines->get_item_quantity( $max_display );
@@ -1093,6 +1093,63 @@ class CST_Frontend {
 		return $primary_slug;
 	}
 
+	/**
+	* @param \CST\Objects\Post $obj
+	* @param $author
+	* @param $primary_section
+	* @param $image_size
+	* Display an article container and related markup in the homepage wells
+	*/
+	public function well_article_container_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large' ) {
+?>
+<div class="article-container">
+	<?php $this->well_article_markup( $obj, $author, $primary_section, $image_size ); ?>
+</div>
+<?php
+	}
+
+	/**
+	* @param \CST\Objects\Post $obj
+	* @param $author
+	* @param $primary_section
+	* @param $image_size
+	* Display an article anchor markup in the homepage wells
+	*/
+	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-small' ) {
+?>
+	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
+		<?php
+		if ( $featured_image_id = $obj->get_featured_image_id() ) {
+			if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
+				echo wp_kses_post( $attachment->get_html( $image_size ) );
+			}
+		}
+		?>
+		<div class="article-title <?php echo esc_attr( strtolower( $primary_section->name ) ); ?>-cat">
+			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+			<?php echo wp_kses_post( apply_filters( 'the_excerpt', $obj->get_excerpt() ) ); ?>
+			<span>By <?php echo esc_html( $author ); ?></span>
+		</div>
+	</a>
+<?php
+	}
+
+	/**
+	 * @param \CST\Objects\Post $obj
+	 *
+	 * @return string
+	 * Return author for use in homepage wells.
+	 */
+	public function get_article_author( \CST\Objects\Post $obj ) {
+		if( $byline = $obj->get_byline() ) {
+			$author = $byline;
+		} else {
+			$authors = $obj->get_authors();
+			$author_data = $authors[0];
+			$author = $author_data->get_display_name();
+		}
+		return $author;
+	}
 		/**
 	 * Function called from section_head action
 	 *

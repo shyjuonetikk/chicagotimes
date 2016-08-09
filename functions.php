@@ -10,6 +10,8 @@ class CST {
 
 	private static $instance;
 
+	public $frontend;
+
 	private $post_types = array();
 
 	public static function get_instance() {
