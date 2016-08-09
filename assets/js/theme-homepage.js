@@ -9,7 +9,7 @@
 
 			this.cacheElements();
 			this.bindEvents();
-			this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 16 );
+			this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
 
 		},
 
@@ -128,7 +128,7 @@
 
 			}
 
-			if( scrollTop >= ( this.header.height() + this.breakingNews.height() ) + 16 ) {
+			if( scrollTop >= ( this.header.height() + this.breakingNews.height() ) ) {
 				if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
 					this.dfpWallpaper.removeClass('dfp-wallpaper-normal').addClass('dfp-wallpaper-fixed');
 					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 146 );
@@ -138,7 +138,7 @@
 			} else if( scrollTop < ( this.header.height() + this.breakingNews.height() ) ) {
 				if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
 					this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
-					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 16 );
+					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
 				} else {
 					this.dfpWallpaper.addClass('dfp-wallpaper-normal');
 				}
