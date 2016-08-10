@@ -294,14 +294,14 @@ body.error404 {
       font-size: 1rem;
       font-weight: 700; }
 
-.top-section-ad {
+.sponsor-ear {
   width: 184px;
   height: 90px;
   margin-top: 10px; }
-  .top-section-ad.left {
+  .sponsor-ear.left {
     float: left;
     margin-left: 10px; }
-  .top-section-ad.right {
+  .sponsor-ear.right {
     float: right;
     margin-right: 10px; }
 
@@ -2731,17 +2731,12 @@ body.post-gallery-lightbox-active {
     border-bottom: 2px solid #282828;
     border-top: 5px solid #282828;
     position: relative;
-    z-index: 1;
-    width: 100%;
-    margin-top: -3px;
-    padding: 5px 0 1px 10px;
-    border-bottom: 2px solid #282828;
-    border-top: 5px solid #282828;
-    position: relative;
     z-index: 1; }
     .homepage_wrapper .breaking-news-story h3, .homepage_wrapper .bears-cube-story h3 {
       font-weight: 700;
-      font-size: 18px; }
+      font-size: 18px;
+      margin-bottom: 0;
+      margin-top: 0; }
       .homepage_wrapper .breaking-news-story h3 a, .homepage_wrapper .bears-cube-story h3 a {
         color: #f0f0f0;
         text-shadow: 2px 1px #282828; }
