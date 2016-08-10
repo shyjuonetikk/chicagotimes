@@ -63,7 +63,6 @@
 </head>
 
 <body <?php body_class(); ?>>
-<div class="afs_ads">&nbsp;</div>
 <div id="ie8-user" style="display:none;"></div>
 
 <?php 

@@ -32,7 +32,18 @@
 			$post_sections = $obj->get_sections();
 			foreach( $post_sections as $section_check ) :
 				if( $section_check->slug == 'entertainment' ) :
-					echo CST()->get_template_part( 'post/signup-entertainment-newsletter' );
+					echo CST()->get_template_part( 'post/signup-entertainment-newsletter' ) . '</div>';
+					return;
+				endif;
+
+				if( $section_check->slug == 'news' ) :
+					echo CST()->get_template_part( 'post/signup-politics-newsletter' ) . '</div>';
+					return;
+				endif;
+
+				if( $section_check->slug == 'sports' ) :
+					echo CST()->get_template_part( 'post/signup-sports-newsletter' ) . '</div>';
+					return;
 				endif;
 			endforeach;
 		endif;

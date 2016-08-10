@@ -22,6 +22,16 @@ body.single {
 	body { position: inherit; }
 }
 
+hr {
+	padding:0 10px;
+	&.before {
+		padding-bottom:7px;
+	}
+	&.before-ad,
+	&.after-ad {
+		margin-bottom:10px;
+	}
+}
 .clear-both {
 	clear: both;
 }

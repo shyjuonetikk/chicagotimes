@@ -91,7 +91,7 @@ class CST_Columnists_Content_Widget extends WP_Widget {
         $primary_section = $obj->get_primary_parent_section();
         ?>
         
-        <div class="large-12 medium-6 small-12 columns widget_cst_columnists_content_widget">
+        <div class="large-12 medium-6 small-12 widget_cst_columnists_content_widget">
             <h2 class="widgettitle"><?php esc_html_e( 'Today\'s Voice', 'chicagosuntimes' ); ?></h2>
             <?php
                 foreach( $obj->get_authors() as $i => $author ) {
@@ -100,22 +100,22 @@ class CST_Columnists_Content_Widget extends WP_Widget {
 		                $guest_author = $coauthors_plus->get_coauthor_by( 'ID', $author->get_id() );
 		                $guest_author_gravatar_html = $coauthors_plus->guest_authors->get_guest_author_thumbnail( $guest_author, 80 );
 		                if ( null === $guest_author_gravatar_html ) {
-			                echo $author->get_avatar( 80 );
+			                echo wp_kses_post( $author->get_avatar( 80 ) );
 		                } else {
-			                echo $guest_author_gravatar_html;
+			                echo wp_kses_post( $guest_author_gravatar_html );
 		                }
 		                break; // Show only one - the first
 	                } else {
-		                echo $author->get_avatar( 80 );
+		                echo wp_kses_post( $author->get_avatar( 80 ) );
 		                break; // Show only one - the first
 	                }
                 }
             ?>
             <div class="columnists-story">
                 <?php if( $obj->get_featured_image_html() ) : ?>
-                <div class="columnists-story-image <?php echo ( $obj->get_post_type() != 'cst_article' ? 'hover-state' : 'columnists-article' ); ?>">
+                <div class="columnists-story-image <?php echo esc_attr( ( $obj->get_post_type() != 'cst_article' ? 'hover-state' : 'columnists-article' ) ); ?>">
                     <a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
-                        <?php echo $obj->get_featured_image_html( 'chiwire-article' ); ?>
+                        <?php echo wp_kses_post( $obj->get_featured_image_html( 'chiwire-article' ) ); ?>
                         <?php if ( $obj->get_post_type() != 'cst_article' ) { ?>
                             <i class="fa fa-<?php echo esc_attr( $obj->get_font_icon() ); ?>"></i>
                         <?php } ?>
@@ -129,7 +129,7 @@ class CST_Columnists_Content_Widget extends WP_Widget {
                     </span><br/>
                 <?php endif; ?>
                     <h3 class="title">
-                        <a href="<?php echo $obj->the_permalink(); ?>"><?php echo esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></a>
+                        <a href="<?php echo esc_url( $obj->the_permalink() ); ?>"><?php echo esc_html( $obj->the_title() ); ?></a>
                     </h3>
                 </div>
             </div>

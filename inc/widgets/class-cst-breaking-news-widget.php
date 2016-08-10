@@ -81,11 +81,11 @@ class CST_Breaking_News_Widget extends WP_Widget {
             return;
         }
         ?>
-        
+
 
         <div class="breaking-news-story">
             <h3 class="title">
-                <span><i class="fa fa-times-circle-o close-breaking-news"></i> <?php echo esc_html_e( 'Breaking News...', 'chicagosuntimes' ); ?></span> <a href="<?php echo $obj->the_permalink(); ?>"><?php echo esc_html( $obj->the_title() ); ?></a>
+                <span><i class="fa fa-times-circle-o close-breaking-news"></i>&nbsp;<?php esc_html_e( 'Breaking News...', 'chicagosuntimes' ); ?></span><a href="<?php echo $obj->the_permalink(); ?>" class="button tiny breaking-news-link"><?php echo esc_html( $obj->the_title() ); ?></a>
                 <a href="https://r1.surveysandforms.com/062jcp97-8a19pw1c" target="_blank" class="button tiny"><?php echo esc_html( 'Sign-Up for Breaking News Alerts' ); ?></a>
             </h3>
         </div>
