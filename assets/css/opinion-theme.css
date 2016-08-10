@@ -798,6 +798,7 @@ ul#menu-sun-times-network {
   margin-top: 10px; }
 
 .masthead-date {
+  font-family: 'Merriweather', Georgia, serif;
   height: 26px;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -2706,39 +2707,44 @@ body.post-gallery-lightbox-active {
     padding: 4px; }
   .homepage_wrapper .breaking-news-story, .homepage_wrapper .bears-cube-story {
     width: 100%;
-    margin-top: -3px;
-    padding: 5px 0 1px 10px;
+    padding: 2px 0 1px 10px;
     border-bottom: 2px solid #282828;
     border-top: 5px solid #282828;
     position: relative;
     z-index: 1; }
-    .homepage_wrapper .breaking-news-story h3, .homepage_wrapper .bears-cube-story h3 {
+    .homepage_wrapper .breaking-news-story h3.title, .homepage_wrapper .bears-cube-story h3.title {
       font-weight: 700;
       font-size: 18px;
       margin-bottom: 0;
       margin-top: 0; }
-      .homepage_wrapper .breaking-news-story h3 a, .homepage_wrapper .bears-cube-story h3 a {
+      .homepage_wrapper .breaking-news-story h3.title .breaking-news-link, .homepage_wrapper .bears-cube-story h3.title .breaking-news-link {
+        font-weight: bold;
+        font-size: 18px;
+        text-shadow: 2px 1px #282828;
+        background: transparent;
+        text-transform: none; }
+    .homepage_wrapper .breaking-news-story h3 a, .homepage_wrapper .bears-cube-story h3 a {
+      color: #f0f0f0;
+      text-shadow: 2px 1px #282828; }
+    .homepage_wrapper .breaking-news-story h3 span, .homepage_wrapper .bears-cube-story h3 span {
+      color: white;
+      text-transform: uppercase; }
+      .homepage_wrapper .breaking-news-story h3 span .fa, .homepage_wrapper .bears-cube-story h3 span .fa {
         color: #f0f0f0;
-        text-shadow: 2px 1px #282828; }
-      .homepage_wrapper .breaking-news-story h3 span, .homepage_wrapper .bears-cube-story h3 span {
-        color: white;
-        text-transform: uppercase; }
-        .homepage_wrapper .breaking-news-story h3 span .fa, .homepage_wrapper .bears-cube-story h3 span .fa {
-          color: #f0f0f0;
-          text-shadow: 1px 1px #3e3e3e;
-          cursor: pointer;
-          font-size: 22px; }
-        .homepage_wrapper .breaking-news-story h3 span .fa:hover, .homepage_wrapper .bears-cube-story h3 span .fa:hover {
-          opacity: 0.75; }
-      .homepage_wrapper .breaking-news-story h3 .button, .homepage_wrapper .bears-cube-story h3 .button {
-        background: #cd606e;
-        border-radius: 5px;
-        margin-bottom: 0px;
-        text-transform: uppercase;
-        text-shadow: 1px 1px #282828;
-        font-weight: 700; }
-      .homepage_wrapper .breaking-news-story h3 .button:hover, .homepage_wrapper .bears-cube-story h3 .button:hover {
+        text-shadow: 1px 1px #3e3e3e;
+        cursor: pointer;
+        font-size: 22px; }
+      .homepage_wrapper .breaking-news-story h3 span .fa:hover, .homepage_wrapper .bears-cube-story h3 span .fa:hover {
         opacity: 0.75; }
+    .homepage_wrapper .breaking-news-story h3 .button, .homepage_wrapper .bears-cube-story h3 .button {
+      background: #cd606e;
+      border-radius: 5px;
+      margin-bottom: 0px;
+      text-transform: uppercase;
+      text-shadow: 1px 1px #282828;
+      font-weight: 700; }
+    .homepage_wrapper .breaking-news-story h3 .button:hover, .homepage_wrapper .bears-cube-story h3 .button:hover {
+      opacity: 0.75; }
   .homepage_wrapper .homepage-content {
     max-width: 58.7rem;
     margin: 0 auto; }
