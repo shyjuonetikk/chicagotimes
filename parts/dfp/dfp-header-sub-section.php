@@ -195,7 +195,7 @@
 
         } else {
 
-            CSTAdTags['div-gpt-mobile-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [728, 90], 'div-gpt-mobile-leaderboard')
+            CSTAdTags['div-gpt-mobile-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/chicago.suntimes.com/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [320, 50], 'div-gpt-mobile-leaderboard')
             .addService(googletag.pubads())
             .setTargeting("pos","mobile leaderboard");
 
