@@ -3194,7 +3194,7 @@ body.post-gallery-lightbox-active {
         bottom: 0;
         background: black;
         /* The Fallback */
-        background: rgba(0, 0, 0, 0.85);
+        background: rgba(0, 0, 0, 0.7);
         width: 100%; }
         @media (min-width: 1025px) {
           .homepage_wrapper .widget_cst_featured_content_widget .featured-story .featured-story-body, .homepage_wrapper .widget_cst_featured_content_widget .featured-story .columnists-story-body, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story .featured-story-body, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story .columnists-story-body, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story .featured-story-body, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story .columnists-story-body, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story .featured-story-body, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story .columnists-story-body {
