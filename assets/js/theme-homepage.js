@@ -9,7 +9,7 @@
 
 			this.cacheElements();
 			this.bindEvents();
-			this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
+			this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 10 );
 
 		},
 
@@ -21,10 +21,11 @@
 			this.body = $('body');
 			this.primaryNavigation = $('#fixed-nav-wrapper');
 			this.topLogos = $('#top-logos');
+      this.wpAdminBar = $('#wpadminbar');
 
-			this.scrollToolbarHeight = $('#fixed-nav-wrapper').outerHeight();
-			if ( $('#wpadminbar').length ) {
-				this.scrollToolbarHeight += $('#wpadminbar').outerHeight();
+			this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
+			if ( this.wpAdminBar.length ) {
+				this.scrollToolbarHeight += this.wpAdminBar.outerHeight();
 			}
 
 			this.breakingNews = $('.breaking-news-story');
@@ -32,11 +33,8 @@
 			this.bearsCube = $('.bears-cube-story');
 			this.bearsCubeClose = $('.close-bears-cube');
 			this.dfpWallpaper = $('#div-gpt-wallpaper');
-			this.dfpWallpaperImg = $('#div-gpt-wallpaper img');
 			this.header = $('header');
 			this.dfpSBB = $('#div-gpt-sbb');
-			this.sbbTop = $('#dfp-sbb-top');
-			this.sbbBottom = $('#dfp-sbb-bottom');
 			this.interstitial = $('#div-gpt-interstitial');
 			this.interstitialContainer = $('#dfp-interstitial-container');
 			this.closeInterstitial = $('#dfp-interstitial-close');
@@ -65,11 +63,11 @@
 			}, this ) );
 
 			this.dfpSBB.mouseover(function() {
-				$( "#dfp-sbb-top" ).hide();
-				$( "#dfp-sbb-bottom" ).show();
+        $('#dfp-sbb-top').hide();
+        $('#dfp-sbb-bottom').show();
 			}).mouseout(function() {
-				$( "#dfp-sbb-top" ).show();
-				$( "#dfp-sbb-bottom" ).hide();
+        $('#dfp-sbb-top').show();
+        $('#dfp-sbb-bottom').hide();
 			});
 
 			this.closeInterstitial.on( "click", $.proxy( function (e) {
@@ -113,16 +111,16 @@
 			if ( scrollTop > this.topLogos.height() ) {
 
 				// Primary Navigation
-				if ( $('#wpadminbar') && $(window).width() > 782 ) {
+				if ( this.wpAdminBar && $(window).width() > 782 ) {
 					if ( this.primaryNavigation.hasClass('fixed') ) {
-						this.primaryNavigation.css( 'top', $('#wpadminbar').height() );
+						this.primaryNavigation.css( 'top', this.wpAdminBar.height() );
 					}
 				}
 
 			} else {
 
 				// Primary Navigation
-				if ( $('#wpadminbar') ) {
+				if ( this.wpAdminBar ) {
 					if ( this.primaryNavigation.removeClass('fixed') ) {
 						this.primaryNavigation.removeAttr('style');
 					}
@@ -130,18 +128,19 @@
 
 			}
 
-			if( scrollTop >= ( this.header.height() + 120 + this.breakingNews.height() ) ) {
+			if( scrollTop >= ( this.header.height() + this.breakingNews.height() ) ) {
 				if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
 					this.dfpWallpaper.removeClass('dfp-wallpaper-normal').addClass('dfp-wallpaper-fixed');
-					this.dfpWallpaper.css( 'top', 122 );
+					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 156 );
 				} else {
 					this.dfpWallpaper.addClass('dfp-wallpaper-fixed');
 				}
-			} else if( scrollTop < ( this.header.height() + 120 + this.breakingNews.height() ) ) {
+			} else if( scrollTop <= ( this.header.height() + this.breakingNews.height() ) ) {
 				if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
 					this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
-					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 120 );
+					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 10 );
 				} else {
+          this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 10 );
 					this.dfpWallpaper.addClass('dfp-wallpaper-normal');
 				}
 			}

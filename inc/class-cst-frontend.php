@@ -1092,6 +1092,76 @@ class CST_Frontend {
 	}
 
 	/**
+	* @param \CST\Objects\Post $obj
+	* @param $author
+	* @param $primary_section
+	* @param $image_size
+	* Display an article container and related markup in the homepage wells
+	*/
+	public function well_article_container_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large' ) {
+?>
+<div class="article-container">
+	<?php $this->well_article_markup( $obj, $author, $primary_section, $image_size ); ?>
+</div>
+<?php
+	}
+
+	/**
+	* @param \CST\Objects\Post $obj
+	* @param $author
+	* @param $primary_section
+	* @param $image_size
+	* Display an article anchor markup in the homepage wells
+	*/
+	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-small' ) {
+?>
+	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
+		<?php
+		if ( $featured_image_id = $obj->get_featured_image_id() ) {
+			if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
+				echo wp_kses_post( $attachment->get_html( $image_size ) );
+			}
+		}
+		?>
+		<div class="article-title <?php echo esc_attr( strtolower( $primary_section->name ) ); ?>-cat">
+			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+			<?php echo wp_kses_post( apply_filters( 'the_excerpt', $obj->get_excerpt() ) ); ?>
+			<span>By <?php echo esc_html( $author ); ?></span>
+		</div>
+	</a>
+<?php
+	}
+
+	/**
+	 * @param \CST\Objects\Post $obj
+	 *
+	 * @return string
+	 * Return author for use in homepage wells.
+	 */
+	public function get_article_author( \CST\Objects\Post $obj ) {
+		if( $byline = $obj->get_byline() ) {
+			$author = $byline;
+		} else {
+			$authors = $obj->get_authors();
+			$author_data = $authors[0];
+			$author = $author_data->get_display_name();
+		}
+		return $author;
+	}
+		/**
+	 * Function called from section_head action
+	 *
+	 * Include the Bears video block from The Cube
+	 */
+	function action_cst_section_head_bears() {
+		echo '
+<section class="bears-football row grey-backgound" style="position:relative;z-index:2;">
+	<iframe src="http://thecube.com/embed/659232" width="100%" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px;float:right;" href="//thecube.com">Share Events on The Cube</a></div>
+</section>';
+
+	}
+
+	/**
 	 * Function called from section_head action in parts/page-header.php
 	 * Include or exclude the sports direct widget
 	 *

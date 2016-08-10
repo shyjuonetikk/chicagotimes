@@ -111,7 +111,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 	 */
 	public function election_shortcode() {
 		?>
-		<div class=" row">
+		<div class="row">
 			<div class="large-12 columns content-wrapper">
 				<div class="elections-2016">
 					<?php
