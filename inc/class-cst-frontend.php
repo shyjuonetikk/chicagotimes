@@ -181,7 +181,6 @@ class CST_Frontend {
 					}
 
 					wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
-					wp_enqueue_script( 'drive-chicago', get_template_directory_uri(). '/assets/js/vendor/drive-chicago.js', array(), false, true );
 				}
 
 				wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );

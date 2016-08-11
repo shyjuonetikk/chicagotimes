@@ -64,19 +64,6 @@
                 esc_html_e( $yieldmo_printed_tag );
             }
 
-            if ( $obj->get_sections() ) :
-				$post_sections = $obj->get_sections();
-				foreach( $post_sections as $section_check ) :
-					if( $section_check->slug == 'zautos' ) :
-				?>
-						<script>
-							window.SECTIONS_FOR_DRIVE_CHICAGO = 'zautos';
-							window.DRIVE_CHICAGO_IMAGE = '<?php echo esc_url( get_template_directory_uri() . '/assets/images/drive-chicago-article-search.png'); ?>';
-						</script>
-				<?php
-					endif;
-				endforeach;
-			endif;
 		?>
 		<script>
 			window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
