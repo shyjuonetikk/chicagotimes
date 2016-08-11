@@ -92,10 +92,10 @@
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 6");
 		if ( window.innerWidth > 1256 ) {
-			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [184, 90], 'dfp-sponsor-ear-left')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [184, 90], 'div-gpt-sponsor-ear-left')
 				.addService(googletag.pubads()).setTargeting("pos","Sponsor Ear Left")
 				.setCollapseEmptyDiv(true,true);
-			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [184, 90], 'dfp-sponsor-ear-right')
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [184, 90], 'div-gpt-sponsor-ear-right')
 				.addService(googletag.pubads()).setTargeting("pos","Sponsor Ear Right")
 				.setCollapseEmptyDiv(true,true);
 		}
