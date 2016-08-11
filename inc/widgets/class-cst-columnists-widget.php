@@ -92,7 +92,8 @@ class CST_Columnists_Content_Widget extends WP_Widget {
         ?>
         
         <div class="large-12 medium-6 small-12 widget_cst_columnists_content_widget">
-            <h2 class="widgettitle"><?php esc_html_e( 'Today\'s Voice', 'chicagosuntimes' ); ?></h2>
+            <div class="columnists-title-container"><h2 class="widgettitle"><?php esc_html_e( 'Today\'s Voice', 'chicagosuntimes' ); ?></h2></div>
+	        <div class="columnists-avatar">
             <?php
                 foreach( $obj->get_authors() as $i => $author ) {
 	                if ( $author->get_type() === 'guest-author' ) {
@@ -111,6 +112,7 @@ class CST_Columnists_Content_Widget extends WP_Widget {
 	                }
                 }
             ?>
+	        </div>
             <div class="columnists-story">
                 <?php if( $obj->get_featured_image_html() ) : ?>
                 <div class="columnists-story-image <?php echo esc_attr( ( $obj->get_post_type() != 'cst_article' ? 'hover-state' : 'columnists-article' ) ); ?>">
