@@ -690,13 +690,12 @@ class CST {
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
 		register_widget( 'CST_Breaking_News_Widget' );
-		register_widget( 'CST_NDN_Video_Widget' );
+		register_widget( 'CST_Inform_Video_Widget' );
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
 		register_widget( 'CST_Category_Headlines_Widget' );
 		register_widget( 'CST_Chatter_Site_Widget' );
 		register_widget( 'CST_Homepage_Featured_Story_Widget' );
-		register_widget( 'CST_Homepage_NDN_Video_Widget' );
 		register_widget( 'CST_Search_Widget' );
 		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
 		register_widget( 'CST_Letters_To_Editor_Widget' );
