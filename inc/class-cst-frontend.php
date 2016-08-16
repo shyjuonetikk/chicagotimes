@@ -180,7 +180,6 @@ class CST_Frontend {
 						$analytics_data['dimension' . $i] = $obj->get_ga_dimension( $i );
 					}
 
-					wp_enqueue_script( 'cst-zedo-video', get_template_directory_uri(). '/assets/js/zedo-video.js', array(), false, true );
 					wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
 				}
 
