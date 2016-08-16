@@ -69,6 +69,7 @@
 			window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
 			window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo json_encode( $agg_primary_section_slug ); ?>;
         </script>
+         <div id="z64aff56b-2200-4008-a1ce-12f9d32c7205" style='display:none' ></div>
 			<?php $obj->the_content(); ?>
 			<?php
 			$user_logins = array();
