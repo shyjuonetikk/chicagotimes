@@ -23,6 +23,7 @@
 	<div class="article">
 		<?php echo $this->get( 'post_amp_content' ); // amphtml content; no kses ?>
 	</div>
+	<?php do_action( 'cst_amp_after_amp_content' ); ?>
 </div>
 <?php do_action( 'amp_post_template_footer', $this ); ?>
 </body>
