@@ -232,6 +232,19 @@ blockquote p:last-child {
 }
 
 /* Other Elements */
+.amp-recommended-content {
+	clear: both;
+}
+.amp-recommended-image {
+	float:left;
+}
+.amp-recommended-image img {
+	max-width: 100%;
+	height: auto;
+	display: inline-block;
+	vertical-align: middle;
+}
+
 amp-carousel {
 	background: #000;
 }

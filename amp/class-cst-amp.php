@@ -253,7 +253,7 @@ class CST_AMP {
 	*/
 	function amp_recommendations_block() {
 
-		$feed_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=' . $chartbeat_slug . '&sort_by=returning&now_on=1&limit=4';
+		$feed_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=' . $chartbeat_slug . '&sort_by=returning&now_on=1&limit=4&metrics=post_id';
 		$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 		$chartbeat_slug = 'chicago%20news';
 		$section_name   = 'News';
@@ -283,11 +283,33 @@ class CST_AMP {
 		?>
 		<div class="amp-recommendations">
 			<h3>Previously from <?php esc_html( $section_name ); ?></h3>
-		<?php foreach ( $result->pages as $item ) { ?>
-		    <div class="amp-recommended-post">
-				<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
-					<?php echo esc_html( $item->title ); ?>
-				</a>
+		<?php foreach ( $result->pages as $item ) {
+
+			$chartbeat_top_content = (array) $item->metrics->post_id->top;
+			if ( ! empty( $chartbeat_top_content ) && is_array( $chartbeat_top_content ) ) {
+				$vals = array_values( array_flip( $chartbeat_top_content ) );
+			}
+			$recommended_featured_image_id = $vals[0];
+			$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $recommended_featured_image_id );
+			$response = wpcom_vip_file_get_contents( $remote_url );
+			if ( ! is_wp_error( $response ) ) {
+				$result = json_decode( $response );
+			}
+			$image_markup = '';
+			$fi_url = $result->featured_image . '?w=80';
+			$image_markup .= '<img src="' . $fi_url . '" width=80">';
+			?>
+		    <div class="amp-recommended-content">
+			    <div class="amp-recommended-image">
+				    <a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
+				        <?php echo $image_markup; ?>
+				    </a>
+			    </div>
+			    <div class="amp-recommended-title">
+				    <a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
+					    <?php echo esc_html( $item->title ); ?>
+				    </a>
+			    </div>
 			</div>
 		<?php } ?>
 		</div>
