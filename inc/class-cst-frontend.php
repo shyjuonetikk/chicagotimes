@@ -1149,18 +1149,6 @@ class CST_Frontend {
 		}
 		return $author;
 	}
-		/**
-	 * Function called from section_head action
-	 *
-	 * Include the Bears video block from The Cube
-	 */
-	function action_cst_section_head_bears() {
-		echo '
-<section class="bears-football row grey-backgound" style="position:relative;z-index:2;">
-	<iframe src="http://thecube.com/embed/659232" width="100%" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px;float:right;" href="//thecube.com">Share Events on The Cube</a></div>
-</section>';
-
-	}
 
 	/**
 	 * Function called from section_head action in parts/page-header.php

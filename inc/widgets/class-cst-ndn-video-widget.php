@@ -43,8 +43,6 @@ data-config-site-section="%4$s"
 
 	public function widget( $args, $instance ) {
 		$script_url = get_stylesheet_directory_uri() . '/assets/js/cst-inform.js';
-		$inform_url = '//launch.newsinc.com/js/embed.js';
-		wp_enqueue_script( 'inform-url', esc_url( $inform_url ), false, null, false );
 		wp_enqueue_script( 'cst-inform', esc_url( $script_url ), array( 'jquery' ), null, true );
 		?>
 			<div class="large-12 medium-6 small-6 columns">
