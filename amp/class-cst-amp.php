@@ -129,7 +129,7 @@ class CST_AMP {
 			if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
 				<?php $image_content .= $attachment->get_html( 'cst-article-featured' );
 				if ( $caption = $attachment->get_caption() ) :
-					$image_content .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
+					$image_content .= '<div class="image-caption wp-caption-text">' . wpautop( esc_html( $caption ) ) . '</div>';
 				endif;
 			}
 		} elseif ( 'gallery' === $media_type && $gallery = $obj->get_featured_gallery() ) { ?>
