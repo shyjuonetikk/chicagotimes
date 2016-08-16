@@ -233,6 +233,7 @@
 						googletag.pubads().refresh([unitInstance]);
 					});
 			    }
+			    window.CSTZedo && CSTZedo.inject();
 				document.title = wp_title;
 
 				CSTAnalytics.triggerPageview();
