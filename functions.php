@@ -206,6 +206,8 @@ class CST {
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
+		// AMP
+		require_once dirname( __FILE__ ) . '/amp/class-cst-amp.php';
 
 		wpcom_vip_require_lib( 'codebird' );
 
@@ -1217,6 +1219,9 @@ class CST {
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
 		$sections_match = implode( '|', $sections );
+		if ( defined( 'AMP_QUERY_VAR' ) ) {
+			$rewrites[ '(' . $sections_match . ')/([^/]+)/' . AMP_QUERY_VAR . '/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&amp=$matches[3]' . $post_types;
+		}
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/page/?([0-9]{1,})/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&paged=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&page=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/liveblog/(.*)/?$' ] = 'index.php?index.php?cst_section=$matches[1]&name=$matches[2]&liveblog=$matches[3]' . $post_types;
