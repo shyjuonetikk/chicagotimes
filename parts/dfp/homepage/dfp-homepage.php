@@ -13,7 +13,7 @@
 	})();
 </script>
 
-<?php if( is_page( 'yieldmo-homepage' ) ) { ?>
+<?php if ( is_page( 'yieldmo-homepage' ) ) { ?>
 <script type='text/javascript'>
 	googletag.cmd.push(function() {
 
@@ -91,8 +91,16 @@
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 5");
 			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 6");
+		if ( window.innerWidth > 1256 ) {
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [184, 90], 'div-gpt-sponsor-ear-left')
+				.addService(googletag.pubads()).setTargeting("pos","Sponsor Ear Left")
+				.setCollapseEmptyDiv(true,true);
+			googletag.defineSlot('/61924087/chicago.suntimes.com/chicago.suntimes.com.index', [184, 90], 'div-gpt-sponsor-ear-right')
+				.addService(googletag.pubads()).setTargeting("pos","Sponsor Ear Right")
+				.setCollapseEmptyDiv(true,true);
+		}
 	googletag.pubads().enableSingleRequest();
 	googletag.enableServices();
 	});
 </script>
-<?php } ?>
+<?php }

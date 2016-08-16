@@ -3,8 +3,6 @@
 } ?>
 </div>
 
-<div class="afs_ads">&nbsp;</div>
-
 <?php wp_footer(); ?>
 <?php 
     if( is_singular() ) :

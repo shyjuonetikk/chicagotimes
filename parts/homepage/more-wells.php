@@ -1,12 +1,13 @@
 <?php global $homepage_more_well_posts; ?>
-<hr/>
+<hr class="before">
 <h2 class="section-title"><span><?php esc_html_e( 'More Top Stories', 'chicagosuntimes' ); ?></span></h2>
-<hr/>
+<hr>
 <?php if ( is_array( $homepage_more_well_posts ) && ! empty( $homepage_more_well_posts ) ) { ?>
 	<section id="more-stories-wells">
+		<div class="columns">
 		<?php foreach ( $homepage_more_well_posts as $homepage_more_well_post ) { ?>
-			<hr/>
-			<div class="row">
+			<div class="more-story">
+				<div class="row">
 				<?php
 				$obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_post->ID );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
@@ -42,6 +43,7 @@
 					<?php
 				}
 				?>
+				</div>
 			</div>
 		<?php } ?>
 		<?php get_template_part( 'parts/vendors/nativo-home-1' ); ?>
@@ -51,10 +53,11 @@
 				<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
 			</div>
 		</div>
+		</div>
 	</section>
 <?php } ?>
 </div>
-<div class="large-4 columns">
+<div class="large-4 columns homepage-sidebar">
 	<?php if ( dynamic_sidebar( 'homepage_sidebar_two' ) ) {
 	} ?>
 	<?php if ( dynamic_sidebar( 'homepage_sidebar_three' ) ) {
@@ -64,5 +67,4 @@
 			<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-3' ); ?>
 		</div>
 	</div>
-</div>
 </div>
