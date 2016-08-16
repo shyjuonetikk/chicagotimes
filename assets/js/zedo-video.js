@@ -9,7 +9,7 @@ window.CSTZedo = {
     var paragraphs = Array.prototype.slice.call(jQuery('.cst-active-scroll-post p'));
     var paragraphsCount = paragraphs.length;
     if ( paragraphsCount ) {
-      if( ! postContent.hasClass('zedo-inserted') ) {
+      if( ! jQuery('#main').find('.cst-active-scroll-post').hasClass('zedo-inserted') ) {
         if(paragraphsCount >= 3) {
           zedoContentNode = this._insertHTMLTag();
           jQuery('.cst-active-scroll-post .post-content').children('p').not('.wp-caption-text, :first').append(zedoContentNode);
@@ -23,6 +23,9 @@ window.CSTZedo = {
 
   /* Private methods */
   _insertZedoJS: function(){
+    if ( jQuery('#main').find('.cst_article').hasClass('zedo-inserted') )
+      return;
+
     !function (a, n, e, t, r) {
       tagsync = e;
       var c = window[a];
