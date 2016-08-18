@@ -245,15 +245,12 @@
 							}
 						}
 					}
-					height:146px;
+					min-height:146px;
 				}
 				@media only screen and (min-width: 78.063em) {
 					.top-bar-section li:not(.has-form) a:not(.button) {
 						padding: 0 12px;
 					}
-				}
-				&.expanded {
-					overflow: visible;
 				}
 			}
 			.cst-row {
