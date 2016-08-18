@@ -2645,7 +2645,7 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .logo-wrapper.large-logo {
       display: none !important; } }
   .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section {
-    height: 146px; }
+    min-height: 146px; }
     .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
       display: block; }
     .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
