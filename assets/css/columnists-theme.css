@@ -2653,6 +2653,8 @@ body.post-gallery-lightbox-active {
   @media only screen and (min-width: 78.063em) {
     .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
       padding: 0 12px; } }
+  .homepage_wrapper header .contain-to-grid .top-bar.expanded {
+    overflow: visible; }
   .homepage_wrapper header .contain-to-grid .cst-row {
     margin: 0 auto; }
   @media only screen and (min-width: 78.063em) {

@@ -252,6 +252,9 @@
 						padding: 0 12px;
 					}
 				}
+				&.expanded {
+					overflow: visible;
+				}
 			}
 			.cst-row {
 				margin: 0 auto;
