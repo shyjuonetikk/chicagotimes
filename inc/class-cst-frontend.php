@@ -808,7 +808,7 @@ class CST_Frontend {
 
 		$cache_key = md5( $feed_url . (int) $max_display );
 		$cached_feed = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( $cached_feed === false ) {
+		if ( $cached_feed === false || WP_DEBUG ) {
 			$headlines = fetch_feed( $feed_url );
 			if ( ! is_wp_error( $headlines ) ) :
 				$maxitems = $headlines->get_item_quantity( $max_display );
