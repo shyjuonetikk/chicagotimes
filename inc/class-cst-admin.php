@@ -412,13 +412,13 @@ class CST_Admin {
 						'style'           => 'width:100%',
 						)
 					) ),
-				'top_right'               => new \Fieldmanager_TextArea( esc_html__( 'Intro Text', 'chicagosuntimes' ), array(
+				'top_right'               => new \Fieldmanager_RichTextarea( esc_html__( 'Intro Text', 'chicagosuntimes' ), array(
 					'description'     => esc_html__( 'Text that displays at the top right of the page', 'chicagosuntimes' ),
 					'attributes'      => array(
 						'style'           => 'width:100%',
 						)
 					) ),
-				'benefits'               => new \Fieldmanager_TextArea( esc_html__( 'Benefits Text', 'chicagosuntimes' ), array(
+				'benefits'               => new \Fieldmanager_RichTextarea( esc_html__( 'Benefits Text', 'chicagosuntimes' ), array(
 					'description'     => esc_html__( 'Small text that displays below the Print packages explaining the benefits agreement with The Washington Post', 'chicagosuntimes' ),
 					'attributes'      => array(
 						'style'           => 'width:100%',
@@ -446,7 +446,7 @@ class CST_Admin {
 						'style'         => 'width:100%',
 						)
 					) ),
-				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+				'package_description' 	=> new \Fieldmanager_RichTextarea( esc_html__( 'Description', 'chicagosuntimes' ), array(
 					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
 					'attributes'      	=> array(
 						'style'       	=> 'width:100%',
@@ -475,7 +475,7 @@ class CST_Admin {
 						'style'         => 'width:100%',
 						)
 					) ),
-				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+				'package_description' 	=> new \Fieldmanager_RichTextarea( esc_html__( 'Description', 'chicagosuntimes' ), array(
 					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
 					'attributes'      	=> array(
 						'style'       	=> 'width:100%',
@@ -504,7 +504,7 @@ class CST_Admin {
 						'style'         => 'width:100%',
 						)
 					) ),
-				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+				'package_description' 	=> new \Fieldmanager_RichTextarea( esc_html__( 'Description', 'chicagosuntimes' ), array(
 					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
 					'attributes'      	=> array(
 						'style'       	=> 'width:100%',
@@ -538,7 +538,7 @@ class CST_Admin {
 						'style'         => 'width:100%',
 						)
 					) ),
-				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+				'package_description' 	=> new \Fieldmanager_RichTextarea( esc_html__( 'Description', 'chicagosuntimes' ), array(
 					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
 					'attributes'      	=> array(
 						'style'       	=> 'width:100%',
@@ -573,7 +573,7 @@ class CST_Admin {
 						'style'         => 'width:100%',
 						)
 					) ),
-				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+				'package_description' 	=> new \Fieldmanager_RichTextarea( esc_html__( 'Description', 'chicagosuntimes' ), array(
 					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
 					'attributes'      	=> array(
 						'style'       	=> 'width:100%',
@@ -602,7 +602,7 @@ class CST_Admin {
 						'style'         => 'width:100%',
 						)
 					) ),
-				'package_description' 	=> new \Fieldmanager_TextArea( esc_html__( 'Description', 'chicagosuntimes' ), array(
+				'package_description' 	=> new \Fieldmanager_RichTextarea( esc_html__( 'Description', 'chicagosuntimes' ), array(
 					'description'     	=> esc_html__( 'The description of this package', 'chicagosuntimes' ),
 					'attributes'      	=> array(
 						'style'       	=> 'width:100%',
