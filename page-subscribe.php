@@ -27,7 +27,7 @@
 							</div>
 							<div class="small-12 medium-8 columns left-pad">
 					<?php if( ! empty( $subscribe_content['content']['top_right'] ) ) { ?>
-								<p class="floatiesL"><?php esc_html_e( $subscribe_content['content']['top_right'], 'chicagosuntimes' ); ?></p>
+								<p class="floatiesL"><?php echo apply_filters( 'the_content', $subscribe_content['content']['top_right'] ); ?></p>
 					<?php } ?>
 							</div>
 					</div>
@@ -50,7 +50,7 @@
 						<div class="small-12 columns lower">
 							<div class="small-12 medium-8 columns details">
 								<h3><?php esc_html_e( $subscribe_print_content['print_package_1']['package_title'], 'chicagosuntimes' ); ?></h3>
-								<p><?php esc_html_e( $subscribe_print_content['print_package_1']['package_description'], 'chicagosuntimes' ); ?></p>
+								<p><?php echo apply_filters( 'the_content', $subscribe_print_content['print_package_1']['package_description'] ); ?></p>
 							</div>
 							<div class="small-12 medium-4 columns pricing">
 								<div>
@@ -65,7 +65,7 @@
 						<div class="small-12 columns lower">
 							<div class="small-12 medium-8 columns details">
 								<h3><?php esc_html_e( $subscribe_print_content['print_package_2']['package_title'], 'chicagosuntimes' ); ?></h3>
-								<p><?php esc_html_e( $subscribe_print_content['print_package_2']['package_description'], 'chicagosuntimes' ); ?></p>
+								<p><?php echo apply_filters( 'the_content', $subscribe_print_content['print_package_2']['package_description'] ); ?></p>
 							</div>
 							<div class="small-12 medium-4 columns pricing">
 								<div>
@@ -80,7 +80,7 @@
 						<div class="small-12 columns">
 							<div class="small-12 medium-8 columns details">
 								<h3><?php esc_html_e( $subscribe_print_content['print_package_3']['package_title'], 'chicagosuntimes' ); ?></h3>
-								<p><?php esc_html_e( $subscribe_print_content['print_package_3']['package_description'], 'chicagosuntimes' ); ?></p>
+								<p><?php echo apply_filters( 'the_content', $subscribe_print_content['print_package_3']['package_description'] ); ?></p>
 							</div>
 							<div class="small-12 medium-4 columns pricing">
 								<div class="last-price">
@@ -114,7 +114,7 @@
 							<div class="small-12 medium-8 columns details">
 
 								<h3><?php esc_html_e( $subscribe_digital_content['digital_package_1']['package_title'], 'chicagosuntimes' ); ?></h3>
-								<p><?php esc_html_e( $subscribe_digital_content['digital_package_1']['package_description'], 'chicagosuntimes' ); ?></p>
+								<p><?php echo apply_filters( 'the_content', $subscribe_digital_content['digital_package_1']['package_description'] ); ?></p>
 
 							</div>
 							<div class="small-12 medium-4 columns">
@@ -133,7 +133,7 @@
 							<div class="small-12 medium-8 columns details">
 
 								<h3><?php esc_html_e( $subscribe_digital_content['digital_package_2']['package_title'], 'chicagosuntimes' ); ?></h3>
-								<p><?php esc_html_e( $subscribe_digital_content['digital_package_2']['package_description'], 'chicagosuntimes' ); ?></p>
+								<p><?php echo apply_filters( 'the_content', $subscribe_digital_content['digital_package_2']['package_description'] ); ?></p>
 
 							</div>
 							<div class="small-12 medium-4 columns">
@@ -152,7 +152,7 @@
 							<div class="small-12 medium-8 columns details">
 
 								<h3><?php esc_html_e( $subscribe_digital_content['digital_package_3']['package_title'], 'chicagosuntimes' ); ?></h3>
-								<p><?php esc_html_e( $subscribe_digital_content['digital_package_3']['package_description'], 'chicagosuntimes' ); ?></p>
+								<p><?php echo apply_filters( 'the_content', $subscribe_digital_content['digital_package_3']['package_description'] ); ?></p>
 
 							</div>
 							<div class="small-12 medium-4 columns">
