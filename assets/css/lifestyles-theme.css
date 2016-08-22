@@ -203,6 +203,10 @@ body.error404 {
     body.error404 .home-page-link:hover, body.error404 .home-page-link:active, body.error404 .home-page-link:visited {
       color: #282828; }
 
+.vip-local div[id^="div-gpt-"] {
+  background: #d0d0f0;
+  color: white; }
+
 #div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }
@@ -220,6 +224,17 @@ body.error404 {
   width: 728px;
   position: relative;
   z-index: 2; }
+.dfp.dfp-super-leaderboard {
+  width: 970px;
+  position: relative;
+  z-index: 2;
+  margin: 10px auto 10px auto;
+  max-width: 1000px; }
+.dfp.dfp-billboard {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 0 0; }
 .dfp#div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }

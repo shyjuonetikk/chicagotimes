@@ -1,3 +1,9 @@
+.vip-local {
+	div[id^="div-gpt-"] {
+		background: #d0d0f0;
+		color: #fff;
+	}
+}
 #div-gpt-btf-leaderboard {
 	position: relative;
 	z-index: 2;
@@ -21,6 +27,21 @@
 		width: 728px;
 		position:relative;
 		z-index:2;
+	}
+
+	&.dfp-super-leaderboard {
+		width: 970px;
+		position: relative;
+		z-index: 2;
+		margin: 10px auto 10px auto;
+		max-width: 1000px;
+	}
+
+	&.dfp-billboard {
+		text-align: center;
+		position: relative;
+		z-index: 2;
+		margin: 10px 0 0 0;
 	}
 
 	&#div-gpt-btf-leaderboard {
