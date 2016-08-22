@@ -2543,8 +2543,6 @@ body.post-gallery-lightbox-active {
   /* CONTENT */
   /* SIDEBAR */
   /* FOOTER */ }
-  .homepage_wrapper div[id^="div-gpt-"] {
-    background: #e0e0ff; }
   .homepage_wrapper .news-cat:hover {
     background: #d22d42 !important;
     /* The Fallback */
