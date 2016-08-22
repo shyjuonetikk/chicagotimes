@@ -219,7 +219,18 @@ body.error404 {
 .dfp.dfp-leaderboard {
   width: 728px;
   position: relative;
-  z-index: 2; }
+  z-index: 2;
+  margin: 10px 0 0 0; }
+.dfp.dfp-super-leaderboard {
+  width: 970px;
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 0 0; }
+.dfp.dfp-billboard {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  margin: 10px 0 0 0; }
 .dfp#div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }
@@ -2512,6 +2523,8 @@ body.post-gallery-lightbox-active {
   /* CONTENT */
   /* SIDEBAR */
   /* FOOTER */ }
+  .homepage_wrapper div[id^="div-gpt-"] {
+    background: #e0e0ff; }
   .homepage_wrapper .news-cat:hover {
     background: #d22d42 !important;
     /* The Fallback */
