@@ -76,4 +76,3 @@
 <?php get_template_part( 'parts/dfp/homepage/dfp-super-leaderboard' ); ?>
 <?php get_template_part( 'parts/dfp/homepage/dfp-billboard' ); ?>
 <?php get_template_part( 'parts/dfp/homepage/dfp-sbb' ); ?>
-
