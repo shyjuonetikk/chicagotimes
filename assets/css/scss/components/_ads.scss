@@ -1,7 +1,11 @@
 .vip-local {
 	div[id^="div-gpt-"] {
 		background: #d0d0f0;
-		color: #fff;
+		color: #333;
+		font-size: 0.8rem;
+		&[data-visual-label]:before {
+			content: attr(data-visual-label) ": ";
+		}
 	}
 }
 #div-gpt-btf-leaderboard {
