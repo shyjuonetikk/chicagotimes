@@ -9,13 +9,6 @@
 	z-index: 2;
 }
 
-#div-gpt-billboard {
-	text-align: center;
-	position: relative;
-	z-index: 2;
-	margin: 0 0 10px 0;
-}
-
 .dfp {
 
 	&.dfp-centered {
@@ -41,7 +34,8 @@
 		text-align: center;
 		position: relative;
 		z-index: 2;
-		margin: 10px 0 0 0;
+		margin: 10px auto 10px auto;
+		max-width: 1000px;
 	}
 
 	&#div-gpt-btf-leaderboard {
