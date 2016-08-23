@@ -68,6 +68,7 @@ class CST_Frontend {
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
+		add_action( 'body_start', array( $this, 'action_body_start' ) );
 
 	}
 
@@ -1270,5 +1271,21 @@ class CST_Frontend {
 			$parent_inventory = 'chicago.suntimes.com';
 		}
 		return $parent_inventory;
+	}
+
+	/**
+	*
+	* Add functionality to be positioned just after the opening body tag
+	*/
+	public function action_body_start() {
+
+		if ( is_singular() ) {
+		?>
+<!-- zedo tag -->
+<div id="z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206" style='display:none' ></div>
+<script>!function(a,n,e,t,r){tagsync=e;var c=window[a];if(tagsync){var d=document.createElement("script");d.src="http://3107.tm.zedo.com/v1/29252020-9011-4261-83dd-83503d457fb9/atm.js",d.async=!0;var i=document.getElementById(n);if(null==i||"undefined"==i)return;i.parentNode.appendChild(d,i),d.onload=d.onreadystatechange=function(){var a=new zTagManager(n);a.initTagManager(n,c,this.aync,t,r)}}else document.write("<script src='http://3107.tm.zedo.com/v1/29252020-9011-4261-83dd-83503d457fb9/tm.js?data="+a+"'><"+"/script>")}("datalayer","z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206",true, 1 , 1);</script>
+<!-- /zedo tag -->
+	<?php
+		}
 	}
 }

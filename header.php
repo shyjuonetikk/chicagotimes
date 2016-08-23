@@ -63,6 +63,7 @@
 </head>
 
 <body <?php body_class(); ?>>
+<?php do_action( 'body_start' ); ?>
 <div id="ie8-user" style="display:none;"></div>
 
 <?php 
