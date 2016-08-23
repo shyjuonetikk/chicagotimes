@@ -220,7 +220,8 @@ body.error404 {
 .dfp.dfp-leaderboard {
   width: 728px;
   position: relative;
-  z-index: 2; }
+  z-index: 2;
+  margin: 10px 0 0 0; }
 .dfp.dfp-super-leaderboard {
   width: 970px;
   position: relative;

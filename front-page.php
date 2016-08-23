@@ -8,13 +8,11 @@ endif;
 <?php get_template_part( 'parts/dfp/homepage/dfp-wallpaper' ); ?>
 	<div class="row">
 		<div class="large-12 content-wrapper">
-			<div class="row">
-				<div class="large-12 columns dfp-atf-leaderboard show-for-medium-up">
-					<?php get_template_part( 'parts/dfp/homepage/dfp-atf-leaderboard' ); ?>
-				</div>
-				<div class="large-12 columns dfp-mobile-leaderboard show-for-small-only">
-					<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
-				</div>
+			<?php get_template_part( 'parts/dfp/homepage/dfp-super-leaderboard' ); ?>
+			<?php get_template_part( 'parts/dfp/homepage/dfp-billboard' ); ?>
+			<?php get_template_part( 'parts/dfp/homepage/dfp-sbb' ); ?>
+			<div class="large-12 columns dfp-mobile-leaderboard show-for-small-only">
+				<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
 			</div>
 		</div>
 	</div>

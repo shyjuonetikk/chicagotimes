@@ -1,4 +1,3 @@
-<div class="row">
 <div id='div-gpt-sbb' class='dfp dfp-sbb dfp-centered show-for-medium-up'>
 	<div id="dfp-sbb-top" class="dfp-sbb-minimize"></div>
 	<div id="dfp-sbb-bottom"></div>
@@ -9,5 +8,4 @@
 			});
 		}
 	</script>
-</div>
 </div>

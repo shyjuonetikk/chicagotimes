@@ -1262,4 +1262,13 @@ class CST_Frontend {
 	    endif;
 	}
 
+	public function get_dfp_inventory() {
+		$current_site_url = get_bloginfo( 'url' );
+		if ( $current_site_url !== 'http://chicago.suntimes.com' ) {
+			$parent_inventory = 'chicago.suntimes.com.test';
+		} else {
+			$parent_inventory = 'chicago.suntimes.com';
+		}
+		return $parent_inventory;
+	}
 }
