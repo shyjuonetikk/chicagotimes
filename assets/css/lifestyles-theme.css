@@ -204,9 +204,9 @@ body.error404 {
       color: #282828; }
 
 .vip-local div[id^="div-gpt-"] {
-  background: #d0d0f0;
+  border: 1px solid #cccccc;
   color: #333333;
-  font-size: 0.8rem; }
+  font-size: 0.7rem; }
   .vip-local div[id^="div-gpt-"][data-visual-label]:before {
     content: attr(data-visual-label) ": "; }
 

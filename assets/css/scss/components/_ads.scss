@@ -1,8 +1,8 @@
 .vip-local {
 	div[id^="div-gpt-"] {
-		background: #d0d0f0;
+		border: 1px solid #ccc;
 		color: #333;
-		font-size: 0.8rem;
+		font-size: 0.7rem;
 		&[data-visual-label]:before {
 			content: attr(data-visual-label) ": ";
 		}
