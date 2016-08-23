@@ -1256,8 +1256,19 @@ class CST_Frontend {
 			return;
 		}
 		if ( ! is_404() && ! is_singular() ) :
-			get_template_part( 'parts/dfp/dfp-sbb' );
-		endif;
+            get_template_part( 'parts/dfp/dfp-super-leaderboard' );
+	        get_template_part( 'parts/dfp/dfp-billboard' );
+	        get_template_part( 'parts/dfp/dfp-sbb' );
+	    endif;
 	}
 
+	public function get_dfp_inventory() {
+		$current_site_url = get_bloginfo( 'url' );
+		if ( $current_site_url !== 'http://chicago.suntimes.com' ) {
+			$parent_inventory = 'chicago.suntimes.com.test';
+		} else {
+			$parent_inventory = 'chicago.suntimes.com';
+		}
+		return $parent_inventory;
+	}
 }
