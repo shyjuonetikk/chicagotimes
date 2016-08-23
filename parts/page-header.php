@@ -34,11 +34,7 @@ if( is_single() ) {
 }
 ?>
 <div class="off-canvas-wrap" data-offcanvas>
-	<?php 
-		if( ! is_single() ) { 
-			get_template_part( 'parts/dfp/dfp-interstitial' );
-		} 
-	?>
+	<?php get_template_part( 'parts/dfp/dfp-interstitial' ); ?>
 	<div class="inner-wrap">
 	<?php 
 		if( is_home() || is_front_page() || is_tax() ) { 
