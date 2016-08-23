@@ -176,7 +176,7 @@
         .setTargeting("pos","Billboard 970x250")
         .setCollapseEmptyDiv(true,true);
 
-	    CSTAdTags['div-gpt-super-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . 'index' ); ?>, [970, 90], 'div-gpt-super-leaderboard')
+	    CSTAdTags['div-gpt-super-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child .'.' . $dfp_grandchild  ); ?>, [970, 90], 'div-gpt-super-leaderboard')
 		    .addService(googletag.pubads())
 		    .setTargeting("pos","Super Leaderboard 970x90")
 		    .setCollapseEmptyDiv(true,true);
