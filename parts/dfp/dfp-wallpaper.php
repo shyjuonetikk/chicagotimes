@@ -1,5 +1,5 @@
 <!-- BreakingNews.Index -->
-<div id='div-gpt-wallpaper' class='dfp dfp-centered show-for-medium-up dfp-wallpaper'>
+<div id='div-gpt-wallpaper' class='dfp dfp-centered show-for-medium-up dfp-wallpaper' data-visual-label="Wallpaper">
 <script>
 	if ( window.innerWidth > 1200 ) {
 		googletag.cmd.push(function() {

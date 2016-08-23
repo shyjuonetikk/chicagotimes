@@ -203,15 +203,16 @@ body.error404 {
     body.error404 .home-page-link:hover, body.error404 .home-page-link:active, body.error404 .home-page-link:visited {
       color: #282828; }
 
+.vip-local div[id^="div-gpt-"] {
+  border: 1px solid #cccccc;
+  color: #333333;
+  font-size: 0.7rem; }
+  .vip-local div[id^="div-gpt-"][data-visual-label]:before {
+    content: attr(data-visual-label) ": "; }
+
 #div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }
-
-#div-gpt-billboard {
-  text-align: center;
-  position: relative;
-  z-index: 2;
-  margin: 0 0 10px 0; }
 
 .dfp.dfp-centered {
   margin-left: auto;
@@ -225,12 +226,14 @@ body.error404 {
   width: 970px;
   position: relative;
   z-index: 2;
-  margin: 10px 0 0 0; }
+  margin: 10px auto 10px auto;
+  max-width: 1000px; }
 .dfp.dfp-billboard {
   text-align: center;
   position: relative;
   z-index: 2;
-  margin: 10px 0 0 0; }
+  margin: 10px auto 10px auto;
+  max-width: 1000px; }
 .dfp#div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }

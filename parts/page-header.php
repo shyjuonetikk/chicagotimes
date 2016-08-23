@@ -42,8 +42,8 @@ if( is_single() ) {
 	<div class="inner-wrap">
 	<?php 
 		if( is_home() || is_front_page() || is_tax() ) { 
-			get_template_part( 'parts/dfp/dfp-atf-leaderboard' );
-			get_template_part( 'parts/dfp/dfp-mobile-leaderboard' ); 
+			get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
+			get_template_part( 'parts/dfp/dfp-super-leaderboard' );
 		}
 	?>
 <header id="header">

@@ -414,6 +414,9 @@ class CST {
 			if ( isset( get_queried_object()->slug ) ) {
 				$classes[] = get_queried_object()->slug;
 			}
+			if ( WP_DEBUG ) {
+				$classes[] = 'vip-local';
+			}
 			return $classes;
 		});
 
