@@ -1,4 +1,4 @@
-<div id='div-gpt-super-leaderboard' class='dfp dfp-super-leaderboard dfp-centered show-for-medium-up'>
+<div id='div-gpt-super-leaderboard' class='dfp dfp-super-leaderboard dfp-centered'>
 <script>
 	if ( window.innerWidth > 970 ) {
 		googletag.cmd.push(function() {
