@@ -1,13 +1,16 @@
+.vip-local {
+	div[id^="div-gpt-"] {
+		border: 1px solid #ccc;
+		color: #333;
+		font-size: 0.7rem;
+		&[data-visual-label]:before {
+			content: attr(data-visual-label) ": ";
+		}
+	}
+}
 #div-gpt-btf-leaderboard {
 	position: relative;
 	z-index: 2;
-}
-
-#div-gpt-billboard {
-	text-align: center;
-	position: relative;
-	z-index: 2;
-	margin: 0 0 10px 0;
 }
 
 .dfp {
@@ -21,6 +24,23 @@
 		width: 728px;
 		position:relative;
 		z-index:2;
+		margin: 10px 0 0 0;
+	}
+
+	&.dfp-super-leaderboard {
+		width: 970px;
+		position: relative;
+		z-index: 2;
+		margin: 10px auto 10px auto;
+		max-width: 1000px;
+	}
+
+	&.dfp-billboard {
+		text-align: center;
+		position: relative;
+		z-index: 2;
+		margin: 10px auto 10px auto;
+		max-width: 1000px;
 	}
 
 	&#div-gpt-btf-leaderboard {
