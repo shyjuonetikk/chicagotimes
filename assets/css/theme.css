@@ -2710,13 +2710,11 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section {
         text-align: center;
         z-index: 3; }
-        .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .logo-wrapper {
-          position: relative; }
-          .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .logo-wrapper .logo {
-            width: 300px;
-            display: block;
-            margin: 0 auto;
-            padding-top: 10px; }
+        .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .logo-wrapper .logo {
+          width: 300px;
+          display: block;
+          margin: 0 auto;
+          padding-top: 10px; }
         .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .dropdown li a {
           line-height: 30px !important; }
         .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage {
