@@ -40,10 +40,11 @@ class CST_DFP_Handler {
 		}
 		return sprintf(
 			'
-<div id="%1$s" class="%2$s"></div>
+<div id="%1$s" class="%2$s" data-visual-label="%3$s"></div>
 ',
 			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $class )
+			esc_attr( $class ),
+			esc_attr( $type . '-' . intval( $index ) )
 		);
 	}
 
