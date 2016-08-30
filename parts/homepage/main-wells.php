@@ -73,6 +73,6 @@
         </div>
     </div>
 </div>
-<?php get_template_part( 'parts/dfp/homepage/dfp-super-leaderboard' ); ?>
-<?php get_template_part( 'parts/dfp/homepage/dfp-billboard' ); ?>
-<?php get_template_part( 'parts/dfp/homepage/dfp-sbb' ); ?>
+<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
+<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-billboard', 'dfp dfp-centered dfp-billboard' ); ?>
+<?php echo CST()->dfp_handler->sbb( 2 ); ?>

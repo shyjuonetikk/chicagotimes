@@ -2710,13 +2710,11 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section {
         text-align: center;
         z-index: 3; }
-        .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .logo-wrapper {
-          position: relative; }
-          .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .logo-wrapper .logo {
-            width: 300px;
-            display: block;
-            margin: 0 auto;
-            padding-top: 10px; }
+        .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .logo-wrapper .logo {
+          width: 300px;
+          display: block;
+          margin: 0 auto;
+          padding-top: 10px; }
         .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section .dropdown li a {
           line-height: 30px !important; }
         .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left, .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section #menu-homepage {
@@ -3148,7 +3146,7 @@ body.post-gallery-lightbox-active {
       display: block;
       width: 100%; }
   .homepage_wrapper .homepage-sidebar {
-    padding: 0 0 0 1.5375rem; }
+    padding: 0 0 0 1.3575rem; }
   .homepage_wrapper .widget_cst_featured_content_widget:nth-of-type(1) {
     margin-top: 5px;
     padding: 0; }
