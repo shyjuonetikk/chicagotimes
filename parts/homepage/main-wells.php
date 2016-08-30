@@ -73,6 +73,6 @@
         </div>
     </div>
 </div>
-<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
+<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered', 970 ); ?>
 <?php echo CST()->dfp_handler->unit( 2, 'div-gpt-billboard', 'dfp dfp-centered dfp-billboard' ); ?>
 <?php echo CST()->dfp_handler->sbb( 2 ); ?>
