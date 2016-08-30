@@ -1275,7 +1275,8 @@ class CST_Frontend {
 
 	/**
 	*
-	* Add functionality to be positioned just after the opening body tag
+	* Inject supplied Zedo tag just after the opening body tag of single article pages
+	*
 	*/
 	public function inject_zedo_tag() {
 
