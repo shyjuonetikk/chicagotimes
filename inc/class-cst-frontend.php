@@ -68,7 +68,7 @@ class CST_Frontend {
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
-		add_action( 'body_start', array( $this, 'action_body_start' ) );
+		add_action( 'body_start', array( $this, 'inject_zedo_tag' ) );
 
 	}
 
@@ -1277,7 +1277,7 @@ class CST_Frontend {
 	*
 	* Add functionality to be positioned just after the opening body tag
 	*/
-	public function action_body_start() {
+	public function inject_zedo_tag() {
 
 		if ( is_singular() ) {
 		?>
