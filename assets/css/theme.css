@@ -3213,6 +3213,8 @@ body.post-gallery-lightbox-active {
       position: relative;
       border-bottom: 10px solid #cccccc;
       font-weight: 700; }
+    .homepage_wrapper .widget_cst_featured_content_widget .columnists-story, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story {
+      max-width: 100%; }
     .homepage_wrapper .widget_cst_featured_content_widget .columnists-title-container, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-title-container {
       float: left; }
     .homepage_wrapper .widget_cst_featured_content_widget .columnists-avatar, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-avatar {
