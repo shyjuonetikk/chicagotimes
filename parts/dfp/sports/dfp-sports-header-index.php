@@ -21,10 +21,6 @@
 			CSTAdTags['div-gpt-sbb'] = googletag.defineSlot('/61924087/suntimes.com/suntimes.sports/suntimes.sports.index', [2,2], 'div-gpt-sbb')
 			.addService(googletag.pubads())
 			.setTargeting("pos","SBB");
-			
-			CSTAdTags['div-gpt-wallpaper'] = googletag.defineSlot('/61924087/suntimes.com/suntimes.sports/suntimes.sports.index', [1363, 1000], 'div-gpt-wallpaper')
-			.addService(googletag.pubads())
-			.setTargeting("pos","wallpaper");
 
 			CSTAdTags['div-gpt-interstitial'] = googletag.defineSlot('/61924087/suntimes.com/suntimes.sports/suntimes.sports.index', [1, 1], 'div-gpt-interstitial')
 			.addService(googletag.pubads())
