@@ -5,7 +5,6 @@ if ( is_active_sidebar( 'homepage_breaking_news' ) ) :
 endif;
 ?>
 <div class="homepage-content">
-<?php get_template_part( 'parts/dfp/homepage/dfp-wallpaper' ); ?>
 	<div class="row">
 		<div class="large-12 content-wrapper">
 			<?php get_template_part( 'parts/dfp/homepage/dfp-super-leaderboard' ); ?>

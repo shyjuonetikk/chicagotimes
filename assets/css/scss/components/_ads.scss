@@ -177,41 +177,9 @@
 }
 
 @media #{$wallpaper-only} {
-	.dfp-wallpaper {
-		position:absolute;
-		left:0;
-		right:0;
-		background-color: $light_grey;
-		z-index: 1;
-		img {
-			position:relative;
-			width:100%;
-		}
-		iframe {
-			width:100%;
-		}
-	}
-
-	.dfp-wallpaper-fixed {
-		position: fixed;
-		bottom: 0;
-	}
 }
 
 @media #{$wallpaper-down} {
-	.dfp-wallpaper {
-		position:absolute;
-		left:0;
-		right:0;
-		background-color: $light_grey;
-		z-index: 1;
-		img {
-			display:none;
-		}
-		iframe {
-			width:0%;
-		}
-	}
 }
 
 @media (max-width: 320px) {

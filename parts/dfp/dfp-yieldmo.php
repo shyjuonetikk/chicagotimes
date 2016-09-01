@@ -5,10 +5,6 @@
             CSTAdTags['div-gpt-sbb'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.test/chicago.suntimes.com.test.yieldmo/article'); ?>, [2,2], 'div-gpt-sbb')
             .addService(googletag.pubads())
             .setTargeting("pos","SBB");
-            
-            CSTAdTags['div-gpt-wallpaper'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.test/chicago.suntimes.com.test.yieldmo/article'); ?>, [1363, 1000], 'div-gpt-wallpaper')
-            .addService(googletag.pubads())
-            .setTargeting("pos","wallpaper");
 
             CSTAdTags['div-gpt-interstitial'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/chicago.suntimes.com/chicago.suntimes.com.test/chicago.suntimes.com.test.yieldmo/article'); ?>, [1, 1], 'div-gpt-interstitial')
             .addService(googletag.pubads())
