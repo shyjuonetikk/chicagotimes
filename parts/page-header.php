@@ -139,12 +139,6 @@ if ( is_singular() ) {
 }
 ?>
 
-<?php 
-	if( is_tax() ) { 
-		get_template_part( 'parts/dfp/dfp-wallpaper' ); 
-	}
-?>
-
 <?php do_action( 'header_sliding_billboard' ); ?>
 
 <?php if ( ! is_single() ) : ?>
