@@ -127,11 +127,6 @@ class CST_Bears_Cube_Widget extends WP_Widget {
                 <span><i class="fa fa-times-circle-o close-bears-cube"></i> <?php echo esc_html_e( $title, 'chicagosuntimes' ); ?></span> <a href="<?php echo $obj->the_permalink(); ?>"><?php echo esc_html( $obj->the_title() ); ?></a>
                     <?php echo ! empty( $post_section ) ? '<span>&mdash; (' . $post_section->name . ')</span>' : ''; ?>
             </h3>
-            <?php if ( $primary_section == 'bears' || $primary_section == 'bears-football' ) : ?>
-                <a href="http://terrysfordofpeotone.com/Chicago/For-Sale/New/" target="_blank" class="right">
-                    <img class="terry-ford" src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/terry-ford-bears-logo-prod.png" alt="Terry Ford Logo">
-                </a>
-            <?php endif; ?>    
         </div>
 
         <?php
