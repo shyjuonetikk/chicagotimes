@@ -81,6 +81,10 @@ class CST_Admin {
 				}
 			}
 		});
+		add_action( 'cst_section_edit_form_fields', [ $this, 'edit_fields_to_section_edit' ], 10, 2 );
+		add_action( 'cst_section_add_form_fields', [ $this, 'add_fields_to_section_edit' ], 10, 2 );
+		add_action( 'edited_cst_section', [ $this, 'save_section_fields' ], 10, 2 );
+		add_action( 'create_cst_section', [ $this, 'save_section_fields' ], 10, 2 );
 
 	}
 
@@ -818,6 +822,14 @@ class CST_Admin {
 			'post_is_sticky'                     => is_sticky( get_the_ID() ),
 			) );
 
+		$screen = get_current_screen();
+		if ( 'edit-cst_section' === $screen->id ) {
+			wp_enqueue_script( 'cst-admin-media', get_template_directory_uri() . '/assets/js/cst-admin-media.js', array( 'jquery' ) );
+			wp_localize_script( 'cst-admin-media',
+				'CSTSectionData', array(
+				'button_text' => 'Choose sponsor banner',
+			));
+		}
 	}
 
 	/**
@@ -1062,4 +1074,65 @@ class CST_Admin {
 		wp_dropdown_users( $args );
 	}
 
+	function add_fields_to_section_edit( $tag, $taxonomy ) {
+
+		?>
+<tr class="form-field form-required term-name-wrap">
+	<th scope="row"><label for="set-media"><?php echo esc_html( 'Choose sponsored image' ); ?></label></th>
+	<td><a title="<?php echo esc_attr( 'Set sponsored image' ); ?>" href="<?php esc_url( home_url( '/' ) . '/wp-admin/media-upload.php?type=image&amp;TB_iframe=1&_wpnonce=' . $nonce ); ?>" id="set-post-thumbnail" class="cst_thickbox button button-secondary" >Set sponsored image</a></td>
+</tr>
+<tr class="form-field form-required term-name-wrap">
+	<th scope="row"><label for="set-media-id"></label></th>
+	<td><input type="hidden" id="set-media-id" name="set-media-id"/></td>
+</tr>
+<tr class="form-field form-required term-name-wrap">
+	<th scope="row"><label for="term_meta[click_thru_url]"><?php echo esc_html( 'Click thru url' ); ?></label></th>
+	<td><input name="term_meta[click_thru_url]" id="term_meta[click_thru_url]" type="text" value="<?php if ( isset( $term_meta['click_thru_url'] ) ) echo esc_attr( $term_meta['click_thru_url'] ); ?>" size="60" aria-required="true" />
+		<p class="description"><?php echo esc_html( 'The destination url for the sponsor banner.' ); ?></p></td>
+</tr>
+<?php
+
+	}
+
+	function edit_fields_to_section_edit( $tag, $taxonomy ) {
+
+		$section_id = $tag->term_id;
+		$term_meta = get_option( "cst_section_$section_id" );
+		wp_enqueue_media();
+		$nonce = wp_create_nonce( 'set_post_thumbnail-' . $tag->term_id );
+
+		?>
+<tr class="form-field form-required term-name-wrap">
+	<th scope="row"><label for="set-media"><?php echo esc_html( 'Choose sponsored image' ); ?></label></th>
+	<td><a title="<?php echo esc_attr( 'Set sponsored image' ); ?>" href="<?php esc_url( home_url( '/' ) . '/wp-admin/media-upload.php?type=image&amp;TB_iframe=1&_wpnonce=' . $nonce ); ?>" id="set-post-thumbnail" class="cst_thickbox button button-secondary" >Set sponsored image</a></td>
+</tr>
+<tr class="form-field form-required term-name-wrap">
+	<th scope="row"><label for="set-media-id"></label></th>
+	<td><input type="hidden" id="set-media-id" name="set-media-id"/></td>
+</tr>
+<tr class="form-field form-required term-name-wrap">
+	<th scope="row"><label for="term_meta[click_thru_url]"><?php echo esc_html( 'Click thru url' ); ?></label></th>
+	<td><input name="term_meta[click_thru_url]" id="term_meta[click_thru_url]" type="text" value="<?php if ( isset( $term_meta['click_thru_url'] ) ) echo esc_attr( $term_meta['click_thru_url'] ); ?>" size="60" aria-required="true" />
+		<p class="description"><?php echo esc_html( 'The destination url for the sponsor banner.' ); ?></p></td>
+</tr>
+<?php
+
+	}
+
+	// A callback function to save our extra taxonomy field(s)
+	function save_section_fields( $term_id ) {
+		if ( isset( $_POST['term_meta'] ) ) {
+			$t_id = $term_id;
+			$term_meta = get_option( "taxonomy_term_$t_id" );
+			$cat_keys = array_keys( $_POST['term_meta'] );
+			foreach ( $cat_keys as $key ){
+				if ( isset( $_POST['term_meta'][$key] ) ){
+					$term_meta[$key] = $_POST['term_meta'][$key];
+				}
+			}
+			//save the option array
+			update_option( "cst_section_$t_id", $term_meta );
+		}
+
+	}
 }
