@@ -4,8 +4,7 @@
      */
  ?>
 <?php get_header(); ?>
-<?php get_template_part( 'parts/dfp/homepage/dfp-wallpaper' ); ?>
-            <?php 
+            <?php
                 if ( is_active_sidebar( 'homepage_breaking_news' ) ) :
                     dynamic_sidebar( 'homepage_breaking_news' ); 
                 endif;
