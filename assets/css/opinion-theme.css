@@ -351,10 +351,6 @@ body.error404 {
     float: right;
     margin-right: 10px; }
 
-@media only screen and (min-width:85.25em) { }
-
-@media only screen and (max-width:85.25em) { }
-
 @media (max-width: 320px) {
   .single .post-row {
     padding-left: 10px !important; }
@@ -2401,7 +2397,9 @@ body.post-gallery-lightbox-active {
       line-height: 1.5rem;
       padding-top: 10px;
       padding-bottom: 30px;
-      z-index: 99999; }
+      z-index: 99999;
+      height: 40%;
+      overflow: auto; }
       @media only screen and (max-width: 40em) {
         #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
           font-size: 0.75rem;

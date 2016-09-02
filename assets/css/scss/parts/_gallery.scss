@@ -114,7 +114,9 @@ body.post-gallery-lightbox-active {
 			padding-top: 10px;
 			padding-bottom: 30px;
 			z-index: 99999;
-
+			height: 40%;
+			overflow: auto;
+			
 			@media #{$small-only} {
 				font-size: 0.75rem;
 				line-height: 1rem;
