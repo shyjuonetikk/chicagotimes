@@ -88,6 +88,7 @@
     //Open custom image modal
     thumbnail_upload_frame.open();
   });
+  jQuery('.datepicker').datepicker();
 
   /**
    * Parse supplied url and return parameters found as object
