@@ -1127,7 +1127,13 @@ class CST_Admin {
 			$cat_keys = array_keys( $_POST['term_meta'] );
 			foreach ( $cat_keys as $key ){
 				if ( isset( $_POST['term_meta'][$key] ) ){
-					$term_meta[$key] = $_POST['term_meta'][$key];
+					switch( $key ) {
+						case 'click_thru_url':
+							$term_meta[$key] = esc_url_raw( $_POST['term_meta'][$key] );
+						break;
+						default:
+							$term_meta[$key] = $_POST['term_meta'][$key];
+					}
 				}
 			}
 			//save the option array
