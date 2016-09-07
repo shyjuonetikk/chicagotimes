@@ -1235,10 +1235,18 @@ class CST_Frontend {
 	/**
 	* Handle display of Section title and determine if a section sponsor image
 	* and link should also be displayed
+	* @param string $section_id
 	*/
-	function section_front_header_and_sponsor() {
+
+	function section_front_header_and_sponsor( $section_id = '') {
 		// Handle sponsor image and link
-		$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
+		if ( '' === $section_id ) {
+			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
+			$section_class = 'row grey-background wire upper-heading';
+		} else {
+			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
+			$section_class = 'upper-heading';
+		}
 		$section_name_width = 'columns small-12'; // DIV size if no sponsor image
 		$section_sponsor = '';
 		if ( ! empty( $term_metadata ) ) {
@@ -1266,7 +1274,7 @@ class CST_Frontend {
 			}
 		}
 		?>
-		<section class="row grey-background wire upper-heading">
+		<section class="<?php echo $section_class; ?>">
 			<div class="<?php echo $section_name_width; ?>">
 				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 			</div>
