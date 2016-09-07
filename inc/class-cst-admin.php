@@ -1086,15 +1086,15 @@ class CST_Admin {
 					'js_opts' => array(
 						'dateFormat' => 'yy-mm-dd',
 					),
-									) ),
+				) ),
 				'destination_url'	=> new \Fieldmanager_Link( esc_html__( 'Destination url', 'chicagosuntimes' ), array(
 					'description'	=> esc_html__( 'Enter the destination url link', 'chicagosuntimes' ),
-									) ),
+				) ),
 				'image'               => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
-					'description'     => esc_html__( 'Display a sponsors image on the section front. Suggested image size is 320x50', 'chicagosuntimes' ),
-					'button_label'    => esc_html__( 'Select an image', 'chicagosuntimes' ),
-					'modal_button_label' => esc_html__( 'Select image', 'chicagosuntimes' ),
-					'modal_title'     => esc_html__( 'Choose image', 'chicagosuntimes' ),
+					'description'     => esc_html__( 'Display a sponsors image with link on the section front. Suggested image size is 320x50', 'chicagosuntimes' ),
+					'button_label'    => esc_html__( 'Select a sponsors image', 'chicagosuntimes' ),
+					'modal_button_label' => esc_html__( 'Select sponsor image', 'chicagosuntimes' ),
+					'modal_title'     => esc_html__( 'Choose sponsor image', 'chicagosuntimes' ),
 				) )
 			),
 		) );
