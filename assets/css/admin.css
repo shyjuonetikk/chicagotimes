@@ -71,3 +71,9 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 #obitswire .sidebar-name h2 {
     margin-top: -2px;
 }
+.taxonomy-cst_section input.fm-datepicker-popup {
+    max-width:7%;
+}
+.taxonomy-cst_section input.fm-datepicker-time {
+    max-width:3%;
+}

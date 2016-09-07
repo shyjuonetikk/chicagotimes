@@ -1194,7 +1194,8 @@ class CST_Frontend {
 	/**
 	 * Do not display section heading in the regular place
 	 *  for the listed section names (based on slug)
-	 *
+	 * Immediately below the RSS area of the section front
+ 	 *
 	 * @param $section_front_spacing
 	 *
 	 * Pretty title for section front
@@ -1208,13 +1209,12 @@ class CST_Frontend {
 		if ( in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
 		}
-		?>
-<a href="" class="section-front"><?php echo esc_html( $section_front_spacing ); ?></a>
-	<?php
+		$this->section_front_header_and_sponsor();
 	}
 	/**
 	 * Display section heading in the upper location
 	 * only for the sections listed
+ 	 * Immediately above the RSS area of the section front
 	 *
 	 * @param $section_front_spacing
 	 *
@@ -1229,20 +1229,50 @@ class CST_Frontend {
 		if ( ! in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
 		}
+		$this->section_front_header_and_sponsor();
+	}
+
+	/**
+	* Handle display of Section title and determine if a section sponsor image
+	* and link should also be displayed
+	*/
+	function section_front_header_and_sponsor() {
+		// Handle sponsor image and link
+		$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
+		$section_name_width = 'columns small-12'; // no sponsor imae
+		$section_sponsor = '';
+		$section_name_width = 'columns medium-4 small-12';
+		if ( ! empty( $term_metadata ) ) {
+			$start_date = $term_metadata['start_date'];
+			$end_date = $term_metadata['end_date'];
+			$today = time();
+			if ( $today >= $start_date
+				 && $today <= $end_date ) {
+			$template = '
+<div class="columns medium-8 small-12">
+	<a href="%1$s" target="_blank">
+		<img style="float:right;" src="%2$s" width="%3$s" height="%4$s">
+	</a>
+</div>
+			';
+			$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
+			$section_sponsor = sprintf( $template,
+				esc_url( $term_metadata['destination_url'] ),
+				esc_url( $sponsor_image[0] ),
+				esc_attr( $sponsor_image[1] ),
+				esc_attr( $sponsor_image[2] )
+			);
+			}
+		}
 		?>
 		<section class="row grey-background wire upper-heading">
-			<div class="columns medium-4 small-12">
+			<div class="<?php echo $section_name_width; ?>">
 				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 			</div>
-			<div class="columns medium-8 small-12">
-				<a href="http://www.evanstonsubaru.com/?utm_source=SunTimes&utm_medium=button&utm_campaign=Olympics" target="_blank">
-				<img style="float:right;" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/EvanstonSubaruOlympicLogo-rgb.png' ); ?>">
-				</a>
-			</div>
+			<?php echo $section_sponsor; ?>
 		</section>
 	<?php
 	}
-
 	/**
 	* Determine whether to display the sliding billboard markup
     */

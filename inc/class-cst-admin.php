@@ -818,11 +818,6 @@ class CST_Admin {
 			'post_is_sticky'                     => is_sticky( get_the_ID() ),
 			) );
 
-		$screen = get_current_screen();
-		if ( 'edit-cst_section' === $screen->id ) {
-			wp_enqueue_script( 'cst-admin-media', get_template_directory_uri() . '/assets/js/cst-admin-media.js', array( 'jquery' ) );
-			wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ) );
-		}
 	}
 
 	/**
@@ -1067,6 +1062,10 @@ class CST_Admin {
 		wp_dropdown_users( $args );
 	}
 
+	/**
+	 * Add Fieldmanager fields to term screens - cst_section - to facilitate
+	 * sponsorship images and urls over a date range.
+	 */
 	function section_sponsorship_fields() {
 
 		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section Sponsor', 'chicagosuntimes' ), array(
@@ -1074,9 +1073,22 @@ class CST_Admin {
 			'children'	=> array(
 				'start_date'	=> new \Fieldmanager_Datepicker( esc_html__( 'Start Date', 'chicagosuntimes' ), array(
 					'description'	=> esc_html__( 'Select start date of sponsorship', 'chicagosuntimes' ),
+					'date_format' => 'Y-m-d',
+					'use_time' => true,
+					'js_opts' => array(
+						'dateFormat' => 'yy-mm-dd',
+					),
 				) ),
 				'end_date'	=> new \Fieldmanager_Datepicker( esc_html__( 'End Date', 'chicagosuntimes' ), array(
 					'description'	=> esc_html__( 'Select end date of sponsorship', 'chicagosuntimes' ),
+					'date_format' => 'Y-m-d',
+					'use_time' => true,
+					'js_opts' => array(
+						'dateFormat' => 'yy-mm-dd',
+					),
+									) ),
+				'destination_url'	=> new \Fieldmanager_Link( esc_html__( 'Destination url', 'chicagosuntimes' ), array(
+					'description'	=> esc_html__( 'Enter the destination url link', 'chicagosuntimes' ),
 									) ),
 				'image'               => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
 					'description'     => esc_html__( 'Display a sponsors image on the section front. Suggested image size is 320x50', 'chicagosuntimes' ),
@@ -1089,28 +1101,4 @@ class CST_Admin {
 		$cst_section->add_term_form( esc_html__( 'Sponsorship', 'chicagosuntimes' ), 'cst_section' );
 	}
 
-	/**
-	 * @param $term_id
-	 * A callback function to save our extra taxonomy field(s)
-	 */
-	function save_section_fields( $term_id ) {
-		if ( isset( $_POST['term_meta'] ) ) {
-			$term_meta = get_option( "cst_section_$term_id" );
-			$cat_keys = array_keys( $_POST['term_meta'] );
-			foreach ( $cat_keys as $key ){
-				if ( isset( $_POST['term_meta'][$key] ) ){
-					switch( $key ) {
-						case 'click_thru_url':
-							$term_meta[$key] = esc_url_raw( $_POST['term_meta'][$key] );
-						break;
-						default:
-							$term_meta[$key] = $_POST['term_meta'][$key];
-					}
-				}
-			}
-			//save the option array
-			update_option( "cst_section_$term_id", $term_meta );
-		}
-
-	}
 }
