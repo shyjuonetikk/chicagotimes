@@ -81,11 +81,7 @@ class CST_Admin {
 				}
 			}
 		});
-		add_action( 'cst_section_edit_form_fields', [ $this, 'add_fields_to_section_edit' ], 10, 4 );
-		add_action( 'cst_section_add_form_fields', [ $this, 'add_fields_to_section_edit' ], 10, 4 );
-		add_action( 'edited_cst_section', [ $this, 'save_section_fields' ], 10, 2 );
-		add_action( 'create_cst_section', [ $this, 'save_section_fields' ], 10, 2 );
-
+		add_action( 'fm_term_cst_section', array( $this, 'section_sponsorship_fields' ) );
 	}
 
 	/**
@@ -826,10 +822,6 @@ class CST_Admin {
 		if ( 'edit-cst_section' === $screen->id ) {
 			wp_enqueue_script( 'cst-admin-media', get_template_directory_uri() . '/assets/js/cst-admin-media.js', array( 'jquery' ) );
 			wp_enqueue_script( 'jquery-ui-datepicker', array( 'jquery' ) );
-			wp_localize_script( 'cst-admin-media',
-				'CSTSectionData', array(
-				'button_text' => 'Choose sponsor banner',
-			));
 		}
 	}
 
@@ -1075,39 +1067,26 @@ class CST_Admin {
 		wp_dropdown_users( $args );
 	}
 
-	function add_fields_to_section_edit( $tag, $taxonomy, $term_meta, $nonce ) {
+	function section_sponsorship_fields() {
 
-		// Collect additional metadata for this section
-		$section_id = $tag->term_id;
-		$term_meta = get_option( "cst_section_$section_id" );
-		wp_enqueue_media();
-		$nonce = wp_create_nonce( 'set_post_thumbnail-' . $tag->term_id );
-
-		?>
-<tr class="form-field form-required term-name-wrap">
-	<th scope="row"><label for="set-media"><?php echo esc_html( 'Choose sponsored image' ); ?></label></th>
-	<td><a title="<?php echo esc_attr( 'Set sponsored image' ); ?>" href="<?php esc_url( home_url( '/' ) . '/wp-admin/media-upload.php?type=image&amp;TB_iframe=1&_wpnonce=' . $nonce ); ?>" id="set-post-thumbnail" class="cst_thickbox button button-secondary" >Set sponsored image</a></td>
-</tr>
-<tr class="form-field form-required term-name-wrap">
-	<th scope="row"><label for="set-media-id"></label></th>
-	<td><input type="hidden" id="set-media-id" name="set-media-id"/></td>
-</tr>
-<tr class="form-field form-required term-name-wrap">
-	<th scope="row"><label for="term_meta[click_thru_url]"><?php echo esc_html( 'Click thru url' ); ?></label></th>
-	<td><input name="term_meta[click_thru_url]" id="term_meta[click_thru_url]" type="text" value="<?php if ( isset( $term_meta['click_thru_url'] ) ) echo esc_attr( $term_meta['click_thru_url'] ); ?>" size="60" aria-required="true" />
-		<p class="description"><?php echo esc_html( 'The destination url for the sponsor banner.' ); ?></p></td>
-</tr>
-<tr class="form-field">
-	<th scope="row"><label for="term_meta[start_date]" id="term_meta[start_date]">Sponsorship start date</label></th>
-	<td><input type="date" name="term_meta[start_date]" id="term_meta[start_date]" size="10" class="jquery-datepicker" value="<?php echo esc_attr( $term_meta['start_date'] ); ?>"></td>
-</tr>
-<tr class="form-field">
-	<th scope="row"><label for="term_meta[end_date]" id="term_meta[end_date]">Sponsorship end date</label></th>
-	<td><input type="date" name="term_meta[end_date]" id="term_meta[end_date]" size="10" class="jquery-datepicker" value="<?php echo esc_attr( $term_meta['end_date'] ); ?>"></td>
-</tr>
-
-<?php
-
+		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section Sponsor', 'chicagosuntimes' ), array(
+			'name'	=> 'sponsor',
+			'children'	=> array(
+				'start_date'	=> new \Fieldmanager_Datepicker( esc_html__( 'Start Date', 'chicagosuntimes' ), array(
+					'description'	=> esc_html__( 'Select start date of sponsorship', 'chicagosuntimes' ),
+				) ),
+				'end_date'	=> new \Fieldmanager_Datepicker( esc_html__( 'End Date', 'chicagosuntimes' ), array(
+					'description'	=> esc_html__( 'Select end date of sponsorship', 'chicagosuntimes' ),
+									) ),
+				'image'               => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
+					'description'     => esc_html__( 'Display a sponsors image on the section front. Suggested image size is 320x50', 'chicagosuntimes' ),
+					'button_label'    => esc_html__( 'Select an image', 'chicagosuntimes' ),
+					'modal_button_label' => esc_html__( 'Select image', 'chicagosuntimes' ),
+					'modal_title'     => esc_html__( 'Choose image', 'chicagosuntimes' ),
+				) )
+			),
+		) );
+		$cst_section->add_term_form( esc_html__( 'Sponsorship', 'chicagosuntimes' ), 'cst_section' );
 	}
 
 	/**
