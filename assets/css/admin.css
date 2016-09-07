@@ -72,8 +72,8 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
     margin-top: -2px;
 }
 .taxonomy-cst_section input.fm-datepicker-popup {
-    max-width:7%;
+    max-width:6rem;
 }
 .taxonomy-cst_section input.fm-datepicker-time {
-    max-width:3%;
+    max-width:2rem;
 }
