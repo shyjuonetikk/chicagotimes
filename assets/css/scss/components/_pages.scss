@@ -366,3 +366,10 @@ section#subscribe {
   }
 
 }
+.weather-link {
+	color: #fff;
+	&:hover,
+	&:visited {
+		color: #fff;
+	}
+}

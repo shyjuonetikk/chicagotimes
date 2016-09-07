@@ -17,8 +17,8 @@
 
 
 				<section class="top-bar-section">
-					<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left"></div>
-					<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right"></div>
+					<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left show-for-large-up"></div>
+					<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right show-for-large-up"></div>
 					<div class="logo-wrapper large-logo">
 						<div class="logo">
 							<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-white-logo.png' ); ?>" alt='Chicago Sun-Times logo'>

@@ -34,16 +34,12 @@ if( is_single() ) {
 }
 ?>
 <div class="off-canvas-wrap" data-offcanvas>
-	<?php 
-		if( ! is_single() ) { 
-			get_template_part( 'parts/dfp/dfp-interstitial' );
-		} 
-	?>
+	<?php get_template_part( 'parts/dfp/dfp-interstitial' ); ?>
 	<div class="inner-wrap">
 	<?php 
 		if( is_home() || is_front_page() || is_tax() ) { 
-			get_template_part( 'parts/dfp/dfp-atf-leaderboard' );
-			get_template_part( 'parts/dfp/dfp-mobile-leaderboard' ); 
+			get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
+			echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered', 970 );
 		}
 	?>
 <header id="header">
@@ -56,8 +52,10 @@ if( is_single() ) {
 		<?php $weather = CST()->frontend->get_weather(); ?>
 		<?php if( ! empty( $weather ) ) : ?>
 		<div id="weather" class="show-for-medium-up">
-			<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i> 
-			<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+			<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+				<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
+				<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+			</a>
 		</div>
 		<?php endif; ?>
 		<div id="social-links" class="show-for-medium-up">
@@ -141,12 +139,6 @@ if ( is_singular() ) {
 } else {
 	$classes = array();
 }
-?>
-
-<?php 
-	if( is_tax() ) { 
-		get_template_part( 'parts/dfp/dfp-wallpaper' ); 
-	}
 ?>
 
 <?php do_action( 'header_sliding_billboard' ); ?>

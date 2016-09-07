@@ -68,6 +68,7 @@ class CST_Frontend {
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
+		add_action( 'body_start', array( $this, 'inject_zedo_tag' ) );
 
 	}
 
@@ -808,7 +809,7 @@ class CST_Frontend {
 
 		$cache_key = md5( $feed_url . (int) $max_display );
 		$cached_feed = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( $cached_feed === false ) {
+		if ( $cached_feed === false || WP_DEBUG ) {
 			$headlines = fetch_feed( $feed_url );
 			if ( ! is_wp_error( $headlines ) ) :
 				$maxitems = $headlines->get_item_quantity( $max_display );
@@ -1256,8 +1257,36 @@ class CST_Frontend {
 			return;
 		}
 		if ( ! is_404() && ! is_singular() ) :
-			get_template_part( 'parts/dfp/dfp-sbb' );
-		endif;
+            get_template_part( 'parts/dfp/dfp-super-leaderboard' );
+	        get_template_part( 'parts/dfp/dfp-billboard' );
+	        get_template_part( 'parts/dfp/dfp-sbb' );
+	    endif;
 	}
 
+	public function get_dfp_inventory() {
+		$current_site_url = get_bloginfo( 'url' );
+		if ( $current_site_url !== 'http://chicago.suntimes.com' ) {
+			$parent_inventory = 'chicago.suntimes.com.test';
+		} else {
+			$parent_inventory = 'chicago.suntimes.com';
+		}
+		return $parent_inventory;
+	}
+
+	/**
+	*
+	* Inject supplied Zedo tag just after the opening body tag of single article pages
+	*
+	*/
+	public function inject_zedo_tag() {
+
+		if ( is_singular() ) {
+		?>
+<!-- zedo tag -->
+<div id="z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206" style='display:none' ></div>
+<script>!function(a,n,e,t,r){tagsync=e;var c=window[a];if(tagsync){var d=document.createElement("script");d.src="http://3107.tm.zedo.com/v1/29252020-9011-4261-83dd-83503d457fb9/atm.js",d.async=!0;var i=document.getElementById(n);if(null==i||"undefined"==i)return;i.parentNode.appendChild(d,i),d.onload=d.onreadystatechange=function(){var a=new zTagManager(n);a.initTagManager(n,c,this.aync,t,r)}}else document.write("<script src='http://3107.tm.zedo.com/v1/29252020-9011-4261-83dd-83503d457fb9/tm.js?data="+a+"'><"+"/script>")}("datalayer","z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206",true, 1 , 1);</script>
+<!-- /zedo tag -->
+	<?php
+		}
+	}
 }

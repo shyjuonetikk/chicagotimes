@@ -206,9 +206,6 @@
 		}
 	}
 
-	#div-gpt-wallpaper {
-		z-index: 1;
-	}
 
 	.dfp-atf-leaderboard, .dfp-btf-leaderboard {
 		text-align: center;
@@ -245,7 +242,7 @@
 							}
 						}
 					}
-					height:146px;
+					min-height:146px;
 				}
 				@media only screen and (min-width: 78.063em) {
 					.top-bar-section li:not(.has-form) a:not(.button) {
@@ -292,7 +289,6 @@
 		    			z-index: 3;
 
 		    			.logo-wrapper {
-							position: relative;
 							.logo {
 								width: 300px;
 								display: block;
@@ -1071,6 +1067,10 @@
 		position: relative;
 		border-bottom: 10px solid $grey;
 		font-weight: 700;
+	}
+
+	.columnists-story {
+		max-width: 100%;
 	}
 
 	.columnists-title-container {

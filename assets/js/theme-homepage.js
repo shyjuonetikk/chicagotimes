@@ -9,7 +9,13 @@
 
 			this.cacheElements();
 			this.bindEvents();
-			this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 10 );
+			this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
+
+			if ( $(window).width() <= 667 ) {
+				this.jobs_navigation_link.attr('href', 'http://m.suntimes.com/' );
+			} else {
+				this.jobs_navigation_link.attr('href', 'http://jobs.suntimes.com' );
+			}
 
 		},
 
@@ -21,7 +27,7 @@
 			this.body = $('body');
 			this.primaryNavigation = $('#fixed-nav-wrapper');
 			this.topLogos = $('#top-logos');
-      this.wpAdminBar = $('#wpadminbar');
+      		this.wpAdminBar = $('#wpadminbar');
 
 			this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
 			if ( this.wpAdminBar.length ) {
@@ -40,6 +46,7 @@
 			this.closeInterstitial = $('#dfp-interstitial-close');
 			this.searchButton = $('#search-button');
 			this.searchInput = $('#search-input');
+			this.jobs_navigation_link = $('.jobs-navigation-link a');
 
 		},
 
@@ -131,16 +138,16 @@
 			if( scrollTop >= ( this.header.height() + this.breakingNews.height() ) ) {
 				if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
 					this.dfpWallpaper.removeClass('dfp-wallpaper-normal').addClass('dfp-wallpaper-fixed');
-					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 156 );
+					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 146 );
 				} else {
 					this.dfpWallpaper.addClass('dfp-wallpaper-fixed');
 				}
 			} else if( scrollTop <= ( this.header.height() + this.breakingNews.height() ) ) {
 				if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
 					this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
-					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 10 );
+					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
 				} else {
-          this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 10 );
+          this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
 					this.dfpWallpaper.addClass('dfp-wallpaper-normal');
 				}
 			}
