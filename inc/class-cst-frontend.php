@@ -1239,9 +1239,8 @@ class CST_Frontend {
 	function section_front_header_and_sponsor() {
 		// Handle sponsor image and link
 		$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
-		$section_name_width = 'columns small-12'; // no sponsor imae
+		$section_name_width = 'columns small-12'; // DIV size if no sponsor image
 		$section_sponsor = '';
-		$section_name_width = 'columns medium-4 small-12';
 		if ( ! empty( $term_metadata ) ) {
 			$start_date = $term_metadata['start_date'];
 			$end_date = $term_metadata['end_date'];
@@ -1262,6 +1261,8 @@ class CST_Frontend {
 				esc_attr( $sponsor_image[1] ),
 				esc_attr( $sponsor_image[2] )
 			);
+			// DIV size if there is a sponsor image
+			$section_name_width = 'columns medium-4 small-12';
 			}
 		}
 		?>
