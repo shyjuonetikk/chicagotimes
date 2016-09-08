@@ -69,6 +69,8 @@ class CST_Frontend {
 		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 		add_action( 'body_start', array( $this, 'inject_zedo_tag' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
+		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
 	}
 
@@ -1194,7 +1196,8 @@ class CST_Frontend {
 	/**
 	 * Do not display section heading in the regular place
 	 *  for the listed section names (based on slug)
-	 *
+	 * Immediately below the RSS area of the section front
+ 	 *
 	 * @param $section_front_spacing
 	 *
 	 * Pretty title for section front
@@ -1208,13 +1211,14 @@ class CST_Frontend {
 		if ( in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
 		}
-		?>
-<a href="" class="section-front"><?php echo esc_html( $section_front_spacing ); ?></a>
-	<?php
+		if ( $this->do_sponsor_header() ) {
+			$this->sponsor_header();
+		}
 	}
 	/**
 	 * Display section heading in the upper location
 	 * only for the sections listed
+ 	 * Immediately above the RSS area of the section front
 	 *
 	 * @param $section_front_spacing
 	 *
@@ -1229,18 +1233,107 @@ class CST_Frontend {
 		if ( ! in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
 		}
+		if ( $this->do_sponsor_header() ) {
+			$this->sponsor_header();
+		}
+	}
+
+	/**
+	* Evaluation options to display a sponsor banner
+	* Display on section header, article header, section and article header on single article page
+	* or everything - section header, article header on index/section page and
+	* article header on single article page
+	* @param string $section_id
+	*
+	* @return bool
+ 	*/
+	function do_sponsor_header( $section_id = '' ) {
+		if ( '' === $section_id ) {
+			// Section
+			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
+		} else {
+			// Article
+			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
+		}
+		if ( ! empty( $term_metadata['sponsor_options'] ) ) {
+			$sponsor_options = array_flip( $term_metadata['sponsor_options'] );
+			if ( array_key_exists( 'everything', $sponsor_options ) ) {
+				return true;
+			}
+			if ( array_key_exists( 'section', $sponsor_options ) ) {
+				if ( '' === $section_id ) { // Only return true if displaying on a section
+					return true;
+				}
+			}
+			if ( array_key_exists( 'article', $sponsor_options ) ) {
+				if ( (int) $section_id && ! is_tax() ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	/**
+	* Handle display of Section title and determine if a section sponsor image
+	* and link should also be displayed
+	* Accommodate same on article display
+	* @param string $section_id
+	*/
+
+	function sponsor_header( $section_id = '') {
+		// Handle sponsor image and link
+		if ( '' === $section_id ) {
+			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
+			$class = 'row grey-background wire upper-heading';
+		} else {
+			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
+			$class = 'upper-heading';
+		}
+		$name_width = 'columns small-12'; // DIV size if no sponsor image
+		$sponsor_markup = '';
+		if ( ! empty( $term_metadata ) ) {
+			$start_date = $term_metadata['start_date'];
+			$end_date = $term_metadata['end_date'];
+			$today = time();
+			if ( ( $today >= $start_date )  && ( $today <= $end_date ) ) {
+			$sponsor_template = '
+<div class="%1$s">
+	<a href="%2$s" target="_blank">
+		<img style="float:right;" src="%3$s" width="%4$s" height="%5$s">
+	</a>
+</div>
+';
+			$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
+			if ( $sponsor_image ) {
+				$sponsor_markup = sprintf( $sponsor_template,
+					( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-6 small-12' ),
+					esc_url( $term_metadata['destination_url'] ),
+					esc_url( $sponsor_image[0] ),
+					esc_attr( $sponsor_image[1] ),
+					esc_attr( $sponsor_image[2] )
+				);
+			}
+			// DIV size if there is a sponsor image
+			$name_width = 'columns medium-6 small-12';
+			}
+		}
+		if ( '' !== $section_id ) {
+			echo $sponsor_markup;
+		} else {
 		?>
-		<section class="row grey-background wire upper-heading">
-			<div class="columns medium-4 small-12">
+		<section class="<?php echo esc_attr( $class ); ?>">
+			<div class="<?php echo esc_attr( $name_width ); ?>">
 				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 			</div>
-			<div class="columns medium-8 small-12">
-				<a href="http://www.evanstonsubaru.com/?utm_source=SunTimes&utm_medium=button&utm_campaign=Olympics" target="_blank">
-				<img style="float:right;" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/EvanstonSubaruOlympicLogo-rgb.png' ); ?>">
-				</a>
-			</div>
+			<?php echo $sponsor_markup; ?>
 		</section>
-	<?php
+	<?php }
+	}
+	/**
+	* http://wordpressvip.zendesk.com/hc/requests/56671
+ 	*/
+	function cst_remove_extra_twitter_js() {
+		wp_deregister_script( 'twitter-widgets' );
 	}
 
 	/**
