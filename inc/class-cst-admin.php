@@ -1089,6 +1089,14 @@ class CST_Admin {
 						'dateFormat' => 'yy-mm-dd',
 					),
 				) ),
+				'sponsor_options' => new \Fieldmanager_Checkboxes( esc_html__( 'Coverage', 'chicagosuntimes' ), array(
+					'options' => array(
+						'everything' => 'Everything',
+						'section' => 'Section',
+						'article' => 'Article',
+					),
+					'default_value' => 'section'
+				) ),
 				'destination_url' => new \Fieldmanager_Link( esc_html__( 'Destination url', 'chicagosuntimes' ), array(
 					'description' => esc_html__( 'Enter the destination url link', 'chicagosuntimes' ),
 				) ),

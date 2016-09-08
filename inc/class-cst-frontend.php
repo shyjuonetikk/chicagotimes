@@ -1209,7 +1209,9 @@ class CST_Frontend {
 		if ( in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
 		}
-		$this->section_front_header_and_sponsor();
+		if ( $this->do_sponsor_header() ) {
+			$this->sponsor_header();
+		}
 	}
 	/**
 	 * Display section heading in the upper location
@@ -1229,58 +1231,99 @@ class CST_Frontend {
 		if ( ! in_array( $action_slug, $excluded_sections, true ) ) {
 			return;
 		}
-		$this->section_front_header_and_sponsor();
+		if ( $this->do_sponsor_header() ) {
+			$this->sponsor_header();
+		}
 	}
 
 	/**
+	* Evaluation options to display a sponsor banner
+	* Display on section header, article header, section and article header on single article page
+	* or everything - section header, article header on index/section page and
+	* article header on single article page
+	* @param string $section_id
+	*
+	* @return bool
+ 	*/
+	function do_sponsor_header( $section_id = '' ) {
+		if ( '' === $section_id ) {
+			// Section
+			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
+		} else {
+			// Article
+			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
+		}
+		if ( ! empty( $term_metadata['sponsor_options'] ) ) {
+			$sponsor_options = array_flip( $term_metadata['sponsor_options'] );
+			if ( array_key_exists( 'everything', $sponsor_options ) ) {
+				return true;
+			}
+			if ( array_key_exists( 'section', $sponsor_options ) ) {
+				if ( '' === $section_id ) { // Only return true if displaying on a section
+					return true;
+				}
+			}
+			if ( array_key_exists( 'article', $sponsor_options ) ) {
+				if ( (int) $section_id && ! is_tax() ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	/**
 	* Handle display of Section title and determine if a section sponsor image
 	* and link should also be displayed
+	* Accommodate same on article display
 	* @param string $section_id
 	*/
 
-	function section_front_header_and_sponsor( $section_id = '') {
+	function sponsor_header( $section_id = '') {
 		// Handle sponsor image and link
 		if ( '' === $section_id ) {
 			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
-			$section_class = 'row grey-background wire upper-heading';
+			$class = 'row grey-background wire upper-heading';
 		} else {
 			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
-			$section_class = 'upper-heading';
+			$class = 'upper-heading';
 		}
-		$section_name_width = 'columns small-12'; // DIV size if no sponsor image
-		$section_sponsor = '';
+		$name_width = 'columns small-12'; // DIV size if no sponsor image
+		$sponsor_markup = '';
 		if ( ! empty( $term_metadata ) ) {
 			$start_date = $term_metadata['start_date'];
 			$end_date = $term_metadata['end_date'];
 			$today = time();
-			if ( ( $today >= $start_date )
-				 && ( $today <= $end_date ) ) {
-			$template = '
-<div class="columns medium-8 small-12">
-	<a href="%1$s" target="_blank">
-		<img style="float:right;" src="%2$s" width="%3$s" height="%4$s">
+			if ( ( $today >= $start_date )  && ( $today <= $end_date ) ) {
+			$sponsor_template = '
+<div class="%1$s">
+	<a href="%2$s" target="_blank">
+		<img style="float:right;" src="%3$s" width="%4$s" height="%5$s">
 	</a>
 </div>
 ';
 			$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
-			$section_sponsor = sprintf( $template,
+			$sponsor_markup = sprintf( $sponsor_template,
+				( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-8 small-12' ),
 				esc_url( $term_metadata['destination_url'] ),
 				esc_url( $sponsor_image[0] ),
 				esc_attr( $sponsor_image[1] ),
 				esc_attr( $sponsor_image[2] )
 			);
 			// DIV size if there is a sponsor image
-			$section_name_width = 'columns medium-4 small-12';
+			$name_width = 'columns medium-4 small-12';
 			}
 		}
+		if ( '' !== $section_id ) {
+			echo $sponsor_markup;
+		} else {
 		?>
-		<section class="<?php echo $section_class; ?>">
-			<div class="<?php echo $section_name_width; ?>">
+		<section class="<?php echo esc_attr( $class ); ?>">
+			<div class="<?php echo esc_attr( $name_width ); ?>">
 				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 			</div>
-			<?php echo $section_sponsor; ?>
+			<?php echo $sponsor_markup; ?>
 		</section>
-	<?php
+	<?php }
 	}
 	/**
 	* Determine whether to display the sliding billboard markup
