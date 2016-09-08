@@ -472,8 +472,8 @@ class CST_Wire_Curator {
 
 			$feed_data = wp_remote_retrieve_body( $response );
 			if( $feed_data ) {
+				$xml = simplexml_load_string( $feed_data );
 				if( $xml ) {
-					$xml = simplexml_load_string( $feed_data );
 					foreach( $xml->entry as $entry ) {
 
 						// Only handle articles right now
