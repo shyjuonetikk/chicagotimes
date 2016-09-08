@@ -1252,18 +1252,16 @@ class CST_Frontend {
 		if ( ! empty( $term_metadata ) ) {
 			$start_date = $term_metadata['start_date'];
 			$end_date = $term_metadata['end_date'];
-			$tzstring = get_option('timezone_string');
-			date_default_timezone_set( $tzstring );
 			$today = time();
-			if ( $today >= $start_date
-				 && $today <= $end_date ) {
+			if ( ( $today >= $start_date )
+				 && ( $today <= $end_date ) ) {
 			$template = '
 <div class="columns medium-8 small-12">
 	<a href="%1$s" target="_blank">
 		<img style="float:right;" src="%2$s" width="%3$s" height="%4$s">
 	</a>
 </div>
-			';
+';
 			$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
 			$section_sponsor = sprintf( $template,
 				esc_url( $term_metadata['destination_url'] ),
@@ -1274,7 +1272,6 @@ class CST_Frontend {
 			// DIV size if there is a sponsor image
 			$section_name_width = 'columns medium-4 small-12';
 			}
-			date_default_timezone_set( 'UTC' );
 		}
 		?>
 		<section class="<?php echo $section_class; ?>">

@@ -1069,32 +1069,34 @@ class CST_Admin {
 	function section_sponsorship_fields() {
 
 		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section Sponsor', 'chicagosuntimes' ), array(
-			'name'	=> 'sponsor',
-			'children'	=> array(
-				'start_date'	=> new \Fieldmanager_Datepicker( esc_html__( 'Start Date', 'chicagosuntimes' ), array(
-					'description'	=> esc_html__( 'Select start date of sponsorship', 'chicagosuntimes' ),
-					'date_format' => 'Y-m-d',
-					'use_time' => true,
-					'js_opts' => array(
+			'name'     => 'sponsor',
+			'children' => array(
+				'start_date'      => new \Fieldmanager_Datepicker( esc_html__( 'Start Date', 'chicagosuntimes' ), array(
+					'description'      => esc_html__( 'Select start date of sponsorship', 'chicagosuntimes' ),
+					'date_format'      => 'Y-m-d',
+					'store_local_time' => true,
+					'use_time'         => true,
+					'js_opts'          => array(
 						'dateFormat' => 'yy-mm-dd',
 					),
 				) ),
-				'end_date'	=> new \Fieldmanager_Datepicker( esc_html__( 'End Date', 'chicagosuntimes' ), array(
-					'description'	=> esc_html__( 'Select end date of sponsorship', 'chicagosuntimes' ),
-					'date_format' => 'Y-m-d',
-					'use_time' => true,
-					'js_opts' => array(
+				'end_date'        => new \Fieldmanager_Datepicker( esc_html__( 'End Date', 'chicagosuntimes' ), array(
+					'description'      => esc_html__( 'Select end date of sponsorship', 'chicagosuntimes' ),
+					'date_format'      => 'Y-m-d',
+					'store_local_time' => true,
+					'use_time'         => true,
+					'js_opts'          => array(
 						'dateFormat' => 'yy-mm-dd',
 					),
 				) ),
-				'destination_url'	=> new \Fieldmanager_Link( esc_html__( 'Destination url', 'chicagosuntimes' ), array(
-					'description'	=> esc_html__( 'Enter the destination url link', 'chicagosuntimes' ),
+				'destination_url' => new \Fieldmanager_Link( esc_html__( 'Destination url', 'chicagosuntimes' ), array(
+					'description' => esc_html__( 'Enter the destination url link', 'chicagosuntimes' ),
 				) ),
-				'image'               => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
-					'description'     => esc_html__( 'Display a sponsors image with link on the section front. Suggested image size is 320x50', 'chicagosuntimes' ),
-					'button_label'    => esc_html__( 'Select a sponsors image', 'chicagosuntimes' ),
+				'image'           => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
+					'description'        => esc_html__( 'Display a sponsors image with link on the section front. Suggested image size is 320x50', 'chicagosuntimes' ),
+					'button_label'       => esc_html__( 'Select a sponsors image', 'chicagosuntimes' ),
 					'modal_button_label' => esc_html__( 'Select sponsor image', 'chicagosuntimes' ),
-					'modal_title'     => esc_html__( 'Choose sponsor image', 'chicagosuntimes' ),
+					'modal_title'        => esc_html__( 'Choose sponsor image', 'chicagosuntimes' ),
 				) )
 			),
 		) );
