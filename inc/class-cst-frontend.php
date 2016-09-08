@@ -1252,6 +1252,8 @@ class CST_Frontend {
 		if ( ! empty( $term_metadata ) ) {
 			$start_date = $term_metadata['start_date'];
 			$end_date = $term_metadata['end_date'];
+			$tzstring = get_option('timezone_string');
+			date_default_timezone_set( $tzstring );
 			$today = time();
 			if ( $today >= $start_date
 				 && $today <= $end_date ) {
@@ -1272,6 +1274,7 @@ class CST_Frontend {
 			// DIV size if there is a sponsor image
 			$section_name_width = 'columns medium-4 small-12';
 			}
+			date_default_timezone_set( 'UTC' );
 		}
 		?>
 		<section class="<?php echo $section_class; ?>">
