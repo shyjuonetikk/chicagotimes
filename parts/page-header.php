@@ -52,8 +52,10 @@ if( is_single() ) {
 		<?php $weather = CST()->frontend->get_weather(); ?>
 		<?php if( ! empty( $weather ) ) : ?>
 		<div id="weather" class="show-for-medium-up">
-			<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i> 
-			<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+			<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+				<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
+				<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+			</a>
 		</div>
 		<?php endif; ?>
 		<div id="social-links" class="show-for-medium-up">

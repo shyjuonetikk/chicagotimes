@@ -27,7 +27,7 @@
 			this.body = $('body');
 			this.primaryNavigation = $('#fixed-nav-wrapper');
 			this.topLogos = $('#top-logos');
-      this.wpAdminBar = $('#wpadminbar');
+      		this.wpAdminBar = $('#wpadminbar');
 
 			this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
 			if ( this.wpAdminBar.length ) {
