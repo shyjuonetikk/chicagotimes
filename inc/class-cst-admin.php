@@ -81,7 +81,7 @@ class CST_Admin {
 				}
 			}
 		});
-
+		add_action( 'fm_term_cst_section', array( $this, 'section_sponsorship_fields' ) );
 	}
 
 	/**
@@ -1060,6 +1060,55 @@ class CST_Admin {
 			$args['selected'] = intval ( $_GET['user'] );
 		}
 		wp_dropdown_users( $args );
+	}
+
+	/**
+	 * Add Fieldmanager fields to term screens - cst_section - to facilitate
+	 * sponsorship images and urls over a date range.
+	 */
+	function section_sponsorship_fields() {
+
+		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section Sponsor', 'chicagosuntimes' ), array(
+			'name'     => 'sponsor',
+			'children' => array(
+				'start_date'      => new \Fieldmanager_Datepicker( esc_html__( 'Start Date', 'chicagosuntimes' ), array(
+					'description'      => esc_html__( 'Select start date of sponsorship', 'chicagosuntimes' ),
+					'date_format'      => 'Y-m-d',
+					'store_local_time' => true,
+					'use_time'         => true,
+					'js_opts'          => array(
+						'dateFormat' => 'yy-mm-dd',
+					),
+				) ),
+				'end_date'        => new \Fieldmanager_Datepicker( esc_html__( 'End Date', 'chicagosuntimes' ), array(
+					'description'      => esc_html__( 'Select end date of sponsorship', 'chicagosuntimes' ),
+					'date_format'      => 'Y-m-d',
+					'store_local_time' => true,
+					'use_time'         => true,
+					'js_opts'          => array(
+						'dateFormat' => 'yy-mm-dd',
+					),
+				) ),
+				'sponsor_options' => new \Fieldmanager_Checkboxes( esc_html__( 'Coverage', 'chicagosuntimes' ), array(
+					'options' => array(
+						'everything' => 'Everything',
+						'section' => 'Section',
+						'article' => 'Article',
+					),
+					'default_value' => 'section'
+				) ),
+				'destination_url' => new \Fieldmanager_Link( esc_html__( 'Destination url', 'chicagosuntimes' ), array(
+					'description' => esc_html__( 'Enter the destination url link', 'chicagosuntimes' ),
+				) ),
+				'image'           => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
+					'description'        => esc_html__( 'Display a sponsors image with link on the section front. Suggested image size is 320x50', 'chicagosuntimes' ),
+					'button_label'       => esc_html__( 'Select a sponsors image', 'chicagosuntimes' ),
+					'modal_button_label' => esc_html__( 'Select sponsor image', 'chicagosuntimes' ),
+					'modal_title'        => esc_html__( 'Choose sponsor image', 'chicagosuntimes' ),
+				) )
+			),
+		) );
+		$cst_section->add_term_form( esc_html__( 'Sponsorship', 'chicagosuntimes' ), 'cst_section' );
 	}
 
 }
