@@ -69,6 +69,8 @@ class CST_Frontend {
 		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 		add_action( 'body_start', array( $this, 'inject_zedo_tag' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
+		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
 	}
 
@@ -1327,6 +1329,13 @@ class CST_Frontend {
 		</section>
 	<?php }
 	}
+	/**
+	* http://wordpressvip.zendesk.com/hc/requests/56671
+ 	*/
+	function cst_remove_extra_twitter_js() {
+		wp_deregister_script( 'twitter-widgets' );
+	}
+
 	/**
 	* Determine whether to display the sliding billboard markup
     */
