@@ -1042,15 +1042,17 @@ class CST {
 			add_filter( "{$post_type}_rewrite_rules", '__return_empty_array' );
 		}
 
-		// Register a subset of post types with Zoninator
-		foreach( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
-			// Register video post type with Zoninator
-			add_post_type_support( $post_type, $GLOBALS[ 'zoninator' ]->zone_taxonomy );
-			register_taxonomy_for_object_type( $GLOBALS[ 'zoninator' ]->zone_taxonomy, $post_type);
-		}
+		if ( ! current_user_can( 'adops' ) ) {
+			// Register a subset of post types with Zoninator
+			foreach( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
+				// Register video post type with Zoninator
+				add_post_type_support( $post_type, $GLOBALS[ 'zoninator' ]->zone_taxonomy );
+				register_taxonomy_for_object_type( $GLOBALS[ 'zoninator' ]->zone_taxonomy, $post_type);
+			}
 
-		// Clear Zoninator supported post types cache
-		unset( $GLOBALS[ 'zoninator' ]->post_types );
+			// Clear Zoninator supported post types cache
+			unset( $GLOBALS[ 'zoninator' ]->post_types );
+		}
 
 	}
 
