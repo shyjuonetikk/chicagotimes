@@ -172,15 +172,29 @@ class CST_Admin {
 
 		// Modify standard taxonomy links
 		$taxonomies = array( 'cst_section', 'cst_person', 'cst_location', 'cst_topic' );
-		foreach( CST()->get_post_types() as $post_type ) {
-			foreach( $taxonomies as $taxonomy ) {
+		$post_types_to_change = CST()->get_post_types();
+		if ( current_user_can( 'adops' ) ) {
+			$post_types_to_change[] = 'cst_wire_item';
+			$post_types_to_change[] = 'cst_usa_today_item';
+			$post_types_to_change[] = 'cst_shia_kapos_item';
+			$post_types_to_change[] = 'cst_chicago_item';
+		}
+		foreach ( $post_types_to_change as $post_type ) {
+			foreach ( $taxonomies as $taxonomy ) {
 				remove_submenu_page( 'edit.php?post_type=' . $post_type, 'edit-tags.php?taxonomy=' . $taxonomy . '&amp;post_type=' . $post_type );
+				if ( current_user_can( 'adops' ) && ! current_user_can( 'manage_options' ) ) {
+					remove_menu_page( 'edit-tags.php?taxonomy=' . $taxonomy . '&amp;post_type=' . $post_type );
+					remove_menu_page( 'edit.php?post_type=' . $post_type );
+				}
 			}
 		}
+
 		if ( current_user_can( 'edit_others_posts' ) ) {
 			add_menu_page( esc_html__( 'Terms', 'chicagosuntimes' ), esc_html__( 'Terms', 'chicagosuntimes' ), 'edit_others_posts', 'edit-tags.php?taxonomy=cst_section', false, 'dashicons-tag', 14 );
-			foreach( $taxonomies as $taxonomy ) {
-				add_submenu_page( 'edit-tags.php?taxonomy=cst_section', get_taxonomy( $taxonomy )->labels->name, get_taxonomy( $taxonomy )->labels->name, 'edit_others_posts', 'edit-tags.php?taxonomy=' . $taxonomy );
+			foreach ( $taxonomies as $taxonomy ) {
+				if ( ! current_user_can( 'adops' ) || current_user_can( 'manage_options' ) ) {
+					add_submenu_page( 'edit-tags.php?taxonomy=cst_section', get_taxonomy( $taxonomy )->labels->name, get_taxonomy( $taxonomy )->labels->name, 'adops', 'edit-tags.php?taxonomy=' . $taxonomy );
+				}
 			}
 		}
 

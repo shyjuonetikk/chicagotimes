@@ -1306,7 +1306,7 @@ class CST_Frontend {
 			$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
 			if ( $sponsor_image ) {
 				$sponsor_markup = sprintf( $sponsor_template,
-					( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-6 small-12' ),
+					( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-7 small-12' ),
 					esc_url( $term_metadata['destination_url'] ),
 					esc_url( $sponsor_image[0] ),
 					esc_attr( $sponsor_image[1] ),
@@ -1314,7 +1314,7 @@ class CST_Frontend {
 				);
 			}
 			// DIV size if there is a sponsor image
-			$name_width = 'columns medium-6 small-12';
+			$name_width = 'columns medium-5 small-12';
 			}
 		}
 		if ( '' !== $section_id ) {
