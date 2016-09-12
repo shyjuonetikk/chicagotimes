@@ -1120,9 +1120,9 @@ class CST_Admin {
 				) ),
 				'image'           => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
 					'description'        => esc_html__( 'Display a sponsors image with link on the section front. Preferred image size is 320x50', 'chicagosuntimes' ),
-					'button_label'       => esc_html__( 'Select a sponsors image', 'chicagosuntimes' ),
+					'button_label'       => esc_html__( 'Choose or upload and select a sponsors image', 'chicagosuntimes' ),
 					'modal_button_label' => esc_html__( 'Select sponsor image', 'chicagosuntimes' ),
-					'modal_title'        => esc_html__( 'Choose sponsor image', 'chicagosuntimes' ),
+					'modal_title'        => esc_html__( 'Choose or upload and select a sponsors image', 'chicagosuntimes' ),
 				) )
 			),
 		) );
