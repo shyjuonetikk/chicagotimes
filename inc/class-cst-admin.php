@@ -1092,6 +1092,8 @@ class CST_Admin {
 					'use_time'         => true,
 					'js_opts'          => array(
 						'dateFormat' => 'yy-mm-dd',
+						'showButtonPanel' => true,
+						'minDate' => 0
 					),
 				) ),
 				'end_date'        => new \Fieldmanager_Datepicker( esc_html__( 'End Date', 'chicagosuntimes' ), array(
@@ -1101,6 +1103,8 @@ class CST_Admin {
 					'use_time'         => true,
 					'js_opts'          => array(
 						'dateFormat' => 'yy-mm-dd',
+						'showButtonPanel' => true,
+						'minDate' => -1
 					),
 				) ),
 				'sponsor_options' => new \Fieldmanager_Checkboxes( esc_html__( 'Coverage', 'chicagosuntimes' ), array(
@@ -1111,11 +1115,11 @@ class CST_Admin {
 					),
 					'default_value' => 'section'
 				) ),
-				'destination_url' => new \Fieldmanager_Link( esc_html__( 'Destination url', 'chicagosuntimes' ), array(
-					'description' => esc_html__( 'Enter the destination url link', 'chicagosuntimes' ),
+				'destination_url' => new \Fieldmanager_Link( esc_html__( 'Click thru / destination url', 'chicagosuntimes' ), array(
+					'description' => esc_html__( 'Enter the click thru / destination url link', 'chicagosuntimes' ),
 				) ),
 				'image'           => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
-					'description'        => esc_html__( 'Display a sponsors image with link on the section front. Suggested image size is 320x50', 'chicagosuntimes' ),
+					'description'        => esc_html__( 'Display a sponsors image with link on the section front. Preferred image size is 320x50', 'chicagosuntimes' ),
 					'button_label'       => esc_html__( 'Select a sponsors image', 'chicagosuntimes' ),
 					'modal_button_label' => esc_html__( 'Select sponsor image', 'chicagosuntimes' ),
 					'modal_title'        => esc_html__( 'Choose sponsor image', 'chicagosuntimes' ),
