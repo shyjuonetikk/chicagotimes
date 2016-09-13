@@ -9,7 +9,7 @@ class CST_Frontend {
 
 	private $nav_title_filter;
 
-	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored' );
+	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
 	public static function get_instance() {
 
