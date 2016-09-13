@@ -24,6 +24,9 @@ $primary_slug = $cst->slug_detection();
 		case 'opinion':
 			dynamic_sidebar( 'opinion_headlines' );
 			break;
+		case 'autos':
+			dynamic_sidebar( 'autos_headlines' );
+			break;
 		case 'sponsored':
 			break;
 		default:

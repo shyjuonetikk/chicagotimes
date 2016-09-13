@@ -704,6 +704,14 @@ class CST {
 			'name'        => esc_html__( 'ColumnistsWire', 'chicagosuntimes' ),
 		) );
 		register_sidebar( array(
+			'id'          => 'autos_headlines',
+			'name'        => esc_html__( 'Autos Headlines', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'autoswire',
+			'name'        => esc_html__( 'AutosWire', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
 			'id'          => 'obits_headlines',
 			'name'        => esc_html__( 'Obits Headlines', 'chicagosuntimes' ),
 		) );
