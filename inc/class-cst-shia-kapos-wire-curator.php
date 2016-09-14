@@ -470,7 +470,7 @@ class CST_Shia_Kapos_Wire_Curator {
      *
      * @param bool $manually_triggered_from_ajax
      */
-    public function refresh_shia_kapos_wire_items( $manually_triggered_from_ajax ) {
+    public function refresh_shia_kapos_wire_items( $manually_triggered_from_ajax = false ) {
 
         foreach( $this->get_feeds() as $feed ) {
             
