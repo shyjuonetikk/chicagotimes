@@ -15,7 +15,8 @@ class USA_Today_Wire_Item extends Post {
     public static function create_from_simplexml( $feed_entry ) {
         global $edit_flow;
 
-        $gmt_published = date( 'Y-m-d H:i:s', strtotime( $feed_entry->datePublished ) );
+        $native_published = date( 'Y-m-d H:i:s', strtotime( $feed_entry->datePublished ) );
+        $gmt_date_string = get_gmt_from_date( $native_published );
 
         // Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
         if ( is_object( $edit_flow ) ) {
@@ -29,8 +30,8 @@ class USA_Today_Wire_Item extends Post {
             'post_author'       => 0,
             'post_status'       => 'publish',
             'post_name'         => md5( 'usa_today_item' . $feed_entry->assetId ),
-            'post_date'         => get_date_from_gmt( $gmt_published ),
-            'post_date_gmt'     => $gmt_published,
+            'post_date'         => get_gmt_from_date( $native_published ),
+            'post_date_gmt'     => $gmt_date_string,
             );
 
         $post_id = wp_insert_post( $post_args, true );
