@@ -19,10 +19,6 @@ class Shia_Kapos_Wire_Item extends Post {
         if ( is_object( $edit_flow ) ) {
             $_POST['post_type'] = 'cst_shia_kapos_item';
         }
-        $author = get_option( 'shia_kapos_wire_curator_author', array() );
-
-        $shia_kapos_author_lookup    = get_user_by( 'login', $author );
-        $shia_kapos_author_id        = $shia_kapos_author_lookup->ID;
 
         $namespaces        = $feed_entry->getNameSpaces(true);
         $wp_children       = $feed_entry->children( $namespaces['wp'] );
@@ -45,7 +41,7 @@ class Shia_Kapos_Wire_Item extends Post {
             'post_title'        => sanitize_text_field( $post_title ),
             'post_content'      => wp_filter_post_kses( $post_body ),
             'post_type'         => 'cst_shia_kapos_item',
-            'post_author'       => $shia_kapos_author_id,
+            'post_author'       => 0,
             'post_status'       => 'publish',
             'post_name'         => md5( 'shia_kapos_item' . $feed_entry->assetId ),
             'post_date'         => get_date_from_gmt( $gmt_published ),
@@ -93,7 +89,7 @@ class Shia_Kapos_Wire_Item extends Post {
                     'post_content' => '',
                     'post_status'  => 'publish',
                     'post_date'    => get_date_from_gmt( $gmt_published ),
-                    'post_author'  => $shia_kapos_author_id,
+                    'post_author'  => 0,
                     'post_excerpt' => '',
                     'post_type'    => 'cst_gallery',
                 );
