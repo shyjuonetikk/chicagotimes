@@ -8,7 +8,9 @@ class CST_AP_DNE_Widget extends WP_Widget {
         'ap-summer-games-news-widget',
         'ap-summer-games-medal-count-widget',
         'ap-summer-games-event-schedule-widget',
-        'ap-us-election-news-widget'
+        'ap-us-election-news-widget',
+        'ap-auto-racing-news',
+        'ap-auto-racing-sprint-standings',
         );
 
     public function __construct() {
@@ -88,6 +90,28 @@ class CST_AP_DNE_Widget extends WP_Widget {
                     <div class="large-12 medium-6 small-6 columns">
                     <?php
                         get_template_part( 'parts/vendors/ap-us-election-news-widget' );
+                    ?>
+                    </div>
+                </li>
+            <?php
+                break;
+            case 'ap-auto-racing-news':
+            ?>
+                <li class="ap_ncaa_cbb_scoreboard_widget">
+                    <div class="large-12 medium-6 small-6 columns">
+                    <?php
+                        get_template_part( 'parts/vendors/ap-auto-racing-news-widget' );
+                    ?>
+                    </div>
+                </li>
+            <?php
+                break;
+            case 'ap-auto-racing-sprint-standings':
+            ?>
+                <li class="ap_ncaa_cbb_scoreboard_widget">
+                    <div class="large-12 medium-6 small-6 columns">
+                    <?php
+                        get_template_part( 'parts/vendors/ap-auto-racing-nascar-standings-widget' );
                     ?>
                     </div>
                 </li>
