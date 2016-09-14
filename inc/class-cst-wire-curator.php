@@ -9,6 +9,9 @@ class CST_Wire_Curator {
 
 	private $post_type = 'cst_wire_item';
 
+	private $creator = 110117647;
+	private $local_development_user = 'wireingesterdevelopment';
+
 	private $cap = 'edit_others_posts';
 
 	public static function get_instance() {
@@ -375,7 +378,7 @@ class CST_Wire_Curator {
 			wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
 		}
 
-		$this->refresh_wire_items();
+		$this->refresh_wire_items( true );
 
 		echo 'Done';
 		exit;
@@ -445,8 +448,10 @@ class CST_Wire_Curator {
 
 	/**
 	 * Refresh Wire Items from the feeds
+	 *
+	 * @param bool $manually_triggered_from_ajax
 	 */
-	public function refresh_wire_items() {
+	public function refresh_wire_items( $manually_triggered_from_ajax = false ) {
 
 		foreach( $this->get_feeds() as $feed ) {
 
@@ -472,8 +477,8 @@ class CST_Wire_Curator {
 
 			$feed_data = wp_remote_retrieve_body( $response );
 			if( $feed_data ) {
+				$xml = simplexml_load_string( $feed_data );
 				if( $xml ) {
-					$xml = simplexml_load_string( $feed_data );
 					foreach( $xml->entry as $entry ) {
 
 						// Only handle articles right now
@@ -494,8 +499,8 @@ class CST_Wire_Curator {
 							continue;
 						}
 
-						$user_id = get_current_user_id();
-                        $blog_id = get_current_blog_id();
+						$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
+						$blog_id = get_current_blog_id();
                         if( is_user_member_of_blog( $user_id, $blog_id ) ) {
                             \CST\Objects\AP_Wire_Item::create_from_simplexml( $entry );
                         }
@@ -508,6 +513,30 @@ class CST_Wire_Curator {
 
 		}
 
+	}
+
+	/**
+	 *
+	 * Determine user id to use when creating the wire item
+	 *
+	 * @param bool $manually_triggered_from_ajax
+	 *
+	 * @return false|int|WP_User
+	 *
+	 */
+	private function determine_user_id( $manually_triggered_from_ajax ) {
+
+		if ( $manually_triggered_from_ajax ) {
+			$user_id = get_current_user_id();
+		} else {
+			if ( WP_DEBUG ) {
+				$user_id = get_user_by( 'login', $this->local_development_user );
+			} else {
+				// Production specific user id
+				$user_id = $this->creator;
+			}
+		}
+		return $user_id;
 	}
 
 	/**

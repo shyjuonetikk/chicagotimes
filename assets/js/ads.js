@@ -83,16 +83,16 @@ var CSTAds;
 				$('#main .ad-container').eq( this.startPost ).append( el2 );
 				this.triggerUnitRefresh( nextScrollUnit );
 				this.triggerUnitRefresh( nextScrollUnit2 );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-4' );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-4' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
 			} else {
 				$('#main .ad-container').eq( this.startPost ).append( el );
 				this.triggerUnitRefresh( nextScrollUnit );
 				this.triggerUnitRefresh( nextScrollUnit2 );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-4' );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-4' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
 			}
 			
 			this.startPost = this.startPost + this.betweenPosts;
