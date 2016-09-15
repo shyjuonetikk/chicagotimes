@@ -186,7 +186,7 @@ class CST_Shia_Kapos_Wire_Curator {
         }
 
         submit_button( esc_attr__( 'Refresh Items', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-refresh-shia-kapos-wire-items', 'data-nonce' => wp_create_nonce( 'cst_refresh_shia_kapos_wire_items' ), 'data-in-progress-text' => esc_attr__( 'Refreshing...', 'chicagosuntimes' ) ) );
-        submit_button( esc_attr__( 'Delete Last 50 Items', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-delete-shia-kapos-wire-items', 'data-nonce' => wp_create_nonce( 'cst_delete_shia_kapos_wire_items' ), 'data-in-progress-text' => esc_attr__( 'Deleting...', 'chicagosuntimes' ) ) );
+        submit_button( esc_attr__( 'Delete Oldest 50 Items', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-delete-shia-kapos-wire-items', 'data-nonce' => wp_create_nonce( 'cst_delete_shia_kapos_wire_items' ), 'data-in-progress-text' => esc_attr__( 'Deleting...', 'chicagosuntimes' ) ) );
         submit_button( esc_attr__( 'Reset Timer', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-reset-shia-kapos-items-timer', 'data-nonce' => wp_create_nonce( 'cst_reset_shia_kapos_items_timer' ), 'data-in-progress-text' => esc_attr__( 'Resetting...', 'chicagosuntimes' ) ) );
         $last_refresh = (int)$this->get_last_refresh();
         if ( $last_refresh ) {
@@ -565,7 +565,9 @@ class CST_Shia_Kapos_Wire_Curator {
             'post_status'    => 'any',
             'fields'         => 'ids',
             'posts_per_page' => 50,
-            );
+			'order'			=> 'ASC',
+			'orderby'		=> 'date',
+			);
         $old_items = new WP_Query( $query_args );
 
         foreach( $old_items->posts as $post_id ) {

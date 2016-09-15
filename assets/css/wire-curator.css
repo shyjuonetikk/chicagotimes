@@ -6,7 +6,36 @@
 .post-type-cst_wire_item .tablenav .view-switch {
 	display: none;
 }
+#cst-refresh-wire-items {
+    font-size: 14px;
+    font-weight: 300;
+    background-color: #C3EAC3;
+    border-color: #C3EAC3;
+}
 
+.post-type-cst_wire_item #cst-last-refresh {
+    margin-left: 8px;
+    color: #777;
+    display: inline-block;
+    line-height: 30px;
+}
+
+#cst-delete-wire-items {
+    float: right;
+    margin-left: 20px;
+    font-size: 12px;
+    font-weight: 300;
+    background-color: #EF9C9C;
+    border-color: #EF9C9C;
+}
+
+#cst-reset-items-timer {
+    margin-left: 20px;
+    font-style: italic;
+    font-weight: 300;
+    background-color: #EFCB8A;
+    border-color: #EFCB8A;
+}
 .post-type-cst_wire_item #cst-last-refresh {
 	margin-left: 8px;
 	color: #777;

@@ -8,6 +8,8 @@
 		init: function() {
 
 			this.refreshButton = $('#cst-refresh-wire-items');
+			this.deleteButton = $('#cst-delete-wire-items');
+			this.resetButton = $('#cst-reset-wire-items');
 			this.previewItemLink = $('a.wire-item-preview');
 			this.closePreviewLink = $('#cst-wire-curator-close-preview-item-modal');
 
@@ -28,7 +30,8 @@
 			this.refreshButton.on( 'click', $.proxy( this.refreshWireItems, this ) );
 			this.previewItemLink.on( 'click', $.proxy( this.showItemPreview, this ) );
 			this.closePreviewLink.on( 'click', $.proxy( this.closeItemPreview, this ) );
-
+			this.deleteButton.on( 'click', $.proxy( this.deleteWireItems, this ) );
+			this.resetButton.on( 'click', $.proxy( this.resetWireItemsTimer, this ) );
 			// Use `esc` key to get out of the preview
 			$(document).keyup( $.proxy( function( e ){
 
@@ -62,7 +65,48 @@
 			}, this ) );
 
 		},
+    /**
+     * Delete multiple Wire Items
+     */
+    deleteWireItems: function( e ) {
 
+      e.preventDefault();
+
+      var data = {
+        action: 'cst_delete_wire_items',
+        nonce: this.deleteButton.data('nonce')
+      };
+
+      this.deleteButton.val( 'Delete All' );
+
+      $.get( ajaxurl, data, $.proxy( function(){
+
+        location.reload( true );
+
+      }, this ) );
+
+    },
+    /**
+     * Reset Items Timer
+     */
+    resetWireItemsTimer: function( e ) {
+
+      e.preventDefault();
+
+      var data = {
+        action: 'cst_reset_items_timer',
+        nonce: this.resetButton.data('nonce')
+      };
+
+      this.resetButton.val('Resetting...');
+
+      $.get( ajaxurl, data, $.proxy( function() {
+
+        location.reload( true );
+
+      }, this ) );
+
+    },
 		/**
 		 * Show the preview of a wire item
 		 */
