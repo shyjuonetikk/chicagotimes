@@ -19,10 +19,6 @@ class Chicago_Wire_Item extends Post {
         if ( is_object( $edit_flow ) ) {
             $_POST['post_type'] = 'cst_chicago_item';
         }
-        $author = get_option( 'chicago_wire_curator_author', array() );
-
-        $chicago_author_lookup    = get_user_by( 'login', $author );
-        $chicago_author_id        = $chicago_author_lookup->ID;
 
         $namespaces        = $feed_entry->getNameSpaces(true);
         $wp_children       = $feed_entry->children( $namespaces['wp'] );
@@ -41,7 +37,7 @@ class Chicago_Wire_Item extends Post {
                 'post_title'        => sanitize_text_field( $post_title ),
                 'post_content'      => wp_filter_post_kses( $post_body ),
                 'post_type'         => 'cst_chicago_item',
-                'post_author'       => $chicago_author_id,
+                'post_author'       => 0,
                 'post_status'       => 'publish',
                 'post_name'         => md5( 'chicago_item' . $orig_post_id ),
                 'post_date'         => get_date_from_gmt( $gmt_published ),
