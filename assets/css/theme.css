@@ -2647,7 +2647,8 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .dfp-atf-leaderboard, .homepage_wrapper .dfp-btf-leaderboard {
     text-align: center;
     margin: 0 auto;
-    display: block; }
+    display: block;
+    clear: both; }
   @media (max-width: 769px) {
     .homepage_wrapper #div-gpt-btf-leaderboard {
       display: none; } }

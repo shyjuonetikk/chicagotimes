@@ -1,5 +1,5 @@
 <!-- BreakingNews.Index -->
-<div id='div-gpt-btf-leaderboard' class='text-center show-for-medium-up'>
+<div id='div-gpt-btf-leaderboard' class='text-center'>
 <script type='text/javascript'>
 	if ( window.innerWidth > 640 ) {
 		googletag.cmd.push(function() {
