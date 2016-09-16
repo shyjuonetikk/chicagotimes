@@ -82,7 +82,7 @@
 			.setCollapseEmptyDiv(true,true);
 		}
 		if ( window.innerWidth > 767 ) {
-			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [728, 90], 'div-gpt-btf-leaderboard')
+			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [ [970,90], [728, 90] ], 'div-gpt-btf-leaderboard')
 			.addService(googletag.pubads()).setTargeting("pos","btf leaderboard")
 			.setCollapseEmptyDiv(true,true);
 		}
