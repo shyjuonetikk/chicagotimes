@@ -54,7 +54,7 @@
 							</div>
 							<div class="small-12 medium-4 columns pricing">
 								<div>
-									<h2><sup>$</sup><?php esc_html_e( $subscribe_print_content['print_package_1']['package_price'], 'chicagosuntimes' ); ?></h2>
+									<h2><?php esc_html_e( $subscribe_print_content['print_package_1']['package_price'], 'chicagosuntimes' ); ?></h2>
 									<span><a href="<?php esc_html_e( $subscribe_print_content['print_package_1']['package_url'], 'chicagosuntimes' ); ?>" target="_blank"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/promo-button-selectoffer-yellow.png" ></a></span>
 								</div>
 							</div>
@@ -69,7 +69,7 @@
 							</div>
 							<div class="small-12 medium-4 columns pricing">
 								<div>
-									<h2><sup>$</sup><?php esc_html_e( $subscribe_print_content['print_package_2']['package_price'], 'chicagosuntimes' ); ?></h2>
+									<h2><?php esc_html_e( $subscribe_print_content['print_package_2']['package_price'], 'chicagosuntimes' ); ?></h2>
 									<span><a href="<?php esc_html_e( $subscribe_print_content['print_package_2']['package_url'], 'chicagosuntimes' ); ?>" target="_blank"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/promo-button-selectoffer-yellow.png" ></a></span>
 								</div>
 							</div>
@@ -84,7 +84,7 @@
 							</div>
 							<div class="small-12 medium-4 columns pricing">
 								<div class="last-price">
-									<h2><sup>$</sup><?php esc_html_e( $subscribe_print_content['print_package_3']['package_price'], 'chicagosuntimes' ); ?></h2>
+									<h2><?php esc_html_e( $subscribe_print_content['print_package_3']['package_price'], 'chicagosuntimes' ); ?></h2>
 									<span><a href="<?php esc_html_e( $subscribe_print_content['print_package_3']['package_url'], 'chicagosuntimes' ); ?>" target="_blank"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/promo-button-selectoffer-yellow.png" ></a></span>
 								</div>
 							</div>
@@ -118,7 +118,7 @@
 
 							</div>
 							<div class="small-12 medium-4 columns">
-								<h2><sup>$</sup><?php esc_html_e( $subscribe_digital_content['digital_package_1']['package_price'], 'chicagosuntimes' ); ?></h2>
+								<h2><?php esc_html_e( $subscribe_digital_content['digital_package_1']['package_price'], 'chicagosuntimes' ); ?></h2>
 								<span><a href="<?php esc_html_e( $subscribe_digital_content['digital_package_1']['package_url'], 'chicagosuntimes' ); ?>" target="_blank"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/promo-button-selectoffer-yellow.png"></a></span>
 							</div>
 						</div>
@@ -137,7 +137,7 @@
 
 							</div>
 							<div class="small-12 medium-4 columns">
-								<h2><sup>$</sup><?php esc_html_e( $subscribe_digital_content['digital_package_2']['package_price'], 'chicagosuntimes' ); ?></h2>
+								<h2><?php esc_html_e( $subscribe_digital_content['digital_package_2']['package_price'], 'chicagosuntimes' ); ?></h2>
 								<span><a href="<?php esc_html_e( $subscribe_digital_content['digital_package_2']['package_url'], 'chicagosuntimes' ); ?>" target="_blank"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/promo-button-selectoffer-yellow.png"></a></span>
 							</div>
 						</div>
@@ -156,7 +156,7 @@
 
 							</div>
 							<div class="small-12 medium-4 columns">
-								<h2><sup>$</sup><?php esc_html_e( $subscribe_digital_content['digital_package_3']['package_price'], 'chicagosuntimes' ); ?></h2>
+								<h2><?php esc_html_e( $subscribe_digital_content['digital_package_3']['package_price'], 'chicagosuntimes' ); ?></h2>
 								<span><a href="<?php esc_html_e( $subscribe_digital_content['digital_package_3']['package_url'], 'chicagosuntimes' ); ?>" target="_blank"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/promo-button-selectoffer-yellow.png"></a></span>
 							</div>
 						</div>
