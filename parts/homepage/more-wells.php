@@ -62,7 +62,7 @@
 		</div>
 	</div>
 </div>
-<div class="large-12 columns dfp-btf-leaderboard show-for-medium-up">
+<div class="large-12 columns dfp-btf-leaderboard">
 	<?php get_template_part( 'parts/dfp/homepage/dfp-btf-leaderboard' ); ?>
 	<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
 </div>
