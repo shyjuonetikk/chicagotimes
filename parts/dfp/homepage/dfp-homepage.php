@@ -1,3 +1,4 @@
+<?php if ( is_page_template( 'page-monster.php' ) ) { return; } ?>
 <script type='text/javascript'>
 	var googletag = googletag || {};
 	googletag.cmd = googletag.cmd || [];
