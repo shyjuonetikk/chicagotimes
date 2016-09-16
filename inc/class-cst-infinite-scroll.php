@@ -136,13 +136,14 @@ class CST_Infinite_Scroll {
 	 * Infinite scroll JavaScript hacks
 	 */
 	public function action_wp_enqueue_scripts() {
-
+		if ( is_page_template( 'page-monster.php' ) || is_front_page() ) {
+			return;
+		}
 		wp_enqueue_script( 'cst-infinite-scroll', get_template_directory_uri() . '/assets/js/infinite-scroll.js', array( 'chicagosuntimes', 'the-neverending-homepage', 'cst-ga-custom-actions' ), false, true );
 		wp_localize_script( 'cst-infinite-scroll', 'CSTInfiniteScrollData', array(
-			'infiniteSidebarEndpoint'         => esc_url_raw( home_url( 'infinite-sidebar/' ) ),
-			'readMoreLabel'                   => esc_html__( 'Read More', 'chicagosuntimes' ),
-			) );
-
+			'infiniteSidebarEndpoint' => esc_url_raw( home_url( 'infinite-sidebar/' ) ),
+			'readMoreLabel'           => esc_html__( 'Read More', 'chicagosuntimes' ),
+		) );
 	}
 
 	/**
