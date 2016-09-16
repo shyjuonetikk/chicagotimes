@@ -27,12 +27,6 @@
 				this.loadDisqusCount();
 			}
 
-			if ( $(window).width() <= 667 ) {
-				this.jobs_navigation_link.attr('href', 'http://m.suntimes.com/' );
-			} else {
-				this.jobs_navigation_link.attr('href', 'http://jobs.suntimes.com' );
-			}
-
 		},
 
 		/**
@@ -73,7 +67,6 @@
 			this.dfpWallpaper = $('#div-gpt-wallpaper');
 			this.dfpWallpaperImg = $('#div-gpt-wallpaper img')
 			this.dfpLeaderboard = $('#div-gpt-atf-leaderboard');
-			this.jobs_navigation_link = $('.jobs-navigation-link a');
 			this.header = $('#header');
 
 			this.scrollToolbarHeight = $('#primary-navigation').outerHeight();
