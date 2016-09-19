@@ -365,36 +365,6 @@ header#header {
     header#header #weather .description {
       font-weight: 600;
       font-size: 0.75rem; }
-  header#header #social-links {
-    position: absolute;
-    right: 70px;
-    top: 10px;
-    color: white;
-    text-transform: uppercase;
-    font-family: 'Open Sans', Arial, sans-serif; }
-    header#header #social-links ul {
-      list-style-type: none;
-      margin: 0;
-      padding: 0; }
-      header#header #social-links ul li {
-        display: inline-block;
-        margin: 4px 5px;
-        width: 25px;
-        height: 25px;
-        border-radius: 5px;
-        text-align: center; }
-        header#header #social-links ul li a .fa {
-          font-size: 1rem; }
-        header#header #social-links ul li a .fa-facebook {
-          color: white; }
-        header#header #social-links ul li a .fa-twitter {
-          color: white; }
-        header#header #social-links ul li a .fa:hover {
-          opacity: 0.75; }
-      header#header #social-links ul li.facebook {
-        background: #3c5a96; }
-      header#header #social-links ul li.twitter {
-        background: #59adeb; }
   header#header section#primary-navigation {
     height: 50px;
     z-index: 100100; }
@@ -3338,6 +3308,114 @@ body.post-gallery-lightbox-active {
     text-align: left;
     font-size: 12px;
     margin-bottom: 0; }
+
+/* HEADER */
+@media (min-width: 1250px) {
+  .logo-wrapper.large-logo {
+    display: block; } }
+@media (max-width: 1249px) {
+  .logo-wrapper.large-logo {
+    display: none !important; } }
+
+header .contain-to-grid .top-bar .top-bar-section {
+  min-height: 146px; }
+  header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
+    display: block; }
+  header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
+    display: none; }
+@media only screen and (min-width: 78.063em) {
+  header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
+    padding: 0 12px; } }
+header .contain-to-grid .cst-row {
+  margin: 0 auto; }
+
+@media only screen and (min-width: 78.063em) {
+  header .contain-to-grid .top-bar {
+    max-width: 100%;
+    margin: 0 auto;
+    height: 146px;
+    line-height: 65px; }
+    @media (min-width: 1250px) {
+      header .contain-to-grid .top-bar .small-logo {
+        display: none; } }
+    @media (max-width: 1249px) {
+      header .contain-to-grid .top-bar .small-logo {
+        display: block; } }
+    header .contain-to-grid .top-bar ul li > a {
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      text-transform: uppercase;
+      text-align: left; }
+    header .contain-to-grid .top-bar .top-bar-section {
+      text-align: center;
+      z-index: 3; }
+      header .contain-to-grid .top-bar .top-bar-section .logo-wrapper .logo {
+        width: 300px;
+        display: block;
+        margin: 0 auto;
+        padding-top: 10px; }
+      header .contain-to-grid .top-bar .top-bar-section .dropdown li a {
+        line-height: 30px !important; }
+      header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left, header .contain-to-grid .top-bar .top-bar-section #menu-homepage {
+        display: inline-table; }
+        header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item {
+          display: inline; }
+          header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
+            display: none; }
+          header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
+            display: block; } }
+
+#social-links {
+  position: absolute;
+  right: 70px;
+  top: 10px;
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Open Sans', Arial, sans-serif; }
+  #social-links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+    #social-links ul li {
+      display: inline-block;
+      margin: 4px 5px;
+      width: 25px;
+      height: 25px;
+      border-radius: 5px;
+      text-align: center; }
+      #social-links ul li a .fa {
+        font-size: 1rem; }
+      #social-links ul li a .fa-facebook {
+        color: white; }
+      #social-links ul li a .fa-twitter {
+        color: white; }
+      #social-links ul li a .fa:hover {
+        opacity: 0.75; }
+    #social-links ul li.facebook {
+      background: #3c5a96; }
+    #social-links ul li.twitter {
+      background: #59adeb; }
+
+footer {
+  background: #282828; }
+  footer .copyright {
+    color: white; }
+  footer hr {
+    color: white; }
+  footer ul {
+    display: inline-block; }
+    footer ul li {
+      color: white;
+      list-style: none; }
+      footer ul li a, footer ul li:visited, footer ul li:hover {
+        color: white;
+        text-transform: uppercase; }
+  footer #social-links {
+    position: relative;
+    top: inherit;
+    right: inherit;
+    float: right; }
 
 .opinion header#header section#primary-navigation a#newsfeed-logo img {
   width: 174px; }

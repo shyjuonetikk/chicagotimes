@@ -2,21 +2,27 @@ footer {
 	.copyright {
 		color: #fff;
 	}
-	background: #000;
+	background: $black;
 	hr {
 		color: #fff;
 	}
 	ul {
 		display: inline-block;
 		li {
-			display: inline-block;
+			color: #fff;
+			list-style: none;
 			a,
 			&:visited,
 			&:hover{
 				color: #fff;
-				font-size: 0.8rem;
 				text-transform: uppercase;
 			}
 		}
+	}
+	#social-links {
+		position: relative;
+		top: inherit;
+		right:inherit;
+		float: right;
 	}
 }

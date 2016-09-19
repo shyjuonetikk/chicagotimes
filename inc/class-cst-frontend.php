@@ -133,6 +133,7 @@ class CST_Frontend {
 		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.2.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
+		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 
 		// Fonts
 		wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Raleway|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800|Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' );
@@ -150,7 +151,7 @@ class CST_Frontend {
 			$this->action_load_section_styling();
 
 			// If we are on a 404 page don't try and load scripts/css that we won't be using.
-			if ( ! is_404() ) {
+			if ( ! is_404() && ! is_page() ) {
 				if ( ! is_front_page() || ! is_page() ) {
 					// Scripty-scripts
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
