@@ -1384,7 +1384,10 @@ class CST_Frontend {
 	*/
 	public function inject_zedo_tag() {
 
-		if ( is_singular() && ! is_page_template( 'page-monster.php' ) ) {
+		if ( is_page() ) {
+			return;
+		}
+		if ( is_singular() ) {
 		?>
 <!-- zedo tag -->
 <div id="z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206" style='display:none' ></div>

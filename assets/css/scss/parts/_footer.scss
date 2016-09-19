@@ -1,0 +1,22 @@
+footer {
+	.copyright {
+		color: #fff;
+	}
+	background: #000;
+	hr {
+		color: #fff;
+	}
+	ul {
+		display: inline-block;
+		li {
+			display: inline-block;
+			a,
+			&:visited,
+			&:hover{
+				color: #fff;
+				font-size: 0.8rem;
+				text-transform: uppercase;
+			}
+		}
+	}
+}

@@ -135,10 +135,9 @@
 		</div>
 	</section>
 </div>
-<?php get_template_part( 'parts/page-monster-footer' ); ?>
 	<!--DON'T MODIFY-->
 	<script type="text/javascript" src="http://media.newjobs.com/js/global/at_1.4.js" ></script>
 	<!--DON'T MODIFY-->
 
 
-<?php get_footer(); ?>
+<?php get_footer( 'page' ); ?>
