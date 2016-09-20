@@ -84,6 +84,7 @@ class CST_Shia_Kapos_Wire_Curator {
             'capabilities'      => array(
                 'create_posts'  => 'do_not_allow',
                 'edit_posts'    => $this->cap,
+                'delete_posts'    => $this->cap,
                 ),
             'labels'            => array(
                 'name'                => esc_html__( 'Kapos Wire Items', 'chicagosuntimes' ),

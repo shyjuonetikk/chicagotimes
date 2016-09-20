@@ -88,6 +88,7 @@ class CST_Wire_Curator {
 			'capabilities'      => array(
 				'create_posts'  => 'do_not_allow',
 				'edit_posts'    => $this->cap,
+				'delete_posts'    => $this->cap,
 				),
 			'labels'            => array(
 				'name'                => esc_html__( 'Wire Items', 'chicagosuntimes' ),
