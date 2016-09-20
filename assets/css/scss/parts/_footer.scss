@@ -8,9 +8,12 @@ footer {
 	}
 	ul {
 		display: inline-block;
+		line-height: 1;
 		li {
 			color: #fff;
 			list-style: none;
+			font-size: 0.8rem;
+			margin-bottom: 0.7rem;
 			a,
 			&:visited,
 			&:hover{
@@ -24,5 +27,12 @@ footer {
 		top: inherit;
 		right:inherit;
 		float: right;
+		ul {
+			li {
+				a {
+					line-height:2;
+				}
+			}
+		}
 	}
 }

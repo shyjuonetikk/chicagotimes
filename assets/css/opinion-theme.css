@@ -3404,10 +3404,13 @@ footer {
   footer hr {
     color: white; }
   footer ul {
-    display: inline-block; }
+    display: inline-block;
+    line-height: 1; }
     footer ul li {
       color: white;
-      list-style: none; }
+      list-style: none;
+      font-size: 0.8rem;
+      margin-bottom: 0.7rem; }
       footer ul li a, footer ul li:visited, footer ul li:hover {
         color: white;
         text-transform: uppercase; }
@@ -3416,6 +3419,8 @@ footer {
     top: inherit;
     right: inherit;
     float: right; }
+    footer #social-links ul li a {
+      line-height: 2; }
 
 .opinion header#header section#primary-navigation a#newsfeed-logo img {
   width: 174px; }
