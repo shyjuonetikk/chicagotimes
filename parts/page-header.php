@@ -58,12 +58,7 @@ if( is_single() ) {
 			</a>
 		</div>
 		<?php endif; ?>
-		<div id="social-links" class="show-for-medium-up">
-			<ul>
-			    <li class="facebook"><a href="<?php echo esc_url( 'https://www.facebook.com/thechicagosuntimes' ); ?>" target="_blank"><i class="fa fa-facebook"></i></a></li>
-			    <li class="twitter"><a href="<?php echo esc_url( 'https://twitter.com/suntimes' ); ?>" target="_blank"><i class="fa fa-twitter"></i></a></li>
-			</ul>
-		</div>
+		<?php get_template_part( 'parts/social-links'); ?>
 
 		<a href="#" class="left-off-canvas-toggle" id="burger-bar">
 			<i class="fa fa-bars"></i>
@@ -129,7 +124,7 @@ if( is_single() ) {
 				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
 			}?>
 		</ul>
-		<?php get_template_part( 'parts/menu-footer-fixed') ?>
+		<?php echo CST()->get_template_part( 'social-links'); ?>
 	</div>
 </aside>
 

@@ -12,6 +12,9 @@
         get_template_part( 'parts/vendors/gum-gum-footer' );
     endif;
 ?>
+</div>
 <?php get_template_part( 'parts/analytics/chartbeat-footer' ); ?>
+</div>
+<?php get_template_part( 'parts/footer-brand-navigation' ); ?>
 </body>
 </html>
