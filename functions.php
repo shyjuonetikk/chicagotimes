@@ -804,7 +804,10 @@ class CST {
 				'columnists-menu'       => esc_html__( 'Columnists', 'chicagosuntimes' ),
 				'columnists-trending'   => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
 				'autos-menu'            => esc_html__( 'Autos', 'chicagosuntimes' ),
-				'autos-trending'        => esc_html__( 'Autos Trending', 'chicagosuntimes' )
+				'autos-trending'        => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
+				'page-footer-1'         => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
+				'page-footer-2'         => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
+				'page-footer-3'         => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
 			)
 		);
 
