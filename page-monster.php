@@ -89,7 +89,7 @@
 									</a>
 								</div>
 								<div class="nc-col-xs-12 nc-col-sm-12 nc-col-md-12 nc-col-lg-4 nc-console-content-container nc-seeker-bottom nc-powered-by">
-									<span class="nc-console-content nc-seeker-bottom powered-by">Powered by Monster ®</span>
+									<span class="nc-console-content nc-seeker-bottom powered-by">Powered by Monster &reg;</span>
 								</div>
 							</div>
 						</div>
@@ -98,7 +98,7 @@
 							<div class="nc-row nc-employer-cta nc-text-center">
 								<h3>Employer<br/><span class="nc-subtitle">Recruitment Solutions</span></h3>
 								<div class="nc-btn-group" role="group">
-									<a href="https://secure.adpay.com/adwizard_login.aspx?a=7859677237397A6B6E4D2F6A6F45394135306D7A67667A307233487375537952616D6C7964555A75495A67504833567534786A77444E43594F39655078566A62&catid=Jobs" class="nc-btn nc-btn-employer-cta nc-console-tooltip" type="button" target="_blank" id="nppPrintOnlineLink">
+									<a href="http://hiring.local-jobs.monster.com/recruitment/Standard-Postings.aspx?mode=prod&wt.mc_n=hjnponlineonly&ch=NEWSCHISUN" class="nc-btn nc-btn-employer-cta nc-console-tooltip" type="button" target="_blank" id="nppPrintOnlineLink">
 										Online & Print
 										<span>Bundled Print & Online Solutions</span>
 									</a>
