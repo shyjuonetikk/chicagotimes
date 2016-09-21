@@ -25,12 +25,12 @@
 
 				<?php
 				wp_nav_menu( array(
-						'theme_location' => 'homepage-menu',
-						'fallback_cb' => false,
-						'container' => false,
-						'depth' => 2,
-						'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
-						'walker' => new GC_walker_nav_menu(),
+					'theme_location' => 'homepage-menu',
+					'fallback_cb' => false,
+					'container' => false,
+					'depth' => 2,
+					'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+					'walker' => new GC_walker_nav_menu(),
 					)
 				);
 				?>

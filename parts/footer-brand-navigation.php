@@ -17,8 +17,8 @@ wp_nav_menu( array(
 );
 } else { ?>
 	<ul>
-		<li><a href="/about-us">About us</a></li>
-		<li><a href="/contact-us">Contact us</a></li>
+		<li><a href="<?php echo esc_url( '/about-us' ); ?>">About us</a></li>
+		<li><a href="<?php echo esc_url( '/contact-us' ); ?>">Contact us</a></li>
 	</ul>
 <?php }	?>
 
@@ -33,8 +33,8 @@ wp_nav_menu( array(
 );
 } else { ?>
 	<ul>
-		<li><a href="/about-our-ads">About our ads</a></li>
-		<li><a href="/privacy-policy">Privacy Policy</a></li>
+		<li><a href="<?php echo esc_url( '/about-our-ads' ); ?>">About our ads</a></li>
+		<li><a href="<?php echo esc_url( '/privacy-policy' ); ?>">Privacy Policy</a></li>
 	</ul>
 <?php }	?>
 <?php if ( has_nav_menu( 'page-footer-3' ) ) {
@@ -48,8 +48,8 @@ wp_nav_menu( array(
 );
 } else { ?>
 	<ul>
-		<li><a href="/terms-of-use">Terms of use</a></li>
-		<li><a href="http://payments.suntimes.com" target="_blank">Order Back Issues</a>&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></li>
+		<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>">Terms of use</a></li>
+		<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank">Order Back Issues</a>&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></li>
 	</ul>
 <?php }	?>
 	</div>
