@@ -47,12 +47,6 @@
 			</div>
 		<?php } ?>
 		<?php get_template_part( 'parts/vendors/nativo-home-1' ); ?>
-		<div class="row">
-			<div class="large-12 columns dfp-btf-leaderboard show-for-medium-up">
-				<?php get_template_part( 'parts/dfp/homepage/dfp-btf-leaderboard' ); ?>
-				<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
-			</div>
-		</div>
 		</div>
 	</section>
 <?php } ?>
@@ -67,4 +61,8 @@
 			<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-3' ); ?>
 		</div>
 	</div>
+</div>
+<div class="large-12 columns dfp-btf-leaderboard">
+	<?php get_template_part( 'parts/dfp/homepage/dfp-btf-leaderboard' ); ?>
+	<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
 </div>

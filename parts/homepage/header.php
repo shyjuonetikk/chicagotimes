@@ -1,5 +1,7 @@
 <div class="homepage_wrapper">
-	<?php get_template_part( 'parts/dfp/homepage/dfp-interstitial' ); ?>
+	<?php if ( ! is_page_template( 'page-monster.php' ) ) {
+		get_template_part( 'parts/dfp/homepage/dfp-interstitial' );
+	} ?>
 	<!-- top logos -->
 	<header id="header">
 		<div class="contain-to-grid sticky">
@@ -17,8 +19,10 @@
 
 
 				<section class="top-bar-section">
+					<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
 					<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left show-for-large-up"></div>
 					<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right show-for-large-up"></div>
+					<?php } ?>
 					<div class="logo-wrapper large-logo">
 						<div class="logo">
 							<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-white-logo.png' ); ?>" alt='Chicago Sun-Times logo'>

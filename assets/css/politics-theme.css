@@ -218,7 +218,6 @@ body.error404 {
   margin-left: auto;
   margin-right: auto; }
 .dfp.dfp-leaderboard {
-  width: 728px;
   position: relative;
   z-index: 2;
   margin: 10px 0 0 0; }
@@ -2628,7 +2627,8 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .dfp-atf-leaderboard, .homepage_wrapper .dfp-btf-leaderboard {
     text-align: center;
     margin: 0 auto;
-    display: block; }
+    display: block;
+    clear: both; }
   @media (max-width: 769px) {
     .homepage_wrapper #div-gpt-btf-leaderboard {
       display: none; } }

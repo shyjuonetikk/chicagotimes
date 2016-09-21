@@ -11,12 +11,6 @@
 			this.bindEvents();
 			this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
 
-			if ( $(window).width() <= 667 ) {
-				this.jobs_navigation_link.attr('href', 'http://m.suntimes.com/' );
-			} else {
-				this.jobs_navigation_link.attr('href', 'http://jobs.suntimes.com' );
-			}
-
 		},
 
 		/**
@@ -46,7 +40,6 @@
 			this.closeInterstitial = $('#dfp-interstitial-close');
 			this.searchButton = $('#search-button');
 			this.searchInput = $('#search-input');
-			this.jobs_navigation_link = $('.jobs-navigation-link a');
 
 		},
 
