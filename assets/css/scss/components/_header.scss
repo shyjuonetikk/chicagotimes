@@ -44,51 +44,7 @@ header#header {
 
 	}
 
-	#social-links {
-		position:absolute;
-		right:70px;
-		top:10px;
-		color:$white;
-		text-transform:uppercase;
-		font-family: $open_sans;
 
-		ul {
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-
-			li {
-				display: inline-block;
-				margin: 4px 5px;
-				width: 25px;
-				height: 25px;
-				border-radius: 5px;
-				text-align: center;
-
-				a {
-					.fa {
-						font-size: 1rem;
-					}
-					.fa-facebook {
-						color: $white;
-					}
-					.fa-twitter {
-						color: $white;
-					}
-					.fa:hover {
-						opacity: .75;
-					}
-				}
-			}
-
-			li.facebook {
-				background: $facebook_blue;
-			}
-			li.twitter {
-				background: $twitter_blue;
-			}
-		}
-	}
 
 	section#primary-navigation {
 		height: 50px;
