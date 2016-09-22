@@ -15,6 +15,8 @@
 </div>
 <?php get_template_part( 'parts/analytics/chartbeat-footer' ); ?>
 </div>
-<?php get_template_part( 'parts/footer-brand-navigation' ); ?>
+<?php if ( is_front_page() ) {
+	get_template_part( 'parts/footer-brand-navigation' );
+}?>
 </body>
 </html>
