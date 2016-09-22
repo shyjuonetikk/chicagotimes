@@ -25,9 +25,9 @@ class CST_Gracenote_Sports_Widget extends WP_Widget {
 
 		parent::__construct(
 			'cst_gracenote_sports',
-			esc_html__( 'CST Gracenote Sports', 'chicagosuntimes' ),
+			esc_html__( 'CST Sports Scores (Gracenote)', 'chicagosuntimes' ),
 			array(
-				'description' => esc_html__( 'Choose and display the Gracenote.', 'chicagosuntimes' ),
+				'description' => esc_html__( 'Choose and display the Sport scores.', 'chicagosuntimes' ),
 			)
 		);
 
@@ -52,7 +52,7 @@ class CST_Gracenote_Sports_Widget extends WP_Widget {
 		$current_inform_option = isset( $instance['gracenote_sports_options'] ) ? $instance['gracenote_sports_options'] : '' ;
 	?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'gracenote_sports_options' ) ); ?>"><?php echo esc_html( 'Choose Gracenote option', 'chicagosuntimes' ); ?>:</label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'gracenote_sports_options' ) ); ?>"><?php echo esc_html( 'Choose sport to display', 'chicagosuntimes' ); ?>:</label>
 			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'gracenote_sports_options' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'gracenote_sports_options' ) ); ?>" data-current-unit="<?php echo esc_attr( $current_inform_option ); ?>">
 				<?php foreach ( $this->gracenote_sports_options as $gracenote_sport_option => $inform_option_name ) { ?>
 					<option value="<?php echo esc_attr( $gracenote_sport_option ); ?>" <?php selected( $gracenote_sport_option, $current_inform_option ); ?>><?php echo esc_html( str_replace( '_', '-', $gracenote_sport_option ) ); ?></option>
