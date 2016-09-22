@@ -6,8 +6,7 @@
 </div>
 <div>
 	<div class="large-12 dfp-atf-leaderboard">
-		<?php get_template_part( 'parts/dfp/homepage/dfp-atf-leaderboard' ); ?>
-		<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
+		<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
 	</div>
 </div>
 <div class="large-12 content-wrapper">
