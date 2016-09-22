@@ -23,13 +23,13 @@ class CST_DFP_Handler {
 	 * @param $index
 	 * @param string $type
 	 * @param string $class
-	 * @param int $inner_width
+	 * @param int $deprecated
 	 *
 	 * @return string
 	 *
 	 * Create a generic markup unit
 	 */
-	public function unit( $index, $type = '', $class = '', $inner_width = 640 ) {
+	public function unit( $index, $type = '', $class = '', $deprecated = 640 ) {
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-atf-leaderboard';
 		}
@@ -43,18 +43,15 @@ class CST_DFP_Handler {
 			'
 <div id="%1$s" class="%2$s" data-visual-label="%3$s">
 <script>
-    if ( window.innerWidth > %4$s ) {
-        googletag.cmd.push(function() {
-            googletag.display("%5$s");
-        })
-    }
+	googletag.cmd.push(function() {
+		googletag.display("%4$s");
+	})
 </script>
 </div>
 ',
 			esc_attr( $type . '-' . intval( $index ) ),
 			esc_attr( $class ),
 			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( intval( $inner_width ) ),
 			esc_attr( $type . '-' . intval( $index ) )
 		);
 	}
