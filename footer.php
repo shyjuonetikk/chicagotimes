@@ -5,12 +5,14 @@
 
 <?php wp_footer(); ?>
 <?php
-    if( is_singular() ) :
-        get_template_part( 'parts/vendors/google-survey-footer' );
-        get_template_part( 'parts/vendors/yieldmo-footer' );
-        get_template_part( 'parts/vendors/aggrego-chatter-footer' );
-        get_template_part( 'parts/vendors/gum-gum-footer' );
-    endif;
+if ( is_singular() ) {
+	get_template_part( 'parts/vendors/google-survey-footer' );
+	get_template_part( 'parts/vendors/yieldmo-footer' );
+	get_template_part( 'parts/vendors/aggrego-chatter-footer' );
+	if ( 'chicago.suntimes.com.test' === CST()->frontend->get_dfp_inventory() ) {
+		get_template_part( 'parts/vendors/gum-gum-footer' );
+	}
+}
 ?>
 </div>
 <?php get_template_part( 'parts/analytics/chartbeat-footer' ); ?>
