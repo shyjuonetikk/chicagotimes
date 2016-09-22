@@ -168,10 +168,6 @@
             .addService(googletag.pubads())
             .setTargeting("pos","1x1");
 
-            CSTAdTags['div-gpt-atf-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [728, 90], 'div-gpt-atf-leaderboard')
-            .addService(googletag.pubads())
-            .setTargeting("pos","atf leaderboard");
-
             CSTAdTags['div-gpt-btf-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [728, 90], 'div-gpt-btf-leaderboard')
             .addService(googletag.pubads())
             .setTargeting("pos","btf leaderboard");   
