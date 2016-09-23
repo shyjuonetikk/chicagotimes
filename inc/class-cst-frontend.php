@@ -61,7 +61,7 @@ class CST_Frontend {
 
 		}, 9 );
 
-		add_action( 'cst_section_head_comscore', array( $this, 'action_cst_section_head_comscore' ), 10, 2 );
+//		add_action( 'cst_section_head_comscore', array( $this, 'action_cst_section_head_comscore' ), 10, 2 );
 		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_cst_section_head_olympics_2016' ) );
 		add_action( 'cst_section_head_olympics', array( $this, 'action_cst_section_head_olympics_2016' ) );
 
