@@ -179,6 +179,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-recent-posts-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-twitter-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-featured-content-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-gracenote-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-secondary-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-more-headlines-widget.php';
