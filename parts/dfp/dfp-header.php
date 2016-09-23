@@ -38,11 +38,15 @@
 			.addService(googletag.pubads())
 			.setTargeting("pos","rr cube promo");
 
+			CSTAdTags['div-gpt-atf-leaderboard-1'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [[728,90],[320, 50],[300,50]], 'div-gpt-atf-leaderboard-1')
+					.addService(googletag.pubads())
+					.setTargeting("pos","atf leaderboard");
+
 <?php endif; ?>
 
 		} else {
 
-			CSTAdTags['div-gpt-atf-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [320, 50], 'div-gpt-mobile-leaderboard')
+			CSTAdTags['div-gpt-mobile-leaderboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [320, 50], 'div-gpt-mobile-leaderboard')
 			.addService(googletag.pubads())
 			.setTargeting("pos","mobile leaderboard");
 
