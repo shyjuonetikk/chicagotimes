@@ -56,10 +56,7 @@
 	} ?>
 	<?php if ( dynamic_sidebar( 'homepage_sidebar_three' ) ) {
 	} ?>
-	<div class="row">
-		<div class="medium-12 columns dfp-cube">
-			<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-3' ); ?>
-		</div>
+	<div class="medium-12 columns dfp-cube">
+		<?php echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' ); ?>
 	</div>
 </div>
-<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>

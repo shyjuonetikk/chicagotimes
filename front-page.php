@@ -21,6 +21,10 @@ endif;
 		dynamic_sidebar( 'homepage_headlines' );
 	endif;
 	?>
+</div>
+<div class="large-12 dfp-atf-leaderboard">
+	<?php echo CST()->dfp_handler->unit( 3, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
+</div>
 	<div class="small-12 content-wrapper f">
 		<?php
 		if ( is_active_sidebar( 'homepage_featured_story' ) ) :
@@ -32,10 +36,9 @@ endif;
 	<h2 class="section-title"><span><?php esc_html_e( 'More From', 'chicagosuntimes' ); ?></span></h2>
 	<hr/>
 </div>
-</div>
 	<div>
 		<div class="large-12 dfp-atf-leaderboard">
-			<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
+			<?php echo CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
 		</div>
 	</div>
 	<div class="row">
