@@ -7,9 +7,9 @@ endif;
 <div class="homepage-content">
 	<div class="row">
 		<div class="large-12 content-wrapper">
-			<?php get_template_part( 'parts/dfp/homepage/dfp-super-leaderboard' ); ?>
-			<?php get_template_part( 'parts/dfp/homepage/dfp-billboard' ); ?>
-			<?php get_template_part( 'parts/dfp/homepage/dfp-sbb' ); ?>
+			<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
+			<?php echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' ); ?>
+			<?php echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ); ?>
 			<div class="large-12 columns dfp-mobile-leaderboard show-for-small-only">
 				<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
 			</div>

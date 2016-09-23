@@ -93,6 +93,11 @@ class CST_DFP_Handler {
 <div id="%1$s" class="%2$s">
 	<div id="dfp-sbb-top" class="dfp-sbb-minimize"></div>
 	<div id="dfp-sbb-bottom"></div>
+	<script>
+	googletag.cmd.push(function() {
+		googletag.display("%1$s");
+	})
+</script>
 </div>
 			',
 			esc_attr( 'div-gpt-sbb' . '-' . $index ),
