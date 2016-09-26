@@ -1362,8 +1362,8 @@ class CST_Frontend {
 			return;
 		}
 		if ( ! is_404() && ! is_singular() ) :
-	        get_template_part( 'parts/dfp/dfp-billboard' );
-	        get_template_part( 'parts/dfp/dfp-sbb' );
+	        echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
+			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
 	    endif;
 	}
 
