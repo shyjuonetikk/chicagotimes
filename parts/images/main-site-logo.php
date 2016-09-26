@@ -45,7 +45,8 @@ $header_sections = array(
 	'lifestyles',
 	'opinion',
 	'columnists',
-	'obits'
+	'obits',
+	'autos',
 );
 if ( in_array( $section, $header_sections, true ) ) {
 	$term_link = wpcom_vip_get_term_link( $section, 'cst_section' );
