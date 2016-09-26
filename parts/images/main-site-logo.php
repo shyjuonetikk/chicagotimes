@@ -36,23 +36,21 @@
 		}
 	} ?>
 <?php endif; ?>
-<?php
-$header_sections = array(
-	'sports',
-	'news',
-	'politics',
-	'entertainment',
-	'lifestyles',
-	'opinion',
-	'columnists',
-	'obits',
-	'autos',
-);
-if ( in_array( $section, $header_sections, true ) ) {
-	$term_link = wpcom_vip_get_term_link( $section, 'cst_section' );
-	if ( ! is_wp_error( $term_link ) ) {
-		$term_object = wpcom_vip_get_term_by( 'name', $section, 'cst_section' );
-?>
-<a id="newsfeed-logo" href="<?php echo esc_url( $term_link ); ?>"><?php esc_html_e( $term_object->name, 'chicagosuntimes' ); ?></a>
-<?php }
-}
+
+<?php if ( 'sports' === $section ) : ?>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'sports', 'cst_section' ) ); ?>"><?php esc_html_e( 'Sports', 'chicagosuntimes' ); ?></a>
+<?php elseif ( 'news' === $section ) : ?>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'news', 'cst_section' ) ); ?>"><?php esc_html_e( 'News', 'chicagosuntimes' ); ?></a>
+<?php elseif ( 'politics' === $section ) : ?>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'politics', 'cst_section' ) ); ?>"><?php esc_html_e( 'Politics', 'chicagosuntimes' ); ?></a>
+<?php elseif ( 'entertainment' === $section ) : ?>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'entertainment', 'cst_section' ) ); ?>"><?php esc_html_e( 'Entertainment', 'chicagosuntimes' ); ?></a>
+<?php elseif ( 'lifestyles' === $section ) : ?>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'lifestyles', 'cst_section' ) ); ?>"><?php esc_html_e( 'Lifestyles', 'chicagosuntimes' ); ?></a>
+<?php elseif ( 'opinion' === $section ) : ?>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'opinion', 'cst_section' ) ); ?>"><?php esc_html_e( 'Opinion', 'chicagosuntimes' ); ?></a>
+<?php elseif ( 'columnists' === $section ) : ?>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'columnists', 'cst_section' ) ); ?>"><?php esc_html_e( 'Columnists', 'chicagosuntimes' ); ?></a>
+<?php elseif ( 'obits' === $section ) : ?>
+	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'obits', 'cst_section' ) ); ?>"><?php esc_html_e( 'Obits', 'chicagosuntimes' ); ?></a>
+<?php endif; ?>
