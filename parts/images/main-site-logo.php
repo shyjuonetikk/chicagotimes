@@ -36,9 +36,22 @@
 		}
 	} ?>
 <?php endif; ?>
-<?php $term_link = wpcom_vip_get_term_link( $section, 'cst_section' );
-$term_object = wpcom_vip_get_term_by( 'name', $section, 'cst_section' );
-if ( ! is_wp_error( $term_link ) ) {
+<?php
+$header_sections = array(
+	'sports',
+	'news',
+	'politics',
+	'entertainment',
+	'lifestyles',
+	'opinion',
+	'columnists',
+	'obits'
+);
+if ( in_array( $section, $header_sections, true ) ) {
+	$term_link = wpcom_vip_get_term_link( $section, 'cst_section' );
+	if ( ! is_wp_error( $term_link ) ) {
+		$term_object = wpcom_vip_get_term_by( 'name', $section, 'cst_section' );
 ?>
-	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( $section, 'cst_section' ) ); ?>"><?php esc_html_e( $term_object->name, 'chicagosuntimes' ); ?></a>
+<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( $section, 'cst_section' ) ); ?>"><?php esc_html_e( $term_object->name, 'chicagosuntimes' ); ?></a>
 <?php }
+}
