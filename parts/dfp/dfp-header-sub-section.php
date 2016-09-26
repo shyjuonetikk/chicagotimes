@@ -244,11 +244,11 @@
         .addService(googletag.pubads())
         .setTargeting("pos","rr cube 4");
 
-        CSTAdTags['div-gpt-rr-cube-5'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [300, 250], 'div-gpt-rr-cube-5')
+        CSTAdTags['div-gpt-rr-cube-5'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [[300, 250],[300,600]], 'div-gpt-rr-cube-5')
         .addService(googletag.pubads())
         .setTargeting("pos","rr cube 5");
 
-        CSTAdTags['div-gpt-rr-cube-6'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [300, 250], 'div-gpt-rr-cube-6')
+        CSTAdTags['div-gpt-rr-cube-6'] = googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child ) ?>, [[300, 250],[300,600]], 'div-gpt-rr-cube-6')
         .addService(googletag.pubads())
         .setTargeting("pos","rr cube 6");
         
