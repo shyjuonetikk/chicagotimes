@@ -29,9 +29,14 @@ if ( ! $obj ) {
 		<span class="right-ribbon"></span>
 	</span>
 <?php endif; ?>
+<?php
+$term_link = wpcom_vip_get_term_link( $section, 'cst_section' );
+if ( ! is_wp_error( $term_link ) ) {
+	?>
 <span class="post-section-taxonomy">
-	<a href="<?php echo esc_url( wpcom_vip_get_term_link( $section ) ); ?>"><?php echo esc_html( $section->name ); ?></a>
+	<a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $section->name ); ?></a>
 </span>
+<?php } ?>
 <?php endif; ?>
 	<?php if ( !is_sticky() ) : ?>
 	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_post_date() ); ?></span>
