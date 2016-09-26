@@ -70,16 +70,14 @@
 			.addService(googletag.pubads()).setTargeting("pos","Billboard 970x250").setCollapseEmptyDiv(true,true);
 			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [[970, 250],[970, 90],[970, 415],[728, 90],[320, 50],[300, 50]], 'div-gpt-billboard-2')
 			.addService(googletag.pubads()).setTargeting("pos","Billboard 2 970x250").setCollapseEmptyDiv(true,true);
-			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [970, 90], 'div-gpt-super-leaderboard')
-			.addService(googletag.pubads()).setTargeting("pos","Super leaderboard 970x90").setCollapseEmptyDiv(true,true);
-			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [970, 90], 'div-gpt-super-leaderboard-2')
+			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [[970, 90],[728,90]], 'div-gpt-super-leaderboard-2')
 			.addService(googletag.pubads()).setTargeting("pos","Super leaderboard 2 970x90").setCollapseEmptyDiv(true,true);
-			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [970, 90], 'div-gpt-super-leaderboard-3')
-			.addService(googletag.pubads()).setTargeting("pos","Super leaderboard 2 970x90").setCollapseEmptyDiv(true,true);
-			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [970, 90], 'div-gpt-super-leaderboard-4')
-			.addService(googletag.pubads()).setTargeting("pos","Super leaderboard 2 970x90").setCollapseEmptyDiv(true,true);
-			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [970, 90], 'div-gpt-super-leaderboard-5')
-			.addService(googletag.pubads()).setTargeting("pos","Super leaderboard 2 970x90").setCollapseEmptyDiv(true,true);
+			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [[970, 90],[728,90]], 'div-gpt-super-leaderboard-3')
+			.addService(googletag.pubads()).setCollapseEmptyDiv(true,true);
+			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [[970, 90],[728,90]], 'div-gpt-super-leaderboard-4')
+			.addService(googletag.pubads()).setCollapseEmptyDiv(true,true);
+			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [[970, 90],[728,90]], 'div-gpt-super-leaderboard-5')
+			.addService(googletag.pubads()).setCollapseEmptyDiv(true,true);
 		} else {
 			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [320, 50], 'div-gpt-mobile-leaderboard')
 			.addService(googletag.pubads()).setTargeting("pos","mobile leaderboard")
@@ -101,6 +99,8 @@
 			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [[300, 250], [300, 600]], 'div-gpt-rr-cube-5')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 5");
 			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
+			.addService(googletag.pubads()).setTargeting("pos","rr cube 6");
+			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [300, 250], 'div-gpt-rr-cube-7')
 			.addService(googletag.pubads()).setTargeting("pos","rr cube 6");
 		if ( window.innerWidth > 1256 ) {
 			googletag.defineSlot(<?php echo wp_json_encode( '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index' ); ?>, [184, 90], 'div-gpt-sponsor-ear-left')

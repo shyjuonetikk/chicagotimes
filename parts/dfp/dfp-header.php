@@ -91,7 +91,7 @@
         .addService(googletag.pubads())
         .setTargeting("pos","rr cube promo");
 
-		CSTAdTags['div-gpt-billboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [[970, 250],[970, 90],[728, 90],[970, 415]], 'div-gpt-billboard')
+		CSTAdTags['div-gpt-billboard'] = googletag.defineSlot(<?php echo wp_json_encode('/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index'); ?>, [[970, 250],[970, 90],[728, 90],[970, 415], [320, 50], [300, 50]], 'div-gpt-billboard')
         .addService(googletag.pubads())
         .setTargeting("pos","Billboard 970x250")
         .setCollapseEmptyDiv(true,true);
