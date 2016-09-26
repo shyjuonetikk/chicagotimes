@@ -1950,7 +1950,8 @@ section#subscribe {
   .widgets li.widget {
     background-color: white;
     margin-top: 30px;
-    margin-bottom: 30px; }
+    margin-bottom: 30px;
+    clear: both; }
     .widgets li.widget h2.widgettitle {
       background-color: #282828;
       color: white;
