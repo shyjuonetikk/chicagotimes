@@ -65,8 +65,8 @@
 
 				// After the 1st post
 				if ( empty( $_GET['infinity'] ) ) {
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-2' );
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-3' );
+					echo CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' );
+					echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' );
 				}
 				// After the 4th post
 				if ( isset( $_GET['infinity'], $_POST['page'] ) && 'scrolling' === $_GET['infinity'] && 1 === (int) $_POST['page'] ) {
@@ -75,15 +75,15 @@
 
 			} else {
 
-			// After the 3rd post
+				// After the 3rd post
 				if ( 0 === $wp_query->query_vars['paged'] && 2 === $wp_query->current_post ) {
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-2' );
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-3' );
+					echo CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' );
+					echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' );
 				}
-			// After the 9th post (Infinite Scroll is 7 per page)
+				// After the 9th post (Infinite Scroll is 7 per page)
 				if ( 1 === $wp_query->query_vars['paged'] && 1 === $wp_query->current_post ) {
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-4' );
-					echo CST()->get_template_part( 'dfp/dfp-rr-cube-5' );
+					echo CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' );
+					echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' );
 				}
 
 			}
