@@ -14,7 +14,7 @@
 		node.parentNode.insertBefore(gads, node);
 	})();
 </script>
-<?php $parent_inventory = CST()->frontend->get_dfp_inventory(); ?>
+<?php $parent_inventory = CST()->dfp_handler->get_dfp_inventory(); ?>
 <?php if ( $dfp_slug !== 'yieldmo' ) { ?>
 <script type='text/javascript'>
 	googletag.cmd.push(function() {
