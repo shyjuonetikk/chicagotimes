@@ -1,5 +1,5 @@
 <?php global $dfp_slug; ?>
-<?php $parent_inventory = CST()->dfp_handler->get_dfp_inventory(); ?>
+<?php $parent_inventory = CST()->dfp_handler->get_parent_dfp_inventory(); ?>
 <?php if ( $dfp_slug !== 'yieldmo' ) { ?>
 <script type='text/javascript'>
 	googletag.cmd.push(function() {

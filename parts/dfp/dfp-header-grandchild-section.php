@@ -71,7 +71,7 @@
             break;
     }
 ?>
-<?php $parent_inventory = CST()->dfp_handler->get_dfp_inventory(); ?>
+<?php $parent_inventory = CST()->dfp_handler->get_parent_dfp_inventory(); ?>
 <script type='text/javascript'>
     googletag.cmd.push(function() {
 
