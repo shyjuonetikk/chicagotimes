@@ -29,14 +29,15 @@ if ( ! $obj ) {
 		<span class="right-ribbon"></span>
 	</span>
 <?php endif; ?>
-<?php
-$term_link = wpcom_vip_get_term_link( $section, 'cst_section' );
-if ( ! is_wp_error( $term_link ) ) {
-	?>
-<span class="post-section-taxonomy">
-	<a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $section->name ); ?></a>
-</span>
-<?php } ?>
+<?php $preferred_section = $obj->get_preferred_section( $section );
+echo sprintf(
+'<span class="post-section-taxonomy">
+	<a href="%1$s">%2$s</a>
+</span>',
+	esc_url( $preferred_section['term_link'] ),
+	esc_html( $preferred_section['term_name'] )
+);
+?>
 <?php endif; ?>
 	<?php if ( !is_sticky() ) : ?>
 	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_post_date() ); ?></span>
