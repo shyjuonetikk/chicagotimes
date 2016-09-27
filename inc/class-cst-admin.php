@@ -260,6 +260,22 @@ class CST_Admin {
 			'tabbed'      => true,
 			'persist_active_tab' => false,
 		) );
+		$terms_group->children['choose_section'] = new \Fieldmanager_Group( esc_html__( 'Choose Preferred section', 'chicagosuntimes' ), array(
+			'name'             => 'choose_section',
+			'description' => 'Please select the preferred section',
+			'children'         => array(
+					'featured_option_section'     => new \Fieldmanager_Autocomplete( esc_html__( 'Select existing Section', 'chicagosuntimes' ), array(
+						'name'             => 'featured_option_section',
+						'attributes'       => array(
+							'placeholder'  => esc_html__( 'Search by existing Section title', 'chicagosuntimes' ),
+							'size'         => 45,
+						),
+						'datasource'       => new \Fieldmanager_Datasource_Term( array(
+							'taxonomy' => 'cst_section',
+							'taxonomy_save_to_terms' => false,
+						) )
+					) )
+			)));
 		$terms_group->children['choose_chatter'] = new \Fieldmanager_Group( esc_html__( 'Choose Chatter Widget', 'chicagosuntimes' ), array(
 			'name'             => 'choose_chatter',
 			'description' => 'Please select the Chatter Widget to be injected into the article body',
