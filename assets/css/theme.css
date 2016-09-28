@@ -51,7 +51,7 @@ h2.subscribe-product {
 
 footer {
   position: relative; }
-  footer .columns {
+  footer .columns:first-child {
     padding-left: 0; }
   footer .copyright {
     font-size: 0.7rem; }
@@ -220,12 +220,14 @@ body.error404 {
 .dfp.dfp-leaderboard {
   position: relative;
   z-index: 2;
-  margin: 10px 0 0 0; }
+  margin: 10px 0 0 0;
+  text-align: center; }
 .dfp.dfp-super-leaderboard {
   position: relative;
   z-index: 2;
   margin: 10px auto 10px auto;
-  max-width: 1000px; }
+  max-width: 1000px;
+  text-align: center; }
 .dfp.dfp-billboard {
   text-align: center;
   position: relative;
@@ -2722,7 +2724,8 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .dfp-cube {
       min-width: 300px;
       width: 100%;
-      padding: 0;
+      padding-left: 0.9375rem;
+      padding-right: 0.9375rem;
       margin: 10px 0 10px 0;
       text-align: center; } }
   @media (max-width: 568px) {
@@ -2994,6 +2997,10 @@ body.post-gallery-lightbox-active {
         @media (max-width: 736px) {
           .homepage_wrapper section#main-well .main-article-container a:hover .article-title p {
             display: none; } }
+  @media (max-width: 480px) {
+    .homepage_wrapper section#main-well .main-article-container {
+      padding-left: 0.9375rem;
+      padding-right: 0.9375rem; } }
   .homepage_wrapper section#main-well .left-main-well {
     padding: 0;
     position: relative; }

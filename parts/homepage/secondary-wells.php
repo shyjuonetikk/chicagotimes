@@ -31,10 +31,10 @@
 				</div>
 				<hr class="before-ad">
 				<div class="large-6 medium-6 small-12 columns dfp-cube cube-left">
-					<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-3' ); ?>
+					<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' ); ?>
 				</div>
 				<div class="large-6 medium-6 small-12 columns dfp-cube cube-right">
-					<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-2' ); ?>
+					<?php echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' ); ?>
 				</div>
 				<hr class="after-ad">
 				<div class="secondary-well-bottom">

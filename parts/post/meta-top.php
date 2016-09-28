@@ -29,9 +29,15 @@ if ( ! $obj ) {
 		<span class="right-ribbon"></span>
 	</span>
 <?php endif; ?>
-<span class="post-section-taxonomy">
-	<a href="<?php echo esc_url( wpcom_vip_get_term_link( $section ) ); ?>"><?php echo esc_html( $section->name ); ?></a>
-</span>
+<?php $preferred_section = $obj->get_preferred_section( $section );
+echo sprintf(
+'<span class="post-section-taxonomy">
+	<a href="%1$s">%2$s</a>
+</span>',
+	esc_url( $preferred_section['term_link'] ),
+	esc_html( $preferred_section['term_name'] )
+);
+?>
 <?php endif; ?>
 	<?php if ( !is_sticky() ) : ?>
 	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_post_date() ); ?></span>

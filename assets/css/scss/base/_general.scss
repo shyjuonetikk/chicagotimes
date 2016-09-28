@@ -57,7 +57,7 @@ h2.subscribe-product {
 footer {
 	position: relative;
 
-	.columns {
+	.columns:first-child {
 		padding-left: 0;
 	}
 
