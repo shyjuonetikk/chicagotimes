@@ -1072,7 +1072,9 @@ class CST_Frontend {
 			$primary_slug = $primary_section->slug;
 			if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 				$parent_terms = get_term( $primary_section->parent, 'cst_section' );
-				if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+				if ( is_wp_error( $parent_terms ) ) {
+					$primary_slug = $primary_section->slug;
+				} elseif ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 					$primary_slug = $child_terms->slug;
 				} else {
