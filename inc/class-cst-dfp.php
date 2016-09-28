@@ -253,7 +253,7 @@ var dfp = {
 
 		googletag.defineSlot( adUnitPath , [1, 1], 'div-gpt-interstitial')
 			.addService(googletag.pubads()).setTargeting("pos", "1x1");
-		googletag.defineSlot( adUnitPath , [728, 90], 'div-gpt-atf-leaderboard')
+		googletag.defineSlot( adUnitPath , [[728, 90], [320, 50], [300, 50]], 'div-gpt-atf-leaderboard')
 				.defineSizeMapping(mapping)
 				.addService(googletag.pubads())
 			.setTargeting("pos", "atf leaderboard");
