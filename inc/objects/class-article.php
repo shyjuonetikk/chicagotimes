@@ -84,12 +84,15 @@ class Article extends Post {
 			} else {
 				$section_object = wpcom_vip_get_term_by( 'slug', $section, 'cst_section' );
 			}
-			$section_name = $section_object->name;
+		} else {
+			$section_object = wpcom_vip_get_term_by( 'slug', $section, 'cst_section' );
 		}
+		$section_name = $section_object->name;
 
 		return array(
 			'term_link' => $term_link,
 			'term_name' => $section_name,
+			'term_object' => $section_object,
 		);
 	}
 
