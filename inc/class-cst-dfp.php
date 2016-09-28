@@ -274,15 +274,15 @@ var dfp = {
 				.addService(googletag.pubads())
 			.setTargeting("pos", "Super leaderboard 2 970x90")
 			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-3')
+		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90], [728, 90], [320, 50], [300, 50]], 'div-gpt-super-leaderboard-3')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-4')
+		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90], [728, 90], [320, 50], [300, 50]], 'div-gpt-super-leaderboard-4')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-5')
+		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90], [728, 90], [320, 50], [300, 50]], 'div-gpt-super-leaderboard-5')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setCollapseEmptyDiv(true, true);
