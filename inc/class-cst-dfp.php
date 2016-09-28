@@ -211,12 +211,12 @@ class CST_DFP_Handler {
 <script>/* <![CDATA[ */
 var dfp = {
 	"account_id":"/61924087/",
-	"parent_inventory":"<?php echo $parent_inventory . "/chicago.suntimes.com.index"; ?>",
+	"parent_inventory":<?php echo wp_json_encode( $parent_inventory . "/chicago.suntimes.com.index" ); ?>,
 	"parent" : <?php echo wp_json_encode( $dfp_parent ); ?>,
 	"child" : <?php echo wp_json_encode( $dfp_child ); ?>,
 	"slug" : <?php echo wp_json_encode( $dfp_slug ); ?>,
 	"grandchild" : <?php echo wp_json_encode( $dfp_grandchild ); ?>,
-	"adunitpath" : "<?php echo $ad_unit_path; ?>"
+	"adunitpath" : <?php echo wp_json_encode( $ad_unit_path ); ?>
 };
 /* ]]> */
 </script>
