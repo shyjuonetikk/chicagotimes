@@ -9,8 +9,7 @@
 		<div id="main" class="columns large-10 end">
 			<?php
 				if ( is_singular() ) :
-					get_template_part( 'parts/dfp/dfp-atf-leaderboard' );
-					get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
+					echo CST()->dfp_handler->unit( 1, 'div-gpt-atf-leaderboard', 'dfp dfp-leaderboard dfp-centered' );
 				endif;
 			?>
 			<div class="columns large-11 large-offset-1 end">
