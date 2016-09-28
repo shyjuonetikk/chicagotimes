@@ -253,36 +253,35 @@ var dfp = {
 
 		googletag.defineSlot( adUnitPath , [1, 1], 'div-gpt-interstitial')
 			.addService(googletag.pubads()).setTargeting("pos", "1x1");
-		googletag.defineSlot( adUnitPath , [[728, 90], [320, 50], [300, 50]], 'div-gpt-atf-leaderboard')
-				.defineSizeMapping(mapping)
+		googletag.defineSlot( adUnitPath , [[728, 90]], 'div-gpt-atf-leaderboard-1')
 				.addService(googletag.pubads())
 			.setTargeting("pos", "atf leaderboard");
 		googletag.defineSlot( adUnitPath , [[2, 2], [970, 90]], 'div-gpt-sbb-1')
 			.addService(googletag.pubads()).setTargeting("pos", "sbb");
-		googletag.defineSlot( adUnitPath , [[970, 250], [970, 90], [970, 415], [728, 90], [320, 50], [300, 50]], 'div-gpt-billboard-1')
+		googletag.defineSlot( adUnitPath , [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setTargeting("pos", "Billboard 970x250")
 			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 250], [970, 90], [970, 415], [728, 90], [320, 50], [300, 50]], 'div-gpt-billboard-2')
+		googletag.defineSlot( adUnitPath , [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setTargeting("pos", "Billboard 2 970x250")
 			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90], [320, 50], [300, 50]], 'div-gpt-super-leaderboard-2')
+		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-2')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setTargeting("pos", "Super leaderboard 2 970x90")
 			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90], [320, 50], [300, 50]], 'div-gpt-super-leaderboard-3')
+		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-3')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90], [320, 50], [300, 50]], 'div-gpt-super-leaderboard-4')
+		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-4')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90], [320, 50], [300, 50]], 'div-gpt-super-leaderboard-5')
+		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-5')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())
 			.setCollapseEmptyDiv(true, true);
