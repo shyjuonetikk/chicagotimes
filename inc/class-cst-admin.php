@@ -206,7 +206,7 @@ class CST_Admin {
 	public function action_init_register_fields() {
 		global $pagenow;
 
-		$article = isset( $_GET['post'] ) ? get_post( $_GET['post'] ) : false;
+		$article = isset( $_GET['post'] ) ? get_post( absint( $_GET['post'] ) ) : false;
 
 		/**
 		 * Article
@@ -750,7 +750,7 @@ class CST_Admin {
 			) );
 		$meta_group->children['seo'] = $seo_group;
 
-		$post = isset( $_GET['post'] ) ? get_post( $_GET['post'] ) : false;
+		$post = isset( $_GET['post'] ) ? get_post( absint( $_GET['post'] ) ) : false;
 		if ( 'post.php' == $pagenow && ( ( $post && 'cst_article' == $post->post_type ) || ! isset( $_GET['post'] ) ) )  {
 
 			$print_group = new \Fieldmanager_Group( '<i class="dashicons dashicons-info"></i> ' . esc_html__( 'Print', 'chicagosuntimes' ), array(
