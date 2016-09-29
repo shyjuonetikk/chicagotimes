@@ -29,6 +29,10 @@ if ( ! $obj ) {
 		<span class="right-ribbon"></span>
 	</span>
 <?php endif; ?>
+<?php
+// VIP: Stopping fatal errors "Call to undefined method CST\Objects\Gallery::get_preferred_section()"
+if ( is_callable( array( $obj, 'get_preferred_section' ) ) ) :
+?>
 <?php $preferred_section = $obj->get_preferred_section( $section );
 echo sprintf(
 '<span class="post-section-taxonomy">
@@ -38,6 +42,7 @@ echo sprintf(
 	esc_html( $preferred_section['term_name'] )
 );
 ?>
+<?php endif; // End VIP Hotfix ?>
 <?php endif; ?>
 	<?php if ( !is_sticky() ) : ?>
 	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_post_date() ); ?></span>
