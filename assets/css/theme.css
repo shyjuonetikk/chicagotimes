@@ -1110,6 +1110,10 @@ body.search {
     #search-body .search-widget #search-button:hover {
       color: #d22d42; }
 
+#main .video-injection {
+  margin-bottom: 0;
+  margin-top: 30px; }
+
 article.post {
   background-color: white; }
   article.post h1 {
@@ -2360,6 +2364,10 @@ footer {
     float: right; }
     footer #social-links ul li a {
       line-height: 2; }
+
+#main .video-injection {
+  margin-bottom: 0;
+  margin-top: 30px; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }

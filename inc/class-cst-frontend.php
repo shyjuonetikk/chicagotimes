@@ -11,6 +11,17 @@ class CST_Frontend {
 
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
+	private $send_to_news_embeds = array(
+		'cubs'       => 'uqWfqG2Y',
+		'white-sox'  => 'WOOeQ5Jw',
+		'bulls'      => 's3AyJdaz',
+		'bears'      => 'C30fZO7v',
+		'pga-golf'   => '8Owdfvnq',
+		'nascar'     => 'hdUJ4uMz',
+		'ahl-wolves' => 'dAT6rZV6',
+		'college'    => 'IS3jNqMB',
+		'rio-2016'   => 'BQ3NYJzd',
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -64,6 +75,7 @@ class CST_Frontend {
 //		add_action( 'cst_section_head_comscore', array( $this, 'action_cst_section_head_comscore' ), 10, 2 );
 		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_cst_section_head_olympics_2016' ) );
 		add_action( 'cst_section_head_olympics', array( $this, 'action_cst_section_head_olympics_2016' ) );
+		add_action( 'cst_section_head', array( $this, 'action_cst_section_head_video' ) );
 
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
@@ -1208,6 +1220,31 @@ class CST_Frontend {
 		</div>
 </section>
 		';
+	}
+	/**
+	 * Function called from section_head action in parts/page-header.php
+	 * Checks if we have a video player for embedding purposes for a section front
+	 */
+	function action_cst_section_head_video() {
+		if ( is_tax() ) {
+			if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
+				$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+			}
+		}
+	}
+
+	/**
+	* @param $slug
+	* @param $id
+	* Inject SendToNews responsive video player into markup.
+	*/
+	function inject_send_to_news_video_player( $slug, $id ) {
+			$template   = '<div class="row video-injection"><div class="columns small-12"><iframe id="%s" src="%s" %s></iframe></div></div>';
+			$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 22.4rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
+			$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $slug ] );
+			$markup     = sprintf( $template, 's2nIframe-' . $this->send_to_news_embeds[ $slug ] . '-' . $id, $iframe_url, $styles );
+			echo $markup;
+
 	}
 	/**
 	 * Do not display section heading in the regular place
