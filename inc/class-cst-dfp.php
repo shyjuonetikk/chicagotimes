@@ -314,6 +314,9 @@ var dfp = {
 				.addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Right")
 				.setCollapseEmptyDiv(true, true);
 		}
+		CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot( adUnitPath , [160, 600], 'div-gpt-sky-scraper-1')
+				.addService(googletag.pubads())
+				.setTargeting("pos","SkyScraper");
 		googletag.pubads().enableSingleRequest();
 		googletag.enableServices();
 });
