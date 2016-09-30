@@ -265,7 +265,7 @@ class CST_Admin {
 			$selected_sections = wp_list_pluck( get_the_terms( $article->ID, 'cst_section' ), 'term_id' );
 			$terms_group->children['choose_section'] = new \Fieldmanager_Group( esc_html__( 'Choose Preferred section', 'chicagosuntimes' ), array(
 				'name'        => 'choose_section',
-				'description' => 'Please select the preferred section or choose the first/blank to disable this preference.',
+				'description' => 'After saving a draft or publishing you can then select the preferred section. Choose the first/blank to disable this preference.',
 				'children'    => array(
 					'featured_option_section' => new \Fieldmanager_Select( esc_html__( 'Select existing Section', 'chicagosuntimes' ), array(
 						'name'       => 'featured_option_section',
