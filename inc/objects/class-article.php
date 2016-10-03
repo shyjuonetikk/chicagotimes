@@ -67,7 +67,6 @@ class Article extends Post {
 	public function get_preferred_section( $default_section ) {
 		$preferred_terms = $this->get_preferred_terms( 'cst_preferred_terms' );
 		$section = $default_section;
-		$term_link = '';
 		$section_name = '';
 		if ( $preferred_terms ) {
 			if ( ! empty( $preferred_terms['choose_section'] ) ) {
@@ -78,14 +77,15 @@ class Article extends Post {
 			}
 		}
 		$term_link = wpcom_vip_get_term_link( $section, 'cst_section' );
-		if ( ! is_wp_error( $term_link ) ) {
+		if ( is_wp_error( $term_link ) ) {
+			$section_object = wpcom_vip_get_term_by( 'slug', $section, 'cst_section' );
+			$term_link = '';
+		} else {
 			if ( is_object( $section ) ) {
 				$section_object = $section;
 			} else {
 				$section_object = wpcom_vip_get_term_by( 'slug', $section, 'cst_section' );
 			}
-		} else {
-			$section_object = wpcom_vip_get_term_by( 'slug', $section, 'cst_section' );
 		}
 		$section_name = $section_object->name;
 
