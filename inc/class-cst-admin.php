@@ -262,7 +262,11 @@ class CST_Admin {
 			'persist_active_tab' => false,
 		) );
 		if ( 'post.php' == $pagenow && ( ( $article && 'cst_article' == $article->post_type ) || ! isset( $_GET['post'] ) ) ) {
-			$selected_sections = wp_list_pluck( get_the_terms( $article->ID, 'cst_section' ), 'term_id' );
+			$selected_sections = array();
+			if ( $article ) {
+				$terms_assigned = get_the_terms( $article->ID, 'cst_section' );
+				$selected_sections = wp_list_pluck( $terms_assigned, 'term_id' );
+			}
 			$terms_group->children['choose_section'] = new \Fieldmanager_Group( esc_html__( 'Choose Preferred section', 'chicagosuntimes' ), array(
 				'name'        => 'choose_section',
 				'description' => 'After saving a draft or publishing you can then select the preferred section. Choose the first/blank to disable this preference.',
