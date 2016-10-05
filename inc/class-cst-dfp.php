@@ -324,12 +324,27 @@ var dfp = {
 <?php
 	}
 
+	/**
+	 * @return string
+	 *
+	 * Better determination of DFP ad inventory to use
+	 * Defaults to production ad delivery
+	 */
 	public function get_parent_dfp_inventory() {
 		$current_site_url = get_bloginfo( 'url' );
-		if ( $current_site_url !== 'http://chicago.suntimes.com' ) {
-			$parent_inventory = 'chicago.suntimes.com.test';
-		} else {
-			$parent_inventory = 'chicago.suntimes.com';
+		switch ( $current_site_url ) {
+			case 'http://dev.suntimes.com':
+			case 'https://suntimesmediapreprod.wordpress.com':
+			case 'http://vip.local':
+				$parent_inventory = 'chicago.suntimes.com.test';
+				break;
+			case 'http://chicago.suntimes.com':
+			case 'https://suntimesmedia.wordpress.com':
+				$parent_inventory = 'chicago.suntimes.com';
+				break;
+			default:
+				$parent_inventory = 'chicago.suntimes.com';
+
 		}
 		return $parent_inventory;
 	}
