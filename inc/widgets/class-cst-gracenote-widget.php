@@ -36,7 +36,7 @@ class CST_Gracenote_Sports_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		echo $args['before_widget'];
 		?>
-			<div class="small-12 columns">
+			<div class="small-12">
 				<?php
 				$inform_markup = sprintf( $this->format,
 					esc_attr( $this->gracenote_sports_options[ $instance['gracenote_sports_options'] ]['order'] )

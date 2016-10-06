@@ -11,6 +11,19 @@ class CST_Frontend {
 
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
+	private $send_to_news_embeds = array(
+		'cubs'           => 'uqWfqG2Y',
+		'cubs-baseball'  => 'uqWfqG2Y',
+		'white-sox'      => 'WOOeQ5Jw',
+		'bulls'          => 's3AyJdaz',
+		'bears'          => 'C30fZO7v',
+		'bears-football' => 'C30fZO7v',
+		'pga-golf'       => '8Owdfvnq',
+		'nascar'         => 'hdUJ4uMz',
+		'ahl-wolves'     => 'dAT6rZV6',
+		'colleges'       => 'IS3jNqMB',
+		'olympics-2016'  => 'BQ3NYJzd',
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -61,12 +74,9 @@ class CST_Frontend {
 
 		}, 9 );
 
-//		add_action( 'cst_section_head_comscore', array( $this, 'action_cst_section_head_comscore' ), 10, 2 );
-		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_cst_section_head_olympics_2016' ) );
-		add_action( 'cst_section_head_olympics', array( $this, 'action_cst_section_head_olympics_2016' ) );
+		add_action( 'cst_section_head', array( $this, 'action_cst_section_head_video' ) );
 
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
-		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 		add_action( 'body_start', array( $this, 'inject_zedo_tag' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
@@ -1169,45 +1179,42 @@ class CST_Frontend {
 	}
 
 	/**
-	 * Function called from section_head action in parts/page-header.php
-	 * Include or exclude the sports direct widget
-	 *
-	 * @param $section_slug
-	 * @param $action_slug
-	 */
-	function action_cst_section_head_comscore( $section_slug, $action_slug ) {
-		// dashes to underscores in excluded section name
-		$excluded_sections = array(
-			'bears',
-			'bears_football',
-			'olympics_2016',
-			'olympics',
-		);
-		if ( in_array( $action_slug, $excluded_sections, true ) ) {
+	* Adding OpenX script tag in header section of markup for all
+ 	* site templates that might display advertising
+	*/
+
+	public function action_cst_openx_header_bidding_script() {
+		if ( is_page() ) {
 			return;
 		}
-		if ( 'sports' === $section_slug ) {
-			echo '
-<section id="comscore" class="row grey-background">
-    <div class="large-8 columns">
-        <iframe src="http://scores.suntimes.com/sports-scores/score-carousel.aspx?Leagues=NHL;NBA;MLB;NFL&amp;numVisible=4" scrolling="no" frameborder="0" style="border:0; width:625px; height:90px;">Live Scores</iframe>
-    </div>
-</section>
- 		';
-		}
+		?>
+<script type="text/javascript" src="//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes"></script>
+		<?php
 	}
 	/**
 	 * Function called from section_head action in parts/page-header.php
-	 * Embeds section video player for Olympics 2016
+	 * Checks if we have a video player for embedding purposes for a section front
 	 */
-	function action_cst_section_head_olympics_2016() {
-		echo '
-<section class="row grey-background">
-		<div class="large-12">
-			<div class="s2nPlayer-BQ3NYJzd columns" data-type="full"></div><script type="text/javascript" src="http://embed.sendtonews.com/player2/embedcode.php?fk=BQ3NYJzd&cid=4661" data-type="s2nScript"></script>
-		</div>
-</section>
-		';
+	function action_cst_section_head_video() {
+		if ( is_tax() ) {
+			if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
+				$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+			}
+		}
+	}
+
+	/**
+	* @param $slug
+	* @param $id
+	* Inject SendToNews responsive video player into markup.
+	*/
+	function inject_send_to_news_video_player( $slug, $id ) {
+			$template   = '<div class="row video-injection"><div class="columns small-12"><iframe id="%s" src="%s" %s></iframe></div></div>';
+			$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 22.4rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
+			$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $slug ] );
+			$markup     = sprintf( $template, 's2nIframe-' . $this->send_to_news_embeds[ $slug ] . '-' . $id, $iframe_url, $styles );
+			echo $markup;
+
 	}
 	/**
 	 * Do not display section heading in the regular place
@@ -1219,16 +1226,11 @@ class CST_Frontend {
 	 * Pretty title for section front
 	 */
 	function action_cst_section_front_heading( $section_front_spacing ) {
-		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
-		$excluded_sections = array(
-			'olympics_2016',
-			'olympics',
-		);
-		if ( in_array( $action_slug, $excluded_sections, true ) ) {
-			return;
-		}
+
 		if ( $this->do_sponsor_header() ) {
 			$this->sponsor_header();
+		} else {
+			$this->display_section_front_title( 'row grey-background wire upper-heading', 'columns small-12', '' );
 		}
 	}
 	/**
@@ -1241,14 +1243,6 @@ class CST_Frontend {
 	 * Pretty title for section front
 	 */
 	function action_cst_section_front_upper_heading( ) {
-		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
-		$excluded_sections = array(
-			'olympics_2016',
-			'olympics',
-		);
-		if ( ! in_array( $action_slug, $excluded_sections, true ) ) {
-			return;
-		}
 		if ( $this->do_sponsor_header() ) {
 			$this->sponsor_header();
 		}
@@ -1336,14 +1330,25 @@ class CST_Frontend {
 		if ( '' !== $section_id ) {
 			echo $sponsor_markup;
 		} else {
+			$this->display_section_front_title( $class, $name_width, $sponsor_markup );
+		}
+	}
+
+	/**
+ 	* Display Section Front Title with/without sponsorship
+	* @param $class
+	* @param $name_width
+	* @param $sponsor_markup
+	*/
+	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
 		?>
-		<section class="<?php echo esc_attr( $class ); ?>">
-			<div class="<?php echo esc_attr( $name_width ); ?>">
-				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
-			</div>
-			<?php echo $sponsor_markup; ?>
-		</section>
-	<?php }
+<section class="<?php echo esc_attr( $class ); ?>">
+	<div class="<?php echo esc_attr( $name_width ); ?>">
+		<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+	</div>
+	<?php echo $sponsor_markup; ?>
+</section>
+		<?php
 	}
 	/**
 	* http://wordpressvip.zendesk.com/hc/requests/56671
@@ -1357,14 +1362,6 @@ class CST_Frontend {
     */
 	function action_maybe_render_sliding_billboard() {
 
-		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
-		$excluded_sections = array(
-			'olympics_2016',
-			'olympics',
-		);
-		if ( in_array( $action_slug, $excluded_sections, true ) ) {
-			return;
-		}
 		if ( ! is_404() && ! is_singular() ) :
 	        echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
 			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
