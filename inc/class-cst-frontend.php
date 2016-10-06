@@ -1211,8 +1211,8 @@ class CST_Frontend {
 	function inject_send_to_news_video_player( $slug, $id ) {
 			$template   = '<div class="row video-injection"><div class="columns small-12"><iframe id="%s" src="%s" %s></iframe></div></div>';
 			$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 22.4rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
-			$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $slug ] );
-			$markup     = sprintf( $template, 's2nIframe-' . $this->send_to_news_embeds[ $slug ] . '-' . $id, $iframe_url, $styles );
+			$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', sanitize_text_field( $this->send_to_news_embeds[ $slug ] ) );
+			$markup     = sprintf( $template, 's2nIframe-' . sanitize_text_field( $this->send_to_news_embeds[ $slug ] . '-' . intval( $id ) ), $iframe_url, wp_kses_post( $styles ) );
 			echo $markup;
 
 	}
