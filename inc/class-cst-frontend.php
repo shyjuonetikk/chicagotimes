@@ -83,7 +83,6 @@ class CST_Frontend {
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
 		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
-		add_action( 'wp_head', array( $this, 'action_cst_openx_header_bidding_script' ) );
 	}
 
 	/**
