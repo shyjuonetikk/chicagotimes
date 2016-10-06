@@ -266,6 +266,7 @@ body.error404 {
   overflow: hidden;
   background-color: #f0f0f0;
   position: relative;
+  margin-bottom: 10px;
   width: 100%;
   max-width: 1000px;
   height: auto;
