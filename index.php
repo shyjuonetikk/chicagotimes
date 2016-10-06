@@ -26,7 +26,7 @@
 			<?php endif; ?>
 
 			<?php if ( have_posts() ) : ?>
-
+				<?php do_action( 'cst_section_head' ); ?>
 				<?php while( have_posts() ) : the_post(); ?>
 
 					<?php get_template_part( 'content' ); ?>

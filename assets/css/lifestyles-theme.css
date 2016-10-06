@@ -3431,6 +3431,10 @@ footer {
     footer #social-links ul li a {
       line-height: 2; }
 
+#main .video-injection {
+  margin-bottom: 0;
+  margin-top: 30px; }
+
 .lifestyles header#header section#primary-navigation a#newsfeed-logo img {
   width: 174px; }
 .lifestyles #newsfeed-logo img {
