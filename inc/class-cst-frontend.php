@@ -12,17 +12,17 @@ class CST_Frontend {
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
 	private $send_to_news_embeds = array(
-		'cubs'       => 'uqWfqG2Y',
-		'cubs-baseball'       => 'uqWfqG2Y',
-		'white-sox'  => 'WOOeQ5Jw',
-		'bulls'      => 's3AyJdaz',
-		'bears'      => 'C30fZO7v',
-		'bears-football'      => 'C30fZO7v',
-		'pga-golf'   => '8Owdfvnq',
-		'nascar'     => 'hdUJ4uMz',
-		'ahl-wolves' => 'dAT6rZV6',
-		'colleges'    => 'IS3jNqMB',
-		'olympics-2016'   => 'BQ3NYJzd',
+		'cubs'           => 'uqWfqG2Y',
+		'cubs-baseball'  => 'uqWfqG2Y',
+		'white-sox'      => 'WOOeQ5Jw',
+		'bulls'          => 's3AyJdaz',
+		'bears'          => 'C30fZO7v',
+		'bears-football' => 'C30fZO7v',
+		'pga-golf'       => '8Owdfvnq',
+		'nascar'         => 'hdUJ4uMz',
+		'ahl-wolves'     => 'dAT6rZV6',
+		'colleges'       => 'IS3jNqMB',
+		'olympics-2016'  => 'BQ3NYJzd',
 	);
 	public static function get_instance() {
 
