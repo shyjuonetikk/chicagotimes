@@ -266,8 +266,8 @@
 				.top-bar {
 				    max-width: 100%;
 				    margin: 0 auto;
-				    height: 146px;
-		    		line-height: 65px;
+				    height: 138px;
+		    		line-height: 45px;
 
 		    		.small-logo {
 		    			@media (min-width: 1250px) {
@@ -331,7 +331,8 @@
 	}
 
 /* BREAKING NEWS */
-.breaking-news-story {
+.breaking-news-story,
+.breaking-section-story {
 	background: $red;
 }
 .bears-cube-story {
@@ -353,7 +354,9 @@
 	}
 }
 
-.breaking-news-story, .bears-cube-story {
+.breaking-news-story,
+.bears-cube-story,
+.breaking-section-story {
 	width: 100%;
 	padding: 2px 0 1px 10px;
 	border-bottom: 2px solid $black;
