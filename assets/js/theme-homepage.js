@@ -29,7 +29,9 @@
 			}
 
 			this.breakingNews = $('.breaking-news-story');
+			this.breakingSection = $('.breaking-section-story');
 			this.breakingNewsClose = $('.close-breaking-news');
+			this.breakingSectionClose = $('.close-breaking-section');
 			this.bearsCube = $('.bears-cube-story');
 			this.bearsCubeClose = $('.close-bears-cube');
 			this.dfpWallpaper = $('#div-gpt-wallpaper');
@@ -55,6 +57,11 @@
 			this.breakingNewsClose.on( "click", $.proxy( function (e) {
 				e.preventDefault();
 				this.breakingNews.css('display', 'none');
+			}, this ) );
+
+			this.breakingSectionClose.on( "click", $.proxy( function (e) {
+				e.preventDefault();
+				this.breakingSection.css('display', 'none');
 			}, this ) );
 
 			this.bearsCubeClose.on( "click", $.proxy( function (e) {
