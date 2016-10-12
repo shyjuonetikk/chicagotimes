@@ -179,6 +179,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-recent-posts-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-twitter-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-featured-content-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-gracenote-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-secondary-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-more-headlines-widget.php';
@@ -217,7 +218,10 @@ class CST {
 		wpcom_vip_load_plugin( 'fieldmanager' );
 		wpcom_vip_load_plugin( 'pushup' );
 		wpcom_vip_load_plugin( 'wpcom-thumbnail-editor' );
-		wpcom_vip_load_plugin( 'zoninator' );
+		if ( ! current_user_can( 'adops' ) ) {
+			// Auto removes menu entry preventing adops role users from seeing it
+			wpcom_vip_load_plugin( 'zoninator' );
+		}
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
 		if ( ! defined( 'WP_CLI' ) ) {
@@ -337,6 +341,14 @@ class CST {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
 
+		add_action( 'init', function() {
+			// Add custom AdOps role
+			wpcom_vip_add_role( 'adops', 'Ad Ops', array(
+				'upload_files' => true,
+				'adops' => true,
+				'read' => true,
+			));
+		} );
 	}
 
 	/**
@@ -454,6 +466,38 @@ class CST {
             return array( 'cst_article', 'cst_gallery' );
         } );
 
+		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
+	}
+
+	/**
+	 * https://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
+	 *
+	 * Filter on the current_user_can() function.
+	 * Specifically for adops user restrictions to edit section
+	 * sponsorship options
+	 *
+	 * @param array $all_capabilities All the capabilities of the user
+	 * @param array $cap  [0] Required capability
+	 * @param array $args [0] Requested capability
+	 *                    [1] User ID
+	 *                    [2] Associated object ID
+	 *
+	 * @return mixed
+	 */
+	function adops_cap_filter( $all_capabilities, $cap, $args ) {
+		if ( 'edit_others_posts' !== $args[0] ) {
+			return $all_capabilities;
+		}
+
+		if ( ! $all_capabilities['adops'] ) {
+			return $all_capabilities;
+		}
+
+		$all_capabilities['manage_terms'] = true;
+		$all_capabilities['edit_others_posts'] = true;
+		$all_capabilities['upload_files'] = true;
+
+		return $all_capabilities;
 	}
 
 	/**
@@ -663,6 +707,14 @@ class CST {
 			'name'        => esc_html__( 'ColumnistsWire', 'chicagosuntimes' ),
 		) );
 		register_sidebar( array(
+			'id'          => 'autos_headlines',
+			'name'        => esc_html__( 'Autos Headlines', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
+			'id'          => 'autoswire',
+			'name'        => esc_html__( 'AutosWire', 'chicagosuntimes' ),
+		) );
+		register_sidebar( array(
 			'id'          => 'obits_headlines',
 			'name'        => esc_html__( 'Obits Headlines', 'chicagosuntimes' ),
 		) );
@@ -698,6 +750,7 @@ class CST {
 		register_widget( 'CST_Newspaper_Cover_Widget' );
 		register_widget( 'CST_Breaking_News_Widget' );
 		register_widget( 'CST_Inform_Video_Widget' );
+		register_widget( 'CST_Gracenote_Sports_Widget' );
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
 		register_widget( 'CST_Category_Headlines_Widget' );
@@ -753,7 +806,12 @@ class CST {
 				'opinion-menu'       	=> esc_html__( 'Opinion', 'chicagosuntimes' ),
 				'opinion-trending'   	=> esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
 				'columnists-menu'       => esc_html__( 'Columnists', 'chicagosuntimes' ),
-				'columnists-trending'   => esc_html__( 'Columnists Trending', 'chicagosuntimes' )
+				'columnists-trending'   => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
+				'autos-menu'            => esc_html__( 'Autos', 'chicagosuntimes' ),
+				'autos-trending'        => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
+				'page-footer-1'         => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
+				'page-footer-2'         => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
+				'page-footer-3'         => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
 			)
 		);
 
@@ -1001,15 +1059,17 @@ class CST {
 			add_filter( "{$post_type}_rewrite_rules", '__return_empty_array' );
 		}
 
-		// Register a subset of post types with Zoninator
-		foreach( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
-			// Register video post type with Zoninator
-			add_post_type_support( $post_type, $GLOBALS[ 'zoninator' ]->zone_taxonomy );
-			register_taxonomy_for_object_type( $GLOBALS[ 'zoninator' ]->zone_taxonomy, $post_type);
-		}
+		if ( ! current_user_can( 'adops' ) ) {
+			// Register a subset of post types with Zoninator
+			foreach( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
+				// Register video post type with Zoninator
+				add_post_type_support( $post_type, $GLOBALS[ 'zoninator' ]->zone_taxonomy );
+				register_taxonomy_for_object_type( $GLOBALS[ 'zoninator' ]->zone_taxonomy, $post_type);
+			}
 
-		// Clear Zoninator supported post types cache
-		unset( $GLOBALS[ 'zoninator' ]->post_types );
+			// Clear Zoninator supported post types cache
+			unset( $GLOBALS[ 'zoninator' ]->post_types );
+		}
 
 	}
 

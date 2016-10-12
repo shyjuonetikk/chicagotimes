@@ -1,27 +1,7 @@
 <div class="row">
-    <div class="large-12 columns dfp-btf-leaderboard">
-        <?php get_template_part( 'parts/dfp/homepage/dfp-atf-leaderboard' ); ?>
-        <?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
+    <div class="large-12 columns dfp-btf-leaderboard foo">
+		<?php echo CST()->dfp_handler->unit( 5, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
     </div>
 </div>
 <hr/>
-<footer>
-<div class="row">
-    <div class="large-3 columns">
-        <p class="copyright"><?php esc_html_e( 'Copyright &copy; 2005-2016 Chicago Sun-Times', 'chicagosuntimes') ; ?></p>
-    </div>
-    <div class="large-9 columns">
-        <?php 
-            wp_nav_menu( array( 
-                        'theme_location' => 'homepage-footer-menu', 
-                        'fallback_cb' => false,
-                        'container' => false,
-                        'depth' => 1,
-                        'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
-                        'walker' => new GC_walker_nav_menu()
-                    ) 
-            );
-        ?>
-    </div>
-</div>
-</footer>
+

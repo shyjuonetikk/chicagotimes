@@ -81,7 +81,7 @@ class CST_Admin {
 				}
 			}
 		});
-
+		add_action( 'fm_term_cst_section', array( $this, 'section_sponsorship_fields' ) );
 	}
 
 	/**
@@ -172,15 +172,29 @@ class CST_Admin {
 
 		// Modify standard taxonomy links
 		$taxonomies = array( 'cst_section', 'cst_person', 'cst_location', 'cst_topic' );
-		foreach( CST()->get_post_types() as $post_type ) {
-			foreach( $taxonomies as $taxonomy ) {
+		$post_types_to_change = CST()->get_post_types();
+		if ( current_user_can( 'adops' ) ) {
+			$post_types_to_change[] = 'cst_wire_item';
+			$post_types_to_change[] = 'cst_usa_today_item';
+			$post_types_to_change[] = 'cst_shia_kapos_item';
+			$post_types_to_change[] = 'cst_chicago_item';
+		}
+		foreach ( $post_types_to_change as $post_type ) {
+			foreach ( $taxonomies as $taxonomy ) {
 				remove_submenu_page( 'edit.php?post_type=' . $post_type, 'edit-tags.php?taxonomy=' . $taxonomy . '&amp;post_type=' . $post_type );
+				if ( current_user_can( 'adops' ) && ! current_user_can( 'manage_options' ) ) {
+					remove_menu_page( 'edit-tags.php?taxonomy=' . $taxonomy . '&amp;post_type=' . $post_type );
+					remove_menu_page( 'edit.php?post_type=' . $post_type );
+				}
 			}
 		}
+
 		if ( current_user_can( 'edit_others_posts' ) ) {
 			add_menu_page( esc_html__( 'Terms', 'chicagosuntimes' ), esc_html__( 'Terms', 'chicagosuntimes' ), 'edit_others_posts', 'edit-tags.php?taxonomy=cst_section', false, 'dashicons-tag', 14 );
-			foreach( $taxonomies as $taxonomy ) {
-				add_submenu_page( 'edit-tags.php?taxonomy=cst_section', get_taxonomy( $taxonomy )->labels->name, get_taxonomy( $taxonomy )->labels->name, 'edit_others_posts', 'edit-tags.php?taxonomy=' . $taxonomy );
+			foreach ( $taxonomies as $taxonomy ) {
+				if ( ! current_user_can( 'adops' ) || current_user_can( 'manage_options' ) ) {
+					add_submenu_page( 'edit-tags.php?taxonomy=cst_section', get_taxonomy( $taxonomy )->labels->name, get_taxonomy( $taxonomy )->labels->name, 'adops', 'edit-tags.php?taxonomy=' . $taxonomy );
+				}
 			}
 		}
 
@@ -192,14 +206,16 @@ class CST_Admin {
 	public function action_init_register_fields() {
 		global $pagenow;
 
+		$article = isset( $_GET['post'] ) ? get_post( absint( $_GET['post'] ) ) : false;
+
 		/**
 		 * Article
 		 */
-		$post = new \Fieldmanager_Group( '', array(
+		$featured_media = new \Fieldmanager_Group( '', array(
 			'name'        => 'cst_production',
 			'tabbed'      => true,
 			) );
-		$post->children['featured_media'] = new \Fieldmanager_Group( esc_html__( 'Featured Media', 'chicagosuntimes' ), array(
+		$featured_media->children['featured_media'] = new \Fieldmanager_Group( esc_html__( 'Featured Media', 'chicagosuntimes' ), array(
 			'name'             => 'featured_media',
 			'children'         => array(
 				'featured_media_type'         => new \Fieldmanager_Select( esc_html__( 'Type of media to feature', 'chicagosuntimes' ), array(
@@ -239,13 +255,41 @@ class CST_Admin {
 				) )
 				),
 			) );
-		$post->add_meta_box( esc_html__( 'Production', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
-
+		$featured_media->add_meta_box( esc_html__( 'Production', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
 		$terms_group = new \Fieldmanager_Group( '', array(
 			'name'        => 'cst_preferred_terms',
 			'tabbed'      => true,
 			'persist_active_tab' => false,
 		) );
+		if ( 'post.php' == $pagenow && ( ( $article && 'cst_article' == $article->post_type ) || ! isset( $_GET['post'] ) ) ) {
+			$selected_sections = array();
+			if ( $article ) {
+				$terms_assigned = get_the_terms( $article->ID, 'cst_section' );
+				$selected_sections = wp_list_pluck( $terms_assigned, 'term_id' );
+			}
+			$terms_group->children['choose_section'] = new \Fieldmanager_Group( esc_html__( 'Choose Preferred section', 'chicagosuntimes' ), array(
+				'name'        => 'choose_section',
+				'description' => 'After saving a draft or publishing you can then select the preferred section. Choose the first/blank to disable this preference.',
+				'children'    => array(
+					'featured_option_section' => new \Fieldmanager_Select( esc_html__( 'Select existing Section', 'chicagosuntimes' ), array(
+						'name'       => 'featured_option_section',
+						'first_empty' => true,
+						'attributes' => array(
+							'placeholder' => esc_html__( 'Search by existing Section title', 'chicagosuntimes' ),
+						),
+						'datasource' => new \Fieldmanager_Datasource_Term( array(
+							'taxonomy'                    => 'cst_section',
+							'taxonomy_save_to_terms'      => false,
+							'taxonomy_hierarchical_depth' => 3,
+							'taxonomy_args'               => array(
+								'hide_empty' => true,
+								'include'    => $selected_sections,
+							)
+						) )
+					) )
+				)
+			) );
+		}
 		$terms_group->children['choose_chatter'] = new \Fieldmanager_Group( esc_html__( 'Choose Chatter Widget', 'chicagosuntimes' ), array(
 			'name'             => 'choose_chatter',
 			'description' => 'Please select the Chatter Widget to be injected into the article body',
@@ -710,7 +754,7 @@ class CST_Admin {
 			) );
 		$meta_group->children['seo'] = $seo_group;
 
-		$post = isset( $_GET['post'] ) ? get_post( $_GET['post'] ) : false;
+		$post = isset( $_GET['post'] ) ? get_post( absint( $_GET['post'] ) ) : false;
 		if ( 'post.php' == $pagenow && ( ( $post && 'cst_article' == $post->post_type ) || ! isset( $_GET['post'] ) ) )  {
 
 			$print_group = new \Fieldmanager_Group( '<i class="dashicons dashicons-info"></i> ' . esc_html__( 'Print', 'chicagosuntimes' ), array(
@@ -1060,6 +1104,59 @@ class CST_Admin {
 			$args['selected'] = intval ( $_GET['user'] );
 		}
 		wp_dropdown_users( $args );
+	}
+
+	/**
+	 * Add Fieldmanager fields to term screens - cst_section - to facilitate
+	 * sponsorship images and urls over a date range.
+	 */
+	function section_sponsorship_fields() {
+
+		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section Sponsor', 'chicagosuntimes' ), array(
+			'name'     => 'sponsor',
+			'children' => array(
+				'start_date'      => new \Fieldmanager_Datepicker( esc_html__( 'Start Date', 'chicagosuntimes' ), array(
+					'description'      => esc_html__( 'Select start date of sponsorship', 'chicagosuntimes' ),
+					'date_format'      => 'Y-m-d',
+					'store_local_time' => true,
+					'use_time'         => true,
+					'js_opts'          => array(
+						'dateFormat' => 'yy-mm-dd',
+						'showButtonPanel' => true,
+						'minDate' => 0
+					),
+				) ),
+				'end_date'        => new \Fieldmanager_Datepicker( esc_html__( 'End Date', 'chicagosuntimes' ), array(
+					'description'      => esc_html__( 'Select end date of sponsorship', 'chicagosuntimes' ),
+					'date_format'      => 'Y-m-d',
+					'store_local_time' => true,
+					'use_time'         => true,
+					'js_opts'          => array(
+						'dateFormat' => 'yy-mm-dd',
+						'showButtonPanel' => true,
+						'minDate' => -1
+					),
+				) ),
+				'sponsor_options' => new \Fieldmanager_Checkboxes( esc_html__( 'Coverage', 'chicagosuntimes' ), array(
+					'options' => array(
+						'everything' => 'Everything',
+						'section' => 'Section',
+						'article' => 'Article',
+					),
+					'default_value' => 'section'
+				) ),
+				'destination_url' => new \Fieldmanager_Link( esc_html__( 'Click thru / destination url', 'chicagosuntimes' ), array(
+					'description' => esc_html__( 'Enter the click thru / destination url link', 'chicagosuntimes' ),
+				) ),
+				'image'           => new \Fieldmanager_Media( esc_html__( 'Section front sponsor Image', 'chicagosuntimes' ), array(
+					'description'        => esc_html__( 'Display a sponsors image with link on the section front. Preferred image size is 320x50', 'chicagosuntimes' ),
+					'button_label'       => esc_html__( 'Choose or upload and select a sponsors image', 'chicagosuntimes' ),
+					'modal_button_label' => esc_html__( 'Select sponsor image', 'chicagosuntimes' ),
+					'modal_title'        => esc_html__( 'Choose or upload and select a sponsors image', 'chicagosuntimes' ),
+				) )
+			),
+		) );
+		$cst_section->add_term_form( esc_html__( 'Sponsorship', 'chicagosuntimes' ), 'cst_section' );
 	}
 
 }

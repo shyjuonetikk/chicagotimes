@@ -26,6 +26,9 @@
 				case 'opinion' :
 					dynamic_sidebar( 'opinionwire' );
 					break;
+				case 'autos' :
+					dynamic_sidebar( 'autoswire' );
+					break;
 				case 'columnists' :
 					dynamic_sidebar( 'columnistswire' );
 					break;

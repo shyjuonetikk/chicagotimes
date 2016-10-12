@@ -194,7 +194,8 @@
 		.dfp-cube {
 			min-width: 300px;
 			width: 100%;
-			padding: 0;
+			padding-left: 0.9375rem;
+			padding-right: 0.9375rem;
 			margin: 10px 0 10px 0;
 			text-align: center;
 		}
@@ -211,6 +212,7 @@
 		text-align: center;
 		margin: 0 auto;
 		display: block;
+		clear: both;
 	}
 
 	@media (max-width: 769px) {
@@ -643,6 +645,12 @@
 						}
 					}
 				}
+			}
+		}
+		@media (max-width: 480px) {
+			.main-article-container {
+				padding-left: 0.9375rem;
+				padding-right: 0.9375rem;
 			}
 		}
 

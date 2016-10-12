@@ -36,17 +36,31 @@
 	<meta name="msapplication-wide310x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x150.png" />
 	<meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
 	<script type="text/javascript" src="http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
+	<script type="text/javascript">
+		var googletag = googletag || {};
+		googletag.cmd = googletag.cmd || [];
+		var CSTAdTags = {};
+		(function() {
+			var gads = document.createElement('script');
+			gads.async = true;
+			gads.type = 'text/javascript';
+			var useSSL = 'https:' == document.location.protocol;
+			gads.src = (useSSL ? 'https:' : 'http:') +
+					'//www.googletagservices.com/tag/js/gpt.js';
+			var node = document.getElementsByTagName('script')[0];
+			node.parentNode.insertBefore(gads, node);
+		})();
+	</script>
+	<?php do_action( 'cst_dfp_ad_settings' ); ?>
 	<meta name="apple-itunes-app" content="app-id=930568136">
 	<?php get_template_part( 'parts/analytics/google' ); ?>
 	<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
 	
 	<?php
-	if ( is_front_page() || is_page() ) {
-		get_template_part( 'parts/dfp/homepage/dfp-homepage' );
-	} elseif( is_search() ) {
+	if ( is_search() ) {
 		get_template_part( 'parts/dfp/dfp-search' );
 	} else {
-		get_template_part( 'parts/dfp/dfp-check-section' );
+		CST()->dfp_handler->generate_header_definitions();
 	}
 
 	if ( is_singular() ) {
@@ -66,10 +80,10 @@
 <?php do_action( 'body_start' ); ?>
 <div id="ie8-user" style="display:none;"></div>
 
-<?php 
-	if ( is_front_page() || is_404() || is_page( 'yieldmo-homepage' ) ) {
-		get_template_part( 'parts/homepage/header' );
-	} else {
-		get_template_part( 'parts/page-header' );
-	}
+<?php
+if ( is_front_page() || is_404() || is_page( 'yieldmo-homepage' ) || is_page_template( 'page-monster.php' ) ) {
+	get_template_part( 'parts/homepage/header' );
+} else {
+	get_template_part( 'parts/page-header' );
+}
 ?>

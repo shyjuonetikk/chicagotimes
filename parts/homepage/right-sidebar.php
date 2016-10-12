@@ -1,4 +1,4 @@
 <?php if( dynamic_sidebar( 'homepage_sidebar' ) ) { } ?>
 <div class="large-12 medium-6 small-12">
-<?php get_template_part( 'parts/dfp/homepage/dfp-rr-cube-1' ); ?>
+	<?php echo CST()->dfp_handler->unit( 1, 'div-gpt-rr-cube', 'dfp dfp-cube' ); ?>
 </div>

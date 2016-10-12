@@ -9,8 +9,21 @@ class CST_Frontend {
 
 	private $nav_title_filter;
 
-	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored' );
+	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
+	private $send_to_news_embeds = array(
+		'cubs'           => 'uqWfqG2Y',
+		'cubs-baseball'  => 'uqWfqG2Y',
+		'white-sox'      => 'WOOeQ5Jw',
+		'bulls'          => 's3AyJdaz',
+		'bears'          => 'C30fZO7v',
+		'bears-football' => 'C30fZO7v',
+		'pga-golf'       => '8Owdfvnq',
+		'nascar'         => 'hdUJ4uMz',
+		'ahl-wolves'     => 'dAT6rZV6',
+		'colleges'       => 'IS3jNqMB',
+		'olympics-2016'  => 'BQ3NYJzd',
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -61,15 +74,15 @@ class CST_Frontend {
 
 		}, 9 );
 
-		add_action( 'cst_section_head_comscore', array( $this, 'action_cst_section_head_comscore' ), 10, 2 );
-		add_action( 'cst_section_head_olympics_2016', array( $this, 'action_cst_section_head_olympics_2016' ) );
-		add_action( 'cst_section_head_olympics', array( $this, 'action_cst_section_head_olympics_2016' ) );
+		add_action( 'cst_section_head', array( $this, 'action_cst_section_head_video' ) );
 
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
-		add_action( 'cst_section_front_upper_heading', array( $this, 'action_cst_section_front_upper_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 		add_action( 'body_start', array( $this, 'inject_zedo_tag' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
+		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
+		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
 	}
 
 	/**
@@ -91,6 +104,8 @@ class CST_Frontend {
 
 	/**
 	 * Modifications to the main query
+	 *
+	 * @param \WP_query $query
 	 */
 	public function action_pre_get_posts( $query ) {
 
@@ -125,76 +140,87 @@ class CST_Frontend {
 	 * Enqueue scripts and styles
 	 */
 	public function action_wp_enqueue_scripts() {
-
 		// Foundation
 		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.2.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
+		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
+
 
 		// Fonts
 		wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Raleway|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800|Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' );
-		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
-		wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 
-		$this->action_load_section_styling();
+		if ( is_page_template( 'page-monster.php' ) ) {
+			wp_enqueue_script( 'monster-footerhook', get_template_directory_uri() . '/assets/js/vendor/footerhookv1-min.js', array( 'jquery' ), false, true );
+			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
+			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts' ) );
+			wp_enqueue_script( 'cst-custom-js', get_template_directory_uri() . '/assets/js/theme-custom-page.js' );
 
-		// If we are on a 404 page don't try and load scripts/css that we won't be using.
-		if( !is_404() ) {
-			if ( ! is_front_page() || ! is_page() ) {
-				// Scripty-scripts
-				wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
-				wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9' );
+		} else {
+			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
+			wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 
-				// Slick
-				wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
-				wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
-			}
-			// The theme
-			if( ! is_front_page() ) {
-				wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
-			} elseif( is_front_page() ) {
-				wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
-			} else {
-				wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
-			}
-		
-			if( is_singular() && ! is_admin() ) {
-				wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
-				wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
-			}
+			$this->action_load_section_styling();
 
+			// If we are on a 404 page don't try and load scripts/css that we won't be using.
+			if ( ! is_404() && ! is_page() ) {
+				if ( ! is_front_page() || ! is_page() ) {
+					// Scripty-scripts
+					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
+					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9' );
 
-			if ( ! is_front_page() || ! is_page() ) {
-				wp_localize_script( 'chicagosuntimes', 'CSTData', array(
-					'home_url'                           => esc_url_raw( home_url() ),
-					'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
-				) );
-				wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
-				wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
-				wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
-				wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
-				$analytics_data = array(
-					'is_singular'     => is_singular(),
-				);
-				if ( is_singular() && $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() ) ) {
-					for ( $i = 1;  $i <= 9;  $i++) {
-						$analytics_data['dimension' . $i] = $obj->get_ga_dimension( $i );
-					}
-
-					wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
+					// Slick
+					wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
+					wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
+				}
+				// The theme
+				if ( ! is_front_page() ) {
+					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+				} elseif ( is_front_page() ) {
+					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
+				} else {
+					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
 				}
 
-				wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
+				if ( is_singular() && ! is_admin() ) {
+					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
+					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
+				}
+
+
+				if ( ! is_front_page() || ! is_page() ) {
+					wp_localize_script( 'chicagosuntimes', 'CSTData', array(
+						'home_url'                           => esc_url_raw( home_url() ),
+						'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
+					) );
+					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
+					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
+					$analytics_data = array(
+						'is_singular'     => is_singular(),
+					);
+					if ( is_singular() && $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() ) ) {
+						for ( $i = 1;  $i <= 9;  $i++ ) {
+							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
+						}
+
+						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
+					}
+
+					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
+				}
+
+				if ( is_page() ) {
+					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
+				}
+			} else {
+				wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
 			}
 
-			if( is_page() ) {
-				wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
-			}
-		} else {
-			wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
+			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
+
 		}
-
-		wp_localize_script( 'chicagosuntimes', 'CSTIE', array('cst_theme_url' => get_template_directory_uri() ) );
 
 	}
 
@@ -1056,7 +1082,9 @@ class CST_Frontend {
 			$primary_slug = $primary_section->slug;
 			if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 				$parent_terms = get_term( $primary_section->parent, 'cst_section' );
-				if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+				if ( is_wp_error( $parent_terms ) ) {
+					$primary_slug = $primary_section->slug;
+				} elseif ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 					$primary_slug = $child_terms->slug;
 				} else {
@@ -1151,96 +1179,182 @@ class CST_Frontend {
 	}
 
 	/**
-	 * Function called from section_head action in parts/page-header.php
-	 * Include or exclude the sports direct widget
-	 *
-	 * @param $section_slug
-	 * @param $action_slug
-	 */
-	function action_cst_section_head_comscore( $section_slug, $action_slug ) {
-		// dashes to underscores in excluded section name
-		$excluded_sections = array(
-			'bears',
-			'bears_football',
-			'olympics_2016',
-			'olympics',
-		);
-		if ( in_array( $action_slug, $excluded_sections, true ) ) {
+	* Adding OpenX script tag in header section of markup for all
+ 	* site templates that might display advertising
+	*/
+
+	public function action_cst_openx_header_bidding_script() {
+		if ( is_page() ) {
 			return;
 		}
-		if ( 'sports' === $section_slug ) {
-			echo '
-<section id="comscore" class="row grey-background">
-    <div class="large-8 columns">
-        <iframe src="http://scores.suntimes.com/sports-scores/score-carousel.aspx?Leagues=NHL;NBA;MLB;NFL&amp;numVisible=4" scrolling="no" frameborder="0" style="border:0; width:625px; height:90px;">Live Scores</iframe>
-    </div>
-</section>
- 		';
-		}
+		?>
+<script type="text/javascript" src="//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes"></script>
+		<?php
 	}
 	/**
 	 * Function called from section_head action in parts/page-header.php
-	 * Embeds section video player for Olympics 2016
+	 * Checks if we have a video player for embedding purposes for a section front
 	 */
-	function action_cst_section_head_olympics_2016() {
-		echo '
-<section class="row grey-background">
-		<div class="large-12">
-			<div class="s2nPlayer-BQ3NYJzd columns" data-type="full"></div><script type="text/javascript" src="http://embed.sendtonews.com/player2/embedcode.php?fk=BQ3NYJzd&cid=4661" data-type="s2nScript"></script>
-		</div>
-</section>
-		';
+	function action_cst_section_head_video() {
+		if ( is_tax() ) {
+			if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
+				$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+			}
+		}
+	}
+
+	/**
+	* @param $slug
+	* @param $id
+	* Inject SendToNews responsive video player into markup.
+	*/
+	function inject_send_to_news_video_player( $slug, $id ) {
+		$template   = '<div class="row video-injection"><div class="columns small-12"><iframe id="%s" src="%s" %s></iframe></div></div>';
+		$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 22.4rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
+		$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', rawurlencode( $this->send_to_news_embeds[ $slug ] ) );
+		$markup     = sprintf( $template, esc_attr( 's2nIframe-' . $this->send_to_news_embeds[ $slug ] . '-' . intval( $id ) ), esc_url( $iframe_url ), wp_kses_post( $styles ) );
+		echo $markup;
+
 	}
 	/**
 	 * Do not display section heading in the regular place
 	 *  for the listed section names (based on slug)
-	 *
+	 * Immediately below the RSS area of the section front
+ 	 *
 	 * @param $section_front_spacing
 	 *
 	 * Pretty title for section front
 	 */
 	function action_cst_section_front_heading( $section_front_spacing ) {
-		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
-		$excluded_sections = array(
-			'olympics_2016',
-			'olympics',
-		);
-		if ( in_array( $action_slug, $excluded_sections, true ) ) {
-			return;
+
+		if ( $this->do_sponsor_header() ) {
+			$this->sponsor_header();
+		} else {
+			$this->display_section_front_title( 'row grey-background wire upper-heading', 'columns small-12', '' );
 		}
-		?>
-<a href="" class="section-front"><?php echo esc_html( $section_front_spacing ); ?></a>
-	<?php
 	}
 	/**
 	 * Display section heading in the upper location
 	 * only for the sections listed
+ 	 * Immediately above the RSS area of the section front
 	 *
 	 * @param $section_front_spacing
 	 *
 	 * Pretty title for section front
 	 */
 	function action_cst_section_front_upper_heading( ) {
-		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
-		$excluded_sections = array(
-			'olympics_2016',
-			'olympics',
-		);
-		if ( ! in_array( $action_slug, $excluded_sections, true ) ) {
-			return;
+		if ( $this->do_sponsor_header() ) {
+			$this->sponsor_header();
 		}
+	}
+
+	/**
+	* Evaluation options to display a sponsor banner
+	* Display on section header, article header, section and article header on single article page
+	* or everything - section header, article header on index/section page and
+	* article header on single article page
+	* @param string $section_id
+	*
+	* @return bool
+ 	*/
+	function do_sponsor_header( $section_id = '' ) {
+		if ( '' === $section_id ) {
+			// Section
+			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
+		} else {
+			// Article
+			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
+		}
+		if ( ! empty( $term_metadata['sponsor_options'] ) ) {
+			$sponsor_options = array_flip( $term_metadata['sponsor_options'] );
+			if ( array_key_exists( 'everything', $sponsor_options ) ) {
+				return true;
+			}
+			if ( array_key_exists( 'section', $sponsor_options ) ) {
+				if ( '' === $section_id ) { // Only return true if displaying on a section
+					return true;
+				}
+			}
+			if ( array_key_exists( 'article', $sponsor_options ) ) {
+				if ( (int) $section_id && ! is_tax() ) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	/**
+	* Handle display of Section title and determine if a section sponsor image
+	* and link should also be displayed
+	* Accommodate same on article display
+	* @param string $section_id
+	*/
+
+	function sponsor_header( $section_id = '') {
+		// Handle sponsor image and link
+		if ( '' === $section_id ) {
+			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
+			$class = 'row grey-background wire upper-heading';
+		} else {
+			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
+			$class = 'upper-heading';
+		}
+		$name_width = 'columns small-12'; // DIV size if no sponsor image
+		$sponsor_markup = '';
+		if ( ! empty( $term_metadata ) ) {
+			$start_date = $term_metadata['start_date'];
+			$end_date = $term_metadata['end_date'];
+			$today = time();
+			if ( ( $today >= $start_date )  && ( $today <= $end_date ) ) {
+			$sponsor_template = '
+<div class="%1$s">
+	<a href="%2$s" target="_blank">
+		<img style="float:right;" src="%3$s" width="%4$s" height="%5$s">
+	</a>
+</div>
+';
+			$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
+			if ( $sponsor_image ) {
+				$sponsor_markup = sprintf( $sponsor_template,
+					( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-7 small-12' ),
+					esc_url( $term_metadata['destination_url'] ),
+					esc_url( $sponsor_image[0] ),
+					esc_attr( $sponsor_image[1] ),
+					esc_attr( $sponsor_image[2] )
+				);
+			}
+			// DIV size if there is a sponsor image
+			$name_width = 'columns medium-5 small-12';
+			}
+		}
+		if ( '' !== $section_id ) {
+			echo $sponsor_markup;
+		} else {
+			$this->display_section_front_title( $class, $name_width, $sponsor_markup );
+		}
+	}
+
+	/**
+ 	* Display Section Front Title with/without sponsorship
+	* @param $class
+	* @param $name_width
+	* @param $sponsor_markup
+	*/
+	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
 		?>
-		<section class="row grey-background wire upper-heading">
-			<div class="columns medium-4 small-12">
-				<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
-			</div>
-			<div class="columns medium-8 small-12">
-				<a href="http://www.evanstonsubaru.com/?utm_source=SunTimes&utm_medium=button&utm_campaign=Olympics" target="_blank">
-				<img style="float:right;" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/EvanstonSubaruOlympicLogo-rgb.png' ); ?>">
-				</a>
-			</div>
-		</section>
-	<?php
+<section class="<?php echo esc_attr( $class ); ?>">
+	<div class="<?php echo esc_attr( $name_width ); ?>">
+		<a href="" class="section-front"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+	</div>
+	<?php echo $sponsor_markup; ?>
+</section>
+		<?php
+	}
+	/**
+	* http://wordpressvip.zendesk.com/hc/requests/56671
+ 	*/
+	function cst_remove_extra_twitter_js() {
+		wp_deregister_script( 'twitter-widgets' );
 	}
 
 	/**
@@ -1248,31 +1362,18 @@ class CST_Frontend {
     */
 	function action_maybe_render_sliding_billboard() {
 
-		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
-		$excluded_sections = array(
-			'olympics_2016',
-			'olympics',
-		);
-		if ( in_array( $action_slug, $excluded_sections, true ) ) {
-			return;
-		}
 		if ( ! is_404() && ! is_singular() ) :
-            get_template_part( 'parts/dfp/dfp-super-leaderboard' );
-	        get_template_part( 'parts/dfp/dfp-billboard' );
-	        get_template_part( 'parts/dfp/dfp-sbb' );
+	        echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
+			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
 	    endif;
 	}
 
-	public function get_dfp_inventory() {
-		$current_site_url = get_bloginfo( 'url' );
-		if ( $current_site_url !== 'http://chicago.suntimes.com' ) {
-			$parent_inventory = 'chicago.suntimes.com.test';
-		} else {
-			$parent_inventory = 'chicago.suntimes.com';
-		}
-		return $parent_inventory;
+	/**
+	*  Inject dfp ad settings, variables into header before gpt script call
+	*/
+	public function setup_dfp_header_ad_settings() {
+		CST()->dfp_handler->ad_header_settings();
 	}
-
 	/**
 	*
 	* Inject supplied Zedo tag just after the opening body tag of single article pages
@@ -1280,6 +1381,9 @@ class CST_Frontend {
 	*/
 	public function inject_zedo_tag() {
 
+		if ( is_page() ) {
+			return;
+		}
 		if ( is_singular() ) {
 		?>
 <!-- zedo tag -->

@@ -11,12 +11,6 @@
 			this.bindEvents();
 			this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
 
-			if ( $(window).width() <= 667 ) {
-				this.jobs_navigation_link.attr('href', 'http://m.suntimes.com/' );
-			} else {
-				this.jobs_navigation_link.attr('href', 'http://jobs.suntimes.com' );
-			}
-
 		},
 
 		/**
@@ -40,13 +34,12 @@
 			this.bearsCubeClose = $('.close-bears-cube');
 			this.dfpWallpaper = $('#div-gpt-wallpaper');
 			this.header = $('header');
-			this.dfpSBB = $('#div-gpt-sbb');
+			this.dfpSBB = $('#div-gpt-sbb-1');
 			this.interstitial = $('#div-gpt-interstitial');
 			this.interstitialContainer = $('#dfp-interstitial-container');
 			this.closeInterstitial = $('#dfp-interstitial-close');
 			this.searchButton = $('#search-button');
 			this.searchInput = $('#search-input');
-			this.jobs_navigation_link = $('.jobs-navigation-link a');
 
 		},
 

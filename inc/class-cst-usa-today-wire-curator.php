@@ -8,7 +8,8 @@ class CST_USA_Today_Wire_Curator {
     private static $instance;
 
     private $post_type = 'cst_usa_today_item';
-
+	private $creator = 110117647;
+	private $local_development_user = 'wireingesterdevelopment';
     private $cap = 'edit_others_posts';
 
     public static function get_instance() {
@@ -83,6 +84,7 @@ class CST_USA_Today_Wire_Curator {
             'capabilities'      => array(
                 'create_posts'  => 'do_not_allow',
                 'edit_posts'    => $this->cap,
+                'delete_posts'    => $this->cap,
                 ),
             'labels'            => array(
                 'name'                => esc_html__( 'USA Today Wire Items', 'chicagosuntimes' ),
@@ -122,17 +124,6 @@ class CST_USA_Today_Wire_Curator {
 
         $fm->add_submenu_page( 'edit.php?post_type=' . $this->post_type, esc_html__( 'USA Today Wire Curator Feed Settings', 'chicagosuntimes' ), esc_html__( 'Feed Settings', 'chicagosuntimes' ), $this->cap );
 
-        $fm = new Fieldmanager_Textfield( array(
-            'name'            => 'usa_today_wire_curator_author',
-            'label'                => __( 'Author Username', 'chicagosuntimes' ),
-            'attributes' => array(
-                'placeholder'     => esc_attr__( 'Enter Author Username', 'chicagosuntimes' ),
-                'size'            => 50
-                )
-            ) );
-
-        $fm->add_submenu_page( 'edit.php?post_type=' . $this->post_type, esc_html__( 'USA Today Wire Curator Author Settings', 'chicagosuntimes' ), esc_html__( 'Author Settings', 'chicagosuntimes' ), $this->cap );
-
     }
 
 
@@ -147,16 +138,6 @@ class CST_USA_Today_Wire_Curator {
             $feeds = $this->get_feeds();
             if ( empty( $feeds ) ) {
                 add_action( 'admin_notices', array( $this, 'action_admin_notices_feed_warning' ) );
-            }
-
-            $author = $this->get_author();
-            if ( empty( $author ) ) {
-                add_action( 'admin_notices', array( $this, 'action_admin_notices_author_warning' ) );
-            } else {
-                $validate_author = $this->validate_author( $author );
-                if ( $validate_author == false ) {
-                    add_action( 'admin_notices', array( $this, 'action_admin_notices_validate_author_warning' ) );
-                }
             }
 
             add_action( 'restrict_manage_posts', array( $this, 'action_restrict_manage_posts_refresh_button' ) );
@@ -180,20 +161,6 @@ class CST_USA_Today_Wire_Curator {
     }
 
     /**
-     * Show a warning if there isn't an author username set yet
-     */
-    public function action_admin_notices_author_warning() {
-        echo '<div class="message error"><p>' . sprintf( __( 'No author username specified. Please <a href="%s">add an author</a>.', 'chicagosuntimes' ), admin_url( 'edit.php?post_type=' . $this->post_type . '&page=usa_today_wire_curator_author' ) ) . '</p></div>';
-    }
-
-    /**
-     * Show a warning if there isn't a valid author username set yet
-     */
-    public function action_admin_notices_validate_author_warning() {
-        echo '<div class="message error"><p>' . sprintf( __( 'The author username set is not valid. Please <a href="%s">set a valid author username</a>.', 'chicagosuntimes' ), admin_url( 'edit.php?post_type=' . $this->post_type . '&page=usa_today_wire_curator_author' ) ) . '</p></div>';
-    }
-
-    /**
      * Add some descriptive text to the settings page
      */
     public function filter_fm_link_markup( $out, $fm ) {
@@ -213,18 +180,12 @@ class CST_USA_Today_Wire_Curator {
     public function action_restrict_manage_posts_refresh_button() {
 
         $feeds = $this->get_feeds();
-        $author = $this->get_author();
-        if ( empty( $feeds ) || empty( $author ) ) {
+        if ( empty( $feeds ) ) {
             return;
-        } elseif( isset( $author ) ) {
-            $validate_author = $this->validate_author( $author );
-            if( $validate_author == false ) {
-                return;
-            }
         }
 
         submit_button( esc_attr__( 'Refresh Items', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-refresh-usa-today-wire-items', 'data-nonce' => wp_create_nonce( 'cst_refresh_usa_today_wire_items' ), 'data-in-progress-text' => esc_attr__( 'Refreshing...', 'chicagosuntimes' ) ) );
-        submit_button( esc_attr__( 'Delete Last 50 Items', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-delete-usa-today-wire-items', 'data-nonce' => wp_create_nonce( 'cst_delete_usa_today_wire_items' ), 'data-in-progress-text' => esc_attr__( 'Deleting...', 'chicagosuntimes' ) ) );
+        submit_button( esc_attr__( 'Delete Oldest 50 Items', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-delete-usa-today-wire-items', 'data-nonce' => wp_create_nonce( 'cst_delete_usa_today_wire_items' ), 'data-in-progress-text' => esc_attr__( 'Deleting...', 'chicagosuntimes' ) ) );
         submit_button( esc_attr__( 'Reset Timer', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-reset-usa-today-items-timer', 'data-nonce' => wp_create_nonce( 'cst_reset_usa_today_items_timer' ), 'data-in-progress-text' => esc_attr__( 'Resetting...', 'chicagosuntimes' ) ) );
         $last_refresh = $this->get_last_refresh();
         if ( $last_refresh ) {
@@ -375,35 +336,6 @@ class CST_USA_Today_Wire_Curator {
     }
 
     /**
-     * Get the author username usa today wire item's are assigned to
-     *
-     * @return array
-     */
-    public function get_author() {
-        return get_option( 'usa_today_wire_curator_author', array() );
-    }
-
-    /**
-     * Validate the author username usa wire item's are assigned to
-     *
-     * @return array
-     */
-    public function validate_author($author_username) {
-
-        $author_username = get_option( 'usa_today_wire_curator_author', array() );
-        $usa_today_author_lookup    = get_user_by( 'login', $author_username );
-        $blog_id = get_current_blog_id();
-        if( is_user_member_of_blog( $usa_today_author_lookup->ID, $blog_id ) ) {
-            if( is_object( $usa_today_author_lookup ) ) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-        
-    }
-
-    /**
      * Get the last time the feeds were refreshed
      *
      * @return int
@@ -432,7 +364,7 @@ class CST_USA_Today_Wire_Curator {
             wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
         }
 
-        $this->refresh_usa_today_wire_items();
+        $this->refresh_usa_today_wire_items( true );
 
         echo 'Done';
         exit;
@@ -524,8 +456,9 @@ class CST_USA_Today_Wire_Curator {
 
     /**
      * Refresh USA Today Wire Items from the feeds
+     * @param bool $manually_triggered_from_ajax
      */
-    public function refresh_usa_today_wire_items() {
+    public function refresh_usa_today_wire_items( $manually_triggered_from_ajax = false ) {
 
         foreach( $this->get_feeds() as $feed ) {
             
@@ -553,7 +486,7 @@ class CST_USA_Today_Wire_Curator {
                             continue;
                         }
 
-                        $user_id = get_current_user_id();
+                        $user_id = $this->determine_user_id( $manually_triggered_from_ajax );
                         $blog_id = get_current_blog_id();
                         if( is_user_member_of_blog( $user_id, $blog_id ) ) {
                             \CST\Objects\USA_Today_Wire_Item::create_from_simplexml( $entry );
@@ -572,6 +505,29 @@ class CST_USA_Today_Wire_Curator {
 
     }
 
+	/**
+	 *
+	 * Determine user id to use when creating the wire item
+	 *
+	 * @param bool $manually_triggered_from_ajax
+	 *
+	 * @return false|int|WP_User
+	 *
+	 */
+	private function determine_user_id( $manually_triggered_from_ajax ) {
+
+		if ( $manually_triggered_from_ajax ) {
+			$user_id = get_current_user_id();
+		} else {
+			if ( WP_DEBUG ) {
+				$user_id = get_user_by( 'login', $this->local_development_user );
+			} else {
+				// Production specific user id
+				$user_id = $this->creator;
+			}
+		}
+		return $user_id;
+	}
     /**
      * Reset obit wire items cron job schedule
      */
@@ -593,7 +549,9 @@ class CST_USA_Today_Wire_Curator {
             'post_status'    => 'any',
             'fields'         => 'ids',
             'posts_per_page' => 50,
-            );
+			'order'			=> 'ASC',
+			'orderby'		=> 'date',
+			);
         $old_items = new WP_Query( $query_args );
 
         foreach( $old_items->posts as $post_id ) {

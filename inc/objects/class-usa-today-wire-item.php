@@ -15,26 +15,23 @@ class USA_Today_Wire_Item extends Post {
     public static function create_from_simplexml( $feed_entry ) {
         global $edit_flow;
 
-        $gmt_published = date( 'Y-m-d H:i:s', strtotime( $feed_entry->datePublished ) );
+        $native_published = date( 'Y-m-d H:i:s', strtotime( $feed_entry->datePublished ) );
+        $gmt_date_string = get_gmt_from_date( $native_published );
 
         // Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
         if ( is_object( $edit_flow ) ) {
             $_POST['post_type'] = 'cst_usa_today_item';
         }
-        $author = get_option( 'usa_today_wire_curator_author', array() );
-
-        $usa_today_author_lookup    = get_user_by( 'login', $author );
-        $usa_today_author_id        = $usa_today_author_lookup->ID;
 
         $post_args = array(
             'post_title'        => sanitize_text_field( $feed_entry->headline ),
             'post_content'      => wp_filter_post_kses( $feed_entry->fullText ),
             'post_type'         => 'cst_usa_today_item',
-            'post_author'       => $usa_today_author_id,
+            'post_author'       => 0,
             'post_status'       => 'publish',
             'post_name'         => md5( 'usa_today_item' . $feed_entry->assetId ),
-            'post_date'         => get_date_from_gmt( $gmt_published ),
-            'post_date_gmt'     => $gmt_published,
+            'post_date'         => get_gmt_from_date( $native_published ),
+            'post_date_gmt'     => $gmt_date_string,
             );
 
         $post_id = wp_insert_post( $post_args, true );
@@ -218,8 +215,9 @@ class USA_Today_Wire_Item extends Post {
         if ( ! $article ) {
             return false;
         }
-
-        if ( $coauthors_plus && $guest_author = $coauthors_plus->guest_authors->get_guest_author_by( 'post_name', 'usa-today' ) ) {
+        if ( WP_DEBUG && $coauthors_plus && $guest_author = $coauthors_plus->guest_authors->get_guest_author_by( 'post_name', 'usa-today' ) ) {
+            $coauthors_plus->add_coauthors( $article->get_id(), array( $guest_author->user_nicename ), false );
+        } elseif ( $coauthors_plus && $guest_author = $coauthors_plus->guest_authors->get_guest_author_by( 'post_name', 'usa-today-network' ) ) {
             $coauthors_plus->add_coauthors( $article->get_id(), array( $guest_author->user_nicename ), false );
         }
 

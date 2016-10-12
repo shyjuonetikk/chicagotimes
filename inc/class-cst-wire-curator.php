@@ -9,6 +9,9 @@ class CST_Wire_Curator {
 
 	private $post_type = 'cst_wire_item';
 
+	private $creator = 110117647;
+	private $local_development_user = 'wireingesterdevelopment';
+
 	private $cap = 'edit_others_posts';
 
 	public static function get_instance() {
@@ -38,7 +41,6 @@ class CST_Wire_Curator {
 			if ( ! wp_next_scheduled( 'cst_wire_items_purge' ) ) {
 				wp_schedule_event( time(), 'cst-wire-items-hourly', 'cst_wire_items_purge' );
 			}
-
 		});
 
 		add_action( 'cst_wire_items_import', array( $this, 'refresh_wire_items' ) );
@@ -48,6 +50,9 @@ class CST_Wire_Curator {
 
 		add_action( 'wp_ajax_cst_refresh_wire_items', array( $this, 'handle_ajax_refresh_wire_items' ) );
 		add_action( 'wp_ajax_cst_create_from_wire_item', array( $this, 'handle_ajax_create_from_wire_item' ) );
+		add_action( 'wp_ajax_cst_delete_wire_items', array( $this, 'handle_ajax_delete_wire_items' ) );
+		add_action( 'wp_ajax_cst_reset_items_timer', array( $this, 'handle_ajax_reset_items_timer' ) );
+
 
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'action_manage_posts_custom_column' ), 10, 2 );
 
@@ -85,6 +90,7 @@ class CST_Wire_Curator {
 			'capabilities'      => array(
 				'create_posts'  => 'do_not_allow',
 				'edit_posts'    => $this->cap,
+				'delete_posts'    => $this->cap,
 				),
 			'labels'            => array(
 				'name'                => esc_html__( 'Wire Items', 'chicagosuntimes' ),
@@ -183,6 +189,8 @@ class CST_Wire_Curator {
 		}
 
 		submit_button( esc_attr__( 'Refresh Items', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-refresh-wire-items', 'data-nonce' => wp_create_nonce( 'cst_refresh_wire_items' ), 'data-in-progress-text' => esc_attr__( 'Refreshing...', 'chicagosuntimes' ) ) );
+		submit_button( esc_attr__( 'Delete Oldest 50 Items', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-delete-wire-items', 'data-nonce' => wp_create_nonce( 'cst_delete_wire_items' ), 'data-in-progress-text' => esc_attr__( 'Deleting...', 'chicagosuntimes' ) ) );
+		submit_button( esc_attr__( 'Reset Timer', 'chicagosuntimes' ), 'button', false, false, array( 'id' => 'cst-reset-items-timer', 'data-nonce' => wp_create_nonce( 'cst_reset_items_timer' ), 'data-in-progress-text' => esc_attr__( 'Resetting...', 'chicagosuntimes' ) ) );
 		$last_refresh = $this->get_last_refresh();
 		if ( $last_refresh ) {
 			$last_refresh = human_time_diff( $last_refresh );
@@ -267,6 +275,9 @@ class CST_Wire_Curator {
 
 	/**
 	 * Filter the actions available to each wire item
+	 *
+	 * @param \CST\Objects\AP_Wire_Item $item
+	 * @param bool $always_visible
 	 */
 	private function post_row_actions( $item, $always_visible = false ) {
 
@@ -352,7 +363,7 @@ class CST_Wire_Curator {
 	 * @return int
 	 */
 	public function get_last_refresh() {
-		return (int)get_option( 'wire_curator_last_refresh', 0 );
+		return (int) get_option( 'wire_curator_last_refresh', 0 );
 	}
 
 	/**
@@ -375,10 +386,51 @@ class CST_Wire_Curator {
 			wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
 		}
 
-		$this->refresh_wire_items();
+		$this->refresh_wire_items( true );
 
 		echo 'Done';
 		exit;
+	}
+
+	/**
+	 * Handle ajax request to delete all ChicagoDot wire items
+	 */
+	public function handle_ajax_delete_wire_items() {
+
+		if ( wp_verify_nonce( $_GET['nonce'], 'cst_delete_wire_items' ) ) {
+
+			if ( ! current_user_can( $this->cap ) ) {
+				wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
+			}
+
+			$this->purge_wire_items();
+
+			echo 'Done';
+			exit;
+		} else {
+			wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
+		}
+	}
+
+	/**
+	 * Handle ajax request to reset ChicagoDot wire items cron job timer
+	 */
+	public function handle_ajax_reset_items_timer() {
+
+		if ( wp_verify_nonce( $_GET['nonce'], 'cst_reset_items_timer' ) ) {
+			if ( ! current_user_can( $this->cap ) ) {
+				wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
+			}
+
+			$this->reset_items_timer();
+
+			echo 'Done';
+			exit;
+
+		} else {
+			wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
+		}
+
 	}
 
 	/**
@@ -386,51 +438,54 @@ class CST_Wire_Curator {
 	 */
 	public function handle_ajax_create_from_wire_item() {
 
-		wp_verify_nonce( $_GET['nonce'], 'cst_create_from_wire_item' );
+		if ( wp_verify_nonce( $_GET['nonce'], 'cst_create_from_wire_item' ) ) {
+			if ( ! current_user_can( $this->cap ) ) {
+				wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
+			}
 
-		if ( ! current_user_can( $this->cap ) ) {
+			$item_id = (int)$_GET['wire_item_id'];
+
+			$post = get_post( $item_id );
+			if ( ! $post || $this->post_type !== $post->post_type ) {
+				wp_die( esc_html__( 'Invalid wire item ID', 'chicagosuntimes' ) );
+			}
+
+			$item = new \CST\Objects\AP_Wire_Item( $post );
+
+			switch ( $_GET['create'] ) {
+
+				case 'link':
+
+					$link = $item->create_link_post();
+					if ( $link ) {
+						wp_safe_redirect( $link->get_edit_link() );
+						exit;
+					} else {
+						wp_die( esc_html__( 'Error creating link?', 'chicagosuntimes' ) );
+					}
+
+					break;
+
+				case 'article':
+
+					$article = $item->create_article_post();
+					if ( $article ) {
+						wp_safe_redirect( $article->get_edit_link() );
+						exit;
+					} else {
+						wp_die( esc_html__( 'Error creating article?', 'chicagosuntimes' ) );
+					}
+
+					break;
+
+				default:
+					wp_die( esc_html__( 'Invalid type to create', 'chicagosuntimes' ) );
+					break;
+			}
+		} else {
 			wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
 		}
 
-		$item_id = (int)$_GET['wire_item_id'];
-
-		$post = get_post( $item_id );
-		if ( ! $post || $this->post_type !== $post->post_type ) {
-			wp_die( esc_html__( 'Invalid wire item ID', 'chicagosuntimes' ) );
-		}
-
-		$item = new \CST\Objects\AP_Wire_Item( $post );
-
-		switch ( $_GET['create'] ) {
-
-			case 'link':
-
-				$link = $item->create_link_post();
-				if ( $link ) {
-					wp_safe_redirect( $link->get_edit_link() );
-					exit;
-				} else {
-					wp_die( esc_html__( 'Error creating link?', 'chicagosuntimes' ) );
-				}
-
-				break;
-
-			case 'article':
-
-				$article = $item->create_article_post();
-				if ( $article ) {
-					wp_safe_redirect( $article->get_edit_link() );
-					exit;
-				} else {
-					wp_die( esc_html__( 'Error creating article?', 'chicagosuntimes' ) );
-				}
-
-				break;
-
-			default:
-				wp_die( esc_html__( 'Invalid type to create', 'chicagosuntimes' ) );
-				break;
-		}
 
 	}
 
@@ -445,8 +500,10 @@ class CST_Wire_Curator {
 
 	/**
 	 * Refresh Wire Items from the feeds
+	 *
+	 * @param bool $manually_triggered_from_ajax
 	 */
-	public function refresh_wire_items() {
+	public function refresh_wire_items( $manually_triggered_from_ajax = false ) {
 
 		foreach( $this->get_feeds() as $feed ) {
 
@@ -472,8 +529,8 @@ class CST_Wire_Curator {
 
 			$feed_data = wp_remote_retrieve_body( $response );
 			if( $feed_data ) {
+				$xml = simplexml_load_string( $feed_data );
 				if( $xml ) {
-					$xml = simplexml_load_string( $feed_data );
 					foreach( $xml->entry as $entry ) {
 
 						// Only handle articles right now
@@ -494,8 +551,8 @@ class CST_Wire_Curator {
 							continue;
 						}
 
-						$user_id = get_current_user_id();
-                        $blog_id = get_current_blog_id();
+						$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
+						$blog_id = get_current_blog_id();
                         if( is_user_member_of_blog( $user_id, $blog_id ) ) {
                             \CST\Objects\AP_Wire_Item::create_from_simplexml( $entry );
                         }
@@ -511,6 +568,40 @@ class CST_Wire_Curator {
 	}
 
 	/**
+	 *
+	 * Determine user id to use when creating the wire item
+	 *
+	 * @param bool $manually_triggered_from_ajax
+	 *
+	 * @return false|int|WP_User
+	 *
+	 */
+	private function determine_user_id( $manually_triggered_from_ajax ) {
+
+		if ( $manually_triggered_from_ajax ) {
+			$user_id = get_current_user_id();
+		} else {
+			if ( WP_DEBUG ) {
+				$user_id = get_user_by( 'login', $this->local_development_user );
+			} else {
+				// Production specific user id
+				$user_id = $this->creator;
+			}
+		}
+		return $user_id;
+	}
+	/**
+	 * Reset wire items cron job schedule
+	 */
+	public function reset_items_timer() {
+
+		wp_clear_scheduled_hook( 'cst_wire_items_import' );
+
+		$this->set_last_refresh( time() );
+
+	}
+
+	/**
 	 * Purge old wire items
 	 */
 	public function purge_wire_items() {
@@ -518,12 +609,10 @@ class CST_Wire_Curator {
 		$query_args = array(
 			'post_type'      => $this->post_type,
 			'post_status'    => 'any',
-			'posts_per_page' => 200,
+			'posts_per_page' => 50,
 			'fields'         => 'ids',
-			'date_query'     => array(
-				'before'     => date( 'Y-m-d H:i:s', time() - ( DAY_IN_SECONDS * 3 ) ),
-				'column'     => 'post_date_gmt',
-				),
+			'order'			=> 'ASC',
+			'orderby'		=> 'date',
 			);
 		$old_items = new WP_Query( $query_args );
 

@@ -58,6 +58,46 @@ class Article extends Post {
 		}
 	}
 	/**
+	 * Get preferred section if set or fallback to default behavior
+	 * and display the section as before (and as passed to this function)
+	 *
+	 * @param $default_section
+	 * @return array
+	 */
+	public function get_preferred_section( $default_section ) {
+		$preferred_terms = $this->get_preferred_terms( 'cst_preferred_terms' );
+		$section = $default_section;
+		$section_name = '';
+		if ( $preferred_terms ) {
+			if ( ! empty( $preferred_terms['choose_section'] ) ) {
+				$preferred_section = $preferred_terms['choose_section']['featured_option_section'];
+				if ( $preferred_section ) {
+					$section = wpcom_vip_get_term_by( 'id', $preferred_section, 'cst_section' );
+				}
+			}
+		}
+		$term_link = wpcom_vip_get_term_link( $section, 'cst_section' );
+		if ( is_wp_error( $term_link ) ) {
+			$section_object = wpcom_vip_get_term_by( 'slug', $section, 'cst_section' );
+			$term_link = '';
+		} else {
+			if ( is_object( $section ) ) {
+				$section_object = $section;
+			} else {
+				$section_object = wpcom_vip_get_term_by( 'slug', $section, 'cst_section' );
+			}
+		}
+		$section_name = $section_object->name;
+
+		return array(
+			'term_link' => $term_link,
+			'term_name' => $section_name,
+			'term_object' => $section_object,
+		);
+	}
+
+
+	/**
 	 * Get the featured gallery object for the article
 	 *
 	 * @return Gallery|false
@@ -69,6 +109,4 @@ class Article extends Post {
 			return false;
 		}
 	}
-
-
 }

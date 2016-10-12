@@ -1,0 +1,38 @@
+footer {
+	.copyright {
+		color: #fff;
+	}
+	background: $black;
+	hr {
+		color: #fff;
+	}
+	ul {
+		display: inline-block;
+		line-height: 1;
+		li {
+			color: #fff;
+			list-style: none;
+			font-size: 0.8rem;
+			margin-bottom: 0.7rem;
+			a,
+			&:visited,
+			&:hover{
+				color: #fff;
+				text-transform: uppercase;
+			}
+		}
+	}
+	#social-links {
+		position: relative;
+		top: inherit;
+		right:inherit;
+		float: right;
+		ul {
+			li {
+				a {
+					line-height:2;
+				}
+			}
+		}
+	}
+}

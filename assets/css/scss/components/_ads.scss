@@ -21,18 +21,18 @@
 	}
 
 	&.dfp-leaderboard {
-		width: 728px;
 		position:relative;
 		z-index:2;
 		margin: 10px 0 0 0;
+		text-align: center;
 	}
 
 	&.dfp-super-leaderboard {
-		width: 970px;
 		position: relative;
 		z-index: 2;
 		margin: 10px auto 10px auto;
 		max-width: 1000px;
+		text-align: center;
 	}
 
 	&.dfp-billboard {
@@ -91,6 +91,7 @@
 		overflow:hidden;
 		background-color:$light_grey;
 		position:relative;
+		margin-bottom: 10px;
 		width:100%;
 		max-width: 1000px;
 		height:auto;

@@ -83,16 +83,14 @@ var CSTAds;
 				$('#main .ad-container').eq( this.startPost ).append( el2 );
 				this.triggerUnitRefresh( nextScrollUnit );
 				this.triggerUnitRefresh( nextScrollUnit2 );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-4' );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
 			} else {
 				$('#main .ad-container').eq( this.startPost ).append( el );
 				this.triggerUnitRefresh( nextScrollUnit );
 				this.triggerUnitRefresh( nextScrollUnit2 );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-4' );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
-        this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
+				this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
 			}
 			
 			this.startPost = this.startPost + this.betweenPosts;
@@ -133,7 +131,7 @@ var CSTAds;
 
 			if( jQuery('.cst-active-scroll-post').length ) {
 				if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
-					this.currentScrollUnit = 'div-gpt-btf-leaderboard';
+					this.currentScrollUnit = 'div-gpt-atf-leaderboard-1';
 				} else {
 					this.currentScrollUnit = 'div-gpt-rr-cube-2';
 				}

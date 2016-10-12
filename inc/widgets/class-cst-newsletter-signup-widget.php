@@ -16,7 +16,7 @@ class CST_Newsletter_Signup_Widget extends WP_Widget {
 
     public function widget( $args, $instance ) {
     ?>
-    <li class="cst_newsletter_signup">
+    <li class="cst_newsletter_signup widget">
         <div class="large-12 medium-6 small-6 columns">
         <?php
             echo $args['before_title'] . esc_html( 'Newsletter Sign-Up' ) . $args['after_title'];
