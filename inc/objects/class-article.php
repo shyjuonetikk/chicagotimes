@@ -6,15 +6,16 @@ class Article extends Post {
 
 	protected static $post_type = 'cst_article';
 	private $send_to_news_embeds = array(
-		'cubs'       => 'uqWfqG2Y',
-		'white-sox'  => 'WOOeQ5Jw',
-		'bulls'      => 's3AyJdaz',
-		'bears'      => 'C30fZO7v',
-		'pga-golf'   => '8Owdfvnq',
-		'nascar'     => 'hdUJ4uMz',
-		'ahl-wolves' => 'dAT6rZV6',
-		'college'    => 'IS3jNqMB',
-		'rio-2016'   => 'BQ3NYJzd',
+		'cubs'              => 'uqWfqG2Y',
+		'white-sox'         => 'WOOeQ5Jw',
+		'bulls'             => 's3AyJdaz',
+		'bears'             => 'C30fZO7v',
+		'pga-golf'          => '8Owdfvnq',
+		'nascar'            => 'hdUJ4uMz',
+		'ahl-wolves'        => 'dAT6rZV6',
+		'college'           => 'IS3jNqMB',
+		'rio-2016'          => 'BQ3NYJzd',
+		'blackhawks-hockey' => 'idn8h9Kj',
 	);
 	/**
 	 * Get the font icon for an article

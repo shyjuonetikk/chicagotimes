@@ -12,17 +12,19 @@ class CST_Frontend {
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
 	private $send_to_news_embeds = array(
-		'cubs'           => 'uqWfqG2Y',
-		'cubs-baseball'  => 'uqWfqG2Y',
-		'white-sox'      => 'WOOeQ5Jw',
-		'bulls'          => 's3AyJdaz',
-		'bears'          => 'C30fZO7v',
-		'bears-football' => 'C30fZO7v',
-		'pga-golf'       => '8Owdfvnq',
-		'nascar'         => 'hdUJ4uMz',
-		'ahl-wolves'     => 'dAT6rZV6',
-		'colleges'       => 'IS3jNqMB',
-		'olympics-2016'  => 'BQ3NYJzd',
+		'cubs'              => 'uqWfqG2Y',
+		'cubs-baseball'     => 'uqWfqG2Y',
+		'white-sox'         => 'WOOeQ5Jw',
+		'bulls'             => 's3AyJdaz',
+		'bears'             => 'C30fZO7v',
+		'bears-football'    => 'C30fZO7v',
+		'pga-golf'          => '8Owdfvnq',
+		'nascar'            => 'hdUJ4uMz',
+		'ahl-wolves'        => 'dAT6rZV6',
+		'colleges'          => 'IS3jNqMB',
+		'olympics-2016'     => 'BQ3NYJzd',
+		'blackhawks-hockey' => 'idn8h9Kj',
+		'sports'            => 'uDnVEu1d',
 	);
 	public static function get_instance() {
 
@@ -83,6 +85,7 @@ class CST_Frontend {
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
 		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
+		add_action( 'wp_head', array( $this, 'action_cst_openx_header_bidding_script' ) );
 	}
 
 	/**
@@ -1184,6 +1187,9 @@ class CST_Frontend {
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
+		if ( 'chicago.suntimes.com' === CST()->dfp_handler->get_parent_dfp_inventory() ) {
+			return;
+		}
 		if ( is_page() ) {
 			return;
 		}

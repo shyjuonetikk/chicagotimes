@@ -251,6 +251,7 @@ class CST_Admin {
 						'ahl-wolves' => esc_html__( 'AHL Wolves', 'chicagosuntimes' ),
 						'college'    => esc_html__( 'College', 'chicagosuntimes' ),
 						'rio-2016'   => esc_html__( 'Rio 2016', 'chicagosuntimes' ),
+						'blackhawks-hockey' => esc_html__( 'Blackhawks', 'chicagosuntimes' ),
 					),
 				) )
 				),
