@@ -240,7 +240,7 @@ var dfp = {
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
   googletag.cmd.push(function () {
-    var billboard_mapping = googletag.sizeMapping().
+    var billboard_mapping = googletag.sizeMapping()
 	  .addSize([992, 0], [ [970, 90], [728, 90], [160,600], [320, 50], [300, 50]]) //desktop
 	  .addSize([768, 0], [[728, 90], [300, 250], [300, 50], [320,50]]) //tablet
 	  .addSize([640, 480], [320, 50], [300, 50]) //phone
