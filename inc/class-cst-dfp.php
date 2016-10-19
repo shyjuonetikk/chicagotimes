@@ -240,20 +240,20 @@ var dfp = {
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
   googletag.cmd.push(function () {
-    var mapping = googletag.sizeMapping()
-	  .addSize([1024, 768], [970, 250])
-	  .addSize([980, 690], [728, 90])
-	  .addSize([640, 480], [320, 50])
-	  .addSize([0, 0], [88, 31]).// Fits browsers of any size smaller than 640 x 480
-    build();
-
-    var billboard_mapping = googletag.sizeMapping()
-	  .addSize([992, 0], [[970, 250], [970, 90], [970, 415], [728, 90], [320, 50], [300, 50]]) //desktop
-	  .addSize([768, 0], [[728, 90], [300, 250]]) //tablet
+    var billboard_mapping = googletag.sizeMapping().
+	  .addSize([992, 0], [ [970, 90], [728, 90], [160,600], [320, 50], [300, 50]]) //desktop
+	  .addSize([768, 0], [[728, 90], [300, 250], [300, 50], [320,50]]) //tablet
 	  .addSize([640, 480], [320, 50], [300, 50]) //phone
-	  .addSize([0, 0], [1, 1]).//other
-    build();
-
+	  .addSize([375, 667], [320, 50], [300, 50]) //phone
+	  .addSize([0, 0], [320, 50], [300, 50]) //other
+	  .build();
+    var cube_mapping = googletag.sizeMapping()
+	  .addSize([992, 0], [[300, 250]]) //desktop
+	  .addSize([768, 0], [[300, 250]]) //tablet
+	  .addSize([640, 480], [300, 250]) //phone
+	  .addSize([375, 667], [300, 250]) //phone
+	  .addSize([0, 0], [320, 50], [300, 50]) //other
+	  .build();
     googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
       .addService(googletag.pubads()).setTargeting("pos", "1x1");
     googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
