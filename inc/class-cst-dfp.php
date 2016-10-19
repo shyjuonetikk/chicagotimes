@@ -215,7 +215,7 @@ var dfp = {
 	"section": <?php echo wp_json_encode( is_tax( 'cst_section' ) ); ?>,
 	"article": <?php echo wp_json_encode( is_singular() ); ?>,
 	"gallery": <?php echo wp_json_encode( is_singular( 'cst_gallery' ) ); ?>,
-	"parent_inventory":<?php echo wp_json_encode( $parent_inventory . "/chicago.suntimes.com.index" ); ?>,
+	"parent_inventory":<?php echo wp_json_encode( $parent_inventory . '/chicago.suntimes.com.index' ); ?>,
 	"parent" : <?php echo wp_json_encode( $dfp_parent ); ?>,
 	"child" : <?php echo wp_json_encode( $dfp_child ); ?>,
 	"slug" : <?php echo wp_json_encode( $dfp_slug ); ?>,
@@ -239,6 +239,9 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  var CSTAdTags = {};
   googletag.cmd.push(function () {
     var billboard_mapping = googletag.sizeMapping()
 	  .addSize([992, 0], [ [970, 90], [728, 90], [160,600], [320, 50], [300, 50]]) //desktop
