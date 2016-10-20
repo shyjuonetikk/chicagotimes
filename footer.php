@@ -15,6 +15,8 @@ if ( is_singular() ) {
 <?php get_template_part( 'parts/analytics/chartbeat-footer' ); ?>
 <?php if ( is_front_page() ) {
 	get_template_part( 'parts/footer-brand-navigation' );
-}?>
+}
+do_action( 'closing_body' );
+?>
 </body>
 </html>
