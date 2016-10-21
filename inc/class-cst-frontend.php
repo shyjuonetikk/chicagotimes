@@ -1380,22 +1380,38 @@ class CST_Frontend {
 	public function setup_dfp_header_ad_settings() {
 		CST()->dfp_handler->ad_header_settings();
 	}
-	/**
+		/**
 	*
-	* Inject supplied Zedo tag just after the opening body tag of single article pages
+	* Inject supplied Teads tag just before the closing body tag of single article pages
 	*
 	*/
-	public function inject_zedo_tag() {
+	public function inject_teads_tag() {
 
 		if ( is_page() ) {
 			return;
 		}
 		if ( is_singular() ) {
 		?>
-<!-- zedo tag -->
-<div id="z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206" style='display:none' ></div>
-<script>!function(a,n,e,t,r){tagsync=e;var c=window[a];if(tagsync){var d=document.createElement("script");d.src="http://3107.tm.zedo.com/v1/29252020-9011-4261-83dd-83503d457fb9/atm.js",d.async=!0;var i=document.getElementById(n);if(null==i||"undefined"==i)return;i.parentNode.appendChild(d,i),d.onload=d.onreadystatechange=function(){var a=new zTagManager(n);a.initTagManager(n,c,this.aync,t,r)}}else document.write("<script src='http://3107.tm.zedo.com/v1/29252020-9011-4261-83dd-83503d457fb9/tm.js?data="+a+"'><"+"/script>")}("datalayer","z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206",true, 1 , 1);</script>
-<!-- /zedo tag -->
+<!-- teads tag -->
+<script type="text/javascript">
+window._ttf = window._ttf || [];
+_ttf.push({
+       pid          : 58295
+       ,lang        : "en"
+       ,slot        : '[itemprop="articleBody"] > p'
+       ,format      : "inread"
+       ,minSlot     : 3
+       ,css         : "margin: 0px auto 5px; max-width: 550px;"
+});
+
+(function (d) {
+        var js, s = d.getElementsByTagName('script')[0];
+        js = d.createElement('script');
+        js.async = true;
+        js.src = '//cdn.teads.tv/media/format.js';
+        s.parentNode.insertBefore(js, s);
+})(window.document);
+</script><!-- /teads tag -->
 	<?php
 		}
 	}
