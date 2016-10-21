@@ -1,0 +1,29 @@
+.cst_sponsored_tag_widget {
+    text-align: left;
+}
+
+.cst_sponsored_tag_widget label {
+    width: 150px;
+    font-weight: bold;
+    display: block;
+}
+
+.cst_sponsored_tag_widget input {
+    width: 100%;
+}
+
+.cst_sponsored_tag_widget .widget_input {
+    margin-bottom: 10px;
+}
+
+.cst_sponsored_tag_widget .preview_placholder {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.cst_sponsored_tag_widget .preview_placholder img {
+    border: 1px solid #f7f7f7;
+    width: 100%;
+    padding: 5px;
+    background-color: #f1f1f1;
+}
