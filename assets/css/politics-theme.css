@@ -3318,6 +3318,9 @@ body.post-gallery-lightbox-active {
     font-size: 12px;
     margin-bottom: 0; }
 
+.banner-link {
+  margin-bottom: 10px; }
+
 /* HEADER */
 @media (min-width: 1250px) {
   .logo-wrapper.large-logo {

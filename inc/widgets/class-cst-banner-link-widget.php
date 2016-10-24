@@ -41,7 +41,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 
 
 		?>
-		<div class="row">
+		<div class="row banner-link">
 			<a href="<?php echo esc_url( $instance['cst_sponsored_tag_url'] ); ?>">
 				<img src="<?php echo esc_url( $instance['cst_sponsored_tag_image'] ); ?>" />
 			</a>
