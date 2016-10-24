@@ -1,25 +1,25 @@
-.cst_sponsored_tag_widget {
+.cst_banner_link_widget {
     text-align: left;
 }
 
-.cst_sponsored_tag_widget label {
+.cst_banner_link_widget label {
     font-weight: bold;
     display: block;
 }
 
-.cst_sponsored_tag_widget input {
+.cst_banner_link_widget input {
     width: 100%;
 }
 
-.cst_sponsored_tag_widget .widget_input {
+.cst_banner_link_widget .widget_input {
     margin-bottom: 10px;
 }
 
-.cst_sponsored_tag_widget .preview_placeholder {
+.cst_banner_link_widget .preview_placeholder {
     margin: 0 auto;
 }
 
-.cst_sponsored_tag_widget .preview_placeholder img {
+.cst_banner_link_widget .preview_placeholder img {
     width: 100%;
     padding: 5px;
 }

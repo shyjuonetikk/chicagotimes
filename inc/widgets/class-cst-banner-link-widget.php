@@ -42,8 +42,8 @@ class CST_Banner_Link_Widget extends WP_Widget {
 		?>
 		<div class="row">
 			<div class="large-12 banner-link show-for-large-up">
-				<a href="<?php echo esc_url( $instance['csst_sponsored_tag_url'] ); ?>">
-					<img src="<?php echo esc_url( $instance['cst_sponsored_tag_image'] ); ?>" />
+				<a href="<?php echo esc_url( $instance['cst_banner_link_url'] ); ?>">
+					<img src="<?php echo esc_url( $instance['cst_banner_link_image'] ); ?>" />
 				</a>
 			</div>
 		</div>
@@ -55,46 +55,46 @@ class CST_Banner_Link_Widget extends WP_Widget {
 
 		$this->admin_setup();
 
-		$cst_sponsored_tag_title = ( isset( $instance['cst_sponsored_tag_title'] ) ) ? $instance['cst_sponsored_tag_title'] : '';
-		$cst_sponsored_tag_image = ( isset( $instance['cst_sponsored_tag_image'] ) ) ? $instance['cst_sponsored_tag_image'] : '';
-		$cst_sponsored_tag_url   = ( isset( $instance['cst_sponsored_tag_url'] ) ) ? $instance['cst_sponsored_tag_url'] : '';
+		$cst_banner_link_title = ( isset( $instance['cst_banner_link_title'] ) ) ? $instance['cst_banner_link_title'] : '';
+		$cst_banner_link_image = ( isset( $instance['cst_banner_link_image'] ) ) ? $instance['cst_banner_link_image'] : '';
+		$cst_banner_link_url   = ( isset( $instance['cst_banner_link_url'] ) ) ? $instance['cst_banner_link_url'] : '';
 
 		?>
 
-		<div class="cst_sponsored_tag_widget">
+		<div class="cst_banner_link_widget">
 			<p>Choose an image for your banner, enter the url to goto when the banner is clicked.</p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_image' ) ); ?>">
+				<label for="<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_image' ) ); ?>">
 					<?php esc_html_e( 'Image to use for the banner:' ); ?>
 				</label>
 				<input
-					class="cst_sponsored_tag_image widefat"
-					id="<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_image' ) ); ?>"
-					name="<?php echo esc_attr( $this->get_field_name( 'cst_sponsored_tag_image' ) ); ?>"
-					value="<?php echo esc_attr( $cst_sponsored_tag_image ); ?>"
+					class="cst_banner_link_image widefat"
+					id="<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_image' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'cst_banner_link_image' ) ); ?>"
+					value="<?php echo esc_attr( $cst_banner_link_image ); ?>"
 					type="text"
 				>
 			<button
-					id="cst_sponsored_tag_image_button"
+					id="cst_banner_link_image_button"
 					class="button"
-					onclick="image_button_click( 'Choose Title Image', 'Select Image', 'image', 'cst_sponsored_tag_image_preview', '<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_image' ) ); ?>');"
+					onclick="image_button_click( 'Choose Title Image', 'Select Image', 'image', 'cst_banner_link_image_preview', '<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_image' ) ); ?>');"
 			>Select Image</button>
 			<hr>
-			<div id="cst_sponsored_tag_image_preview" class="preview_placeholder">
+			<div id="cst_banner_link_image_preview" class="preview_placeholder">
 				<?php
-				if ( '' !== $cst_sponsored_tag_image ) {
-					echo '<img src="' . esc_url( $cst_sponsored_tag_image ) . '">';
+				if ( '' !== $cst_banner_link_image ) {
+					echo '<img src="' . esc_url( $cst_banner_link_image ) . '">';
 				}
 				?>
 			</div>
 			<hr>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_url' ) ); ?>">
+				<label for="<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_url' ) ); ?>">
 					<?php esc_html_e( 'Click thru URL for the above banner:' ); ?>
 				</label>
 				<input
-					class="cst_sponsored_tag_url widefat"
-					id="<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_url' ) ); ?>"
-					name="<?php echo esc_attr( $this->get_field_name( 'cst_sponsored_tag_url' ) ); ?>"
-					value="<?php echo esc_url( $cst_sponsored_tag_url ); ?>"
+					class="cst_banner_link_url widefat"
+					id="<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_url' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'cst_banner_link_url' ) ); ?>"
+					value="<?php echo esc_url( $cst_banner_link_url ); ?>"
 					type="text"
 				><br/>
 		</div>
@@ -105,9 +105,9 @@ class CST_Banner_Link_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 
 		$instance = array();
-		$instance['cst_sponsored_tag_title'] = ( ! empty( $new_instance['cst_sponsored_tag_title'] ) ) ? strip_tags( $new_instance['cst_sponsored_tag_title'] ) : '';
-		$instance['cst_sponsored_tag_url'] = ( ! empty( $new_instance['cst_sponsored_tag_url'] ) ) ? strip_tags( $new_instance['cst_sponsored_tag_url'] ) : '';
-		$instance['cst_sponsored_tag_image'] = ( ! empty( $new_instance['cst_sponsored_tag_image'] ) ) ? strip_tags( $new_instance['cst_sponsored_tag_image'] ) : '';
+		$instance['cst_banner_link_title'] = ( ! empty( $new_instance['cst_banner_link_title'] ) ) ? strip_tags( $new_instance['cst_banner_link_title'] ) : '';
+		$instance['cst_banner_link_url'] = ( ! empty( $new_instance['cst_banner_link_url'] ) ) ? strip_tags( $new_instance['cst_banner_link_url'] ) : '';
+		$instance['cst_banner_link_image'] = ( ! empty( $new_instance['cst_banner_link_image'] ) ) ? strip_tags( $new_instance['cst_banner_link_image'] ) : '';
 		return $instance;
 
 	}
