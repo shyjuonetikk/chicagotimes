@@ -23,11 +23,11 @@ class CST_Banner_Link_Widget extends WP_Widget {
 		);
 		wp_enqueue_script( 'cst-banner-link-js' );
 
-		add_action( 'admin_enqueue_scripts', [ $this, 'my_enqueue' ] );
+		add_action( 'admin_enqueue_scripts', [ $this, 'banner_widget_css' ] );
 
 	}
 
-	function my_enqueue( $hook ) {
+	function banner_widget_css( $hook ) {
 		if ( 'widgets.php' !== $hook ) {
 			return;
 		}
@@ -39,12 +39,13 @@ class CST_Banner_Link_Widget extends WP_Widget {
 
 		$upload_dir = wp_upload_dir();
 
-
 		?>
-		<div class="row banner-link">
-			<a href="<?php echo esc_url( $instance['cst_sponsored_tag_url'] ); ?>">
-				<img src="<?php echo esc_url( $instance['cst_sponsored_tag_image'] ); ?>" />
-			</a>
+		<div class="row">
+			<div class="large-12 banner-link show-for-large-up">
+				<a href="<?php echo esc_url( $instance['csst_sponsored_tag_url'] ); ?>">
+					<img src="<?php echo esc_url( $instance['cst_sponsored_tag_image'] ); ?>" />
+				</a>
+			</div>
 		</div>
 		<?php
 
@@ -61,9 +62,9 @@ class CST_Banner_Link_Widget extends WP_Widget {
 		?>
 
 		<div class="cst_sponsored_tag_widget">
-			<p>Choose an image the click through url for that image.</p>
+			<p>Choose an image for your banner, enter the url to goto when the banner is clicked.</p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_image' ) ); ?>">
-					<?php esc_html_e( 'Image :' ); ?>
+					<?php esc_html_e( 'Image to use for the banner:' ); ?>
 				</label>
 				<input
 					class="cst_sponsored_tag_image widefat"
@@ -72,25 +73,28 @@ class CST_Banner_Link_Widget extends WP_Widget {
 					value="<?php echo esc_attr( $cst_sponsored_tag_image ); ?>"
 					type="text"
 				>
-				<button
+			<button
 					id="cst_sponsored_tag_image_button"
 					class="button"
 					onclick="image_button_click( 'Choose Title Image', 'Select Image', 'image', 'cst_sponsored_tag_image_preview', '<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_image' ) ); ?>');"
-				>Select Image</button>
-			<div id="cst_sponsored_tag_image_preview" class="preview_placholder">
+			>Select Image</button>
+			<hr>
+			<div id="cst_sponsored_tag_image_preview" class="preview_placeholder">
 				<?php
 				if ( '' !== $cst_sponsored_tag_image ) {
 					echo '<img src="' . esc_url( $cst_sponsored_tag_image ) . '">';
 				}
 				?>
 			</div>
-			<hr/>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_url' ) ); ?>"><?php esc_html_e( 'Click thru URL:' ); ?></label>
+			<hr>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_url' ) ); ?>">
+					<?php esc_html_e( 'Click thru URL for the above banner:' ); ?>
+				</label>
 				<input
 					class="cst_sponsored_tag_url widefat"
 					id="<?php echo esc_attr( $this->get_field_id( 'cst_sponsored_tag_url' ) ); ?>"
 					name="<?php echo esc_attr( $this->get_field_name( 'cst_sponsored_tag_url' ) ); ?>"
-					value="<?php echo esc_attr( $cst_sponsored_tag_url ); ?>"
+					value="<?php echo esc_url( $cst_sponsored_tag_url ); ?>"
 					type="text"
 				><br/>
 		</div>

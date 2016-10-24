@@ -3,7 +3,6 @@
 }
 
 .cst_sponsored_tag_widget label {
-    width: 150px;
     font-weight: bold;
     display: block;
 }
@@ -16,14 +15,11 @@
     margin-bottom: 10px;
 }
 
-.cst_sponsored_tag_widget .preview_placholder {
-    width: 80%;
+.cst_sponsored_tag_widget .preview_placeholder {
     margin: 0 auto;
 }
 
-.cst_sponsored_tag_widget .preview_placholder img {
-    border: 1px solid #f7f7f7;
+.cst_sponsored_tag_widget .preview_placeholder img {
     width: 100%;
     padding: 5px;
-    background-color: #f1f1f1;
 }
