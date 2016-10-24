@@ -207,6 +207,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-tcx-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -744,6 +745,7 @@ class CST {
 		register_widget( 'CST_Homepage_Secondary_Headlines_Widget' );
 		register_widget( 'CST_Homepage_More_Headlines_Widget' );
 		register_widget( 'CST_Elections_2016_More_Headlines_Widget' );
+		register_widget( 'CST_Banner_Link_Widget' );
 		register_widget( 'CST_Weather_Word_Widget' );
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
