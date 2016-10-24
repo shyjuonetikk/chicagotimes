@@ -21,11 +21,11 @@ function image_button_click(dialog_title, button_text, library_type, preview_id,
     var html = '';
 
     if (library_type=='image') {
-      html = '<img src="' + attachment.url + '">';
+      var image = jQuery('<img>');
+      image.attr('href', attachment.url);
     }
 
-    jQuery('#' + preview_id).empty();
-    jQuery('#' + preview_id).append(html);
+    jQuery('#' + preview_id).empty().append(image);
   });
 
   //Open the uploader dialog

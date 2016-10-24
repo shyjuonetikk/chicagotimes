@@ -5,8 +5,8 @@ class CST_Banner_Link_Widget extends WP_Widget {
 
 		parent::__construct(
 			'CST_Banner_Link_Widget',
-			__( 'CST Banner Link Widget', 'lagoon' ),
-			array( 'description' => __( 'Display a banner image with article link', 'chicagosuntimes' ) ) // Args
+			esc_html__( 'CST Banner Link Widget', 'chicagosuntimes' ),
+			array( 'description' => esc_html__( 'Display a banner image with article link', 'chicagosuntimes' ) ) // Args
 		);
 
 		add_action( 'sidebar_admin_setup', array( $this, 'admin_setup' ) );
@@ -32,7 +32,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 			return;
 		}
 
-		wp_register_style( 'cst-widget-wp-admin-css', get_template_directory_uri() . '/assets/css//cst-widget-admin-style.css', false, '1.0.0' );
+		wp_register_style( 'cst-widget-wp-admin-css', get_template_directory_uri() . '/assets/css/cst-widget-admin-style.css', false, '1.0.0' );
 		wp_enqueue_style( 'cst-widget-wp-admin-css' );
 	}
 	public function widget( $args, $instance ) {
