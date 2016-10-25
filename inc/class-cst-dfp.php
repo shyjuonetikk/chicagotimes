@@ -266,11 +266,6 @@ var dfp = {
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
     if (dfp.front_page) {
-      googletag.defineSlot( adUnitPath , [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
-        .defineSizeMapping(billboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 970x250")
-        .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
         .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
