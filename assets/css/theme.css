@@ -3459,6 +3459,9 @@ body.post-gallery-lightbox-active {
     font-size: 12px;
     margin-bottom: 0; }
 
+.banner-link {
+  margin-bottom: 10px; }
+
 .page_wrapper {
   width: 100%;
   margin: 0 auto; }
