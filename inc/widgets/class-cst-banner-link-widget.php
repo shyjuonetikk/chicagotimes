@@ -36,17 +36,13 @@ class CST_Banner_Link_Widget extends WP_Widget {
 		wp_enqueue_style( 'cst-widget-wp-admin-css' );
 	}
 	public function widget( $args, $instance ) {
-
-		$upload_dir = wp_upload_dir();
+		$img_src = wp_get_attachment_image_url( $instance['cst_banner_link_id'], 'full-size' );
+		$img_srcset = wp_get_attachment_image_srcset( $instance['cst_banner_link_id'], 'medium' );
 
 		?>
 		<div class="row">
 			<div class="large-12 banner-link text-center">
 				<a href="<?php echo esc_url( $instance['cst_banner_link_url'] ); ?>">
-					<?php
-					$img_src = wp_get_attachment_image_url( $instance['cst_banner_link_id'], 'full-size' );
-					$img_srcset = wp_get_attachment_image_srcset( $instance['cst_banner_link_id'], 'medium' );
-					?>
 					<img src="<?php echo esc_url( $img_src ); ?>"
 						 srcset="<?php echo esc_attr( $img_srcset ); ?>"
 						 sizes="(min-width: 40em) 100vw, 345px, (min-width: 47.3em) 100vw, 767px, (min-width: 64em) 100vw, 970px" alt="<?php echo esc_attr( get_the_title( $instance['cst_banner_link_id'] ) ); ?>">
