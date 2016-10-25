@@ -1187,9 +1187,6 @@ class CST_Frontend {
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
-		if ( 'chicago.suntimes.com' === CST()->dfp_handler->get_parent_dfp_inventory() ) {
-			return;
-		}
 		if ( is_page() ) {
 			return;
 		}
