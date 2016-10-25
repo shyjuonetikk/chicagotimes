@@ -257,7 +257,9 @@ var dfp = {
 				.addService(googletag.pubads())
 			.setTargeting("pos", "atf leaderboard");
 		googletag.defineSlot( adUnitPath , [[2, 2], [970, 90]], 'div-gpt-sbb-1')
-			.addService(googletag.pubads()).setTargeting("pos", "sbb");
+			.addService(googletag.pubads())
+		  .setTargeting("pos", "sbb")
+          .setCollapseEmptyDiv(true, true);
 		googletag.defineSlot( adUnitPath , [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
 				.defineSizeMapping(billboard_mapping)
 				.addService(googletag.pubads())

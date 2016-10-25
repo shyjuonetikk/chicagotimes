@@ -1,6 +1,6 @@
 var custom_uploader;
 
-function image_button_click(dialog_title, button_text, library_type, preview_id, control_id) {
+function image_button_click(dialog_title, button_text, library_type, preview_id, control_id, image_id_holder) {
 
   event.preventDefault();
 
@@ -17,8 +17,7 @@ function image_button_click(dialog_title, button_text, library_type, preview_id,
 
     attachment = custom_uploader.state().get('selection').first().toJSON();
     jQuery('#' + control_id).val(attachment.url);
-
-    var html = '';
+    jQuery('#' + image_id_holder).val(attachment.id);
 
     if (library_type=='image') {
       var image = jQuery('<img>');
