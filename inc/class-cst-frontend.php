@@ -1415,40 +1415,4 @@ _ttf.push({
 	<?php
 		}
 	}
-	/**
-	*
-	* Inject supplied Teads tag just before the closing body tag of single article pages
-	*
-	*/
-	public function inject_teads_tag() {
-
-		if ( is_page() ) {
-			return;
-		}
-		if ( is_singular() ) {
-		?>
-<!-- teads tag -->
-<script type="text/javascript">
-window._ttf = window._ttf || [];
-_ttf.push({
-       pid          : 1
-       ,vast        :'http://a.teads.tv/vast/get/70533'
-       ,lang        : "en"
-       ,slot        : '[itemprop="articleBody"] > p'
-       ,format      : "inread"
-       ,minSlot     : 3
-       ,css         : "margin: 0px auto 5px; max-width: 550px;"
-});
-
-(function (d) {
-        var js, s = d.getElementsByTagName('script')[0];
-        js = d.createElement('script');
-        js.async = true;
-        js.src = '//cdn.teads.tv/media/format.js';
-        s.parentNode.insertBefore(js, s);
-})(window.document);
-</script><!-- /teads tag -->
-	<?php
-		}
-	}
 }

@@ -45,7 +45,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 				<a href="<?php echo esc_url( $instance['cst_banner_link_url'] ); ?>">
 					<img src="<?php echo esc_url( $img_src ); ?>"
 						 srcset="<?php echo esc_attr( $img_srcset ); ?>"
-						 sizes="(min-width: 40em) 100vw, 345px, (min-width: 47.3em) 100vw, 767px, (min-width: 64em) 100vw, 970px" alt="<?php echo esc_attr( get_the_title( $instance['cst_banner_link_id'] ) ); ?>">
+						 sizes="(min-width: 40em) 100vw, (min-width: 44em) 100vw, (min-width: 47.3em) 100vw, 767px, (min-width: 64em) 100vw, 970px" alt="<?php echo esc_attr( get_the_title( $instance['cst_banner_link_id'] ) ); ?>">
 				</a>
 			</div>
 		</div>
