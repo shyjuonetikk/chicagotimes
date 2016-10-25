@@ -211,7 +211,11 @@ class CST_DFP_Handler {
 <script>/* <![CDATA[ */
 var dfp = {
 	"account_id":"/61924087/",
-	"parent_inventory":<?php echo wp_json_encode( $parent_inventory . "/chicago.suntimes.com.index" ); ?>,
+	"front_page": <?php echo wp_json_encode( is_front_page() ); ?>,
+	"section": <?php echo wp_json_encode( is_tax( 'cst_section' ) ); ?>,
+	"article": <?php echo wp_json_encode( is_singular() ); ?>,
+	"gallery": <?php echo wp_json_encode( is_singular( 'cst_gallery' ) ); ?>,
+	"parent_inventory":<?php echo wp_json_encode( $parent_inventory . '/chicago.suntimes.com.index' ); ?>,
 	"parent" : <?php echo wp_json_encode( $dfp_parent ); ?>,
 	"child" : <?php echo wp_json_encode( $dfp_child ); ?>,
 	"slug" : <?php echo wp_json_encode( $dfp_slug ); ?>,
@@ -234,91 +238,115 @@ var dfp = {
 		}
 			?>
 <script type='text/javascript'>
-	var adUnitPath = dfp.adunitpath;
-	googletag.cmd.push(function () {
-		var mapping = googletag.sizeMapping().
-		addSize([1024, 768], [970, 250]).
-		addSize([980, 690], [728, 90]).
-		addSize([640, 480], [320, 50]).
-		addSize([0, 0], [88, 31]).
-		// Fits browsers of any size smaller than 640 x 480
-		build();
-
-		var billboard_mapping = googletag.sizeMapping().
-		addSize([992, 0], [[970, 250], [970, 90], [970, 415], [728, 90], [320, 50], [300, 50]]). //desktop
-		addSize([768, 0], [[728, 90], [300, 250]]). //tablet
-		addSize([640, 480], [320, 50], [300, 50]). //phone
-		addSize([0, 0], [1, 1]). //other
-		build();
-
-		googletag.defineSlot( adUnitPath , [1, 1], 'div-gpt-interstitial')
-			.addService(googletag.pubads()).setTargeting("pos", "1x1");
-		googletag.defineSlot( adUnitPath , [[728, 90]], 'div-gpt-atf-leaderboard-1')
-				.addService(googletag.pubads())
-			.setTargeting("pos", "atf leaderboard");
-		googletag.defineSlot( adUnitPath , [[2, 2], [970, 90]], 'div-gpt-sbb-1')
-			.addService(googletag.pubads()).setTargeting("pos", "sbb");
-		googletag.defineSlot( adUnitPath , [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
-				.defineSizeMapping(billboard_mapping)
-				.addService(googletag.pubads())
-			.setTargeting("pos", "Billboard 970x250")
-			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
-				.defineSizeMapping(billboard_mapping)
-				.addService(googletag.pubads())
-			.setTargeting("pos", "Billboard 2 970x250")
-			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-2')
-				.defineSizeMapping(billboard_mapping)
-				.addService(googletag.pubads())
-			.setTargeting("pos", "Super leaderboard 2 970x90")
-			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-3')
-				.defineSizeMapping(billboard_mapping)
-				.addService(googletag.pubads())
-			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-4')
-				.defineSizeMapping(billboard_mapping)
-				.addService(googletag.pubads())
-			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-5')
-				.defineSizeMapping(billboard_mapping)
-				.addService(googletag.pubads())
-			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [320, 50], 'div-gpt-mobile-leaderboard')
-			.addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
-			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[970, 90], [728, 90]], 'div-gpt-btf-leaderboard')
-				.defineSizeMapping(billboard_mapping)
-				.addService(googletag.pubads()).setTargeting("pos", "btf leaderboard")
-			.setCollapseEmptyDiv(true, true);
-		googletag.defineSlot( adUnitPath , [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
-			.addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
-		googletag.defineSlot( adUnitPath , [[300, 250]], 'div-gpt-rr-cube-2')
-			.addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
-		googletag.defineSlot( adUnitPath , [[300, 250]], 'div-gpt-rr-cube-3')
-			.addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
-		googletag.defineSlot( adUnitPath , [[300, 250]], 'div-gpt-rr-cube-4')
-			.addService(googletag.pubads()).setTargeting("pos", "rr cube 4");
-		googletag.defineSlot( adUnitPath , [[300, 250], [300, 600]], 'div-gpt-rr-cube-5')
-			.addService(googletag.pubads()).setTargeting("pos", "rr cube 5");
-		googletag.defineSlot( adUnitPath , [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
-			.addService(googletag.pubads()).setTargeting("pos", "rr cube 6");
-		googletag.defineSlot( adUnitPath , [300, 250], 'div-gpt-rr-cube-7')
-			.addService(googletag.pubads()).setTargeting("pos", "rr cube 7");
-		if (window.innerWidth > 1256) {
-			googletag.defineSlot( adUnitPath , [184, 90], 'div-gpt-sponsor-ear-left')
-				.addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Left")
-				.setCollapseEmptyDiv(true, true);
-			googletag.defineSlot( adUnitPath , [184, 90], 'div-gpt-sponsor-ear-right')
-				.addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Right")
-				.setCollapseEmptyDiv(true, true);
-		}
-		CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot( adUnitPath , [160, 600], 'div-gpt-sky-scraper-1')
-				.addService(googletag.pubads())
-				.setTargeting("pos","SkyScraper");
-		googletag.pubads().enableSingleRequest();
-		googletag.enableServices();
+  var adUnitPath = dfp.adunitpath;
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+  var CSTAdTags = {};
+  googletag.cmd.push(function () {
+    var billboard_mapping = googletag.sizeMapping()
+	  .addSize([992, 0], [[970, 250], [970, 90], [970, 415]]) //desktop
+	  .addSize([768, 0], [[728, 90]]) //tablet
+	  .addSize([640, 480], [320, 50], [300, 50]) //phone
+	  .addSize([375, 667], [320, 50], [300, 50]) //phone
+	  .addSize([0, 0], [320, 50], [300, 50]) //other
+	  .build();
+    var cube_mapping = googletag.sizeMapping()
+	  .addSize([992, 0], [[300, 250]]) //desktop
+	  .addSize([768, 0], [[300, 250]]) //tablet
+	  .addSize([640, 480], [300, 250]) //phone
+	  .addSize([375, 667], [300, 250]) //phone
+	  .addSize([0, 0], [320, 50], [300, 50]) //other
+	  .build();
+    googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
+      .addService(googletag.pubads()).setTargeting("pos", "1x1");
+    googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
+      .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
+    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
+      .addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
+    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
+      .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
+    if (dfp.front_page) {
+      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
+        .defineSizeMapping(billboard_mapping)
+        .addService(googletag.pubads())
+        .setTargeting("pos", "Billboard 2 970x250")
+        .setCollapseEmptyDiv(true, true);
+      googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-3')
+        .defineSizeMapping(billboard_mapping)
+        .addService(googletag.pubads())
+        .setCollapseEmptyDiv(true, true);
+      googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-4')
+        .defineSizeMapping(billboard_mapping)
+        .addService(googletag.pubads())
+        .setCollapseEmptyDiv(true, true);
+      googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-5')
+        .defineSizeMapping(billboard_mapping)
+        .addService(googletag.pubads())
+        .setCollapseEmptyDiv(true, true);
+      googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-rr-cube-7')
+        .addService(googletag.pubads()).setTargeting("pos", "rr cube 7");
+      if (window.innerWidth > 1256) {
+        googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-left')
+          .addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Left")
+          .setCollapseEmptyDiv(true, true);
+        googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-right')
+          .addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Right")
+          .setCollapseEmptyDiv(true, true);
+      }
+    }
+    if (dfp.front_page || dfp.section) {
+      googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
+        .addService(googletag.pubads()).setTargeting("pos", "sbb");
+      googletag.defineSlot(adUnitPath, [320, 50], 'div-gpt-mobile-leaderboard')
+        .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
+        .setCollapseEmptyDiv(true, true);
+      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
+        .defineSizeMapping(billboard_mapping)
+        .addService(googletag.pubads())
+        .setTargeting("pos", "Billboard 970x250")
+        .setCollapseEmptyDiv(true, true);
+    }
+    if (dfp.section) {
+      googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-2')
+        .defineSizeMapping(billboard_mapping)
+        .addService(googletag.pubads())
+        .setTargeting("pos", "Super leaderboard 2 970x90")
+        .setCollapseEmptyDiv(true, true);
+    }
+    if (dfp.section || dfp.article) {
+      googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-5')
+        .addService(googletag.pubads()).setTargeting("pos", "rr cube 5");
+      googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
+        .addService(googletag.pubads()).setTargeting("pos", "rr cube 6");
+    }
+    if (dfp.article) {
+      googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-atf-leaderboard-1')
+        .addService(googletag.pubads())
+        .setTargeting("pos", "atf leaderboard");
+      CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot(adUnitPath, [160, 600], 'div-gpt-sky-scraper-1')
+        .addService(googletag.pubads())
+        .setTargeting("pos", "SkyScraper");
+      CSTAdTags['div-gpt-ym-craig'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-ym-craig')
+        .addService(googletag.pubads())
+        .setTargeting("pos","ym craig")
+        .setCollapseEmptyDiv(true,true);
+    }
+    if(dfp.gallery) {
+      CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
+        .addService(googletag.pubads())
+        .setTargeting("pos","gallery 1");
+      CSTAdTags['div-gpt-gallery-2'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-2')
+        .addService(googletag.pubads())
+        .setTargeting("pos","gallery 2");
+      CSTAdTags['div-gpt-gallery-3'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-3')
+        .addService(googletag.pubads())
+        .setTargeting("pos","gallery 3");
+      CSTAdTags['div-gpt-gallery-4'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-4')
+        .addService(googletag.pubads())
+        .setTargeting("pos","gallery 4");
+    }
+    googletag.pubads().enableSingleRequest();
+    googletag.enableServices();
 });
 </script>
 <?php

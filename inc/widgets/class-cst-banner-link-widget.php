@@ -36,14 +36,16 @@ class CST_Banner_Link_Widget extends WP_Widget {
 		wp_enqueue_style( 'cst-widget-wp-admin-css' );
 	}
 	public function widget( $args, $instance ) {
-
-		$upload_dir = wp_upload_dir();
+		$img_src = wp_get_attachment_image_url( $instance['cst_banner_link_id'], 'full-size' );
+		$img_srcset = wp_get_attachment_image_srcset( $instance['cst_banner_link_id'], 'medium' );
 
 		?>
 		<div class="row">
-			<div class="large-12 banner-link show-for-large-up">
+			<div class="large-12 banner-link text-center">
 				<a href="<?php echo esc_url( $instance['cst_banner_link_url'] ); ?>">
-					<img src="<?php echo esc_url( $instance['cst_banner_link_image'] ); ?>" />
+					<img src="<?php echo esc_url( $img_src ); ?>"
+						 srcset="<?php echo esc_attr( $img_srcset ); ?>"
+						 sizes="(min-width: 40em) 100vw, (min-width: 44em) 100vw, (min-width: 47.3em) 100vw, 767px, (min-width: 64em) 100vw, 970px" alt="<?php echo esc_attr( get_the_title( $instance['cst_banner_link_id'] ) ); ?>">
 				</a>
 			</div>
 		</div>
@@ -58,6 +60,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 		$cst_banner_link_title = ( isset( $instance['cst_banner_link_title'] ) ) ? $instance['cst_banner_link_title'] : '';
 		$cst_banner_link_image = ( isset( $instance['cst_banner_link_image'] ) ) ? $instance['cst_banner_link_image'] : '';
 		$cst_banner_link_url   = ( isset( $instance['cst_banner_link_url'] ) ) ? $instance['cst_banner_link_url'] : '';
+		$cst_banner_link_id   = ( isset( $instance['cst_banner_link_id'] ) ) ? $instance['cst_banner_link_id'] : '';
 
 		?>
 
@@ -71,12 +74,18 @@ class CST_Banner_Link_Widget extends WP_Widget {
 					id="<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_image' ) ); ?>"
 					name="<?php echo esc_attr( $this->get_field_name( 'cst_banner_link_image' ) ); ?>"
 					value="<?php echo esc_attr( $cst_banner_link_image ); ?>"
-					type="text"
+					type="hidden"
 				>
 			<button
 					id="cst_banner_link_image_button"
 					class="button"
-					onclick="image_button_click( 'Choose Title Image', 'Select Image', 'image', 'cst_banner_link_image_preview', '<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_image' ) ); ?>');"
+					onclick="image_button_click(
+					  'Choose Title Image',
+					  'Select Image',
+					  'image',
+					  'cst_banner_link_image_preview',
+					  '<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_image' ) ); ?>',
+					  '<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_id' ) ); ?>');"
 			>Select Image</button>
 			<hr>
 			<div id="cst_banner_link_image_preview" class="preview_placeholder">
@@ -96,6 +105,12 @@ class CST_Banner_Link_Widget extends WP_Widget {
 					name="<?php echo esc_attr( $this->get_field_name( 'cst_banner_link_url' ) ); ?>"
 					value="<?php echo esc_url( $cst_banner_link_url ); ?>"
 					type="text"
+				>
+			<input
+					id="<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_id' ) ); ?>"
+					name="<?php echo esc_attr( $this->get_field_name( 'cst_banner_link_id' ) ); ?>"
+					value="<?php echo esc_url( $cst_banner_link_id ); ?>"
+					type="hidden"
 				><br/>
 		</div>
 
@@ -107,6 +122,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 		$instance = array();
 		$instance['cst_banner_link_title'] = ( ! empty( $new_instance['cst_banner_link_title'] ) ) ? strip_tags( $new_instance['cst_banner_link_title'] ) : '';
 		$instance['cst_banner_link_url'] = ( ! empty( $new_instance['cst_banner_link_url'] ) ) ? strip_tags( $new_instance['cst_banner_link_url'] ) : '';
+		$instance['cst_banner_link_id'] = ( ! empty( $new_instance['cst_banner_link_id'] ) ) ? strip_tags( $new_instance['cst_banner_link_id'] ) : '';
 		$instance['cst_banner_link_image'] = ( ! empty( $new_instance['cst_banner_link_image'] ) ) ? strip_tags( $new_instance['cst_banner_link_image'] ) : '';
 		return $instance;
 
