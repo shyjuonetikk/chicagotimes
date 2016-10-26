@@ -3462,6 +3462,115 @@ body.post-gallery-lightbox-active {
 .banner-link {
   margin-bottom: 10px; }
 
+.elections-container {
+  padding: 0;
+  margin: 0; }
+  .elections-container .ap-embed {
+    min-height: 44rem; }
+  .elections-container .ap-embed.cube {
+    min-height: 15rem; }
+  .elections-container header#header {
+    min-height: 140px; }
+  .elections-container h1 {
+    font-size: 1.8rem; }
+  .elections-container h2 {
+    font-size: 1.6rem; }
+  .elections-container h3 {
+    font-size: 1.4rem; }
+  .elections-container h4 {
+    font-size: 1.2rem; }
+  .elections-container .eln-position {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+    text-decoration: none; }
+  .elections-container .eln-state {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #663333;
+    text-decoration: none;
+    background-color: EEEEEE;
+    font-weight: bold;
+    text-indent: 5px; }
+  .elections-container .eln-date {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #666666;
+    text-decoration: none; }
+  .elections-container .eln-label1 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #993333; }
+  .elections-container .eln-bodyregular {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: black;
+    text-decoration: none; }
+  .elections-container .eln-cty-bodyregular {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    color: black;
+    text-decoration: none; }
+  .elections-container .eln-official {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333333; }
+  .elections-container .eln-office-name {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #993333; }
+  .elections-container .eln-bodyreg-bar {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: black;
+    text-decoration: none;
+    background-color: #eeeeee; }
+  .elections-container .eln-cty-bodyreg-bar {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    color: black;
+    text-decoration: none;
+    background-color: #eeeeee; }
+  .elections-container .eln-bodybold {
+    font: bold 10px Verdana, Arial, Helvetica, sans-serif;
+    color: black; }
+  .elections-container .eln-subhed-table {
+    font: bold 10px Verdana, Arial, Helvetica, sans-serif;
+    color: white;
+    text-decoration: none;
+    background-color: #999999; }
+  .elections-container .eln-cty-subhed-table {
+    font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+    color: white;
+    text-decoration: none;
+    background-color: #cccccc; }
+  .elections-container .eln-navback {
+    font-family: Verdana, Arial, sans-serif;
+    color: 3366;
+    text-decoration: none;
+    background-color: #eeeeee;
+    text-align: right;
+    font-size: 11px;
+    font-weight: bold; }
+  .elections-container .eln-footer-top {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #999999; }
+  .elections-container .eln-footer-body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #006600;
+    text-align: left;
+    text-decoration: none; }
+
 .page_wrapper {
   width: 100%;
   margin: 0 auto; }
