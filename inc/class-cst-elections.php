@@ -83,15 +83,15 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
-			'height' => '250px',
+			'height' => '200px',
 			'office' => 'PRESIDENT',
 			'page' => 'Balance_of_power',
 			'counts' => false,
 		), $atts );
 //http://interactives.ap.org/2016/balance-of-power/?SITE=ILCHSELN&OFFICE=SENATE
-		$html = '<h3>' . str_replace( '_',' ', esc_attr( $attributes['page'] ) ) . '</h3>';
+		$html = '<h3>' . ucfirst( strtolower( str_replace( '_',' ', esc_attr( $attributes['office'] ) ) ) ) . '</h3>';
 		$html .= sprintf( '<iframe src="%1$s"
-class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
+class="ap-embed cube" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
 <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
