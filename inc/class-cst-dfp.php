@@ -272,15 +272,12 @@ var dfp = {
         .setTargeting("pos", "Billboard 2 970x250")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-3')
-        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-4')
-        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-5')
-        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-rr-cube-7')
