@@ -308,7 +308,6 @@ var dfp = {
     }
     if (dfp.section) {
       googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-2')
-        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Super leaderboard 2 970x90")
         .setCollapseEmptyDiv(true, true);
