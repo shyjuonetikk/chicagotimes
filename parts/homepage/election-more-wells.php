@@ -9,25 +9,25 @@
 	?>
 </div>
 <div class="small-12">
-	<div class="small-6 columns">
+	<div class="small-6 columns ap-data">
 		<?php
 		if ( shortcode_exists( 'election-2016-race' ) ) {
 			echo do_shortcode( '[election-2016-race race_num="16413" race_title="US Senate General"]' );
 		}
 		?></div>
-	<div class="small-6 columns">
+	<div class="small-6 columns ap-data">
 		<?php
 		if ( shortcode_exists( 'election-2016-race' ) ) {
 			echo do_shortcode( '[election-2016-race race_num="15268" race_title="Comptroller"]' );
 		}
 		?></div>
-	<div class="small-6 columns">
+	<div class="small-6 columns ap-data">
 		<?php
 		if ( shortcode_exists( 'election-2016-race' ) ) {
 			echo do_shortcode( '[election-2016-race race_num="14204" race_title="Legislative"]' );
 		}
 		?></div>
-	<div class="small-6 columns">
+	<div class="small-6 columns ap-data">
 		<?php
 		if ( shortcode_exists( 'election-2016-race' ) ) {
 			echo do_shortcode( '[election-2016-race race_num="15999" race_title="Congressional 10"]' );

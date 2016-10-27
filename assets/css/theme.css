@@ -3462,6 +3462,12 @@ body.post-gallery-lightbox-active {
 .banner-link {
   margin-bottom: 10px; }
 
+.page_wrapper {
+  width: 100%;
+  margin: 0 auto; }
+  .page_wrapper .page-content {
+    background: white; }
+
 .elections-container {
   padding: 0;
   margin: 0; }
@@ -3479,6 +3485,13 @@ body.post-gallery-lightbox-active {
     font-size: 1.4rem; }
   .elections-container h4 {
     font-size: 1.2rem; }
+  .elections-container table tr th, .elections-container table tr td {
+    padding: 0.3625rem 0.425rem; }
+  .elections-container td > table {
+    margin-bottom: 0.25rem; }
+  .elections-container .ap-data > table {
+    width: 100%;
+    margin-bottom: 0.25rem; }
   .elections-container .eln-position {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
@@ -3508,7 +3521,8 @@ body.post-gallery-lightbox-active {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 11px;
     color: black;
-    text-decoration: none; }
+    text-decoration: none;
+    line-height: 0.525rem; }
   .elections-container .eln-cty-bodyregular {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 9px;
@@ -3570,9 +3584,3 @@ body.post-gallery-lightbox-active {
     color: #006600;
     text-align: left;
     text-decoration: none; }
-
-.page_wrapper {
-  width: 100%;
-  margin: 0 auto; }
-  .page_wrapper .page-content {
-    background: white; }
