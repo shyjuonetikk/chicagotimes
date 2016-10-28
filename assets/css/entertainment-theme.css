@@ -211,7 +211,7 @@ body.error404 {
     content: attr(data-visual-label) ": "; }
 
 #div-gpt-ym-craig {
-  margin-top: 10px; }
+  margin-top: 1.25rem; }
 
 #div-gpt-btf-leaderboard {
   position: relative;
