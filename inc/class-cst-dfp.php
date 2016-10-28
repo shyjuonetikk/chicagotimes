@@ -243,13 +243,15 @@ var dfp = {
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
   googletag.cmd.push(function () {
-    var billboard_mapping = googletag.sizeMapping()
-	  .addSize([992, 0], [[970, 250], [970, 90], [970, 415]]) //desktop
-	  .addSize([768, 0], [[728, 90]]) //tablet
-	  .addSize([640, 480], [320, 50], [300, 50]) //phone
-	  .addSize([375, 667], [320, 50], [300, 50]) //phone
-	  .addSize([0, 0], [320, 50], [300, 50]) //other
-	  .build();
+    var billboard_mapping = googletag.sizeMapping().
+    addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
+    addSize([992, 0], [ [728, 90], [970, 90] ] ). //desktop
+    addSize([800, 1200], [ [728,90] ] ). //tablet
+    addSize([768, 1024], [ [728,90] ] ). //tablet
+    addSize([640, 480], [300, 50], [320, 50]). //phone
+    addSize([375, 667], [300, 50], [320, 50]). //phone
+    addSize([0, 0], [300, 50], [320, 50]). //other
+    build();
     var cube_mapping = googletag.sizeMapping()
 	  .addSize([992, 0], [[300, 250]]) //desktop
 	  .addSize([768, 0], [[300, 250]]) //tablet
@@ -271,15 +273,18 @@ var dfp = {
         .addService(googletag.pubads())
         .setTargeting("pos", "Billboard 2 970x250")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-3')
+      googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
+        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Super Leaderboard 3")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-4')
+      googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-4')
+        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Super Leaderboard 4")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-5')
+      googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-5')
+        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Super Leaderboard 5")
         .setCollapseEmptyDiv(true, true);
