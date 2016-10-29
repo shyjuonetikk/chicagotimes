@@ -305,7 +305,6 @@ var dfp = {
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
-        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Billboard 970x250")
         .setCollapseEmptyDiv(true, true);
