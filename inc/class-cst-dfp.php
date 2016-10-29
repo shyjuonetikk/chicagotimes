@@ -339,15 +339,6 @@ var dfp = {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
         .addService(googletag.pubads())
         .setTargeting("pos","gallery 1");
-      CSTAdTags['div-gpt-gallery-2'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-2')
-        .addService(googletag.pubads())
-        .setTargeting("pos","gallery 2");
-      CSTAdTags['div-gpt-gallery-3'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-3')
-        .addService(googletag.pubads())
-        .setTargeting("pos","gallery 3");
-      CSTAdTags['div-gpt-gallery-4'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-4')
-        .addService(googletag.pubads())
-        .setTargeting("pos","gallery 4");
     }
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();
