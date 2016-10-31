@@ -35,6 +35,9 @@
 		width: 100%;
 		margin-bottom: 0.25rem;
 	}
+	.ap-data > p:last-child {
+		display: none;
+	}
 	.eln-position {
 		font-family: Verdana, Arial, Helvetica, sans-serif;
 		font-size: 12px;

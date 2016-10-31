@@ -64,8 +64,7 @@ class CST_Elections {
 			$attributes['vd'] = ( 'cd' === $attributes['type'] ) ? '_VD' : '';
 			$attributes['vd'] = ( true === $attributes['counts'] ) ? '_D' : $attributes['vd'];
 
-			$html = '<h3>' . str_replace( '_',' ', esc_attr( $attributes['page'] ) ) . '</h3>';
-			$html .= sprintf( '<iframe src="%1$s"
+			$html = sprintf( '<iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
@@ -109,8 +108,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 			'race_title' => 'US Senate General',
 		), $atts );
 //http://hosted.ap.org/elections/2016/general/by_race/IL_16413.js?SITE=ILCHSELN&SECTION=POLITICS
-		$html = '<h3>' . str_replace( '_',' ', esc_attr( $attributes['race_title'] ) ) . '</h3>';
-		$html .= sprintf( '<script language="JavaScript" src="%1$s"></script>',
+		$html = sprintf( '<script language="JavaScript" src="%1$s"></script>',
 			sprintf( esc_url( $this->shortcodes['election-2016-race'] ), esc_attr( $attributes['race_num'] ) )
 			 );
 

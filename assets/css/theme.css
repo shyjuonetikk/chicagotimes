@@ -3497,6 +3497,8 @@ body.post-gallery-lightbox-active {
   .elections-container .ap-data > table, .row.page-content .ap-data > table {
     width: 100%;
     margin-bottom: 0.25rem; }
+  .elections-container .ap-data > p:last-child, .row.page-content .ap-data > p:last-child {
+    display: none; }
   .elections-container .eln-position, .row.page-content .eln-position {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
