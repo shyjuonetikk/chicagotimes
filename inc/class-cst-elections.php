@@ -12,7 +12,7 @@ class CST_Elections {
 
 	private $shortcodes = array(
 		'election-2016' => 'http://hosted.ap.org/dynamic/files/elections/2016/by_%1$s/IL_%2$s%4$s.html?SITE=%3$s&SECTION=POLITICS',
-		'election-2016-nov' => 'http://interactives.ap.org/2016/%1$s/?SITE=ILCHSELN&OFFICE=%2$s',
+		'election-2016-nov' => 'http://interactives.ap.org/2016/%1$s/?SITE=ILCHSELN&OFFICE=%2$s&DEFAULTGEO=TRUE',
 		'election-2016-race' => 'http://hosted.ap.org/elections/2016/general/by_race/IL_%1$s.js?SITE=ILCHSELN&SECTION=POLITICS',
 		'primary-election-results' => 'http://interactives.ap.org/2016/primary-election-results/?STATE=%1$s&date=%2$s&SITEID=%3$s',
 	);
@@ -64,8 +64,7 @@ class CST_Elections {
 			$attributes['vd'] = ( 'cd' === $attributes['type'] ) ? '_VD' : '';
 			$attributes['vd'] = ( true === $attributes['counts'] ) ? '_D' : $attributes['vd'];
 
-			$html = '<h3>' . str_replace( '_',' ', esc_attr( $attributes['page'] ) ) . '</h3>';
-			$html .= sprintf( '<iframe src="%1$s"
+			$html = sprintf( '<iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
@@ -89,8 +88,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 			'counts' => false,
 		), $atts );
 //http://interactives.ap.org/2016/balance-of-power/?SITE=ILCHSELN&OFFICE=SENATE
-		$html = '<h3>' . ucfirst( strtolower( str_replace( '_',' ', esc_attr( $attributes['office'] ) ) ) ) . '</h3>';
-		$html .= sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<iframe src="%1$s"
 class="ap-embed cube" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
 <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
@@ -110,8 +108,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 			'race_title' => 'US Senate General',
 		), $atts );
 //http://hosted.ap.org/elections/2016/general/by_race/IL_16413.js?SITE=ILCHSELN&SECTION=POLITICS
-		$html = '<h3>' . str_replace( '_',' ', esc_attr( $attributes['race_title'] ) ) . '</h3>';
-		$html .= sprintf( '<script language="JavaScript" src="%1$s"></script>',
+		$html = sprintf( '<script language="JavaScript" src="%1$s"></script>',
 			sprintf( esc_url( $this->shortcodes['election-2016-race'] ), esc_attr( $attributes['race_num'] ) )
 			 );
 

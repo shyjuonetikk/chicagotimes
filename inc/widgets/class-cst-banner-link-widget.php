@@ -40,14 +40,12 @@ class CST_Banner_Link_Widget extends WP_Widget {
 		$img_srcset = wp_get_attachment_image_srcset( $instance['cst_banner_link_id'], 'medium' );
 
 		?>
-		<div class="row">
-			<div class="large-12 banner-link text-center">
-				<a href="<?php echo esc_url( $instance['cst_banner_link_url'] ); ?>">
-					<img src="<?php echo esc_url( $img_src ); ?>"
-						 srcset="<?php echo esc_attr( $img_srcset ); ?>"
-						 sizes="(min-width: 40em) 100vw, (min-width: 44em) 100vw, (min-width: 47.3em) 100vw, 767px, (min-width: 64em) 100vw, 970px" alt="<?php echo esc_attr( get_the_title( $instance['cst_banner_link_id'] ) ); ?>">
-				</a>
-			</div>
+		<div class="large-12 banner-link text-center">
+			<a href="<?php echo esc_url( $instance['cst_banner_link_url'] ); ?>">
+				<img src="<?php echo esc_url( $img_src ); ?>"
+					 srcset="<?php echo esc_attr( $img_srcset ); ?>"
+					 sizes="(min-width: 40em) 100vw, (min-width: 44em) 100vw, (min-width: 47.3em) 100vw, 767px, (min-width: 64em) 100vw, 970px" alt="<?php echo esc_attr( get_the_title( $instance['cst_banner_link_id'] ) ); ?>">
+			</a>
 		</div>
 		<?php
 
@@ -109,7 +107,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 			<input
 					id="<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_id' ) ); ?>"
 					name="<?php echo esc_attr( $this->get_field_name( 'cst_banner_link_id' ) ); ?>"
-					value="<?php echo esc_url( $cst_banner_link_id ); ?>"
+					value="<?php echo esc_attr( $cst_banner_link_id ); ?>"
 					type="hidden"
 				><br/>
 		</div>
