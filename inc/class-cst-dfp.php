@@ -269,7 +269,6 @@ var dfp = {
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
     if (dfp.front_page) {
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
-        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Billboard 2 970x250")
         .setCollapseEmptyDiv(true, true);
@@ -306,7 +305,6 @@ var dfp = {
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
-        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Billboard 970x250")
         .setCollapseEmptyDiv(true, true);
@@ -339,15 +337,6 @@ var dfp = {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
         .addService(googletag.pubads())
         .setTargeting("pos","gallery 1");
-      CSTAdTags['div-gpt-gallery-2'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-2')
-        .addService(googletag.pubads())
-        .setTargeting("pos","gallery 2");
-      CSTAdTags['div-gpt-gallery-3'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-3')
-        .addService(googletag.pubads())
-        .setTargeting("pos","gallery 3");
-      CSTAdTags['div-gpt-gallery-4'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-4')
-        .addService(googletag.pubads())
-        .setTargeting("pos","gallery 4");
     }
     googletag.pubads().enableSingleRequest();
     googletag.enableServices();
