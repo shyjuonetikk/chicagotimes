@@ -243,9 +243,18 @@ var dfp = {
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
   googletag.cmd.push(function () {
-    var billboard_mapping = googletag.sizeMapping().
+    var super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
     addSize([992, 0], [ [728, 90], [970, 90] ] ). //desktop
+    addSize([800, 1200], [ [728,90] ] ). //tablet
+    addSize([768, 1024], [ [728,90] ] ). //tablet
+    addSize([640, 480], [300, 50], [320, 50]). //phone
+    addSize([375, 667], [300, 50], [320, 50]). //phone
+    addSize([0, 0], [300, 50], [320, 50]). //other
+    build();
+    var billboard_mapping = googletag.sizeMapping().
+    addSize([1200, 800], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //tablet
+    addSize([992, 0], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [300, 50], [320, 50]). //phone
@@ -269,21 +278,22 @@ var dfp = {
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
     if (dfp.front_page) {
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
+        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Billboard 2 970x250")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
-        .defineSizeMapping(billboard_mapping)
+        .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Super Leaderboard 3")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-4')
-        .defineSizeMapping(billboard_mapping)
+        .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Super Leaderboard 4")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-5')
-        .defineSizeMapping(billboard_mapping)
+        .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Super Leaderboard 5")
         .setCollapseEmptyDiv(true, true);
@@ -305,12 +315,14 @@ var dfp = {
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
+        .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Billboard 970x250")
         .setCollapseEmptyDiv(true, true);
     }
     if (dfp.section) {
-      googletag.defineSlot(adUnitPath, [[970, 90], [728, 90]], 'div-gpt-super-leaderboard-2')
+      googletag.defineSlot(adUnitPath, [ [728, 90] ], 'div-gpt-super-leaderboard-2')
+        .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "Super leaderboard 2 970x90")
         .setCollapseEmptyDiv(true, true);
