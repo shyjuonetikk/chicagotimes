@@ -210,6 +210,9 @@ body.error404 {
   .vip-local div[id^="div-gpt-"][data-visual-label]:before {
     content: attr(data-visual-label) ": "; }
 
+#div-gpt-ym-craig {
+  margin-top: 1.25rem; }
+
 #div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }
