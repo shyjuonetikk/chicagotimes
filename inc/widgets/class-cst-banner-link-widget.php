@@ -109,7 +109,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 			<input
 					id="<?php echo esc_attr( $this->get_field_id( 'cst_banner_link_id' ) ); ?>"
 					name="<?php echo esc_attr( $this->get_field_name( 'cst_banner_link_id' ) ); ?>"
-					value="<?php echo esc_url( $cst_banner_link_id ); ?>"
+					value="<?php echo esc_attr( $cst_banner_link_id ); ?>"
 					type="hidden"
 				><br/>
 		</div>
