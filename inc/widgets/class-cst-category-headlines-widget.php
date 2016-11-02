@@ -158,10 +158,12 @@ class CST_Category_Headlines_Widget extends WP_Widget {
      */
     public function get_headline_posts( $widget_posts ) {
 
+    	$use_sticky_option = is_singular() ? false : true;
         $widget_posts_query = array(
-            'post__in' => $widget_posts,
-            'post_type' => 'any',
-            'orderby'   => 'post__in',
+			'post__in'            => $widget_posts,
+			'post_type'           => 'any',
+			'orderby'             => 'post__in',
+			'ignore_sticky_posts' => $use_sticky_option,
         );
         $display_these_posts = new \WP_Query( $widget_posts_query );
         $display_these_posts->have_posts();
