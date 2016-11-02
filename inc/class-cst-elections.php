@@ -15,6 +15,7 @@ class CST_Elections {
 		'election-2016-state' => 'http://hosted.ap.org/dynamic/files/elections/2016/general/by_state/state_sen_house/IL.html?SITE=ILCHSELN&SECTION=POLITICS',
 		'election-2016-county' => 'http://hosted.ap.org/dynamic/files/elections/2016/general/by_county/state_sen_house/IL.html?SITE=ILCHSELN&SECTION=POLITICS',
 		'election-2016-nov' => 'http://interactives.ap.org/2016/%1$s/?SITE=ILCHSELN&OFFICE=%2$s&DEFAULTGEO=TRUE',
+		'election-2016-local-races' => 'http://hosted.ap.org/dynamic/files/elections/2016/general/by_county/local/IL.html?SITE=ILCHSELN&SECTION=POLITICS',
 		'election-2016-fed-senate' => 'http://hosted.ap.org/dynamic/files/elections/2016/general/by_county/us_senate/IL.html?SITE=ILCHSELN&SECTION=POLITICS',
 		'election-2016-fed-house' => 'http://hosted.ap.org/dynamic/files/elections/2016/general/by_county/us_house/IL.html?SITE=ILCHSELN&SECTION=POLITICS',
 		'election-2016-us-house-results' => 'http://hosted.ap.org/dynamic/files/elections/2016/general/by_state/us_house/IL.html?SITE=ILCHSELN&SECTION=POLITICS',
@@ -223,6 +224,29 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
 </iframe>',	esc_url( $this->shortcodes['election-2016-us-house-results'] ),
+			esc_attr( $attributes['width'] ),
+			esc_attr( $attributes['height'] )
+		);
+		return $html;
+	}
+
+	/**
+	 * @param $atts
+	 *
+	 * @return string
+	 */
+	public function election_2016_local_races( $atts ) {
+		$attributes = shortcode_atts( array(
+			'width' => '100%',
+			'height' => '250px',
+
+		), $atts );
+		$html = sprintf( '<iframe src="%1$s"
+  class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
+ <!-- The following message will be displayed to users with unsupported browsers: -->
+Your browser does not support the <code>iframe</code> HTML tag.
+Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
+</iframe>',	esc_url( $this->shortcodes['election-2016-local-races'] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] )
 		);
