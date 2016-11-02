@@ -130,7 +130,6 @@ class CST_Homepage_Secondary_Headlines_Widget extends WP_Widget {
 				'post__in'  => $widget_posts,
 				'post_type' => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery' ),
 				'orderby'   => 'post__in',
-				'ignore_sticky_posts' => true,
 		    );
 		    $display_these_posts = new \WP_Query( $widget_posts_query );
 		    $display_these_posts->have_posts();

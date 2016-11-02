@@ -128,7 +128,6 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				'post__in' => $widget_posts,
 				'post_type' => 'any',
 				'orderby'	=> 'post__in',
-				'ignore_sticky_posts' => true,
 			);
 			$display_these_posts = new \WP_Query( $widget_posts_query );
 			$display_these_posts->have_posts();
