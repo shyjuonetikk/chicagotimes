@@ -1391,9 +1391,17 @@ class CST_Frontend {
 		?>
 <!-- teads tag -->
 <script type="text/javascript">
+function ready(fn) {
+  if (document.readyState != 'complete') {
+    window.addEventListener('load', fn);
+  } else {
+    fn();
+  }
+}
+function fn() {
 window._ttf = window._ttf || [];
 _ttf.push({
-       pid          : 58295
+       pid          : 58294
        ,lang        : "en"
        ,slot        : '[itemprop="articleBody"] > p'
        ,format      : "inread"
@@ -1408,6 +1416,8 @@ _ttf.push({
         js.src = '//cdn.teads.tv/media/format.js';
         s.parentNode.insertBefore(js, s);
 })(window.document);
+}
+ready(fn);
 </script><!-- /teads tag -->
 	<?php
 		}
