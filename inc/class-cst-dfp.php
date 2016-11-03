@@ -268,6 +268,10 @@ var dfp = {
 	  .addSize([375, 667], [300, 250]) //phone
 	  .addSize([0, 0], [320, 50], [300, 50]) //other
 	  .build();
+    var ym_craig_mapping = googletag.sizeMapping()
+	  .addSize([992, 0], [728, 90]) //desktop
+	  .addSize([0, 0], [300, 250]) //other
+	  .build();
     googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
       .addService(googletag.pubads()).setTargeting("pos", "1x1");
     googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
@@ -341,6 +345,7 @@ var dfp = {
         .addService(googletag.pubads())
         .setTargeting("pos", "SkyScraper");
       CSTAdTags['div-gpt-ym-craig'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-ym-craig')
+        .defineSizeMapping(ym_craig_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos","ym craig")
         .setCollapseEmptyDiv(true,true);
