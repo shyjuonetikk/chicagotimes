@@ -3366,7 +3366,7 @@ header .contain-to-grid .cst-row {
     max-width: 100%;
     margin: 0 auto;
     height: 138px;
-    line-height: 65px; }
+    line-height: 45px; }
     @media (min-width: 1250px) {
       header .contain-to-grid .top-bar .small-logo {
         display: none; } }
