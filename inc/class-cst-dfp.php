@@ -270,10 +270,6 @@ var dfp = {
 	  .build();
     var ym_craig_mapping = googletag.sizeMapping()
 	  .addSize([992, 0], [728, 90]) //desktop
-	  .addSize([800, 1200], [300, 250]) //tablet
-	  .addSize([768, 1024], [300, 250]) //tablet
-	  .addSize([640, 480], [300, 250]) //phone
-	  .addSize([375, 667], [300, 250]) //phone
 	  .addSize([0, 0], [300, 250]) //other
 	  .build();
     googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
