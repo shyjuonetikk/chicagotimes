@@ -73,17 +73,26 @@
 
 
 	.post-meta-byline {
-		margin-bottom: 20px;
+		margin-bottom: 10px;
 
-		div {
-			margin-top: 10px;
-			margin-bottom: 10px;
+		.author-meta-box {
+			padding-left: 0;
+		}
+		@media only screen and (min-width:1025px) {
+			.author-meta-box {
+				padding-left: 0.9375rem;
+			}
 		}
 
+		.newsletter-box {
+			padding-left:0;
+		}
 		.post-meta-author {
 			font-family: $open_sans;
 			font-weight: 700;
 			font-size: 1rem;
+			margin-top: 10px;
+			margin-bottom: 10px;
 
 			a {
 				color: $black;
@@ -92,6 +101,8 @@
 		}
 
 		.post-meta-author-contact {
+			margin-top: 10px;
+			margin-bottom: 10px;
 
 			a {
 				color: $social_grey;

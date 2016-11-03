@@ -1422,4 +1422,28 @@ ready(fn);
 	<?php
 		}
 	}
+
+	public function inject_newsletter_signup( $newsletter ) {
+
+		$newsletter_codes = array(
+			'news' => array( 'title' => 'News &amp; Politics', 'code' => '062jcp97-2819pvaa' ),
+			'entertainment' => array( 'title' => 'Entertainment', 'code' => '062jcp97-bf1s1y92' ),
+			'sports' => array( 'title' => 'Sports', 'code' => '062jcp97-06149p3a' ),
+		);
+		$template = '
+<div class="large-7 medium-8 small-12 columns newsletter-box">
+	<div class="newsletter-sign-up">
+		<h3>Sign-Up for our %1$s Newsletter&nbsp;
+			<a href="https://r1.surveysandforms.com/%2$s" target="_blank" class="button tiny info">
+				<i class="fa fa-envelope"></i> Sign-Up
+			</a>
+		</h3>
+	</div>
+</div>
+';
+		echo sprintf( $template,
+			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
+			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
+		);
+	}
 }
