@@ -22,6 +22,7 @@ class CST_Elections {
 		'election-2016-us-senate-results' => 'http://hosted.ap.org/dynamic/files/elections/2016/general/by_state/us_senate/IL.html?SITE=ILCHSELN&SECTION=POLITICS',
 		'election-2016-race' => 'http://hosted.ap.org/elections/2016/general/by_race/IL_%1$s.js?SITE=ILCHSELN&SECTION=POLITICS',
 		'primary-election-results' => 'http://interactives.ap.org/2016/primary-election-results/?STATE=%1$s&date=%2$s&SITEID=%3$s',
+		'election-2016-navigation' => 'this-entry-left-intentionally-blank',
 	);
 
 	private static $instance;
@@ -35,9 +36,20 @@ class CST_Elections {
 	}
 	public function __construct() {
 
+
 		$this->setup_short_codes();
 
+		add_filter( 'nav_menu_css_class', [ $this, 'my_special_nav_class' ], 10, 3 );
 	}
+
+	function my_special_nav_class( $classes, $item, $args ) {
+		if ( 'election-page' === $args->theme_location ) {
+			$classes[] = 'button';
+		}
+		return $classes;
+
+	}
+
 
 	/**
 	 * Create shortcode hooks to the similarly named functions
@@ -49,14 +61,35 @@ class CST_Elections {
 		}
 
 	}
-
-
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016( $atts ) {
+	public function election_2016_navigation( $atts , $shortcode_content, $shortcode_name ) {
+		if ( has_nav_menu( 'election-page' ) ) {
+			$html = wp_nav_menu( array(
+				'theme_location' => 'election-page',
+				'echo' => false,
+				'container' => 'nav',
+				'container_class' => 'top-bar election',
+				'items_wrap' => '<ul id="%1$s" class="'.esc_attr( $shortcode_name ) . '">%3$s</ul>',
+			) );
+			return $html;
+		}
+		return '';
+	}
+
+	/**
+	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
+	 *
+	 * @return string
+	 */
+	public function election_2016( $atts, $shortcode_content, $shortcode_name ) {
 		$available_types = array(
 			'state',
 			'county',
@@ -82,7 +115,7 @@ class CST_Elections {
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', sprintf( esc_url( $this->shortcodes['election-2016'] ), esc_attr( $attributes['type'] ), esc_attr( $attributes['page'] ) . '_' . esc_attr( $attributes['date'] ), esc_attr( $attributes['siteid'] ), esc_attr( $attributes['vd'] ) ),
+</iframe>', sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['type'] ), esc_attr( $attributes['page'] ) . '_' . esc_attr( $attributes['date'] ), esc_attr( $attributes['siteid'] ), esc_attr( $attributes['vd'] ) ),
 				esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ) );
 
@@ -94,10 +127,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_nov( $atts ) {
+	public function election_2016_nov( $atts, $shortcode_content, $shortcode_name ) {
 
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
@@ -111,7 +146,7 @@ class="ap-embed cube" width="%2$s" height="%3$s" style="border: 1px solid #eee;"
 <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', sprintf( esc_url( $this->shortcodes['election-2016-nov'] ), esc_attr( $attributes['page'] ), esc_attr( $attributes['office'] ) ),
+</iframe>', sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['page'] ), esc_attr( $attributes['office'] ) ),
 			esc_attr( $attributes['width'] ),
 		esc_attr( $attributes['height'] ) );
 
@@ -120,10 +155,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_race( $atts ) {
+	public function election_2016_race( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
 			'height' => '250px',
@@ -131,8 +168,8 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 			'race_num' => '16413',
 			'race_title' => 'US Senate General',
 		), $atts );
-		$html = sprintf( '<script language="JavaScript" src="%1$s"></script>',
-			sprintf( esc_url( $this->shortcodes['election-2016-race'] ), esc_attr( $attributes['race_num'] ) )
+		$html = sprintf( '<script language="JavaScript" src="%1$s"></script><a class="button" href="#election-top">Back to top</a>',
+			sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['race_num'] ) )
 		);
 
 		return $html;
@@ -140,162 +177,183 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_state( $atts ) {
+	public function election_2016_state( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
 			'height' => '250px',
 
 		), $atts );
-		$html = sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<a id="%4$s"></a><iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>',	esc_url( $this->shortcodes['election-2016-state'] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
-			esc_attr( $attributes['height'] )
+			esc_attr( $attributes['height'] ),
+			esc_attr( $shortcode_name )
 		);
 		return $html;
 	}
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_fed_senate( $atts ) {
+	public function election_2016_fed_senate( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
 			'height' => '250px',
 
 		), $atts );
-		$html = sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<a id="%4$s"></a><iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>',	esc_url( $this->shortcodes['election-2016-fed-senate'] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
-			esc_attr( $attributes['height'] )
+			esc_attr( $attributes['height'] ),
+			esc_attr( $shortcode_name )
 		);
 		return $html;
 	}
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_fed_house( $atts ) {
+	public function election_2016_fed_house( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
 			'height' => '250px',
 
 		), $atts );
-		$html = sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<a id="%4$s"></a><iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>',	esc_url( $this->shortcodes['election-2016-fed-house'] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
-			esc_attr( $attributes['height'] )
+			esc_attr( $attributes['height'] ),
+			esc_attr( $shortcode_name )
 		);
 		return $html;
 	}
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_us_house_results( $atts ) {
+	public function election_2016_us_house_results( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
 			'height' => '250px',
 
 		), $atts );
-		$html = sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<a id="%4$s"></a><iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>',	esc_url( $this->shortcodes['election-2016-us-house-results'] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
-			esc_attr( $attributes['height'] )
+			esc_attr( $attributes['height'] ),
+			esc_attr( $shortcode_name )
 		);
 		return $html;
 	}
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_local_races( $atts ) {
+	public function election_2016_local_races( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
 			'height' => '250px',
 
 		), $atts );
-		$html = sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<a id="%4$s"></a><iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>',	esc_url( $this->shortcodes['election-2016-local-races'] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
-			esc_attr( $attributes['height'] )
+			esc_attr( $attributes['height'] ),
+			esc_attr( $shortcode_name )
 		);
 		return $html;
 	}
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_us_senate_results( $atts ) {
+	public function election_2016_us_senate_results( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
 			'height' => '230px',
 
 		), $atts );
-		$html = sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<a id="%4$s"></a><iframe src="%1$s"
  width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>',	esc_url( $this->shortcodes['election-2016-us-senate-results'] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
-			esc_attr( $attributes['height'] )
+			esc_attr( $attributes['height'] ),
+			esc_attr( $shortcode_name )
 		);
 		return $html;
 	}
 
 	/**
 	 * @param $atts
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 *
 	 * @return string
 	 */
-	public function election_2016_county( $atts ) {
+	public function election_2016_county( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'width' => '100%',
 			'height' => '250px',
 
 		), $atts );
-		$html = sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<a id="%4$s"></a><iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>',
-			esc_url( $this->shortcodes['election-2016-county'] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',
+			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
-			esc_attr( $attributes['height'] )
+			esc_attr( $attributes['height'] ),
+			esc_attr( $shortcode_name )
 		);
 
 		return $html;
@@ -305,10 +363,11 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 	 *
 	 * Collect and return for display primary election results
 	 * @param $atts
-	 *
+	 * @param $shortcode_content
+	 * @param $shortcode_name
 	 * @return string
 	 */
-	public function primary_election_results( $atts ) {
+	public function primary_election_results( $atts, $shortcode_content, $shortcode_name ) {
 		$attributes = shortcode_atts( array(
 			'state' => $this->election_state,
 			'date' => $this->election_date,
@@ -317,14 +376,15 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 			'height' => '600px',
 		), $atts );
 
-		$html = sprintf( '<iframe src="%1$s"
+		$html = sprintf( '<a id="%4$s"></a><iframe src="%1$s"
   class="ap-embed" width="%2$s" height="%3$s" style="border: 1px solid #eee;">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe>', sprintf( esc_url( $this->shortcodes['primary-election-results'] ), esc_attr( $attributes['state'] ), esc_attr( $attributes['date'] ), esc_attr( $attributes['siteid'] ) ),
+</iframe><a class="button" href="#election-top">Back to top</a>', sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['state'] ), esc_attr( $attributes['date'] ), esc_attr( $attributes['siteid'] ) ),
 			esc_attr( $attributes['width'] ),
-			esc_attr( $attributes['height'] )
+			esc_attr( $attributes['height'] ),
+			esc_attr( $shortcode_name )
 		);
 
 		return $html;
