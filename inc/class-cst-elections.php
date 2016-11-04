@@ -39,10 +39,19 @@ class CST_Elections {
 
 		$this->setup_short_codes();
 
-		add_filter( 'nav_menu_css_class', [ $this, 'my_special_nav_class' ], 10, 3 );
+		add_filter( 'nav_menu_css_class', [ $this, 'cst_election_add_button_class' ], 10, 3 );
 	}
 
-	function my_special_nav_class( $classes, $item, $args ) {
+	/**
+	 * @param $classes
+	 * @param $item
+	 * @param $args
+	 *
+	 * @return array
+	 *
+	 * Add button class to single li's in election navigation
+	 */
+	function cst_election_add_button_class( $classes, $item, $args ) {
 		if ( 'election-page' === $args->theme_location ) {
 			$classes[] = 'button';
 		}
@@ -68,14 +77,14 @@ class CST_Elections {
 	 *
 	 * @return string
 	 */
-	public function election_2016_navigation( $atts , $shortcode_content, $shortcode_name ) {
+	public function election_2016_navigation( $atts, $shortcode_content, $shortcode_name ) {
 		if ( has_nav_menu( 'election-page' ) ) {
 			$html = wp_nav_menu( array(
 				'theme_location' => 'election-page',
 				'echo' => false,
 				'container' => 'nav',
 				'container_class' => 'top-bar election',
-				'items_wrap' => '<ul id="%1$s" class="'.esc_attr( $shortcode_name ) . '">%3$s</ul>',
+				'items_wrap' => '<ul id="%1$s" class="'. esc_attr( $shortcode_name ) . '">%3$s</ul>',
 			) );
 			return $html;
 		}
@@ -148,7 +157,7 @@ Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
 </iframe>', sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['page'] ), esc_attr( $attributes['office'] ) ),
 			esc_attr( $attributes['width'] ),
-		esc_attr( $attributes['height'] ) );
+			esc_attr( $attributes['height'] ) );
 
 		return $html;
 	}
@@ -193,7 +202,8 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',
+			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
 			esc_attr( $shortcode_name )
@@ -219,7 +229,8 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',
+			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
 			esc_attr( $shortcode_name )
@@ -245,7 +256,8 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',
+			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
 			esc_attr( $shortcode_name )
@@ -271,7 +283,8 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',
+			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
 			esc_attr( $shortcode_name )
@@ -297,7 +310,8 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',
+			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
 			esc_attr( $shortcode_name )
@@ -323,7 +337,8 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',	esc_url( $this->shortcodes[ $shortcode_name ] ),
+</iframe><a class="button" href="#election-top">Back to top</a>',
+			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
 			esc_attr( $shortcode_name )
