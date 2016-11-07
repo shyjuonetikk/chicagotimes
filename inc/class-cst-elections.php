@@ -177,8 +177,9 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 			'race_num' => '16413',
 			'race_title' => 'US Senate General',
 		), $atts );
-		$html = sprintf( '<script language="JavaScript" src="%1$s"></script><a class="button" href="#election-top">Back to top</a>',
-			sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['race_num'] ) )
+		$html = sprintf( '<script language="JavaScript" src="%1$s"></script>%2$s',
+			sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['race_num'] ) ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 
 		return $html;
@@ -202,11 +203,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',
+</iframe>%5$s',
 			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
-			esc_attr( $shortcode_name )
+			esc_attr( $shortcode_name ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 		return $html;
 	}
@@ -229,11 +231,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',
+</iframe>%5$s',
 			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
-			esc_attr( $shortcode_name )
+			esc_attr( $shortcode_name ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 		return $html;
 	}
@@ -256,11 +259,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',
+</iframe>%5$s',
 			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
-			esc_attr( $shortcode_name )
+			esc_attr( $shortcode_name ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 		return $html;
 	}
@@ -283,11 +287,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',
+</iframe>%5$s',
 			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
-			esc_attr( $shortcode_name )
+			esc_attr( $shortcode_name ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 		return $html;
 	}
@@ -310,11 +315,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',
+</iframe>%5$s',
 			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
-			esc_attr( $shortcode_name )
+			esc_attr( $shortcode_name ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 		return $html;
 	}
@@ -337,11 +343,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',
+</iframe>%5$s',
 			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
-			esc_attr( $shortcode_name )
+			esc_attr( $shortcode_name ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 		return $html;
 	}
@@ -364,11 +371,12 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>',
+</iframe>%5$s',
 			esc_url( $this->shortcodes[ $shortcode_name ] ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
-			esc_attr( $shortcode_name )
+			esc_attr( $shortcode_name ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 
 		return $html;
@@ -396,10 +404,11 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
-</iframe><a class="button" href="#election-top">Back to top</a>', sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['state'] ), esc_attr( $attributes['date'] ), esc_attr( $attributes['siteid'] ) ),
+</iframe>%4$s', sprintf( esc_url( $this->shortcodes[ $shortcode_name ] ), esc_attr( $attributes['state'] ), esc_attr( $attributes['date'] ), esc_attr( $attributes['siteid'] ) ),
 			esc_attr( $attributes['width'] ),
 			esc_attr( $attributes['height'] ),
-			esc_attr( $shortcode_name )
+			esc_attr( $shortcode_name ),
+			is_front_page() ? '' : wp_kses_post( '<a class="button" href="#election-top">Back to top</a>' )
 		);
 
 		return $html;

@@ -3639,3 +3639,7 @@ body.post-gallery-lightbox-active {
     text-transform: uppercase;
     text-align: left;
     color: white; }
+
+.elections-2016 {
+  float: left;
+  margin-bottom: 10px; }
