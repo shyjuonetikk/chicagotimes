@@ -1473,20 +1473,12 @@ article.post {
     display: block; }
     .single .post-recommendations .recommended-post a {
       font-size: 0.85rem; }
-.single .post .newsletter-sign-up {
+.single .entertainment-sign-up {
   background: #f0f0f0;
-  margin: 0 auto;
-  text-align: center;
-  padding: 0.4rem; }
-  .single .post .newsletter-sign-up h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #282828;
-    line-height: 2rem;
-    margin-bottom: 0.2rem; }
-  .single .post .newsletter-sign-up a.button {
-    margin: 0;
-    padding: 0.8rem; }
+  margin-bottom: 0;
+  text-align: center; }
+  .single .entertainment-sign-up h3 {
+    font-weight: 700; }
 
 section#subscribe {
   background: white;
@@ -2419,36 +2411,27 @@ body.post-gallery-lightbox-active {
     bottom: 8px;
     right: 31px; }
 .post .post-meta-byline {
-  margin-bottom: 10px; }
-  .post .post-meta-byline .author-meta-box {
-    padding-left: 0; }
-  @media only screen and (min-width: 1025px) {
-    .post .post-meta-byline .author-meta-box {
-      padding-left: 0.9375rem; } }
-  .post .post-meta-byline .newsletter-box {
-    padding-left: 0; }
+  margin-bottom: 20px; }
+  .post .post-meta-byline div {
+    margin-top: 10px;
+    margin-bottom: 10px; }
   .post .post-meta-byline .post-meta-author {
     font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 700;
-    font-size: 1rem;
-    margin-top: 10px;
-    margin-bottom: 10px; }
+    font-size: 1rem; }
     .post .post-meta-byline .post-meta-author a {
       color: #282828; }
-  .post .post-meta-byline .post-meta-author-contact {
-    margin-top: 10px;
-    margin-bottom: 10px; }
-    .post .post-meta-byline .post-meta-author-contact a {
-      color: #9a9a9a; }
-      .post .post-meta-byline .post-meta-author-contact a:hover {
-        color: #d5c35f; }
-    .post .post-meta-byline .post-meta-author-contact .fa {
-      width: 20px;
-      height: 20px;
-      font-size: 20px;
-      margin-right: 10px; }
-    .post .post-meta-byline .post-meta-author-contact .fa:hover {
+  .post .post-meta-byline .post-meta-author-contact a {
+    color: #9a9a9a; }
+    .post .post-meta-byline .post-meta-author-contact a:hover {
       color: #d5c35f; }
+  .post .post-meta-byline .post-meta-author-contact .fa {
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    margin-right: 10px; }
+  .post .post-meta-byline .post-meta-author-contact .fa:hover {
+    color: #d5c35f; }
 .post .byline-author {
   color: #282828; }
 @media only screen and (min-width:40.063em) {
