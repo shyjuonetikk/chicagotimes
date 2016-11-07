@@ -146,11 +146,15 @@
 		text-decoration: none;
 	}
 }
-.page {
-	.page_wrapper {
-		#header {
-			height: 139px;
+.page-template-page-election-results {
+	&.f-topbar-fixed {
+		padding-top:108px;
+	}
+	@media only screen and (min-width: $medium-up) {
+		&.f-topbar-fixed {
+			padding-top:218px;
 		}
+
 	}
 	footer {
 		clear: both;
