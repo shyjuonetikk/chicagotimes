@@ -151,11 +151,11 @@ class CST_Frontend {
 
 
 		// Fonts
-		wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Raleway|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800|Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' );
+		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
 
 		if ( is_page_template( 'page-monster.php' ) ) {
 			wp_enqueue_script( 'monster-footerhook', get_template_directory_uri() . '/assets/js/vendor/footerhookv1-min.js', array( 'jquery' ), false, true );
-			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
+			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts' ) );
 			wp_enqueue_script( 'cst-custom-js', get_template_directory_uri() . '/assets/js/theme-custom-page.js' );
 
@@ -169,8 +169,8 @@ class CST_Frontend {
 			if ( ! is_404() && ! is_page() ) {
 				if ( ! is_front_page() || ! is_page() ) {
 					// Scripty-scripts
-					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
-					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9' );
+					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
+					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 
 					// Slick
 					wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
@@ -1191,7 +1191,7 @@ class CST_Frontend {
 			return;
 		}
 		?>
-<script type="text/javascript" src="//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes"></script>
+<script type="text/javascript" async src="//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes"></script>
 		<?php
 	}
 	/**

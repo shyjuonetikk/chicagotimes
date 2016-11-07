@@ -2281,7 +2281,7 @@ header .contain-to-grid .cst-row {
     max-width: 100%;
     margin: 0 auto;
     height: 138px;
-    line-height: 65px; }
+    line-height: 45px; }
     @media (min-width: 1250px) {
       header .contain-to-grid .top-bar .small-logo {
         display: none; } }
@@ -3470,3 +3470,155 @@ body.post-gallery-lightbox-active {
   margin: 0 auto; }
   .page_wrapper .page-content {
     background: white; }
+
+.elections-container {
+  margin: 0; }
+
+.elections-container, .row.page-content {
+  padding: 0; }
+  .elections-container .ap-embed, .row.page-content .ap-embed {
+    min-height: 44rem; }
+  .elections-container .ap-embed.cube, .row.page-content .ap-embed.cube {
+    min-height: 15rem; }
+  .elections-container header#header, .row.page-content header#header {
+    min-height: 140px; }
+  .elections-container h1, .row.page-content h1 {
+    font-size: 1.8rem; }
+  .elections-container h2, .row.page-content h2 {
+    font-size: 1.6rem; }
+  .elections-container h3, .row.page-content h3 {
+    font-size: 1.4rem; }
+  .elections-container h4, .row.page-content h4 {
+    font-size: 1.2rem; }
+  .elections-container table tr th, .elections-container table tr td, .row.page-content table tr th, .row.page-content table tr td {
+    padding: 0.3625rem 0.425rem; }
+  .elections-container td > table, .row.page-content td > table {
+    margin-bottom: 0.25rem; }
+  .elections-container .ap-data > table, .row.page-content .ap-data > table {
+    width: 100%;
+    margin-bottom: 0.25rem; }
+  .elections-container .ap-data > p:last-child, .row.page-content .ap-data > p:last-child {
+    display: none; }
+  .elections-container .eln-position, .row.page-content .eln-position {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #003366;
+    text-decoration: none; }
+  .elections-container .eln-state, .row.page-content .eln-state {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #663333;
+    text-decoration: none;
+    background-color: EEEEEE;
+    font-weight: bold;
+    text-indent: 5px; }
+  .elections-container .eln-date, .row.page-content .eln-date {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    color: #666666;
+    text-decoration: none; }
+  .elections-container .eln-label1, .row.page-content .eln-label1 {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #993333; }
+  .elections-container .eln-bodyregular, .row.page-content .eln-bodyregular {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: black;
+    text-decoration: none;
+    line-height: 0.525rem; }
+  .elections-container .eln-cty-bodyregular, .row.page-content .eln-cty-bodyregular {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    color: black;
+    text-decoration: none; }
+  .elections-container .eln-official, .row.page-content .eln-official {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    color: #333333; }
+  .elections-container .eln-office-name, .row.page-content .eln-office-name {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #993333; }
+  .elections-container .eln-bodyreg-bar, .row.page-content .eln-bodyreg-bar {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    color: black;
+    text-decoration: none;
+    background-color: #eeeeee; }
+  .elections-container .eln-cty-bodyreg-bar, .row.page-content .eln-cty-bodyreg-bar {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 9px;
+    color: black;
+    text-decoration: none;
+    background-color: #eeeeee; }
+  .elections-container .eln-bodybold, .row.page-content .eln-bodybold {
+    font: bold 10px Verdana, Arial, Helvetica, sans-serif;
+    color: black; }
+  .elections-container .eln-subhed-table, .row.page-content .eln-subhed-table {
+    font: bold 10px Verdana, Arial, Helvetica, sans-serif;
+    color: white;
+    text-decoration: none;
+    background-color: #999999; }
+  .elections-container .eln-cty-subhed-table, .row.page-content .eln-cty-subhed-table {
+    font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+    color: white;
+    text-decoration: none;
+    background-color: #cccccc; }
+  .elections-container .eln-navback, .row.page-content .eln-navback {
+    font-family: Verdana, Arial, sans-serif;
+    color: 3366;
+    text-decoration: none;
+    background-color: #eeeeee;
+    text-align: right;
+    font-size: 11px;
+    font-weight: bold; }
+  .elections-container .eln-footer-top, .row.page-content .eln-footer-top {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #999999; }
+  .elections-container .eln-footer-body, .row.page-content .eln-footer-body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    color: #006600;
+    text-align: left;
+    text-decoration: none; }
+
+.page .page_wrapper #header {
+  height: 139px; }
+.page footer {
+  clear: both; }
+
+@media only screen and (max-width:64em) {
+  .page .page_wrapper #header {
+    height: 45px; } }
+
+.top-bar.election {
+  min-height: 45px;
+  height: auto; }
+  .top-bar.election ul {
+    margin-left: 0; }
+
+.election-2016-navigation {
+  padding: 9px; }
+  .election-2016-navigation li.button {
+    padding: 0.35rem 0.75rem;
+    display: inline;
+    white-space: nowrap;
+    line-height: 35px;
+    top: 0 !important; }
+  .election-2016-navigation li a {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
+    font-size: 15px;
+    text-transform: uppercase;
+    text-align: left;
+    color: white; }
