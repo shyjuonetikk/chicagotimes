@@ -41,7 +41,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-target_type' => 'mix',
 			'data-article'     => 'auto',
 			'data-publisher'   => 'cst',
-	) );
+		) );
 
 		// Add a placeholder to show while loading
 		$fallback_node = AMP_DOM_Utils::create_node( $this->dom, 'amp-img', array(
@@ -52,7 +52,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		$ad_node_first->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-img', array(
 			'placeholder' => '',
 			'layout' => 'fill',
-			'src' => 'https://placehold.it/320x250?text=Ad loading...',
+			'src' => 'https://placehold.it/320x50?text=Ad loading...',
 		) ) );
 		$ad_node_second->appendChild( $fallback_node );
 
