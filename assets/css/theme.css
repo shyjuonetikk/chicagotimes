@@ -3649,3 +3649,6 @@ body.post-gallery-lightbox-active {
 .elections-2016 {
   float: left;
   margin-bottom: 10px; }
+
+.homepage-content .elections-2016 .ap-data {
+  min-height: 14.1rem; }
