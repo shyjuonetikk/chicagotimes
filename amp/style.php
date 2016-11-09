@@ -236,7 +236,12 @@ blockquote p:last-child {
 	clear: both;
 }
 .amp-recommended-image {
-	float:left;
+	float: left;
+	width: 100%;
+	height: auto;
+	max-width: 80px;
+	margin-right: 10px;
+	padding: 0;
 }
 .amp-recommended-image img {
 	max-width: 100%;
