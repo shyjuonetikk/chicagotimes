@@ -184,6 +184,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-secondary-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-more-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-election-headlines-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-election-map-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-weather-word-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-columnists-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newspaper-cover-widget.php';
@@ -202,10 +203,12 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-letters-to-the-editor-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newsletter-signup-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ap-dne-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-section-breaking-link.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-shia-kapos-categories-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-tcx-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
@@ -745,6 +748,8 @@ class CST {
 		register_widget( 'CST_Homepage_Secondary_Headlines_Widget' );
 		register_widget( 'CST_Homepage_More_Headlines_Widget' );
 		register_widget( 'CST_Elections_2016_More_Headlines_Widget' );
+		register_widget( 'CST_Elections_2016_Map_Widget' );
+		register_widget( 'CST_Banner_Link_Widget' );
 		register_widget( 'CST_Weather_Word_Widget' );
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
@@ -761,6 +766,7 @@ class CST {
 		register_widget( 'CST_Letters_To_Editor_Widget' );
 		register_widget( 'CST_Newsletter_Signup_Widget' );
 		register_widget( 'CST_AP_DNE_Widget' );
+		register_widget( 'CST_Breaking_Section_Link_Widget' );
 		register_widget( 'CST_Shia_Kapos_Categories_Widget' );
 		register_widget( 'CST_TCX_Widget' );
 		register_widget( 'CST_Bears_Cube_Widget' );
@@ -812,6 +818,7 @@ class CST {
 				'page-footer-1'         => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
 				'page-footer-2'         => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
 				'page-footer-3'         => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
+				'election-page'         => esc_html__( 'Election Page', 'chicagosuntimes' ),
 			)
 		);
 

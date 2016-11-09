@@ -12,17 +12,19 @@ class CST_Frontend {
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
 	private $send_to_news_embeds = array(
-		'cubs'           => 'uqWfqG2Y',
-		'cubs-baseball'  => 'uqWfqG2Y',
-		'white-sox'      => 'WOOeQ5Jw',
-		'bulls'          => 's3AyJdaz',
-		'bears'          => 'C30fZO7v',
-		'bears-football' => 'C30fZO7v',
-		'pga-golf'       => '8Owdfvnq',
-		'nascar'         => 'hdUJ4uMz',
-		'ahl-wolves'     => 'dAT6rZV6',
-		'colleges'       => 'IS3jNqMB',
-		'olympics-2016'  => 'BQ3NYJzd',
+		'cubs'              => 'uqWfqG2Y',
+		'cubs-baseball'     => 'uqWfqG2Y',
+		'white-sox'         => 'WOOeQ5Jw',
+		'bulls'             => 's3AyJdaz',
+		'bears'             => 'C30fZO7v',
+		'bears-football'    => 'C30fZO7v',
+		'pga-golf'          => '8Owdfvnq',
+		'nascar'            => 'hdUJ4uMz',
+		'ahl-wolves'        => 'dAT6rZV6',
+		'colleges'          => 'IS3jNqMB',
+		'olympics-2016'     => 'BQ3NYJzd',
+		'blackhawks-hockey' => 'idn8h9Kj',
+		'sports'            => 'uDnVEu1d',
 	);
 	public static function get_instance() {
 
@@ -78,11 +80,12 @@ class CST_Frontend {
 
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
-		add_action( 'body_start', array( $this, 'inject_zedo_tag' ) );
+		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
 		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
+		add_action( 'wp_head', array( $this, 'action_cst_openx_header_bidding_script' ) );
 	}
 
 	/**
@@ -148,11 +151,11 @@ class CST_Frontend {
 
 
 		// Fonts
-		wp_enqueue_style( 'google-fonts', '//fonts.googleapis.com/css?family=Raleway|Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800|Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' );
+		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
 
 		if ( is_page_template( 'page-monster.php' ) ) {
 			wp_enqueue_script( 'monster-footerhook', get_template_directory_uri() . '/assets/js/vendor/footerhookv1-min.js', array( 'jquery' ), false, true );
-			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
+			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts' ) );
 			wp_enqueue_script( 'cst-custom-js', get_template_directory_uri() . '/assets/js/theme-custom-page.js' );
 
@@ -166,8 +169,8 @@ class CST_Frontend {
 			if ( ! is_404() && ! is_page() ) {
 				if ( ! is_front_page() || ! is_page() ) {
 					// Scripty-scripts
-					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js' );
-					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9' );
+					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
+					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 
 					// Slick
 					wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
@@ -1188,7 +1191,7 @@ class CST_Frontend {
 			return;
 		}
 		?>
-<script type="text/javascript" src="//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes"></script>
+<script type="text/javascript" async src="//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes"></script>
 		<?php
 	}
 	/**
@@ -1374,23 +1377,73 @@ class CST_Frontend {
 	public function setup_dfp_header_ad_settings() {
 		CST()->dfp_handler->ad_header_settings();
 	}
-	/**
+		/**
 	*
-	* Inject supplied Zedo tag just after the opening body tag of single article pages
+	* Inject supplied Teads tag just before the closing body tag of single article pages
 	*
 	*/
-	public function inject_zedo_tag() {
+	public function inject_teads_tag() {
 
 		if ( is_page() ) {
 			return;
 		}
 		if ( is_singular() ) {
 		?>
-<!-- zedo tag -->
-<div id="z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206" style='display:none' ></div>
-<script>!function(a,n,e,t,r){tagsync=e;var c=window[a];if(tagsync){var d=document.createElement("script");d.src="http://3107.tm.zedo.com/v1/29252020-9011-4261-83dd-83503d457fb9/atm.js",d.async=!0;var i=document.getElementById(n);if(null==i||"undefined"==i)return;i.parentNode.appendChild(d,i),d.onload=d.onreadystatechange=function(){var a=new zTagManager(n);a.initTagManager(n,c,this.aync,t,r)}}else document.write("<script src='http://3107.tm.zedo.com/v1/29252020-9011-4261-83dd-83503d457fb9/tm.js?data="+a+"'><"+"/script>")}("datalayer","z578f1ef7-f0c5-4f8d-9f90-f7f7b7dc0206",true, 1 , 1);</script>
-<!-- /zedo tag -->
+<!-- teads tag -->
+<script type="text/javascript">
+function ready(fn) {
+  if (document.readyState != 'complete') {
+    window.addEventListener('load', fn);
+  } else {
+    fn();
+  }
+}
+function fn() {
+window._ttf = window._ttf || [];
+_ttf.push({
+       pid          : 58294
+       ,lang        : "en"
+       ,slot        : '[itemprop="articleBody"] > p'
+       ,format      : "inread"
+       ,minSlot     : 3
+       ,css         : "margin: 0px auto 5px; max-width: 550px;"
+});
+
+(function (d) {
+        var js, s = d.getElementsByTagName('script')[0];
+        js = d.createElement('script');
+        js.async = true;
+        js.src = '//cdn.teads.tv/media/format.js';
+        s.parentNode.insertBefore(js, s);
+})(window.document);
+}
+ready(fn);
+</script><!-- /teads tag -->
 	<?php
 		}
+	}
+
+	public function inject_newsletter_signup( $newsletter ) {
+
+		$newsletter_codes = array(
+			'news' => array( 'title' => 'News &amp; Politics', 'code' => '062jcp97-2819pvaa' ),
+			'entertainment' => array( 'title' => 'Entertainment', 'code' => '062jcp97-bf1s1y92' ),
+			'sports' => array( 'title' => 'Sports', 'code' => '062jcp97-06149p3a' ),
+		);
+		$template = '
+<div class="large-7 medium-8 small-12 columns newsletter-box">
+	<div class="newsletter-sign-up">
+		<h3>Sign-Up for our %1$s Newsletter&nbsp;
+			<a href="https://r1.surveysandforms.com/%2$s" target="_blank" class="button tiny info">
+				<i class="fa fa-envelope"></i> Sign-Up
+			</a>
+		</h3>
+	</div>
+</div>
+';
+		echo sprintf( $template,
+			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
+			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
+		);
 	}
 }
