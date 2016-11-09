@@ -26,7 +26,7 @@
 					<div class="logo-wrapper large-logo">
 						<div class="logo">
 							<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-white-logo.png' ); ?>" alt='Chicago Sun-Times logo'>
-							<div class="masthead-date"><?php echo esc_html( date( 'l, F j, Y' ) ); ?></div>
+							<div class="masthead-date"><?php echo esc_html( date_i18n( 'l, F j, Y' ) ); ?></div>
 						</div>
 
 				</div>
