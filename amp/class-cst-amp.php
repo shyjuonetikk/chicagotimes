@@ -150,7 +150,7 @@ class CST_AMP {
 	 * Sanitizer handler for AMP when processing SendToNews, ads
 	 */
 	function amp_add_sanitizers( $sanitizer_classes, $post ) {
-		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-amp-sendtonews-sanitizer.php' );
+//		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-amp-sendtonews-sanitizer.php' );
 		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-cst-ad-sanitizer.php' );
 
 		$sanitizer_classes['CST_AMP_Ad_Injection_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`

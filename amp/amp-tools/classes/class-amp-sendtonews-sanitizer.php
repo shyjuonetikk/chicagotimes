@@ -22,9 +22,9 @@ class CST_AMP_Send_To_News_Sanitizer extends AMP_Base_Sanitizer {
 	private function get_player_id() {
 		$xp = new DOMXPath( $this->dom );
 		$divs = $this->dom->getElementsByTagName( 'div' );
-		$divtoo = $divs->item(1);
+		$divtoo = $divs->item( 1 );
 		if ( null !== $divtoo ) {
-			$player_id = $divtoo->getAttribute('data-pid');
+			$player_id = $divtoo->getAttribute( 'data-pid' );
 			return $player_id;
 		} else {
 			return false;
