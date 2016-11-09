@@ -9,6 +9,8 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 	}
 	public function sanitize() {
 		$body = $this->get_body_node();
+		// Get DFP Class
+		// Get parent inventory and include in data-slot below:
 
 		// Build our amp-ad tag
 		$ad_node_first = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
@@ -41,6 +43,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-target_type' => 'mix',
 			'data-article'     => 'auto',
 			'data-publisher'   => 'cst',
+			'data-url'         => '',
 		) );
 
 		// Add a placeholder to show while loading

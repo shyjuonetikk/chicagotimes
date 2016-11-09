@@ -281,40 +281,41 @@ class CST_AMP {
 				wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
 			}
 		}
-		?>
-		<div class="amp-recommendations">
-			<h3>Previously from <?php esc_html( $section_name ); ?></h3>
-		<?php foreach ( $result->pages as $item ) {
-
-			$chart_beat_top_content = (array) $item->metrics->post_id->top;
-			if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
-				$vals = array_values( array_flip( $chart_beat_top_content ) );
-			}
-			$recommended_featured_image_id = $vals[0];
-			$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $recommended_featured_image_id );
-			$response = wpcom_vip_file_get_contents( $remote_url );
-			if ( ! is_wp_error( $response ) ) {
-				$result = json_decode( $response );
-			}
-			$image_markup = '';
-			$fi_url = $result->featured_image . '?w=80';
-			$image_markup .= '<amp-img src="' . $fi_url . '" width=80 height=52>';
+		if ( ! empty( $result->pages ) ) {
 			?>
-		    <div class="amp-recommended-content">
-			    <div class="amp-recommended-image">
-				    <a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
-				        <?php echo $image_markup; ?>
-				    </a>
-			    </div>
-			    <div class="amp-recommended-title">
-				    <a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
-					    <?php echo esc_html( $item->title ); ?>
-				    </a>
-			    </div>
+			<div class="amp-recommendations">
+				<h3>Previously from <?php echo esc_html( $section_name ); ?></h3>
+				<?php foreach ( $result->pages as $item ) {
+
+					$chart_beat_top_content = (array) $item->metrics->post_id->top;
+					if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
+						$vals = array_values( array_flip( $chart_beat_top_content ) );
+					}
+					$recommended_featured_image_id = $vals[0];
+					$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $recommended_featured_image_id );
+					$response = wpcom_vip_file_get_contents( $remote_url );
+					if ( ! is_wp_error( $response ) ) {
+						$result = json_decode( $response );
+					}
+					$image_markup = '';
+					$fi_url = $result->featured_image . '?w=80';
+					$image_markup .= '<amp-img src="' . $fi_url . '" width=80 height=52>';
+					?>
+					<div class="amp-recommended-content">
+						<div class="amp-recommended-image">
+							<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
+								<?php echo $image_markup; ?>
+							</a>
+						</div>
+						<div class="amp-recommended-title">
+							<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
+								<?php echo esc_html( $item->title ); ?>
+							</a>
+						</div>
+					</div>
+				<?php } ?>
 			</div>
-		<?php } ?>
-		</div>
-<?php
+	<?php }
 	}
 
 	/**
