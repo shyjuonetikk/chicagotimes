@@ -547,7 +547,7 @@ class CST {
 			$author->user_login    = $wp_user->user_login;
 			$author->user_nicename = $wp_user->user_nicename;
 			$author->user_email    = $wp_user->user_email;
-			$author->user_url      = $wp_user->user_url;
+			$author->user_url      = property_exists( $author, 'user_url' ) ? $author->user_url : '';
 			$author->bio           = $wp_user->description;
 			$authors[] = $author;
 		}

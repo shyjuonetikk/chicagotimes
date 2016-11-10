@@ -123,7 +123,9 @@ a:focus {
 /* UI Fonts */
 .amp-wp-meta,
 nav.amp-wp-title-bar,
-.wp-caption-text {
+.wp-caption-text,
+.amp-recommendations,
+.post-meta-social {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
 	font-size: 15px;
 }
@@ -272,7 +274,7 @@ amp-carousel > amp-img > img {
 }
 
 nav.amp-wp-title-bar a.site-logo {
-background-image: url( '<?php echo esc_url( get_stylesheet_directory_uri() . '/cst-white-logo.png' ); ?>' );
+background-image: url( '<?php echo esc_url( get_stylesheet_directory_uri() . '/cst-amp-logo.png' ); ?>' );
 background-repeat: no-repeat;
 background-size: contain;
 display: block;
@@ -320,7 +322,6 @@ color: #fff;
 }
 .post-meta-social {
 background-color: #9a9a9a;
-font-family: "Open Sans", Arial, sans-serif;
 text-transform:uppercase;
 color: #fff;
 padding:0;
@@ -337,7 +338,7 @@ margin-bottom: 12px;
 .amp-wp-content .cst-amp-carousel .captiontext {
 color: #fff;
 font-family: "Open Sans", Arial, sans-serif;
-font-size: 1rem;
+font-size: 0.9rem;
 line-height: 1.5rem;
 bottom: 0;
 left: 0;
