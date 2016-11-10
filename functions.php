@@ -470,6 +470,11 @@ class CST {
         } );
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
+
+		// Control AMP enablement on non-production site
+		if ( 'chicago.suntimes.com' === $this->dfp_handler->get_parent_dfp_inventory() ) {
+			add_filter( 'amp_is_enabled', '__return_false', 100 );
+		}
 	}
 
 	/**
@@ -1291,8 +1296,8 @@ class CST {
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
 		$sections_match = implode( '|', $sections );
-		if ( defined( 'AMP_QUERY_VAR' ) ) {
-			$rewrites[ '(' . $sections_match . ')/([^/]+)/' . AMP_QUERY_VAR . '/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&amp=$matches[3]' . $post_types;
+		if ( 'chicago.suntimes.com' !== $this->dfp_handler->get_parent_dfp_inventory() ) {
+			$rewrites[ '(' . $sections_match . ')/([^/]+)/amp/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&amp=$matches[3]' . $post_types;
 		}
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/page/?([0-9]{1,})/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&paged=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&page=$matches[3]' . $post_types;
