@@ -20,7 +20,9 @@
 	<ul class="amp-wp-meta">
 		<?php $this->load_parts( apply_filters( 'amp_post_template_meta_parts', array( 'meta-author' ) ) ); ?>
 	</ul>
-	<?php echo $this->get( 'post_amp_content' ); // amphtml content; no kses ?>
+	<div class="article">
+		<?php echo $this->get( 'post_amp_content' ); // amphtml content; no kses ?>
+	</div>
 </div>
 <?php do_action( 'amp_post_template_footer', $this ); ?>
 </body>

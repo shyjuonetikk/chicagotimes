@@ -34,9 +34,9 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			return '';
 		}
 		$this->did_convert_elements = true;
-		$gallery_id = intval( $attr['id'] );
-		$obj = new \CST\Objects\Gallery( $gallery_id );
-		$urls = array();
+		$gallery_id                 = intval( $attr['id'] );
+		$obj                        = new \CST\Objects\Gallery( $gallery_id );
+		$urls                       = array();
 
 		foreach ( $obj->get_gallery_image_ids() as $slide_number => $image_id ) {
 			$image = get_post( $image_id );
@@ -44,8 +44,8 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 				continue;
 			}
 
-			$attachment  = new \CST\Objects\Attachment( $image );
-			$caption   = $attachment->get_caption();
+			$attachment = new \CST\Objects\Attachment( $image );
+			$caption    = $attachment->get_caption();
 			list( $url, $width, $height ) = wp_get_attachment_image_src( $image_id, array( $attachment->get_height(), $attachment->get_width() ), true );
 
 			if ( ! $url ) {
@@ -53,9 +53,9 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			}
 
 			$urls[] = array(
-				'url' => $url,
-				'width' => $width,
-				'height' => $height,
+				'url'     => $url,
+				'width'   => $width,
+				'height'  => $height,
 				'caption' => $caption,
 			);
 		}
@@ -64,6 +64,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			'images' => $urls,
 		) );
 	}
+
 	public function render( $args ) {
 
 		$args = wp_parse_args( $args, array(
@@ -98,6 +99,10 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 		}
 
 		return AMP_HTML_Utils::build_tag(
+			'div',
+			array(
+				'class' => 'spacer',
+			), AMP_HTML_Utils::build_tag(
 			'amp-carousel',
 			array(
 				'width'  => $this->args['width'],
@@ -107,6 +112,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 				'class'  => 'cst-amp-carousel',
 			),
 			implode( PHP_EOL, $images )
+		)
 		);
 	}
 }
