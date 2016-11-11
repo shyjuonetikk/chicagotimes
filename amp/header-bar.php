@@ -19,29 +19,19 @@ echo AMP_HTML_Utils::build_tag(
 		'layout' => 'nodisplay',
 		'side'   => 'left',
 	), sprintf( '
-	 <ul class="section-menu">
+	<ul class="section-menu">
 		<li class="header">Sections</li>
 		<li class="section-break"></li>
-		<li class="item"><a href="/section/news/">News</a></li>
-		<li class="item"><a href="/section/crime/">Crime</a></li>
-		<li class="item"><a href="/section/business/">Business</a></li>
-		<li class="item"><a href="/section/chicago/">Chicago</a></li>
-		<li class="item"><a href="/section/the-watchdogs/">The Watchdogs</a></li>
-		<li class="item"><a href="/section/sports/">Sports</a></li>
-		<li class="item"><a href="/section/politics/">Politics</a></li>
-		<li class="item"><a href="/section/entertainment/">Entertainment</a></li>
-		<li class="item"><a href="/section/columnists/">Columnists</a></li>
-		<li class="item"><a href="/section/opinion/">Opinion</a></li>
-		<li class="item"><a href="/section/lifestyles/">Lifestyles</a></li>
-		<li class="item"><a href="/section/dear-abby/">Dear Abby</a></li>
-		<li class="item"><a href="/section/horoscopes/">Horoscopes</a></li>
+	</ul>
+	%2$s
+	<ul class="section-menu">
 		<li class="section-break"></li>
 		<li class="colophon"><a href="http://wssp.suntimes.com/terms-of-use/">Terms of Use</a></li>
 		<li class="colophon"><a href="http://wssp.suntimes.com/privacy-policy/">Privacy Policy</a></li>
 		<li class="colophon"><a href="http://wssp.suntimes.com/contact-us/">Contact Us</a></li>
-		<li class="copyright">%1$dd Chicago Sun-Times</li>
+		<li class="copyright">%1$d Chicago Sun-Times</li>
 	</ul>
 
-', date( 'Y' ) )
+', date( 'Y' ), CST()->amp_nav_markup() )
 );
 ?>
