@@ -98,12 +98,14 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 					$vals = array_values( array_flip( $chart_beat_top_content ) );
 				}
 				$image_url = $this->get_featured_image( $vals[0] );
+				$temporary_title = explode( '|', $item->title );
+				$recommended_article_curated_title = $temporary_title[0];
 				$recommended_article_anchor_image = AMP_HTML_Utils::build_tag(
 					'a',
 					array(
 						'class' => 'cst-rec-anchor',
 						'href' => esc_url( $item->path ),
-						'title' => esc_html( $item->title ),
+						'title' => esc_html( $recommended_article_curated_title ),
 					), AMP_HTML_Utils::build_tag(
 					'amp-img',
 					array(
@@ -119,11 +121,11 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 					array(
 						'class' => 'cst-rec-anchor',
 						'href' => esc_url( $item->path ),
-						'title' => esc_html( $item->title ),
+						'title' => esc_html( $recommended_article_curated_title ),
 					), AMP_HTML_Utils::build_tag(
 						'span',
 					array(),
-					esc_html( $item->title )
+					esc_html( $recommended_article_curated_title )
 				)
 				);
 

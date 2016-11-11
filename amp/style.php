@@ -259,14 +259,17 @@ margin: 16px 0;
 border-radius: 2px;
 background: #f5f5f5;
 }
-
+a.cst-rec-anchor {
+text-decoration: none;
+color: #000;
+}
 .cst-rec-anchor > span {
 font-size: 0.9rem;
-text-decoration: none;
-line-height: 25px;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
 font-weight: 400;
 vertical-align: top;
-margin: 8px 0;
+width: 100%;
+display: block;
 }
 amp-carousel {
 	background: #000;
