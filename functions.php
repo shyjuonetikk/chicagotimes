@@ -1696,6 +1696,30 @@ class CST {
 		}
 	}
 
+	/**
+	 * @return bool|string
+	 *
+	 * Provide custom navigation markup for AMP pages
+	 */
+	public function amp_nav_markup() {
+		$result = wp_cache_get( 'cst_amp_nav_json', 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		if ( false === $result || WP_DEBUG ) {
+			$navigation_markup = wp_nav_menu( array(
+					'theme_location' => 'homepage-menu',
+					'echo'           => false,
+					'fallback_cb'    => false,
+					'menu_id'        => false,
+					'container'      => false,
+					'depth'          => 1,
+					'items_wrap'     => '<ul class="section-menu">%3$s</ul>',
+				)
+			);
+			wp_cache_set( 'cst_amp_nav_json', $navigation_markup, 'default', 1 * DAY_IN_SECONDS );
+		} else {
+			$navigation_markup = $result;
+		}
+		return $navigation_markup;
+	}
 }
 
 /**
