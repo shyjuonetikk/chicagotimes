@@ -124,7 +124,7 @@ a:focus {
 .amp-wp-meta,
 nav.amp-wp-title-bar,
 .wp-caption-text,
-.amp-recommendations,
+.cst-recommendations,
 .post-meta-social {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
 	font-size: 15px;
@@ -234,24 +234,40 @@ blockquote p:last-child {
 }
 
 /* Other Elements */
-.amp-recommended-content {
+.cst-recommended-content {
 	clear: both;
 }
-.amp-recommended-image {
+.cst-recommended-image {
 	float: left;
 	width: 100%;
 	height: auto;
-	max-width: 80px;
 	margin-right: 10px;
 	padding: 0;
 }
-.amp-recommended-image img {
+.cst-recommended-image img {
 	max-width: 100%;
 	height: auto;
 	display: inline-block;
 	vertical-align: middle;
 }
+.cst-article {
+box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+float: none;
+overflow: hidden;
+height: 65px;
+margin: 16px 0;
+border-radius: 2px;
+background: #f5f5f5;
+}
 
+.cst-rec-anchor > span {
+font-size: 0.9rem;
+text-decoration: none;
+line-height: 25px;
+font-weight: 400;
+vertical-align: top;
+margin: 8px 0;
+}
 amp-carousel {
 	background: #000;
 }
@@ -485,4 +501,22 @@ font-size:15px;
 .section-menu .copyright {
 font-size:10px;
 line-height: 12px;
+}
+.related {
+background-color: #f5f5f5;
+margin: 16px 16px;
+display: block;
+color: #111;
+height: 75px;
+padding: 0;
+}
+.related > span {
+font-size: 16px;
+line-height: 75px;
+font-weight: 400;
+vertical-align: top;
+margin: 8px;
+}
+.related:hover {
+background-color: #ccc;
 }

@@ -47,7 +47,6 @@ class CST_AMP {
 		 * Add in a footer for good measure but need to allow for infinite scroll at some point perhaps
 		 */
 		add_action( 'amp_post_template_footer', array( $this, 'amp_add_footer' ) );
-		add_action( 'cst_amp_after_amp_content', array( $this, 'amp_recommendations_block' ) );
 	}
 
 	/**
@@ -150,17 +149,17 @@ class CST_AMP {
 	 * Sanitizer handler for AMP when processing SendToNews, ads
 	 */
 	function amp_add_sanitizers( $sanitizer_classes, $post ) {
-//		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-amp-sendtonews-sanitizer.php' );
 		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-cst-ad-sanitizer.php' );
 
 		$sanitizer_classes['CST_AMP_Ad_Injection_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`
-		$sanitizer_classes['CST_AMP_Send_To_News_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`
 		return $sanitizer_classes;
 	}
 
 	function amp_add_embed_handlers( $embed_handler_classes, $post ) {
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-cst-gallery-embed.php' );
+		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-related-posts-embed.php' );
 		$embed_handler_classes['CST_AMP_Gallery_Embed'] = array();
+		$embed_handler_classes['CST_AMP_Related_Posts_Embed'] = array();
 		return $embed_handler_classes;
 	}
 	/**
@@ -246,76 +245,6 @@ class CST_AMP {
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
 	<?php
 
-	}
-
-	/**
-	* Custom recommendations block for AMP
-	*
-	*/
-	function amp_recommendations_block() {
-
-		$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-		$chart_beat_slug = 'chicago%20news';
-		$section_name   = 'News';
-		$post_sections  = $obj->get_section_slugs();
-		if ( $post_sections ) {
-			if ( in_array( 'dear-abby', $post_sections, true ) || in_array( 'dear-abby-lifestyles', $post_sections, true ) ) {
-				$chart_beat_slug = 'dear%20abby';
-				$section_name   = 'Dear Abby';
-			} else {
-				$primary_section = $obj->get_primary_parent_section();
-				$section_name    = $primary_section->name;
-				$chart_beat_slug  = $primary_section->slug;
-				if ( 'news' === $chart_beat_slug ) {
-					$chart_beat_slug = 'chicago%20news';
-				}
-			}
-		}
-		$feed_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=' . $chart_beat_slug . '&sort_by=returning&now_on=1&limit=4&metrics=post_id';
-		$cache_key = md5( $feed_url );
-		$result    = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( false === $result ) {
-			$response = wpcom_vip_file_get_contents( $feed_url );
-			if ( ! is_wp_error( $response ) ) {
-				$result = json_decode( $response );
-				wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
-			}
-		}
-		if ( ! empty( $result->pages ) ) {
-			?>
-			<div class="amp-recommendations">
-				<h3>Previously from <?php echo esc_html( $section_name ); ?></h3>
-				<?php foreach ( $result->pages as $item ) {
-
-					$chart_beat_top_content = (array) $item->metrics->post_id->top;
-					if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
-						$vals = array_values( array_flip( $chart_beat_top_content ) );
-					}
-					$recommended_featured_image_id = $vals[0];
-					$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $recommended_featured_image_id );
-					$response = wpcom_vip_file_get_contents( $remote_url );
-					if ( ! is_wp_error( $response ) ) {
-						$result = json_decode( $response );
-					}
-					$image_markup = '';
-					$fi_url = $result->featured_image . '?w=80';
-					$image_markup .= '<amp-img src="' . $fi_url . '" width=80 height=52>';
-					?>
-					<div class="amp-recommended-content">
-						<div class="amp-recommended-image">
-							<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
-								<?php echo $image_markup; ?>
-							</a>
-						</div>
-						<div class="amp-recommended-title">
-							<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
-								<?php echo esc_html( $item->title ); ?>
-							</a>
-						</div>
-					</div>
-				<?php } ?>
-			</div>
-	<?php }
 	}
 
 	/**
