@@ -212,6 +212,8 @@ class CST {
 
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
+		// AMP
+		require_once dirname( __FILE__ ) . '/amp/class-cst-amp.php';
 
 		wpcom_vip_require_lib( 'codebird' );
 
@@ -468,6 +470,11 @@ class CST {
         } );
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
+
+		// Control AMP enablement on non-production site
+		if ( 'chicago.suntimes.com' === $this->dfp_handler->get_parent_dfp_inventory() ) {
+			add_filter( 'amp_is_enabled', '__return_false', 100 );
+		}
 	}
 
 	/**
@@ -540,7 +547,7 @@ class CST {
 			$author->user_login    = $wp_user->user_login;
 			$author->user_nicename = $wp_user->user_nicename;
 			$author->user_email    = $wp_user->user_email;
-			$author->user_url      = $wp_user->user_url;
+			$author->user_url      = property_exists( $author, 'user_url' ) ? $author->user_url : '';
 			$author->bio           = $wp_user->description;
 			$authors[] = $author;
 		}
@@ -1289,6 +1296,9 @@ class CST {
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
 		$sections_match = implode( '|', $sections );
+		if ( 'chicago.suntimes.com' !== $this->dfp_handler->get_parent_dfp_inventory() ) {
+			$rewrites[ '(' . $sections_match . ')/([^/]+)/amp/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&amp=$matches[3]' . $post_types;
+		}
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/page/?([0-9]{1,})/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&paged=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&page=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/liveblog/(.*)/?$' ] = 'index.php?index.php?cst_section=$matches[1]&name=$matches[2]&liveblog=$matches[3]' . $post_types;
