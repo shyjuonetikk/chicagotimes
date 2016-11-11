@@ -940,23 +940,22 @@ class CST_Admin {
 	 * @param $old_status
 	 * @param $post
 	 *
-	 * @return bool|void
+	 * @return bool
 	 *
 	 * Upon content state transition trigger a post to the App API
 	 */
-	public function action_save_post_app_update($new_status, $old_status, $post) {
+	public function action_save_post_app_update( $new_status, $old_status, $post ) {
 
-		if ( 'publish' == $new_status ) {
-			$post_id = get_the_ID();
-			$obj     = \CST\Objects\Post::get_by_post_id( $post_id );
+		if ( 'publish' === $new_status || 'new' === $new_status ) {
+			$obj     = \CST\Objects\Post::get_by_post_id( $post->ID );
 			if ( ! $obj ) {
-				return;
+				return false;
 			}
 
 			$story_title = $obj->get_title();
 			$story_url   = $obj->get_permalink();
-
-			$url      = 'http://cst.atapi.net/push/_pushnotification.php?title=' . $story_title . '&url=' . $story_url;
+			$section     = $obj->get_primary_section()->slug;
+			$url      = 'http://cst.atapi.net/apicst_v2/_newstory.php';
 			$response = wp_remote_post( $url, array(
 					'method'      => 'POST',
 					'timeout'     => 45,
@@ -964,7 +963,12 @@ class CST_Admin {
 					'httpversion' => '1.0',
 					'blocking'    => true,
 					'headers'     => array(),
-					'body'        => array( 'title' => $story_title, 'url' => $story_url ),
+					'body'        => array(
+						'token'   => 'abcde',
+						'title'   => esc_html( $story_title ),
+						'url'     => esc_url( $story_url ),
+						'section' => esc_attr( $section ),
+					),
 					'cookies'     => array()
 				)
 			);
@@ -972,8 +976,12 @@ class CST_Admin {
 				$error_message = $response->get_error_message();
 
 				return false;
+			} else {
+				return true;
 			}
 
+		} else {
+			return false;
 		}
 
 	}
