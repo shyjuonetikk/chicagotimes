@@ -355,7 +355,7 @@ ul.amp-wp-meta li.top-date:before {
 margin: auto;
 content:'';
 }
-.wp-caption-text {
+..wp-caption-text {
 padding-top: 5px;
 font-style: italic;
 font-size: 0.8rem;
@@ -419,10 +419,14 @@ margin-bottom: 5px;
 font-size: 1.2rem;
 color:#fff;
 }
+.header {
+margin-top: 1.8rem;
+margin-bottom: 0;
+}
 .section-menu .colophon {
-font-size:0.8rem;
-line-height: 0.8rem;
-padding:5px 0 0 16px;
+font-size: 0.7rem;
+line-height: 0.7rem;
+margin: 58x 0;
 }
 .colophon:first-child {
 padding-top:10px;
@@ -435,15 +439,19 @@ text-transform:uppercase;
 text-decoration: none;
 }
 .section-menu .copyright {
-font-size:0.8rem;
+font-size: 0.8rem;
 color: #fff;
 line-height: 12px;
+position: absolute;
+bottom: 0;
 }
+.section-menu .menu-item,
 .section-menu .item {
 font-size: 0.9rem;
 margin-bottom: 0;
 line-height: 30px;
 }
+.section-menu .menu-item a,
 .section-menu .item a {
 text-decoration:none;
 color:#fff;
@@ -452,7 +460,7 @@ amp-sidebar {
 background: #000;
 }
 amp-sidebar > ul {
-padding-left:2rem;
+padding-left:1rem;
 }
 .cst-button {
 padding: 0px 4px;

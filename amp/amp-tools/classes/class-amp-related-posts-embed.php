@@ -82,36 +82,36 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 		$pages = $this->get_chartbeat_data();
 		$recommended_article_block = '';
 		if ( ! empty( $pages ) ) {
-		$recommended_article_block_title = AMP_HTML_Utils::build_tag(
-			'div',
-			array(
-			'class' => 'cst-recommendations',
-			), AMP_HTML_Utils::build_tag(
-			'h3',
+			$recommended_article_block_title = AMP_HTML_Utils::build_tag(
+				'div',
+				array(
+				'class' => 'cst-recommendations',
+				), AMP_HTML_Utils::build_tag(
+				'h3',
 				array(),
 				esc_html( 'Previously from ' . $this->section_name )
 			) );
-		$recommended_article_block = $recommended_article_block_title;
+			$recommended_article_block = $recommended_article_block_title;
 			foreach ( $pages as $item ) {
 				$chart_beat_top_content = (array) $item->metrics->post_id->top;
 				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
 					$vals = array_values( array_flip( $chart_beat_top_content ) );
 				}
-				$image_url = $this->get_featured_image( $vals[0] );
-				$temporary_title = explode( '|', $item->title );
-				$recommended_article_curated_title = $temporary_title[0];
-				$recommended_article_anchor_image = AMP_HTML_Utils::build_tag(
+				$image_url                            = $this->get_featured_image( $vals[0] );
+				$temporary_title                      = explode( '|', $item->title );
+				$recommended_article_curated_title    = $temporary_title[0];
+				$recommended_article_anchor_image     = AMP_HTML_Utils::build_tag(
 					'a',
 					array(
 						'class' => 'cst-rec-anchor',
-						'href' => esc_url( $item->path ),
+						'href'  => esc_url( $item->path ),
 						'title' => esc_html( $recommended_article_curated_title ),
 					), AMP_HTML_Utils::build_tag(
 					'amp-img',
 					array(
-						'class' => 'cst-recommended-image',
-						'src' => esc_url( $image_url ),
-						'width' => 100,
+						'class'  => 'cst-recommended-image',
+						'src'    => esc_url( $image_url ),
+						'width'  => 100,
 						'height' => 65,
 					)
 				)
@@ -120,10 +120,10 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 					'a',
 					array(
 						'class' => 'cst-rec-anchor',
-						'href' => esc_url( $item->path ),
+						'href'  => esc_url( $item->path ),
 						'title' => esc_html( $recommended_article_curated_title ),
 					), AMP_HTML_Utils::build_tag(
-						'span',
+					'span',
 					array(),
 					esc_html( $recommended_article_curated_title )
 				)
@@ -131,14 +131,15 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 
 				$recommended_article_block .= AMP_HTML_Utils::build_tag(
 					'div',
-					array( 'class'=>'cst-recommended-content' ),
+					array( 'class' => 'cst-recommended-content' ),
 					AMP_HTML_Utils::build_tag(
 						'div',
 						array(
-							'class'  => 'cst-article',
+							'class' => 'cst-article',
 						),
 						$recommended_article_anchor_image . $recommended_article_anchor_text_link
-					)  );
+					)
+				);
 			}
 		}
 

@@ -134,7 +134,7 @@ class CST_AMP {
 		<?php }
 		$content = '
 <div class="post-lead-media">' .
-		$image_content .
+		wp_kses_post( $image_content ) .
 '</div>' .
 		$content;
 
@@ -159,10 +159,8 @@ class CST_AMP {
 	function amp_add_embed_handlers( $embed_handler_classes, $post ) {
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-cst-gallery-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-related-posts-embed.php' );
-//		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-sidebar-embed.php' );
 		$embed_handler_classes['CST_AMP_Gallery_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Related_Posts_Embed'] = array();
-//		$embed_handler_classes['CST_AMP_Sidebar_Embed'] = array();
 		return $embed_handler_classes;
 	}
 	/**
@@ -187,16 +185,12 @@ class CST_AMP {
 			<hr>
 			<div class="footer-container">
 				<ul class="footer-nav">
-					<li ><a href="http://advertising.suntimes.com/">Advertise with Us</a></li>
-					<li ><a href="http://advertising.suntimes.com/business-solutions/">Digital Marketing</a></li>
-					<li ><a href="http://suntimesreprints.com/">Licensing</a></li>
-					<li ><a href="http://chicagosuntimes.mycapture.com/mycapture/index.asp">Photos</a></li>
-					<li ><a href="http://wssp.suntimes.com/aboutus/">About Us</a></li>
-					<li ><a href="http://wssp.suntimes.com/contact-us/">Contact Us</a></li>
-					<li ><a href="http://wssp.suntimes.com/about-sponsored-content/">About Native Ads</a></li>
-					<li ><a href="http://wssp.suntimes.com/terms-of-use/">Terms of Use</a></li>
-					<li ><a href="http://wssp.suntimes.com/privacy-policy/">Privacy Policy</a></li>
-					<li ><a href="http://wssp.suntimes.com/about-our-ads/">About Our Ads</a></li>
+					<li><a href="<?php echo esc_url( '/about-us' ); ?>">About us</a></li>
+					<li><a href="<?php echo esc_url( '/contact-us' ); ?>">Contact us</a></li>
+					<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>">Terms of use</a></li>
+					<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank">Order Back Issues</a>&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></li>
+					<li><a href="<?php echo esc_url( '/privacy-policy/' ); ?>">Privacy Policy</a></li>
+					<li><a href="<?php echo esc_url( '/about-our-ads/' ); ?>">About Our Ads</a></li>
 				</ul>
 			</div>
 			<hr>
