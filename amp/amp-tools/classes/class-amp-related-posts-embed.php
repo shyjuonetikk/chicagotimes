@@ -19,7 +19,7 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 	}
 
 	public function get_scripts() {
-		return array( 'amp-mustache' => 'https://cdn.ampproject.org/v0/amp-mustache-0.1.js' );
+		return array();
 	}
 
 	/**
