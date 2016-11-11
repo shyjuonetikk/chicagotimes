@@ -2387,7 +2387,7 @@ footer {
     cursor: pointer; }
   .post-gallery .post-gallery-lead-image-wrap a.post-gallery-open-button {
     position: absolute;
-    bottom: 15px;
+    top: 15px;
     left: 15px;
     background-color: #d22d42;
     color: white;

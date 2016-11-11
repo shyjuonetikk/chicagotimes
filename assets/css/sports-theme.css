@@ -2246,7 +2246,7 @@ section#subscribe {
     cursor: pointer; }
   .post-gallery .post-gallery-lead-image-wrap a.post-gallery-open-button {
     position: absolute;
-    bottom: 15px;
+    top: 15px;
     left: 15px;
     background-color: #34485e;
     color: white;
