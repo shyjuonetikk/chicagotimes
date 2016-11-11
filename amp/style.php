@@ -81,7 +81,7 @@ a:focus {
 
 /* UI Fonts */
 .amp-wp-meta,
-nav.amp-wp-title-bar,
+.amp-wp-title-bar,
 .wp-caption-text,
 .cst-recommendations,
 .post-meta-social {
@@ -141,24 +141,39 @@ ul.amp-wp-meta li:first-child:before {
 
 
 /* Titlebar */
-nav.amp-wp-title-bar {
+.amp-wp-title-bar {
 	background: #0a89c0;
 padding: 12px 16px;
 background: #000;
 height: 40px;
 }
 
-nav.amp-wp-title-bar div {
+.amp-wp-title-bar div {
 	line-height: 54px;
 	color: #fff;
 }
-
-nav.amp-wp-title-bar a {
+.amp-wp-title-bar .site-logo {
+max-width: 300px;
+width: 200px;
+height: 38px;
+float: left;
+display: block;
+}
+.site-logo img {
+max-width: 200px;
+}
+.amp-wp-title-bar button {
+padding: 1px;
+border: 0;
+color: #fff;
+background: #000;
+}
+.amp-wp-title-bar a {
 	color: #fff;
 	text-decoration: none;
 }
 
-nav.amp-wp-title-bar .amp-wp-site-icon {
+.amp-wp-title-bar .amp-wp-site-icon {
 	/** site icon is 32px **/
 	float: left;
 	margin: 11px 8px 0 0;
@@ -223,12 +238,13 @@ text-decoration: none;
 color: #000;
 }
 .cst-rec-anchor > span {
-font-size: 0.9rem;
+font-size: 0.85rem;
 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
 font-weight: 400;
 vertical-align: top;
 width: 100%;
 display: block;
+line-height:1.3rem;
 }
 amp-carousel {
 	background: #000;
@@ -251,16 +267,7 @@ amp-carousel > amp-img > img {
 	min-height: 48px;
 }
 
-nav.amp-wp-title-bar a.site-logo {
-background-image: url( '<?php echo esc_url( get_stylesheet_directory_uri() . '/cst-amp-logo.png' ); ?>' );
-background-repeat: no-repeat;
-background-size: contain;
-display: block;
-height: 44px;
-width: 68%;
-float: right;
-text-indent: -9999px;
-}
+
 footer {
 width: 100%;
 background-color: #000;
@@ -291,6 +298,7 @@ padding:0 16px;
 }
 .footer-nav li {
 display: block;
+margin-bottom: 2px;
 }
 .footer-nav li a,
 .footer-nav li a:visited,
@@ -378,46 +386,9 @@ padding: 0;
 transition: transform .45s ease-in-out;
 -webkit-transition: transform .45s ease-in-out;
 }
-
-nav > ul.section-menu > li > ul {
-position: fixed;
-top: 0;
-left: -240px;
-width: 240px;
-bottom: 0;
-background: #222;
-z-index: 990;
-padding-top: 24px;
-border-right: 1px solid #ddd;
+.section-menu {
+font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;
 }
-
-nav > ul.section-menu > li:hover > ul {
-transform: translate3d(240px, 0, 0);
--webkit-transform: translate3d(240px, 0, 0);
-}
-
-#closemenu {
-position: fixed;
-top: -40px;
-left: 0;
-right: 0;
-height: 40px;
-z-index: 999;
-line-height: 40px;
-padding-left: 210px;
-font-size: 36px;
-transition: transform .05s ease-in-out;
--webkit-transition: transform .05s ease-in-out;
--webkit-transition-delay: 0.30s;
-transition-delay: 0.30s;
-}
-
-/* the the close menu button, uses ~ selector */
-nav ul:hover ~ #closemenu {
-transform: translate3d(0, 40px, 0);
--webkit-transform: translate3d(0, 40px, 0)
-}
-
 
 nav > ul.section-menu > li > ul > li {
 font-size: 14px;
@@ -438,31 +409,60 @@ text-indent:0;
 font-size:40px;
 line-height: 40px;
 }
+.section-break {
+background: aliceblue;
+height: 2px;
+margin-bottom: 5px;
+}
 .section-break,
 .section-menu .header {
-border-bottom:2px solid #f0f0f0;
+font-size: 1.2rem;
+color:#fff;
 }
 .section-menu .colophon {
-font-size:12px;
-line-height: 12px;
+font-size:0.8rem;
+line-height: 0.8rem;
 padding:5px 0 0 16px;
 }
 .colophon:first-child {
 padding-top:10px;
 }
-nav > ul.section-menu > li > ul > .colophon a {
+.section-menu > li.colophon a {
 font-weight: normal;
 padding: 8px 0;
 color: #fff;
 text-transform:uppercase;
-}
-.copyright {
-text-align: center;
-font-size:15px;
+text-decoration: none;
 }
 .section-menu .copyright {
-font-size:10px;
+font-size:0.8rem;
+color: #fff;
 line-height: 12px;
+}
+.section-menu .item {
+font-size: 0.9rem;
+margin-bottom: 0;
+line-height: 30px;
+}
+.section-menu .item a {
+text-decoration:none;
+color:#fff;
+}
+amp-sidebar {
+background: #000;
+}
+amp-sidebar > ul {
+padding-left:2rem;
+}
+.cst-button {
+padding: 0px 4px;
+border: 1px solid #000;
+font-size: 2rem;
+float:right;
+line-height: 2rem;
+}
+.amp-sidebar .cst-button {
+float:left;
 }
 .related {
 background-color: #f5f5f5;
@@ -481,4 +481,24 @@ margin: 8px;
 }
 .related:hover {
 background-color: #ccc;
+}
+amp-sidebar {
+width: 250px;
+padding-right: 10px;
+}
+.amp-sidebar-image {
+line-height: 100px;
+vertical-align:middle;
+}
+.amp-close-image {
+top: 15px;
+left: 225px;
+cursor: pointer;
+}
+li {
+margin-bottom: 20px;
+list-style: none;
+}
+button {
+margin-left: 20px;
 }

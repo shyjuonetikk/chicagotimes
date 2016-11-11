@@ -31,6 +31,7 @@ class CST_AMP {
 
 		add_filter( 'amp_post_template_file', array( $this, 'amp_set_custom_template' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
+		add_filter( 'amp_post_template_head', array( $this, 'amp_set_sidebar_script' ), 10, 3 );
 
 	}
 
@@ -158,8 +159,10 @@ class CST_AMP {
 	function amp_add_embed_handlers( $embed_handler_classes, $post ) {
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-cst-gallery-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-related-posts-embed.php' );
+//		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-sidebar-embed.php' );
 		$embed_handler_classes['CST_AMP_Gallery_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Related_Posts_Embed'] = array();
+//		$embed_handler_classes['CST_AMP_Sidebar_Embed'] = array();
 		return $embed_handler_classes;
 	}
 	/**
@@ -280,6 +283,11 @@ class CST_AMP {
 		return $content;
 	}
 
+	public function amp_set_sidebar_script() {
+	?>
+<script custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js" async></script>
+	<?php
+	}
 }
 
 $cst_amp = new CST_AMP();
