@@ -33,6 +33,7 @@ class CST_AMP {
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_sidebar_script' ), 10, 3 );
 		add_filter( 'amp_post_template_data', [ $this, 'amp_set_site_icon_url' ] );
+		add_filter( 'amp_site_icon_url', [ $this, 'amp_set_site_icon_url' ] );
 
 	}
 
@@ -296,7 +297,7 @@ class CST_AMP {
 	 */
 	function amp_set_site_icon_url( $data ) {
 		// Ideally a 32x32 image
-		$data['site_icon_url'] = esc_url( get_stylesheet_directory_uri() . '/images/favicons/favicon-32x32.png' );
+		$data['site_icon_url'] = esc_url( get_stylesheet_directory_uri() . '/assets/images/favicons/favicon-32x32.png' );
 		return $data;
 	}
 }
