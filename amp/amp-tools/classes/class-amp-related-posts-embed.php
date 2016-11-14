@@ -163,7 +163,11 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 		$response = wpcom_vip_file_get_contents( $remote_url );
 		if ( ! is_wp_error( $response ) ) {
 			$pages = json_decode( $response );
-			$featured_image_url = $pages->featured_image . '?w=100';
+			if ( '' !== $pages->featured_image ) {
+				$featured_image_url = $pages->featured_image . '?w=100';
+			} else {
+				return $featured_image_url;
+			}
 		}
 		return $featured_image_url;
 	}

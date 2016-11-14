@@ -88,7 +88,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			for ( $index = 0, $paras = $offset; $index <= $paras_to_inject_ad_into; $index++  ) {
 				$paragraph_nodes->item( $paras )->parentNode->insertBefore( $cst_cube_ads[ $index ], $paragraph_nodes->item( $paras ) );
 				$paras += $offset;
-				if ( $paras > $paragraph_nodes->length ) {
+				if ( $paras >= $paragraph_nodes->length ) {
 					break;
 				}
 			}
