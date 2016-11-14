@@ -3,6 +3,7 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 
 	private $section_name;
 	private $chart_beat_slug;
+	private $default_image_partial_url = '/assets/images/favicons/mstile-144x144.png';
 
 	public function register_embed() {
 		// If we have an existing callback we are overriding, remove it.
@@ -95,9 +96,12 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 			foreach ( $pages as $item ) {
 				$chart_beat_top_content = (array) $item->metrics->post_id->top;
 				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
-					$vals = array_values( array_flip( $chart_beat_top_content ) );
+					$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
 				}
-				$image_url                            = $this->get_featured_image( $vals[0] );
+				$image_url                            = $this->get_featured_image( $top_item[0] );
+				if ( ! $image_url ) {
+					$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
+				}
 				$temporary_title                      = explode( '|', $item->title );
 				$recommended_article_curated_title    = $temporary_title[0];
 				$recommended_article_anchor_image     = AMP_HTML_Utils::build_tag(
