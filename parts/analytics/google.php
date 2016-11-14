@@ -4,7 +4,7 @@
 ,i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-52083976-1', 'auto', {name: 'BNA'});
+ga('create', '<?php echo esc_attr( CST_GOOGLE_ANALYTICS ); ?>', 'auto', {name: 'BNA'});
 ga('BNA.require', 'displayfeatures');
 ga('create', 'UA-53290409-1', 'auto', {name: 'networkGlobal'});
 ga('networkGlobal.require', 'displayfeatures');
