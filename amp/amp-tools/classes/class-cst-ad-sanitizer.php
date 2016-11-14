@@ -15,12 +15,10 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 	}
 	public function sanitize() {
 		$body = $this->get_body_node();
-		// If we have a lot of paragraphs, insert before the 4th one.
-		// Otherwise, add it to the end.
-		$p_nodes = $body->getElementsByTagName( 'p' );
-		$offset = 4; // starting paragraph number
-		$paras_to_inject_ad_into = absint( ( $p_nodes->length / 3 ) ) - 1; // less one to accommodate first ad as mobile leaderboard
+		$paragraph_nodes = $body->getElementsByTagName( 'p' );
+		$paras_to_inject_ad_into = absint( ( $paragraph_nodes->length / 4 ) ) - 1; // less one to accommodate first ad as mobile leaderboard
 		$cst_cube_ads = array();
+
 		for ( $index = 0; $index <= $paras_to_inject_ad_into; $index++ ) {
 			$cst_cube_ads[ $index ] = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 				// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
@@ -84,12 +82,13 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		$ad_node_cube_last->appendChild( $fallback_node );
 
 		// One leaderboard then multiple cubes based on paragraph count
-		if ( $p_nodes->length > 1 ) {
-			$p_nodes->item( 2 )->parentNode->insertBefore( $ad_node_mobile_leaderboard, $p_nodes->item( 2 ) );
-			for ( $index = 0, $paras = 4; $index <= $paras_to_inject_ad_into; $index++  ) {
-				$p_nodes->item( $paras )->parentNode->insertBefore( $cst_cube_ads[ $index ], $p_nodes->item( $paras ) );
-				$paras += 3;
-				if ( $paras > $p_nodes->length ) {
+		$offset = 4;
+		if ( $paragraph_nodes->length > 1 ) {
+			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $ad_node_mobile_leaderboard, $paragraph_nodes->item( 2 ) );
+			for ( $index = 0, $paras = $offset; $index <= $paras_to_inject_ad_into; $index++  ) {
+				$paragraph_nodes->item( $paras )->parentNode->insertBefore( $cst_cube_ads[ $index ], $paragraph_nodes->item( $paras ) );
+				$paras += $offset;
+				if ( $paras > $paragraph_nodes->length ) {
 					break;
 				}
 			}
