@@ -32,7 +32,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"rr cube 1"}}',
 		) );
-		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-embed', array(
+		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/teads.md
 			'width'            => 300,
 			'height'           => 1,
