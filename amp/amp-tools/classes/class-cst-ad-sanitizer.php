@@ -15,7 +15,22 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 	}
 	public function sanitize() {
 		$body = $this->get_body_node();
-
+		// If we have a lot of paragraphs, insert before the 4th one.
+		// Otherwise, add it to the end.
+		$p_nodes = $body->getElementsByTagName( 'p' );
+		$offset = 4; // starting paragraph number
+		$paras_to_inject_ad_into = absint( ( $p_nodes->length / 3 ) ) - 1; // less one to accommodate first ad as mobile leaderboard
+		$cst_cube_ads = array();
+		for ( $index = 0; $index <= $paras_to_inject_ad_into; $index++ ) {
+			$cst_cube_ads[ $index ] = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+				// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
+				'width'     => 300,
+				'height'    => 250,
+				'type'      => 'doubleclick',
+				'data-slot' => $this->dfp_handler->ad_header_settings( true ),
+				'json'      => '{"targeting":{"pos":"rr cube 1"}}',
+			) );
+		}
 		$ad_node_mobile_leaderboard = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 			'width'     => 320,
@@ -24,7 +39,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"mobile leaderboard"}}',
 		) );
-		$ad_node_cube = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		$ad_node_cube_last = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 			'width'     => 300,
 			'height'    => 250,
@@ -66,23 +81,23 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'layout' => 'fill',
 			'src' => 'https://placehold.it/320x50?text=Ad loading...',
 		) ) );
-		$ad_node_cube->appendChild( $fallback_node );
-
-		// If we have a lot of paragraphs, insert before the 4th one.
-		// Otherwise, add it to the end.
-		$p_nodes = $body->getElementsByTagName( 'p' );
+		$ad_node_cube_last->appendChild( $fallback_node );
 
 		// One leaderboard then multiple cubes based on paragraph count
 		if ( $p_nodes->length > 1 ) {
 			$p_nodes->item( 2 )->parentNode->insertBefore( $ad_node_mobile_leaderboard, $p_nodes->item( 2 ) );
-			for ( $every_three_paragraphs = 4; $every_three_paragraphs < $p_nodes->length; $every_three_paragraphs += 2  ) {
-				$p_nodes->item( $every_three_paragraphs )->parentNode->insertBefore( $ad_node_cube, $p_nodes->item( $every_three_paragraphs ) );
+			for ( $index = 0, $paras = 4; $index <= $paras_to_inject_ad_into; $index++  ) {
+				$p_nodes->item( $paras )->parentNode->insertBefore( $cst_cube_ads[ $index ], $p_nodes->item( $paras ) );
+				$paras += 3;
+				if ( $paras > $p_nodes->length ) {
+					break;
+				}
 			}
 		} else {
 			$body->appendChild( $ad_node_mobile_leaderboard );
 		}
 
 		$body->appendChild( $ad_node_taboola );
-		$body->appendChild( $ad_node_cube );
+		$body->appendChild( $ad_node_cube_last );
 	}
 }
