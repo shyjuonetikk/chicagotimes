@@ -156,8 +156,14 @@ class CST_DFP_Handler {
 	/**
 	 * Determine content location and inject the settings for DFP
 	 * into the markup
+	 *
+	 * If $amp is true just return the path to be used in the AMP Ad call
+	 *
+	 * @param bool $amp
+	 *
+	 * @return string
 	 */
-	public function ad_header_settings() {
+	public function ad_header_settings( $amp = false ) {
 		$parent_inventory = $this->get_parent_dfp_inventory();
 		$dfp_slug         = 'news';
 		$dfp_parent = '';
@@ -206,6 +212,9 @@ class CST_DFP_Handler {
 					}
 				}
 			}
+		}
+		if ( $amp ) {
+			return $ad_unit_path;
 		}
 		?>
 <script>/* <![CDATA[ */

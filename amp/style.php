@@ -443,7 +443,6 @@ font-size: 0.8rem;
 color: #fff;
 line-height: 12px;
 position: absolute;
-bottom: 0;
 }
 .section-menu .menu-item,
 .section-menu .item {
