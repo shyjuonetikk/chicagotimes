@@ -1700,6 +1700,8 @@ class CST {
 	 * @return bool|string
 	 *
 	 * Provide custom navigation markup for AMP pages
+	 * See cst_admin amp_nav_invalidate_cache()
+	 *
 	 */
 	public function amp_nav_markup() {
 		$result = wp_cache_get( 'cst_amp_nav_json', 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
