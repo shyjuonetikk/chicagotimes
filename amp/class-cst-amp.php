@@ -222,7 +222,7 @@ class CST_AMP {
 			),
 			'config_data' => array(
 				'vars'     => array(
-					'account' => 'UA-52083976-1',
+					'account' => CST_GOOGLE_ANALYTICS,
 				),
 				'triggers' => array(
 					'trackPageview' => array(

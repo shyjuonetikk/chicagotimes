@@ -131,6 +131,7 @@ class CST {
 		define( 'CST_DEFAULT_SECTION', 'news' );
 
 		define( 'VIP_MAINTENANCE_MODE', false );
+		define( 'CST_GOOGLE_ANALYTICS', 'UA-52083976-1' );
 
 	}
 
