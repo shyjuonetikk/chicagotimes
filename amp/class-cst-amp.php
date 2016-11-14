@@ -32,6 +32,7 @@ class CST_AMP {
 		add_filter( 'amp_post_template_file', array( $this, 'amp_set_custom_template' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_sidebar_script' ), 10, 3 );
+		add_filter( 'amp_post_template_data', [ $this, 'amp_set_site_icon_url' ] );
 
 	}
 
@@ -277,10 +278,26 @@ class CST_AMP {
 		return $content;
 	}
 
+	/**
+	 * Include sidebar AMP script to support touch based sidebar navigation
+	 */
 	public function amp_set_sidebar_script() {
 	?>
 <script custom-element="amp-sidebar" src="https://cdn.ampproject.org/v0/amp-sidebar-0.1.js" async></script>
 	<?php
+	}
+
+	/**
+	 * @param $data
+	 *
+	 * @return mixed
+	 *
+	 * Set site icon for AMP
+	 */
+	function amp_set_site_icon_url( $data ) {
+		// Ideally a 32x32 image
+		$data['site_icon_url'] = esc_url( get_stylesheet_directory_uri() . '/images/favicons/favicon-32x32.png' );
+		return $data;
 	}
 }
 
