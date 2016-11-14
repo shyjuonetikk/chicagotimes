@@ -78,11 +78,6 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			for ( $every_three_paragraphs = 4; $every_three_paragraphs < $p_nodes->length; $every_three_paragraphs += 2  ) {
 				$p_nodes->item( $every_three_paragraphs )->parentNode->insertBefore( $ad_node_cube, $p_nodes->item( $every_three_paragraphs ) );
 			}
-			// Inject Teads.
-			if ( $p_nodes->length > 5 ) {
-				$middle_paragraph = $p_nodes->length / 2;
-				$p_nodes->item( $middle_paragraph )->parentNode->insertBefore( $ad_node_teads, $p_nodes->item( $middle_paragraph ) );
-			}
 		} else {
 			$body->appendChild( $ad_node_mobile_leaderboard );
 		}
