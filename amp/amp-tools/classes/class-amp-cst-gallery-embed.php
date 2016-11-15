@@ -8,6 +8,12 @@ require_once( AMP__DIR__ . '/includes/embeds/class-amp-base-embed-handler.php' )
 class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 	private static $script_slug = 'amp-carousel';
 	private static $script_src = 'https://cdn.ampproject.org/v0/amp-carousel-0.1.js';
+	public $dfp_handler;
+
+	public function __construct( $args = array() ) {
+		parent::__construct( $args = array() );
+		$this->dfp_handler = new CST_DFP_Handler;
+	}
 
 	public function register_embed() {
 		// If we have an existing callback we are overriding, remove it.
@@ -97,12 +103,23 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 				), $image['caption']
 			) ) );
 		}
+		$number_of_slides = count( $images );
+		$ad_cadence = 3;
+		for ( $index = 0; $index < $number_of_slides; $index++ ) {
+			if ( $index > 0 ) { // avoid having an ad as the first slide :-)
+				if ( 0 === ( $index % $ad_cadence ) ) {
+					array_splice( $images, $index, 0, AMP_HTML_Utils::build_tag( 'amp-ad', array(
+						'width'     => 300,
+						'height'    => 250,
+						'type'      => 'doubleclick',
+						'data-slot' => $this->dfp_handler->ad_header_settings( true ),
+						'json'      => '{"targeting":{"pos":"rr cube 1"}}',
+					) ) );
+				}
+			}
+		}
 
-		return AMP_HTML_Utils::build_tag(
-			'div',
-			array(
-				'class' => 'spacer',
-			), AMP_HTML_Utils::build_tag(
+		$carousel_content = AMP_HTML_Utils::build_tag(
 			'amp-carousel',
 			array(
 				'width'  => $this->args['width'],
@@ -112,7 +129,13 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 				'class'  => 'cst-amp-carousel',
 			),
 			implode( PHP_EOL, $images )
-		)
+		);
+
+		return AMP_HTML_Utils::build_tag(
+			'div',
+			array(
+				'class' => 'spacer',
+			), $carousel_content
 		);
 	}
 }
