@@ -28,6 +28,7 @@ class CST_AMP {
 		add_filter( 'amp_content_max_width', array( $this, 'amp_change_content_width' ) );
 
 		add_filter( 'amp_post_template_analytics', array( $this, 'amp_add_google_analytics' ) );
+		add_filter( 'amp_post_template_analytics', array( $this, 'amp_add_chartbeat_analytics' ) );
 
 		add_filter( 'amp_post_template_file', array( $this, 'amp_set_custom_template' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
@@ -92,8 +93,6 @@ class CST_AMP {
 
 	/**
 	 * @param $content
-	 * @param $b
-	 * @param $c
 	 *
 	 * @return string
 	 *
@@ -230,6 +229,38 @@ class CST_AMP {
 						'on'      => 'visible',
 						'request' => 'pageview',
 					),
+				),
+			),
+		);
+
+		return $analytics;
+	}
+	/**
+	 * Add Chartbeat Analytics to the footer
+	 *
+	 **/
+
+	function amp_add_chartbeat_analytics( $analytics ) {
+
+		if ( ! is_array( $analytics ) ) {
+			$analytics = array();
+			$authors = array();
+		}
+		$obj = new CST\Objects\Article( get_queried_object_id() );
+		foreach ( $obj->get_authors() as $author ) {
+			$authors[] = $author->get_display_name();
+		}
+
+		// http://support.chartbeat.com/docs/integrations.html#ampimpl
+		$analytics['cst-chartbeatanalytics'] = array(
+			'type'    => 'chartbeat',
+			'attributes' => array(),
+			'config_data' => array(
+				'vars'    => array(
+					'uid'      => CST_CHARTBEAT_API_KEY,
+					'domain'   => CST()->dfp_handler->get_parent_dfp_inventory(),
+					'sections' => implode( ', ', CST()->frontend->get_article_section_list() ),
+					'authors'  => implode( ', ', $authors ),
 				),
 			),
 		);

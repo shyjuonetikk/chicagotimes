@@ -1446,4 +1446,30 @@ ready(fn);
 			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
 		);
 	}
+
+	/**
+	 * Get and return an array of sections associated with this single object - article | gallery
+	 * @return array|bool
+	 *
+	 */
+	public function get_article_section_list() {
+
+		$section_list = false;
+
+		if ( is_singular() ) {
+			$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+			if ( $obj ) {
+				$sections = $obj->get_sections();
+				$section_list = array();
+				if( $sections ) {
+					if ( isset( $obj ) && is_object( $obj ) ) {
+						foreach( $sections as $section ) {
+							array_push( $section_list, strtolower( $section->name ) );
+						}
+					}
+				}
+			}
+		}
+		return $section_list;
+	}
 }
