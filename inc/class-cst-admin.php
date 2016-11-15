@@ -952,11 +952,11 @@ class CST_Admin {
 				return false;
 			}
 
-			$story_title = $obj->get_title();
 			$story_url   = $obj->get_permalink();
+			$slug        = basename( $obj->get_permalink() );
 			$section     = $obj->get_primary_section()->slug;
-			$url      = 'http://cst.atapi.net/apicst_v2/_newstory.php';
-			$response = wp_remote_post( $url, array(
+			$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
+			$response = wp_remote_post( $app_api_url, array(
 					'method'      => 'POST',
 					'timeout'     => 45,
 					'redirection' => 5,
@@ -964,15 +964,15 @@ class CST_Admin {
 					'blocking'    => true,
 					'headers'     => array(),
 					'body'        => array(
-						'token'   => 'abcde',
-						'title'   => esc_html( $story_title ),
-						'url'     => esc_url( $story_url ),
+						'token'   => 'suntimes',
+						'message'   => '',
+						'slug'     => $slug,
 						'section' => esc_attr( $section ),
 					),
 					'cookies'     => array()
 				)
 			);
-			if ( is_wp_error( $response ) ) {
+				if ( is_wp_error( $response ) ) {
 				$error_message = $response->get_error_message();
 
 				return false;
