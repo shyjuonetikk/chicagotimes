@@ -26,7 +26,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'height'           => 1,
 			'type'             => 'teads',
 			'layout'           => 'responsive',
-			'data-pid'         => '58294',
+			'data-pid'         => '59505',
 		) );
 		$cst_cube_ads[0] = $ad_node_teads;
 		for ( $index = 1; $index <= $paras_to_inject_ad_into; $index++ ) {
@@ -94,5 +94,10 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		if ( $paragraph_nodes->length < 9 ) {
 			$body->appendChild( $ad_node_cube_last );
 		}
+		$body->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+			'height'            => 200,
+			'type'             => 'yieldmo',
+			'data-ymid'        => '1555064078586984494',
+		) ) );
 	}
 }
