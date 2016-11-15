@@ -256,7 +256,11 @@ amp-instagram,
 amp-vine {
 	background: #f3f6f8;
 }
-
+amp-iframe.s2nvcloader {
+	background: #fff !important;
+	height: 338px !important;
+	min-height: 22rem;
+}
 amp-carousel > amp-img > img {
 	object-fit: contain;
 }
