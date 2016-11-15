@@ -14,9 +14,10 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		return array( self::$script_slug => self::$script_src );
 	}
 	public function sanitize() {
+		$ad_paragraph_spacing = 5;
 		$body = $this->get_body_node();
 		$paragraph_nodes = $body->getElementsByTagName( 'p' );
-		$paras_to_inject_ad_into = absint( ( $paragraph_nodes->length / 4 ) ) - 1; // less one to accommodate first ad as mobile leaderboard
+		$paras_to_inject_ad_into = absint( ( $paragraph_nodes->length / $ad_paragraph_spacing ) ) - 1; // less one to accommodate first ad as mobile leaderboard
 		$cst_cube_ads = array();
 
 		for ( $index = 0; $index <= $paras_to_inject_ad_into; $index++ ) {
@@ -73,12 +74,11 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		) );
 
 		// One mobile leaderboard then multiple cubes based on paragraph count
-		$offset = 4;
 		if ( $paragraph_nodes->length > 1 ) {
 			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $center_div_leaderboard, $paragraph_nodes->item( 2 ) );
-			for ( $index = 0, $paras = $offset; $index <= $paras_to_inject_ad_into; $index++  ) {
+			for ( $index = 0, $paras = $ad_paragraph_spacing; $index <= $paras_to_inject_ad_into; $index++  ) {
 				$paragraph_nodes->item( $paras )->parentNode->insertBefore( $cst_cube_ads[ $index ], $paragraph_nodes->item( $paras ) );
-				$paras += $offset;
+				$paras += $ad_paragraph_spacing;
 				if ( $paras >= $paragraph_nodes->length ) {
 					break;
 				}
