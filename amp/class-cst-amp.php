@@ -136,7 +136,7 @@ class CST_AMP {
 		<?php }
 		$content = '
 <div class="post-lead-media">' .
-		wp_kses_post( $image_content ) .
+		$image_content .
 '</div>' .
 		$content;
 
@@ -153,7 +153,8 @@ class CST_AMP {
 	 */
 	function amp_add_sanitizers( $sanitizer_classes, $post ) {
 		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-cst-ad-sanitizer.php' );
-
+		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-amp-sendtonews-sanitizer.php' );
+		$sanitizer_classes['CST_AMP_Send_To_News_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`
 		$sanitizer_classes['CST_AMP_Ad_Injection_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`
 		return $sanitizer_classes;
 	}

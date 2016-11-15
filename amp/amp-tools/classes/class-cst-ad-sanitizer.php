@@ -20,7 +20,16 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		$paras_to_inject_ad_into = absint( ( $paragraph_nodes->length / $ad_paragraph_spacing ) ) - 1; // less one to accommodate first ad as mobile leaderboard
 		$cst_cube_ads = array();
 
-		for ( $index = 0; $index <= $paras_to_inject_ad_into; $index++ ) {
+		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/teads.md
+			'width'            => 300,
+			'height'           => 1,
+			'type'             => 'teads',
+			'layout'           => 'responsive',
+			'data-pid'         => '58294',
+		) );
+		$cst_cube_ads[0] = $ad_node_teads;
+		for ( $index = 1; $index <= $paras_to_inject_ad_into; $index++ ) {
 			$center_div = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
 			$center_div->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 				// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
@@ -50,14 +59,6 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"rr cube 1"}}',
 		) ) );
-		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
-			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/teads.md
-			'width'            => 300,
-			'height'           => 1,
-			'type'             => 'teads',
-			'layout'           => 'responsive',
-			'data-pid'         => '58294',
-		) );
 		$ad_node_taboola = AMP_DOM_Utils::create_node( $this->dom, 'amp-embed', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/taboola.md
 			'width'            => 100,
@@ -84,7 +85,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 				}
 			}
 		} else {
-			$body->appendChild( $ad_node_mobile_leaderboard );
+			$body->appendChild( $center_div_leaderboard );
 		}
 
 		$body->appendChild( $ad_node_taboola );
