@@ -20,31 +20,35 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		$cst_cube_ads = array();
 
 		for ( $index = 0; $index <= $paras_to_inject_ad_into; $index++ ) {
-			$cst_cube_ads[ $index ] = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+			$center_div = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
+			$center_div->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 				// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 				'width'     => 300,
 				'height'    => 250,
 				'type'      => 'doubleclick',
 				'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 				'json'      => '{"targeting":{"pos":"rr cube 1"}}',
-			) );
+			) ) );
+			$cst_cube_ads[ $index ] = $center_div;
 		}
-		$ad_node_mobile_leaderboard = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		$center_div_leaderboard = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
+		$center_div_leaderboard->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 			'width'     => 320,
 			'height'    => 50,
 			'type'      => 'doubleclick',
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"mobile leaderboard"}}',
-		) );
-		$ad_node_cube_last = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		) ) );
+		$ad_node_cube_last = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
+		$ad_node_cube_last->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 			'width'     => 300,
 			'height'    => 250,
 			'type'      => 'doubleclick',
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"rr cube 1"}}',
-		) );
+		) ) );
 		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/teads.md
 			'width'            => 300,
@@ -68,23 +72,10 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-url'         => '',
 		) );
 
-		// Add a placeholder to show while loading
-		$fallback_node = AMP_DOM_Utils::create_node( $this->dom, 'amp-img', array(
-			'placeholder' => '',
-			'layout' => 'fill',
-			'src' => 'https://placehold.it/300x250?text=loading...',
-		) );
-		$ad_node_mobile_leaderboard->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-img', array(
-			'placeholder' => '',
-			'layout' => 'fill',
-			'src' => 'https://placehold.it/320x50?text=Ad loading...',
-		) ) );
-		$ad_node_cube_last->appendChild( $fallback_node );
-
-		// One leaderboard then multiple cubes based on paragraph count
+		// One mobile leaderboard then multiple cubes based on paragraph count
 		$offset = 4;
 		if ( $paragraph_nodes->length > 1 ) {
-			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $ad_node_mobile_leaderboard, $paragraph_nodes->item( 2 ) );
+			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $center_div_leaderboard, $paragraph_nodes->item( 2 ) );
 			for ( $index = 0, $paras = $offset; $index <= $paras_to_inject_ad_into; $index++  ) {
 				$paragraph_nodes->item( $paras )->parentNode->insertBefore( $cst_cube_ads[ $index ], $paragraph_nodes->item( $paras ) );
 				$paras += $offset;
@@ -97,6 +88,10 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		}
 
 		$body->appendChild( $ad_node_taboola );
-		$body->appendChild( $ad_node_cube_last );
+
+		// Only add a lower / last ad cube if the article is less than 9 paragraphs.
+		if ( $paragraph_nodes->length < 9 ) {
+			$body->appendChild( $ad_node_cube_last );
+		}
 	}
 }

@@ -332,7 +332,8 @@ right: 0;
 z-index: 99999;
 position: absolute;
 }
-.article .center {
+.article .center,
+.ad-center {
 text-align: center;
 }
 .amp-wp-byline amp-img {
