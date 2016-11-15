@@ -935,36 +935,54 @@ class CST_Admin {
 
 	}
 
-	public function action_save_post_app_update($new_status, $old_status, $post) {
+	/**
+	 * @param $new_status
+	 * @param $old_status
+	 * @param $post
+	 *
+	 * @return bool
+	 *
+	 * Upon content state transition trigger a post to the App API
+	 */
+	public function action_save_post_app_update( $new_status, $old_status, $post ) {
 
-			if ( 'publish' == $new_status ) {
-				$post_id = get_the_ID();
-				$obj = \CST\Objects\Post::get_by_post_id( $post_id );
-				if( ! $obj ) {
-					return;
-				}
-
-				$story_title = $obj->get_title();
-	            $story_url   = $obj->get_permalink();
-
-	            $url = 'http://cst.atapi.net/push/_pushnotification.php?title=' . $story_title . '&url=' . $story_url;
-	            $response = wp_remote_post( $url, array(
-	                'method' => 'POST',
-	                'timeout' => 45,
-	                'redirection' => 5,
-	                'httpversion' => '1.0',
-	                'blocking' => true,
-	                'headers' => array(),
-	                'body' => array( 'title' => $story_title, 'url' => $story_url ),
-	                'cookies' => array()
-	                )
-	            );
-	            if ( is_wp_error( $response ) ) {
-	               $error_message = $response->get_error_message();
-	               return false;
-	            } 
-
+		if ( 'publish' === $new_status || 'new' === $new_status ) {
+			$obj     = \CST\Objects\Post::get_by_post_id( $post->ID );
+			if ( ! $obj ) {
+				return false;
 			}
+
+			$story_url   = $obj->get_permalink();
+			$slug        = basename( $obj->get_permalink() );
+			$section     = $obj->get_primary_section()->slug;
+			$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
+			$response = wp_remote_post( $app_api_url, array(
+					'method'      => 'POST',
+					'timeout'     => 45,
+					'redirection' => 5,
+					'httpversion' => '1.0',
+					'blocking'    => true,
+					'headers'     => array(),
+					'body'        => array(
+						'token'   => 'suntimes',
+						'message'   => '',
+						'slug'     => esc_attr( $slug ),
+						'section' => esc_attr( $section ),
+					),
+					'cookies'     => array()
+				)
+			);
+				if ( is_wp_error( $response ) ) {
+				$error_message = $response->get_error_message();
+
+				return false;
+			} else {
+				return true;
+			}
+
+		} else {
+			return false;
+		}
 
 	}
 
