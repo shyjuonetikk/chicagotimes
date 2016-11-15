@@ -14,24 +14,42 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		return array( self::$script_slug => self::$script_src );
 	}
 	public function sanitize() {
+		$ad_paragraph_spacing = 5;
 		$body = $this->get_body_node();
+		$paragraph_nodes = $body->getElementsByTagName( 'p' );
+		$paras_to_inject_ad_into = absint( ( $paragraph_nodes->length / $ad_paragraph_spacing ) ) - 1; // less one to accommodate first ad as mobile leaderboard
+		$cst_cube_ads = array();
 
-		$ad_node_mobile_leaderboard = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		for ( $index = 0; $index <= $paras_to_inject_ad_into; $index++ ) {
+			$center_div = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
+			$center_div->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+				// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
+				'width'     => 300,
+				'height'    => 250,
+				'type'      => 'doubleclick',
+				'data-slot' => $this->dfp_handler->ad_header_settings( true ),
+				'json'      => '{"targeting":{"pos":"rr cube 1"}}',
+			) ) );
+			$cst_cube_ads[ $index ] = $center_div;
+		}
+		$center_div_leaderboard = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
+		$center_div_leaderboard->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 			'width'     => 320,
 			'height'    => 50,
 			'type'      => 'doubleclick',
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"mobile leaderboard"}}',
-		) );
-		$ad_node_cube = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		) ) );
+		$ad_node_cube_last = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
+		$ad_node_cube_last->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 			'width'     => 300,
 			'height'    => 250,
 			'type'      => 'doubleclick',
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"rr cube 1"}}',
-		) );
+		) ) );
 		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/teads.md
 			'width'            => 300,
@@ -55,34 +73,25 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-url'         => '',
 		) );
 
-		// Add a placeholder to show while loading
-		$fallback_node = AMP_DOM_Utils::create_node( $this->dom, 'amp-img', array(
-			'placeholder' => '',
-			'layout' => 'fill',
-			'src' => 'https://placehold.it/300x250?text=loading...',
-		) );
-		$ad_node_mobile_leaderboard->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-img', array(
-			'placeholder' => '',
-			'layout' => 'fill',
-			'src' => 'https://placehold.it/320x50?text=Ad loading...',
-		) ) );
-		$ad_node_cube->appendChild( $fallback_node );
-
-		// If we have a lot of paragraphs, insert before the 4th one.
-		// Otherwise, add it to the end.
-		$p_nodes = $body->getElementsByTagName( 'p' );
-
-		// One leaderboard then multiple cubes based on paragraph count
-		if ( $p_nodes->length > 1 ) {
-			$p_nodes->item( 2 )->parentNode->insertBefore( $ad_node_mobile_leaderboard, $p_nodes->item( 2 ) );
-			for ( $every_three_paragraphs = 4; $every_three_paragraphs < $p_nodes->length; $every_three_paragraphs += 2  ) {
-				$p_nodes->item( $every_three_paragraphs )->parentNode->insertBefore( $ad_node_cube, $p_nodes->item( $every_three_paragraphs ) );
+		// One mobile leaderboard then multiple cubes based on paragraph count
+		if ( $paragraph_nodes->length > 1 ) {
+			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $center_div_leaderboard, $paragraph_nodes->item( 2 ) );
+			for ( $index = 0, $paras = $ad_paragraph_spacing; $index <= $paras_to_inject_ad_into; $index++  ) {
+				$paragraph_nodes->item( $paras )->parentNode->insertBefore( $cst_cube_ads[ $index ], $paragraph_nodes->item( $paras ) );
+				$paras += $ad_paragraph_spacing;
+				if ( $paras >= $paragraph_nodes->length ) {
+					break;
+				}
 			}
 		} else {
 			$body->appendChild( $ad_node_mobile_leaderboard );
 		}
 
 		$body->appendChild( $ad_node_taboola );
-		$body->appendChild( $ad_node_cube );
+
+		// Only add a lower / last ad cube if the article is less than 9 paragraphs.
+		if ( $paragraph_nodes->length < 9 ) {
+			$body->appendChild( $ad_node_cube_last );
+		}
 	}
 }
