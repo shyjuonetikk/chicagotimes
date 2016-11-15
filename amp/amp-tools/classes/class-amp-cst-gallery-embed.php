@@ -45,12 +45,12 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			}
 
 			$attachment = new \CST\Objects\Attachment( $image );
-			$caption    = $attachment->get_caption();
 			list( $url, $width, $height ) = wp_get_attachment_image_src( $image_id, array( $attachment->get_height(), $attachment->get_width() ), true );
 
 			if ( ! $url ) {
 				continue;
 			}
+			$caption    = $attachment->get_caption();
 
 			$urls[] = array(
 				'url'     => $url,
