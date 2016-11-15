@@ -256,9 +256,9 @@ amp-instagram,
 amp-vine {
 	background: #f3f6f8;
 }
-amp-iframe.s2nvcloader {
-	background: #fff !important;
-	height: 338px !important;
+.amp-wp-content .article .post-lead-media amp-iframe.s2nvcloader {
+	background: #fff;
+	max-height: 22rem;
 	min-height: 22rem;
 }
 amp-carousel > amp-img > img {
