@@ -14,11 +14,32 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		return array( self::$script_slug => self::$script_src );
 	}
 	public function sanitize() {
+		// Paragraph block ad spacing
 		$ad_paragraph_spacing = 5;
 		$body = $this->get_body_node();
 		$paragraph_nodes = $body->getElementsByTagName( 'p' );
-		$paras_to_inject_ad_into = absint( ( $paragraph_nodes->length / $ad_paragraph_spacing ) ) - 1; // less one to accommodate first ad as mobile leaderboard
+		// Initial value includes all elements like galleries
+		// But these should not be included when determining ad cube placement
+		$number_of_paragraph_blocks = $paragraph_nodes->length;
 		$cst_cube_ads = array();
+		$classes_to_avoid_injecting_ads = array(
+			'post-lead-media',
+			'captiontext',
+			'image-caption',
+			'wp-caption',
+			'wp-caption-text',
+		);
+		// Determine paragraph blocks
+		foreach ( $paragraph_nodes as $content_item ) {
+			if ( $content_item->hasAttributes() ) {
+				$classy = $content_item->getAttribute( 'class' );
+				if ( in_array( $classy, $classes_to_avoid_injecting_ads, true )  ) {
+					$number_of_paragraph_blocks--;
+					$classy = '';
+				}
+			}
+		}
+		$paras_to_inject_ad_into = absint( ( $number_of_paragraph_blocks / $ad_paragraph_spacing ) );
 
 		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/teads.md
@@ -28,8 +49,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'layout'           => 'responsive',
 			'data-pid'         => '59505',
 		) );
-		$cst_cube_ads[0] = $ad_node_teads;
-		for ( $index = 1; $index <= $paras_to_inject_ad_into; $index++ ) {
+		for ( $index = 0; $index <= $paras_to_inject_ad_into; $index++ ) {
 			$center_div = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
 			$center_div->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 				// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
@@ -74,14 +94,30 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-url'         => '',
 		) );
 
-		// One mobile leaderboard then multiple cubes based on paragraph count
-		if ( $paragraph_nodes->length > 1 ) {
-			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $center_div_leaderboard, $paragraph_nodes->item( 2 ) );
-			for ( $index = 0, $paras = $ad_paragraph_spacing; $index <= $paras_to_inject_ad_into; $index++  ) {
-				$paragraph_nodes->item( $paras )->parentNode->insertBefore( $cst_cube_ads[ $index ], $paragraph_nodes->item( $paras ) );
-				$paras += $ad_paragraph_spacing;
-				if ( $paras >= $paragraph_nodes->length ) {
+		// Add in Teads then multiple cubes based on paragraph count
+		if ( $paras_to_inject_ad_into >= 1 ) {
+			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $ad_node_teads, $paragraph_nodes->item( 2 ) );
+			// Now add in cubes spaced as best possible
+			for ( $index = 0, $paras = $ad_paragraph_spacing; $index <= $paras_to_inject_ad_into; $index++, $paras += $ad_paragraph_spacing  ) {
+				if ( $paras > $number_of_paragraph_blocks ) {
 					break;
+				}
+				// Accommodate articles of $ad_paragraph_spacing length.
+				if ( $paras === $paras_to_inject_ad_into ) {
+					$current_paragraph = $paragraph_nodes->item( ( $paras - 1 ) );
+				} else {
+					$current_paragraph = $paragraph_nodes->item( $paras );
+				}
+				// Try to avoid putting ad in carousel caption and empty nodes/past end of node list
+				if ( null !== $current_paragraph ) {
+					if ( $current_paragraph->hasAttributes() ) {
+						$classy = $current_paragraph->getAttribute( 'class' );
+						if ( ! in_array( $classy, $classes_to_avoid_injecting_ads, true ) ) {
+							$current_paragraph->parentNode->insertBefore( $cst_cube_ads[ $index ], $current_paragraph );
+						}
+					} else {
+						$current_paragraph->parentNode->insertBefore( $cst_cube_ads[ $index ], $current_paragraph );
+					}
 				}
 			}
 		} else {
@@ -90,10 +126,6 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 
 		$body->appendChild( $ad_node_taboola );
 
-		// Only add a lower / last ad cube if the article is less than 9 paragraphs.
-		if ( $paragraph_nodes->length < 9 ) {
-			$body->appendChild( $ad_node_cube_last );
-		}
 		$body->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
 			'height'            => 200,
 			'type'             => 'yieldmo',

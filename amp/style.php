@@ -64,7 +64,7 @@ p,
 ol,
 ul,
 figure {
-	margin: 0 0 24px 0;
+	margin: 0 0 20px 0;
 }
 
 a,
@@ -92,8 +92,8 @@ a:focus {
 
 /* Meta */
 ul.amp-wp-meta {
-padding: 12px 0 0 0;
-margin: 0 0 12px 0;
+padding: 10px 0 0 0;
+margin: 0 0 10px 0;
 }
 
 ul.amp-wp-meta li {
@@ -108,7 +108,7 @@ ul.amp-wp-meta li {
 }
 
 ul.amp-wp-meta li:before {
-	content: "\2022";
+	content: "\0007c";
 	margin: 0 8px;
 }
 
@@ -264,6 +264,9 @@ amp-vine {
 amp-carousel > amp-img > img {
 	object-fit: contain;
 }
+.cst-amp-carousel {
+margin-bottom: 16px;
+}
 .cst-amp-carousel amp-img .caption {
 position: absolute;
 bottom: 0;
@@ -332,6 +335,15 @@ padding-left:10px;
 .post-social {
 fill: #fff;
 }
+.post-meta-social a.original-story {
+font-size: 0.9rem;
+text-decoration: none;
+text-transform: none;
+fill: #fff;
+color: #fff;
+vertical-align:top;
+line-height:3rem;
+}
 .post-lead-media {
 margin-bottom: 12px;
 }
@@ -339,7 +351,8 @@ margin-bottom: 12px;
 color: #fff;
 font-family: "Open Sans", Arial, sans-serif;
 font-size: 0.9rem;
-line-height: 1.5rem;
+line-height: 1.3rem;
+margin-bottom: 0;
 bottom: 0;
 left: 0;
 right: 0;
