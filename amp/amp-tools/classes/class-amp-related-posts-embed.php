@@ -90,7 +90,7 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 				), AMP_HTML_Utils::build_tag(
 				'h3',
 				array(),
-				esc_html( 'Previously from ' . $this->section_name )
+				esc_html( 'Previously from ' . $this->section_name ) . '<hr>'
 			) );
 			$recommended_article_block = $recommended_article_block_title;
 			foreach ( $pages as $item ) {

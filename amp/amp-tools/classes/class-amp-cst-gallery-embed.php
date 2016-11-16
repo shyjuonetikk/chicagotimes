@@ -11,7 +11,10 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 	public $dfp_handler;
 
 	public function __construct( $args = array() ) {
-		parent::__construct( $args = array() );
+		parent::__construct( $args = array(
+			'width' => 640,
+			'height' => 480,
+		) );
 		$this->dfp_handler = new CST_DFP_Handler;
 	}
 
@@ -51,7 +54,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			}
 
 			$attachment = new \CST\Objects\Attachment( $image );
-			list( $url, $width, $height ) = wp_get_attachment_image_src( $image_id, array( $attachment->get_height(), $attachment->get_width() ), true );
+			list( $url, $width, $height ) = wp_get_attachment_image_src( $image_id, 'chiwire-header-large', true );
 
 			if ( ! $url ) {
 				continue;
@@ -85,7 +88,8 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 		$images                     = array();
 		$captions                   = array();
 		foreach ( $args['images'] as $image ) {
-			$images[] = AMP_HTML_Utils::build_tag(
+			$images[] = AMP_HTML_Utils::build_tag( 'div', array( 'class' => 'cst-image-container' ),
+				AMP_HTML_Utils::build_tag(
 				'amp-img',
 				array(
 					'src'    => $image['url'],
@@ -101,7 +105,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 				array(
 					'class' => 'captiontext',
 				), $image['caption']
-			) ) );
+			) ) ) );
 		}
 		$number_of_slides = count( $images );
 		$ad_cadence = 3;
