@@ -142,17 +142,36 @@ class CST_Slack {
 
 		$response_code        = wp_remote_retrieve_response_code( $response );
 		$response_message     = wp_remote_retrieve_response_message( $response );
-		$notification_message = 'Token: ' . $payload_array['body']['token'] . "\n";
-		$notification_message = 'Slug: ' . $payload_array['body']['slug'] . "\n";
-		$notification_message = 'Section: ' . $payload_array['body']['section'] . "\n";
-		$notification_message .= $obj->get_title() . " added/updated\n" . ' with this response code ' . $response_code;
-		$payload['text']         = 'Story published/updated';
+		$notification_message = '"' . $obj->get_title() . '" added/updated with this response code ' . $response_code;
+		$payload['text']         = html_entity_decode( $obj->get_title() .' published/updated' );
 		$payload['attachments']  = array(
 			array(
 				'text'        => html_entity_decode( $notification_message ),
-				'pretext'     => html_entity_decode( wp_remote_retrieve_body( $response ) ),
+				'pretext'     => html_entity_decode( '[cst.atapi.net] Reply: ' . wp_remote_retrieve_body( $response ) ),
 				'fallback'    => wp_strip_all_tags( get_the_title( $obj->get_id() ) ),
-				'color'       => '#101010',
+				'color'       => 'good',
+				'fields'      => array(
+					array(
+					'title' => 'Token',
+					'value' => $payload_array['body']['token'],
+					'short' => true,
+					),
+					array(
+						'title' => 'Slug',
+						'value' => $payload_array['body']['slug'],
+						'short' => true,
+					),
+					array(
+						'title' => 'Section',
+						'value' => $payload_array['body']['section'],
+						'short' => true,
+					),
+					array(
+						'title' => 'Message',
+						'value' => $payload_array['body']['message'],
+						'short' => true,
+					),
+				),
 				'title'       => html_entity_decode( $obj->get_title() ),
 				'title_link'  => esc_url( wp_get_shortlink( $obj->get_id() ) ),
 				'footer'      => 'Chicago Sun-Times API',

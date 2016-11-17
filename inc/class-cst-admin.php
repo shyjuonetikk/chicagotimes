@@ -965,7 +965,7 @@ class CST_Admin {
 				'headers'     => array(),
 				'body'        => array(
 					'token'   => 'suntimes',
-					'message'   => '',
+					'message'   => 'This is the message - what should be included in message?',
 					'slug'     => esc_attr( $slug ),
 					'section' => esc_attr( $section ),
 				),
