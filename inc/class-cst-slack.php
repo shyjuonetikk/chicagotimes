@@ -10,6 +10,7 @@
 class CST_Slack {
 
 	private $payload_url = 'https://hooks.slack.com/services/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';
+	private $api_notification_payload_url = 'https://hooks.slack.com/services/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';
 
 	private static $instance;
 
@@ -55,7 +56,7 @@ class CST_Slack {
 				if ( false !== $payload ) {
 					$this->send_payload( array(
 						'body' => $payload,
-					) );
+					), $this->payload_url );
 				}
 			}
 		}
@@ -63,14 +64,15 @@ class CST_Slack {
 
 	/**
 	 * @param $payload
+	 * @param $payload_url
 	 *
 	 * Send json payload to Slack
 	 */
-	function send_payload( $payload ) {
+	function send_payload( $payload, $payload_url ) {
 		$headers = array(
 			'content-type' => 'application/json',
 		);
-		wp_safe_remote_post( $this->payload_url, array(
+		wp_safe_remote_post( $payload_url, array(
 			'body' => $payload['body'],
 			'headers' => $headers,
 		));
@@ -127,6 +129,44 @@ class CST_Slack {
 		$author      = $author_data->get_display_name();
 
 		return $author;
+	}
+
+	/**
+	 * @param $response
+	 * @param $payload_array
+	 * @param $obj \CST\Objects\Article
+	 *
+	 * Upon content state transition trigger a post to the Slack App API channel
+	 */
+	public function notify_app( $response, $payload_array, $obj ) {
+
+		$response_code        = wp_remote_retrieve_response_code( $response );
+		$response_message     = wp_remote_retrieve_response_message( $response );
+		$notification_message = 'Token: ' . $payload_array['body']['token'] . "\n";
+		$notification_message = 'Slug: ' . $payload_array['body']['slug'] . "\n";
+		$notification_message = 'Section: ' . $payload_array['body']['section'] . "\n";
+		$notification_message .= $obj->get_title() . " added/updated\n" . ' with this response code ' . $response_code;
+		$payload['text']         = 'Story published/updated';
+		$payload['attachments']  = array(
+			array(
+				'text'        => html_entity_decode( $notification_message ),
+				'pretext'     => html_entity_decode( wp_remote_retrieve_body( $response ) ),
+				'fallback'    => wp_strip_all_tags( get_the_title( $obj->get_id() ) ),
+				'color'       => '#101010',
+				'title'       => html_entity_decode( $obj->get_title() ),
+				'title_link'  => esc_url( wp_get_shortlink( $obj->get_id() ) ),
+				'footer'      => 'Chicago Sun-Times API',
+				'footer_icon' => esc_url( get_stylesheet_directory_uri() ) . '/assets/images/favicons/favicon-16x16.png',
+				'ts'          => time(),
+			),
+		);
+		$payload['unfurl_links'] = true;
+		$payload['unfurl_media'] = true;
+
+		$this->send_payload( array(
+			'body' => json_encode( $payload ),
+		), $this->api_notification_payload_url );
+
 	}
 }
 
