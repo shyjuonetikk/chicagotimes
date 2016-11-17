@@ -957,23 +957,24 @@ class CST_Admin {
 			$slug        = basename( $obj->get_permalink() );
 			$section     = $obj->get_primary_section()->slug;
 			$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
-			$response = wp_remote_post( $app_api_url, array(
-					'method'      => 'POST',
-					'timeout'     => 45,
-					'redirection' => 5,
-					'httpversion' => '1.0',
-					'blocking'    => true,
-					'headers'     => array(),
-					'body'        => array(
-						'token'   => 'suntimes',
-						'message'   => '',
-						'slug'     => esc_attr( $slug ),
-						'section' => esc_attr( $section ),
-					),
-					'cookies'     => array()
-				)
+			$payload_array = array(
+				'method'      => 'POST',
+				'timeout'     => 45,
+				'redirection' => 5,
+				'httpversion' => '1.0',
+				'blocking'    => true,
+				'headers'     => array(),
+				'body'        => array(
+					'token'   => 'suntimes',
+					'message'   => 'This is the message - what should be included in message?',
+					'slug'     => esc_attr( $slug ),
+					'section' => esc_attr( $section ),
+				),
+				'cookies'     => array()
 			);
-				if ( is_wp_error( $response ) ) {
+			$response = wp_remote_post( $app_api_url, $payload_array );
+			CST()->slack->notify_app( $response, $payload_array, $obj );
+			if ( is_wp_error( $response ) ) {
 				$error_message = $response->get_error_message();
 
 				return false;
