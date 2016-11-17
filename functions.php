@@ -10,7 +10,7 @@ class CST {
 
 	private static $instance;
 
-	public $frontend, $dfp_handler;
+	public $frontend, $dfp_handler, $slack;
 
 	private $post_types = array();
 
@@ -39,6 +39,7 @@ class CST {
 
 		$this->yieldmo_tags = CST_Yieldmo_Tags::get_instance();
 		$this->dfp_handler = CST_DFP_Handler::get_instance();
+		$this->slack = CST_Slack::get_instance();
 		$this->customizer = CST_Customizer::get_instance();
 		$this->liveblog = CST_Liveblog::get_instance();
 		$this->infinite_scroll = CST_Infinite_Scroll::get_instance();
