@@ -24,6 +24,7 @@
 	<![endif]-->
 	<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500' rel='stylesheet' type='text/css'>
 	<!--[if lt IE 9]>
+	<script src="http://media.newjobs.com/homepage/js/html5shim.js"></script>
 	<script src="http://media.newjobs.com/homepage/js/html5shiv.js"></script>
 	<![endif]-->
 <div>
@@ -135,8 +136,10 @@
 		</div>
 	</section>
 </div>
+
 	<!--DON'T MODIFY-->
 	<script type="text/javascript" src="http://media.newjobs.com/js/global/at_1.4.js" ></script>
+	<script type="text/javascript" src="http://media.newjobs.com/cms/OpenTemplate/Newspaper/2016/js/footerhookv1-min.js"></script>
 	<!--DON'T MODIFY-->
 
 
