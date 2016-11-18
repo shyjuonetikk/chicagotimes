@@ -2239,6 +2239,8 @@ section#subscribe {
     margin: 20px 0 20px 0; }
     .widgets .tcx_widget .columns {
       padding-left: 0; }
+  .widgets.widget_cst_drive_chicago {
+    background: transparent; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }
