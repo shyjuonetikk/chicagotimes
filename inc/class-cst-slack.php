@@ -45,7 +45,7 @@ class CST_Slack {
 		}
 
 		if ( defined( 'WP_DEBUG' ) ) {
-			if ( WP_DEBUG === true ) {
+			if ( true === WP_DEBUG ) {
 				return;
 			}
 		}
@@ -82,7 +82,7 @@ class CST_Slack {
 	 * @param $post_id
 	 * @param $post
 	 *
-	 * @return mixed|string|void
+	 * @return mixed|string
 	 *
 	 * Craft Slack API body payload and return json_encoded
 	 */
@@ -140,7 +140,6 @@ class CST_Slack {
 	 */
 	public function notify_app( $response, $payload_array, $obj ) {
 		$response_code        = wp_remote_retrieve_response_code( $response );
-		$response_message     = wp_remote_retrieve_response_message( $response );
 		$notification_message = '"' . $obj->get_title() . '" added/updated with this response code ' . $response_code;
 		$payload['text']         = html_entity_decode( $obj->get_title() .' published/updated' );
 		$payload['attachments']  = array(
@@ -187,5 +186,3 @@ class CST_Slack {
 
 	}
 }
-
-$cst_slack = new CST_Slack();
