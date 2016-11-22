@@ -139,7 +139,6 @@ class CST_Slack {
 	 * Upon content state transition trigger a post to the Slack App API channel
 	 */
 	public function notify_app( $response, $payload_array, $obj ) {
-
 		$response_code        = wp_remote_retrieve_response_code( $response );
 		$response_message     = wp_remote_retrieve_response_message( $response );
 		$notification_message = '"' . $obj->get_title() . '" added/updated with this response code ' . $response_code;
@@ -148,7 +147,7 @@ class CST_Slack {
 			array(
 				'text'        => html_entity_decode( $notification_message ),
 				'pretext'     => html_entity_decode( '[cst.atapi.net] Reply: ' . wp_remote_retrieve_body( $response ) ),
-				'fallback'    => wp_strip_all_tags( get_the_title( $obj->get_id() ) ),
+				'fallback'    => html_entity_decode( $obj->get_title() ),
 				'color'       => 'good',
 				'fields'      => array(
 					array(
@@ -168,7 +167,7 @@ class CST_Slack {
 					),
 					array(
 						'title' => 'Message',
-						'value' => $payload_array['body']['message'],
+						'value' => html_entity_decode( $payload_array['body']['message'] ),
 						'short' => true,
 					),
 				),
