@@ -966,7 +966,7 @@ class CST_Admin {
 				'headers'     => array(),
 				'body'        => array(
 					'token'   => 'suntimes',
-					'message' => esc_attr( $title ),
+					'message' => $title,
 					'slug'    => esc_attr( $slug ),
 					'section' => esc_attr( $section ),
 				),
