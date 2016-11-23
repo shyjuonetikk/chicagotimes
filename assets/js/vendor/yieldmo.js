@@ -20,7 +20,7 @@ window.YieldMo = {
       return
 
     var contentTag = tags["content"];
-    if(paragraphsCount >= 1 && contentTag != "") {
+    if(paragraphsCount >= 3 && contentTag != "") {
       yieldmoContentNode = this._yieldMoHTMLTag(contentTag);
       yieldmoCraigNode = this._yieldMoCraigHTMLTag();
       jQuery('#div-gpt-ym-craig').detach().appendTo(paragraphs[1]);
