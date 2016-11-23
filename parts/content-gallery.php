@@ -9,6 +9,9 @@
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
 		<?php if ( $obj->get_content() ) : ?>
 		<div class="post-content columns medium-9 medium-offset-1 end">
+			<script>
+				window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
+			</script>
 			<?php $obj->the_content(); ?>
 		</div>
 		<?php endif; ?>
