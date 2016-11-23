@@ -1,4 +1,4 @@
-<?php if ( !is_front_page() ) {
+<?php if ( ! is_front_page() ) {
 	get_template_part( 'parts/page-footer' );
 } ?>
 </div>
@@ -7,9 +7,13 @@
 <?php
 if ( is_singular() ) {
 	get_template_part( 'parts/vendors/google-survey-footer' );
-	get_template_part( 'parts/vendors/yieldmo-footer' );
+	if ( ! is_singular( 'cst_gallery' ) ) {
+		get_template_part( 'parts/vendors/yieldmo-footer' );
+	}
 	get_template_part( 'parts/vendors/aggrego-chatter-footer' );
-	get_template_part( 'parts/vendors/gum-gum-footer' );
+	if ( ! is_singular( 'cst_gallery' ) ) {
+		get_template_part( 'parts/vendors/gum-gum-footer' );
+	}
 }
 ?>
 <?php get_template_part( 'parts/analytics/chartbeat-footer' ); ?>
