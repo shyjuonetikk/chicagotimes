@@ -955,6 +955,7 @@ class CST_Admin {
 
 			$story_url   = $obj->get_permalink();
 			$slug        = basename( $obj->get_permalink() );
+			$title       = $obj->get_title();
 			$section     = $obj->get_primary_section()->slug;
 			$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
 			$payload_array = array(
@@ -966,8 +967,8 @@ class CST_Admin {
 				'headers'     => array(),
 				'body'        => array(
 					'token'   => 'suntimes',
-					'message'   => 'This is the message - what should be included in message?',
-					'slug'     => esc_attr( $slug ),
+					'message' => $title,
+					'slug'    => esc_attr( $slug ),
 					'section' => esc_attr( $section ),
 				),
 				'cookies'     => array()
