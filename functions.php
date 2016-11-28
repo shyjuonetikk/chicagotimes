@@ -473,10 +473,6 @@ class CST {
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 
-		// Control AMP enablement on non-production site
-		if ( 'chicago.suntimes.com' === $this->dfp_handler->get_parent_dfp_inventory() ) {
-			add_filter( 'amp_is_enabled', '__return_false', 100 );
-		}
 	}
 
 	/**
