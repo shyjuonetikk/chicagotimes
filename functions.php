@@ -1298,9 +1298,7 @@ class CST {
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
 		$sections_match = implode( '|', $sections );
-		if ( 'chicago.suntimes.com' !== $this->dfp_handler->get_parent_dfp_inventory() ) {
-			$rewrites[ '(' . $sections_match . ')/([^/]+)/amp/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&amp=$matches[3]' . $post_types;
-		}
+		$rewrites[ '(' . $sections_match . ')/([^/]+)/amp/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&amp=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/page/?([0-9]{1,})/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&paged=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&page=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/liveblog/(.*)/?$' ] = 'index.php?index.php?cst_section=$matches[1]&name=$matches[2]&liveblog=$matches[3]' . $post_types;
