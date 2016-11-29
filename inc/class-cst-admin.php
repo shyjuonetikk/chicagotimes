@@ -83,6 +83,7 @@ class CST_Admin {
 		});
 		add_action( 'fm_term_cst_section', array( $this, 'section_sponsorship_fields' ) );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'amp_nav_invalidate_cache' ) );
+		add_action( 'post_submitbox_misc_actions', array( $this, 'trigger_notification_button' ) );
 	}
 
 	/**
@@ -1189,5 +1190,8 @@ class CST_Admin {
 	 */
 	public function amp_nav_invalidate_cache() {
 		wp_cache_delete( 'cst_amp_nav_json', 'default' );
+	}
+	public function trigger_notification_button( $post ) {
+
 	}
 }
