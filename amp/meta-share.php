@@ -1,8 +1,8 @@
 <?php
 $obj = new CST\Objects\Article( get_the_ID() );
-$cst_amp = CST_AMP::get_instance();
+$cst_amp_share = new CST_AMP_Social_Share_Embed();
 ?>
 <div class="post-meta-social">
-		<?php echo $cst_amp->amp_facebook_share( $obj ); ?>
-		<?php echo $cst_amp->amp_twitter_share( $obj ); ?>
+		<?php echo $cst_amp_share->cst_build_facebook_share_element( $obj ); ?>
+		<?php echo $cst_amp_share->cst_build_twitter_share_element( $obj ); ?>
 </div>

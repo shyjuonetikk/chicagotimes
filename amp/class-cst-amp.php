@@ -42,7 +42,6 @@ class CST_AMP {
 
 		add_filter( 'amp_post_template_file', array( $this, 'amp_set_custom_template' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
-		add_filter( 'amp_post_template_data', array( $this, 'amp_set_share_script' ) );
 		add_filter( 'amp_post_template_data', [ $this, 'amp_set_site_icon_url' ] );
 		add_filter( 'amp_site_icon_url', [ $this, 'amp_set_site_icon_url' ] );
 
@@ -94,10 +93,14 @@ class CST_AMP {
 	}
 
 
+	/**
+	 * We have different featured image options
+	 * We have gallery post type and need AMP to support that with a template and content parsing
+	 */
 	function amp_add_custom_actions() {
 		add_filter( 'the_content', array( $this, 'amp_add_featured_image' ) );
 		add_filter( 'the_content', array( $this, 'amp_poss_add_gallery' ) );
-		add_filter( 'the_content', array( $this, 'amp_social_share' ), 1000 );
+//		add_filter( 'the_content', array( $this, 'amp_social_share' ), 1000 );
 
 	}
 
@@ -171,8 +174,12 @@ class CST_AMP {
 	function amp_add_embed_handlers( $embed_handler_classes, $post ) {
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-cst-gallery-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-related-posts-embed.php' );
+		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-social-share-embed.php' );
+		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-sidebar-embed.php' );
 		$embed_handler_classes['CST_AMP_Gallery_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Related_Posts_Embed'] = array();
+		$embed_handler_classes['CST_AMP_Social_Share_Embed'] = array();
+		$embed_handler_classes['CST_AMP_Sidebar_Embed'] = array();
 		return $embed_handler_classes;
 	}
 	/**
@@ -286,64 +293,6 @@ class CST_AMP {
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
 	<?php
 
-	}
-
-	/**
-	 * @param $content
-	 *
-	 * @return string
-	 *
-	 * Add share icons for both Twitter and Facebook below the article.
-	 */
-	public function amp_social_share( $content ) {
-		$post = get_post();
-		$obj = new CST\Objects\Article( $post->ID );
-		if ( is_object( $post ) ) {
-			$content .= '<hr><div class=post-meta-social>' . $this->amp_twitter_share( $obj );
-			$content .= $this->amp_facebook_share( $obj );
-			$original_story_link = sprintf( '
-<div class="alignright"><a class="original-story" href="%s" title="See original story">Read original article: 
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49" height="48" viewBox="0 -2 40 40">
-<path d="M28 8v-4h-28v22c0 1.105 0.895 2 2 2h27c1.657 0 3-1.343 3-3v-17h-4zM26 26h-24v-20h24v20zM4 10h20v2h-20zM16 14h8v2h-8zM16 18h8v2h-8zM16 22h6v2h-6zM4 14h10v10h-10z"></path>
-</svg>
-</a></div>', esc_url( get_permalink( $post->ID ) ) );
-			$content .= $original_story_link . '</div><hr>';
-		}
-
-		return $content;
-	}
-
-	/**
-	 * @param $obj
-	 * @return string
-	 *
-	 * Craft and return markup for a Facebook share
-	 */
-	public function amp_facebook_share( $obj ) {
-		$facebook = add_query_arg( array(
-			'u' => $obj->get_share_link(),
-		),  'https://www.facebook.com/sharer/sharer.php' );
-		return sprintf( '
-<a class="post-social facebook" href="%s" title="Share on Facebook">
-<svg viewBox="0 0 512 512" height="40" width="40"><path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"/></svg>
-</a>', esc_url_raw( $facebook ) );
-	}
-
-	/**
-	 * @param $obj
-	 * @return string
-	 *
-	 * Craft and return markup for a Twitter share
-	 */
-	public function amp_twitter_share( $obj ) {
-		$twitter  = add_query_arg( array(
-			'url'    => $obj->get_twitter_share_url(),
-			'status' => urlencode( $obj->get_title() ),
-		), 'https://twitter.com/share' );
-		return sprintf( '
-<a class="post-social twitter" href="%s" title="Share on Twitter">
-<svg viewBox="0 0 512 512" height="40" width="40"><path d="M419.6 168.6c-11.7 5.2-24.2 8.7-37.4 10.2 13.4-8.1 23.8-20.8 28.6-36 -12.6 7.5-26.5 12.9-41.3 15.8 -11.9-12.6-28.8-20.6-47.5-20.6 -42 0-72.9 39.2-63.4 79.9 -54.1-2.7-102.1-28.6-134.2-68 -17 29.2-8.8 67.5 20.1 86.9 -10.7-0.3-20.7-3.3-29.5-8.1 -0.7 30.2 20.9 58.4 52.2 64.6 -9.2 2.5-19.2 3.1-29.4 1.1 8.3 25.9 32.3 44.7 60.8 45.2 -27.4 21.4-61.8 31-96.4 27 28.8 18.5 63 29.2 99.8 29.2 120.8 0 189.1-102.1 185-193.6C399.9 193.1 410.9 181.7 419.6 168.6z"/></svg>
-</a>', esc_url_raw( $twitter ) );
 	}
 
 	/**

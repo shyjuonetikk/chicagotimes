@@ -331,6 +331,7 @@ background-color: #9a9a9a;
 text-transform:uppercase;
 color: #fff;
 padding:0;
+line-height:16px;
 }
 .post-meta-social a {
 padding-left:10px;
@@ -347,6 +348,13 @@ fill: #fff;
 color: #fff;
 vertical-align:top;
 line-height:3rem;
+}
+amp-social-share[type="twitter"],
+amp-social-share[type="facebook"] {
+background-color: #9a9a9a;
+text-align: center;
+color: #fff;
+font-size: 18px;
 }
 .amp-cst-meta .post-meta-social a {
 padding: 0 5px;
