@@ -17,13 +17,18 @@ class CST_AMP_Social_Share_Embed extends AMP_Base_Embed_Handler {
 		return array( 'amp-social-share' => 'https://cdn.ampproject.org/v0/amp-social-share-0.1.js' );
 	}
 
+	/**
+	 * @param $content
+	 *
+	 * @return string
+	 *
+	 * Build share bar below content, include Twitter, Facebook and original article link
+	 */
 	public function cst_amp_render_share( $content ) {
 		$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 
 		return $content .
-			   AMP_HTML_Utils::build_tag(
-				   'hr'
-			   ) .
+			   '<hr>' .
 			   AMP_HTML_Utils::build_tag(
 				   'div',
 				   array(
@@ -33,11 +38,16 @@ class CST_AMP_Social_Share_Embed extends AMP_Base_Embed_Handler {
 				   $this->cst_build_facebook_share_element( $obj ) .
 				   $this->cst_build_original_article_link_element( $obj )
 			   ) .
-			   AMP_HTML_Utils::build_tag(
-				   'hr'
-			   );
+			   '<hr>';
 	}
 
+	/**
+	 * @param $obj
+	 *
+	 * @return string
+	 *
+	 * Individual share icon HTML element for Twitter
+	 */
 	public function cst_build_twitter_share_element( $obj ) {
 		return AMP_HTML_Utils::build_tag(
 			'amp-social-share',
@@ -49,6 +59,14 @@ class CST_AMP_Social_Share_Embed extends AMP_Base_Embed_Handler {
 			)
 		);
 	}
+	/**
+	 * @param $obj
+	 *
+	 * @return string
+	 *
+	 * Individual share icon HTML element for Facebook
+	 */
+
 	public function cst_build_facebook_share_element( $obj ) {
 		return AMP_HTML_Utils::build_tag(
 			'amp-social-share',
@@ -60,6 +78,14 @@ class CST_AMP_Social_Share_Embed extends AMP_Base_Embed_Handler {
 			)
 		);
 	}
+
+	/**
+	 * @param $obj
+	 *
+	 * @return string
+	 *
+	 * Individual share icon HTML element for See original article link
+	 */
 
 	public function cst_build_original_article_link_element( $obj ) {
 
