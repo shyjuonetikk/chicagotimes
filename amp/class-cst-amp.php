@@ -188,6 +188,29 @@ class CST_AMP {
 	 * Display a footer - infinite scroll anyone?
 	 */
 	function amp_add_footer( $amp_template ) {
+
+		echo AMP_HTML_Utils::build_tag(
+			'amp-sidebar',
+			array(
+				'id'     => 'sidebar',
+				'layout' => 'nodisplay',
+				'side'   => 'left',
+			), sprintf( '
+	<ul class="section-menu">
+		<li class="header">Sections</li>
+		<li class="section-break"></li>
+	</ul>
+	%2$s
+	<ul class="section-menu">
+		<li class="section-break"></li>
+		<li class="colophon"><a href="%3$s/terms-of-use/">Terms of Use</a></li>
+		<li class="colophon"><a href="%3$s/privacy-policy/">Privacy Policy</a></li>
+		<li class="colophon"><a href="%3$s/contact-us/">Contact Us</a></li>
+		<li class="copyright">%1$d Chicago Sun-Times</li>
+	</ul>
+
+', date( 'Y' ), CST()->amp_nav_markup(), esc_url( get_bloginfo( 'url' ) ) )
+		);
 		?>
 		<footer>
 			<hr>

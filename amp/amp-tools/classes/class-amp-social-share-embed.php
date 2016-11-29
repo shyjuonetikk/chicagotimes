@@ -73,7 +73,6 @@ class CST_AMP_Social_Share_Embed extends AMP_Base_Embed_Handler {
 			array(
 				'type' => 'facebook',
 				'data-param-href'   => esc_url( $obj->get_share_link() ),
-				'data-param-text'   => esc_attr( $obj->get_twitter_share_text() ),
 				'data-param-app_id' => '1358394680844582',
 			)
 		);
