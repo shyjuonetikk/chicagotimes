@@ -90,7 +90,6 @@ class CST_AMP {
 	function amp_add_custom_actions() {
 		add_filter( 'the_content', array( $this, 'amp_add_featured_image' ) );
 		add_filter( 'the_content', array( $this, 'amp_poss_add_gallery' ) );
-//		add_filter( 'the_content', array( $this, 'amp_social_share' ), 1000 );
 
 	}
 
