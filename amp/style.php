@@ -54,6 +54,7 @@ color: #2e4453;
 border-top: 7px solid #F0F0F0;
 padding-top: 26px;
 margin-top:12px;
+float:left;
 }
 
 .amp-wp-meta {
@@ -65,6 +66,7 @@ ol,
 ul,
 figure {
 	margin: 0 0 20px 0;
+	clear: both;
 }
 
 a,
@@ -94,6 +96,7 @@ a:focus {
 ul.amp-wp-meta {
 padding: 10px 0 0 0;
 margin: 0 0 10px 0;
+float: left;
 }
 
 ul.amp-wp-meta li {
@@ -183,7 +186,7 @@ background: #000;
 
 /* Captions */
 .wp-caption-text {
-	padding: 8px 16px;
+	padding: 8px 0;
 	font-style: italic;
 }
 .image-caption p {
@@ -331,6 +334,7 @@ padding:0;
 }
 .post-meta-social a {
 padding-left:10px;
+color: transparent;
 }
 .post-social {
 fill: #fff;
@@ -343,6 +347,16 @@ fill: #fff;
 color: #fff;
 vertical-align:top;
 line-height:3rem;
+}
+.amp-cst-meta .post-meta-social a {
+padding: 0 5px;
+display: inline-block;
+background:#9a9a9a;
+line-height:16px;
+}
+.amp-cst-meta .post-meta-social {
+background:transparent;
+	float:right;
 }
 .post-lead-media {
 margin-bottom: 12px;
@@ -383,7 +397,7 @@ ul.amp-wp-meta li.top-date:before {
 margin: auto;
 content:'';
 }
-..wp-caption-text {
+.wp-caption-text {
 padding-top: 5px;
 font-style: italic;
 font-size: 0.8rem;
