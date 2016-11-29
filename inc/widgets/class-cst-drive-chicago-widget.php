@@ -15,7 +15,7 @@ class CST_Drive_Chicago_Widget extends WP_Widget {
     scrolling="no"
     marginheight="0"
     marginwidth="0"
-  width="300" height="300">
+  width="300" height="270">
  <!-- The following message will be displayed to users with unsupported browsers: -->
 Your browser does not support the <code>iframe</code> HTML tag.
 Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.

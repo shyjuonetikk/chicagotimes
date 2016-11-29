@@ -1963,8 +1963,8 @@ section#subscribe {
   margin-left: 0; }
   .widgets li.widget {
     background-color: white;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    margin-top: 0;
+    margin-bottom: 10px;
     clear: both; }
     .widgets li.widget h2.widgettitle {
       background-color: #282828;
@@ -1979,7 +1979,7 @@ section#subscribe {
       padding-bottom: 5px; }
     .widgets li.widget.widget_cst_featured_content_widget h2.widgettitle {
       margin-bottom: 0; }
-    .widgets li.widget.widget_cst_ad_widget, .widgets li.widget.widget_image {
+    .widgets li.widget.widget_cst_ad_widget, .widgets li.widget.widget_cst_drive_chicago, .widgets li.widget.widget_image {
       background-color: transparent; }
   .widgets ul.widget-recent-posts, .widgets ul.widget-chartbeat-currently-viewing {
     background-color: #f0f0f0;
@@ -2235,12 +2235,6 @@ section#subscribe {
         background: #bdbdbd; }
       .widgets li.cst_newsletter_signup p .button:hover {
         opacity: 0.5; }
-  .widgets .tcx_widget {
-    margin: 20px 0 20px 0; }
-    .widgets .tcx_widget .columns {
-      padding-left: 0; }
-  .widgets.widget_cst_drive_chicago {
-    background: transparent; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }

@@ -3,8 +3,8 @@
 
 	li.widget {
 		background-color: $white;
-		margin-top: 30px;
-		margin-bottom: 30px;
+		margin-top: 0;
+		margin-bottom: 10px;
 		clear: both;
 
 		h2.widgettitle {
@@ -28,6 +28,7 @@
 		}
 
 		&.widget_cst_ad_widget,
+		&.widget_cst_drive_chicago,
 		&.widget_image {
 			background-color: transparent;
 		}
@@ -453,14 +454,4 @@
 
 	}
 
-	.tcx_widget {
-		margin: 20px 0 20px 0;
-
-		.columns {
-			padding-left: 0;
-		}
-	}
-	&.widget_cst_drive_chicago {
-		background: transparent;
-	}
 }
