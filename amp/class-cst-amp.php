@@ -9,16 +9,6 @@
  */
 class CST_AMP {
 
-	private static $instance;
-
-	public static function get_instance() {
-
-		if ( ! isset( self::$instance ) ) {
-			self::$instance = new CST_AMP();
-		}
-		return self::$instance;
-	}
-
 	function __construct() {
 		$this->setup_filters();
 		$this->setup_actions();
