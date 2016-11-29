@@ -13,9 +13,12 @@
 <body>
 <?php $this->load_parts( array( 'header-bar' ) ); ?>
 <div class="amp-wp-content">
-	<ul class="amp-wp-meta">
-		<?php $this->load_parts( apply_filters( 'amp_post_template_meta_parts', array( 'meta-taxonomy', 'meta-time' ) ) ); ?>
-	</ul>
+	<div class="amp-cst-meta">
+		<ul class="amp-wp-meta">
+			<?php $this->load_parts( apply_filters( 'amp_post_template_meta_parts', array( 'meta-taxonomy', 'meta-time' ) ) ); ?>
+		</ul>
+		<?php echo $this->load_parts( array( 'meta-share' ) ); ?>
+	</div>
 	<h1 class="amp-wp-title"><?php echo wp_kses_data( $this->get( 'post_title' ) ); ?></h1>
 	<ul class="amp-wp-meta">
 		<?php $this->load_parts( apply_filters( 'amp_post_template_meta_parts', array( 'meta-author' ) ) ); ?>

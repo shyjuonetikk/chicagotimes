@@ -18,14 +18,7 @@ if ( ! is_singular() ) : ?>
 
 <?php else :
 
-	$share_link = rawurldecode( $obj->get_share_link() );
-	$text = rawurlencode( $obj->get_twitter_share_text() );
-	$twitter_args = array(
-		'url'        => $share_link,
-		'text'       => $text,
-		'via'        => CST_TWITTER_USERNAME,
-		);
-	$twitter_url = add_query_arg( $twitter_args, 'https://twitter.com/share' );
+	$twitter_url = $obj->get_twitter_share_url();
 ?>
 <a class="post-social twitter" target="_blank" href="<?php echo esc_url( $twitter_url ); ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-twitter"></i></a>
 <a class="post-social facebook" target="_blank" href="<?php echo esc_url( 'https://www.facebook.com/sharer/sharer.php?u=' . $obj->get_share_link() ); ?>" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"><i class="fa fa-facebook"></i></a>

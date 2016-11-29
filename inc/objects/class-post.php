@@ -991,7 +991,22 @@ abstract class Post {
 
 	}
 
-
+	/**
+	 * @param $obj
+	 *
+	 * @return string
+	 */
+	public function get_twitter_share_url() {
+		$share_link = rawurldecode( $this->get_share_link() );
+		$text = rawurlencode( $this->get_twitter_share_text() );
+		$twitter_args = array(
+			'url'        => $share_link,
+			'text'       => $text,
+			'via'        => CST_TWITTER_USERNAME,
+		);
+		$twitter_url = add_query_arg( $twitter_args, 'https://twitter.com/share' );
+		return $twitter_url;
+	}
 	/**
 	 * Get print slug
 	 *
