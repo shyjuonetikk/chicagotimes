@@ -948,8 +948,24 @@ class CST_Admin {
 	 */
 	public function action_save_post_app_update( $new_status, $old_status, $post ) {
 
-		if ( 'publish' === $new_status || 'new' === $new_status ) {
-			$obj     = \CST\Objects\Post::get_by_post_id( $post->ID );
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return false;
+		}
+
+		$post_id = $post->ID;
+		if (
+			! isset( $_POST['cst_app_notification_nonce'] ) ||
+			! wp_verify_nonce( $_POST['cst_app_notification_nonce'], 'cst_app_notification_nonce_' . $post_id )
+		) {
+			return false;
+		}
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return false;
+		}
+
+		if ( isset( $_POST['cst_app_notification_field'] ) && ( 'publish' === $new_status || 'new' === $new_status ) ) {
+			$obj     = \CST\Objects\Post::get_by_post_id( $post_id );
 			if ( ! $obj ) {
 				return false;
 			}
@@ -1191,7 +1207,24 @@ class CST_Admin {
 	public function amp_nav_invalidate_cache() {
 		wp_cache_delete( 'cst_amp_nav_json', 'default' );
 	}
+
+	/**
+	 * @param $post
+	 *
+	 * Display field markup to trigger an app notification
+	 */
 	public function trigger_notification_button( $post ) {
 
+		if ( 'cst_article' !== get_post_type( $post->ID ) ) {
+			return;
+		}
+		wp_nonce_field( 'cst_app_notification_nonce_' . $post->ID, 'cst_app_notification_nonce' );
+	?>
+		<hr>
+		<div class="misc-pub-section misc-pub-section-last cst-app-notification">
+			<label><input type="checkbox" value="1" <?php checked(0, true, true); ?> name="cst_app_notification_field" /><?php echo esc_html__( 'BREAKING: Check for App Notification', 'chicagosuntimes' ); ?></label>
+		</div>
+	<?php
 	}
+
 }
