@@ -1,7 +1,7 @@
 <?php
-$obj           = new CST\Objects\Article( get_the_ID());
+$obj = new CST\Objects\Article( get_the_ID() );
 
-foreach( $obj->get_authors() as $i => $author ) {
+foreach ( $obj->get_authors() as $i => $author ) {
 	?>
 	<li class="amp-wp-byline">
 		<?php if ( function_exists( 'get_avatar_url' ) ) : ?>

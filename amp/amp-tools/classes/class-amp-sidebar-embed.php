@@ -2,7 +2,6 @@
 class CST_AMP_Sidebar_Embed extends AMP_Base_Embed_Handler {
 
 	private $section_name;
-	private $chart_beat_slug;
 
 	public function register_embed() {
 
@@ -11,7 +10,7 @@ class CST_AMP_Sidebar_Embed extends AMP_Base_Embed_Handler {
 	}
 
 	public function unregister_embed() {
-		remove_filter( 'the_content', array( $this, 'cst_amp_add_sidebar' ) );
+		remove_filter( 'the_content', array( $this, 'cst_amp_render_sidebar' ) );
 	}
 
 	public function get_scripts() {
