@@ -559,3 +559,36 @@ list-style: none;
 button {
 margin-left: 20px;
 }
+amp-app-banner {
+padding: 10px;
+}
+amp-app-banner .content {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+amp-app-banner amp-img {
+background-color: transparent;
+margin-right: 15px
+}
+amp-app-banner .description {
+margin-right: 20px;
+}
+amp-app-banner h5 {
+margin: 0;
+}
+amp-app-banner p {
+font-size: 10px;
+margin: 3px 0;
+}
+amp-app-banner .actions button {
+padding: 5px;
+width: 70px;
+border: 1px solid #aaa;
+font-size: 8px;
+background: #fff;
+}
+amp-app-banner .actions {
+text-align: right;
+font-size: 14px;
+}
