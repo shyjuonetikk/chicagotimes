@@ -36,7 +36,7 @@ class CST_Admin {
 
 		add_action( 'save_post', array( $this, 'action_save_post_late' ), 100 );
 
-		add_action( 'transition_post_status', array( $this, 'action_save_post_app_update' ), 100, 3 );
+		add_action( 'transition_post_status', array( $this, 'action_save_post_notification' ), 100, 3 );
 
 		add_action( 'add_meta_boxes', array( $this, 'action_add_meta_boxes' ), 20, 2 );
 
@@ -83,6 +83,7 @@ class CST_Admin {
 		});
 		add_action( 'fm_term_cst_section', array( $this, 'section_sponsorship_fields' ) );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'amp_nav_invalidate_cache' ) );
+		add_action( 'post_submitbox_misc_actions', array( $this, 'trigger_notification_button' ) );
 	}
 
 	/**
@@ -937,56 +938,83 @@ class CST_Admin {
 	}
 
 	/**
-	 * @param $new_status
-	 * @param $old_status
-	 * @param $post
+	 * @param string  $new_status
+	 * @param string  $old_status
+	 * @param WP_Post $post
 	 *
 	 * @return bool
 	 *
-	 * Upon content state transition trigger a post to the App API
+	 * Upon content state transition trigger a notification to the App API and potentially other remote services
 	 */
-	public function action_save_post_app_update( $new_status, $old_status, $post ) {
+	public function action_save_post_notification( $new_status, $old_status, $post ) {
 
-		if ( 'publish' === $new_status || 'new' === $new_status ) {
-			$obj     = \CST\Objects\Post::get_by_post_id( $post->ID );
-			if ( ! $obj ) {
-				return false;
-			}
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return false;
+		}
 
-			$story_url   = $obj->get_permalink();
-			$slug        = basename( $obj->get_permalink() );
-			$title       = $obj->get_title();
-			$section     = $obj->get_primary_section()->slug;
-			$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
-			$payload_array = array(
-				'method'      => 'POST',
-				'timeout'     => 45,
-				'redirection' => 5,
-				'httpversion' => '1.0',
-				'blocking'    => true,
-				'headers'     => array(),
-				'body'        => array(
-					'token'   => 'suntimes',
-					'message' => $title,
-					'slug'    => esc_attr( $slug ),
-					'section' => esc_attr( $section ),
-				),
-				'cookies'     => array()
-			);
-			$response = wp_remote_post( $app_api_url, $payload_array );
-			CST()->slack->notify_app( $response, $payload_array, $obj );
-			if ( is_wp_error( $response ) ) {
-				$error_message = $response->get_error_message();
+		$post_id = $post->ID;
+		if (
+			! isset( $_POST['cst_app_notification_nonce'] ) ||
+			! wp_verify_nonce( $_POST['cst_app_notification_nonce'], 'cst_app_notification_nonce_' . $post_id )
+		) {
+			return false;
+		}
 
-				return false;
-			} else {
-				return true;
-			}
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return false;
+		}
+
+		if ( isset( $_POST['cst_app_notification_field'] ) && ( 'publish' === $new_status || 'new' === $new_status ) ) {
+			return $this->app_notify( $post_id, 'BREAKING: ' );
 
 		} else {
 			return false;
 		}
 
+	}
+
+	/**
+	 * @param $post_id
+	 * @param string $title_prefix
+	 *
+	 * Build the payload and perform the app notification
+	 * @return bool
+	 */
+	private function app_notify( $post_id, $title_prefix = '' ) {
+
+		$obj     = \CST\Objects\Post::get_by_post_id( $post_id );
+		if ( ! $obj ) {
+			return false;
+		}
+
+		$slug        = basename( $obj->get_permalink() );
+		$title       = $title_prefix . $obj->get_title();
+		$section     = $obj->get_primary_section()->slug;
+		$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
+		$payload_array = array(
+			'method'      => 'POST',
+			'timeout'     => 45,
+			'redirection' => 5,
+			'httpversion' => '1.0',
+			'blocking'    => true,
+			'headers'     => array(),
+			'body'        => array(
+				'token'   => 'suntimes',
+				'message' => $title,
+				'slug'    => esc_attr( $slug ),
+				'section' => esc_attr( $section ),
+			),
+			'cookies'     => array()
+		);
+		$response = wp_remote_post( $app_api_url, $payload_array );
+		CST()->slack->notify_app( $response, $payload_array, $obj );
+		if ( is_wp_error( $response ) ) {
+			$error_message = $response->get_error_message();
+
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**
@@ -1190,4 +1218,26 @@ class CST_Admin {
 	public function amp_nav_invalidate_cache() {
 		wp_cache_delete( 'cst_amp_nav_json', 'default' );
 	}
+
+	/**
+	 * @param $post
+	 *
+	 * Display field markup to trigger an app notification
+	 */
+	public function trigger_notification_button( $post ) {
+
+		if ( 'cst_article' !== get_post_type( $post->ID ) ) {
+			return;
+		}
+		if ( strtotime( $post->post_date_gmt ) <= time() ) {
+			wp_nonce_field( 'cst_app_notification_nonce_' . $post->ID, 'cst_app_notification_nonce' );
+			?>
+			<hr>
+			<div class="misc-pub-section misc-pub-section-last cst-app-notification">
+				<label><input type="checkbox" value="1" <?php checked(0, true, true); ?> name="cst_app_notification_field" /><?php echo esc_html__( 'BREAKING: Check for App Notification', 'chicagosuntimes' ); ?></label>
+			</div>
+			<?php
+		}
+	}
+
 }
