@@ -3,6 +3,7 @@
 class CST_Drive_Chicago_Widget extends WP_Widget {
 
 	protected $drive_chicago_images = array(
+		'search-widget'  => 'Drive Chicago Search Tool',
 		'lease-image'  => 'Drive Chicago Lease',
 		'search-image' => 'Drive Chicago Search',
 	);
@@ -10,6 +11,15 @@ class CST_Drive_Chicago_Widget extends WP_Widget {
 	private $template = '<a href="%1$s" target="_blank">
 	<img src="%2$s" alt="%3$s" />
 	</a>';
+	private $iframe_template = '<iframe src="%1$s" frameborder="0"
+    scrolling="no"
+    marginheight="0"
+    marginwidth="0"
+  width="300" height="270">
+ <!-- The following message will be displayed to users with unsupported browsers: -->
+Your browser does not support the <code>iframe</code> HTML tag.
+Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Explorer 9 or later.
+</iframe>';
 
 	public function __construct() {
 
@@ -17,7 +27,7 @@ class CST_Drive_Chicago_Widget extends WP_Widget {
 			'cst_drive_chicago',
 			esc_html__( 'CST Drive Chicago', 'chicagosuntimes' ),
 			array(
-				'description' => esc_html__( 'Display a Drive Chicago Ad.', 'chicagosuntimes' ),
+				'description' => esc_html__( 'Display a Drive Chicago Ad/Widget.', 'chicagosuntimes' ),
 			)
 		);
 
@@ -25,21 +35,33 @@ class CST_Drive_Chicago_Widget extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 		$url = 'http://www.drivechicago.com';
-		$available_images = array(
+		$available_assets = array(
 			'lease-image' => get_template_directory_uri() . '/assets/images/drive-chicago-lease-cube.png',
 			'search-image' => get_template_directory_uri() . '/assets/images/drive-chicago-search-cube.png',
+			'search-widget' => 'http://suntimes.drivechicago.com/searchwidget.aspx',
 		);
-		$image = $available_images[ $instance['chicago_drive_widget'] ];
+		$asset = $available_assets[ $instance['chicago_drive_widget'] ];
+		$template = $this->template;
+		if ( 'search-widget' === $instance['chicago_drive_widget'] ) {
+			$template = $this->iframe_template;
+			$url = $asset;
+		}
 		echo $args['before_widget'];
 		?>
 		<div class="row">
 			<div class="large-12 medium-6 small-6 columns">
 				<?php
-				echo sprintf( $this->template,
-					esc_url( $url ),
-					esc_url( $image ),
-					esc_attr( 'Drive Chicago' )
-				);
+		if ( 'search-widget' === $instance['chicago_drive_widget'] ) {
+			echo sprintf( $template,
+				esc_url( $url )
+			);
+		} else {
+			echo sprintf( $template,
+				esc_url( $url ),
+				esc_url( $asset ),
+				esc_attr( 'Drive Chicago' )
+			);
+		}
 				?>
 			</div>
 		</div>

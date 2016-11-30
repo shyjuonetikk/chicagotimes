@@ -10,7 +10,7 @@
 		<?php if ( $obj->get_content() ) : ?>
 		<div class="post-content columns medium-9 medium-offset-1 end">
 			<script>
-				window.SECTIONS_FOR_YIELD_MO = <?php echo json_encode( CST_Frontend::$post_sections ); ?>;
+				window.SECTIONS_FOR_YIELD_MO = <?php echo wp_json_encode( CST_Frontend::$post_sections ); ?>;
 			</script>
 			<?php $obj->the_content(); ?>
 		</div>

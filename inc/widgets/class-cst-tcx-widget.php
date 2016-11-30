@@ -27,7 +27,7 @@ class CST_TCX_Widget extends WP_Widget {
             case 'sports':
             ?>
                 <li class="tcx_sports_widget tcx_widget">
-                    <div class="large-12 medium-6 small-6 columns">
+                    <div class="large-12 medium-6 small-6">
                     <script src="http://content.synapsys.us/embeds/sports/dynamic_300x600/partner.js"></script>
                     </div>
                 </li>
@@ -36,7 +36,7 @@ class CST_TCX_Widget extends WP_Widget {
             case 'demographics':
             ?>
                 <li class="tcx_demographics_widget tcx_widget">
-                    <div class="large-12 medium-6 small-6 columns">
+                    <div class="large-12 medium-6 small-6">
                     <script src="http://content.synapsys.us/embeds/demographics/dynamic_300x600/partner.js"></script>
                     </div>
                 </li>
@@ -45,7 +45,7 @@ class CST_TCX_Widget extends WP_Widget {
             case 'finance':
             ?>
                 <li class="tcx_finance_widget tcx_widget">
-                    <div class="large-12 medium-6 small-6 columns">
+                    <div class="large-12 medium-6 small-6">
                     <script src="http://content.synapsys.us/embeds/finance/dynamic_300x600/partner.js"></script>
                     </div>
                 </li>
