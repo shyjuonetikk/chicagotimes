@@ -32,6 +32,7 @@ class CST_AMP {
 
 		add_filter( 'amp_post_template_file', array( $this, 'amp_set_custom_template' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
+		add_filter( 'amp_post_template_head', array( $this, 'amp_smart_banner' ) );
 		add_filter( 'amp_post_template_data', [ $this, 'amp_set_site_icon_url' ] );
 		add_filter( 'amp_site_icon_url', [ $this, 'amp_set_site_icon_url' ] );
 
@@ -165,10 +166,12 @@ class CST_AMP {
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-related-posts-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-social-share-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-sidebar-embed.php' );
+		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-banner-embed.php' );
 		$embed_handler_classes['CST_AMP_Gallery_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Related_Posts_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Social_Share_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Sidebar_Embed'] = array();
+		$embed_handler_classes['CST_AMP_Banner_Embed'] = array();
 		return $embed_handler_classes;
 	}
 	/**
@@ -303,6 +306,16 @@ class CST_AMP {
 	function amp_set_custom_fonts() {
 	?>
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
+	<?php
+
+	}
+
+	/**
+	 * Perhaps convert to use amp-font directive.
+	 */
+	function amp_smart_banner() {
+	?>
+		<meta name="apple-itunes-app" content="app-id=930568136">
 	<?php
 
 	}

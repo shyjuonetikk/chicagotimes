@@ -103,7 +103,7 @@ class CST_Slack {
 				'fallback'    => wp_strip_all_tags( get_the_title( $post_id ) ),
 				'thumb_url'   => $attachment_thumb_url,
 				'image_url'   => $attachment_thumb_url,
-				'color'       => '#222222',
+				'color'       => '#000',
 				'title'       => html_entity_decode( get_the_title( $post_id ) ),
 				'title_link'  => esc_url( wp_get_shortlink( $post_id ) ),
 				'author_name' => 'Author: ' . $author,
