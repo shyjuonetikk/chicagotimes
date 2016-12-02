@@ -1006,7 +1006,7 @@ class CST_Admin {
 			'body'        => array(
 				'token'   => 'suntimes',
 				'message' => $title,
-				'slug'    => esc_attr( $slug ),
+				'slug'    => ( '' === $title ) ? '' : esc_attr( $slug ),
 				'section' => esc_attr( $section ),
 			),
 			'cookies'     => array()
