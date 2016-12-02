@@ -678,6 +678,11 @@ body.single {
 		.button,
 		.search-input {
 			height: 1.7rem;
+			width: 0;
+			transition: width 1s;
+			&:focus {
+				width: 100%;
+			}
 		}
 		.search-input-wrapper {
 			padding:2px;

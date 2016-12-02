@@ -21,10 +21,10 @@
 						<ul class="left">
 							<li class="has-form">
 								<div class="row collapse search-input-wrapper">
-									<div class="small-10 columns">
-										<input type="text" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
+									<label for="search-field"><i class="fa fa-search"></i></label>
+									<div class="small-12 columns">
+										<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
 									</div>
-									<div class="small-2 columns"><a href="#" class="glass"><i class="fa fa-search"></i></a></div>
 								</div>
 							</li>
 						</ul>
