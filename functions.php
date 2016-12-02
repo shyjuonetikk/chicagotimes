@@ -219,6 +219,7 @@ class CST {
 
 		wpcom_vip_require_lib( 'codebird' );
 
+		wpcom_vip_load_plugin( 'inform-video-match', 'plugins', '1.7.3' );
 		wpcom_vip_load_plugin( 'co-authors-plus' );
 		wpcom_vip_load_plugin( 'fieldmanager' );
 		wpcom_vip_load_plugin( 'pushup' );
