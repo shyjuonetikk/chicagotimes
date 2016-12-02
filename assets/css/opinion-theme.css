@@ -3412,10 +3412,10 @@ header .contain-to-grid .cst-row {
       height: 186px;
       background-color: transparent; }
       @media (min-width: 1250px) {
-        header .contain-to-grid .top-bar .small-logo {
+        header .contain-to-grid .top-bar .small-logo, header .contain-to-grid .top-bar .sponsor-wrapper {
           display: none; } }
       @media (max-width: 1249px) {
-        header .contain-to-grid .top-bar .small-logo {
+        header .contain-to-grid .top-bar .small-logo, header .contain-to-grid .top-bar .sponsor-wrapper {
           display: block; } }
       header .contain-to-grid .top-bar ul li {
         background-color: white; }
