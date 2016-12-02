@@ -165,23 +165,6 @@
 	}
 
 }
-.sponsor-wrapper {
-	max-width: 60.7rem;
-	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
-	.sponsor-ear {
-		width: 184px;
-		height: 90px;
-		margin-top: 7px;
-		&.left {
-			float: left;
-		}
-		&.right {
-			float: right;
-		}
-	}
-}
 
 @media #{$wallpaper-only} {
 }

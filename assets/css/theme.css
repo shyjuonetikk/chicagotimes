@@ -315,20 +315,6 @@ body.error404 {
       font-size: 1rem;
       font-weight: 700; }
 
-.sponsor-wrapper {
-  max-width: 60.7rem;
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto; }
-  .sponsor-wrapper .sponsor-ear {
-    width: 184px;
-    height: 90px;
-    margin-top: 7px; }
-    .sponsor-wrapper .sponsor-ear.left {
-      float: left; }
-    .sponsor-wrapper .sponsor-ear.right {
-      float: right; }
-
 @media only screen and (min-width:85.25em) { }
 
 @media only screen and (max-width:85.25em) { }
@@ -2293,30 +2279,70 @@ section#subscribe {
       border: none; }
 
 /* HEADER */
-@media (min-width: 1250px) {
-  .logo-wrapper.large-logo {
-    display: block; } }
-@media (max-width: 1249px) {
-  .logo-wrapper.large-logo {
-    display: none !important; } }
+.logo-wrapper.large-logo {
+  margin-bottom: 10px; }
+  @media (min-width: 1250px) {
+    .logo-wrapper.large-logo {
+      display: block; } }
+  @media (max-width: 1249px) {
+    .logo-wrapper.large-logo {
+      display: none !important; } }
+
+.sponsor-wrapper {
+  max-width: 60.7rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+  .sponsor-wrapper .sponsor-ear {
+    width: 184px;
+    height: 90px;
+    margin-top: 7px; }
+    .sponsor-wrapper .sponsor-ear.left {
+      float: left; }
+    .sponsor-wrapper .sponsor-ear.right {
+      float: right; }
 
 header .contain-to-grid .top-bar .cst-navigation-container {
-  background-color: white; }
-header .contain-to-grid .top-bar .top-bar-section {
   background-color: white;
-  min-height: 146px; }
+  border-top: 1px solid #231f20;
+  border-bottom: 1px solid #231f20;
+  height: 34px; }
+  header .contain-to-grid .top-bar .cst-navigation-container a {
+    font-size: 1rem; }
+header .contain-to-grid .top-bar .top-bar-section {
+  background-color: white; }
   header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
     display: block; }
   header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
     display: none; }
-  header .contain-to-grid .top-bar .top-bar-section .has-dropdown > a {
-    padding-right: 0; }
+  header .contain-to-grid .top-bar .top-bar-section a {
+    padding-right: 0 !important; }
+  @media (min-width: 1250px) {
+    header .contain-to-grid .top-bar .top-bar-section .sponsor-wrapper {
+      display: block; } }
+  @media (max-width: 1249px) {
+    header .contain-to-grid .top-bar .top-bar-section .sponsor-wrapper {
+      display: none; } }
+  header .contain-to-grid .top-bar .top-bar-section .has-dropdown > a:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    border: inset 5px;
+    border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
+    border-top-style: solid;
+    margin-top: -7.5px;
+    top: 22.5px;
+    right: -14px; }
 @media only screen and (min-width: 78.063em) {
   header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
     color: #282828;
-    padding: 0 12px;
+    padding: 0 12px !important;
     line-height: 32px;
-    background-color: white; } }
+    background-color: white; }
+    header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button):hover {
+      background-color: #231f20;
+      color: white; } }
 header .contain-to-grid .cst-row {
   margin: 0 auto; }
 
@@ -2326,13 +2352,13 @@ header .contain-to-grid .cst-row {
     header .contain-to-grid .top-bar {
       max-width: 100%;
       margin: 0 auto;
-      height: 186px;
+      height: 185px;
       background-color: transparent; }
       @media (min-width: 1250px) {
-        header .contain-to-grid .top-bar .small-logo, header .contain-to-grid .top-bar .sponsor-wrapper {
+        header .contain-to-grid .top-bar .small-logo {
           display: none; } }
       @media (max-width: 1249px) {
-        header .contain-to-grid .top-bar .small-logo, header .contain-to-grid .top-bar .sponsor-wrapper {
+        header .contain-to-grid .top-bar .small-logo {
           display: block; } }
       header .contain-to-grid .top-bar ul li {
         background-color: white; }
@@ -2344,8 +2370,6 @@ header .contain-to-grid .cst-row {
       header .contain-to-grid .top-bar .top-bar-section {
         text-align: center;
         z-index: 3;
-        border-bottom: 1px solid #231f20;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
         float: none;
         line-height: 1; }
         header .contain-to-grid .top-bar .top-bar-section .logo-wrapper .logo {

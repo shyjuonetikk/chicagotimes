@@ -1,5 +1,6 @@
 /* HEADER */
 .logo-wrapper.large-logo {
+	margin-bottom:10px;
 	@media (min-width: 1250px) {
 		display: block;
 	}
@@ -7,11 +8,35 @@
 		display: none !important;
 	}
 }
+.sponsor-wrapper {
+	max-width: 60.7rem;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	.sponsor-ear {
+		width: 184px;
+		height: 90px;
+		margin-top: 7px;
+		&.left {
+			float: left;
+		}
+		&.right {
+			float: right;
+		}
+	}
+}
+
 header {
 	.contain-to-grid {
 		.top-bar {
 			.cst-navigation-container {
 				background-color: #ffffff;
+				border-top: 1px solid $cst_black;
+				border-bottom: 1px solid $cst_black;
+				height:34px;
+				a {
+					font-size: 1rem;
+				}
 			}
 
 		.top-bar-section {
@@ -26,17 +51,40 @@ header {
 						}
 					}
 				}
-				min-height:146px;
-				.has-dropdown > a {
-					padding-right: 0;
+				a {
+					padding-right: 0 !important;
+				}
+				.sponsor-wrapper {
+					@media (min-width: 1250px) {
+						display: block;
+					}
+					@media (max-width: 1249px) {
+						display: none;
+					}
+				}
+				.has-dropdown>a:after {
+					content: "";
+					display: block;
+					width: 0;
+					height: 0;
+					border: inset 5px;
+					border-color: rgba(0,0,0,0.7) transparent transparent transparent;
+					border-top-style: solid;
+					margin-top: -7.5px;
+					top: 22.5px;
+					right: -14px;
 				}
 			}
 			@media only screen and (min-width: 78.063em) {
 				.top-bar-section li:not(.has-form) a:not(.button) {
 					color: $black;
-					padding: 0 12px;
+					padding: 0 12px !important;
 					line-height:32px;
 					background-color: #ffffff;
+					&:hover {
+						background-color: $cst_black;
+						color:#fff;
+					}
 				}
 			}
 		}
@@ -54,11 +102,10 @@ header {
 			.top-bar {
 				max-width: 100%;
 				margin: 0 auto;
-				height: 186px;
+				height: 185px;
 				background-color: transparent;
 
-				.small-logo,
-				.sponsor-wrapper {
+				.small-logo {
 					@media (min-width: 1250px) {
 						display: none;
 					}
@@ -80,8 +127,6 @@ header {
 				.top-bar-section {
 					text-align: center;
 					z-index: 3;
-					border-bottom: 1px solid $cst_black;
-					box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 					float: none;
 					line-height: 1;
 					.logo-wrapper {
