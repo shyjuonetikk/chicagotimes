@@ -945,6 +945,7 @@ class CST_Admin {
 	 * @return bool
 	 *
 	 * Upon content state transition trigger a notification to the App API and potentially other remote services
+	 * Handle BREAKING app update from Publish Meta box
 	 */
 	public function action_save_post_notification( $new_status, $old_status, $post ) {
 
@@ -967,6 +968,10 @@ class CST_Admin {
 		if ( isset( $_POST['cst_app_notification_field'] ) && ( 'publish' === $new_status || 'new' === $new_status ) ) {
 			return $this->app_notify( $post_id, 'BREAKING: ' );
 
+		}
+
+		if ( 'publish' === $new_status || 'new' === $new_status ) {
+			return $this->app_notify( $post_id );
 		} else {
 			return false;
 		}
@@ -988,7 +993,7 @@ class CST_Admin {
 		}
 
 		$slug        = basename( $obj->get_permalink() );
-		$title       = $title_prefix . $obj->get_title();
+		$title       = '' === $title_prefix ? '' : $title_prefix . $obj->get_title();
 		$section     = $obj->get_primary_section()->slug;
 		$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
 		$payload_array = array(
