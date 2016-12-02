@@ -70,7 +70,7 @@ header {
 					border: inset 5px;
 					border-color: rgba(0,0,0,0.7) transparent transparent transparent;
 					border-top-style: solid;
-					margin-top: -7.5px;
+					margin-top: -8px;
 					top: 22.5px;
 					right: -14px;
 				}
@@ -78,7 +78,7 @@ header {
 			@media only screen and (min-width: 78.063em) {
 				.top-bar-section li:not(.has-form) a:not(.button) {
 					color: $black;
-					padding: 0 12px !important;
+					padding: 0 14px !important;
 					line-height:32px;
 					background-color: #ffffff;
 					&:hover {
@@ -86,6 +86,19 @@ header {
 						color:#fff;
 					}
 				}
+			}
+			.dropdown {
+				left: 0;
+				top: auto;
+				background: #f8f8f8;
+				min-width: 100%;
+				box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+				float: none;
+				overflow: hidden;
+				height: 65px;
+				margin: 0 0 16px;
+				border-radius: 2px;
+				border-top: 1px solid #333;
 			}
 		}
 		.cst-row {
