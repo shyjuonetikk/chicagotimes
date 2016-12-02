@@ -993,7 +993,7 @@ class CST_Admin {
 		}
 
 		$slug        = basename( $obj->get_permalink() );
-		$title       = $title_prefix . $obj->get_title();
+		$title       = '' === $title_prefix ? '' : $title_prefix . $obj->get_title();
 		$section     = $obj->get_primary_section()->slug;
 		$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
 		$payload_array = array(
