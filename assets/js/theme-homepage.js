@@ -138,7 +138,7 @@
 			if( scrollTop >= ( this.header.height() + this.breakingNews.height() ) ) {
 				if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
 					this.dfpWallpaper.removeClass('dfp-wallpaper-normal').addClass('dfp-wallpaper-fixed');
-					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 146 );
+					this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 202 );
 				} else {
 					this.dfpWallpaper.addClass('dfp-wallpaper-fixed');
 				}

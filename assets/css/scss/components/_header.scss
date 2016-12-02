@@ -22,7 +22,7 @@ header#header {
 	position: relative;
 	z-index:9999;
 
-	background-color: $black;
+	background-color: $masthead_background;
 
 	#weather {
 		position:absolute;
@@ -648,10 +648,46 @@ body.single {
 	margin-bottom: 10px;
 	margin-top:10px;
 }
-.masthead-date {
-	font-family: $merriweather;
-	height: 26px;
-	font-size: 1rem;
-	line-height: 1.5rem;
-	color: #fff;
+.masthead {
+	.date {
+		font-family: $merriweather;
+		height: 26px;
+		font-size: 1rem;
+		line-height: 1.5rem;
+		float:left;
+	}
+
+	.weather {
+		float: right;
+		.weather-link {
+			line-height: 24px;
+			color: $black;
+			&:hover,
+			&:visited {
+				color: $black;
+			}
+		}
+	}
+	.search {
+		background-color: $cst_black;
+		.button,
+		.search-input {
+			height: 1.8rem;
+		}
+		.subscribe {
+			color: $white;
+			background-color: $site_background;
+
+		}
+		#search-button {
+			font-size: 1.5rem;
+			color: #333333;
+			position: absolute;
+			right: inherit;
+			top: 5px;
+			background: transparent;
+		}
+	}
 }
+
+

@@ -11,6 +11,7 @@ header {
 	.contain-to-grid {
 		.top-bar {
 			.top-bar-section {
+				background-color: $masthead_background;
 				#menu-homepage-left, #menu-homepage {
 					.menu-item {
 						&.obit-external {
@@ -25,6 +26,8 @@ header {
 			}
 			@media only screen and (min-width: 78.063em) {
 				.top-bar-section li:not(.has-form) a:not(.button) {
+					background-color: $site_background;
+					color: $black;
 					padding: 0 12px;
 				}
 			}
@@ -39,12 +42,12 @@ header {
 	header {
 
 		.contain-to-grid {
-
+			background-color: transparent;
 			.top-bar {
 				max-width: 100%;
 				margin: 0 auto;
-				height: 138px;
-				line-height: 45px;
+				height: 186px;
+				background-color: transparent;
 
 				.small-logo {
 					@media (min-width: 1250px) {
@@ -66,7 +69,10 @@ header {
 				.top-bar-section {
 					text-align: center;
 					z-index: 3;
-
+					border-bottom: 1px solid $cst_black;
+					box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+					float: none;
+					line-height: 1;
 					.logo-wrapper {
 						.logo {
 							width: 300px;

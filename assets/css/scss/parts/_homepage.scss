@@ -1,6 +1,7 @@
 .homepage_wrapper {
 	width:100%;
 	margin:0 auto;
+	background-color: $site_background;
 
 	.news-cat:hover {
 		background: rgb(210, 45, 66) !important; /* The Fallback */
@@ -223,6 +224,7 @@
 
 /* HEADER */
 	.logo-wrapper.large-logo {
+		border-bottom: 1px solid $black;
 		@media (min-width: 1250px) {
 			display: block;
 		}
@@ -232,8 +234,10 @@
 	}
 	header {
 		.contain-to-grid {
+			background-color: $masthead_background;
 			.top-bar {
 				.top-bar-section {
+					border-bottom: 1px solid $black;
 					#menu-homepage-left, #menu-homepage {
 						.menu-item {
 							&.obit-external {
@@ -267,7 +271,6 @@
 				    max-width: 100%;
 				    margin: 0 auto;
 				    height: 138px;
-		    		line-height: 45px;
 
 		    		.small-logo {
 		    			@media (min-width: 1250px) {
@@ -284,6 +287,8 @@
 					    font-size: 11px;
 					    text-transform: uppercase;
 					    text-align: left;
+						background-color: $masthead_background;
+						color: $black;
 		    		}
 
 		    		.top-bar-section {
@@ -519,7 +524,6 @@
 		z-index: 2;
 		overflow: hidden;
 		height: auto;
-		background-color: $light_grey;
 	}
 
 	h2.section-title {
@@ -534,7 +538,7 @@
 			font-family: inherit;
 			font-weight: 700;
 			color: $section_title;
-			background: $light_grey;
+			background: $site_background;
 			border-bottom: none;
 			padding: 0 20px;
 			font-style: italic;
