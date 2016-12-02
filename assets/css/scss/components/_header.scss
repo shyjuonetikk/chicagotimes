@@ -49,6 +49,7 @@ header#header {
 	section#primary-navigation {
 		height: 50px;
 		z-index: 100100;
+		background-color: $cst_black;
 
 		a#burger-bar {
 			color: $white;
