@@ -315,16 +315,19 @@ body.error404 {
       font-size: 1rem;
       font-weight: 700; }
 
-.sponsor-ear {
-  width: 184px;
-  height: 90px;
-  margin-top: 10px; }
-  .sponsor-ear.left {
-    float: left;
-    margin-left: 10px; }
-  .sponsor-ear.right {
-    float: right;
-    margin-right: 10px; }
+.sponsor-wrapper {
+  max-width: 60.7rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+  .sponsor-wrapper .sponsor-ear {
+    width: 184px;
+    height: 90px;
+    margin-top: 7px; }
+    .sponsor-wrapper .sponsor-ear.left {
+      float: left; }
+    .sponsor-wrapper .sponsor-ear.right {
+      float: right; }
 
 @media only screen and (min-width:85.25em) { }
 
@@ -768,10 +771,10 @@ ul#menu-sun-times-network {
   font-family: 'Merriweather', Georgia, serif;
   height: 26px;
   font-size: 1rem;
-  line-height: 1.5rem;
-  float: left; }
+  line-height: 1.5rem; }
 .masthead .weather {
-  float: right; }
+  background-color: #ffe000;
+  padding: 10px 8px; }
   .masthead .weather .weather-link {
     line-height: 24px;
     color: #282828; }
@@ -779,8 +782,16 @@ ul#menu-sun-times-network {
       color: #282828; }
 .masthead .search {
   background-color: #231f20; }
+  .masthead .search .has-form {
+    background-color: #231f20; }
   .masthead .search .button, .masthead .search .search-input {
-    height: 1.8rem; }
+    height: 1.7rem; }
+  .masthead .search .search-input-wrapper {
+    padding: 2px; }
+  .masthead .search .glass {
+    font-size: 1.5rem;
+    color: white;
+    line-height: 2.5rem; }
   .masthead .search .subscribe {
     color: white;
     background-color: #f8f8f8; }
@@ -791,9 +802,6 @@ ul#menu-sun-times-network {
     right: inherit;
     top: 5px;
     background: transparent; }
-.masthead .masthead-button {
-  background-color: #282828;
-  border: 1px solid #231f20; }
 
 .wire {
   position: relative;
@@ -3375,6 +3383,8 @@ body.post-gallery-lightbox-active {
   .logo-wrapper.large-logo {
     display: none !important; } }
 
+header .contain-to-grid .top-bar .cst-navigation-container {
+  background-color: white; }
 header .contain-to-grid .top-bar .top-bar-section {
   background-color: white;
   min-height: 146px; }
@@ -3382,11 +3392,14 @@ header .contain-to-grid .top-bar .top-bar-section {
     display: block; }
   header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
     display: none; }
+  header .contain-to-grid .top-bar .top-bar-section .has-dropdown > a {
+    padding-right: 0; }
 @media only screen and (min-width: 78.063em) {
   header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
-    background-color: #f8f8f8;
     color: #282828;
-    padding: 0 12px; } }
+    padding: 0 12px;
+    line-height: 32px;
+    background-color: white; } }
 header .contain-to-grid .cst-row {
   margin: 0 auto; }
 
@@ -3404,11 +3417,12 @@ header .contain-to-grid .cst-row {
       @media (max-width: 1249px) {
         header .contain-to-grid .top-bar .small-logo {
           display: block; } }
+      header .contain-to-grid .top-bar ul li {
+        background-color: white; }
       header .contain-to-grid .top-bar ul li > a {
         font-family: 'Raleway', sans-serif;
         font-weight: 300;
-        font-size: 11px;
-        text-transform: uppercase;
+        font-size: 14px;
         text-align: left; }
       header .contain-to-grid .top-bar .top-bar-section {
         text-align: center;
@@ -3421,7 +3435,7 @@ header .contain-to-grid .cst-row {
           width: 300px;
           display: block;
           margin: 0 auto;
-          padding-top: 10px; }
+          padding: 7px 0; }
         header .contain-to-grid .top-bar .top-bar-section .dropdown li a {
           line-height: 30px !important; }
         header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left, header .contain-to-grid .top-bar .top-bar-section #menu-homepage {

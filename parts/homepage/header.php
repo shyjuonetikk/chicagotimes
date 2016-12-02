@@ -3,76 +3,7 @@
 		get_template_part( 'parts/dfp/homepage/dfp-interstitial' );
 	} ?>
 	<!-- top logos -->
-	<header id="header" class="masthead">
-
-		<div class="contain-to-grid sticky">
-			<nav class="top-bar" data-topbar role="navigation">
-
-				<ul class="title-area">
-					<li class="name">
-						<h1>
-							<a class="logo small-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-								<?php get_template_part( 'parts/images/company-logo' ); ?>
-							</a>
-						</h1>
-					</li>
-					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-				</ul>
-
-
-				<section class="top-bar-section">
-					<div class="search row">
-						<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-						<ul class="left">
-							<li class="has-form">
-								<div class="row collapse">
-									<div class="small-10 columns">
-										<input type="text" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
-									</div>
-									<div class="small-2 columns"><a href="#" class="masthead-button"><i class="fa fa-search"></i></a></div>
-								</div>
-							</li>
-						</ul>
-						</form>
-						<ul class="right">
-							<li class="has-form">
-								<a href="/subscribe" class="masthead-button">Subscribe</a>
-							</li>
-						</ul>
-					</div>
-					<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
-					<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left show-for-large-up"></div>
-					<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right show-for-large-up"></div>
-					<?php } ?>
-					<div class="logo-wrapper large-logo">
-						<div class="logo">
-							<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-masthead.svg' ); ?>" alt='Chicago Sun-Times logo'>
-							<div class="date"><?php echo esc_html( date_i18n( 'l, F j, Y' ) ); ?></div>
-							<?php $weather = CST()->frontend->get_weather(); ?>
-							<?php if ( ! empty( $weather ) ) { ?>
-								<div class="weather">
-									<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
-					<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
-					<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
-									</a>
-								</div>
-							<?php } ?>
-						</div>
-					</div>
-
-					<?php
-					wp_nav_menu( array(
-						'theme_location' => 'homepage-menu',
-						'fallback_cb' => false,
-						'container' => false,
-						'depth' => 2,
-						'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
-						'walker' => new GC_walker_nav_menu(),
-						)
-					);
-				?>
-				</section>
-			</nav>
-		</div>
-	</header>
+	<?php if ( ! is_page_template( 'page-monster.php' ) ) {
+		get_template_part( 'parts/header-brand-navigation' );
+	} ?>
 	<div class="homepage_wrapper">

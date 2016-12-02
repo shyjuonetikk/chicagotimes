@@ -649,16 +649,17 @@ body.single {
 	margin-top:10px;
 }
 .masthead {
+
 	.date {
 		font-family: $merriweather;
 		height: 26px;
 		font-size: 1rem;
 		line-height: 1.5rem;
-		float:left;
 	}
 
 	.weather {
-		float: right;
+		background-color: $cst_yellow;
+		padding: 10px 8px;
 		.weather-link {
 			line-height: 24px;
 			color: $black;
@@ -669,11 +670,23 @@ body.single {
 		}
 	}
 	.search {
+		.has-form {
+			background-color: $cst_black;
+		}
 		background-color: $cst_black;
 		.button,
 		.search-input {
-			height: 1.8rem;
+			height: 1.7rem;
 		}
+		.search-input-wrapper {
+			padding:2px;
+		}
+		.glass {
+			font-size: 1.5rem;
+			color: #ffffff;
+			line-height: 2.5rem;
+		}
+
 		.subscribe {
 			color: $white;
 			background-color: $site_background;
