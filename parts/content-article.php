@@ -65,9 +65,8 @@
             }
 
 		?>
-		<script>
-			window.SECTIONS_FOR_YIELD_MO = <?php echo wp_json_encode( CST_Frontend::$post_sections ); ?>;
-			window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
+		<script type="text/javascript">
+		  window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
         </script>
 			<?php $obj->the_content(); ?>
 			<?php

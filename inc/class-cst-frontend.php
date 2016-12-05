@@ -26,6 +26,10 @@ class CST_Frontend {
 		'blackhawks-hockey' => 'idn8h9Kj',
 		'sports'            => 'uDnVEu1d',
 	);
+
+	public static $triple_lift_section_slugs = array(
+		'dear-abby',
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -188,6 +192,7 @@ class CST_Frontend {
 				if ( is_singular() && ! is_admin() ) {
 					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
+					wp_enqueue_script( 'triplelift', get_template_directory_uri() . '/assets/js/vendor/triplelift.js' );
 				}
 
 
@@ -1472,4 +1477,15 @@ ready(fn);
 		}
 		return $section_list;
 	}
+
+	public function include_triple_lift( $obj ) {
+		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
+
+		if ( array_intersect( CST_Frontend::$triple_lift_section_slugs, $article_section_slugs ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
