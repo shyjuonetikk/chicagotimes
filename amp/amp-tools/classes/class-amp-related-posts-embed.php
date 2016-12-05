@@ -148,7 +148,7 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 		}
 
 		$public_good_markup =
-			in_array( $this->chart_beat_slug, CST_Frontend::$public_good_section_slugs, true ) ? $this->cst_build_public_good_element() : '';
+			in_array( $this->chart_beat_slug, CST_Frontend::$pgs_section_slugs, true ) ? $this->cst_build_public_good_element() : '';
 		return $content . $public_good_markup . $recommended_article_block;
 	}
 
