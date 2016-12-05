@@ -26,6 +26,10 @@ class CST_Frontend {
 		'blackhawks-hockey' => 'idn8h9Kj',
 		'sports'            => 'uDnVEu1d',
 	);
+	public static $pgs_section_slugs = array(
+		'news',
+		'politics'
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -188,6 +192,7 @@ class CST_Frontend {
 				if ( is_singular() && ! is_admin() ) {
 					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
+					wp_enqueue_script( 'takeactionjs', 'https://assets.pgs.io/button/v2/dpg.js', array(), '', true );
 				}
 
 
@@ -1445,6 +1450,20 @@ ready(fn);
 			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
 			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
 		);
+	}
+
+	/**
+	* Detect section and if appropriate inject Public Good markup
+	* @param $obj \CST\Objects\Article | \CST\Objects\Post
+	*/
+	public function inject_public_good_markup( $obj ) {
+
+		if ( $section = $obj->get_primary_parent_section() ) {
+			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
+				echo '<div class="pgs-dpg-btn" data-pgs-partner-id="chicago-sun-times"></div>';
+			}
+		}
+
 	}
 
 	/**
