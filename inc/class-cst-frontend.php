@@ -26,6 +26,10 @@ class CST_Frontend {
 		'blackhawks-hockey' => 'idn8h9Kj',
 		'sports'            => 'uDnVEu1d',
 	);
+	public static $public_good_section_slugs = array (
+		'news',
+		'politics'
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -1454,13 +1458,8 @@ ready(fn);
 	*/
 	public function inject_public_good_markup( $obj ) {
 
-		$allowed_section_slugs = array(
-			'news',
-			'politics'
-		);
-
 		if ( $section = $obj->get_primary_parent_section() ) {
-			if ( in_array( $section->slug, $allowed_section_slugs, true ) ) {
+			if ( in_array( $section->slug, $this->public_good_section_slugs, true ) ) {
 				echo '<div class="pgs-dpg-btn" data-pgs-partner-id="chicago-sun-times"></div>';
 			}
 		}
