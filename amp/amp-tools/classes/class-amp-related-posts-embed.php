@@ -183,14 +183,18 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 
 	public function cst_build_public_good_element() {
 		return AMP_HTML_Utils::build_tag(
-			'amp-iframe', array(
-			'src' => 'https://assets.pgs.io/button/v2/iframe.html?partner_id=chicago-sun-times',
-			'layout' => 'responsive',
-			'frameborder' => '0',
-			'width' => '212',
-			'height' => '50',
+			'a',
+			array(
+				'href'    => esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
+				'target' => '_blank',
+			)
+			,AMP_HTML_Utils::build_tag(
+			'amp-img', array(
+			'src'    => esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' ),
+			'width'  => '170',
+			'height' => '40',
 			),
 			''
-		);
+		) );
 	}
 }

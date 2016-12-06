@@ -192,7 +192,6 @@ class CST_Frontend {
 				if ( is_singular() && ! is_admin() ) {
 					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
-					wp_enqueue_script( 'takeactionjs', 'https://assets.pgs.io/button/v2/dpg.js', array(), '', true );
 				}
 
 
@@ -1460,7 +1459,10 @@ ready(fn);
 
 		if ( $section = $obj->get_primary_parent_section() ) {
 			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
-				echo '<div class="pgs-dpg-btn" data-pgs-partner-id="chicago-sun-times"></div>';
+				return sprintf( '<div><a href="%1$s" target="_blank"><img src="%2$s" style="height:50px"></a></div>',
+				 esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
+				 esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
+				 );
 			}
 		}
 
