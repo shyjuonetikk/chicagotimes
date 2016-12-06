@@ -145,7 +145,7 @@ class CST_Infinite_Scroll {
 			'readMoreLabel'           => esc_html__( 'Read More', 'chicagosuntimes' ),
 		) );
 		wp_localize_script( 'cst-infinite-scroll', 'CSTYieldMoData', array(
-			'SECTIONS_FOR_YIELD_MO' => wp_json_encode( strtolower( CST_Frontend::$post_sections ) ),
+			'SECTIONS_FOR_YIELD_MO' => wp_json_encode( array_map( 'strtolower', CST_Frontend::$post_sections ) ),
 		) );
 	}
 
