@@ -954,18 +954,11 @@ class CST_Admin {
 		}
 
 		$post_id = $post->ID;
+
 		if (
-			! isset( $_POST['cst_app_notification_nonce'] ) ||
-			! wp_verify_nonce( $_POST['cst_app_notification_nonce'], 'cst_app_notification_nonce_' . $post_id )
-		) {
-			return false;
-		}
-
-		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-			return false;
-		}
-
-		if ( isset( $_POST['cst_app_notification_field'] ) && ( 'publish' === $new_status || 'new' === $new_status ) ) {
+			isset( $_POST['cst_app_notification_field'] )
+			&& wp_verify_nonce( $_POST['cst_app_notification_nonce'], 'cst_app_notification_nonce_' . $post_id )
+			&& ( 'publish' === $new_status || 'new' === $new_status ) ) {
 			return $this->app_notify( $post_id, 'BREAKING: ' );
 
 		}
