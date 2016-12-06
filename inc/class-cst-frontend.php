@@ -27,7 +27,7 @@ class CST_Frontend {
 		'sports'            => 'uDnVEu1d',
 	);
 	public static $pgs_section_slugs = array(
-		'news',
+		'chicago%20news',
 		'politics'
 	);
 
