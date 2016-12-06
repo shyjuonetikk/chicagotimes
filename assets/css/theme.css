@@ -1252,6 +1252,8 @@ article.post {
     position: relative;
     float: left;
     margin-top: 20px; }
+  article.post .pgs-container {
+    margin: 5px 0 0; }
   article.post .ym {
     overflow: hidden; }
 
