@@ -30,6 +30,10 @@ class CST_Frontend {
 		'news',
 		'politics'
 	);
+
+	public static $triple_lift_section_slugs = array(
+		'dear-abby',
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -1493,4 +1497,22 @@ ready(fn);
 		}
 		return $section_list;
 	}
+
+	/**
+	* @param $obj
+	*
+	* @return bool
+	*
+	* Determine whether to include the Triplelift ad element.
+	*/
+	public function include_triple_lift( $obj ) {
+		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
+
+		if ( array_intersect( CST_Frontend::$triple_lift_section_slugs, $article_section_slugs ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }
