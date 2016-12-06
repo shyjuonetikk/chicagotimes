@@ -1483,7 +1483,7 @@ ready(fn);
 	*
 	* @return bool
 	*
-	* Determine whether to include the Triplelift ad element
+	* Determine whether to include the Triplelift ad element.
 	*/
 	public function include_triple_lift( $obj ) {
 		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
