@@ -192,7 +192,6 @@ class CST_Frontend {
 				if ( is_singular() && ! is_admin() ) {
 					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
-					wp_enqueue_script( 'triplelift', get_template_directory_uri() . '/assets/js/vendor/triplelift.js' );
 				}
 
 
@@ -214,6 +213,7 @@ class CST_Frontend {
 						}
 
 						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
+						wp_enqueue_script( 'triplelift', get_template_directory_uri() . '/assets/js/vendor/cst_triplelift.js' );
 					}
 
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
@@ -1478,6 +1478,13 @@ ready(fn);
 		return $section_list;
 	}
 
+	/**
+	* @param $obj
+	*
+	* @return bool
+	*
+	* Determine whether to include the Triplelift ad element
+	*/
 	public function include_triple_lift( $obj ) {
 		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
 
