@@ -133,7 +133,7 @@ class CST_Infinite_Scroll {
 	}
 
 	/**
-	 * Infinite scroll JavaScript hacks
+	 * Infinite scroll JavaScript hacks.
 	 */
 	public function action_wp_enqueue_scripts() {
 		if ( is_page_template( 'page-monster.php' ) || is_front_page() ) {
