@@ -28,7 +28,8 @@ class CST_Frontend {
 	);
 	public static $pgs_section_slugs = array(
 		'chicago%20news',
-		'politics'
+		'news',
+		'politics',
 	);
 
 	public static $triple_lift_section_slugs = array(
