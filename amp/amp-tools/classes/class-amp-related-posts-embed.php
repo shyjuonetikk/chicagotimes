@@ -20,7 +20,7 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 	}
 
 	public function get_scripts() {
-		return array();
+		return array( 'amp-iframe' => 'https://cdn.ampproject.org/v0/amp-iframe-0.1.js' );
 	}
 
 	/**
@@ -147,7 +147,9 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 			}
 		}
 
-		return $content . $recommended_article_block;
+		$public_good_markup =
+			in_array( $this->chart_beat_slug, CST_Frontend::$pgs_section_slugs, true ) ? $this->cst_build_public_good_element() : '';
+		return $content . $public_good_markup . $recommended_article_block;
 	}
 
 	/**
@@ -170,5 +172,29 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 			}
 		}
 		return $featured_image_url;
+	}
+
+
+	/**
+	 * @return string
+	 *
+	 * Individual Public Good button iframe element
+	 */
+
+	public function cst_build_public_good_element() {
+		return AMP_HTML_Utils::build_tag(
+			'a',
+			array(
+				'href'    => esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
+				'target' => '_blank',
+			)
+			,AMP_HTML_Utils::build_tag(
+			'amp-img', array(
+			'src'    => esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' ),
+			'width'  => '170',
+			'height' => '40',
+			),
+			''
+		) );
 	}
 }

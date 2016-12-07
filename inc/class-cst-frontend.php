@@ -26,6 +26,15 @@ class CST_Frontend {
 		'blackhawks-hockey' => 'idn8h9Kj',
 		'sports'            => 'uDnVEu1d',
 	);
+	public static $pgs_section_slugs = array(
+		'chicago%20news',
+		'news',
+		'politics',
+	);
+
+	public static $triple_lift_section_slugs = array(
+		'dear-abby',
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -207,7 +216,7 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-
+						wp_enqueue_script( 'csttriplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
 						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
 					}
 
@@ -1448,6 +1457,23 @@ ready(fn);
 	}
 
 	/**
+	* Detect section and if appropriate inject Public Good markup
+	* @param $obj \CST\Objects\Article | \CST\Objects\Post
+	*/
+	public function inject_public_good_markup( $obj ) {
+
+		if ( $section = $obj->get_primary_parent_section() ) {
+			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
+				return sprintf( '<div class="pgs-container"><a href="%1$s" target="_blank"><img src="%2$s" style="height:50px"></a></div>',
+				 esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
+				 esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
+				 );
+			}
+		}
+
+	}
+
+	/**
 	 * Get and return an array of sections associated with this single object - article | gallery
 	 * @return array|bool
 	 *
@@ -1472,4 +1498,22 @@ ready(fn);
 		}
 		return $section_list;
 	}
+
+	/**
+	* @param $obj
+	*
+	* @return bool
+	*
+	* Determine whether to include the Triplelift ad element.
+	*/
+	public function include_triple_lift( $obj ) {
+		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
+
+		if ( array_intersect( CST_Frontend::$triple_lift_section_slugs, $article_section_slugs ) ) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

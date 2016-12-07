@@ -1,4 +1,5 @@
-(function( $ ){
+/* global CSTYieldMoData */
+;(function( $ ){
 
 	var isIE = ( -1 != navigator.userAgent.search( 'MSIE' ) );
 	if ( isIE ) {
@@ -219,8 +220,8 @@
 				var ad_container_height = jQuery('.cst-active-scroll-post .ad-container').height();
 				jQuery('#post-sidebar').css('top', active_post_position + 'px');
 				
-				if(window.SECTIONS_FOR_YIELD_MO){
-					window.YieldMo && YieldMo.inject(window.SECTIONS_FOR_YIELD_MO)
+				if(CSTYieldMoData.SECTIONS_FOR_YIELD_MO){
+					window.YieldMo && YieldMo.inject(CSTYieldMoData.SECTIONS_FOR_YIELD_MO)
 			    }
 
 			    if(window.SECTIONS_FOR_AGGREGO_CHATTER){
