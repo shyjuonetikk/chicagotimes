@@ -27,8 +27,9 @@ class CST_Frontend {
 		'sports'            => 'uDnVEu1d',
 	);
 	public static $pgs_section_slugs = array(
+		'chicago%20news',
 		'news',
-		'politics'
+		'politics',
 	);
 
 	public static $triple_lift_section_slugs = array(
@@ -215,7 +216,7 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-
+						wp_enqueue_script( 'csttriplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
 						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
 					}
 
