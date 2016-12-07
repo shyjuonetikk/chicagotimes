@@ -41,7 +41,7 @@ class CST_DFP_Handler {
 		}
 		return sprintf(
 			'
-<div id="%1$s" class="%2$s" data-visual-label="%3$s">
+<div id="%1$s" class="%2$s" data-visual-label="%3$s" data-banana="l">
 <script>
 	googletag.cmd.push(function() {
 		googletag.display("%4$s");
@@ -55,7 +55,67 @@ class CST_DFP_Handler {
 			esc_attr( $type . '-' . intval( $index ) )
 		);
 	}
-
+	/**
+	 * @param $index
+	 * @param string $type
+	 * @param string $class
+	 * @param string $mapping
+	 * @param string $targeting_name
+	 *
+	 * @return string
+	 *
+	 * Create a dynamic generic markup unit
+	 */
+	public function dynamic_unit( $index, $type = '', $class = '', $mapping = '', $targeting_name = 'atf leaderboard' ) {
+		if ( empty( $type ) ) {
+			$type = 'div-gpt-placement';
+		}
+		if ( empty( $class ) ) {
+			$class = 'dfp-placement';
+		}
+		if ( empty( $mapping ) ) {
+			$mapping = 'article_mapping';
+		}
+		if ( ! isset( $index ) ) {
+			$index = 1;
+		}
+		return sprintf(
+			'
+			
+<div id="%1$s" class="%2$s" data-visual-label="%1$s">
+<script>
+googletag.cmd.push(function() {
+    var article_mapping = googletag.sizeMapping().
+    addSize([992, 0], [ [728, 90] ] ). //desktop
+    addSize([800, 1200], [ [728,90] ] ). //tablet
+    addSize([768, 1024], [ [728,90] ] ). //tablet
+    addSize([640, 480], [300, 50], [320, 50]). //phone
+    addSize([375, 667], [300, 50], [320, 50]). //phone
+    addSize([0, 0], [300, 50], [320, 50]). //other
+    build();
+  var sf_mapping = googletag.sizeMapping()
+    .addSize([992, 0], [[300, 250]]) //desktop
+    .addSize([768, 0], [[300, 250]]) //tablet
+    .addSize([640, 0], [[320, 50]]) //phone
+    .addSize([414, 0], [[320, 50]]) //phone
+    .addSize([375, 0], [[320, 50]]) //phone
+    .addSize([0, 0], [320, 50]) //other
+    .build();
+googletag.defineSlot(adUnitPath, [[728, 90]], \'%1$s\')
+	.defineSizeMapping(%3$s)
+	.addService(googletag.pubads())
+	.setTargeting("pos", "%4$s");
+	googletag.display("%1$s");
+	})
+</script>
+</div>
+',
+			esc_attr( $type . '-' . intval( $index ) ),
+			esc_attr( $class ),
+			esc_attr( $mapping ),
+			esc_attr( $targeting_name )
+		);
+	}
 	/**
 	 * @param $index
 	 * @param string $type

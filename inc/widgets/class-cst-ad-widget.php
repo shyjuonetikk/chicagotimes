@@ -34,8 +34,12 @@ class CST_Ad_Widget extends WP_Widget {
 
 		$instance = array_merge( $this->defaults, $instance );
 
+		$placement_number = explode( '-', $instance['ad_unit'] );
+		$targeting_name = explode( 'dfp-', $instance['ad_unit'] );
+		$targeting_name = str_replace( '-', ' ', $targeting_name[1] );
+		$ad_unit_index = get_queried_object_id() + (int) $placement_number[ count( $placement_number ) - 1 ];
 		echo $args['before_widget'];
-		echo get_template_part( 'parts/dfp/' . $instance['ad_unit'] );
+		echo CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', is_singular() ? 'article_mapping' : '', $targeting_name );
 		echo $args['after_widget'];
 
 		if ( 'dfp-polar' === $instance['ad_unit'] ) {
@@ -57,7 +61,7 @@ class CST_Ad_Widget extends WP_Widget {
 	<p>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'ad_unit' ) ); ?>"><?php esc_html_e( 'Ad Unit', 'chicagosuntimes' ); ?>:</label>
 		<select class="widefat cst-ad-widget" id="<?php echo esc_attr( $this->get_field_id( 'ad_unit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ad_unit' ) ); ?>" data-current-unit="<?php echo esc_attr( $current_unit ); ?>">
-		<?php foreach( $this->ad_units as $ad_unit ) : ?>
+		<?php foreach ( $this->ad_units as $ad_unit ) : ?>
 			<option value="<?php echo esc_attr( $ad_unit ); ?>" <?php selected( $ad_unit, $current_unit ); ?>><?php echo esc_html( $ad_unit ); ?></option>
 		<?php endforeach; ?>
 		</select>
