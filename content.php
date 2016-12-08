@@ -62,7 +62,7 @@
 			<?php
 			global $wp_query;
 			if ( is_singular() ) {
-				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_mapping', 'rr cube 2' );
+				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'cube_mapping', 'rr cube 2' );
 			} else {
 				$every_two = $wp_query->current_post % 2;
 				if ( 0 === $wp_query->query_vars['paged'] && ( ! $every_two ) ) {

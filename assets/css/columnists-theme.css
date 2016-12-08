@@ -1869,7 +1869,8 @@ section#subscribe {
         .sidebar#post-sidebar ul.latest-posts li.post:last-child {
           margin-bottom: 0px; }
   .sidebar ul {
-    list-style-type: none; }
+    list-style-type: none;
+    margin: 0; }
   .sidebar .ndn_embed {
     min-width: 300px;
     min-height: 168px;

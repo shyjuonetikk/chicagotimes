@@ -82,7 +82,7 @@ class CST_DFP_Handler {
 		return sprintf(
 			'
 			
-
+<div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="%4$s"></div>
 <script>
   var adUnitPath = dfp.adunitpath;
   var googletag = googletag || {};
@@ -96,6 +96,13 @@ googletag.cmd.push(function() {
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
+    var cube_mapping = googletag.sizeMapping()
+	.addSize([992, 0], [[300, 250]]) //desktop
+	.addSize([768, 0], [[300, 250]]) //tablet
+	.addSize([640, 480], [300, 250]) //phone
+	.addSize([375, 667], [300, 250]) //phone
+	.addSize([0, 0], [320, 50], [300, 50]) //other
+	.build();
   var sf_mapping = googletag.sizeMapping()
     .addSize([992, 0], [[300, 250]]) //desktop
     .addSize([768, 0], [[300, 250]]) //tablet
@@ -104,13 +111,13 @@ googletag.cmd.push(function() {
     .addSize([375, 0], [[320, 50]]) //phone
     .addSize([0, 0], [320, 50]) //other
     .build();
-googletag.defineSlot(adUnitPath, [[728, 90]], \'%1$s\')
+googletag.defineSlot(adUnitPath, [728, 90], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
+	.setTargeting("pos", "%4$s");
 	googletag.display("%1$s");
 	})
 </script>
-<div id="%1$s" class="%2$s" data-visual-label="%1$s"></div>
 ',
 			esc_attr( $type . '-' . intval( $index ) ),
 			esc_attr( $class ),
@@ -444,7 +451,7 @@ var dfp = {
 		switch ( $current_site_url ) {
 			case 'http://dev.suntimes.com':
 			case 'https://suntimesmediapreprod.wordpress.com':
-			case 'http://vip.local':
+//			case 'http://vip.local':
 				$parent_inventory = 'chicago.suntimes.com.test';
 				break;
 			case 'http://chicago.suntimes.com':
