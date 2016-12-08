@@ -39,7 +39,7 @@ class CST_Ad_Widget extends WP_Widget {
 		$widget_number = explode( '-', $this->id );
 		$ad_unit_index = $widget_number[1] + (int) $placement_number[ count( $placement_number ) - 1 ];
 		echo $args['before_widget'];
-		echo CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', is_singular() ? 'cube_mapping' : '', $targeting_name );
+		echo CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', is_singular() ? 'cube_mapping' : 'sf_mapping', $targeting_name );
 		echo $args['after_widget'];
 
 		if ( 'dfp-polar' === $instance['ad_unit'] ) {

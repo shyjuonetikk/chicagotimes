@@ -81,14 +81,13 @@ class CST_DFP_Handler {
 		}
 		return sprintf(
 			'
-			
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="%4$s"></div>
 <script>
   var adUnitPath = dfp.adunitpath;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
 googletag.cmd.push(function() {
-    var article_mapping = googletag.sizeMapping().
+      var article_mapping = googletag.sizeMapping().
     addSize([992, 0], [ [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
@@ -111,12 +110,12 @@ googletag.cmd.push(function() {
     .addSize([375, 0], [[320, 50]]) //phone
     .addSize([0, 0], [320, 50]) //other
     .build();
-googletag.defineSlot(adUnitPath, [728, 90], \'%1$s\')
+	googletag.defineSlot(adUnitPath, [728, 90], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
 	.setTargeting("pos", "%4$s");
 	googletag.display("%1$s");
-	})
+	});
 </script>
 ',
 			esc_attr( $type . '-' . intval( $index ) ),
