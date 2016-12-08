@@ -82,8 +82,11 @@ class CST_DFP_Handler {
 		return sprintf(
 			'
 			
-<div id="%1$s" class="%2$s" data-visual-label="%1$s">
+
 <script>
+  var adUnitPath = dfp.adunitpath;
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
 googletag.cmd.push(function() {
     var article_mapping = googletag.sizeMapping().
     addSize([992, 0], [ [728, 90] ] ). //desktop
@@ -104,11 +107,10 @@ googletag.cmd.push(function() {
 googletag.defineSlot(adUnitPath, [[728, 90]], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
-	.setTargeting("pos", "%4$s");
 	googletag.display("%1$s");
 	})
 </script>
-</div>
+<div id="%1$s" class="%2$s" data-visual-label="%1$s"></div>
 ',
 			esc_attr( $type . '-' . intval( $index ) ),
 			esc_attr( $class ),
