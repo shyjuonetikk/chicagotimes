@@ -26,11 +26,7 @@ class CST_Frontend {
 		'blackhawks-hockey' => 'idn8h9Kj',
 		'sports'            => 'uDnVEu1d',
 	);
-	public static $pgs_section_slugs = array(
-		'chicago%20news',
-		'news',
-		'politics',
-	);
+	public static $pgs_section_slugs = array();
 
 	public static $triple_lift_section_slugs = array(
 		'dear-abby',
