@@ -83,96 +83,6 @@
 				});
 			}
 
-			this.postSidebar = $('#post-sidebar');
-
-			this.postSidebar.find('#load-latest').on('click', $.proxy( function( e ){
-				e.preventDefault();
-				this.postSidebar.addClass('loading-latest');
-				var after = $.proxy( function(){
-					this.postSidebar.find('.post').remove();
-					this.postSidebar.find('.load-buttons').removeClass('filtered');
-					this.postSidebar.removeClass('loading-latest');
-				}, this );
-				this.fetchSidebarPosts( '', after, infiniteScroll.settings.query_args.cst_section );
-			}, this ) );
-
-			var scrollTimer = false;
-			var latestPosts = this.postSidebar.find('ul.latest-posts');
-			latestPosts.on('scroll', $.proxy( function( e ){
-
-				if ( this.sidebarEnd ) {
-					return;
-				}
-
-				if ( scrollTimer ) {
-					clearTimeout( scrollTimer );
-				}
-				scrollTimer = setTimeout( $.proxy( function(){
-					var top = this.postSidebar.css('top').replace('px','');
-
-					if ( latestPosts.scrollTop() + 500 > latestPosts.innerHeight() ) {
-						var lastPost = latestPosts.find('.post').last();
-						var date = '';
-						if ( lastPost.length ) {
-							date = lastPost.data('post-date');
-						}
-						this.fetchSidebarPosts( date, false, infiniteScroll.settings.query_args.cst_section );
-					}
-					scrollTimer = false;
-				}, this ), 50 );
-			}, this ) );
-
-		},
-
-		/**
-		 * Fetch more posts from the sidebar
-		 */
-		fetchSidebarPosts: function( date, after, section ) {
-
-			if ( this.sidebarLoadInProgress ) {
-				return;
-			}
-
-			if ( typeof date == 'undefined' ) {
-				date = '';
-			}
-
-			if ( typeof after == 'undefined' ) {
-				after = false;
-			}
-
-			this.sidebarLoadInProgress = true;
-
-			$.ajax({
-				url: CSTInfiniteScrollData.infiniteSidebarEndpoint + date,
-				data: { cst_section: section },
-				success: $.proxy( function( response ){
-					if ( after ) {
-						after();
-					}
-					if ( response ) {
-						this.postSidebar.find('ul.latest-posts').append( response );
-
-						// Fix broken ad by removing it
-						if ( after && this.postSidebar.find( '.sidebar-ad' ).length ) {
-							this.postSidebar.find( '.sidebar-ad' ).remove();
-						}
-
-					} else {
-						this.sidebarEnd = true;
-					}
-
-					post = $('#main').find('.cst-active-scroll-post').eq(0);
-					if ( post.length ) {
-						this.postSidebar.find('.latest-posts li').removeClass('active');
-						this.postSidebar.find('.latest-posts li.post-' + post.data('cst-post-id') ).addClass( 'active' );
-					}
-
-					this.sidebarLoadInProgress = false;
-				}, this ),
-				dataType: 'html'
-			});
-
 		},
 
 		/**
@@ -197,9 +107,6 @@
 				}
 				CSTInfiniteScroll.activeURI = uri;
 
-				$('#post-sidebar .latest-posts li').removeClass('active');
-				$('#post-sidebar .latest-posts li.post-' + post_id ).addClass( 'active' );
-
 				if ( CSTInfiniteScroll.supportsPushState() && window.location.href != uri ) {
 					history.pushState( null, null, uri );
 					CSTAnalytics.currentURL = window.location.href;
@@ -219,8 +126,8 @@
 				var active_post_position = jQuery('.cst-active-scroll-post').position().top + 460;
 				var ad_container_height = jQuery('.cst-active-scroll-post .ad-container').height();
 				jQuery('#post-sidebar').css('top', active_post_position + 'px');
-				
-				if(CSTYieldMoData.SECTIONS_FOR_YIELD_MO){
+        window.CSTAds && CSTAds.refresh();
+        if(CSTYieldMoData.SECTIONS_FOR_YIELD_MO){
 					window.YieldMo && YieldMo.inject(CSTYieldMoData.SECTIONS_FOR_YIELD_MO)
 			    }
 
