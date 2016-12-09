@@ -122,11 +122,8 @@
 					_taboola.push({article:'auto', url:uri});
 				}
 
-				var scrollTop = $(window).scrollTop();
 				var active_post_position = jQuery('.cst-active-scroll-post').position().top + 460;
-				var ad_container_height = jQuery('.cst-active-scroll-post .ad-container').height();
 				jQuery('#post-sidebar').css('top', active_post_position + 'px');
-        window.CSTAds && CSTAds.refresh();
         if(CSTYieldMoData.SECTIONS_FOR_YIELD_MO){
 					window.YieldMo && YieldMo.inject(CSTYieldMoData.SECTIONS_FOR_YIELD_MO)
 			    }
@@ -143,6 +140,7 @@
 			    }
 				document.title = wp_title;
 
+        window.CSTAds && CSTAds.refreshArticle();
 				CSTAnalytics.triggerPageview();
 				
 			} else {

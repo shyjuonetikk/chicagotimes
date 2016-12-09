@@ -41,7 +41,7 @@ class CST_DFP_Handler {
 		}
 		return sprintf(
 			'
-<div id="%1$s" class="%2$s" data-visual-label="%3$s" data-banana="l">
+<div id="%1$s" class="%2$s" data-visual-label="%3$s">
 <script>
 	googletag.cmd.push(function() {
 		googletag.display("%4$s");
