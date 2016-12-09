@@ -1,4 +1,5 @@
 (function( $ ){
+  var throttleScroll;
 
 	var CST = {
 
@@ -48,15 +49,10 @@
 			this.rightSidebar = $('#index-sidebar');
 			this.rightSidebarAnchor = $('#index-sidebar-anchor');
 			this.leftSidebar = $('.stick-sidebar-left');
-			this.nativoSponsored = $('#nativo-sponsored');
 			this.footerFixed = $('#fixed-footer-container');
 			this.footerBottom = this.footerFixed.find('.footer-bottom');
 			this.footerMoreInfo = $('.footer-more-info');
-			this.burgerBar = $('#burger-bar');
-			this.exitOffCanvas = $('.exit-off-canvas');
 			this.dfpSBB = $('#div-gpt-sbb');
-			this.sbbTop = $('#dfp-sbb-top');
-			this.sbbBottom = $('#dfp-sbb-bottom');
 			this.interstitial = $('#div-gpt-interstitial');
 			this.interstitialContainer = $('#dfp-interstitial-container');
 			this.closeInterstitial = $('#dfp-interstitial-close');
@@ -64,14 +60,12 @@
 			this.nfLogo = $('header #newsfeed-logo');
 			this.mobileHome = $('header #mobile-home');
 			this.tabletHome = $('header #logo-wrap #tablet-home');
-			this.dfpWallpaper = $('#div-gpt-wallpaper');
-			this.dfpWallpaperImg = $('#div-gpt-wallpaper img')
-			this.dfpLeaderboard = $('#div-gpt-atf-leaderboard');
 			this.header = $('#header');
+      this.adminBar = $('#wpadminbar');
 
 			this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
-			if ( $('#wpadminbar').length ) {
-				this.scrollToolbarHeight += $('#wpadminbar').outerHeight();
+			if ( this.adminBar.length ) {
+				this.scrollToolbarHeight += this.adminBar.outerHeight();
 			}
 
 		},
@@ -89,7 +83,6 @@
 					}
 				}, this ), 1 );
 			}, this ) );
-
 			var delayedTimer = false;
 			$(window).resize( $.proxy( function() {
 				if ( delayedTimer ) {
@@ -106,7 +99,10 @@
 			}, this ) );
 
 			$(window).scroll( $.proxy( function() {
-				setTimeout( $.proxy( this.doScrollEvent, this ), 1 );
+        clearTimeout(throttleScroll);
+        throttleScroll = setTimeout(function(){
+            CST.doScrollEvent();
+        }, 60);
 			}, this ) );
 
 			this.postBody.on( 'click', '.post-comments', $.proxy( function( e ) {
@@ -189,29 +185,7 @@
 		doScrollEvent: function() {
 
 			var scrollTop = $(window).scrollTop();
-
-			if ( this.primaryNavigation.hasClass('primary-fixed') ) {
-				if( scrollTop >= ( this.dfpWallpaper.height() - ( this.header.height() + this.dfpLeaderboard.height() + this.dfpSBB.height() + 10 ) ) ) {
-					if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
-						this.dfpWallpaper.removeClass('dfp-wallpaper-normal').addClass('dfp-wallpaper-fixed');
-					} else {
-						this.dfpWallpaper.addClass('dfp-wallpaper-fixed');
-					}
-				} else if( scrollTop < ( this.dfpWallpaper.height() - ( this.header.height() + this.dfpLeaderboard.height() + this.dfpSBB.height() + 10 ) ) ) {
-					if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
-						this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
-					} else {
-						this.dfpWallpaper.addClass('dfp-wallpaper-normal');
-					}
-				}
-			} else if ( this.primaryNavigation.hasClass('primary-normal') ) {
-				if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
-					this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
-				} else {
-					this.dfpWallpaper.addClass('dfp-wallpaper-normal');
-				}
-			}
-
+      var windowWidth = $(window).width();
 			if ( scrollTop > 0 ) {
 
 				this.topHeight = $(document).scrollTop();
@@ -243,10 +217,10 @@
 				if ( this.nfLogo.is(':hidden') ) {
 					this.cstLogo.hide();
 					this.nfLogo.show('slide', { direction: 'down' } );
-					if ( $(window).width() <= 640 ) {
+					if ( windowWidth <= 640 ) {
 						this.mobileHome.show('slide', { direction: 'down' } );
 					}
-					if ( $(window).width() > 640 && $(window).width() < 981 ) {
+					if ( windowWidth > 640 && windowWidth < 981 ) {
 						this.tabletHome.show('slide', { direction: 'down' } );
 					}
 				}
@@ -284,17 +258,17 @@
 
 			// Sticky sharing tools on the articles, as well as logic for the currently viewing post
 			if ( $( 'body.single' ).length ) {
-
-				$('#main .post' ).each( $.proxy( function( key, value ) {
+        var mainPost = $('#main .post');
+        mainPost.each( $.proxy( function( key, value ) {
 					var el = $(value);
 					var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
 					var bottomBreakPoint = topBreakPoint + el.height() - 80;
 
 					if ( scrollTop > topBreakPoint && scrollTop < bottomBreakPoint && ! el.hasClass('cst-active-scroll-post') ) {
-						$('#main .post' ).removeClass('cst-active-scroll-post');
+            mainPost.removeClass('cst-active-scroll-post');
 
-						if( $(window).width() > 736 ) {
-							$('#main .post' ).addClass('cst-sharing-relative').removeClass('cst-sharing-absolute');
+						if( windowWidth > 736 ) {
+              mainPost.addClass('cst-sharing-relative').removeClass('cst-sharing-absolute');
 							if ( ! el.hasClass('type-cst_embed' ) ) {
 								el.addClass('cst-sharing-absolute').removeClass('cst-sharing-relative');
 							}
@@ -302,7 +276,7 @@
 
 						el.addClass('cst-active-scroll-post');
 					}
-					if( $(window).width() > 736 ) {
+					if( windowWidth > 736 ) {
 						if ( scrollTop < topBreakPoint || scrollTop > bottomBreakPoint && el.hasClass('cst-sharing-absolute' ) ) {
 							el.removeClass('cst-sharing-absolute').addClass('cst-sharing-relative');
 						}
@@ -353,17 +327,6 @@
 		},
 
 		/**
-		* Make the wallpaper ad scroll or freeze based on the scroll position.
-		*/
-		fixDFPWallpaper: function() {
-			if ( this.dfpWallpaper.hasClass('dfp-wallpaper-freeze') ) {
-				this.dfpWallpaper.removeClass('dfp-wallpaper-freeze');
-			} else {
-				this.dfpWallpaper.addClass('dfp-wallpaper-freeze');
-			}
-		},
-
-		/**
 		 * Show and hide the "Back to Top" element
 		 */
 		toggleBackToTop: function() {
@@ -394,7 +357,7 @@
 			}
 
 			if ( this.postSidebar.hasClass('sidebar-normal') ) {
-				postSidebarTop += this.featuredPosts.outerHeight() - $('#wpadminbar').height();
+				postSidebarTop += this.featuredPosts.outerHeight() - this.adminBar.height();
 				if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
 					this.postSidebar.css('top', postSidebarTop + 'px' );
 				}
@@ -404,7 +367,7 @@
 				}
 			}
 
-			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - $('#wpadminbar').height() ) / 2 ) < scrollTop ) {
+			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - this.adminBar.height() ) / 2 ) < scrollTop ) {
 				if ( ! this.leftSidebar.hasClass('fixed-bottom') ) {
 					this.leftSidebar.addClass('fixed-bottom');
 				}
