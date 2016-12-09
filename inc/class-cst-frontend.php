@@ -983,9 +983,13 @@ class CST_Frontend {
             <div class="large-10 medium-offset-1 post-recommendations">
 				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
             <?php foreach( $result->pages as $item ) { ?>
+  				<?php
+				$temporary_title       = explode( '|', $item->title );
+				$article_curated_title = $temporary_title[0];
+				?>
             	<div class="columns large-3 medium-6 small-12 recommended-post">
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
-						<?php echo esc_html( $item->title ); ?>
+					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>">
+						<?php echo esc_html( $article_curated_title ); ?>
 					</a>
 				</div>
             <?php }
