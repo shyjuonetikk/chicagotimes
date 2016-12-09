@@ -87,7 +87,7 @@ class CST_DFP_Handler {
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
 googletag.cmd.push(function() {
-	googletag.defineSlot(adUnitPath, [728, 90], \'%1$s\')
+	CSTAdTags[\'%1$s\'] = googletag.defineSlot(adUnitPath, [728, 90], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
 	.setTargeting("pos", "%4$s");
