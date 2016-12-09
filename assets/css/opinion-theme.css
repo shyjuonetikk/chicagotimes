@@ -2001,8 +2001,8 @@ section#subscribe {
       .widgets ul.widget-recent-posts li a, .widgets ul.widget-chartbeat-currently-viewing li a {
         color: #282828; }
     .widgets ul.widget-recent-posts li:hover a, .widgets ul.widget-recent-posts li:hover span, .widgets ul.widget-recent-posts li:hover, .widgets ul.widget-chartbeat-currently-viewing li:hover a, .widgets ul.widget-chartbeat-currently-viewing li:hover span, .widgets ul.widget-chartbeat-currently-viewing li:hover {
-      background: #bdbdbd;
-      color: white; }
+      background: #f0f0f0;
+      color: #282828; }
     .widgets ul.widget-recent-posts .section, .widgets ul.widget-chartbeat-currently-viewing .section {
       color: #bdbdbd;
       text-transform: uppercase;

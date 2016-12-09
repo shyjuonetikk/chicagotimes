@@ -87,29 +87,6 @@ class CST_DFP_Handler {
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
 googletag.cmd.push(function() {
-      var article_mapping = googletag.sizeMapping().
-    addSize([992, 0], [ [728, 90] ] ). //desktop
-    addSize([800, 1200], [ [728,90] ] ). //tablet
-    addSize([768, 1024], [ [728,90] ] ). //tablet
-    addSize([640, 480], [300, 50], [320, 50]). //phone
-    addSize([375, 667], [300, 50], [320, 50]). //phone
-    addSize([0, 0], [300, 50], [320, 50]). //other
-    build();
-    var cube_mapping = googletag.sizeMapping()
-	.addSize([992, 0], [[300, 250]]) //desktop
-	.addSize([768, 0], [[300, 250]]) //tablet
-	.addSize([640, 480], [300, 250]) //phone
-	.addSize([375, 667], [300, 250]) //phone
-	.addSize([0, 0], [320, 50], [300, 50]) //other
-	.build();
-  var sf_mapping = googletag.sizeMapping()
-    .addSize([992, 0], [[300, 250]]) //desktop
-    .addSize([768, 0], [[300, 250]]) //tablet
-    .addSize([640, 0], [[320, 50]]) //phone
-    .addSize([414, 0], [[320, 50]]) //phone
-    .addSize([375, 0], [[320, 50]]) //phone
-    .addSize([0, 0], [320, 50]) //other
-    .build();
 	googletag.defineSlot(adUnitPath, [728, 90], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
@@ -316,11 +293,18 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
+  var article_lead_unit_mapping, cube_mapping, sf_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
   googletag.cmd.push(function () {
-    var super_leaderboard_mapping = googletag.sizeMapping().
+    article_lead_unit_mapping = googletag.sizeMapping()
+      .addSize([992, 0], [728, 90]) //desktop
+      .addSize([0, 0], [320, 50]) //other
+	  .addSize([800, 1200], [ [728,90] ] ) //tablet
+	  .addSize([768, 1024], [ [728,90] ] ) //tablet
+	  .build();
+    super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
     addSize([992, 0], [ [728, 90], [970, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
@@ -329,7 +313,7 @@ var dfp = {
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
-    var billboard_mapping = googletag.sizeMapping().
+    billboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //tablet
     addSize([992, 0], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
@@ -338,7 +322,7 @@ var dfp = {
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
-    var cube_mapping = googletag.sizeMapping()
+    cube_mapping = googletag.sizeMapping()
 	  .addSize([992, 0], [[300, 250]]) //desktop
 	  .addSize([768, 0], [[300, 250]]) //tablet
 	  .addSize([640, 480], [300, 250]) //phone
@@ -349,6 +333,22 @@ var dfp = {
 	  .addSize([992, 0], [728, 90]) //desktop
 	  .addSize([0, 0], [300, 250]) //other
 	  .build();
+    article_mapping = googletag.sizeMapping().
+    addSize([992, 0], [ [728, 90] ] ). //desktop
+    addSize([800, 1200], [ [728,90] ] ). //tablet
+    addSize([768, 1024], [ [728,90] ] ). //tablet
+    addSize([640, 480], [300, 50], [320, 50]). //phone
+    addSize([375, 667], [300, 50], [320, 50]). //phone
+    addSize([0, 0], [300, 50], [320, 50]). //other
+    build();
+    sf_mapping = googletag.sizeMapping()
+      .addSize([992, 0], [[300, 250]]) //desktop
+      .addSize([768, 0], [[300, 250]]) //tablet
+      .addSize([640, 0], [[320, 50]]) //phone
+      .addSize([414, 0], [[320, 50]]) //phone
+      .addSize([375, 0], [[320, 50]]) //phone
+      .addSize([0, 0], [320, 50]) //other
+      .build();
     googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
       .addService(googletag.pubads()).setTargeting("pos", "1x1");
     googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')

@@ -43,7 +43,6 @@
 
 			<?php
 			echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
-			echo CST()->get_template_part( 'dfp/dfp-ym-craig' );
 			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
 			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			if( is_singular() ) :
@@ -62,7 +61,7 @@
 			<?php
 			global $wp_query;
 			if ( is_singular() ) {
-				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'cube_mapping', 'rr cube 2' );
+				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', is_singular() ? 'article_lead_unit_mapping' : 'sf_mapping', is_singular() ? 'atf leaderboard' : 'rr cube 2' );
 			} else {
 				$every_two = $wp_query->current_post % 2;
 				if ( 0 === $wp_query->query_vars['paged'] && ( ! $every_two ) ) {
