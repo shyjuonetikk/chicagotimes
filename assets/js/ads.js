@@ -240,7 +240,7 @@ var CSTAds;
             var unitInstance = CSTAdTags[ad_slot];
             console.log('Triggering refresh for ' + unitInstance );
             googletag.cmd.push(function() {
-              googletag.pubads().refresh(unitInstance);
+              googletag.pubads().refresh([unitInstance]);
             })
           }
         }
