@@ -144,8 +144,10 @@ class CST_Infinite_Scroll {
 			'infiniteSidebarEndpoint' => esc_url_raw( home_url( 'infinite-sidebar/' ) ),
 			'readMoreLabel'           => esc_html__( 'Read More', 'chicagosuntimes' ),
 		) );
+		$post_sections = array_map( 'strtolower', CST_Frontend::$post_sections );
+		$post_sections = array_map( 'esc_attr', $post_sections );
 		wp_localize_script( 'cst-infinite-scroll', 'CSTYieldMoData', array(
-			'SECTIONS_FOR_YIELD_MO' => wp_json_encode( array_map( 'strtolower', CST_Frontend::$post_sections ) ),
+			'SECTIONS_FOR_YIELD_MO' => $post_sections,
 		) );
 	}
 
