@@ -69,7 +69,7 @@
 			this.dfpLeaderboard = $('#div-gpt-atf-leaderboard');
 			this.header = $('#header');
 
-			this.scrollToolbarHeight = $('#primary-navigation').outerHeight();
+			this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
 			if ( $('#wpadminbar').length ) {
 				this.scrollToolbarHeight += $('#wpadminbar').outerHeight();
 			}
@@ -189,7 +189,7 @@
 		doScrollEvent: function() {
 
 			var scrollTop = $(window).scrollTop();
-						
+
 			if ( this.primaryNavigation.hasClass('primary-fixed') ) {
 				if( scrollTop >= ( this.dfpWallpaper.height() - ( this.header.height() + this.dfpLeaderboard.height() + this.dfpSBB.height() + 10 ) ) ) {
 					if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
