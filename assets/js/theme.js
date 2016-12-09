@@ -24,9 +24,6 @@
 				this.recalibrateTrendingItems();
 			}
 			this.positionAndSizePostSidebar();
-			if ( bodySingle.length ) {
-				this.loadDisqusCount();
-			}
 
 		},
 
@@ -79,9 +76,6 @@
 			$(document.body).on('post-load', $.proxy( function() {
 				setTimeout( $.proxy( function() {
 					this.responsiveIframes();
-					if ( $('body.single').length ) {
-						this.loadDisqusCount();
-					}
 				}, this ), 1 );
 			}, this ) );
 			var delayedTimer = false;
@@ -109,7 +103,6 @@
 			this.postBody.on( 'click', '.post-comments', $.proxy( function( e ) {
 				e.preventDefault();
 				var el = $(e.currentTarget);
-				this.toggleDisqusComments( el );
 			}, this ) );
 
 			this.backToTop.on( "click", $.proxy( function (e) {
@@ -522,60 +515,6 @@
 					}
 				]
 			});
-
-		},
-
-		/**
-		 * Load the Disqus comment count
-		 */
-		loadDisqusCount: function() {
-
-			// Doesn't seem to work for whatever reason
-			return;
-
-			try {
-				var s = document.createElement('script');
-				s.type = 'text/javascript';
-				s.async = true;
-				s.src = 'http://' + CSTData.disqus_shortname + '.disqus.com/count.js';
-				(function () {
-					(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-				}());
-			} catch(ex){}
-		},
-
-		/**
-		 * Toggle the display of Disqus comments
-		 */
-		toggleDisqusComments: function( el ) {
-
-			$( '#disqus_thread' ).remove();
-			if ( el.hasClass('post-comments-open' ) ) {
-				el.removeClass('post-comments-open');
-				return;
-			}
-			$( '.post-comments', this.postBody ).removeClass( 'post-comments-open' );
-			el.addClass( 'post-comments-open' );
-			disqus_identifier = el.data('disqus-identifier');
-			disqus_url = el.data('disqus-url');
-			el.closest('.post').find('.post-comment-thread-wrap').html('<div id="disqus_thread"></div>');
-			if ( typeof DISQUS == 'object' ) {
-				DISQUS.reset({
-					reload: true,
-					config: function () {
-						this.page.identifier = el.data('disqus-identifier');
-						this.page.url = el.data('disqus-url');
-					}
-				});
-			} else {
-				try {
-					(function() {
-						var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-						dsq.src = '//' + CSTData.disqus_shortname + '.disqus.com/embed.js';
-						(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-					})();
-				} catch( ex ) {}
-			}
 
 		},
 
