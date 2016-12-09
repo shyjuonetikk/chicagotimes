@@ -34,7 +34,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 	}
 
 	public function widget( $args, $instance ) {
-		$url = 'http://www.drivechicago.com';
+		$url = 'http://suntimes.drivechicago.com/lease/more-car-less-money.aspx';
 		$available_assets = array(
 			'lease-image' => get_template_directory_uri() . '/assets/images/drive-chicago-lease-cube.png',
 			'search-image' => get_template_directory_uri() . '/assets/images/drive-chicago-search-cube.png',
