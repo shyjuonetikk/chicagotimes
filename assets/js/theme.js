@@ -13,7 +13,7 @@
 			this.bindEvents();
 
 			// Trigger the scroll with styling for social
-			if ( $('body.single').length ) {
+			if ( bodySingle.length ) {
 				$('#main .post').addClass('cst-active-scroll-post');
 			}
 
@@ -24,7 +24,7 @@
 				this.recalibrateTrendingItems();
 			}
 			this.positionAndSizePostSidebar();
-			if ( $('body.single').length ) {
+			if ( bodySingle.length ) {
 				this.loadDisqusCount();
 			}
 
@@ -36,6 +36,7 @@
 		cacheElements: function() {
 
 			this.body = $('body');
+			this.bodySingle = $('body.single');
 			this.featuredPosts = $('#headlines-slider');
 			this.trendingNav = $('#trending-container');
 			this.fixedBackToTop = $('#fixed-back-to-top');
