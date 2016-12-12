@@ -127,7 +127,7 @@ var CSTAds;
 		},
 
     clearAndResetAdRefreshInterval: function() {
-      CSTAds.AdTimer = setInterval( CSTAds.refreshArticleCubeAds , 60000 );
+      CSTAds.AdTimer = setInterval( CSTAds.refreshArticleCubeAds , 30000 );
     },
 		/**
 		 * Load the first cube on initial page load, then alternate between
