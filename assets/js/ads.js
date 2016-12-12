@@ -69,6 +69,8 @@ var CSTAds;
 
     refreshing: false,
     adTimer: 0,
+    isSection: false,
+    isSingular: false,
 
 		scrollUnits: [
 			'div-gpt-rr-cube-2',
@@ -100,6 +102,13 @@ var CSTAds;
 				setTimeout( $.proxy( this.doScrollEvent, this ), 1 );
 			}, this ) );
 
+			$content_body = $('body');
+			if ( $content_body.hasClass('tax-cst_section') ) {
+			  CSTAds.isSection = true;
+      }
+			if ( $content_body.hasClass('single') ) {
+			  CSTAds.isSingular = true;
+      }
       this.clearAndResetAdRefreshInterval();
       console.info('Initializing Ad interval')
 		},
@@ -250,14 +259,14 @@ var CSTAds;
           CSTAds.triggerUnitRefresh(ad_slot)
         })
         CSTAds.refreshing = false;
-      }
       this.clearAndResetAdRefreshInterval();
       console.info('All ad units refreshed and interval reset')
+      }
 
     },
     refreshArticleCubeAds: function() {
       if ( ! CSTAds.refreshing ) {
-        console.info('Interval of 60 seconds expired');
+        console.info('Interval expired. Refreshing Cube Ads');
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function (ad_slot) {

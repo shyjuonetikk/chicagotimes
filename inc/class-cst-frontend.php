@@ -172,6 +172,12 @@ class CST_Frontend {
 
 			// If we are on a 404 page don't try and load scripts/css that we won't be using.
 			if ( ! is_404() && ! is_page() ) {
+				// The theme
+				if ( is_front_page() ) {
+					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
+				} else {
+					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+				}
 				if ( ! is_front_page() || ! is_page() ) {
 					// Scripty-scripts
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
@@ -180,23 +186,6 @@ class CST_Frontend {
 					// Slick
 					wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 					wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
-				}
-				// The theme
-				if ( ! is_front_page() ) {
-					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
-				} elseif ( is_front_page() ) {
-					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
-				} else {
-					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
-				}
-
-				if ( is_singular() && ! is_admin() ) {
-					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
-					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
-				}
-
-
-				if ( ! is_front_page() || ! is_page() ) {
 					wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 						'home_url'                           => esc_url_raw( home_url() ),
 						'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
@@ -218,10 +207,15 @@ class CST_Frontend {
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
 				}
 
+				if ( is_singular() && ! is_admin() ) {
+					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
+					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
+				}
+
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
 				}
-				if ( is_tax() || is_singular() ) {
+				if ( ( is_tax() || is_singular() ) && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 				}
 			} else {
@@ -436,27 +430,27 @@ class CST_Frontend {
 
 				$fontawesome_icon = false;
 
-				if ( 'taxonomy' == $item->type && 'cst_person' == $item->object ) {
+				if ( 'taxonomy' === $item->type && 'cst_person' === $item->object ) {
 					$fontawesome_icon = 'fa fa-male';
 				}
 
-				if ( 'taxonomy' == $item->type && 'cst_location' == $item->object ) {
+				if ( 'taxonomy' === $item->type && 'cst_location' === $item->object ) {
 					$fontawesome_icon = 'fa fa-location-arrow';
 				}
 
-				if ( 'taxonomy' == $item->type && 'cst_topic' == $item->object ) {
+				if ( 'taxonomy' === $item->type && 'cst_topic' === $item->object ) {
 					$fontawesome_icon = 'fa fa-cst-topic';
 				}
 
-				if ( 'taxonomy' == $item->type && 'cst_section' == $item->object ) {
+				if ( 'taxonomy' === $item->type && 'cst_section' === $item->object ) {
 					$fontawesome_icon = 'fa fa-folder';
 				}
 
-				if ( 'post_type' == $item->type && 'cst_liveblog' == $item->object ) {
+				if ( 'post_type' === $item->type && 'cst_liveblog' === $item->object ) {
 					$fontawesome_icon = 'fa fa-comment';
 				}
 
-				if ( 'custom' == $item->type ) {
+				if ( 'custom' === $item->type ) {
 					$fontawesome_icon = 'fa fa-link';
 				}
 

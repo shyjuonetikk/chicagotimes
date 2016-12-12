@@ -425,6 +425,7 @@ class CST {
 		add_filter( 'wpcom_sitemap_news_sitemap_post_types', array( $this, 'filter_sitemap_post_types' ) );
 
 		add_filter( 'rest_api_allowed_post_types', array( $this, 'filter_rest_api_post_types' ) );
+		add_filter( 'infinite_scroll_archive_supported', array( $this, 'jetpack_infinite_support' ) );
 
 		/**
 		 * Remove avatar references from RSS feed
@@ -1720,6 +1721,16 @@ class CST {
 			$navigation_markup = $result;
 		}
 		return $navigation_markup;
+	}
+
+	/**
+	 * @return bool
+	 * Declare infinite scroll support on single and taxonomy content / page types.
+	 */
+	public function jetpack_infinite_support() {
+		return
+			current_theme_supports( 'infinite-scroll' ) &&
+			( is_singular() || is_tax() );
 	}
 }
 
