@@ -140,7 +140,7 @@
 			    }
 				document.title = wp_title;
 
-        window.CSTAds && CSTAds.refreshArticle();
+        window.CSTAds && CSTAds.refreshAllArticleAds();
 				CSTAnalytics.triggerPageview();
 				
 			} else {

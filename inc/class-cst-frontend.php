@@ -202,7 +202,6 @@ class CST_Frontend {
 						'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
 					) );
 					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
-					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
 					$analytics_data = array(
@@ -221,6 +220,9 @@ class CST_Frontend {
 
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
+				}
+				if ( is_tax() || is_singular() ) {
+					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 				}
 			} else {
 				wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );

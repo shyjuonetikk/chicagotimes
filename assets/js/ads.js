@@ -67,6 +67,9 @@ var CSTAds;
 
 	CSTAds = {
 
+    refreshing: false,
+    adTimer: 0,
+
 		scrollUnits: [
 			'div-gpt-rr-cube-2',
 			'div-gpt-rr-cube-3',
@@ -84,7 +87,7 @@ var CSTAds;
 		init: function() {
 
 
-			// this.bindEvents();
+			this.bindEvents();
 
 		},
 
@@ -97,6 +100,8 @@ var CSTAds;
 				setTimeout( $.proxy( this.doScrollEvent, this ), 1 );
 			}, this ) );
 
+      this.clearAndResetAdRefreshInterval();
+      console.info('Initializing Ad interval')
 		},
 
 		/**
@@ -110,17 +115,20 @@ var CSTAds;
 			// Load the next cube when there are enough posts
 			// and the iframe is getting close to the viewport
 			if ( post.length && ( post.offset().top + 200 ) < ( $(window).height() + scrollTop ) ) {
-				this.displayNextScrollAd();
+				// this.displayNextScrollAd();
 			}
 
 			// If there's a placeholder getting close to the top
 			var placeholder = $('#main .ad-container .dfp-wire-cube-placeholder').last();
 			if ( placeholder.length && ( placeholder.offset().top + placeholder.outerHeight() ) > ( scrollTop - 200 ) ) {
-				this.displayPreviousScrollAd();
+				// this.displayPreviousScrollAd();
 			}
 
 		},
 
+    clearAndResetAdRefreshInterval: function() {
+      CSTAds.AdTimer = setInterval( CSTAds.refreshArticleCubeAds , 60000 );
+    },
 		/**
 		 * Load the first cube on initial page load, then alternate between
 		 */
@@ -224,27 +232,41 @@ var CSTAds;
 		 */
 		triggerUnitRefresh: function( unit ) {
 
-			if ( typeof CSTAdTags[unit] !== 'undefined' ) {
+			if ( 'undefined' !== typeof CSTAdTags[unit] ) {
 				googletag.cmd.push( function() {
 					var unitInstance = CSTAdTags[unit];
 					googletag.pubads().refresh([unitInstance]);
 				});
-            } 
+
+				console.info( 'Refreshed ' .concat(unit) );
+      }
 
 		},
-    refreshArticle: function() {
-      var tags_to_refresh = Object.keys(CSTAdTags);
-      tags_to_refresh.forEach(function(ad_slot) {
-        if ( ad_slot.match(/rr-cube-[0-9]{1,3}$/) ) {
-          if ( 'undefined' !== typeof CSTAdTags[ad_slot] ) {
-            var unitInstance = CSTAdTags[ad_slot];
-            console.log('Triggering refresh for ' + unitInstance );
-            googletag.cmd.push(function() {
-              googletag.pubads().refresh([unitInstance]);
-            })
+    refreshAllArticleAds: function() {
+      if ( ! CSTAds.refreshing ) {
+        CSTAds.refreshing = true;
+        var tags_to_refresh = Object.keys(CSTAdTags);
+        tags_to_refresh.forEach(function(ad_slot) {
+          CSTAds.triggerUnitRefresh(ad_slot)
+        })
+        CSTAds.refreshing = false;
+      }
+      this.clearAndResetAdRefreshInterval();
+      console.info('All ad units refreshed and interval reset')
+
+    },
+    refreshArticleCubeAds: function() {
+      if ( ! CSTAds.refreshing ) {
+        console.info('Interval of 60 seconds expired');
+        CSTAds.refreshing = true;
+        var tags_to_refresh = Object.keys(CSTAdTags);
+        tags_to_refresh.forEach(function (ad_slot) {
+          if (ad_slot.match(/rr-cube-[0-9]{1,3}$/)) {
+            CSTAds.triggerUnitRefresh(ad_slot)
           }
-        }
-      })
+        })
+        CSTAds.refreshing = false;
+      }
     }
 
 	};
