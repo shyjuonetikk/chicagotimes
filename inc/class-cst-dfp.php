@@ -290,7 +290,7 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_lead_unit_mapping, cube_mapping, sf_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping;
+  var article_lead_unit_mapping, cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -341,6 +341,14 @@ var dfp = {
     sf_mapping = googletag.sizeMapping()
       .addSize([992, 0], [[300, 250], [300, 600]]) //desktop
       .addSize([768, 0], [[300, 250], [300, 600]]) //tablet
+      .addSize([640, 0], [[320, 50]]) //phone
+      .addSize([414, 0], [[320, 50]]) //phone
+      .addSize([375, 0], [[320, 50]]) //phone
+      .addSize([0, 0], [320, 50]) //other
+      .build();
+    sf_inline_mapping = googletag.sizeMapping()
+      .addSize([992, 0], [[300, 250]]) //desktop
+      .addSize([768, 0], [[300, 250]]) //tablet
       .addSize([640, 0], [[320, 50]]) //phone
       .addSize([414, 0], [[320, 50]]) //phone
       .addSize([375, 0], [[320, 50]]) //phone

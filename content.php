@@ -65,7 +65,7 @@
 			} else {
 				$every_two = $wp_query->current_post % 2;
 				if ( 0 === $wp_query->query_vars['paged'] && ( ! $every_two ) ) {
-					echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_mapping', 'rr cube 2' );
+					echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 2' );
 				}
 			}
 			?>
