@@ -252,7 +252,7 @@ var CSTAds;
 
 		},
     refreshAllArticleAds: function() {
-      if ( ! CSTAds.refreshing ) {
+      if ( this.isSingular && ! CSTAds.refreshing ) {
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function(ad_slot) {
@@ -265,7 +265,7 @@ var CSTAds;
 
     },
     refreshArticleCubeAds: function() {
-      if ( ! CSTAds.refreshing ) {
+      if ( this.isSingular && ! CSTAds.refreshing ) {
         console.info('Interval expired. Refreshing Cube Ads');
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);

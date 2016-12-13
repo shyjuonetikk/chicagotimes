@@ -83,11 +83,8 @@ class CST_DFP_Handler {
 			'
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="%4$s"></div>
 <script>
-  var adUnitPath = dfp.adunitpath;
-  var googletag = googletag || {};
-  googletag.cmd = googletag.cmd || [];
 googletag.cmd.push(function() {
-	CSTAdTags[\'%1$s\'] = googletag.defineSlot(adUnitPath, [728, 90], \'%1$s\')
+	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [728, 90], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
 	.setTargeting("pos", "%4$s");
@@ -342,8 +339,8 @@ var dfp = {
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
     sf_mapping = googletag.sizeMapping()
-      .addSize([992, 0], [[300, 250]]) //desktop
-      .addSize([768, 0], [[300, 250]]) //tablet
+      .addSize([992, 0], [[300, 250], [300, 600]]) //desktop
+      .addSize([768, 0], [[300, 250], [300, 600]]) //tablet
       .addSize([640, 0], [[320, 50]]) //phone
       .addSize([414, 0], [[320, 50]]) //phone
       .addSize([375, 0], [[320, 50]]) //phone

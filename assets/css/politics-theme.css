@@ -217,6 +217,13 @@ body.error404 {
   position: relative;
   z-index: 2; }
 
+.section-front-anchor {
+  top: 91px;
+  position: fixed; }
+
+.section-front-free-me {
+  position: relative; }
+
 .dfp.dfp-centered {
   margin-left: auto;
   margin-right: auto; }

@@ -3,6 +3,8 @@
 
 	var CST = {
 
+	  lastScrollPosition: 0,
+    saveTriggerPoint: 0,
 		/**
 		 * Initialize basic theme JavaScript
 		 */
@@ -59,8 +61,12 @@
 			this.tabletHome = $('header #logo-wrap #tablet-home');
 			this.header = $('#header');
       this.adminBar = $('#wpadminbar');
+      this.sidebarWidgetCount = $('.widgets > li').length - 2;
+      this.anchorMe = $('.widgets > li:nth(' + this.sidebarWidgetCount + ')');
+      this.anchorMeFriend = $('.widgets > li:nth(' + ( this.sidebarWidgetCount+1 )  + ')');
+      this.previousFriend = $('.widgets > li:nth(' + ( this.sidebarWidgetCount-1 )  + ')');
 
-			this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
+      this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
 			if ( this.adminBar.length ) {
 				this.scrollToolbarHeight += this.adminBar.outerHeight();
 			}
@@ -96,7 +102,7 @@
         clearTimeout(throttleScroll);
         throttleScroll = setTimeout(function(){
             CST.doScrollEvent();
-        }, 60);
+        }, 10);
 			}, this ) );
 
 			this.postBody.on( 'click', '.post-comments', $.proxy( function( e ) {
@@ -239,15 +245,10 @@
 
 			}
 
-			if ( this.rightSidebar.length && ( scrollTop + $(window).height() ) > ( this.rightSidebar.height() + this.rightSidebarAnchor.offset().top + 30 ) ) {
-				if ( ! this.rightSidebar.hasClass('fixed-bottom') ) {
-					this.rightSidebar.addClass('fixed-bottom');
-				}
-			} else {
-				if ( this.rightSidebar.hasClass('fixed-bottom') ) {
-					this.rightSidebar.removeClass('fixed-bottom');
-				}
-			}
+			if ( body.hasClass('tax-cst_section') ) {
+        this.determineWhetherToAnchorRightRail(scrollTop);
+      }
+
 
 			// Sticky sharing tools on the articles, as well as logic for the currently viewing post
 			if ( $( 'body.single' ).length ) {
@@ -278,10 +279,39 @@
 
 			}
 
-			this.positionAndSizePostSidebar();
+			// this.positionAndSizePostSidebar();
 
 		},
 
+    determineWhetherToAnchorRightRail: function(scrollTop) {
+
+      var elementOffset = this.anchorMe.offset().top,
+          elementDelta      = (elementOffset - scrollTop),
+          anchorTop     = 91;
+      // Calculate bottom of previous cube and use in scroll down*
+      if (scrollTop > this.lastScrollPosition) {
+        console.info(elementDelta)
+        if (0 == this.lastScrollPosition) {
+          this.savePosition = elementDelta;
+        }
+        if (elementDelta <= anchorTop && ! this.anchorMe.hasClass('section-front-anchor')) { // scrolling up
+          console.info('Adding up')
+          this.anchorMe.addClass('section-front-anchor');
+          this.anchorMeFriend.addClass('section-front-anchor');
+          this.anchorMeFriend.css('top', anchorTop + 10 + this.anchorMe.height());
+        }
+      } else {
+        // Check here for previous cube bottom
+        var previousCubeBottom = this.previousFriend.offsetTop;
+        if (previousCubeBottom > anchorTop) {
+          console.info('Removing down')
+          this.anchorMeFriend.removeClass('section-front-anchor').addClass('section-front-free-me');
+          this.anchorMe.removeClass('section-front-anchor').addClass('section-front-free-me');
+        }
+      }
+      this.lastScrollPosition = scrollTop;
+		  console.info('Save = '.concat(this.savePosition) )
+    },
 		/**
 		 * Make some iframes responsive
 		 */
