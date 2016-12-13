@@ -43,7 +43,6 @@
 
 			<?php
 			echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
-			echo CST()->get_template_part( 'dfp/dfp-ym-craig' );
 			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
 			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			if( is_singular() ) :
@@ -62,30 +61,12 @@
 			<?php
 			global $wp_query;
 			if ( is_singular() ) {
-
-				// After the 1st post
-				if ( empty( $_GET['infinity'] ) ) {
-					echo CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' );
-					echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' );
-				}
-				// After the 4th post
-				if ( isset( $_GET['infinity'], $_POST['page'] ) && 'scrolling' === $_GET['infinity'] && 1 === (int) $_POST['page'] ) {
-					echo CST()->dfp_handler->unit( 1, 'div-gpt-atf-leaderboard', 'dfp dfp-leaderboard dfp-centered' );
-				}
-
+				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', is_singular() ? 'article_lead_unit_mapping' : 'sf_mapping', is_singular() ? 'atf leaderboard' : 'rr cube 2' );
 			} else {
-
-				// After the 3rd post
-				if ( 0 === $wp_query->query_vars['paged'] && 2 === $wp_query->current_post ) {
-					echo CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' );
-					echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' );
+				$every_two = $wp_query->current_post % 2;
+				if ( ( ! $every_two ) ) {
+					echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 2' );
 				}
-				// After the 9th post (Infinite Scroll is 7 per page)
-				if ( 1 === $wp_query->query_vars['paged'] && 1 === $wp_query->current_post ) {
-					echo CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' );
-					echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' );
-				}
-
 			}
 			?>
 		</section>

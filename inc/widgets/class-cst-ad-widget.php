@@ -4,14 +4,14 @@ class CST_Ad_Widget extends WP_Widget {
 
 
 	protected $ad_units = array(
-		'dfp-rr-cube-1',
-		'dfp-rr-cube-2',
-		'dfp-rr-cube-3',
-		'dfp-rr-cube-4',
-		'dfp-rr-cube-5',
-		'dfp-rr-cube-6',
-		'dfp-rr-cube-promo',
-		'dfp-polar',
+		'dfp-rr-cube-1' => 'rr cube 1',
+		'dfp-rr-cube-2' => 'rr cube 2',
+		'dfp-rr-cube-3' => 'rr cube 3',
+		'dfp-rr-cube-4' => 'rr cube 4',
+		'dfp-rr-cube-5' => 'rr cube 5',
+		'dfp-rr-cube-6' => 'rr cube 6',
+		'dfp-rr-cube-promo-7' => 'rr cube 7',
+		'dfp-polar-8' => 'rr cube 8',
 		);
 
 	protected $defaults = array(
@@ -34,8 +34,13 @@ class CST_Ad_Widget extends WP_Widget {
 
 		$instance = array_merge( $this->defaults, $instance );
 
+		$placement_number = explode( '-', $instance['ad_unit'] );
+		$targeting_name = $this->ad_units[ $instance['ad_unit'] ];
+		$widget_number = explode( '-', $this->id );
+		$ad_unit_index = (int) $widget_number[1];
+//		$ad_unit_index += rand( 1, 12 ) * rand( 13, 24 );
 		echo $args['before_widget'];
-		echo get_template_part( 'parts/dfp/' . $instance['ad_unit'] );
+		echo CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', is_singular() ? 'cube_mapping' : 'sf_mapping', $targeting_name );
 		echo $args['after_widget'];
 
 		if ( 'dfp-polar' === $instance['ad_unit'] ) {
@@ -48,16 +53,16 @@ class CST_Ad_Widget extends WP_Widget {
 
 		$current_unit = isset( $instance['ad_unit'] ) ? $instance['ad_unit'] : '';
 
-		if ( ! has_action( 'admin_footer', array( $this, 'action_admin_footer' ) ) ) {
-			add_action( 'admin_footer', array( $this, 'action_admin_footer' ) );
-		}
+//		if ( ! has_action( 'admin_footer', array( $this, 'action_admin_footer' ) ) ) {
+//			add_action( 'admin_footer', array( $this, 'action_admin_footer' ) );
+//		}
 
 		?>
 
 	<p>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'ad_unit' ) ); ?>"><?php esc_html_e( 'Ad Unit', 'chicagosuntimes' ); ?>:</label>
 		<select class="widefat cst-ad-widget" id="<?php echo esc_attr( $this->get_field_id( 'ad_unit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ad_unit' ) ); ?>" data-current-unit="<?php echo esc_attr( $current_unit ); ?>">
-		<?php foreach( $this->ad_units as $ad_unit ) : ?>
+		<?php foreach ( $this->ad_units as $ad_unit => $ad_target ) : ?>
 			<option value="<?php echo esc_attr( $ad_unit ); ?>" <?php selected( $ad_unit, $current_unit ); ?>><?php echo esc_html( $ad_unit ); ?></option>
 		<?php endforeach; ?>
 		</select>
@@ -69,7 +74,7 @@ class CST_Ad_Widget extends WP_Widget {
 
 		$instance = array();
 
-		if ( in_array( $new_instance['ad_unit'], $this->ad_units ) ) {
+		if ( isset( $this->ad_units[ $new_instance['ad_unit'] ] ) ) {
 			$instance['ad_unit'] = $new_instance['ad_unit'];
 		}
 

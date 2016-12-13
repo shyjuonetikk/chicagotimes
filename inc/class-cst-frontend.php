@@ -172,6 +172,12 @@ class CST_Frontend {
 
 			// If we are on a 404 page don't try and load scripts/css that we won't be using.
 			if ( ! is_404() && ! is_page() ) {
+				// The theme
+				if ( is_front_page() ) {
+					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
+				} else {
+					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+				}
 				if ( ! is_front_page() || ! is_page() ) {
 					// Scripty-scripts
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
@@ -180,29 +186,11 @@ class CST_Frontend {
 					// Slick
 					wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 					wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
-				}
-				// The theme
-				if ( ! is_front_page() ) {
-					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
-				} elseif ( is_front_page() ) {
-					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
-				} else {
-					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
-				}
-
-				if ( is_singular() && ! is_admin() ) {
-					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
-					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
-				}
-
-
-				if ( ! is_front_page() || ! is_page() ) {
 					wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 						'home_url'                           => esc_url_raw( home_url() ),
 						'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
 					) );
 					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
-					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
 					$analytics_data = array(
@@ -212,15 +200,24 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-						wp_enqueue_script( 'csttriplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
+						wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
 						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
 					}
 
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
 				}
 
+				if ( is_singular() && ! is_admin() ) {
+					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
+					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
+				}
+
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
+				}
+				if ( ( is_tax() || is_singular() ) && ! is_admin() ) {
+					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-sticky', get_template_directory_uri() . '/assets/js/vendor/sticky-kit.min.js', array( 'jquery' ) );
 				}
 			} else {
 				wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
@@ -434,27 +431,27 @@ class CST_Frontend {
 
 				$fontawesome_icon = false;
 
-				if ( 'taxonomy' == $item->type && 'cst_person' == $item->object ) {
+				if ( 'taxonomy' === $item->type && 'cst_person' === $item->object ) {
 					$fontawesome_icon = 'fa fa-male';
 				}
 
-				if ( 'taxonomy' == $item->type && 'cst_location' == $item->object ) {
+				if ( 'taxonomy' === $item->type && 'cst_location' === $item->object ) {
 					$fontawesome_icon = 'fa fa-location-arrow';
 				}
 
-				if ( 'taxonomy' == $item->type && 'cst_topic' == $item->object ) {
+				if ( 'taxonomy' === $item->type && 'cst_topic' === $item->object ) {
 					$fontawesome_icon = 'fa fa-cst-topic';
 				}
 
-				if ( 'taxonomy' == $item->type && 'cst_section' == $item->object ) {
+				if ( 'taxonomy' === $item->type && 'cst_section' === $item->object ) {
 					$fontawesome_icon = 'fa fa-folder';
 				}
 
-				if ( 'post_type' == $item->type && 'cst_liveblog' == $item->object ) {
+				if ( 'post_type' === $item->type && 'cst_liveblog' === $item->object ) {
 					$fontawesome_icon = 'fa fa-comment';
 				}
 
-				if ( 'custom' == $item->type ) {
+				if ( 'custom' === $item->type ) {
 					$fontawesome_icon = 'fa fa-link';
 				}
 
@@ -983,9 +980,13 @@ class CST_Frontend {
             <div class="large-10 medium-offset-1 post-recommendations">
 				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
             <?php foreach( $result->pages as $item ) { ?>
+  				<?php
+				$temporary_title       = explode( '|', $item->title );
+				$article_curated_title = $temporary_title[0];
+				?>
             	<div class="columns large-3 medium-6 small-12 recommended-post">
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $item->title ); ?>">
-						<?php echo esc_html( $item->title ); ?>
+					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>">
+						<?php echo esc_html( $article_curated_title ); ?>
 					</a>
 				</div>
             <?php }
