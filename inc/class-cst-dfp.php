@@ -29,7 +29,7 @@ class CST_DFP_Handler {
 	 *
 	 * Create a generic markup unit
 	 */
-	public function unit( $index, $type = '', $class = '', $deprecated = 640 ) {
+	public function unit( $index, $type = '', $class = '' ) {
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-atf-leaderboard';
 		}
@@ -455,7 +455,7 @@ var dfp = {
 		switch ( $current_site_url ) {
 			case 'http://dev.suntimes.com':
 			case 'https://suntimesmediapreprod.wordpress.com':
-//			case 'http://vip.local':
+			case 'http://vip.local':
 				$parent_inventory = 'chicago.suntimes.com.test';
 				break;
 			case 'http://chicago.suntimes.com':

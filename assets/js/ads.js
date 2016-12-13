@@ -87,154 +87,20 @@ var CSTAds;
 		 * Initialize basic ads JavaScript
 		 */
 		init: function() {
-
-
-			this.bindEvents();
-
-		},
-
-		/**
-		 * Bind events happening within the theme
-		 */
-		bindEvents: function() {
-
-			$(window).scroll( $.proxy( function() {
-				setTimeout( $.proxy( this.doScrollEvent, this ), 1 );
-			}, this ) );
-
-			$content_body = $('body');
-			if ( $content_body.hasClass('tax-cst_section') ) {
-			  CSTAds.isSection = true;
+      $content_body = $('body');
+      if ( $content_body.hasClass('tax-cst_section') ) {
+        CSTAds.isSection = true;
       }
-			if ( $content_body.hasClass('single') ) {
-			  CSTAds.isSingular = true;
+      if ( $content_body.hasClass('single') ) {
+        CSTAds.isSingular = true;
       }
       this.clearAndResetAdRefreshInterval();
       console.info('Initializing Ad interval')
 		},
 
-		/**
-		 * Events that might need to happen when scrolling
-		 */
-		doScrollEvent: function() {
-
-			var scrollTop = $(window).scrollTop();
-
-			var post = $('#main article.post').eq(this.startPost);
-			// Load the next cube when there are enough posts
-			// and the iframe is getting close to the viewport
-			if ( post.length && ( post.offset().top + 200 ) < ( $(window).height() + scrollTop ) ) {
-				// this.displayNextScrollAd();
-			}
-
-			// If there's a placeholder getting close to the top
-			var placeholder = $('#main .ad-container .dfp-wire-cube-placeholder').last();
-			if ( placeholder.length && ( placeholder.offset().top + placeholder.outerHeight() ) > ( scrollTop - 200 ) ) {
-				// this.displayPreviousScrollAd();
-			}
-
-		},
-
     clearAndResetAdRefreshInterval: function() {
       CSTAds.AdTimer = setInterval( CSTAds.refreshArticleCubeAds , 30000 );
     },
-		/**
-		 * Load the first cube on initial page load, then alternate between
-		 */
-		displayNextScrollAd: function() {
-
-			var nextScrollUnit = this.getNextScrollUnit();
-
-			// Create the next unit if it isn't created,
-			var el = $( '#' + nextScrollUnit );
-			
-			if( nextScrollUnit == 'div-gpt-rr-cube-2' ) {
-				var el2 = $('#div-gpt-rr-cube-3');
-				var nextScrollUnit2 = 'div-gpt-rr-cube-3';
-
-				$('#main .ad-container').eq( this.startPost ).append( el );
-				$('#main .ad-container').eq( this.startPost ).append( el2 );
-				this.triggerUnitRefresh( nextScrollUnit );
-				this.triggerUnitRefresh( nextScrollUnit2 );
-				this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
-				this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
-			} else {
-				$('#main .ad-container').eq( this.startPost ).append( el );
-				this.triggerUnitRefresh( nextScrollUnit );
-				this.triggerUnitRefresh( nextScrollUnit2 );
-				this.triggerUnitRefresh( 'div-gpt-rr-cube-5' );
-				this.triggerUnitRefresh( 'div-gpt-rr-cube-6' );
-			}
-			
-			this.startPost = this.startPost + this.betweenPosts;
-		
-		},
-
-		/**
-		 * Swap out the closest placeholder with the previous ad
-		 */
-		displayPreviousScrollAd: function() {
-
-			var placeholder = $('#main .ad-container').last();
-			var prevScrollUnit = this.getPreviousScrollUnit();
-			var el = $('#'+prevScrollUnit);
-			if( prevScrollUnit == 'div-gpt-rr-cube-2' ) {
-				var el2 = $('#div-gpt-rr-cube-3');
-				var prevScrollUnit2 = 'div-gpt-rr-cube-3';
-			} else {
-				var el2 = $('#div-gpt-rr-cube-5');
-				var prevScrollUnit2 = 'div-gpt-rr-cube-5';
-			}
-			placeholder.after( el );
-			placeholder.after( el2 );
-			placeholder.remove();
-
-			this.triggerUnitRefresh( prevScrollUnit );
-			this.triggerUnitRefresh( prevScrollUnit2 );
-			this.startPost = this.startPost - this.betweenPosts;
-
-		},
-
-		/**
-		 * Get the next scroll unit
-		 *
-		 * @todo actually navigate the array
-		 */
-		getNextScrollUnit: function() {
-
-			if( jQuery('.cst-active-scroll-post').length ) {
-				if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
-					this.currentScrollUnit = 'div-gpt-atf-leaderboard-1';
-				} else {
-					this.currentScrollUnit = 'div-gpt-rr-cube-2';
-				}
-			} else {
-				if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
-					this.currentScrollUnit = 'div-gpt-rr-cube-4';
-				} else {
-					this.currentScrollUnit = 'div-gpt-rr-cube-2';
-				}
-			}
-
-			return this.currentScrollUnit;
-		},
-
-		/**
-		 * Get the previous scroll unit
-		 *
-		 * @todo actually navigate the array
-		 */
-		getPreviousScrollUnit: function() {
-
-			if ( this.currentScrollUnit === 'div-gpt-rr-cube-2' ) {
-				this.currentScrollUnit = 'div-gpt-rr-cube-4';
-			} else {
-				this.currentScrollUnit = 'div-gpt-rr-cube-2';
-			}
-
-			return this.currentScrollUnit;
-
-		},
 
 		/**
 		 * Trigger refresh of the ad unit
@@ -259,7 +125,6 @@ var CSTAds;
           CSTAds.triggerUnitRefresh(ad_slot)
         })
         CSTAds.refreshing = false;
-      CSTAds.clearAndResetAdRefreshInterval();
       console.info('All ad units refreshed and interval reset')
       }
 
@@ -275,7 +140,6 @@ var CSTAds;
           }
         })
         CSTAds.refreshing = false;
-        CSTAds.clearAndResetAdRefreshInterval();
       }
     }
 

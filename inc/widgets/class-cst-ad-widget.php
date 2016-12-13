@@ -38,7 +38,6 @@ class CST_Ad_Widget extends WP_Widget {
 		$targeting_name = $this->ad_units[ $instance['ad_unit'] ];
 		$widget_number = explode( '-', $this->id );
 		$ad_unit_index = (int) $widget_number[1];
-//		$ad_unit_index += rand( 1, 12 ) * rand( 13, 24 );
 		echo $args['before_widget'];
 		echo CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', is_singular() ? 'cube_mapping' : 'sf_mapping', $targeting_name );
 		echo $args['after_widget'];
@@ -52,10 +51,6 @@ class CST_Ad_Widget extends WP_Widget {
 	public function form( $instance ) {
 
 		$current_unit = isset( $instance['ad_unit'] ) ? $instance['ad_unit'] : '';
-
-//		if ( ! has_action( 'admin_footer', array( $this, 'action_admin_footer' ) ) ) {
-//			add_action( 'admin_footer', array( $this, 'action_admin_footer' ) );
-//		}
 
 		?>
 
@@ -79,71 +74,6 @@ class CST_Ad_Widget extends WP_Widget {
 		}
 
 		return $instance;
-	}
-
-	/**
-	 * Dynamically limit each widget only to the options available
-	 */
-	public function action_admin_footer() {
-		?>
-		<script>
-		(function($){
-			var cstAvailableUnits = $.parseJSON( '<?php echo json_encode( $this->ad_units ); ?>' );
-			function cstResetAvailableUnits( context ) {
-				var usedUnits = [];
-
-				context.find('.cst-ad-widget option:selected').each(function(){
-					usedUnits.push( $(this).val() );
-				});
-
-				context.find('.cst-ad-widget').each(function(){
-
-					var select = $(this);
-
-					// Add any units that are available but missing from the DOM
-					$.each( cstAvailableUnits, function( key, value ) {
-
-						if ( ! select.find('option[value='+value+']').length ) {
-							var el = $('<option value="'+value+'">'+value+'</option>');
-							if ( 0 === key ) {
-								select.prepend( el );
-							} else {
-								select.find('option[value='+cstAvailableUnits[key - 1 ]+']').after( el );
-							}
-						}
-
-					});
-
-					// Remove used elements, except for those that are selected
-					select.find('option').each( function(){
-
-						if ( $(this).is(':selected') ) {
-							return;
-						}
-
-						if ( -1 !== usedUnits.indexOf( $(this).val() ) ) {
-							$(this).remove();
-						}
-					});
-
-				});
-			}
-			$(document).ready(function(){
-				$('.widgets-holder-wrap').each(function(){
-					cstResetAvailableUnits( $(this) );
-				});
-				$('.widgets-holder-wrap').on('change', 'select.cst-ad-widget', function(){
-					cstResetAvailableUnits( $(this).closest('.widgets-holder-wrap') );
-				});
-			});
-			$(document).on('widget-added', function(){
-				$('.widgets-holder-wrap').each(function(){
-					cstResetAvailableUnits( $(this) );
-				});
-			});
-		}( jQuery ) );
-		</script>
-		<?php
 	}
 
 }
