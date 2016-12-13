@@ -26,7 +26,9 @@
 				this.recalibrateTrendingItems();
 			}
 			this.positionAndSizePostSidebar();
-
+			if (this.body.hasClass('tax-cst_section')) {
+        this.anchorMe.stick_in_parent({'bottoming' : false, 'offset_top': this.adminBar.height() + this.primaryNavigation.height() + 10 });
+      }
 		},
 
 		/**
@@ -61,11 +63,8 @@
 			this.tabletHome = $('header #logo-wrap #tablet-home');
 			this.header = $('#header');
       this.adminBar = $('#wpadminbar');
-      this.sidebarWidgetCount = $('.widgets > li').length - 2;
+      this.sidebarWidgetCount = $('.widgets > li').length - 1;
       this.anchorMe = $('.widgets > li:nth(' + this.sidebarWidgetCount + ')');
-      this.anchorMeFriend = $('.widgets > li:nth(' + ( this.sidebarWidgetCount+1 )  + ')');
-      this.previousFriend = $('.widgets > li:nth(' + ( this.sidebarWidgetCount-1 )  + ')');
-
       this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
 			if ( this.adminBar.length ) {
 				this.scrollToolbarHeight += this.adminBar.outerHeight();
@@ -245,10 +244,6 @@
 
 			}
 
-			if ( body.hasClass('tax-cst_section') ) {
-        this.determineWhetherToAnchorRightRail(scrollTop);
-      }
-
 
 			// Sticky sharing tools on the articles, as well as logic for the currently viewing post
 			if ( $( 'body.single' ).length ) {
@@ -279,39 +274,8 @@
 
 			}
 
-			// this.positionAndSizePostSidebar();
-
 		},
 
-    determineWhetherToAnchorRightRail: function(scrollTop) {
-
-      var elementOffset = this.anchorMe.offset().top,
-          elementDelta      = (elementOffset - scrollTop),
-          anchorTop     = 91;
-      // Calculate bottom of previous cube and use in scroll down*
-      if (scrollTop > this.lastScrollPosition) {
-        console.info(elementDelta)
-        if (0 == this.lastScrollPosition) {
-          this.savePosition = elementDelta;
-        }
-        if (elementDelta <= anchorTop && ! this.anchorMe.hasClass('section-front-anchor')) { // scrolling up
-          console.info('Adding up')
-          this.anchorMe.addClass('section-front-anchor');
-          this.anchorMeFriend.addClass('section-front-anchor');
-          this.anchorMeFriend.css('top', anchorTop + 10 + this.anchorMe.height());
-        }
-      } else {
-        // Check here for previous cube bottom
-        var previousCubeBottom = this.previousFriend.offsetTop;
-        if (previousCubeBottom > anchorTop) {
-          console.info('Removing down')
-          this.anchorMeFriend.removeClass('section-front-anchor').addClass('section-front-free-me');
-          this.anchorMe.removeClass('section-front-anchor').addClass('section-front-free-me');
-        }
-      }
-      this.lastScrollPosition = scrollTop;
-		  console.info('Save = '.concat(this.savePosition) )
-    },
 		/**
 		 * Make some iframes responsive
 		 */
@@ -358,46 +322,6 @@
 				this.fixedBackToTop.fadeIn("slow");
 			} else {
 				this.fixedBackToTop.fadeOut('slow');
-			}
-
-		},
-
-		/**
-		 * Stick and unstick the post sidebar
-		 */
-		positionAndSizePostSidebar: function() {
-
-			if ( ! this.postSidebar.length ) {
-				return;
-			}
-
-			var scrollTop = $(window).scrollTop();
-
-			var postSidebarTop = this.scrollToolbarHeight;
-
-			if ( ! this.postSidebar.hasClass('sidebar-normal') && ! this.postSidebar.hasClass('sidebar-fixed') ) {
-				this.postSidebar.addClass('sidebar-normal');
-			}
-
-			if ( this.postSidebar.hasClass('sidebar-normal') ) {
-				postSidebarTop += this.featuredPosts.outerHeight() - this.adminBar.height();
-				if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
-					this.postSidebar.css('top', postSidebarTop + 'px' );
-				}
-			} else if ( ! this.postSidebar.hasClass('sidebar-normal') || this.postSidebar.hasClass('sidebar-fixed') ) {
-				if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
-					this.postSidebar.css('top', postSidebarTop + 'px' );
-				}
-			}
-
-			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - this.adminBar.height() ) / 2 ) < scrollTop ) {
-				if ( ! this.leftSidebar.hasClass('fixed-bottom') ) {
-					this.leftSidebar.addClass('fixed-bottom');
-				}
-			} else {
-				if ( this.leftSidebar.hasClass('fixed-bottom') ) {
-					this.leftSidebar.removeClass('fixed-bottom');
-				}
 			}
 
 		},

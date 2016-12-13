@@ -200,7 +200,7 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-						wp_enqueue_script( 'csttriplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
+						wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
 						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
 					}
 
@@ -217,6 +217,7 @@ class CST_Frontend {
 				}
 				if ( ( is_tax() || is_singular() ) && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-sticky', get_template_directory_uri() . '/assets/js/sticky-kit.min.js', array( 'jquery' ) );
 				}
 			} else {
 				wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
