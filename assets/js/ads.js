@@ -252,20 +252,20 @@ var CSTAds;
 
 		},
     refreshAllArticleAds: function() {
-      if ( this.isSingular && ! CSTAds.refreshing ) {
+      if ( CSTAds.isSingular && ! CSTAds.refreshing ) {
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function(ad_slot) {
           CSTAds.triggerUnitRefresh(ad_slot)
         })
         CSTAds.refreshing = false;
-      this.clearAndResetAdRefreshInterval();
+      CSTAds.clearAndResetAdRefreshInterval();
       console.info('All ad units refreshed and interval reset')
       }
 
     },
     refreshArticleCubeAds: function() {
-      if ( this.isSingular && ! CSTAds.refreshing ) {
+      if ( CSTAds.isSingular && ! CSTAds.refreshing ) {
         console.info('Interval expired. Refreshing Cube Ads');
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
@@ -275,6 +275,7 @@ var CSTAds;
           }
         })
         CSTAds.refreshing = false;
+        CSTAds.clearAndResetAdRefreshInterval();
       }
     }
 

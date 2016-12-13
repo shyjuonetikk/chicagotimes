@@ -25,7 +25,6 @@
 			if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
 			}
-			this.positionAndSizePostSidebar();
 			if (this.body.hasClass('tax-cst_section')) {
         this.anchorMe.stick_in_parent({'bottoming' : false, 'offset_top': this.adminBar.height() + this.primaryNavigation.height() + 10 });
       }
@@ -90,7 +89,6 @@
 				delayedTimer = setTimeout( $.proxy( function(){
 					this.responsiveIframes();
 					this.rescaleHeadlinesImages();
-					this.positionAndSizePostSidebar();
 					if ( this.trendingNav.length ) {
 						this.recalibrateTrendingItems();
 					}

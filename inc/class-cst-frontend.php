@@ -217,7 +217,7 @@ class CST_Frontend {
 				}
 				if ( ( is_tax() || is_singular() ) && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
-					wp_enqueue_script( 'cst-sticky', get_template_directory_uri() . '/assets/js/sticky-kit.min.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-sticky', get_template_directory_uri() . '/assets/js/vendor/sticky-kit.min.js', array( 'jquery' ) );
 				}
 			} else {
 				wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
