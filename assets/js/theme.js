@@ -25,6 +25,7 @@
 			if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
 			}
+			this.positionAndSizePostSidebar();
 			if (this.body.hasClass('tax-cst_section')) {
         this.anchorMe.stick_in_parent({'bottoming' : false, 'offset_top': this.adminBar.height() + this.primaryNavigation.height() + 10 });
       }
@@ -41,13 +42,10 @@
 			this.fixedBackToTop = $('#fixed-back-to-top');
 			this.backToTop = $('#back-to-top');
 			this.primaryNavigation = $('#primary-navigation');
-			this.postSidebar = $('.article-sidebar');
 			this.postBody = $('#post-body');
 			this.offCanvasList = $('.off-canvas-menu');
 			this.searchButton = $('#search-button');
 			this.searchInput = $('#search-input');
-			this.rightSidebar = $('#index-sidebar');
-			this.rightSidebarAnchor = $('#index-sidebar-anchor');
 			this.leftSidebar = $('.stick-sidebar-left');
 			this.footerFixed = $('#fixed-footer-container');
 			this.footerBottom = this.footerFixed.find('.footer-bottom');
@@ -88,6 +86,7 @@
 				}
 				delayedTimer = setTimeout( $.proxy( function(){
 					this.responsiveIframes();
+          this.positionAndSizePostSidebar();
 					this.rescaleHeadlinesImages();
 					if ( this.trendingNav.length ) {
 						this.recalibrateTrendingItems();
@@ -271,7 +270,7 @@
 				}, this ) );
 
 			}
-
+      this.positionAndSizePostSidebar(scrollTop);
 		},
 
 		/**
@@ -320,6 +319,27 @@
 				this.fixedBackToTop.fadeIn("slow");
 			} else {
 				this.fixedBackToTop.fadeOut('slow');
+			}
+
+		},
+
+		/**
+		 * Stick and unstick the post sidebar
+		 */
+		positionAndSizePostSidebar: function(scrollTop) {
+
+			if ( ! this.leftSidebar.length ) {
+				return;
+			}
+
+			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - this.adminBar.height() ) / 2 ) < scrollTop ) {
+				if ( ! this.leftSidebar.hasClass('fixed-bottom') ) {
+					this.leftSidebar.addClass('fixed-bottom');
+				}
+			} else {
+				if ( this.leftSidebar.hasClass('fixed-bottom') ) {
+					this.leftSidebar.removeClass('fixed-bottom');
+				}
 			}
 
 		},
