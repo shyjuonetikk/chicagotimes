@@ -10,7 +10,9 @@ class AP_Wire_Item extends Post {
 	/**
 	 * Create an AP Wire Item from its SimpleXML representation
 	 *
-	 * @param SimpleXML
+	 * @param $feed_entry|SimpleXML
+	 *
+	 * @return AP_Wire_Item|int|\WP_Error|\WP_Post
 	 */
 	public static function create_from_simplexml( $feed_entry ) {
 		global $edit_flow;
@@ -44,20 +46,20 @@ class AP_Wire_Item extends Post {
 		$post = new AP_Wire_Item( $post_id );
 
 		// Process attributes
-		foreach( $feed_entry->link as $link ) {
+		foreach ( $feed_entry->link as $link ) {
 
-			if ( 'AP Article' !== (string)$link['title'] ) {
+			if ( 'AP Article' !== (string) $link['title'] ) {
 				continue;
 			}
 
-			switch ( (string)$link['rel'] ) {
+			switch ( (string) $link['rel'] ) {
 				case 'alternate':
-					$post->set_external_url( esc_url_raw( (string)$link['href'] ) );
+					$post->set_external_url( esc_url_raw( (string) $link['href'] ) );
 					break;
 
 				case 'enclosure':
 
-					$response = vip_safe_wp_remote_get( (string)$link['href'] );
+					$response = vip_safe_wp_remote_get( (string) $link['href'] );
 					if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
 						break;
 					}
@@ -161,7 +163,10 @@ class AP_Wire_Item extends Post {
 	/**
 	 * Get a given field from the NITF data
 	 *
-	 * @return mixed
+	 * @param $nitf_data
+	 * @param $xpath
+	 *
+	 * @return \SimpleXMLElement[]|string
 	 */
 	public function get_nitf_field( $nitf_data, $xpath ) {
 
@@ -220,7 +225,7 @@ class AP_Wire_Item extends Post {
 		$article = Article::create( array(
 			'post_title'     => sanitize_text_field( $this->get_wire_headline() ),
 			'post_content'   => wp_filter_post_kses( $this->get_wire_content() ),
-			) );
+		) );
 		if ( ! $article ) {
 			return false;
 		}
@@ -270,7 +275,7 @@ class AP_Wire_Item extends Post {
 
 		$link = Link::create( array(
 			'post_title'     => sanitize_text_field( $headline ),
-			) );
+		) );
 		if ( ! $link ) {
 			return false;
 		}

@@ -115,8 +115,8 @@ class CST {
 		$twitter_share_text_max_length = 140 - strlen( ' via @' . CST_TWITTER_USERNAME );
 		define( 'CST_TWITTER_SHARE_TEXT_MAX_LENGTH', $twitter_share_text_max_length );
 
-		define( 'CST_AP_SYNDICATION_USERNAME', 'cnewman@suntimes.com' );
-		define( 'CST_AP_SYNDICATION_PASSWORD', 'TheBright1' );
+		define( 'CST_AP_SYNDICATION_USERNAME', 'ILCHS_webfeeds' );
+		define( 'CST_AP_SYNDICATION_PASSWORD', 'ap116' );
 
 		define( 'CST_MERLIN_API_URL', 'http://cst.merlinone.net/' );
 		define( 'CST_MERLIN_API_KEY', 'XX9A23C8754C37FD187E006A1EE6' );
