@@ -210,7 +210,6 @@
 	};
 
 	$(document).ready(function(){
-  console.time('infinite-scroll')
 		// infiniteScroll isn't ready until the document is loaded
 		CSTInfiniteScroll.scroller = window.infiniteScroll.scroller;
 		CSTInfiniteScroll.originalDetermineURL = window.infiniteScroll.scroller.determineURL;
@@ -232,8 +231,6 @@
 				timer = setTimeout( window.infiniteScroll.scroller.determineURL , 100 );
 			});
 		}
-    console.timeEnd('infinite-scroll')
-
 	});
 
 }( jQuery ) );
