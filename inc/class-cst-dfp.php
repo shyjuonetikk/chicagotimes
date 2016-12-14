@@ -350,13 +350,13 @@ var dfp = {
       .build();
     googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
       .addService(googletag.pubads()).setTargeting("pos", "1x1");
+    if (dfp.front_page) {
     googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
-    if (dfp.front_page) {
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
         .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
@@ -407,12 +407,7 @@ var dfp = {
         .setTargeting("pos", "Super leaderboard 2 970x90")
         .setCollapseEmptyDiv(true, true);
     }
-    if (dfp.section || dfp.article) {
-      googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-5')
-        .addService(googletag.pubads()).setTargeting("pos", "rr cube 5");
-      googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
-        .addService(googletag.pubads()).setTargeting("pos", "rr cube 6");
-    }
+
     if (dfp.article) {
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-atf-leaderboard-1')
         .addService(googletag.pubads())

@@ -162,9 +162,11 @@
 	 */
 	$(document).ready(function(){
 
+	  console.time('theme-homepage')
 		$(document).foundation();
 
 		CST_Homepage.init();
+    console.timeEnd('theme-homepage')
 
 	});
 

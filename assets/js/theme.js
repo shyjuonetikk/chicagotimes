@@ -528,10 +528,12 @@
 	 * Wait until the document is ready before initializing the theme
 	 */
 	$(document).ready(function(){
+    console.time('theme')
 
 		$(document).foundation();
 
 		CST.init();
+    console.timeEnd('theme')
 
 	});
 
