@@ -33,11 +33,9 @@ class CST_Wire_Curator {
 		add_action( 'init', array( $this, 'action_init_register_fields' ) );
 
 		add_action( 'init', function() {
-
 			if ( ! wp_next_scheduled( 'cst_wire_items_import' ) ) {
 				wp_schedule_event( time(), 'cst-wire-items-15', 'cst_wire_items_import' );
 			}
-
 			if ( ! wp_next_scheduled( 'cst_wire_items_purge' ) ) {
 				wp_schedule_event( time(), 'cst-wire-items-hourly', 'cst_wire_items_purge' );
 			}
@@ -52,7 +50,6 @@ class CST_Wire_Curator {
 		add_action( 'wp_ajax_cst_create_from_wire_item', array( $this, 'handle_ajax_create_from_wire_item' ) );
 		add_action( 'wp_ajax_cst_delete_wire_items', array( $this, 'handle_ajax_delete_wire_items' ) );
 		add_action( 'wp_ajax_cst_reset_items_timer', array( $this, 'handle_ajax_reset_items_timer' ) );
-
 
 		add_action( "manage_{$this->post_type}_posts_custom_column", array( $this, 'action_manage_posts_custom_column' ), 10, 2 );
 
@@ -88,24 +85,24 @@ class CST_Wire_Curator {
 			'query_var'         => true,
 			'rewrite'           => false,
 			'capabilities'      => array(
-				'create_posts'  => 'do_not_allow',
-				'edit_posts'    => $this->cap,
-				'delete_posts'    => $this->cap,
-				),
+			'create_posts'  => 'do_not_allow',
+			'edit_posts'    => $this->cap,
+			'delete_posts'    => $this->cap,
+			),
 			'labels'            => array(
-				'name'                => esc_html__( 'Wire Items', 'chicagosuntimes' ),
-				'singular_name'       => esc_html__( 'Wire Items', 'chicagosuntimes' ),
-				'all_items'           => esc_html__( 'Wire Items', 'chicagosuntimes' ),
-				'new_item'            => esc_html__( 'New Wire Items', 'chicagosuntimes' ),
-				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-				'add_new_item'        => esc_html__( 'Add New Wire Items', 'chicagosuntimes' ),
-				'edit_item'           => esc_html__( 'Edit Wire Items', 'chicagosuntimes' ),
-				'view_item'           => esc_html__( 'View Wire Items', 'chicagosuntimes' ),
-				'search_items'        => esc_html__( 'Search Wire Items', 'chicagosuntimes' ),
-				'not_found'           => esc_html__( 'No Wire Items found', 'chicagosuntimes' ),
-				'not_found_in_trash'  => esc_html__( 'No Wire Items found in trash', 'chicagosuntimes' ),
-				'parent_item_colon'   => esc_html__( 'Parent Wire Items', 'chicagosuntimes' ),
-				'menu_name'           => esc_html__( 'AP Wire', 'chicagosuntimes' ),
+			'name'                => esc_html__( 'Wire Items', 'chicagosuntimes' ),
+			'singular_name'       => esc_html__( 'Wire Items', 'chicagosuntimes' ),
+			'all_items'           => esc_html__( 'Wire Items', 'chicagosuntimes' ),
+			'new_item'            => esc_html__( 'New Wire Items', 'chicagosuntimes' ),
+			'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
+			'add_new_item'        => esc_html__( 'Add New Wire Items', 'chicagosuntimes' ),
+			'edit_item'           => esc_html__( 'Edit Wire Items', 'chicagosuntimes' ),
+			'view_item'           => esc_html__( 'View Wire Items', 'chicagosuntimes' ),
+			'search_items'        => esc_html__( 'Search Wire Items', 'chicagosuntimes' ),
+			'not_found'           => esc_html__( 'No Wire Items found', 'chicagosuntimes' ),
+			'not_found_in_trash'  => esc_html__( 'No Wire Items found in trash', 'chicagosuntimes' ),
+			'parent_item_colon'   => esc_html__( 'Parent Wire Items', 'chicagosuntimes' ),
+			'menu_name'           => esc_html__( 'AP Wire', 'chicagosuntimes' ),
 			),
 		) );
 
@@ -117,15 +114,15 @@ class CST_Wire_Curator {
 	public function action_init_register_fields() {
 
 		$fm = new Fieldmanager_Link( array(
-			'name'            => 'wire_curator_feed_url',
-			'label'           => false,
-			'limit'           => 0,
-			'add_more_label'  => esc_attr__( 'Import Another Feed', 'chicagosuntimes' ),
-			'attributes' => array(
-				'placeholder'     => esc_attr__( 'Enter WebFeed URL for AP Content Explorer saved search', 'chicagosuntimes' ),
-				'size'            => 100
-				)
-			) );
+			'name'           => 'wire_curator_feed_url',
+			'label'          => false,
+			'limit'          => 0,
+			'add_more_label' => esc_attr__( 'Import Another Feed', 'chicagosuntimes' ),
+			'attributes'     => array(
+			'placeholder' => esc_attr__( 'Enter WebFeed URL for AP Content Explorer saved search', 'chicagosuntimes' ),
+			'size'        => 100,
+			),
+		) );
 
 		$fm->add_submenu_page( 'edit.php?post_type=' . $this->post_type, esc_html__( 'Wire Curator Settings', 'chicagosuntimes' ), esc_html__( 'Settings', 'chicagosuntimes' ), $this->cap );
 
@@ -166,6 +163,11 @@ class CST_Wire_Curator {
 
 	/**
 	 * Add some descriptive text to the settings page
+	 *
+	 * @param $out
+	 * @param $fm
+	 *
+	 * @return string
 	 */
 	public function filter_fm_link_markup( $out, $fm ) {
 
@@ -173,7 +175,7 @@ class CST_Wire_Curator {
 			return $out;
 		}
 
-		$out .= '<p>' . sprintf( __( 'Wire Curator accepts WebFeeds from AP Exchange Save Searches. You can <a target="_blank" href="%s">log in</a> with these credentials: %s / %s', 'chicagosuntimes' ), 'http://www.apexchange.com/pages/ManageFeatures.aspx?s=0', CST_AP_SYNDICATION_USERNAME, CST_AP_SYNDICATION_PASSWORD ) . '</p>';
+		$out .= '<p>' . sprintf( __( 'Wire Curator accepts WebFeeds from WebFeeds manager Products or Save Searches. You can <a target="_blank" href="%s">log in</a> with these credentials: %s / %s', 'chicagosuntimes' ), 'http://wfm.ap.org/Admin/', CST_AP_SYNDICATION_USERNAME, CST_AP_SYNDICATION_PASSWORD ) . '</p>';
 
 		return $out;
 	}
@@ -200,7 +202,7 @@ class CST_Wire_Curator {
 
 		$events = _get_cron_array();
 		$next_refresh = false;
-		foreach( $events as $time => $event ) {
+		foreach ( $events as $time => $event ) {
 
 			if ( isset( $event['cst_wire_items_import'] ) ) {
 				$next_refresh = ( $time - time() ) / 60;
@@ -223,8 +225,9 @@ class CST_Wire_Curator {
 
 	/**
 	 * Filter the columns on the Wire Items table
+	 * @return array
 	 */
-	public function filter_post_columns( $columns ) {
+	public function filter_post_columns() {
 
 		$new_columns = array(
 			'cst_wire_item_title'    => esc_html__( 'Title', 'chicagosuntimes' ),
@@ -237,6 +240,8 @@ class CST_Wire_Curator {
 
 	/**
 	 * Add the correct value for our custom columns
+	 * @param $column_name
+	 * @param $post_id
 	 */
 	public function action_manage_posts_custom_column( $column_name, $post_id ) {
 
@@ -278,6 +283,7 @@ class CST_Wire_Curator {
 	 *
 	 * @param \CST\Objects\AP_Wire_Item $item
 	 * @param bool $always_visible
+	 * @return string
 	 */
 	private function post_row_actions( $item, $always_visible = false ) {
 
@@ -315,7 +321,7 @@ class CST_Wire_Curator {
 		$action_count = count( $actions );
 		$i = 0;
 
-		if ( !$action_count ) {
+		if ( ! $action_count ) {
 			return '';
 		}
 
@@ -332,17 +338,20 @@ class CST_Wire_Curator {
 
 	/**
 	 * Filter cron schedules to include our own
+	 * @param $schedules
+	 *
+	 * @return mixed
 	 */
 	public function filter_cron_schedules( $schedules ) {
 
 		$schedules['cst-wire-items-15'] = array(
 			'interval' => MINUTE_IN_SECONDS * 15,
-			'display'  => 'Every 15 minutes'
+			'display'  => 'Every 15 minutes',
 		);
 
 		$schedules['cst-wire-items-hourly'] = array(
 			'interval' => HOUR_IN_SECONDS,
-			'display'  => 'Every hour'
+			'display'  => 'Every hour',
 		);
 
 		return $schedules;
@@ -443,7 +452,7 @@ class CST_Wire_Curator {
 				wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
 			}
 
-			$item_id = (int)$_GET['wire_item_id'];
+			$item_id = (int) $_GET['wire_item_id'];
 
 			$post = get_post( $item_id );
 			if ( ! $post || $this->post_type !== $post->post_type ) {
@@ -486,7 +495,6 @@ class CST_Wire_Curator {
 			wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
 		}
 
-
 	}
 
 	/**
@@ -505,7 +513,7 @@ class CST_Wire_Curator {
 	 */
 	public function refresh_wire_items( $manually_triggered_from_ajax = false ) {
 
-		foreach( $this->get_feeds() as $feed ) {
+		foreach ( $this->get_feeds() as $feed ) {
 
 			// Failsafe
 			if ( empty( $feed ) ) {
@@ -517,7 +525,7 @@ class CST_Wire_Curator {
 			// Associated Press requires HTTP Basic Auth
 			if ( 'syndication.ap.org' === parse_url( $feed, PHP_URL_HOST ) ) {
 				$args['headers'] = array(
-						'Authorization' => 'Basic ' . base64_encode( CST_AP_SYNDICATION_USERNAME . ':' . CST_AP_SYNDICATION_PASSWORD )
+						'Authorization' => 'Basic ' . base64_encode( CST_AP_SYNDICATION_USERNAME . ':' . CST_AP_SYNDICATION_PASSWORD ),
 					);
 			}
 
@@ -528,15 +536,15 @@ class CST_Wire_Curator {
 			}
 
 			$feed_data = wp_remote_retrieve_body( $response );
-			if( $feed_data ) {
+			if ( $feed_data ) {
 				$xml = simplexml_load_string( $feed_data );
-				if( $xml ) {
-					foreach( $xml->entry as $entry ) {
+				if ( $xml ) {
+					foreach ( $xml->entry as $entry ) {
 
 						// Only handle articles right now
 						$is_article = false;
-						foreach( $entry->link as $link ) {
-							if ( 'enclosure' === (string)$link['rel'] && 'AP Article' === (string)$link['title'] ) {
+						foreach ( $entry->link as $link ) {
+							if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
 								$is_article = true;
 								break;
 							}
@@ -553,9 +561,9 @@ class CST_Wire_Curator {
 
 						$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
 						$blog_id = get_current_blog_id();
-                        if( is_user_member_of_blog( $user_id, $blog_id ) ) {
-                            \CST\Objects\AP_Wire_Item::create_from_simplexml( $entry );
-                        }
+						if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
+							\CST\Objects\AP_Wire_Item::create_from_simplexml( $entry );
+						}
 
 					}
 				}
@@ -616,7 +624,7 @@ class CST_Wire_Curator {
 			);
 		$old_items = new WP_Query( $query_args );
 
-		foreach( $old_items->posts as $post_id ) {
+		foreach ( $old_items->posts as $post_id ) {
 			wp_delete_post( $post_id, true );
 		}
 
