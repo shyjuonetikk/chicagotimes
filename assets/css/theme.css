@@ -1299,15 +1299,18 @@ article.post {
 @media only screen and (min-width:64.063em) {
   .single .taboola-container {
     max-width: 615px; } }
+@media 64.063em, 90em {
+  .single .taboola-container {
+    max-width: 800px; } }
 @media only screen and (min-width:48em) and (max-width:64em) {
   .single .taboola-container {
-    max-width: 600px; } }
+    max-width: 700px; } }
 @media only screen and (min-width:40.063em) and (max-width:47.398em) {
   .single .taboola-container {
     max-width: 500px; } }
 @media only screen and (max-width: 40em) {
   .single .taboola-container {
-    max-width: 300px; } }
+    max-width: 100%; } }
 .single .ad-container {
   position: relative;
   display: block;

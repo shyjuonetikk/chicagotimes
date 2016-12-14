@@ -320,11 +320,8 @@ var dfp = {
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
     cube_mapping = googletag.sizeMapping()
-	  .addSize([992, 0], [[300, 250]]) //desktop
-	  .addSize([768, 0], [[300, 250]]) //tablet
-	  .addSize([640, 480], [300, 250]) //phone
-	  .addSize([375, 667], [300, 250]) //phone
-	  .addSize([0, 0], [320, 50], [300, 50]) //other
+      .addSize([0, 0], []) //other
+	  .addSize([1025, 0], [[300, 250]]) //desktop
 	  .build();
     var ym_craig_mapping = googletag.sizeMapping()
 	  .addSize([992, 0], [728, 90]) //desktop
@@ -339,12 +336,9 @@ var dfp = {
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
     sf_mapping = googletag.sizeMapping()
-      .addSize([992, 0], [[300, 250], [300, 600]]) //desktop
+      .addSize([0, 0], []) //other
+	  .addSize([992, 0], [[300, 250], [300, 600]]) //desktop
       .addSize([768, 0], [[300, 250], [300, 600]]) //tablet
-      .addSize([640, 0], [[320, 50]]) //phone
-      .addSize([414, 0], [[320, 50]]) //phone
-      .addSize([375, 0], [[320, 50]]) //phone
-      .addSize([0, 0], [320, 50]) //other
       .build();
     sf_inline_mapping = googletag.sizeMapping()
       .addSize([992, 0], [[300, 250]]) //desktop

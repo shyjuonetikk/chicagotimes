@@ -42,6 +42,7 @@
 			this.fixedBackToTop = $('#fixed-back-to-top');
 			this.backToTop = $('#back-to-top');
 			this.primaryNavigation = $('#primary-navigation');
+			this.postSidebar = $('.article-sidebar');
 			this.postBody = $('#post-body');
 			this.offCanvasList = $('.off-canvas-menu');
 			this.searchButton = $('#search-button');
@@ -331,7 +332,22 @@
 			if ( ! this.leftSidebar.length ) {
 				return;
 			}
+      var postSidebarTop = this.scrollToolbarHeight;
 
+      if ( ! this.postSidebar.hasClass('sidebar-normal') && ! this.postSidebar.hasClass('sidebar-fixed') ) {
+        this.postSidebar.addClass('sidebar-normal');
+      }
+
+      if ( this.postSidebar.hasClass('sidebar-normal') ) {
+        postSidebarTop += this.featuredPosts.outerHeight() - this.adminBar.height();
+        if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
+          this.postSidebar.css('top', postSidebarTop + 'px' );
+        }
+      } else if ( ! this.postSidebar.hasClass('sidebar-normal') || this.postSidebar.hasClass('sidebar-fixed') ) {
+        if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
+          this.postSidebar.css('top', postSidebarTop + 'px' );
+        }
+      }
 			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - this.adminBar.height() ) / 2 ) < scrollTop ) {
 				if ( ! this.leftSidebar.hasClass('fixed-bottom') ) {
 					this.leftSidebar.addClass('fixed-bottom');
