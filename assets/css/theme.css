@@ -1194,8 +1194,11 @@ article.post {
       display: inline-block; }
   @media only screen and (min-width:40.063em) {
     article.post {
-      margin-bottom: 0px;
-      margin-top: 30px; }
+      margin-bottom: 15px;
+      margin-top: 15px; }
+      article.post:first-child {
+        margin-bottom: 0;
+        margin-top: 30px; }
       article.post h1 {
         font-size: 2rem;
         line-height: 2.5rem;
