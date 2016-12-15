@@ -1130,6 +1130,9 @@ body.search {
   margin-bottom: 0;
   margin-top: 30px; }
 
+.upper-heading {
+  margin-bottom: 30px; }
+
 article.post {
   background-color: white; }
   article.post h1 {
@@ -1196,9 +1199,6 @@ article.post {
     article.post {
       margin-bottom: 15px;
       margin-top: 15px; }
-      article.post:first-child {
-        margin-bottom: 0;
-        margin-top: 30px; }
       article.post h1 {
         font-size: 2rem;
         line-height: 2.5rem;
@@ -2400,6 +2400,9 @@ footer {
 #main .video-injection {
   margin-bottom: 0;
   margin-top: 30px; }
+
+.upper-heading {
+  margin-bottom: 30px; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }

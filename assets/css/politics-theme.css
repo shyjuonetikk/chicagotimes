@@ -1192,9 +1192,6 @@ article.post {
     article.post {
       margin-bottom: 15px;
       margin-top: 15px; }
-      article.post:first-child {
-        margin-bottom: 0;
-        margin-top: 30px; }
       article.post h1 {
         font-size: 2rem;
         line-height: 2.5rem;
@@ -3477,6 +3474,9 @@ footer {
 #main .video-injection {
   margin-bottom: 0;
   margin-top: 30px; }
+
+.upper-heading {
+  margin-bottom: 30px; }
 
 .politics header#header section#primary-navigation a#newsfeed-logo img {
   width: 174px; }
