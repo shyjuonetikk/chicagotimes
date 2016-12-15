@@ -1,7 +1,10 @@
 (function( $ ){
+  var throttleScroll;
 
 	var CST = {
 
+	  lastScrollPosition: 0,
+    saveTriggerPoint: 0,
 		/**
 		 * Initialize basic theme JavaScript
 		 */
@@ -23,10 +26,9 @@
 				this.recalibrateTrendingItems();
 			}
 			this.positionAndSizePostSidebar();
-			if ( $('body.single').length ) {
-				this.loadDisqusCount();
-			}
-
+			if (this.body.hasClass('tax-cst_section')) {
+        this.anchorMe.stick_in_parent({'bottoming' : false, 'offset_top': this.adminBar.height() + this.primaryNavigation.height() + 10 });
+      }
 		},
 
 		/**
@@ -45,18 +47,11 @@
 			this.offCanvasList = $('.off-canvas-menu');
 			this.searchButton = $('#search-button');
 			this.searchInput = $('#search-input');
-			this.rightSidebar = $('#index-sidebar');
-			this.rightSidebarAnchor = $('#index-sidebar-anchor');
 			this.leftSidebar = $('.stick-sidebar-left');
-			this.nativoSponsored = $('#nativo-sponsored');
 			this.footerFixed = $('#fixed-footer-container');
 			this.footerBottom = this.footerFixed.find('.footer-bottom');
 			this.footerMoreInfo = $('.footer-more-info');
-			this.burgerBar = $('#burger-bar');
-			this.exitOffCanvas = $('.exit-off-canvas');
 			this.dfpSBB = $('#div-gpt-sbb');
-			this.sbbTop = $('#dfp-sbb-top');
-			this.sbbBottom = $('#dfp-sbb-bottom');
 			this.interstitial = $('#div-gpt-interstitial');
 			this.interstitialContainer = $('#dfp-interstitial-container');
 			this.closeInterstitial = $('#dfp-interstitial-close');
@@ -64,14 +59,13 @@
 			this.nfLogo = $('header #newsfeed-logo');
 			this.mobileHome = $('header #mobile-home');
 			this.tabletHome = $('header #logo-wrap #tablet-home');
-			this.dfpWallpaper = $('#div-gpt-wallpaper');
-			this.dfpWallpaperImg = $('#div-gpt-wallpaper img')
-			this.dfpLeaderboard = $('#div-gpt-atf-leaderboard');
 			this.header = $('#header');
-
-			this.scrollToolbarHeight = $('#primary-navigation').outerHeight();
-			if ( $('#wpadminbar').length ) {
-				this.scrollToolbarHeight += $('#wpadminbar').outerHeight();
+      this.adminBar = $('#wpadminbar');
+      this.sidebarWidgetCount = $('.widgets > li').length - 1;
+      this.anchorMe = $('.widgets > li:nth(' + this.sidebarWidgetCount + ')');
+      this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
+			if ( this.adminBar.length ) {
+				this.scrollToolbarHeight += this.adminBar.outerHeight();
 			}
 
 		},
@@ -84,12 +78,8 @@
 			$(document.body).on('post-load', $.proxy( function() {
 				setTimeout( $.proxy( function() {
 					this.responsiveIframes();
-					if ( $('body.single').length ) {
-						this.loadDisqusCount();
-					}
 				}, this ), 1 );
 			}, this ) );
-
 			var delayedTimer = false;
 			$(window).resize( $.proxy( function() {
 				if ( delayedTimer ) {
@@ -97,8 +87,8 @@
 				}
 				delayedTimer = setTimeout( $.proxy( function(){
 					this.responsiveIframes();
+          this.positionAndSizePostSidebar();
 					this.rescaleHeadlinesImages();
-					this.positionAndSizePostSidebar();
 					if ( this.trendingNav.length ) {
 						this.recalibrateTrendingItems();
 					}
@@ -106,13 +96,15 @@
 			}, this ) );
 
 			$(window).scroll( $.proxy( function() {
-				setTimeout( $.proxy( this.doScrollEvent, this ), 1 );
+        clearTimeout(throttleScroll);
+        throttleScroll = setTimeout(function(){
+            CST.doScrollEvent();
+        }, 10);
 			}, this ) );
 
 			this.postBody.on( 'click', '.post-comments', $.proxy( function( e ) {
 				e.preventDefault();
 				var el = $(e.currentTarget);
-				this.toggleDisqusComments( el );
 			}, this ) );
 
 			this.backToTop.on( "click", $.proxy( function (e) {
@@ -189,29 +181,7 @@
 		doScrollEvent: function() {
 
 			var scrollTop = $(window).scrollTop();
-						
-			if ( this.primaryNavigation.hasClass('primary-fixed') ) {
-				if( scrollTop >= ( this.dfpWallpaper.height() - ( this.header.height() + this.dfpLeaderboard.height() + this.dfpSBB.height() + 10 ) ) ) {
-					if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
-						this.dfpWallpaper.removeClass('dfp-wallpaper-normal').addClass('dfp-wallpaper-fixed');
-					} else {
-						this.dfpWallpaper.addClass('dfp-wallpaper-fixed');
-					}
-				} else if( scrollTop < ( this.dfpWallpaper.height() - ( this.header.height() + this.dfpLeaderboard.height() + this.dfpSBB.height() + 10 ) ) ) {
-					if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
-						this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
-					} else {
-						this.dfpWallpaper.addClass('dfp-wallpaper-normal');
-					}
-				}
-			} else if ( this.primaryNavigation.hasClass('primary-normal') ) {
-				if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
-					this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
-				} else {
-					this.dfpWallpaper.addClass('dfp-wallpaper-normal');
-				}
-			}
-
+      var windowWidth = $(window).width();
 			if ( scrollTop > 0 ) {
 
 				this.topHeight = $(document).scrollTop();
@@ -243,10 +213,10 @@
 				if ( this.nfLogo.is(':hidden') ) {
 					this.cstLogo.hide();
 					this.nfLogo.show('slide', { direction: 'down' } );
-					if ( $(window).width() <= 640 ) {
+					if ( windowWidth <= 640 ) {
 						this.mobileHome.show('slide', { direction: 'down' } );
 					}
-					if ( $(window).width() > 640 && $(window).width() < 981 ) {
+					if ( windowWidth > 640 && windowWidth < 981 ) {
 						this.tabletHome.show('slide', { direction: 'down' } );
 					}
 				}
@@ -272,29 +242,20 @@
 
 			}
 
-			if ( this.rightSidebar.length && ( scrollTop + $(window).height() ) > ( this.rightSidebar.height() + this.rightSidebarAnchor.offset().top + 30 ) ) {
-				if ( ! this.rightSidebar.hasClass('fixed-bottom') ) {
-					this.rightSidebar.addClass('fixed-bottom');
-				}
-			} else {
-				if ( this.rightSidebar.hasClass('fixed-bottom') ) {
-					this.rightSidebar.removeClass('fixed-bottom');
-				}
-			}
 
 			// Sticky sharing tools on the articles, as well as logic for the currently viewing post
 			if ( $( 'body.single' ).length ) {
-
-				$('#main .post' ).each( $.proxy( function( key, value ) {
+        var mainPost = $('#main .post');
+        mainPost.each( $.proxy( function( key, value ) {
 					var el = $(value);
 					var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
 					var bottomBreakPoint = topBreakPoint + el.height() - 80;
 
 					if ( scrollTop > topBreakPoint && scrollTop < bottomBreakPoint && ! el.hasClass('cst-active-scroll-post') ) {
-						$('#main .post' ).removeClass('cst-active-scroll-post');
+            mainPost.removeClass('cst-active-scroll-post');
 
-						if( $(window).width() > 736 ) {
-							$('#main .post' ).addClass('cst-sharing-relative').removeClass('cst-sharing-absolute');
+						if( windowWidth > 736 ) {
+              mainPost.addClass('cst-sharing-relative').removeClass('cst-sharing-absolute');
 							if ( ! el.hasClass('type-cst_embed' ) ) {
 								el.addClass('cst-sharing-absolute').removeClass('cst-sharing-relative');
 							}
@@ -302,7 +263,7 @@
 
 						el.addClass('cst-active-scroll-post');
 					}
-					if( $(window).width() > 736 ) {
+					if( windowWidth > 736 ) {
 						if ( scrollTop < topBreakPoint || scrollTop > bottomBreakPoint && el.hasClass('cst-sharing-absolute' ) ) {
 							el.removeClass('cst-sharing-absolute').addClass('cst-sharing-relative');
 						}
@@ -310,9 +271,7 @@
 				}, this ) );
 
 			}
-
-			this.positionAndSizePostSidebar();
-
+      this.positionAndSizePostSidebar(scrollTop);
 		},
 
 		/**
@@ -353,17 +312,6 @@
 		},
 
 		/**
-		* Make the wallpaper ad scroll or freeze based on the scroll position.
-		*/
-		fixDFPWallpaper: function() {
-			if ( this.dfpWallpaper.hasClass('dfp-wallpaper-freeze') ) {
-				this.dfpWallpaper.removeClass('dfp-wallpaper-freeze');
-			} else {
-				this.dfpWallpaper.addClass('dfp-wallpaper-freeze');
-			}
-		},
-
-		/**
 		 * Show and hide the "Back to Top" element
 		 */
 		toggleBackToTop: function() {
@@ -379,32 +327,28 @@
 		/**
 		 * Stick and unstick the post sidebar
 		 */
-		positionAndSizePostSidebar: function() {
+		positionAndSizePostSidebar: function(scrollTop) {
 
-			if ( ! this.postSidebar.length ) {
+			if ( ! this.leftSidebar.length ) {
 				return;
 			}
+      var postSidebarTop = this.scrollToolbarHeight;
 
-			var scrollTop = $(window).scrollTop();
+      if ( ! this.postSidebar.hasClass('sidebar-normal') && ! this.postSidebar.hasClass('sidebar-fixed') ) {
+        this.postSidebar.addClass('sidebar-normal');
+      }
 
-			var postSidebarTop = this.scrollToolbarHeight;
-
-			if ( ! this.postSidebar.hasClass('sidebar-normal') && ! this.postSidebar.hasClass('sidebar-fixed') ) {
-				this.postSidebar.addClass('sidebar-normal');
-			}
-
-			if ( this.postSidebar.hasClass('sidebar-normal') ) {
-				postSidebarTop += this.featuredPosts.outerHeight() - $('#wpadminbar').height();
-				if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
-					this.postSidebar.css('top', postSidebarTop + 'px' );
-				}
-			} else if ( ! this.postSidebar.hasClass('sidebar-normal') || this.postSidebar.hasClass('sidebar-fixed') ) {
-				if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
-					this.postSidebar.css('top', postSidebarTop + 'px' );
-				}
-			}
-
-			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - $('#wpadminbar').height() ) / 2 ) < scrollTop ) {
+      if ( this.postSidebar.hasClass('sidebar-normal') ) {
+        postSidebarTop += this.featuredPosts.outerHeight() - this.adminBar.height();
+        if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
+          this.postSidebar.css('top', postSidebarTop + 'px' );
+        }
+      } else if ( ! this.postSidebar.hasClass('sidebar-normal') || this.postSidebar.hasClass('sidebar-fixed') ) {
+        if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
+          this.postSidebar.css('top', postSidebarTop + 'px' );
+        }
+      }
+			if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - this.adminBar.height() ) / 2 ) < scrollTop ) {
 				if ( ! this.leftSidebar.hasClass('fixed-bottom') ) {
 					this.leftSidebar.addClass('fixed-bottom');
 				}
@@ -562,60 +506,6 @@
 		},
 
 		/**
-		 * Load the Disqus comment count
-		 */
-		loadDisqusCount: function() {
-
-			// Doesn't seem to work for whatever reason
-			return;
-
-			try {
-				var s = document.createElement('script');
-				s.type = 'text/javascript';
-				s.async = true;
-				s.src = 'http://' + CSTData.disqus_shortname + '.disqus.com/count.js';
-				(function () {
-					(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-				}());
-			} catch(ex){}
-		},
-
-		/**
-		 * Toggle the display of Disqus comments
-		 */
-		toggleDisqusComments: function( el ) {
-
-			$( '#disqus_thread' ).remove();
-			if ( el.hasClass('post-comments-open' ) ) {
-				el.removeClass('post-comments-open');
-				return;
-			}
-			$( '.post-comments', this.postBody ).removeClass( 'post-comments-open' );
-			el.addClass( 'post-comments-open' );
-			disqus_identifier = el.data('disqus-identifier');
-			disqus_url = el.data('disqus-url');
-			el.closest('.post').find('.post-comment-thread-wrap').html('<div id="disqus_thread"></div>');
-			if ( typeof DISQUS == 'object' ) {
-				DISQUS.reset({
-					reload: true,
-					config: function () {
-						this.page.identifier = el.data('disqus-identifier');
-						this.page.url = el.data('disqus-url');
-					}
-				});
-			} else {
-				try {
-					(function() {
-						var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-						dsq.src = '//' + CSTData.disqus_shortname + '.disqus.com/embed.js';
-						(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-					})();
-				} catch( ex ) {}
-			}
-
-		},
-
-		/**
 		 * Browser detection redirect
 		 */
 		 browserDetection: function() {
@@ -640,7 +530,6 @@
 	$(document).ready(function(){
 
 		$(document).foundation();
-
 		CST.init();
 
 	});

@@ -104,8 +104,8 @@ article.post {
 	}
 
 	@media #{$medium-up} {
-			margin-bottom: 0px;
-			margin-top: 30px;
+		margin-bottom: 15px;
+		margin-top: 15px;
 		h1 {
 			font-size: 2rem;
 			line-height: 2.5rem;
@@ -289,9 +289,15 @@ article.post {
 		}
 	}
 
+	@media #{$large-range} {
+		.taboola-container {
+			max-width: 800px;
+		}
+	}
+
 	@media #{$xmedium-only} {
 		.taboola-container {
-			max-width: 600px;
+			max-width: 700px;
 		}
 	}
 
@@ -303,7 +309,7 @@ article.post {
 
 	@media #{$small-only} {
 		.taboola-container {
-			max-width: 300px;
+			max-width: 100%;
 		}
 	}
 

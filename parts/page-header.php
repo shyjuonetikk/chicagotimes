@@ -39,7 +39,7 @@ if( is_single() ) {
 	<?php 
 		if( is_home() || is_front_page() || is_tax() ) { 
 			get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
-			echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered', 970 );
+			echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
 		}
 	?>
 <header id="header">
