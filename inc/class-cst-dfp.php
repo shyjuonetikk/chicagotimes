@@ -415,11 +415,6 @@ var dfp = {
       CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot(adUnitPath, [160, 600], 'div-gpt-sky-scraper-1')
         .addService(googletag.pubads())
         .setTargeting("pos", "SkyScraper");
-      CSTAdTags['div-gpt-ym-craig'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-ym-craig')
-        .defineSizeMapping(ym_craig_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos","ym craig")
-        .setCollapseEmptyDiv(true,true);
     }
     if(dfp.gallery) {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
