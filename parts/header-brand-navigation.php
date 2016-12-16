@@ -21,8 +21,8 @@
 						<ul class="left">
 							<li class="has-form">
 								<div class="row collapse search-input-wrapper">
-									<label for="search-field"><i class="fa fa-search"></i></label>
 									<div class="small-12 columns">
+									<label for="search-field" class="search-icon"><i class="fa fa-search"></i></label>
 										<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
 									</div>
 								</div>

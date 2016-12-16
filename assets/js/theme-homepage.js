@@ -20,6 +20,7 @@
 
 			this.body = $('body');
 			this.primaryNavigation = $('#fixed-nav-wrapper');
+			this.topBarSection = $('.top-bar-section');
 			this.topLogos = $('#top-logos');
       		this.wpAdminBar = $('#wpadminbar');
 
@@ -115,7 +116,7 @@
 
 			var scrollTop = $(window).scrollTop();
 
-			if ( scrollTop > this.topLogos.height() ) {
+			if ( scrollTop > this.topBarSection.height() ) {
 
 				// Primary Navigation
 				if ( this.wpAdminBar && $(window).width() > 782 ) {

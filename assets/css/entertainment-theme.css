@@ -791,6 +791,10 @@ ul#menu-sun-times-network {
       width: 100%; }
   .masthead .search .search-input-wrapper {
     padding: 2px; }
+    .masthead .search .search-input-wrapper .search-icon {
+      font-size: 1.675rem;
+      float: left;
+      margin-right: 1rem; }
   .masthead .search .glass {
     font-size: 1.5rem;
     color: white;
@@ -2039,7 +2043,7 @@ section#subscribe {
       .widgets ul.widget-recent-posts li a, .widgets ul.widget-chartbeat-currently-viewing li a {
         color: #282828; }
     .widgets ul.widget-recent-posts li:hover a, .widgets ul.widget-recent-posts li:hover span, .widgets ul.widget-recent-posts li:hover, .widgets ul.widget-chartbeat-currently-viewing li:hover a, .widgets ul.widget-chartbeat-currently-viewing li:hover span, .widgets ul.widget-chartbeat-currently-viewing li:hover {
-      background: #f0f0f0;
+      background: #f8f8f8;
       color: #282828; }
     .widgets ul.widget-recent-posts .section, .widgets ul.widget-chartbeat-currently-viewing .section {
       color: #00ae04;
