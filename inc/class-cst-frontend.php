@@ -964,28 +964,29 @@ class CST_Frontend {
 	}
 
 	/**
-	 * Fetch and output content from the specified section
-	 * @param $content_query
+	 * Previously from / recommendations content block
+	 * @param $feed_url
+	 * @param $section_name
 	 */
 	public function cst_post_recommendation_block( $feed_url, $section_name ) {
 
 		$cache_key = md5( $feed_url );
-            $result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-            if ( $result === false ) {
-                $response = wpcom_vip_file_get_contents( $feed_url );
-                if ( ! is_wp_error( $response ) ) {
-                    $result = json_decode( $response );
-                    wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
-                }
-            }
-            ?>
-            <div class="large-12 medium-offset-1 cst-recommendations">
-            <div class="columns">
-            	<hr>
+			$result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+			if ( $result === false ) {
+				$response = wpcom_vip_file_get_contents( $feed_url );
+				if ( ! is_wp_error( $response ) ) {
+					$result = json_decode( $response );
+					wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+				}
+			}
+			?>
+			<div class="large-12 medium-offset-1 cst-recommendations">
+				<div class="columns">
+			 	<hr>
 				<h3>Previously from Chicago Sun-Times <?php esc_html_e( $section_name ); ?></h3>
 				<hr>
 			</div>
-            <?php foreach( $result->pages as $item ) {
+			<?php foreach( $result->pages as $item ) {
 				$chart_beat_top_content = (array) $item->metrics->post_id->top;
 				$top_item = [];
 				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
@@ -999,7 +1000,7 @@ class CST_Frontend {
 				$temporary_title       = explode( '|', $item->title );
 				$article_curated_title = $temporary_title[0];
 				?>
-            	<div class="cst-recommended-content columns medium-6 small-12">
+				<div class="cst-recommended-content columns medium-6 small-12">
 					<div class="cst-article">
 						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click image">
 						<div class="cst-recommended-image -amp-layout-size-defined">
@@ -1011,8 +1012,8 @@ class CST_Frontend {
 						</a>
 					</div>
 				</div>
-            <?php }
-            ?>			</div>
+			<?php } ?>
+			</div>
 <?php
 
 	}
