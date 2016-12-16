@@ -8,7 +8,8 @@ ga('create', '<?php echo esc_attr( CST_GOOGLE_ANALYTICS ); ?>', 'auto', {name: '
 ga('BNA.require', 'displayfeatures');
 ga('create', 'UA-53290409-1', 'auto', {name: 'networkGlobal'});
 ga('networkGlobal.require', 'displayfeatures');
-
+ga('BNA.require','eventTracker', {attributePrefix: 'data-'});
+ga('BNA.require','outboundLinkTracker', {attributePrefix: 'data-'});
 <?php
 // taken from here: http://www.labnol.org/internet/track-404-error-pages/13509/
 if ( is_404() ) { ?>

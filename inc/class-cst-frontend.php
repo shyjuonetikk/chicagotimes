@@ -27,6 +27,7 @@ class CST_Frontend {
 		'sports'            => 'uDnVEu1d',
 	);
 	public static $pgs_section_slugs = array();
+	private $default_image_partial_url = '/assets/images/favicons/mstile-144x144.png';
 
 	public static $triple_lift_section_slugs = array(
 		'dear-abby',
@@ -193,6 +194,7 @@ class CST_Frontend {
 					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
 					$analytics_data = array(
 						'is_singular'     => is_singular(),
 					);
@@ -977,20 +979,64 @@ class CST_Frontend {
                 }
             }
             ?>
-            <div class="large-10 medium-offset-1 post-recommendations">
-				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
-            <?php foreach( $result->pages as $item ) { ?>
-  				<?php
+            <div class="large-12 medium-offset-1 cst-recommendations">
+            <div class="columns">
+            	<hr>
+				<h3>Previously from Chicago Sun-Times <?php esc_html_e( $section_name ); ?></h3>
+				<hr>
+			</div>
+            <?php foreach( $result->pages as $item ) {
+				$chart_beat_top_content = (array) $item->metrics->post_id->top;
+				$top_item = [];
+				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
+					$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
+				}
+				if ( isset( $top_item[0] ) ) {
+					$image_url = $this->get_remote_featured_image( $top_item[0] );
+				} else {
+					$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
+				}
 				$temporary_title       = explode( '|', $item->title );
 				$article_curated_title = $temporary_title[0];
 				?>
-            	<div class="columns large-3 medium-6 small-12 recommended-post">
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>">
-						<?php echo esc_html( $article_curated_title ); ?>
-					</a>
+            	<div class="cst-recommended-content columns medium-6 small-12">
+					<div class="cst-article">
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click image">
+						<div class="cst-recommended-image -amp-layout-size-defined">
+							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+						</div>
+						</a>
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click text link">
+							<span><?php echo esc_html( $article_curated_title ); ?></span>
+						</a>
+					</div>
 				</div>
             <?php }
+            ?>			</div>
+<?php
 
+	}
+
+		/**
+	 * @param $post_id
+	 *
+	 * @return bool|string
+	 *
+	 * Use WordPress(.com) REST API to retrieve featured image url
+	 */
+	private function get_remote_featured_image( $post_id ) {
+		$featured_image_url = false;
+		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
+		$response = wpcom_vip_file_get_contents( $remote_url );
+		if ( ! is_wp_error( $response ) ) {
+			$pages = json_decode( $response );
+			if ( '' !== $pages->featured_image ) {
+				$featured_image_url = $pages->featured_image . '?w=100';
+			} else {
+				return $featured_image_url;
+			}
+		}
+		return $featured_image_url;
 	}
 
 	public function cst_nativo_determine_positions($slug) {
