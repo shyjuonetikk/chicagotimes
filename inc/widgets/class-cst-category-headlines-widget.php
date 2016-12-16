@@ -132,7 +132,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 					<div class="slide">
 						<div class="slide-inner">
 							<?php if ( $obj->get_featured_image_url() ) : ?>
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
+								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-image">
 									<div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url( 'chiwire-header-medium' ) ); ?>')">
 										<div class="gradient-overlay"></div>
 									</div>
@@ -143,7 +143,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 							<?php if ( $section = $obj->get_primary_section() ) : ?>
 								<h4><?php echo esc_html( $section->name ); ?></h4>
 							<?php endif; ?>
-							<h3><a href="<?php echo esc_url( $obj->the_permalink() ); ?>"><?php esc_html( $obj->the_title() ); ?></a></h3>
+							<h3><a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-text"><?php esc_html( $obj->the_title() ); ?></a></h3>
 						</div>
 					</div>
 				<?php }
