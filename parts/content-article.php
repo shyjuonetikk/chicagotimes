@@ -17,7 +17,8 @@
 		<?php endif; ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
 		<div class="post-content columns medium-11 medium-offset-1 p402_premium end" itemprop="articleBody">
-		<?php 
+		<?php
+		if ( ! CST()->frontend->include_triple_lift( $obj ) ) {
 			$chatter_selection = $obj->get_chatter_widget_selection();
 
 			if ( $chatter_selection ) : 
@@ -58,17 +59,17 @@
 				endif;
 			endif;
 
-			$yieldmo_tag = $obj->get_yieldmo_tag();
-            if( $yieldmo_tag ) {
-                $yieldmo_printed_tag = CST()->yieldmo_tags->ym_get_demo_tag( $yieldmo_tag );
-                esc_html_e( $yieldmo_printed_tag );
-            }
-
 		?>
-		<script>
-			window.SECTIONS_FOR_YIELD_MO = <?php echo wp_json_encode( CST_Frontend::$post_sections ); ?>;
-			window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
+		<script type="text/javascript">
+		  window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
         </script>
+			<?php } ?>
+			<?php
+			$yieldmo_tag = $obj->get_yieldmo_tag();
+			if ( $yieldmo_tag ) {
+				$yieldmo_printed_tag = CST()->yieldmo_tags->ym_get_demo_tag( $yieldmo_tag );
+				esc_html_e( $yieldmo_printed_tag );
+			} ?>
 			<?php $obj->the_content(); ?>
 			<?php
 			$user_logins = array();

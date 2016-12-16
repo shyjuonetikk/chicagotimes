@@ -29,7 +29,7 @@ class CST_DFP_Handler {
 	 *
 	 * Create a generic markup unit
 	 */
-	public function unit( $index, $type = '', $class = '', $deprecated = 640 ) {
+	public function unit( $index, $type = '', $class = '' ) {
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-atf-leaderboard';
 		}
@@ -55,7 +55,49 @@ class CST_DFP_Handler {
 			esc_attr( $type . '-' . intval( $index ) )
 		);
 	}
-
+	/**
+	 * @param $index
+	 * @param string $type
+	 * @param string $class
+	 * @param string $mapping
+	 * @param string $targeting_name
+	 *
+	 * @return string
+	 *
+	 * Create a dynamic generic markup unit
+	 */
+	public function dynamic_unit( $index, $type = '', $class = '', $mapping = '', $targeting_name = 'atf leaderboard' ) {
+		if ( empty( $type ) ) {
+			$type = 'div-gpt-placement';
+		}
+		if ( empty( $class ) ) {
+			$class = 'dfp-placement';
+		}
+		if ( empty( $mapping ) ) {
+			$mapping = 'article_mapping';
+		}
+		if ( ! isset( $index ) ) {
+			$index = 1;
+		}
+		return sprintf(
+			'
+<div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="%4$s"></div>
+<script>
+googletag.cmd.push(function() {
+	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [728, 90], \'%1$s\')
+	.defineSizeMapping(%3$s)
+	.addService(googletag.pubads())
+	.setTargeting("pos", "%4$s");
+	googletag.display("%1$s");
+	});
+</script>
+',
+			esc_attr( $type . '-' . intval( $index ) ),
+			esc_attr( $class ),
+			esc_attr( $mapping ),
+			esc_attr( $targeting_name )
+		);
+	}
 	/**
 	 * @param $index
 	 * @param string $type
@@ -248,11 +290,18 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
+  var article_lead_unit_mapping, cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
   googletag.cmd.push(function () {
-    var super_leaderboard_mapping = googletag.sizeMapping().
+    article_lead_unit_mapping = googletag.sizeMapping()
+      .addSize([992, 0], [728, 90]) //desktop
+      .addSize([0, 0], [320, 50]) //other
+	  .addSize([800, 1200], [ [728,90] ] ) //tablet
+	  .addSize([768, 1024], [ [728,90] ] ) //tablet
+	  .build();
+    super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
     addSize([992, 0], [ [728, 90], [970, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
@@ -261,7 +310,7 @@ var dfp = {
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
-    var billboard_mapping = googletag.sizeMapping().
+    billboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //tablet
     addSize([992, 0], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
@@ -270,26 +319,44 @@ var dfp = {
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
-    var cube_mapping = googletag.sizeMapping()
-	  .addSize([992, 0], [[300, 250]]) //desktop
-	  .addSize([768, 0], [[300, 250]]) //tablet
-	  .addSize([640, 480], [300, 250]) //phone
-	  .addSize([375, 667], [300, 250]) //phone
-	  .addSize([0, 0], [320, 50], [300, 50]) //other
+    cube_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([1025, 0], [[300, 250]]) //desktop
 	  .build();
     var ym_craig_mapping = googletag.sizeMapping()
 	  .addSize([992, 0], [728, 90]) //desktop
 	  .addSize([0, 0], [300, 250]) //other
 	  .build();
+    article_mapping = googletag.sizeMapping().
+    addSize([992, 0], [ [728, 90] ] ). //desktop
+    addSize([800, 1200], [ [728,90] ] ). //tablet
+    addSize([768, 1024], [ [728,90] ] ). //tablet
+    addSize([640, 480], [300, 50], [320, 50]). //phone
+    addSize([375, 667], [300, 50], [320, 50]). //phone
+    addSize([0, 0], [300, 50], [320, 50]). //other
+    build();
+    sf_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([992, 0], [[300, 250], [300, 600]]) //desktop
+      .addSize([768, 0], [[300, 250], [300, 600]]) //tablet
+      .build();
+    sf_inline_mapping = googletag.sizeMapping()
+      .addSize([992, 0], [[300, 250]]) //desktop
+      .addSize([768, 0], [[300, 250]]) //tablet
+      .addSize([640, 0], [[320, 50]]) //phone
+      .addSize([414, 0], [[320, 50]]) //phone
+      .addSize([375, 0], [[320, 50]]) //phone
+      .addSize([0, 0], [320, 50]) //other
+      .build();
     googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
       .addService(googletag.pubads()).setTargeting("pos", "1x1");
+    if (dfp.front_page) {
     googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
-    if (dfp.front_page) {
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
         .defineSizeMapping(billboard_mapping)
         .addService(googletag.pubads())
@@ -340,12 +407,7 @@ var dfp = {
         .setTargeting("pos", "Super leaderboard 2 970x90")
         .setCollapseEmptyDiv(true, true);
     }
-    if (dfp.section || dfp.article) {
-      googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-5')
-        .addService(googletag.pubads()).setTargeting("pos", "rr cube 5");
-      googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-6')
-        .addService(googletag.pubads()).setTargeting("pos", "rr cube 6");
-    }
+
     if (dfp.article) {
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-atf-leaderboard-1')
         .addService(googletag.pubads())
@@ -353,11 +415,6 @@ var dfp = {
       CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot(adUnitPath, [160, 600], 'div-gpt-sky-scraper-1')
         .addService(googletag.pubads())
         .setTargeting("pos", "SkyScraper");
-      CSTAdTags['div-gpt-ym-craig'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-ym-craig')
-        .defineSizeMapping(ym_craig_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos","ym craig")
-        .setCollapseEmptyDiv(true,true);
     }
     if(dfp.gallery) {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')

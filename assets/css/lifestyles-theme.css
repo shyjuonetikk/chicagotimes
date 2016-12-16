@@ -203,12 +203,17 @@ body.error404 {
     body.error404 .home-page-link:hover, body.error404 .home-page-link:active, body.error404 .home-page-link:visited {
       color: #282828; }
 
-.vip-local div[id^="div-gpt-"] {
+.vip-local div[id^="div-gpt-"], .vip-local .tcx_widget {
   border: 1px solid #cccccc;
   color: #333333;
   font-size: 0.7rem; }
-  .vip-local div[id^="div-gpt-"][data-visual-label]:before {
+  .vip-local div[id^="div-gpt-"][data-visual-label]:before, .vip-local .tcx_widget[data-visual-label]:before {
     content: attr(data-visual-label) ": "; }
+.vip-local .tcx_widget {
+  height: 600px;
+  background-color: white; }
+  .vip-local .tcx_widget:before {
+    content: "tcx widget"; }
 
 #div-gpt-ym-craig {
   margin-top: 1.25rem; }
@@ -216,6 +221,13 @@ body.error404 {
 #div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }
+
+.section-front-anchor {
+  top: 91px;
+  position: fixed; }
+
+.section-front-free-me {
+  position: relative; }
 
 .dfp.dfp-centered {
   margin-left: auto;
@@ -1201,8 +1213,8 @@ article.post {
       display: inline-block; }
   @media only screen and (min-width:40.063em) {
     article.post {
-      margin-bottom: 0px;
-      margin-top: 30px; }
+      margin-bottom: 15px;
+      margin-top: 15px; }
       article.post h1 {
         font-size: 2rem;
         line-height: 2.5rem;
@@ -1271,6 +1283,8 @@ article.post {
     position: relative;
     float: left;
     margin-top: 20px; }
+  article.post .pgs-container {
+    margin: 5px 0 0; }
   article.post .ym {
     overflow: hidden; }
 
@@ -1304,15 +1318,18 @@ article.post {
 @media only screen and (min-width:64.063em) {
   .single .taboola-container {
     max-width: 615px; } }
+@media 64.063em, 90em {
+  .single .taboola-container {
+    max-width: 800px; } }
 @media only screen and (min-width:48em) and (max-width:64em) {
   .single .taboola-container {
-    max-width: 600px; } }
+    max-width: 700px; } }
 @media only screen and (min-width:40.063em) and (max-width:47.398em) {
   .single .taboola-container {
     max-width: 500px; } }
 @media only screen and (max-width: 40em) {
   .single .taboola-container {
-    max-width: 300px; } }
+    max-width: 100%; } }
 .single .ad-container {
   position: relative;
   display: block;
@@ -1890,7 +1907,8 @@ section#subscribe {
         .sidebar#post-sidebar ul.latest-posts li.post:last-child {
           margin-bottom: 0px; }
   .sidebar ul {
-    list-style-type: none; }
+    list-style-type: none;
+    margin: 0; }
   .sidebar .ndn_embed {
     min-width: 300px;
     min-height: 168px;
@@ -2011,15 +2029,18 @@ section#subscribe {
     font-weight: 700; }
     .widgets ul.widget-recent-posts li, .widgets ul.widget-chartbeat-currently-viewing li {
       background: white;
-      margin-bottom: 2px;
-      padding: 5px; }
+      margin-bottom: 5px;
+      padding: 5px;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      float: none;
+      overflow: hidden; }
       .widgets ul.widget-recent-posts li > a, .widgets ul.widget-chartbeat-currently-viewing li > a {
         display: block; }
       .widgets ul.widget-recent-posts li a, .widgets ul.widget-chartbeat-currently-viewing li a {
         color: #282828; }
     .widgets ul.widget-recent-posts li:hover a, .widgets ul.widget-recent-posts li:hover span, .widgets ul.widget-recent-posts li:hover, .widgets ul.widget-chartbeat-currently-viewing li:hover a, .widgets ul.widget-chartbeat-currently-viewing li:hover span, .widgets ul.widget-chartbeat-currently-viewing li:hover {
-      background: #873afa;
-      color: white; }
+      background: #f0f0f0;
+      color: #282828; }
     .widgets ul.widget-recent-posts .section, .widgets ul.widget-chartbeat-currently-viewing .section {
       color: #873afa;
       text-transform: uppercase;
@@ -2205,7 +2226,8 @@ section#subscribe {
     .widgets .search-widget #search-button:hover {
       color: #873afa; }
   .widgets li.ap_ncaa_cbb_scoreboard_widget, .widgets li.ap_ncaa_cbb_news_widget {
-    overflow: hidden; }
+    overflow: hidden;
+    margin-bottom: 10px; }
     .widgets li.ap_ncaa_cbb_scoreboard_widget h1.widget-title, .widgets li.ap_ncaa_cbb_news_widget h1.widget-title {
       background-color: #282828 !important;
       color: white !important;
@@ -3547,6 +3569,9 @@ footer {
 #main .video-injection {
   margin-bottom: 0;
   margin-top: 30px; }
+
+.upper-heading {
+  margin-bottom: 30px; }
 
 .lifestyles header#header section#primary-navigation a#newsfeed-logo img {
   width: 174px; }
