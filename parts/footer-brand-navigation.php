@@ -17,8 +17,8 @@ wp_nav_menu( array(
 );
 } else { ?>
 	<ul>
-		<li><a href="<?php echo esc_url( '/about-us' ); ?>">About us</a></li>
-		<li><a href="<?php echo esc_url( '/contact-us' ); ?>">Contact us</a></li>
+		<li><a href="<?php echo esc_url( '/about-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about">About us</a></li>
+		<li><a href="<?php echo esc_url( '/contact-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-contact">Contact us</a></li>
 	</ul>
 <?php }	?>
 
@@ -33,8 +33,8 @@ wp_nav_menu( array(
 );
 } else { ?>
 	<ul>
-		<li><a href="<?php echo esc_url( '/about-our-ads' ); ?>">About our ads</a></li>
-		<li><a href="<?php echo esc_url( '/privacy-policy' ); ?>">Privacy Policy</a></li>
+		<li><a href="<?php echo esc_url( '/about-our-ads' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about-ads">About our ads</a></li>
+		<li><a href="<?php echo esc_url( '/privacy-policy' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-privacy">Privacy Policy</a></li>
 	</ul>
 <?php }	?>
 <?php if ( has_nav_menu( 'page-footer-3' ) ) {
@@ -48,13 +48,13 @@ wp_nav_menu( array(
 );
 } else { ?>
 	<ul>
-		<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>">Terms of use</a></li>
-		<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank">Order Back Issues</a>&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></li>
+		<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-terms">Terms of use</a></li>
+		<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-back-order">Order Back Issues</a>&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></li>
 	</ul>
 <?php }	?>
 	</div>
 	<div class="small-12 medium-2 columns">
-		<?php echo CST()->get_template_part( 'social-links'); ?>
+		<?php echo CST()->get_template_part( 'social-links' ); ?>
 	</div>
 </div>
 </footer>
