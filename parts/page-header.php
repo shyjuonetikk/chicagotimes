@@ -37,10 +37,10 @@ if( is_single() ) {
 	<?php get_template_part( 'parts/dfp/dfp-interstitial' ); ?>
 	<div class="inner-wrap">
 	<?php 
-		if( is_home() || is_front_page() || is_tax() ) { 
-			get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
-			echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
-		}
+	if ( is_home() || is_front_page() || is_tax() ) {
+		get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
+		echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
+	}
 	?>
 <header id="header">
 
@@ -50,22 +50,22 @@ if( is_single() ) {
 	</section>
 	<section id="primary-navigation" class="primary-normal">
 		<?php $weather = CST()->frontend->get_weather(); ?>
-		<?php if( ! empty( $weather ) ) : ?>
+		<?php if ( ! empty( $weather ) ) : ?>
 		<div id="weather" class="show-for-medium-up">
-			<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+			<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link"  data-on="click" data-event-category="navigation" data-event-action="navigate-weather">
 				<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
 				<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
 			</a>
 		</div>
 		<?php endif; ?>
-		<?php get_template_part( 'parts/social-links'); ?>
+		<?php get_template_part( 'parts/social-links' ); ?>
 
 		<a href="#" class="left-off-canvas-toggle" id="burger-bar">
 			<i class="fa fa-bars"></i>
 		</a>
 
 		<div id="logo-wrap">
-			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/company-logo'); ?></a>
+			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><?php get_template_part( 'parts/images/company-logo' ); ?></a>
 			<?php get_template_part( 'parts/images/main-site-logo'); ?>
 
 			<div id="tablet-home">
@@ -164,7 +164,7 @@ if ( is_singular() ) {
 		<?php do_action( "cst_section_head_{$action_slug}" ); ?>
 		<section id="rss" class="row grey-background">
 			<div class="large-8 columns">
-				<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss">Subscribe to <?php echo esc_html_e( $section_obj->name ); ?></a>
+				<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss">Subscribe to <?php esc_html_e( $section_obj->name ); ?></a>
 			</div>
 		</section>
 	<?php endif; ?>

@@ -476,6 +476,7 @@ class CST {
         } );
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
+		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
 
 	}
 
@@ -1731,6 +1732,20 @@ class CST {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
 			( is_singular() || is_tax() );
+	}
+
+	/**
+	 * @param $atts - HTML attributes in an associative array
+	 * @param $item - Object containing item details. E.G: If the link is to a page $item will be a WP_Post object
+	 * @param $args - Array containing config with desired markup of nav item
+	 * @return mixed
+	 */
+	function navigation_link_tracking( $atts, $item, $args ) {
+
+		$atts['data-on'] = 'click';
+		$atts['data-event-category'] = 'navigation - ' . $args->menu->name;
+		$atts['data-event-action'] = 'navigate';
+		return $atts;
 	}
 }
 

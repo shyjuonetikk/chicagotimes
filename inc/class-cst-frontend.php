@@ -27,6 +27,7 @@ class CST_Frontend {
 		'sports'            => 'uDnVEu1d',
 	);
 	public static $pgs_section_slugs = array();
+	private $default_image_partial_url = '/assets/images/favicons/mstile-144x144.png';
 
 	public static $triple_lift_section_slugs = array(
 		'dear-abby',
@@ -193,6 +194,7 @@ class CST_Frontend {
 					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
 					$analytics_data = array(
 						'is_singular'     => is_singular(),
 					);
@@ -897,7 +899,7 @@ class CST_Frontend {
 						if ( 'image' == $obj->get_featured_media_type() ) {
 							$featured_image_id = $obj->get_featured_image_id();
 							if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
 								<?php echo $attachment->get_html( 'homepage-columns' ); ?>
 								</a>
 								<?php
@@ -913,7 +915,7 @@ class CST_Frontend {
 					$count--;
 					?>
 					<li>
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</li>
@@ -962,35 +964,80 @@ class CST_Frontend {
 	}
 
 	/**
-	 * Fetch and output content from the specified section
-	 * @param $content_query
+	 * Previously from / recommendations content block
+	 * @param $feed_url
+	 * @param $section_name
 	 */
 	public function cst_post_recommendation_block( $feed_url, $section_name ) {
 
 		$cache_key = md5( $feed_url );
-            $result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-            if ( $result === false ) {
-                $response = wpcom_vip_file_get_contents( $feed_url );
-                if ( ! is_wp_error( $response ) ) {
-                    $result = json_decode( $response );
-                    wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
-                }
-            }
-            ?>
-            <div class="large-10 medium-offset-1 post-recommendations">
-				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
-            <?php foreach( $result->pages as $item ) { ?>
-  				<?php
+			$result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+			if ( $result === false ) {
+				$response = wpcom_vip_file_get_contents( $feed_url );
+				if ( ! is_wp_error( $response ) ) {
+					$result = json_decode( $response );
+					wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+				}
+			}
+			?>
+			<div class="large-12 medium-offset-1 cst-recommendations">
+				<div class="columns">
+			 	<hr>
+				<h3>Previously from Chicago Sun-Times <?php esc_html_e( $section_name ); ?></h3>
+				<hr>
+			</div>
+			<?php foreach( $result->pages as $item ) {
+				$chart_beat_top_content = (array) $item->metrics->post_id->top;
+				$top_item = [];
+				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
+					$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
+				}
+				if ( isset( $top_item[0] ) ) {
+					$image_url = $this->get_remote_featured_image( $top_item[0] );
+				} else {
+					$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
+				}
 				$temporary_title       = explode( '|', $item->title );
 				$article_curated_title = $temporary_title[0];
 				?>
-            	<div class="columns large-3 medium-6 small-12 recommended-post">
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>">
-						<?php echo esc_html( $article_curated_title ); ?>
-					</a>
+				<div class="cst-recommended-content columns medium-6 small-12">
+					<div class="cst-article">
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
+						<div class="cst-recommended-image -amp-layout-size-defined">
+							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+						</div>
+						</a>
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
+							<span><?php echo esc_html( $article_curated_title ); ?></span>
+						</a>
+					</div>
 				</div>
-            <?php }
+			<?php } ?>
+			</div>
+<?php
 
+	}
+
+		/**
+	 * @param $post_id
+	 *
+	 * @return bool|string
+	 *
+	 * Use WordPress(.com) REST API to retrieve featured image url
+	 */
+	private function get_remote_featured_image( $post_id ) {
+		$featured_image_url = false;
+		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
+		$response = wpcom_vip_file_get_contents( $remote_url );
+		if ( ! is_wp_error( $response ) ) {
+			$pages = json_decode( $response );
+			if ( '' !== $pages->featured_image ) {
+				$featured_image_url = $pages->featured_image . '?w=100';
+			} else {
+				return $featured_image_url;
+			}
+		}
+		return $featured_image_url;
 	}
 
 	public function cst_nativo_determine_positions($slug) {
@@ -1134,12 +1181,13 @@ class CST_Frontend {
 	* @param $author
 	* @param $primary_section
 	* @param $image_size
+	* @param  $tracking_location_name
 	* Display an article container and related markup in the homepage wells
 	*/
-	public function well_article_container_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large' ) {
+	public function well_article_container_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large', $tracking_location_name ) {
 ?>
 <div class="article-container">
-	<?php $this->well_article_markup( $obj, $author, $primary_section, $image_size ); ?>
+	<?php $this->well_article_markup( $obj, $author, $primary_section, $image_size, $tracking_location_name ); ?>
 </div>
 <?php
 	}
@@ -1149,11 +1197,12 @@ class CST_Frontend {
 	* @param $author
 	* @param $primary_section
 	* @param $image_size
+	* @param  $tracking_location_name
 	* Display an article anchor markup in the homepage wells
 	*/
-	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-small' ) {
+	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-small', $tracking_location_name ) {
 ?>
-	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
+	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-<?php echo esc_attr( $tracking_location_name ); ?>" >
 		<?php
 		if ( $featured_image_id = $obj->get_featured_image_id() ) {
 			if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {

@@ -18,7 +18,7 @@
                     }
             ?>
                     <div class="large-12 medium-12 columns main-article-container">
-						<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-large' ); ?>
+						<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-large', 'hp-main-well' ); ?>
                     </div>
                     <?php
                 }
@@ -38,7 +38,7 @@
                 ?>
                         <div class="large-6 medium-6 columns">
                             <div class="article-container">
-								<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section ); ?>
+								<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-main-well' ); ?>
                             </div>
                         </div>
                         <?php
@@ -58,7 +58,7 @@
                 ?>
                         <div class="large-6 medium-6 columns">
                             <div class="article-container">
-	                            <?php CST()->frontend->well_article_markup( $obj, $author, $primary_section ); ?>
+	                            <?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-main-well' ); ?>
                             </div>
                         </div>
                         <?php
