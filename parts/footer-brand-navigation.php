@@ -2,7 +2,7 @@
 	<hr>
 <div class="row footer-upper">
 	<div class="small-12 medium-3 columns">
-		<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/company-logo'); ?></a>
+		<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><?php get_template_part( 'parts/images/company-logo'); ?></a>
 		<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s Chicago Sun-Times', date( 'Y' ) ); ?></p>
 	</div>
 	<div class="small-12 medium-7 columns">

@@ -12,7 +12,7 @@
 							$author          = CST()->frontend->get_article_author( $obj );
 							?>
 							<div class="large-6 medium-6 small-12 columns">
-								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small' ); ?>
+								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-secondary-ul' ); ?>
 							</div>
 							<?php
 						}
@@ -22,7 +22,7 @@
 							$author          = CST()->frontend->get_article_author( $obj );
 							?>
 							<div class="large-6 medium-6 small-12 columns">
-								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small' ); ?>
+								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-secondary-ur' ); ?>
 							</div>
 							<?php
 						}
@@ -46,7 +46,7 @@
 							$author          = CST()->frontend->get_article_author( $obj );
 							?>
 							<div class="large-6 medium-6 small-12 columns c">
-								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small' ); ?>
+								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-secondary-ll' ); ?>
 							</div>
 							<?php
 						}
@@ -58,7 +58,7 @@
 							$author          = CST()->frontend->get_article_author( $obj );
 							?>
 							<div class="large-6 medium-6 small-12 columns d">
-								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small' ); ?>
+								<?php CST()->frontend->well_article_container_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-secondary-lr' ); ?>
 							</div>
 							<?php
 						}

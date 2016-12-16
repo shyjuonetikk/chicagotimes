@@ -899,7 +899,7 @@ class CST_Frontend {
 						if ( 'image' == $obj->get_featured_media_type() ) {
 							$featured_image_id = $obj->get_featured_image_id();
 							if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
 								<?php echo $attachment->get_html( 'homepage-columns' ); ?>
 								</a>
 								<?php
@@ -915,7 +915,7 @@ class CST_Frontend {
 					$count--;
 					?>
 					<li>
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</li>
@@ -1181,12 +1181,13 @@ class CST_Frontend {
 	* @param $author
 	* @param $primary_section
 	* @param $image_size
+	* @param  $tracking_location_name
 	* Display an article container and related markup in the homepage wells
 	*/
-	public function well_article_container_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large' ) {
+	public function well_article_container_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large', $tracking_location_name ) {
 ?>
 <div class="article-container">
-	<?php $this->well_article_markup( $obj, $author, $primary_section, $image_size ); ?>
+	<?php $this->well_article_markup( $obj, $author, $primary_section, $image_size, $tracking_location_name ); ?>
 </div>
 <?php
 	}
@@ -1196,11 +1197,12 @@ class CST_Frontend {
 	* @param $author
 	* @param $primary_section
 	* @param $image_size
+	* @param  $tracking_location_name
 	* Display an article anchor markup in the homepage wells
 	*/
-	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-small' ) {
+	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-small', $tracking_location_name ) {
 ?>
-	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>">
+	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-<?php echo esc_attr( $tracking_location_name ); ?>" >
 		<?php
 		if ( $featured_image_id = $obj->get_featured_image_id() ) {
 			if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
