@@ -90,15 +90,18 @@ body.post-gallery-lightbox-active {
 	#cst-gallery-slides-sidebar {
 		color: $white;
 		position: absolute;
-		bottom: 0;
+		top: 0;
 		left: 0;
 		right: 0;
 		background: $black;
 		border-left: 2px solid $white;
+		padding: 15px 20px 10px;
 
 		#cst-gallery-title {
 			margin-top: 20px;
-
+			@media #{$medium-down} and (orientation: landscape){
+				margin-top:0;
+			}
 			h2 {
 				font-size: 1.25rem;
 				line-height: 1.25rem;
@@ -112,11 +115,13 @@ body.post-gallery-lightbox-active {
 			font-size: 1rem;
 			line-height: 1.5rem;
 			padding-top: 10px;
-			padding-bottom: 30px;
+			padding-bottom: 20px;
 			z-index: 99999;
 			height: 40%;
 			overflow: auto;
-			
+			border-top: 1px solid white;
+			border-bottom: 1px solid white;
+
 			@media #{$small-only} {
 				font-size: 0.75rem;
 				line-height: 1rem;
@@ -138,11 +143,21 @@ body.post-gallery-lightbox-active {
 		}
 
 	}
-
-	#cst-gallery-slides-sidebar {
-		padding: 30px;
+	@media #{$xmedium-down} {
+		#cst-gallery-slides-wrap {
+			margin-top:235px;
+		}
 	}
-
+	@media #{$xmedium-down} and (orientation: landscape) {
+		#cst-gallery-slides-wrap {
+			margin-top:128px;
+		}
+	}
+	@media #{$medium-down} and (orientation: landscape) {
+		#cst-gallery-slides-wrap {
+			margin-top: 38px;
+		}
+	}
 	@media #{$large-up} {
 
 		#cst-gallery-slides-sidebar {
