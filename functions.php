@@ -1731,7 +1731,7 @@ class CST {
 	public function jetpack_infinite_support() {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular() || is_tax() );
+			( is_singular() || is_tax() || is_archive() );
 	}
 
 	/**
