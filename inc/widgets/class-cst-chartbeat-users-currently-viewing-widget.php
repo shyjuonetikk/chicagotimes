@@ -39,7 +39,7 @@ class CST_Chartbeat_Currently_Viewing_Widget extends WP_Widget {
 				$article_curated_title = $temporary_title[0];
 				?>
 				<li>
-					<a href="<?php echo esc_url( $item->path ); ?>">
+					<a href="<?php echo esc_url( $item->path ); ?>"  data-on="click" data-event-category="content" data-event-action="click-chartbeat-widget">
 						<span class='section'><?php echo esc_html( $item->sections[0] ) ?></span><br/>
 						<span class='title'><?php echo esc_html( $article_curated_title ); ?></span>
 					</a>
