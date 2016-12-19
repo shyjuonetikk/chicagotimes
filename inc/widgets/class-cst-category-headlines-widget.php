@@ -113,7 +113,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		global $homepage_main_well_posts;
+		global $category_headline_posts;
 		$widget_posts = array();
 
 		for ( $count = 0; $count < count( $instance ); $count ++ ) {
@@ -124,9 +124,9 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 
 		if ( ! empty( $widget_posts ) ) {
 
-			$homepage_main_well_posts = $this->get_headline_posts( $widget_posts );
-			foreach ( $homepage_main_well_posts as $sport_headline ) {
-				$obj = \CST\Objects\Post::get_by_post_id( $sport_headline );
+			$category_headline_posts = $this->get_headline_posts( $widget_posts );
+			foreach ( $category_headline_posts as $headline ) {
+				$obj = \CST\Objects\Post::get_by_post_id( $headline );
 				if ( $obj ) {
 					?>
 					<div class="slide">
