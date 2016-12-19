@@ -949,7 +949,7 @@ class CST_Frontend {
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 				?>
 					<div class="columns large-3 medium-6 small-12 recommended-post">
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</div>
