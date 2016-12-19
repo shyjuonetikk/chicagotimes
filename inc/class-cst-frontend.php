@@ -983,7 +983,7 @@ class CST_Frontend {
 			<div class="large-12 medium-offset-1 cst-recommendations">
 				<div class="columns">
 			 	<hr>
-				<h3>Previously from Chicago Sun-Times <?php esc_html_e( $section_name ); ?></h3>
+				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 				<hr>
 			</div>
 			<?php foreach( $result->pages as $item ) {
