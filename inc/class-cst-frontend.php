@@ -194,7 +194,7 @@ class CST_Frontend {
 					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
-					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-ga-autotrack', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
 					$analytics_data = array(
 						'is_singular'     => is_singular(),
 					);
