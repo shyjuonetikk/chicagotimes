@@ -980,7 +980,7 @@ class CST_Frontend {
 				}
 			}
 			?>
-			<div class="large-12 medium-offset-1 cst-recommendations">
+			<div class="medium-11 medium-offset-1 cst-recommendations">
 				<div class="columns">
 			 	<hr>
 				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
