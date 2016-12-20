@@ -34,14 +34,11 @@ window.AggregoChatter = {
         if(paragraphsCount >= 1) {
           var anchor_div_id = 'agg-collage-' + anchorTag + "-" + postContent.data('cst-post-id');
           aggregoChatterContentNode = this._aggregoChatterHTMLTag(anchorTag);
-          if( jQuery(paragraphs[2]).hasClass('wp-caption-text') ) {
-            jQuery(paragraphs[1]).append(aggregoChatterContentNode);
-          } else {
-            jQuery(paragraphs[2]).append(aggregoChatterContentNode);
-          }
+          var chatter_div = jQuery('#post-'+postContent.data('cst-post-id')).find('.agg-chatter');
+          chatter_div.append(aggregoChatterContentNode)
 
           var title = jQuery( '<h4 />' );
-              title.attr( 'class', 'agg-sponsored' );
+              title.attr( 'class', 'agg-sponsored columns medium-11 medium-offset-1' );
               title.text( 'Promoted Stories from ');
               chatter = jQuery( '<span />' );
               chatter.text( domainTag + 'Chatter' );

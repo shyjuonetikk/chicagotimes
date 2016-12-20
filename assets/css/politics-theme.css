@@ -1514,37 +1514,6 @@ article.post {
   @media only screen and (min-width:40.063em) and (max-width:47.398em) {
     .single .ndn_embed {
       height: 414px; } }
-.single .agg-collage {
-  margin-top: -5px;
-  border-top: 1px solid #f0f0f0;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 6px 0; }
-.single .agg-collage .agg-collage-version-mid_article_three_pack .post-thumbnail {
-  height: 76%;
-  padding-bottom: 77% !important;
-  background-position: top left !important;
-  -webkit-border-radius: 0 !important;
-  -moz-border-radius: 0 !important;
-  border-radius: 0 !important;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  background-size: contain !important;
-  background-repeat: no-repeat; }
-.single .agg-collage .agg-collage-post {
-  margin: 0;
-  width: 30%; }
-  .single .agg-collage .agg-collage-post div {
-    width: 85%; }
-.single h4.agg-sponsored {
-  margin-top: 20px;
-  font-size: 1rem;
-  color: #9a9a9a;
-  font-weight: 600;
-  text-transform: uppercase; }
-  .single h4.agg-sponsored span {
-    text-transform: capitalize;
-    color: #29aae2; }
 .single .post-recommendations {
   position: relative;
   margin: 0 auto;
@@ -1575,6 +1544,39 @@ article.post {
   .single .post .newsletter-sign-up a.button {
     margin: 0;
     padding: 0.8rem; }
+
+article[id^="post-"] .agg-collage {
+  margin-top: -5px;
+  padding: 6px 0; }
+article[id^="post-"] .agg-chatter {
+  float: left; }
+article[id^="post-"] .agg-collage .agg-collage-container {
+  max-width: 615px;
+  margin: 0 auto; }
+article[id^="post-"] .agg-collage .agg-collage-version-mid_article_three_pack .post-thumbnail {
+  height: 76%;
+  padding-bottom: 89% !important;
+  background-position: top left !important;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0 !important;
+  border-radius: 0 !important;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-size: contain !important;
+  background-repeat: no-repeat; }
+article[id^="post-"] .agg-collage .agg-collage-post {
+  margin: 0;
+  width: 32.4%; }
+article[id^="post-"] h4.agg-sponsored {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #9a9a9a;
+  font-weight: 600;
+  text-transform: uppercase; }
+  article[id^="post-"] h4.agg-sponsored span {
+    text-transform: capitalize;
+    color: #29aae2; }
 
 section#subscribe {
   background: white;
