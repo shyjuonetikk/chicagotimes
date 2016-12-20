@@ -237,10 +237,27 @@ body.post-gallery-lightbox-active {
 				top: 130px !important;
 			}
 		}
+		@media #{$small-only} {
+			.slick-slide img {
+				max-height: 91% !important;
+				top: 1px !important;
+			}
+		}
+		@media #{$small-only} and (orientation: portrait ){
+			.slick-slide img {
+				top: 55px !important;
+			}
+		}
 		@media #{$xmedium-only} and (orientation: landscape ){
 			.slick-prev,
 			.slick-next {
 				top: 12%;
+			}
+		}
+		@media #{$medium-only} and (orientation: landscape ){
+			.slick-slide img {
+				max-height: 91% !important;
+				top: 1px !important;
 			}
 		}
 		@media #{$small-only}{
