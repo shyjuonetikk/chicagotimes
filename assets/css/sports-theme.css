@@ -2374,13 +2374,17 @@ body.post-gallery-lightbox-active {
   #cst-gallery-wrap #cst-gallery-slides-sidebar {
     color: white;
     position: absolute;
-    bottom: 0;
+    top: 0;
     left: 0;
     right: 0;
     background: #282828;
-    border-left: 2px solid white; }
+    border-left: 2px solid white;
+    padding: 15px 20px 10px; }
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title {
       margin-top: 20px; }
+      @media only screen and (max-width:47.398em) and (orientation: landscape) {
+        #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title {
+          margin-top: 0; } }
       #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title h2 {
         font-size: 1.25rem;
         line-height: 1.25rem;
@@ -2391,10 +2395,12 @@ body.post-gallery-lightbox-active {
       font-size: 1rem;
       line-height: 1.5rem;
       padding-top: 10px;
-      padding-bottom: 30px;
+      padding-bottom: 20px;
       z-index: 99999;
       height: 40%;
-      overflow: auto; }
+      overflow: auto;
+      border-top: 1px solid white;
+      border-bottom: 1px solid white; }
       @media only screen and (max-width: 40em) {
         #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
           font-size: 0.75rem;
@@ -2408,8 +2414,18 @@ body.post-gallery-lightbox-active {
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-ad {
       position: absolute;
       bottom: 30px; }
-  #cst-gallery-wrap #cst-gallery-slides-sidebar {
-    padding: 30px; }
+  @media only screen and (max-width:64em) {
+    #cst-gallery-wrap #cst-gallery-slides-wrap {
+      margin-top: 260px; } }
+  @media only screen and (max-width:64em) and (orientation: landscape) {
+    #cst-gallery-wrap #cst-gallery-slides-wrap {
+      margin-top: 128px; } }
+  @media only screen and (max-width:47.398em) and (orientation: landscape) {
+    #cst-gallery-wrap #cst-gallery-slides-wrap {
+      margin-top: 51px; }
+    #cst-gallery-wrap .slick-slider {
+      margin: 0;
+      padding: 0; } }
   @media only screen and (min-width:64.063em) {
     #cst-gallery-wrap #cst-gallery-slides-sidebar {
       float: right;
@@ -2435,7 +2451,7 @@ body.post-gallery-lightbox-active {
       color: white;
       height: 5rem;
       width: 3rem;
-      margin-top: -2rem; }
+      top: 4%; }
       #cst-gallery-wrap .slick-slider .slick-prev:hover, #cst-gallery-wrap .slick-slider .slick-prev:focus, #cst-gallery-wrap .slick-slider .slick-next:hover, #cst-gallery-wrap .slick-slider .slick-next:focus {
         background-color: transparent; }
       #cst-gallery-wrap .slick-slider .slick-prev:before, #cst-gallery-wrap .slick-slider .slick-next:before {
@@ -2443,9 +2459,30 @@ body.post-gallery-lightbox-active {
     #cst-gallery-wrap .slick-slider .fa {
       color: white; }
     #cst-gallery-wrap .slick-slider .slick-next {
-      right: 20px; }
+      right: 15px; }
     #cst-gallery-wrap .slick-slider .slick-prev {
-      left: 20px; }
+      left: 15px; }
+    @media only screen and (min-width:48em) and (max-width:64em) {
+      #cst-gallery-wrap .slick-slider .slick-slide img {
+        max-height: 65% !important;
+        top: 130px !important; } }
+    @media only screen and (max-width: 40em) {
+      #cst-gallery-wrap .slick-slider .slick-slide img {
+        max-height: 91% !important;
+        top: 1px !important; } }
+    @media only screen and (max-width: 40em) and (orientation: portrait) {
+      #cst-gallery-wrap .slick-slider .slick-slide img {
+        top: 55px !important; } }
+    @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+      #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
+        top: 12%; } }
+    @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+      #cst-gallery-wrap .slick-slider .slick-slide img {
+        max-height: 91% !important;
+        top: 1px !important; } }
+    @media only screen and (max-width: 40em) {
+      #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
+        top: 0; } }
 
 .post .post-meta {
   font-size: 0.75rem;
