@@ -51,8 +51,6 @@ h2.subscribe-product {
 
 footer {
   position: relative; }
-  footer .columns:first-child {
-    padding-left: 0; }
   footer .copyright {
     font-size: 0.7rem; }
   footer #menu-homepage-footer ul {
@@ -2742,7 +2740,7 @@ body.post-gallery-lightbox-active {
       width: 100%;
       padding-left: 0.9375rem;
       padding-right: 0.9375rem;
-      margin: 10px 0 10px 0;
+      margin: 0 0 10px;
       text-align: center; } }
   @media (max-width: 568px) {
     .homepage_wrapper .dfp-mobile-leaderboard {
@@ -3234,6 +3232,9 @@ body.post-gallery-lightbox-active {
       width: 100%; }
   .homepage_wrapper .homepage-sidebar {
     padding: 0 0 0 1.3575rem; }
+  @media only screen and (max-width:64em) {
+    .homepage_wrapper .homepage-sidebar {
+      padding: inherit; } }
   .homepage_wrapper .widget_cst_featured_content_widget:nth-of-type(1) {
     margin-top: 5px;
     padding: 0; }
@@ -3259,6 +3260,10 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .widget_cst_todays_paper_widget img {
       position: relative;
       display: block; }
+      @media only screen and (max-width:64em) {
+        .homepage_wrapper .widget_cst_todays_paper_widget img {
+          text-align: center;
+          margin: 0 auto; } }
     .homepage_wrapper .widget_cst_todays_paper_widget h2.widgettitle {
       text-transform: uppercase;
       font-size: 1.75rem;
@@ -3271,25 +3276,40 @@ body.post-gallery-lightbox-active {
       font-weight: 700; }
     .homepage_wrapper .widget_cst_todays_paper_widget .todays-paper-container {
       margin-top: 10px; }
+      @media only screen and (min-width:48em) and (max-width:64em) {
+        .homepage_wrapper .widget_cst_todays_paper_widget .todays-paper-container {
+          margin-top: 53px; } }
+      .homepage_wrapper .widget_cst_todays_paper_widget .todays-paper-container .todays-paper-front {
+        float: left; }
       .homepage_wrapper .widget_cst_todays_paper_widget .todays-paper-container .todays-paper-back {
         display: none;
-        position: relative; }
+        position: relative;
+        float: left; }
         .homepage_wrapper .widget_cst_todays_paper_widget .todays-paper-container .todays-paper-back .todays-paper-links {
           position: absolute;
           bottom: 50%;
           z-index: 1;
           left: 25%; }
-  .homepage_wrapper .widget_cst_todays_paper_widget:hover .todays-paper-front {
-    display: none; }
-  .homepage_wrapper .widget_cst_todays_paper_widget:hover .todays-paper-back {
-    display: block; }
+          @media only screen and (min-width:48em) and (max-width:64em) {
+            .homepage_wrapper .widget_cst_todays_paper_widget .todays-paper-container .todays-paper-back .todays-paper-links {
+              top: -39px;
+              left: -90px;
+              bottom: inherit; } }
+      @media only screen and (max-width:64em) {
+        .homepage_wrapper .widget_cst_todays_paper_widget .todays-paper-container .todays-paper-back {
+          display: block; } }
+    .homepage_wrapper .widget_cst_todays_paper_widget:hover .todays-paper-front {
+      display: none; }
+    .homepage_wrapper .widget_cst_todays_paper_widget:hover .todays-paper-back {
+      display: block; }
   .homepage_wrapper .widget_cst_featured_content_widget, .homepage_wrapper .widget_cst_columnists_content_widget {
     list-style-type: none;
     /*	@media (min-width: 1025px) {
 		margin: 20px 0 20px 0;
 		padding: 10px 0 10px 0;
 	}
-*/ }
+*/
+    float: left; }
     .homepage_wrapper .widget_cst_featured_content_widget h2.widgettitle, .homepage_wrapper .widget_cst_columnists_content_widget h2.widgettitle {
       text-transform: uppercase;
       font-size: 1.75rem;
@@ -3346,7 +3366,8 @@ body.post-gallery-lightbox-active {
           width: 100%; } }
   @media (max-width: 1025px) {
     .homepage_wrapper .widget_cst_columnists_content_widget, .homepage_wrapper .widget_cst_stng_wire_widget, .homepage_wrapper .widget_cst_todays_paper_widget {
-      margin: 10px 0 10px 0; } }
+      margin: 10px 0;
+      text-align: center; } }
   .homepage_wrapper .widget_cst_stng_wire_widget {
     padding-left: 0;
     font-size: 12px; }

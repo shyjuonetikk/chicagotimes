@@ -68,7 +68,7 @@
                 </div>
             </section>
         </div>
-        <div class="large-4 columns homepage-sidebar">
+        <div class="medium-12 large-4 columns homepage-sidebar">
             <?php get_template_part( 'parts/homepage/right-sidebar' ); ?>
         </div>
     </div>
