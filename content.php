@@ -49,6 +49,7 @@
 			}
 			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			?>
+			<div class="agg-chatter <?php the_id(); ?> small-12"></div>
 		</article>
 
 		<?php if ( is_singular() ) : ?>
