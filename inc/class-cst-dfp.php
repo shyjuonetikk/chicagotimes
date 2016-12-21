@@ -290,7 +290,7 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_lead_unit_mapping, cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping;
+  var article_lead_unit_mapping, cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -320,6 +320,10 @@ var dfp = {
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
     cube_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([1025, 0], [[300, 250]]) //desktop
+	  .build();
+    gallery_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
 	  .addSize([1025, 0], [[300, 250]]) //desktop
 	  .build();
@@ -419,6 +423,7 @@ var dfp = {
     if(dfp.gallery) {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
         .addService(googletag.pubads())
+		.defineSizeMapping(gallery_cube_mapping)
         .setTargeting("pos","gallery 1");
     }
     googletag.pubads().enableSingleRequest();

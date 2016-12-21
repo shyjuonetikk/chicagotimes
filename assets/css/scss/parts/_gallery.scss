@@ -90,15 +90,18 @@ body.post-gallery-lightbox-active {
 	#cst-gallery-slides-sidebar {
 		color: $white;
 		position: absolute;
-		bottom: 0;
+		top: 0;
 		left: 0;
 		right: 0;
 		background: $black;
 		border-left: 2px solid $white;
+		padding: 15px 20px 10px;
 
 		#cst-gallery-title {
 			margin-top: 20px;
-
+			@media #{$medium-down} and (orientation: landscape){
+				margin-top:0;
+			}
 			h2 {
 				font-size: 1.25rem;
 				line-height: 1.25rem;
@@ -112,11 +115,13 @@ body.post-gallery-lightbox-active {
 			font-size: 1rem;
 			line-height: 1.5rem;
 			padding-top: 10px;
-			padding-bottom: 30px;
+			padding-bottom: 20px;
 			z-index: 99999;
 			height: 40%;
 			overflow: auto;
-			
+			border-top: 1px solid white;
+			border-bottom: 1px solid white;
+
 			@media #{$small-only} {
 				font-size: 0.75rem;
 				line-height: 1rem;
@@ -138,11 +143,25 @@ body.post-gallery-lightbox-active {
 		}
 
 	}
-
-	#cst-gallery-slides-sidebar {
-		padding: 30px;
+	@media #{$xmedium-down} {
+		#cst-gallery-slides-wrap {
+			margin-top:260px;
+		}
 	}
-
+	@media #{$xmedium-down} and (orientation: landscape) {
+		#cst-gallery-slides-wrap {
+			margin-top:128px;
+		}
+	}
+	@media #{$medium-down} and (orientation: landscape) {
+		#cst-gallery-slides-wrap {
+			margin-top: 51px;
+		}
+		.slick-slider {
+			margin: 0;
+			padding: 0;
+		}
+	}
 	@media #{$large-up} {
 
 		#cst-gallery-slides-sidebar {
@@ -189,7 +208,7 @@ body.post-gallery-lightbox-active {
 			color: #FFF;
 			height: 5rem;
 			width: 3rem;
-			margin-top: -2rem;
+			top:4%;
 
 			&:hover,
 			&:focus {
@@ -206,12 +225,46 @@ body.post-gallery-lightbox-active {
 		}
 
 		.slick-next {
-			right: 20px;
+			right: 15px;
 		}
 
 		.slick-prev {
-			left: 20px;
+			left: 15px;
 		}
-
+		@media #{$xmedium-only} {
+			.slick-slide img {
+				max-height: 65% !important;
+				top: 130px !important;
+			}
+		}
+		@media #{$small-only} {
+			.slick-slide img {
+				max-height: 91% !important;
+				top: 1px !important;
+			}
+		}
+		@media #{$small-only} and (orientation: portrait ){
+			.slick-slide img {
+				top: 55px !important;
+			}
+		}
+		@media #{$xmedium-only} and (orientation: landscape ){
+			.slick-prev,
+			.slick-next {
+				top: 12%;
+			}
+		}
+		@media #{$medium-only} and (orientation: landscape ){
+			.slick-slide img {
+				max-height: 91% !important;
+				top: 1px !important;
+			}
+		}
+		@media #{$small-only}{
+			.slick-prev,
+			.slick-next {
+				top: 0;
+			}
+		}
 	}
 }

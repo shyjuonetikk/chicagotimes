@@ -1,5 +1,5 @@
 <?php $obj = \CST\Objects\Post::get_by_post_id( get_the_ID() ); ?>
-<?php if ( !is_sticky() ) : ?>
+<?php if ( ! is_sticky() ) : ?>
 	<?php if ( is_singular() ) : ?>
 		<div class="row post-row">
 		<?php endif; ?>
@@ -15,15 +15,15 @@
 		if ( is_singular() ) {
 			$data = array(
 				'post-id'   => get_the_ID(),
-				'post-uri'  => parse_url( get_permalink( $post->ID ), PHP_URL_PATH ),
+				'post-uri'  => parse_url( get_permalink( $obj->get_id() ), PHP_URL_PATH ),
 				'wp-title'  => wp_title( '|', false, 'right' ),
 				);
 
 			for ( $i = 1;  $i <= 5;  $i++) {
-				$data['ga-dimension-' . $i] = $obj->get_ga_dimension( $i );
+				$data[ 'ga-dimension-' . $i ] = $obj->get_ga_dimension( $i );
 			}
 
-			foreach( $data as $key => $val ) {
+			foreach ( $data as $key => $val ) {
 				$attrs .= ' data-cst-' . sanitize_key( $key ) . '="' . esc_attr( $val ) . '"';
 			}
 		}
@@ -44,11 +44,12 @@
 			<?php
 			echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
 			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
-			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
-			if( is_singular() ) :
+			if ( is_singular() ) {
 				echo CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) );
-			endif;
+			}
+			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			?>
+			<div class="agg-chatter <?php the_id(); ?> small-12"></div>
 		</article>
 
 		<?php if ( is_singular() ) : ?>
