@@ -157,7 +157,7 @@ class CST_Frontend {
 
 
 		// Fonts
-		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
+		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Libre+Franklin:300,400,400i,600,600i,700,700i,800,800i' );
 
 		if ( is_page_template( 'page-monster.php' ) ) {
 			wp_enqueue_script( 'monster-footerhook', get_template_directory_uri() . '/assets/js/vendor/footerhookv1-min.js', array( 'jquery' ), false, true );
@@ -907,7 +907,7 @@ class CST_Frontend {
 						}
 						?>
 			<?php if( $nativo_slug != NULL ) { ?>
-				<ul id="<?php echo esc_html( $nativo_slug ); ?>">
+				<ul id="<?php echo esc_html( $nativo_slug ); ?>" class="more-from-list">
 			<?php } else { ?>
 				<ul>
 			<?php } ?>

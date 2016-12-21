@@ -13,7 +13,7 @@ html, body {
 
 body, .grey-background {
   background-color: #f8f8f8;
-  font-family: 'Open Sans', Arial, sans-serif;
+  font-family: 'Libre Frankin', Arial, sans-serif;
   color: #282828;
   height: auto;
   position: relative;
@@ -149,7 +149,7 @@ footer {
   width: 345px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Open Sans', Arial, sans-serif; }
+  font-family: 'Libre Frankin', Arial, sans-serif; }
   h1 a, h1 a:hover, h2 a, h2 a:hover, h3 a, h3 a:hover, h4 a, h4 a:hover, h5 a, h5 a:hover, h6 a, h6 a:hover {
     color: #282828; }
 
@@ -323,7 +323,7 @@ body.error404 {
       font-size: 1.15rem;
       font-weight: 700; }
     .dfp-interstitial #dfp-interstitial-container .dfp-interstitial-close {
-      font-family: 'Open Sans', Arial, sans-serif;
+      font-family: 'Libre Frankin', Arial, sans-serif;
       font-size: 1rem;
       font-weight: 700; }
 
@@ -350,7 +350,7 @@ body.error404 {
   #ie8-user .update_browser {
     font-size: 2rem;
     text-transform: uppercase;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Libre Frankin', Arial, sans-serif;
     font-weight: 800;
     vertical-align: middle;
     margin-right: 15px; }
@@ -365,7 +365,7 @@ header#header {
     top: 20px;
     color: white;
     text-transform: uppercase;
-    font-family: 'Open Sans', Arial, sans-serif; }
+    font-family: 'Libre Frankin', Arial, sans-serif; }
     header#header #weather .degrees {
       font-size: 1rem;
       margin-right: 10px; }
@@ -772,13 +772,14 @@ ul#menu-sun-times-network {
   font-size: 1rem;
   line-height: 1.5rem; }
 .masthead .weather {
-  background-color: #ffe000;
+  border-left: 1px solid #ffe000;
+  border-right: 1px solid #ffe000;
   padding: 10px 8px; }
   .masthead .weather .weather-link {
     line-height: 24px;
-    color: #282828; }
+    color: white; }
     .masthead .weather .weather-link:hover, .masthead .weather .weather-link:visited {
-      color: #282828; }
+      color: white; }
 .masthead .search {
   background-color: #231f20; }
   .masthead .search .has-form {
@@ -878,7 +879,7 @@ ul#menu-sun-times-network {
     .wire #section-top.author h1 {
       font-size: 2rem;
       line-height: 2.5rem;
-      font-family: 'Open Sans', Arial, sans-serif;
+      font-family: 'Libre Frankin', Arial, sans-serif;
       font-weight: 800;
       margin-bottom: 15px; }
     .wire #section-top.author h4 {
@@ -932,7 +933,7 @@ ul#menu-sun-times-network {
     padding-left: 15px;
     padding-right: 15px;
     padding-bottom: 15px;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Libre Frankin', Arial, sans-serif;
     color: #484848;
     font-weight: 600;
     font-size: 0.9rem;
@@ -982,13 +983,13 @@ ul#menu-sun-times-network {
         .wire .post .embed-content .instagram-body p {
           margin-left: 0px;
           font-weight: 700;
-          font-family: 'Open Sans', Arial, sans-serif;
+          font-family: 'Libre Frankin', Arial, sans-serif;
           font-size: 1rem;
           line-height: 1.25rem; } }
     .wire .post .embed-content .instagram-body .instagram-image {
       margin-bottom: 10px; }
     .wire .post .embed-content .instagram-byline {
-      font-family: 'Open Sans', Arial, sans-serif;
+      font-family: 'Libre Frankin', Arial, sans-serif;
       font-size: 1rem; }
       .wire .post .embed-content .instagram-byline .fa {
         color: #34485e; }
@@ -1013,7 +1014,7 @@ ul#menu-sun-times-network {
       float: left;
       width: 65px; }
     .wire .post .liveblog-entry .liveblog-author-name {
-      font-family: 'Open Sans', Arial, sans-serif;
+      font-family: 'Libre Frankin', Arial, sans-serif;
       font-weight: 700;
       font-size: 1rem; }
     .wire .post .liveblog-entry .liveblog-meta-time {
@@ -1082,7 +1083,7 @@ ul#menu-sun-times-network {
     .wire .cst-embed-twitter .embed-content .tweet-body {
       padding-bottom: 5px; }
     .wire .cst-embed-twitter .embed-content a p {
-      font-family: 'Open Sans', Arial, sans-serif;
+      font-family: 'Libre Frankin', Arial, sans-serif;
       font-size: 1rem;
       line-height: 1.25rem;
       font-weight: 700; }
@@ -1156,7 +1157,7 @@ body.search {
 article.post {
   background-color: white; }
   article.post h1 {
-    font-family: 'Open Sans', Arial, sans-serif; }
+    font-family: 'Libre Frankin', Arial, sans-serif; }
     @media only screen and (min-width:40.063em) {
       article.post h1 {
         font-weight: 800; } }
@@ -1359,11 +1360,11 @@ article.post {
   clear: both;
   margin: 0 auto; }
   .single .taboola-container .thumbnails-c .syndicatedItem .video-title {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Libre Franklin', Arial, sans-serif;
     line-height: 16px;
     font-size: 14px; }
   .single .taboola-container .thumbnails-c .syndicatedItem .branding {
-    font-family: 'Open Sans', sans-serif; }
+    font-family: 'Libre Franklin', Arial, sans-serif; }
   .single .taboola-container .thumbnails-c .videoCube:hover .thumbBlock {
     opacity: 0.5; }
   .single .taboola-container .thumbnails-c .videoCube:hover .video-label-box .video-title {
@@ -1450,7 +1451,7 @@ article.post {
         font-weight: 700;
         line-height: 1.9rem; } }
   .single article.post .post-copyright {
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Libre Frankin', Arial, sans-serif;
     font-size: 0.75rem;
     color: #9a9a9a;
     font-style: italic; }
@@ -1522,13 +1523,13 @@ article.post {
   border: 0;
   border-bottom: 2px solid #cdcdcd; }
 .single .instagram-byline {
-  font-family: 'Open Sans', Arial, sans-serif; }
+  font-family: 'Libre Frankin', Arial, sans-serif; }
   .single .instagram-byline .fa {
     color: #34485e; }
   .single .instagram-byline a {
     color: #282828;
     font-weight: 700;
-    font-family: 'Open Sans', Arial, sans-serif; }
+    font-family: 'Libre Frankin', Arial, sans-serif; }
   .single .instagram-byline a:hover {
     color: #34485e; }
 .single .ndn_embed {
@@ -1611,7 +1612,7 @@ section#subscribe {
   max-width: 1220px;
   padding: 20px;
   margin: 20px auto 10px;
-  font-family: 'Open Sans', Arial, sans-serif; }
+  font-family: 'Libre Frankin', Arial, sans-serif; }
   section#subscribe .mbox3 h1 {
     font-weight: 100;
     margin-bottom: 20px;
@@ -1769,7 +1770,7 @@ section#subscribe {
       margin-bottom: 20px; }
   section#subscribe .headlines {
     list-style-type: none;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Libre Frankin', Arial, sans-serif;
     margin-left: 0px;
     margin-right: 45px;
     color: #282828; }
@@ -1827,7 +1828,7 @@ section#subscribe {
       border-right: 1px solid #eeeeee;
       padding: 0 15px;
       vertical-align: top;
-      font-family: 'Open Sans', Arial, sans-serif;
+      font-family: 'Libre Frankin', Arial, sans-serif;
       color: #282828;
       overflow: auto; }
     section#subscribe .trending li:first-child {
@@ -1868,7 +1869,7 @@ section#subscribe {
     margin-right: 12px; }
   .cst-embed-twitter .embed-content .tweet-byline {
     padding-bottom: 2px;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Libre Frankin', Arial, sans-serif;
     font-size: 1rem; }
     .cst-embed-twitter .embed-content .tweet-byline .fa-twitter {
       color: #59adeb; }
@@ -1937,7 +1938,7 @@ section#subscribe {
         text-transform: uppercase;
         font-weight: 700;
         font-size: 0.75rem;
-        font-family: 'Open Sans', Arial, sans-serif; }
+        font-family: 'Libre Frankin', Arial, sans-serif; }
         .sidebar#post-sidebar .load-buttons .button#latest {
           background-color: #9a9a9a;
           display: inline-block; }
@@ -2006,7 +2007,7 @@ section#subscribe {
     position: relative;
     margin-bottom: 5px;
     width: 303px;
-    font-family: 'Open Sans', Arial, sans-serif; }
+    font-family: 'Libre Frankin', Arial, sans-serif; }
     #fixed-footer-container h3 {
       font-weight: 700;
       text-transform: uppercase; }
@@ -2370,7 +2371,7 @@ section#subscribe {
     color: white;
     padding: 8px;
     font-size: 0.8rem;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Libre Frankin', Arial, sans-serif;
     font-weight: 700;
     text-transform: uppercase; }
     .post-gallery .post-gallery-lead-image-wrap a.post-gallery-open-button:hover {
@@ -2437,7 +2438,7 @@ body.post-gallery-lightbox-active {
         font-weight: 700;
         color: #f8f8f8; }
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
-      font-family: 'Open Sans', Arial, sans-serif;
+      font-family: 'Libre Frankin', Arial, sans-serif;
       font-size: 1rem;
       line-height: 1.5rem;
       padding-top: 10px;
@@ -2583,7 +2584,7 @@ body.post-gallery-lightbox-active {
   .post .post-meta-byline .newsletter-box {
     padding-left: 0; }
   .post .post-meta-byline .post-meta-author {
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Libre Frankin', Arial, sans-serif;
     font-weight: 700;
     font-size: 1rem;
     margin-top: 10px;
@@ -2635,7 +2636,7 @@ body.post-gallery-lightbox-active {
 .post .post-meta-bottom .post-meta-taxonomy-terms {
   color: #9a9a9a;
   text-transform: uppercase;
-  font-family: 'Open Sans', Arial, sans-serif;
+  font-family: 'Libre Frankin', Arial, sans-serif;
   font-weight: 700;
   line-height: 1.4rem; }
   .post .post-meta-bottom .post-meta-taxonomy-terms a {
@@ -2817,7 +2818,7 @@ body.post-gallery-lightbox-active {
         .homepage_wrapper header .contain-to-grid .top-bar .small-logo {
           display: block; } }
       .homepage_wrapper header .contain-to-grid .top-bar ul li > a {
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Libre Franklin', Arial, sans-serif;
         font-weight: 300;
         font-size: 11px;
         text-transform: uppercase;
@@ -2906,7 +2907,7 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper .homepage-content .main-well-container .columns:last-child, .homepage_wrapper .homepage-content .secondary-well-container .columns:last-child, .homepage_wrapper .homepage-content .secondary-well-upper .columns:last-child, .homepage_wrapper .homepage-content .secondary-well-lower .columns:last-child, .homepage_wrapper .homepage-content .secondary-well-bottom .columns:last-child {
         padding: 0 0 0 0.3375rem; }
   @media (min-width: 1401px) {
-    .homepage_wrapper .row, .homepage_wrapper .cst-row {
+    .homepage_wrapper .cst-row {
       max-width: 64rem;
       width: 100%; } }
   @media (min-width: 1335px) and (max-width: 1400px) {
@@ -2988,7 +2989,11 @@ body.post-gallery-lightbox-active {
     position: relative;
     height: auto;
     margin-bottom: 10px;
-    padding: 0; }
+    padding: 0;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    float: none;
+    overflow: hidden;
+    background: whitesmoke; }
     .homepage_wrapper section#main-well .main-article-container a {
       display: block;
       position: relative; }
@@ -3006,7 +3011,7 @@ body.post-gallery-lightbox-active {
       padding-bottom: 5px; }
       .homepage_wrapper section#main-well .main-article-container .article-title h3 {
         padding: 0px 20px 0px 20px;
-        font-family: 'Open Sans', serif;
+        font-family: 'Libre Franklin', Arial, sans-serif;
         font-weight: 700;
         color: #f8f8f8; }
         @media (min-width: 569px) {
@@ -3029,7 +3034,7 @@ body.post-gallery-lightbox-active {
         display: none; }
       .homepage_wrapper section#main-well .main-article-container .article-title span {
         margin-left: 20px;
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Libre Franklin', Arial, sans-serif;
         color: white; }
         @media (max-width: 568px) {
           .homepage_wrapper section#main-well .main-article-container .article-title span {
@@ -3061,7 +3066,10 @@ body.post-gallery-lightbox-active {
       height: 225px;
       overflow: hidden;
       padding: 0;
-      position: relative; }
+      position: relative;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+      float: none;
+      background: whitesmoke; }
       .homepage_wrapper section#main-well .left-main-well .article-container img {
         width: 100%;
         height: auto; }
@@ -3077,7 +3085,7 @@ body.post-gallery-lightbox-active {
         width: 100%; }
         .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
           line-height: 18px;
-          font-family: 'Open Sans', serif;
+          font-family: 'Libre Franklin', Arial, sans-serif;
           color: #f8f8f8;
           font-weight: 700; }
           @media (min-width: 569px) {
@@ -3093,7 +3101,7 @@ body.post-gallery-lightbox-active {
           margin-bottom: 5px;
           display: none; }
         .homepage_wrapper section#main-well .left-main-well .article-container .article-title span {
-          font-family: 'Raleway', sans-serif;
+          font-family: 'Libre Franklin', Arial, sans-serif;
           color: white;
           font-size: 12px; }
       .homepage_wrapper section#main-well .left-main-well .article-container a:hover {
@@ -3112,7 +3120,10 @@ body.post-gallery-lightbox-active {
     height: 225px;
     overflow: hidden;
     padding: 0;
-    position: relative; }
+    position: relative;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    float: none;
+    background: whitesmoke; }
     .homepage_wrapper section#secondary-wells .article-container img {
       width: 100%;
       height: auto; }
@@ -3128,7 +3139,7 @@ body.post-gallery-lightbox-active {
       width: 100%; }
       .homepage_wrapper section#secondary-wells .article-container .article-title h3 {
         line-height: 18px;
-        font-family: 'Open Sans', serif;
+        font-family: 'Libre Franklin', Arial, sans-serif;
         color: #f8f8f8;
         font-weight: 700; }
         @media (min-width: 569px) {
@@ -3144,7 +3155,7 @@ body.post-gallery-lightbox-active {
         margin-bottom: 5px;
         display: none; }
       .homepage_wrapper section#secondary-wells .article-container .article-title span {
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Libre Franklin', Arial, sans-serif;
         color: white;
         font-size: 12px; }
     .homepage_wrapper section#secondary-wells .article-container a:hover {
@@ -3156,7 +3167,7 @@ body.post-gallery-lightbox-active {
         .homepage_wrapper section#secondary-wells .article-container a:hover .article-title p {
           display: block; }
   .homepage_wrapper section#more-stories-wells img {
-    max-height: 170px; }
+    max-height: 134px; }
   .homepage_wrapper section#more-stories-wells a h3 {
     margin: 0;
     padding: 0;
@@ -3198,14 +3209,26 @@ body.post-gallery-lightbox-active {
       padding-left: 0.9375rem;
       padding-right: 0.9375rem; } }
   .homepage_wrapper section#more-stories-wells .more-story {
-    border-top: 1px #cccccc solid;
-    padding-top: 10px; }
+    padding-top: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    float: none;
+    overflow: hidden;
+    max-height: 109px;
+    margin: 16px 0;
+    background: whitesmoke; }
     .homepage_wrapper section#more-stories-wells .more-story:first-child {
       border-top: none;
       padding-top: 0; }
+  .homepage_wrapper section#more-stories-wells .ntv-more {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    float: none;
+    overflow: hidden;
+    margin: 16px 0;
+    max-height: 109px;
+    border-radius: 2px;
+    background: whitesmoke; }
   .homepage_wrapper section#section-column-wells .section-list {
-    background-color: white;
-    border-radius: 5px;
+    background-color: #f8f8f8;
     border: 1px solid #cccccc;
     margin-bottom: 20px; }
     .homepage_wrapper section#section-column-wells .section-list h3 {
@@ -3227,12 +3250,14 @@ body.post-gallery-lightbox-active {
       width: 100%; }
     .homepage_wrapper section#section-column-wells .section-list ul {
       list-style-type: none;
-      margin-left: 0; }
+      margin-left: 0;
+      margin-bottom: 0; }
       .homepage_wrapper section#section-column-wells .section-list ul li {
         border-bottom: 1px solid #eeeeee;
         font-size: 14px;
         line-height: 16px;
-        padding: 10px; }
+        padding: 10px;
+        background-color: white; }
         .homepage_wrapper section#section-column-wells .section-list ul li a {
           color: #282828; }
   .homepage_wrapper section#featured-story-wells .large-12 {
@@ -3295,7 +3320,7 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .widget_cst_todays_paper_widget h2.widgettitle {
       text-transform: uppercase;
       font-size: 1.75rem;
-      font-family: 'Open Sans', serif;
+      font-family: 'Libre Franklin', Arial, sans-serif;
       display: inline;
       text-align: left;
       width: inherit;
@@ -3326,7 +3351,7 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .widget_cst_featured_content_widget h2.widgettitle, .homepage_wrapper .widget_cst_columnists_content_widget h2.widgettitle {
       text-transform: uppercase;
       font-size: 1.75rem;
-      font-family: 'Open Sans', serif;
+      font-family: 'Libre Franklin', Arial, sans-serif;
       display: inline;
       text-align: left;
       width: inherit;
@@ -3365,7 +3390,7 @@ body.post-gallery-lightbox-active {
           display: block;
           font-size: 12px;
           text-transform: uppercase;
-          font-family: 'Raleway', sans-serif; }
+          font-family: 'Libre Franklin', Arial, sans-serif; }
           .homepage_wrapper .widget_cst_featured_content_widget .featured-story .featured-story-body .section a, .homepage_wrapper .widget_cst_featured_content_widget .featured-story .columnists-story-body .section a, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story .featured-story-body .section a, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story .columnists-story-body .section a, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story .featured-story-body .section a, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story .columnists-story-body .section a, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story .featured-story-body .section a, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story .columnists-story-body .section a {
             color: white; }
         .homepage_wrapper .widget_cst_featured_content_widget .featured-story .featured-story-body h3, .homepage_wrapper .widget_cst_featured_content_widget .featured-story .columnists-story-body h3, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story .featured-story-body h3, .homepage_wrapper .widget_cst_featured_content_widget .columnists-story .columnists-story-body h3, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story .featured-story-body h3, .homepage_wrapper .widget_cst_columnists_content_widget .featured-story .columnists-story-body h3, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story .featured-story-body h3, .homepage_wrapper .widget_cst_columnists_content_widget .columnists-story .columnists-story-body h3 {
@@ -3386,7 +3411,7 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .widget_cst_stng_wire_widget h2.widgettitle {
       text-transform: uppercase;
       font-size: 1.75rem;
-      font-family: 'Open Sans', serif;
+      font-family: 'Libre Franklin', Arial, sans-serif;
       display: inline;
       text-align: left;
       width: inherit;
@@ -3599,7 +3624,7 @@ header .contain-to-grid .cst-row {
       header .contain-to-grid .top-bar ul li {
         background-color: white; }
       header .contain-to-grid .top-bar ul li > a {
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Libre Franklin', Arial, sans-serif;
         font-weight: 300;
         font-size: 14px;
         text-align: left; }
@@ -3630,7 +3655,7 @@ header .contain-to-grid .cst-row {
   top: 10px;
   color: white;
   text-transform: uppercase;
-  font-family: 'Open Sans', Arial, sans-serif; }
+  font-family: 'Libre Frankin', Arial, sans-serif; }
   #social-links ul {
     list-style-type: none;
     margin: 0;
