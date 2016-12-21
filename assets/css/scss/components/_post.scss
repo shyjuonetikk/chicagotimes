@@ -357,7 +357,7 @@ article.post {
 		}
 	}
 
-	@media #{$large-range} {
+	@media #{$large-only} {
 		.taboola-container {
 			max-width: 800px;
 		}
