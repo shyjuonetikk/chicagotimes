@@ -48,8 +48,8 @@
 				</div>
 				<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
 					<div class="sponsor-wrapper">
-						<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left show-for-large-up"></div>
-						<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right show-for-large-up"></div>
+						<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left hide-for-large-down"></div>
+						<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right hide-for-large-down"></div>
 					</div>
 				<?php } ?>
 				<div class="logo-wrapper large-logo">

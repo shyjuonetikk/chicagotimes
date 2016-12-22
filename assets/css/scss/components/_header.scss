@@ -356,7 +356,10 @@ header#header {
 
 #headlines-slider {
 	background-color: $light_grey;
-
+	border-bottom: 1px solid $cst_black;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+	margin-bottom: 2px;
+	height: 134px;
 	.slider {
 		background-color: $light_grey;
 		margin-bottom: 0;
@@ -365,15 +368,16 @@ header#header {
 		.header-next.fa {
 			position: absolute;
 			display: block;
-			height: 20px;
-			width: 20px;
+			height: 30px;
+			width: 30px;
 			cursor: pointer;
 			background: transparent;
-			bottom: 100px;
+			bottom: 57px;
 			padding: 0;
 			border: none;
 			outline: none;
-			color: $white;
+			color: $cst_black;
+			font-size: 1.6rem;
 		}
 
 		.header-prev.fa {
@@ -404,15 +408,16 @@ header#header {
 			&.slick-slide {
 				display: inline-block;
 			}
-
+			.slide-image-container {
+				float: left;
+				height: 100px;
+				width: 100px;
+				position: relative;
+			}
 			.slide-text {
-				position: absolute;
+				position: relative;
 				display: block;
-				bottom: 20px;
-				padding: 15px 30px;
-				overflow: auto;
-				max-width: 350px;
-
+				padding: 0 1.5rem 0 6.8rem;
 				/*@media #{$large-range} {
 					max-width: 250px;
 				}*/
@@ -420,15 +425,11 @@ header#header {
 
 		
 			.slide-inner {
-				margin-top: 15px;
-				margin-left: 8px;
-				margin-bottom: 23px;
-				margin-right: 8px;
-				height: 200px;
+				margin: 13px 8px;
 				width: auto;
-				background-color: $black;
 				overflow: hidden;
-
+				box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+				max-height:100px;
 				.slide-image {
 					overflow: hidden;
 					width: 100%;
@@ -436,47 +437,33 @@ header#header {
 					background-size: cover;
 					background-repeat: no-repeat;
 					background-position: center center;
-
-					.gradient-overlay {
-						height: 100%;
-						width: 100%;
-						background: -moz-linear-gradient(top,rgba(0,0,0,0) 0,rgba(0,0,0,0.1) 36%,rgba(0,0,0,0.4) 68%,rgba(0,0,0,0.95) 100%);
-						background: -webkit-gradient(linear,left top,left bottom,color-stop(0,rgba(0,0,0,0)),color-stop(36%,rgba(0,0,0,0.1)),color-stop(68%,rgba(0,0,0,0.4)),color-stop(100%,rgba(0,0,0,0.95)));
-						background: -webkit-linear-gradient(top,rgba(0,0,0,0) 0,rgba(0,0,0,0.1) 36%,rgba(0,0,0,0.4) 68%,rgba(0,0,0,0.95) 100%);
-						background: -o-linear-gradient(top,rgba(0,0,0,0) 0,rgba(0,0,0,0.1) 36%,rgba(0,0,0,0.4) 68%,rgba(0,0,0,0.95) 100%);
-						background: -ms-linear-gradient(top,rgba(0,0,0,0) 0,rgba(0,0,0,0.1) 36%,rgba(0,0,0,0.4) 68%,rgba(0,0,0,0.95) 100%);
-						background: linear-gradient(to bottom,rgba(0,0,0,0) 0,rgba(0,0,0,0.1) 36%,rgba(0,0,0,0.4) 68%,rgba(0,0,0,0.95) 100%);
-					}
 				}
-
-
-
-
-
+				&:hover {
+					background: $light_grey;
+				}
 			}
 
 			h4 {
 				font-size: 0.75rem;
 				line-height: 0.9rem;
-				color: $white;
+				color: $cst_black;
 				font-weight: 700;
 				text-transform: uppercase;
 				margin-bottom: 0.2rem;
 			}
 			h3 {
-				font-size: 1rem;
-				line-height: 1.33rem;
-				font-weight: 700;
-
-				a { 
-					color: $white;
+				font-size: 0.9rem;
+				line-height: 1.23rem;
+				font-weight: 400;
+				a {
+					color: $cst_black;
 				}
 			}
 		}
 
 		.slick-dots {
 			margin-left: 0;
-			bottom: -21px;
+			bottom: -29px;
 
 			li {
 				height: 21px;

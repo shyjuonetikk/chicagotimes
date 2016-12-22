@@ -1,6 +1,5 @@
 /* HEADER */
 .logo-wrapper.large-logo {
-	margin-bottom:10px;
 	@media (min-width: 1250px) {
 		display: block;
 	}
@@ -30,10 +29,10 @@ header {
 	.contain-to-grid {
 		.top-bar {
 			.cst-navigation-container {
+				margin-top:10px;
 				background-color: #ffffff;
 				border-top: 1px solid $cst_black;
 				border-bottom: 1px solid $cst_black;
-				height:34px;
 				a {
 					font-size: 1rem;
 				}

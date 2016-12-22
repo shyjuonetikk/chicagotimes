@@ -45,9 +45,7 @@ if ( is_single() ) {
 <header id="header">
 
 	<?php if ( ! is_404() ) { ?>
-	<section id="headlines-slider">
-		<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
-	</section>
+
 	<section id="primary-navigation" class="primary-normal">
 		<?php $weather = CST()->frontend->get_weather(); ?>
 		<?php if ( ! empty( $weather ) ) : ?>
@@ -104,6 +102,9 @@ if ( is_single() ) {
 		</div>
 	</section>
 	<?php } ?>
+	<section id="headlines-slider">
+		<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
+	</section>
 </header>
 
 <aside class="left-off-canvas-menu">
