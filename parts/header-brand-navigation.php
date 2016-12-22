@@ -2,18 +2,18 @@
 
 	<div class="contain-to-grid sticky">
 		<nav class="top-bar" data-topbar role="navigation">
-
-			<ul class="title-area">
-				<li class="name">
-					<h1>
-						<a class="logo small-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-							<?php get_template_part( 'parts/images/company-logo' ); ?>
-						</a>
-					</h1>
-				</li>
-				<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-			</ul>
-
+			<div class="responsive-logo-wrapper">
+				<ul class="title-area">
+					<li class="name">
+						<h1>
+							<a class="logo small-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
+								<?php get_template_part( 'parts/images/company-logo' ); ?>
+							</a>
+						</h1>
+					</li>
+					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+				</ul>
+			</div>
 
 			<section class="top-bar-section">
 				<div class="search row">

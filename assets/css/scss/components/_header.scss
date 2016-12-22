@@ -44,7 +44,17 @@ header#header {
 
 	}
 
-
+	.contain-to-grid {
+		background-color: $cst_black;
+	}
+	.responsive-logo-wrapper {
+		position: relative;
+		.small-logo {
+			width: 340px;
+			height: 45px;
+			margin: -2px auto 0;
+		}
+	}
 
 	section#primary-navigation {
 		height: 50px;
@@ -679,8 +689,8 @@ body.single {
 		.button,
 		.search-input {
 			height: 1.7rem;
-			width: 0;
-			transition: width 1s;
+			width: 100%;
+			//transition: width 1s;
 			&:focus {
 				width: 100%;
 			}

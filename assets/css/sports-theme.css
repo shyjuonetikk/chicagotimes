@@ -372,6 +372,14 @@ header#header {
     header#header #weather .description {
       font-weight: 600;
       font-size: 0.75rem; }
+  header#header .contain-to-grid {
+    background-color: #231f20; }
+  header#header .responsive-logo-wrapper {
+    position: relative; }
+    header#header .responsive-logo-wrapper .small-logo {
+      width: 340px;
+      height: 45px;
+      margin: -2px auto 0; }
   header#header section#primary-navigation {
     height: 50px;
     z-index: 100100;
@@ -786,8 +794,7 @@ ul#menu-sun-times-network {
     background-color: #231f20; }
   .masthead .search .button, .masthead .search .search-input {
     height: 1.7rem;
-    width: 0;
-    transition: width 1s; }
+    width: 100%; }
     .masthead .search .button:focus, .masthead .search .search-input:focus {
       width: 100%; }
   .masthead .search .search-input-wrapper {
@@ -1155,7 +1162,10 @@ body.search {
       color: #34485e; }
 
 article.post {
-  background-color: white; }
+  background-color: white;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  float: none;
+  overflow: hidden; }
   article.post h1 {
     font-family: 'Libre Frankin', Arial, sans-serif; }
     @media only screen and (min-width:40.063em) {
@@ -1429,8 +1439,7 @@ article.post {
       padding-left: 0;
       padding-right: 0; }
   .single .infinite-wrap article.post {
-    padding-top: 30px;
-    border-top: 7px solid #f8f8f8; } }
+    padding-top: 30px; } }
 .single.admin-bar .post.cst-sharing-absolute .post-meta-social {
   top: 112px; }
 .single article.post {
