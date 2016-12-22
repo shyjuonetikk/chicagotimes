@@ -1,23 +1,23 @@
-<?php 
-if( is_single() ) {
+<?php
+if ( is_single() ) {
 	$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 	if ( $current_obj ) {
 		$conditional_nav = $current_obj->get_primary_parent_section();
-		if( ! $conditional_nav ) {
+		if ( ! $conditional_nav ) {
 			$conditional_nav = $current_obj->get_child_parent_section();
-			if( ! in_array( $conditional_nav, CST_Frontend::$post_sections ) ) {
+			if ( ! in_array( $conditional_nav, CST_Frontend::$post_sections ) ) {
 				$conditional_nav = $current_obj->get_grandchild_parent_section();
 			}
 		}
 	} else {
 		$conditional_nav = 'menu';
 	}
-} elseif( is_tax() ) {
+} elseif ( is_tax() ) {
 	$current_obj = get_queried_object();
-	if( $current_obj->taxonomy == 'cst_section' ) {
-		if( $current_obj->parent != 0 ) {
+	if ( 'cst_section' == $current_obj->taxonomy ) {
+		if ( 0 != $current_obj->parent ) {
 			$parent_terms = get_term( $current_obj->parent, 'cst_section' );
-			if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+			if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 				$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 				$conditional_nav = $child_terms;
 			} else {
@@ -36,7 +36,7 @@ if( is_single() ) {
 <div class="off-canvas-wrap" data-offcanvas>
 	<?php get_template_part( 'parts/dfp/dfp-interstitial' ); ?>
 	<div class="inner-wrap">
-	<?php 
+	<?php
 	if ( is_home() || is_front_page() || is_tax() ) {
 		get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
 		echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
@@ -66,7 +66,7 @@ if( is_single() ) {
 
 		<div id="logo-wrap">
 			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><?php get_template_part( 'parts/images/company-logo' ); ?></a>
-			<?php get_template_part( 'parts/images/main-site-logo'); ?>
+			<?php get_template_part( 'parts/images/main-site-logo' ); ?>
 
 			<div id="tablet-home">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa fa-home"></i></a>
@@ -78,27 +78,28 @@ if( is_single() ) {
 		</div>
 
 		<div id="trending-container">
-		<?php 	if ( $current_obj ) {
-					if( in_array( $conditional_nav->slug, CST_Frontend::$post_sections ) ) {
-						switch( $conditional_nav->slug ) {
-							case 'news': ?>
-							<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
-						<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
-								break;
-							case 'sports': ?>
-							<span class="menu-label"><?php _e( 'Chicago Teams', 'chicagosuntimes' ); ?></span>
-						<?php	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
-								break;
-							default: ?>
-							<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
-						<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
-								break;
-						}
-					} else { ?>
-						<span class="menu-label"><?php esc_html_e( 'Trending', 'chicagosuntimes' ); ?></span>
-						<?php 	wp_nav_menu( array( 'theme_location' => 'news-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu', 'container_class' => 'menu-trending-container','fallback_cb' => false ) );
-					}
+		<?php
+		if ( $current_obj ) {
+			if ( in_array( $conditional_nav->slug, CST_Frontend::$post_sections ) ) {
+				switch ( $conditional_nav->slug ) {
+					case 'news': ?>
+					<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
+				<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container', 'fallback_cb' => false ) );
+						break;
+					case 'sports': ?>
+					<span class="menu-label"><?php _e( 'Chicago Teams', 'chicagosuntimes' ); ?></span>
+				<?php	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container', 'fallback_cb' => false ) );
+						break;
+					default: ?>
+					<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
+				<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container', 'fallback_cb' => false ) );
+						break;
 				}
+			} else { ?>
+				<span class="menu-label"><?php esc_html_e( 'Trending', 'chicagosuntimes' ); ?></span>
+				<?php 	wp_nav_menu( array( 'theme_location' => 'news-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu', 'container_class' => 'menu-trending-container', 'fallback_cb' => false ) );
+			}
+		}
 		?>
 		</div>
 	</section>
@@ -124,7 +125,7 @@ if( is_single() ) {
 				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
 			}?>
 		</ul>
-		<?php echo CST()->get_template_part( 'social-links'); ?>
+		<?php echo CST()->get_template_part( 'social-links' ); ?>
 	</div>
 </aside>
 
@@ -139,12 +140,12 @@ if ( is_singular() ) {
 <?php do_action( 'header_sliding_billboard' ); ?>
 
 <?php if ( ! is_single() ) : ?>
-	<?php if ( is_tax() ){
+	<?php if ( is_tax() ) {
 		$section_obj = get_queried_object();
-		if( $section_obj->taxonomy == 'cst_section' ) {
-			if( $section_obj->parent != 0 ) {
+		if ( $section_obj->taxonomy == 'cst_section' ) {
+			if ( $section_obj->parent != 0 ) {
 				$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-				if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+				if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 					$section_slug = $child_terms->slug;
 				} else {

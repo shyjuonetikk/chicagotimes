@@ -42,7 +42,7 @@
 							<?php } ?>
 						</li>
 						<li class="has-form">
-							<a href="/subscribe">Subscribe</a>
+							<span class="subscribe-link"><a href="<?php esc_url( 'http://wssp.suntimes.com/subscribe' ); ?>" target="_blank">Subscribe</a></span>
 						</li>
 					</ul>
 				</div>
@@ -54,20 +54,20 @@
 				<?php } ?>
 				<div class="logo-wrapper large-logo">
 					<div class="logo">
+						<a href="<?php echo ( esc_url( home_url( '/' ) ) ); ?>">
 						<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-masthead.svg' ); ?>" alt='Chicago Sun-Times logo'>
+						</a>
 						<div class="date"><?php echo esc_html( date_i18n( 'l, F j, Y' ) ); ?></div>
-
 					</div>
 				</div>
-
 				<?php
 				wp_nav_menu( array(
-						'theme_location' => 'homepage-menu',
-						'fallback_cb' => false,
-						'depth' => 2,
-						'container_class' => 'cst-navigation-container',
-						'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
-						'walker' => new GC_walker_nav_menu(),
+					'theme_location' => 'homepage-menu',
+					'fallback_cb' => false,
+					'depth' => 2,
+					'container_class' => 'cst-navigation-container',
+					'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+					'walker' => new GC_walker_nav_menu(),
 					)
 				);
 				?>

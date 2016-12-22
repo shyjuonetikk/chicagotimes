@@ -723,6 +723,19 @@ body.single {
 			background: transparent;
 		}
 	}
+	.subscribe-link {
+		-webkit-border-radius:2px;
+		-moz-border-radius:2px;
+		border-radius:2px;
+		border: 1px $light_grey solid;
+		color: $white;
+		padding:3px 5px;
+		margin-top:4px;
+		display:block;
+		a, a:visited, a:focus, a:hover {
+			color:$white;
+		}
+	}
 }
 
 

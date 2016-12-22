@@ -13,7 +13,7 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width">
-<?php if( is_front_page() ) { ?>
+<?php if ( is_front_page() ) { ?>
 <meta property="fb:pages" content="47864940833" />
 <?php } ?>
 <title><?php wp_title( '|', true, 'right' ); ?></title>
@@ -81,7 +81,6 @@ if ( is_singular() ) {
 if ( is_front_page() || is_404() || is_page( 'yieldmo-homepage' ) || is_page_template( 'page-monster.php' ) ) {
 	get_template_part( 'parts/homepage/header' );
 } else {
-	get_template_part( 'parts/homepage/header' );
-//	get_template_part( 'parts/page-header' );
+	get_template_part( 'parts/page-header' );
 }
 ?>
