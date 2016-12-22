@@ -37,6 +37,11 @@ header {
 					font-size: 1rem;
 				}
 			}
+			@media #{$large-down} {
+				.cst-navigation-container {
+					margin-top:0;
+				}
+			}
 
 		.top-bar-section {
 				background-color: $masthead_background;
@@ -86,18 +91,20 @@ header {
 					}
 				}
 			}
-			.dropdown {
-				left: 0;
-				top: auto;
-				background: #f8f8f8;
-				min-width: 100%;
-				box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-				float: none;
-				overflow: hidden;
-				height: 65px;
-				margin: 0 0 16px;
-				border-radius: 2px;
-				border-top: 1px solid #333;
+			@media #{$large-up} {
+				.dropdown {
+					left: 0;
+					top: auto;
+					background: #f8f8f8;
+					min-width: 100%;
+					box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+					float: none;
+					overflow: hidden;
+					height: 65px;
+					margin: 0 0 16px;
+					border-radius: 2px;
+					border-top: 1px solid #333;
+				}
 			}
 		}
 		.cst-row {

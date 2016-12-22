@@ -789,6 +789,9 @@ ul#menu-sun-times-network {
   background-color: #231f20; }
   .masthead .search .has-form {
     background-color: #231f20; }
+  @media only screen and (max-width:90em) {
+    .masthead .search .has-form {
+      padding: 8px 0 0; } }
   .masthead .search .button, .masthead .search .search-input {
     height: 1.7rem;
     width: 100%; }
@@ -799,7 +802,9 @@ ul#menu-sun-times-network {
     .masthead .search .search-input-wrapper .search-icon {
       font-size: 1.675rem;
       float: left;
-      margin-right: 1rem; }
+      margin-left: 1rem;
+      line-height: 1;
+      color: white; }
   .masthead .search .glass {
     font-size: 1.5rem;
     color: white;
@@ -814,6 +819,12 @@ ul#menu-sun-times-network {
     right: inherit;
     top: 5px;
     background: transparent; }
+@media only screen and (max-width:90em) {
+  .masthead .top-bar-section ul {
+    width: inherit; }
+  .masthead .nav-tools ul li {
+    padding: 0 17px;
+    display: inline-block; } }
 .masthead .subscribe-link {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
@@ -2435,6 +2446,9 @@ header .contain-to-grid .top-bar .cst-navigation-container {
   border-bottom: 1px solid #231f20; }
   header .contain-to-grid .top-bar .cst-navigation-container a {
     font-size: 1rem; }
+@media only screen and (max-width:90em) {
+  header .contain-to-grid .top-bar .cst-navigation-container {
+    margin-top: 0; } }
 header .contain-to-grid .top-bar .top-bar-section {
   background-color: white; }
   header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
@@ -2469,18 +2483,19 @@ header .contain-to-grid .top-bar .top-bar-section {
     header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button):hover {
       background-color: #231f20;
       color: white; } }
-header .contain-to-grid .top-bar .dropdown {
-  left: 0;
-  top: auto;
-  background: #f8f8f8;
-  min-width: 100%;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-  float: none;
-  overflow: hidden;
-  height: 65px;
-  margin: 0 0 16px;
-  border-radius: 2px;
-  border-top: 1px solid #333333; }
+@media only screen and (min-width:64.063em) {
+  header .contain-to-grid .top-bar .dropdown {
+    left: 0;
+    top: auto;
+    background: #f8f8f8;
+    min-width: 100%;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    float: none;
+    overflow: hidden;
+    height: 65px;
+    margin: 0 0 16px;
+    border-radius: 2px;
+    border-top: 1px solid #333333; } }
 header .contain-to-grid .cst-row {
   margin: 0 auto; }
 

@@ -21,30 +21,34 @@
 						<ul class="left">
 							<li class="has-form">
 								<div class="row collapse search-input-wrapper">
-									<div class="small-12 columns">
-									<label for="search-field" class="search-icon"><i class="fa fa-search"></i></label>
+									<div class="large-8 small-9 columns">
 										<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
+									</div>
+									<div class="large-4 small-3 columns">
+										<label for="search-field" class="search-icon"><i class="fa fa-search"></i></label>
 									</div>
 								</div>
 							</li>
 						</ul>
 					</form>
-					<ul class="right">
-						<li class="has-form">
-							<?php $weather = CST()->frontend->get_weather(); ?>
-							<?php if ( ! empty( $weather ) ) { ?>
-								<div class="weather">
-									<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+					<div class="nav-tools">
+						<ul class="right">
+							<li class="has-form">
+								<?php $weather = CST()->frontend->get_weather(); ?>
+								<?php if ( ! empty( $weather ) ) { ?>
+									<div class="weather">
+										<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
 					<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
 						<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
-									</a>
-								</div>
-							<?php } ?>
-						</li>
-						<li class="has-form">
-							<span class="subscribe-link"><a href="<?php esc_url( 'http://wssp.suntimes.com/subscribe' ); ?>" target="_blank">Subscribe</a></span>
-						</li>
-					</ul>
+										</a>
+									</div>
+								<?php } ?>
+							</li>
+							<li class="has-form">
+								<span class="subscribe-link"><a href="<?php esc_url( 'http://wssp.suntimes.com/subscribe' ); ?>" target="_blank">Subscribe</a></span>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
 					<div class="sponsor-wrapper">

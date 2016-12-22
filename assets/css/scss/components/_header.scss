@@ -672,6 +672,11 @@ body.single {
 		.has-form {
 			background-color: $cst_black;
 		}
+		@media #{$large-down} {
+			.has-form {
+				padding: 8px 0 0;
+			};
+		}
 		background-color: $cst_black;
 		.button,
 		.search-input {
@@ -687,7 +692,9 @@ body.single {
 			.search-icon{
 				font-size: 1.675rem;
 				float:left;
-				margin-right:1rem;
+				margin-left:1rem;
+				line-height:1;
+				color: $white;
 			}
 		}
 		.glass {
@@ -708,6 +715,21 @@ body.single {
 			right: inherit;
 			top: 5px;
 			background: transparent;
+		}
+	}
+	@media #{$large-down} {
+		.top-bar-section {
+			ul {
+				width: inherit;
+			}
+		}
+		.nav-tools {
+			ul {
+				li {
+					padding: 0 17px;
+					display: inline-block;
+				}
+			}
 		}
 	}
 	.subscribe-link {
