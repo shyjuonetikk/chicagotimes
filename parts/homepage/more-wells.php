@@ -21,7 +21,7 @@
 					}
 					?>
 					<div
-						class="large-4 medium-4 small-12 columns article-image <?php esc_attr_e( strtolower( $primary_section->name ), 'chicagosuntimes' ); ?>-triangle">
+						class="large-4 medium-4 small-4 columns article-image <?php esc_attr_e( strtolower( $primary_section->name ), 'chicagosuntimes' ); ?>-triangle">
 						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-more-wells">
 							<?php
 							if ( $featured_image_id = $obj->get_featured_image_id() ) {
@@ -32,7 +32,7 @@
 							?>
 						</a>
 					</div>
-					<div class="large-8 medium-8 small-12 columns">
+					<div class="large-8 medium-8 small-8 columns">
 						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-more-wells">
 							<h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
 						</a>
