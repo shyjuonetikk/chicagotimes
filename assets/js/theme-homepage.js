@@ -50,7 +50,7 @@
 		 * Bind events happening within the theme
 		 */
 		bindEvents: function() {
-
+			var delayedTimer;
 			$(window).scroll( $.proxy( function() {
 				setTimeout( $.proxy( this.doScrollEvent, this ), 1 );
 			}, this ) );
@@ -107,6 +107,14 @@
 				}
 			}, this ) );
 
+			$(window).resize( $.proxy( function() {
+				if ( delayedTimer ) {
+					clearTimeout( delayedTimer );
+				}
+				delayedTimer = setTimeout( $.proxy( function(){
+					this.responsiveIframes();
+				}, this ), 30 );
+			}, this ) );
 		},
 
 		/**
@@ -162,7 +170,12 @@
 	 * Wait until the document is ready before initializing the theme
 	 */
 	$(document).ready(function(){
-		$(document).foundation();
+		$(document).foundation({
+			equalizer : {
+// Specify if Equalizer should make elements equal height once they become stacked.
+				equalize_on_stack: true
+			}
+		});
 		CST_Homepage.init();
 	});
 

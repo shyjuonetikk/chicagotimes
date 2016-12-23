@@ -357,7 +357,6 @@ body.error404 {
 
 header#header {
   position: relative;
-  z-index: 9999;
   background-color: white; }
   header#header #weather {
     position: absolute;
@@ -372,8 +371,6 @@ header#header {
     header#header #weather .description {
       font-weight: 600;
       font-size: 0.75rem; }
-  header#header .contain-to-grid {
-    background-color: #231f20; }
   header#header .responsive-logo-wrapper {
     position: relative; }
     header#header .responsive-logo-wrapper .small-logo {
@@ -771,54 +768,58 @@ ul#menu-sun-times-network {
   margin-bottom: 10px;
   margin-top: 10px; }
 
+header .contain-to-grid .top-bar ul li {
+  background: #231f20; }
+
+.masthead .utility {
+  background-color: #231f20; }
+  .masthead .utility .weather {
+    border-left: 1px solid #ffe000;
+    border-right: 1px solid #ffe000;
+    padding: 10px 8px; }
+    .masthead .utility .weather .weather-link {
+      line-height: 24px;
+      color: white; }
+      .masthead .utility .weather .weather-link:hover, .masthead .utility .weather .weather-link:visited {
+        color: white; }
+  .masthead .utility .search {
+    background-color: #231f20; }
+    .masthead .utility .search .has-form {
+      background-color: #231f20; }
+    @media only screen and (max-width:90em) {
+      .masthead .utility .search .has-form {
+        padding: 8px 0 0; } }
+    .masthead .utility .search .button, .masthead .utility .search .search-input {
+      height: 1.7rem;
+      width: 100%; }
+      .masthead .utility .search .button:focus, .masthead .utility .search .search-input:focus {
+        width: 100%; }
+    .masthead .utility .search .search-input-wrapper {
+      padding: 2px; }
+      .masthead .utility .search .search-input-wrapper .search-icon {
+        font-size: 1.675rem;
+        float: left;
+        margin-left: 1rem;
+        color: white; }
+    .masthead .utility .search .glass {
+      font-size: 1.5rem;
+      color: white;
+      line-height: 2.5rem; }
+    .masthead .utility .search .subscribe {
+      color: white;
+      background-color: #f8f8f8; }
+    .masthead .utility .search #search-button {
+      font-size: 1.5rem;
+      color: #333333;
+      position: absolute;
+      right: inherit;
+      top: 5px;
+      background: transparent; }
 .masthead .date {
   font-family: 'Merriweather', Georgia, serif;
   height: 26px;
   font-size: 1rem;
   line-height: 1.5rem; }
-.masthead .weather {
-  border-left: 1px solid #ffe000;
-  border-right: 1px solid #ffe000;
-  padding: 10px 8px; }
-  .masthead .weather .weather-link {
-    line-height: 24px;
-    color: white; }
-    .masthead .weather .weather-link:hover, .masthead .weather .weather-link:visited {
-      color: white; }
-.masthead .search {
-  background-color: #231f20; }
-  .masthead .search .has-form {
-    background-color: #231f20; }
-  @media only screen and (max-width:90em) {
-    .masthead .search .has-form {
-      padding: 8px 0 0; } }
-  .masthead .search .button, .masthead .search .search-input {
-    height: 1.7rem;
-    width: 100%; }
-    .masthead .search .button:focus, .masthead .search .search-input:focus {
-      width: 100%; }
-  .masthead .search .search-input-wrapper {
-    padding: 2px; }
-    .masthead .search .search-input-wrapper .search-icon {
-      font-size: 1.675rem;
-      float: left;
-      margin-left: 1rem;
-      line-height: 1;
-      color: white; }
-  .masthead .search .glass {
-    font-size: 1.5rem;
-    color: white;
-    line-height: 2.5rem; }
-  .masthead .search .subscribe {
-    color: white;
-    background-color: #f8f8f8; }
-  .masthead .search #search-button {
-    font-size: 1.5rem;
-    color: #333333;
-    position: absolute;
-    right: inherit;
-    top: 5px;
-    background: transparent; }
 @media only screen and (max-width:90em) {
   .masthead .top-bar-section ul {
     width: inherit; }
@@ -2483,7 +2484,7 @@ header .contain-to-grid .top-bar .top-bar-section {
     header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button):hover {
       background-color: #231f20;
       color: white; } }
-@media only screen and (min-width:64.063em) {
+@media only screen and (min-width:85.25em) {
   header .contain-to-grid .top-bar .dropdown {
     left: 0;
     top: auto;
@@ -2505,7 +2506,7 @@ header .contain-to-grid .cst-row {
     header .contain-to-grid .top-bar {
       max-width: 100%;
       margin: 0 auto;
-      height: 185px;
+      height: 189px;
       background-color: transparent; }
       @media (min-width: 1250px) {
         header .contain-to-grid .top-bar .small-logo {
@@ -2513,8 +2514,6 @@ header .contain-to-grid .cst-row {
       @media (max-width: 1249px) {
         header .contain-to-grid .top-bar .small-logo {
           display: block; } }
-      header .contain-to-grid .top-bar ul li {
-        background-color: white; }
       header .contain-to-grid .top-bar ul li > a {
         font-family: 'Libre Franklin', Arial, sans-serif;
         font-weight: 300;
@@ -2522,7 +2521,6 @@ header .contain-to-grid .cst-row {
         text-align: left; }
       header .contain-to-grid .top-bar .top-bar-section {
         text-align: center;
-        z-index: 3;
         float: none;
         line-height: 1; }
         header .contain-to-grid .top-bar .top-bar-section .logo-wrapper .logo {

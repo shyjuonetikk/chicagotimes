@@ -20,7 +20,6 @@
 
 header#header {
 	position: relative;
-	z-index:9999;
 
 	background-color: $masthead_background;
 
@@ -44,9 +43,6 @@ header#header {
 
 	}
 
-	.contain-to-grid {
-		background-color: $cst_black;
-	}
 	.responsive-logo-wrapper {
 		position: relative;
 		.small-logo {
@@ -646,8 +642,75 @@ body.single {
 	margin-bottom: 10px;
 	margin-top:10px;
 }
+header .contain-to-grid .top-bar ul li {
+	background: $cst_black;
+}
 .masthead {
 
+	.utility {
+		background-color: $cst_black;
+		.weather {
+			border-left: 1px solid $cst_yellow;
+			border-right: 1px solid $cst_yellow;
+			padding: 10px 8px;
+			.weather-link {
+				line-height: 24px;
+				color: $white;
+				&:hover,
+				&:visited {
+					color: $white;
+				}
+			}
+		}
+		.search {
+			.has-form {
+				background-color: $cst_black;
+			}
+			@media #{$large-down} {
+				.has-form {
+					padding: 8px 0 0;
+				};
+			}
+			background-color: $cst_black;
+			.button,
+			.search-input {
+				height: 1.7rem;
+				width: 100%;
+				//transition: width 1s;
+				&:focus {
+					width: 100%;
+				}
+			}
+			.search-input-wrapper {
+				padding:2px;
+				.search-icon{
+					font-size: 1.675rem;
+					float:left;
+					margin-left:1rem;
+					color: $white;
+				}
+			}
+			.glass {
+				font-size: 1.5rem;
+				color: #ffffff;
+				line-height: 2.5rem;
+			}
+
+			.subscribe {
+				color: $white;
+				background-color: $site_background;
+
+			}
+			#search-button {
+				font-size: 1.5rem;
+				color: #333333;
+				position: absolute;
+				right: inherit;
+				top: 5px;
+				background: transparent;
+			}
+		}
+	}
 	.date {
 		font-family: $merriweather;
 		height: 26px;
@@ -655,68 +718,6 @@ body.single {
 		line-height: 1.5rem;
 	}
 
-	.weather {
-		border-left: 1px solid $cst_yellow;
-		border-right: 1px solid $cst_yellow;
-		padding: 10px 8px;
-		.weather-link {
-			line-height: 24px;
-			color: $white;
-			&:hover,
-			&:visited {
-				color: $white;
-			}
-		}
-	}
-	.search {
-		.has-form {
-			background-color: $cst_black;
-		}
-		@media #{$large-down} {
-			.has-form {
-				padding: 8px 0 0;
-			};
-		}
-		background-color: $cst_black;
-		.button,
-		.search-input {
-			height: 1.7rem;
-			width: 100%;
-			//transition: width 1s;
-			&:focus {
-				width: 100%;
-			}
-		}
-		.search-input-wrapper {
-			padding:2px;
-			.search-icon{
-				font-size: 1.675rem;
-				float:left;
-				margin-left:1rem;
-				line-height:1;
-				color: $white;
-			}
-		}
-		.glass {
-			font-size: 1.5rem;
-			color: #ffffff;
-			line-height: 2.5rem;
-		}
-
-		.subscribe {
-			color: $white;
-			background-color: $site_background;
-
-		}
-		#search-button {
-			font-size: 1.5rem;
-			color: #333333;
-			position: absolute;
-			right: inherit;
-			top: 5px;
-			background: transparent;
-		}
-	}
 	@media #{$large-down} {
 		.top-bar-section {
 			ul {

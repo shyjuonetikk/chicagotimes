@@ -28,6 +28,7 @@ $large-down: "#{$screen} and (max-width:#{upper-bound($large-range)})" !default;
 $large-only: "#{$screen} and (min-width:#{lower-bound($large-range)}) and (max-width:#{upper-bound($large-range)})" !default;
 
 $overlap-down: "#{$screen} and (max-width:#{lower-bound($overlap-range)})" !default;
+$overlap-up: "#{$screen} and (min-width:#{lower-bound($overlap-range)})" !default;
 
 $wallpaper-down: "#{$screen} and (max-width:#{lower-bound($overlap-range)})" !default;
 $wallpaper-only: "#{$screen} and (min-width:#{lower-bound($overlap-range)})" !default;
