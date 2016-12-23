@@ -63,7 +63,8 @@ if ( is_single() ) {
 		</a>
 
 		<div id="logo-wrap">
-			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><?php get_template_part( 'parts/images/company-logo' ); ?></a>
+			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo">
+				<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="45" width="230"></a>
 			<?php get_template_part( 'parts/images/main-site-logo' ); ?>
 
 			<div id="tablet-home">
