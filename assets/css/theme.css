@@ -374,7 +374,7 @@ header#header {
   header#header .responsive-logo-wrapper {
     position: relative; }
     header#header .responsive-logo-wrapper .small-logo {
-      width: 340px;
+      width: 230px;
       height: 45px;
       margin: -2px auto 0; }
   header#header section#primary-navigation {
@@ -827,16 +827,16 @@ header .contain-to-grid .top-bar ul li {
     padding: 0 17px;
     display: inline-block; } }
 .masthead .subscribe-link {
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  border: 1px #f8f8f8 solid;
-  color: white;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 2px #666666 solid;
   padding: 3px 5px;
   margin-top: 4px;
-  display: block; }
+  display: block;
+  background-color: white; }
   .masthead .subscribe-link a, .masthead .subscribe-link a:visited, .masthead .subscribe-link a:focus, .masthead .subscribe-link a:hover {
-    color: white; }
+    color: #231f20; }
 
 .wire {
   position: relative;
@@ -2446,7 +2446,8 @@ header .contain-to-grid .top-bar .cst-navigation-container {
   border-top: 1px solid #231f20;
   border-bottom: 1px solid #231f20; }
   header .contain-to-grid .top-bar .cst-navigation-container a {
-    font-size: 1rem; }
+    font-size: 1rem;
+    line-height: 1rem; }
 @media only screen and (max-width:90em) {
   header .contain-to-grid .top-bar .cst-navigation-container {
     margin-top: 0; } }

@@ -35,6 +35,7 @@ header {
 				border-bottom: 1px solid $cst_black;
 				a {
 					font-size: 1rem;
+					line-height:1rem;
 				}
 			}
 			@media #{$large-down} {

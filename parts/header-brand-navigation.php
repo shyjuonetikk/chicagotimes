@@ -7,7 +7,7 @@
 					<li class="name">
 						<h1>
 							<a class="logo small-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-								<?php get_template_part( 'parts/images/company-logo' ); ?>
+								<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="45" width="230">
 							</a>
 						</h1>
 					</li>

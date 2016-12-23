@@ -46,7 +46,7 @@ header#header {
 	.responsive-logo-wrapper {
 		position: relative;
 		.small-logo {
-			width: 340px;
+			width: 230px;
 			height: 45px;
 			margin: -2px auto 0;
 		}
@@ -734,16 +734,16 @@ header .contain-to-grid .top-bar ul li {
 		}
 	}
 	.subscribe-link {
-		-webkit-border-radius:2px;
-		-moz-border-radius:2px;
-		border-radius:2px;
-		border: 1px $light_grey solid;
-		color: $white;
+		-webkit-border-radius:3px;
+		-moz-border-radius:3px;
+		border-radius:3px;
+		border: 2px #666 solid;
 		padding:3px 5px;
 		margin-top:4px;
 		display:block;
+		background-color: $white;
 		a, a:visited, a:focus, a:hover {
-			color:$white;
+			color: $cst_black;
 		}
 	}
 }
