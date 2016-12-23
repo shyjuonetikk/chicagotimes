@@ -22,11 +22,9 @@
 							<ul class="left">
 								<li class="has-form">
 									<div class="row collapse search-input-wrapper">
-										<div class="large-8 small-9 columns">
+										<div class="large-1 small-1 columns search-icon"><i class="fa fa-search"></i></div>
+										<div class="large-9 small-9 columns">
 											<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
-										</div>
-										<div class="large-4 small-3 columns">
-											<label for="search-field" class="search-icon"><i class="fa fa-search"></i></label>
 										</div>
 									</div>
 								</li>

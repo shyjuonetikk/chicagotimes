@@ -644,6 +644,13 @@ body.single {
 header .contain-to-grid .top-bar ul li {
 	background: $cst_black;
 }
+.top-bar {
+	.toggle-topbar {
+		&.menu-icon {
+			right: 28px;
+		}
+	}
+}
 .masthead {
 
 	.utility {
@@ -665,7 +672,7 @@ header .contain-to-grid .top-bar ul li {
 			.has-form {
 				background-color: $cst_black;
 			}
-			@media #{$large-down} {
+			@media #{$xmedium-down} {
 				.has-form {
 					padding: 8px 0 0;
 				};
@@ -687,6 +694,7 @@ header .contain-to-grid .top-bar ul li {
 					float:left;
 					margin-left:1rem;
 					color: $white;
+					padding:0;
 				}
 			}
 			.glass {
