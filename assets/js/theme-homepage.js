@@ -116,7 +116,21 @@
 				}, this ), 30 );
 			}, this ) );
 		},
+		/**
+		 * Make some iframes responsive
+		 */
+		responsiveIframes: function() {
 
+			$('iframe.cst-responsive').each(function(){
+				var el = $(this),
+					parentWidth = el.parent().width();
+				var trueHeight = el.data('true-height') ? el.data('true-height') : 640;
+				var trueWidth = el.data('true-width') ? el.data('true-width') : 360;
+				var newHeight = ( parentWidth / trueHeight ) * trueWidth;
+				$(this).attr('height', newHeight ).attr('width', parentWidth);
+			});
+
+		},
 		/**
 		 * Events that might need to happen when scrolling
 		 */
