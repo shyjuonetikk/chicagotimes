@@ -9,13 +9,7 @@
 					$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
 					if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 						$primary_section = $obj->get_primary_parent_section();
-						if ( $byline = $obj->get_byline() ) {
-							$author = $byline;
-						} else {
-							$authors     = $obj->get_authors();
-							$author_data = $authors[0];
-							$author      = $author_data->get_display_name();
-						}
+						$author          = CST()->frontend->get_article_author( $obj );
 						?>
 						<div class="large-12 medium-12 columns main-article-container">
 							<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-large', 'hp-main-well' ); ?>
@@ -24,17 +18,12 @@
 					}
 					?>
 					<div class="large-12 medium-12 left-main-well">
+						<div class="row large-collapse">
 						<?php
 						$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[1]->ID );
 						if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 							$primary_section = $obj->get_primary_parent_section();
-							if ( $byline = $obj->get_byline() ) {
-								$author = $byline;
-							} else {
-								$authors     = $obj->get_authors();
-								$author_data = $authors[0];
-								$author      = $author_data->get_display_name();
-							}
+							$author          = CST()->frontend->get_article_author( $obj );
 							?>
 							<div class="large-6 medium-12 columns show-for-portrait">
 								<div class="article-container">
@@ -53,13 +42,7 @@
 						$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[2]->ID );
 						if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 							$primary_section = $obj->get_primary_parent_section();
-							if ( $byline = $obj->get_byline() ) {
-								$author = $byline;
-							} else {
-								$authors     = $obj->get_authors();
-								$author_data = $authors[0];
-								$author      = $author_data->get_display_name();
-							}
+							$author          = CST()->frontend->get_article_author( $obj );
 							?>
 							<div class="large-6 medium-12 columns show-for-portrait">
 								<div class="article-container">
@@ -74,6 +57,7 @@
 							<?php
 						}
 						?>
+							</div>
 					</div>
 				</div>
 			</section>
