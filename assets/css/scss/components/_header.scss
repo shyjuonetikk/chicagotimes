@@ -20,7 +20,6 @@
 
 header#header {
 	position: relative;
-	z-index:9999;
 
 	background-color: $masthead_background;
 
@@ -44,13 +43,10 @@ header#header {
 
 	}
 
-	.contain-to-grid {
-		background-color: $cst_black;
-	}
 	.responsive-logo-wrapper {
 		position: relative;
 		.small-logo {
-			width: 340px;
+			width: 230px;
 			height: 45px;
 			margin: -2px auto 0;
 		}
@@ -125,7 +121,7 @@ header#header {
 		a#suntimes-logo {
 			display: block;
 			img {
-				width: 334px;
+				width: 216px;
 
 				@media #{$medium-only} {
 					width: 267px;
@@ -372,9 +368,8 @@ header#header {
 
 #headlines-slider {
 	background-color: $light_grey;
-	border-bottom: 1px solid $cst_black;
 	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-	margin-bottom: 2px;
+	margin-bottom: 5px;
 	height: 134px;
 	.slider {
 		background-color: $light_grey;
@@ -445,7 +440,7 @@ header#header {
 				width: auto;
 				overflow: hidden;
 				box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-				max-height:100px;
+				height:100px;
 				.slide-image {
 					overflow: hidden;
 					width: 100%;
@@ -662,8 +657,83 @@ body.single {
 	margin-bottom: 10px;
 	margin-top:10px;
 }
+header .contain-to-grid .top-bar ul li {
+	background: $cst_black;
+}
+.top-bar {
+	.toggle-topbar {
+		&.menu-icon {
+			right: 28px;
+		}
+	}
+}
 .masthead {
 
+	.utility {
+		background-color: $cst_black;
+		.weather {
+			border-left: 1px solid $cst_yellow;
+			border-right: 1px solid $cst_yellow;
+			padding: 10px 8px;
+			.weather-link {
+				line-height: 24px;
+				color: $white;
+				&:hover,
+				&:visited {
+					color: $white;
+				}
+			}
+		}
+		.search {
+			.has-form {
+				background-color: $cst_black;
+			}
+			@media #{$xmedium-down} {
+				.has-form {
+					padding: 8px 0 0;
+				};
+			}
+			background-color: $cst_black;
+			.button,
+			.search-input {
+				height: 1.7rem;
+				width: 100%;
+				//transition: width 1s;
+				&:focus {
+					width: 100%;
+				}
+			}
+			.search-input-wrapper {
+				padding:2px;
+				.search-icon{
+					font-size: 1.675rem;
+					float:left;
+					margin-left:1rem;
+					color: $white;
+					padding:0;
+				}
+			}
+			.glass {
+				font-size: 1.5rem;
+				color: #ffffff;
+				line-height: 2.5rem;
+			}
+
+			.subscribe {
+				color: $white;
+				background-color: $site_background;
+
+			}
+			#search-button {
+				font-size: 1.5rem;
+				color: #333333;
+				position: absolute;
+				right: inherit;
+				top: 5px;
+				background: transparent;
+			}
+		}
+	}
 	.date {
 		font-family: $merriweather;
 		height: 26px;
@@ -671,68 +741,6 @@ body.single {
 		line-height: 1.5rem;
 	}
 
-	.weather {
-		border-left: 1px solid $cst_yellow;
-		border-right: 1px solid $cst_yellow;
-		padding: 10px 8px;
-		.weather-link {
-			line-height: 24px;
-			color: $white;
-			&:hover,
-			&:visited {
-				color: $white;
-			}
-		}
-	}
-	.search {
-		.has-form {
-			background-color: $cst_black;
-		}
-		@media #{$large-down} {
-			.has-form {
-				padding: 8px 0 0;
-			};
-		}
-		background-color: $cst_black;
-		.button,
-		.search-input {
-			height: 1.7rem;
-			width: 100%;
-			//transition: width 1s;
-			&:focus {
-				width: 100%;
-			}
-		}
-		.search-input-wrapper {
-			padding:2px;
-			.search-icon{
-				font-size: 1.675rem;
-				float:left;
-				margin-left:1rem;
-				line-height:1;
-				color: $white;
-			}
-		}
-		.glass {
-			font-size: 1.5rem;
-			color: #ffffff;
-			line-height: 2.5rem;
-		}
-
-		.subscribe {
-			color: $white;
-			background-color: $site_background;
-
-		}
-		#search-button {
-			font-size: 1.5rem;
-			color: #333333;
-			position: absolute;
-			right: inherit;
-			top: 5px;
-			background: transparent;
-		}
-	}
 	@media #{$large-down} {
 		.top-bar-section {
 			ul {
@@ -749,16 +757,16 @@ body.single {
 		}
 	}
 	.subscribe-link {
-		-webkit-border-radius:2px;
-		-moz-border-radius:2px;
-		border-radius:2px;
-		border: 1px $light_grey solid;
-		color: $white;
+		-webkit-border-radius:3px;
+		-moz-border-radius:3px;
+		border-radius:3px;
+		border: 2px #666 solid;
 		padding:3px 5px;
 		margin-top:4px;
 		display:block;
+		background-color: $white;
 		a, a:visited, a:focus, a:hover {
-			color:$white;
+			color: $cst_black;
 		}
 	}
 }

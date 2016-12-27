@@ -50,7 +50,7 @@
 		 * Bind events happening within the theme
 		 */
 		bindEvents: function() {
-
+			var delayedTimer;
 			$(window).scroll( $.proxy( function() {
 				setTimeout( $.proxy( this.doScrollEvent, this ), 1 );
 			}, this ) );
@@ -107,8 +107,30 @@
 				}
 			}, this ) );
 
+			$(window).resize( $.proxy( function() {
+				if ( delayedTimer ) {
+					clearTimeout( delayedTimer );
+				}
+				delayedTimer = setTimeout( $.proxy( function(){
+					this.responsiveIframes();
+				}, this ), 30 );
+			}, this ) );
 		},
+		/**
+		 * Make some iframes responsive
+		 */
+		responsiveIframes: function() {
 
+			$('iframe.cst-responsive').each(function(){
+				var el = $(this),
+					parentWidth = el.parent().width();
+				var trueHeight = el.data('true-height') ? el.data('true-height') : 640;
+				var trueWidth = el.data('true-width') ? el.data('true-width') : 360;
+				var newHeight = ( parentWidth / trueHeight ) * trueWidth;
+				$(this).attr('height', newHeight ).attr('width', parentWidth);
+			});
+
+		},
 		/**
 		 * Events that might need to happen when scrolling
 		 */
@@ -162,7 +184,12 @@
 	 * Wait until the document is ready before initializing the theme
 	 */
 	$(document).ready(function(){
-		$(document).foundation();
+		$(document).foundation({
+			equalizer : {
+// Specify if Equalizer should make elements equal height once they become stacked.
+				equalize_on_stack: true
+			}
+		});
 		CST_Homepage.init();
 	});
 

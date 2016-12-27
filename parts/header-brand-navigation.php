@@ -7,7 +7,7 @@
 					<li class="name">
 						<h1>
 							<a class="logo small-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-								<?php get_template_part( 'parts/images/company-logo' ); ?>
+								<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="45" width="230">
 							</a>
 						</h1>
 					</li>
@@ -16,21 +16,21 @@
 			</div>
 
 			<section class="top-bar-section">
-				<div class="search row">
-					<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-						<ul class="left">
-							<li class="has-form">
-								<div class="row collapse search-input-wrapper">
-									<div class="large-8 small-9 columns">
-										<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
+				<div class="utility row">
+					<div class="search">
+						<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+							<ul class="left">
+								<li class="has-form">
+									<div class="row collapse search-input-wrapper">
+										<div class="large-1 small-1 columns search-icon"><i class="fa fa-search"></i></div>
+										<div class="large-9 small-9 columns">
+											<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
+										</div>
 									</div>
-									<div class="large-4 small-3 columns">
-										<label for="search-field" class="search-icon"><i class="fa fa-search"></i></label>
-									</div>
-								</div>
-							</li>
-						</ul>
-					</form>
+								</li>
+							</ul>
+						</form>
+					</div>
 					<div class="nav-tools">
 						<ul class="right">
 							<li class="has-form">
@@ -45,7 +45,7 @@
 								<?php } ?>
 							</li>
 							<li class="has-form">
-								<span class="subscribe-link"><a href="<?php esc_url( 'http://wssp.suntimes.com/subscribe' ); ?>" target="_blank">Subscribe</a></span>
+								<span class="subscribe-link"><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
 							</li>
 						</ul>
 					</div>
