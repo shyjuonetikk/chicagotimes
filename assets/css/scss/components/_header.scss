@@ -71,6 +71,13 @@ header#header {
 				font-size: 30px;
 				line-height: 50px;
 			}
+			span {
+				height: 46px;
+				line-height: 47px;
+				position: relative;
+				vertical-align: bottom;
+				padding-right: 10px;
+			}
 		}
 
 		a#burger-bar {
@@ -104,7 +111,7 @@ header#header {
 				    top: 3px;
 				    left: 55px;
 				    font-size: 40px;
-				    
+
 				    .fa {
 				    	color: $white;
 				    }
@@ -144,7 +151,7 @@ header#header {
 		a#newsfeed-logo:hover {
 			color: $light_grey;
 		}
-		
+
 		@media #{$small-only} {
 			#trending-container {
 				display:none;
@@ -171,7 +178,7 @@ header#header {
 				}
 			}
 		}
-		
+
 		@media #{$medium-up} {
 
 			#mobile-home {
@@ -195,13 +202,13 @@ header#header {
 
 				.menu-trending-container {
 					display:inline;
-					
+
 					#menu-trending {
 						margin-left:0;
 						font-size:.8rem;
 					}
 				}
-				
+
 				span.menu-label {
 					font-weight:700;
 					text-transform:uppercase;
@@ -237,13 +244,13 @@ header#header {
 					li .fa.fa-cst-topic:before {
 						content: "#"
 					}
-					
+
 				}
 			}
 		}
 
 	}
-	
+
 	.primary-fixed {
 		position: fixed;
 		top: 0px;
@@ -251,7 +258,7 @@ header#header {
 		width: 100%;
 		background: $black;
 	}
-	
+
 	.primary-normal {
 		position: relative;
 		top: auto;
@@ -267,16 +274,17 @@ header#header {
             min-height: 100%;
         }
 
-        .off-canvas-wrap{  
+        .off-canvas-wrap{
         height: 100%;
         overflow-y: auto;
         }
 
 .left-off-canvas-menu {
+    background-color: $cst_black;
 	ul {
 		margin-left:0;
 	}
-	
+
 	.menu {
 		list-style-type:none;
 	}
@@ -290,14 +298,14 @@ header#header {
 		position: absolute;
 		width: 100%;
 		height:100%;
-		overflow-y:auto;	
+		overflow-y:auto;
 	}
 
 	.search-wrap {
 		margin-bottom: 0px;
 
 		#search-input {
-			background-color: $menu_black;
+			background-color: $cst_black;
 			margin-top: 10px;
 			padding-left: 10px;
 			padding-right: 40px;
@@ -327,7 +335,15 @@ header#header {
 		}
 	}
 
-
+    .off-canvas-list {
+        .menu {
+            li {
+                a {
+                    border-bottom: 1px solid $social_grey
+                }
+            }
+        }
+    }
 }
 
 #fixed-back-to-top {
@@ -423,7 +439,7 @@ header#header {
 				}*/
 			}
 
-		
+
 			.slide-inner {
 				margin: 13px 8px;
 				width: auto;
@@ -527,7 +543,7 @@ header#header {
 				margin-top: 10px;
 				margin-bottom: 10px;
 			}
-			
+
 			ul {
 				list-style-type:none;
 				margin-left:0px;
@@ -535,19 +551,19 @@ header#header {
 				line-height:15px;
 				margin-bottom:7px;
 			}
-			
+
 			li {
 				display:inline;
 				color:$social_grey;
 				font-size:10px;
 			}
-			
+
 			li a {
 				color:$social_grey;
 				font-weight:700;
 				white-space: nowrap;
 			}
-			
+
 			li a:hover {
 				color:$red;
 			}
@@ -746,5 +762,3 @@ body.single {
 		}
 	}
 }
-
-
