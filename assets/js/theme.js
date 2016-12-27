@@ -213,6 +213,7 @@
 				if ( this.nfLogo.is(':hidden') ) {
 					this.cstLogo.hide();
 					this.nfLogo.show('slide', { direction: 'down' } );
+					this.nfLogo.css('display', 'block');
 					if ( windowWidth <= 640 ) {
 						this.mobileHome.show('slide', { direction: 'down' } );
 					}

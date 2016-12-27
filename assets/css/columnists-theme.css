@@ -427,14 +427,16 @@ header#header {
       @media (max-width: 640px) {
         header#header section#primary-navigation #logo-wrap #tablet-home {
           display: none; } }
-    header#header section#primary-navigation a#suntimes-logo img {
-      width: 334px; }
-      @media only screen and (min-width:40.063em) and (max-width:47.398em) {
-        header#header section#primary-navigation a#suntimes-logo img {
-          width: 267px; } }
-      @media only screen and (max-width: 40em) {
-        header#header section#primary-navigation a#suntimes-logo img {
-          width: 227px; } }
+    header#header section#primary-navigation a#suntimes-logo {
+      display: block; }
+      header#header section#primary-navigation a#suntimes-logo img {
+        width: 334px; }
+        @media only screen and (min-width:40.063em) and (max-width:47.398em) {
+          header#header section#primary-navigation a#suntimes-logo img {
+            width: 267px; } }
+        @media only screen and (max-width: 40em) {
+          header#header section#primary-navigation a#suntimes-logo img {
+            width: 227px; } }
     header#header section#primary-navigation a#newsfeed-logo {
       display: none;
       text-transform: uppercase; }
@@ -755,7 +757,7 @@ ul#menu-sun-times-network {
   display: block;
   font-size: 30px;
   font-weight: 700;
-  margin-top: 30px; }
+  margin-top: 3px; }
   #newsfeed-logo img {
     width: 272px;
     height: 34px; }
