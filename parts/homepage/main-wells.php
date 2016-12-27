@@ -2,9 +2,9 @@
 <div class="row">
 	<div class="large-12 content-wrapper">
 		<h2 class="mobile-top-news show-for-small-only"><?php esc_html_e( 'Top News', 'chicagosuntimes' ); ?></h2>
-		<div class="large-8 medium-6 columns main-well-container">
+		<div class="medium-6 small-12 columns main-well-container">
 			<section id="main-well">
-				<div>
+				<div class="row large-collapse">
 					<?php
 					$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
 					if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
@@ -17,8 +17,7 @@
 						<?php
 					}
 					?>
-					<div class="large-12 medium-12 left-main-well">
-						<div class="row large-collapse">
+					<div class="large-12 medium-12 columns left-main-well">
 						<?php
 						$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[1]->ID );
 						if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
@@ -37,8 +36,6 @@
 							</div>
 							<?php
 						}
-						?>
-						<?php
 						$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[2]->ID );
 						if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 							$primary_section = $obj->get_primary_parent_section();
@@ -57,12 +54,11 @@
 							<?php
 						}
 						?>
-							</div>
 					</div>
 				</div>
 			</section>
 		</div>
-		<div class="large-4 medium-6 columns homepage-sidebar">
+		<div class="medium-6 small-12 columns homepage-sidebar">
 			<?php get_template_part( 'parts/homepage/right-sidebar' ); ?>
 		</div>
 	</div>
