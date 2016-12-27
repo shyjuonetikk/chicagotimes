@@ -4,7 +4,8 @@
 <hr>
 <?php if ( is_array( $homepage_more_well_posts ) && ! empty( $homepage_more_well_posts ) ) { ?>
 	<section id="more-stories-wells">
-		<div class="columns">
+		<div class="row">
+			<div class="columns">
 		<?php foreach ( $homepage_more_well_posts as $homepage_more_well_post ) { ?>
 			<div class="more-story">
 				<div class="row">
@@ -48,14 +49,15 @@
 		<?php } ?>
 		<?php get_template_part( 'parts/vendors/nativo-home-1' ); ?>
 		</div>
+		</div>
 	</section>
 <?php } ?>
 </div>
 <div class="large-4 columns homepage-sidebar">
-	<?php if ( dynamic_sidebar( 'homepage_sidebar_two' ) ) {
-	} ?>
-	<?php if ( dynamic_sidebar( 'homepage_sidebar_three' ) ) {
-	} ?>
+<?php if ( dynamic_sidebar( 'homepage_sidebar_two' ) ) {
+} ?>
+<?php if ( dynamic_sidebar( 'homepage_sidebar_three' ) ) {
+} ?>
 	<div class="medium-12 columns dfp-cube">
 		<?php echo CST()->dfp_handler->unit( 7, 'div-gpt-rr-cube', 'dfp dfp-cube' ); ?>
 	</div>

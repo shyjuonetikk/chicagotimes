@@ -667,6 +667,16 @@ header .contain-to-grid .top-bar ul li {
 		}
 	}
 }
+@media #{$small-only} {
+	.top-bar {
+		.toggle-topbar {
+			&.menu-icon {
+				padding-left:1px;
+				right: 21px;
+			}
+		}
+	}
+}
 .masthead {
 
 	.utility {
@@ -731,6 +741,19 @@ header .contain-to-grid .top-bar ul li {
 				right: inherit;
 				top: 5px;
 				background: transparent;
+			}
+		}
+	}
+	.responsive-logo-wrapper {
+		.utility {
+			.search {
+				.search-input-wrapper {
+					.search-icon {
+						margin: 0;
+						font-size: 1.7rem;
+						line-height: 1rem;
+					}
+				}
 			}
 		}
 	}
