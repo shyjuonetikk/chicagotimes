@@ -4,7 +4,7 @@
 		<nav class="top-bar" data-topbar role="navigation">
 			<div class="responsive-logo-wrapper">
 				<ul class="title-area">
-					<li class="search show-for-medium-up">
+					<li class="search hide-for-small-only hide-for-large-up">
 						<div class="utility">
 							<ul>
 								<li class="has-form">
@@ -15,7 +15,7 @@
 													<div class="row collapse search-input-wrapper">
 														<div class="large-1 small-1 columns search-icon"><i class="fa fa-search"></i></div>
 														<div class="large-9 small-9 columns">
-															<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
+															<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search s', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
 														</div>
 													</div>
 												</li>

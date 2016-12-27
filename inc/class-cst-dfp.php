@@ -363,7 +363,7 @@ var dfp = {
     googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
       .addService(googletag.pubads()).setTargeting("pos", "1x1");
     if (dfp.front_page) {
-    googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
+    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-1')
 	  .defineSizeMapping(hp_cube_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
