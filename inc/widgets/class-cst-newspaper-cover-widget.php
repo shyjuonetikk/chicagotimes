@@ -58,14 +58,14 @@ class CST_Newspaper_Cover_Widget extends WP_Widget {
         }
         ?>
         <div class="large-12 medium-6 small-12 widget_cst_todays_paper_widget">
-            <h2 class="widgettitle"><?php echo esc_html( 'Today\'s Cover', 'chicagosuntimes' ); ?></h2>
-            <div class="todays-paper-container">
-                <div class="todays-paper-front">
+            <div><h2 class="widgettitle"><?php echo esc_html( 'Today\'s Cover', 'chicagosuntimes' ); ?></h2></div>
+            <div class="todays-paper-container columns">
+                <div class="todays-paper-front large-12 medium-6 small-12">
                     <a href="">
                         <img src="<?php echo esc_url( $front_cover_url ); ?>" />
                     </a>
                 </div>
-                <div class="todays-paper-back">
+                <div class="todays-paper-back large-12 medium-6 small-12">
                     <div class="todays-paper-links">
                         <a href="http://wssp.suntimes.com/subscribe/" target="_blank" class="button tiny radius"><?php esc_html_e( 'Subscribe', 'chicagosuntimes' ); ?></a>
                         <a href="http://eedition.suntimes.com/epaper/viewer.aspx" target="_blank" class="button secondary tiny radius"><?php esc_html_e( 'E-Paper', 'chicagosuntimes' ); ?></a>

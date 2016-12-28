@@ -290,7 +290,9 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_lead_unit_mapping, hp_cube_mapping, cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping;
+  var article_lead_unit_mapping, hp_cube_mapping, cube_mapping, sf_mapping,
+	  sf_inline_mapping, article_mapping, billboard_mapping,
+	  super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -323,6 +325,14 @@ var dfp = {
       .addSize([0, 0], []) //other
 	  .addSize([1025, 0], [[300, 250]]) //desktop
 	  .build();
+    hp_cube_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([1025, 0], [[300, 250]]) //desktop
+	  .addSize([768,1024], [[728, 90]]) //desktop no sidebar
+	  .addSize([768, 0], [[728, 90]]) //desktop
+	  .addSize([640, 480], [300, 50], [320, 50]) //phone
+	  .addSize([375, 667], [300, 50], [320, 50]) //phone
+	  .build();
     gallery_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
 	  .addSize([1025, 0], [[300, 250]]) //desktop
@@ -339,14 +349,6 @@ var dfp = {
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
-    hp_cube_mapping = googletag.sizeMapping()
-	  .addSize([992, 0], [ [300, 250], [300, 600] ] ) //desktop
-	  .addSize([800, 1200], [ [300,250] ] ) //tablet
-	  .addSize([768, 1024], [ [300,250] ] ) //tablet
-	  .addSize([640, 480], [300, 50], [320, 50]) //phone
-	  .addSize([375, 667], [300, 50], [320, 50]) //phone
-	  .addSize([0, 0], [300, 50], [320, 50]) //other
-	  .build();
     sf_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
 	  .addSize([992, 0], [[300, 250], [300, 600]]) //desktop
@@ -391,6 +393,7 @@ var dfp = {
         .setTargeting("pos", "Super Leaderboard 5")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-rr-cube-7')
+        .defineSizeMapping(hp_cube_mapping)
         .addService(googletag.pubads()).setTargeting("pos", "rr cube 7");
       if (window.innerWidth > 1256) {
         googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-left')
