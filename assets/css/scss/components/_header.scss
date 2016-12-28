@@ -26,13 +26,13 @@ header#header {
 	#weather {
 		position:absolute;
 		right:0px;
-		top:20px;
+		top:17px;
 		color:$white;
 		text-transform:uppercase;
 		font-family: $open_sans;
 
 		.degrees {
-			font-size:1.0rem;
+			font-size:1.2rem;
 			margin-right:10px;
 		}
 

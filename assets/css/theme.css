@@ -361,12 +361,12 @@ header#header {
   header#header #weather {
     position: absolute;
     right: 0px;
-    top: 20px;
+    top: 17px;
     color: white;
     text-transform: uppercase;
     font-family: 'Libre Frankin', Arial, sans-serif; }
     header#header #weather .degrees {
-      font-size: 1rem;
+      font-size: 1.2rem;
       margin-right: 10px; }
     header#header #weather .description {
       font-weight: 600;
@@ -2566,8 +2566,8 @@ header .contain-to-grid .cst-row {
 
 #social-links {
   position: absolute;
-  right: 70px;
-  top: 10px;
+  right: 80px;
+  top: 3px;
   color: white;
   text-transform: uppercase;
   font-family: 'Libre Frankin', Arial, sans-serif; }
@@ -2577,13 +2577,13 @@ header .contain-to-grid .cst-row {
     padding: 0; }
     #social-links ul li {
       display: inline-block;
-      margin: 4px 5px;
-      width: 25px;
-      height: 25px;
-      border-radius: 5px;
-      text-align: center; }
+      margin: 5px 0;
+      width: 2.1rem;
+      height: 2.1rem;
+      text-align: center;
+      padding: 4px; }
       #social-links ul li a .fa {
-        font-size: 1rem; }
+        font-size: 1.7rem; }
       #social-links ul li a .fa-facebook {
         color: white; }
       #social-links ul li a .fa-twitter {
