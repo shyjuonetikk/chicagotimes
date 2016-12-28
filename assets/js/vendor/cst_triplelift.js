@@ -4,7 +4,7 @@
    Public Method for injecting Triplelift's ad / widget into body of the article
    */
   inject: function(){
-    var tripleliftContentNode;
+    var tripleliftContentNode, postContent;
     postContent = jQuery('#main').find('.cst-active-scroll-post');
     if ( ! postContent.length ) {
       return;
@@ -16,7 +16,7 @@
       return
 
     if( ! jQuery('.cst-active-scroll-post' ).hasClass('triplelift-inserted') ) {
-      if(paragraphsCount >= 1) {
+      if(paragraphsCount >= 2) {
         if( jQuery(paragraphs[2]).hasClass('wp-caption-text') ) {
           tripleliftContentNode = jQuery(paragraphs[1]);
         } else {

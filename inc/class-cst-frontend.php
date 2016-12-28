@@ -1565,5 +1565,57 @@ ready(fn);
 		}
 
 	}
+	/**
+	* @param $obj \CST\Objects\Article | \CST\Objects\Post
+	*
+	* Determine and inject markup related to Chatter subject(s)
+	*/
+	public function inject_chatter_parameters( $obj ) {
+		$chatter_selection = $obj->get_chatter_widget_selection();
+
+		if ( $chatter_selection ) :
+			switch ( $chatter_selection ) {
+				case 'default_chatter':
+					if ( $agg_primary_section = $obj->get_primary_section() ) :
+						if ( 0 != $agg_primary_section->parent  ) {
+							$agg_primary_section = $obj->get_grandchild_parent_section();
+						}
+						$agg_primary_section_slug = $agg_primary_section->slug;
+					else :
+						$agg_primary_section_slug = '';
+					endif;
+					break;
+				case 'politics_chatter':
+					$agg_primary_section_slug = 'politics';
+					break;
+				case 'sports_chatter':
+					$agg_primary_section_slug = 'sports';
+					break;
+				case 'celeb_chatter':
+					$agg_primary_section_slug = 'entertainment';
+					break;
+				case 'no_chatter':
+					$agg_primary_section_slug = '';
+					break;
+				default:
+					break;
+			}
+		else :
+			if ( $agg_primary_section = $obj->get_primary_section() ) :
+				if ( 0 != $agg_primary_section->parent ) {
+					$agg_primary_section = $obj->get_grandchild_parent_section();
+				}
+				$agg_primary_section_slug = $agg_primary_section->slug;
+			else :
+				$agg_primary_section_slug = '';
+			endif;
+		endif;
+
+		?>
+<script type="text/javascript">
+  window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
+</script>
+	<?php
+	}
 
 }
