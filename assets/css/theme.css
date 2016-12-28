@@ -835,6 +835,8 @@ header .contain-to-grid .top-bar ul li {
       right: inherit;
       top: 5px;
       background: transparent; }
+.masthead .responsive-logo-wrapper .utility .search .search-wrap ul {
+  margin-left: 0; }
 .masthead .responsive-logo-wrapper .utility .search .search-input-wrapper .search-icon {
   margin: 0;
   font-size: 1.7rem;

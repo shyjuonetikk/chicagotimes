@@ -747,6 +747,11 @@ header .contain-to-grid .top-bar ul li {
 	.responsive-logo-wrapper {
 		.utility {
 			.search {
+				.search-wrap {
+					ul {
+						margin-left:0;
+					}
+				}
 				.search-input-wrapper {
 					.search-icon {
 						margin: 0;

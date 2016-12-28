@@ -15,7 +15,7 @@
 													<div class="row collapse search-input-wrapper">
 														<div class="large-1 small-1 columns search-icon"><i class="fa fa-search"></i></div>
 														<div class="large-9 small-9 columns">
-															<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search s', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
+															<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'SEARCH', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
 														</div>
 													</div>
 												</li>
