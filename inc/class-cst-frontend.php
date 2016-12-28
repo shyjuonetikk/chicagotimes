@@ -1296,8 +1296,6 @@ class CST_Frontend {
 	 * only for the sections listed
  	 * Immediately above the RSS area of the section front
 	 *
-	 * @param $section_front_spacing
-	 *
 	 * Pretty title for section front
 	 */
 	function action_cst_section_front_upper_heading( ) {
@@ -1505,6 +1503,7 @@ ready(fn);
 	/**
 	* Detect section and if appropriate inject Public Good markup
 	* @param $obj \CST\Objects\Article | \CST\Objects\Post
+	* @return string
 	*/
 	public function inject_public_good_markup( $obj ) {
 
@@ -1546,7 +1545,7 @@ ready(fn);
 	}
 
 	/**
-	* @param $obj
+	* @param $obj \CST\Objects\Article | \CST\Objects\Post
 	*
 	* @return bool
 	*
@@ -1555,11 +1554,16 @@ ready(fn);
 	public function include_triple_lift( $obj ) {
 		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
 
-		if ( array_intersect( CST_Frontend::$triple_lift_section_slugs, $article_section_slugs ) ) {
-			return true;
+		if ( $article_section_slugs ) {
+			if ( array_intersect( CST_Frontend::$triple_lift_section_slugs, $article_section_slugs ) ) {
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
+
 	}
 
 }
