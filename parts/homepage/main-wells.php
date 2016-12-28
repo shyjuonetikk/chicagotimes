@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="large-12 content-wrapper">
 		<h2 class="mobile-top-news show-for-small-only"><?php esc_html_e( 'Top News', 'chicagosuntimes' ); ?></h2>
-		<div class="medium-6 small-12 columns main-well-container">
+		<div class="large-8 medium-6 small-12 columns main-well-container">
 			<section id="main-well">
 				<div class="row large-collapse">
 					<?php
@@ -58,7 +58,7 @@
 				</div>
 			</section>
 		</div>
-		<div class="medium-6 small-12 columns homepage-sidebar">
+		<div class="large-4 medium-6 small-12 columns homepage-sidebar">
 			<?php get_template_part( 'parts/homepage/right-sidebar' ); ?>
 		</div>
 	</div>
