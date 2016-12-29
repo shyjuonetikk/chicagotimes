@@ -6,7 +6,7 @@
 
 		<?php
 		if ( is_singular() ) {
-			$classes = array( 'single-view', 'columns', 'large-12', 'end', 'cst-sharing-relative' );
+			$classes = array( 'single-view', 'columns', 'small-12', 'end', 'cst-sharing-relative' );
 		} else {
 			$classes = array( 'index-view' );
 		}
@@ -53,9 +53,11 @@
 		</article>
 
 		<?php if ( is_singular() ) : ?>
-		<section class="taboola-container">
-		<?php get_template_part( 'parts/taboola/taboola-container' ); ?>
-		</section>
+		<div class="columns">
+			<section class="taboola-container">
+			<?php get_template_part( 'parts/taboola/taboola-container' ); ?>
+			</section>
+		</div>
 		<?php endif; ?>
 
 		<section class="ad-container">

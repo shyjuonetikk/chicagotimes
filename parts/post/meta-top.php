@@ -1,7 +1,7 @@
 <?php
 
 if ( ! $obj ) {
-    return;
+	return;
 }
 
 	$classes = array( 'post-meta', 'post-meta-top' );
@@ -9,9 +9,9 @@ if ( ! $obj ) {
 	if ( is_singular() ) {
 		if ( $section = $obj->get_primary_section() ) {
 			if ( CST()->frontend->do_sponsor_header( $section->term_id ) ) {
-				$classes[] = 'columns medium-4 medium-offset-1';
+				$classes[] = 'columns medium-4';
 			} else {
-				$classes[] = 'columns medium-11 medium-offset-1 end';
+				$classes[] = 'columns small-12 end';
 			}
 		}
 	}
@@ -22,7 +22,7 @@ if ( ! $obj ) {
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 <?php if ( $section = $obj->get_primary_section() ) : ?>
-<?php if ( is_sticky() && !is_singular() ) : ?>
+<?php if ( is_sticky() && ! is_singular() ) : ?>
 	<span class="developing">
 		<span class="triangle-top-right"></span>
 		<span class="developing-text">developing</span>
@@ -35,8 +35,8 @@ if ( is_callable( array( $obj, 'get_preferred_section' ) ) ) :
 ?>
 <?php $preferred_section = $obj->get_preferred_section( $section );
 echo sprintf(
-'<span class="post-section-taxonomy">
-	<a href="%1$s">%2$s</a>
+	'<span class="post-section-taxonomy">
+	<a href="%1$s" data-on="click" data-event-category="article" data-event-action="navigate to %2$s section-front">%2$s</a>
 </span>',
 	esc_url( $preferred_section['term_link'] ),
 	esc_html( $preferred_section['term_name'] )
@@ -44,7 +44,7 @@ echo sprintf(
 ?>
 <?php endif; // End VIP Hotfix ?>
 <?php endif; ?>
-	<?php if ( !is_sticky() ) : ?>
+	<?php if ( ! is_sticky() ) : ?>
 	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_post_date() ); ?></span>
 <?php endif; ?>
 </div>

@@ -980,7 +980,7 @@ class CST_Frontend {
 				}
 			}
 			?>
-			<div class="medium-11 medium-offset-1 cst-recommendations">
+			<div class="small-12 cst-recommendations">
 				<div class="columns">
 			 	<hr>
 				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
@@ -1487,7 +1487,7 @@ ready(fn);
 <div class="large-7 medium-8 small-12 columns newsletter-box">
 	<div class="newsletter-sign-up">
 		<h3>Sign-Up for our %1$s Newsletter&nbsp;
-			<a href="https://r1.surveysandforms.com/%2$s" target="_blank" class="button tiny info">
+			<a href="https://r1.surveysandforms.com/%2$s" data-on="click" data-event-category="newsletter" data-event-action="subscribe to %1$s" target="_blank" class="button tiny info">
 				<i class="fa fa-envelope"></i> Sign-Up
 			</a>
 		</h3>

@@ -1614,7 +1614,7 @@ class CST {
 			if ( doing_filter( 'the_content' ) ) {
 				$class = 'post-lead-media end';
 			} else {
-				$class = 'post-lead-media columns medium-11 medium-offset-1 end';
+				$class = 'post-lead-media columns small-12 end';
 			}
 			$output .= '<div class="' . esc_attr( $class ) . '">';
 			$output .= $attachment->get_html( 'cst-article-featured' );

@@ -153,21 +153,17 @@
 	.post-meta-social {
 		position: absolute;
 		top: 30px;
-		left: 0;
-		
+		right: 0;
 		.fa {
 			font-size: 1rem;
-			padding-top: 10px;
-			padding-bottom: 10px;
-			padding-left: 14px;
-			padding-right: 14px;
+			padding: 10px 14px;
 		}
 
-		a {
-			display: block;
-			height: 40px;
-			width: 40px;
-		}
+			a {
+				display: inline-block;
+				height: 40px;
+				width: 40px;
+			}
 
 	}
 

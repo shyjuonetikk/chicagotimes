@@ -1435,9 +1435,6 @@ body[class~="archive"] article.post {
     .single .taboola-container .thumbnails-c .videoCube {
       margin: 0;
       margin-left: 2%; } }
-@media only screen and (min-width:64.063em) {
-  .single .taboola-container {
-    max-width: 615px; } }
 @media only screen and (min-width:64.063em) and (max-width:90em) {
   .single .taboola-container {
     max-width: 800px; } }
@@ -1500,7 +1497,7 @@ body[class~="archive"] article.post {
   position: relative; }
   @media only screen and (min-width:40.063em) {
     .single article.post {
-      padding-top: 30px;
+      padding-top: 15px;
       border-top: 7px solid #f8f8f8; } }
   .single article.post h1 {
     font-size: 2.25rem;
@@ -1581,7 +1578,8 @@ body[class~="archive"] article.post {
           color: #3c5a96; } }
 .single .end-of-post-line {
   border: 0;
-  border-bottom: 2px solid #cdcdcd; }
+  border-bottom: 2px solid #cdcdcd;
+  margin-bottom: 0; }
 .single .instagram-byline {
   font-family: 'Libre Frankin', Arial, sans-serif; }
   .single .instagram-byline .fa {
@@ -1622,7 +1620,8 @@ body[class~="archive"] article.post {
   background: #f8f8f8;
   margin: 0 auto;
   text-align: center;
-  padding: 0.4rem; }
+  padding: 0.4rem;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
   .single .post .newsletter-sign-up h3 {
     font-size: 1rem;
     font-weight: 600;
@@ -1639,11 +1638,10 @@ article[id^="post-"] .agg-collage {
 article[id^="post-"] .agg-chatter {
   float: left; }
 article[id^="post-"] .agg-collage .agg-collage-container {
-  max-width: 615px;
   margin: 0 auto; }
 article[id^="post-"] .agg-collage .agg-collage-version-mid_article_three_pack .post-thumbnail {
   height: 76%;
-  padding-bottom: 89% !important;
+  padding-bottom: 60% !important;
   background-position: top left !important;
   -webkit-border-radius: 0 !important;
   -moz-border-radius: 0 !important;
@@ -1654,8 +1652,8 @@ article[id^="post-"] .agg-collage .agg-collage-version-mid_article_three_pack .p
   background-size: contain !important;
   background-repeat: no-repeat; }
 article[id^="post-"] .agg-collage .agg-collage-post {
-  margin: 0;
-  width: 32.4%; }
+  margin: 0.5% 0.9% 0.5%;
+  width: 30.3%; }
 article[id^="post-"] h4.agg-sponsored {
   margin-top: 20px;
   font-size: 1rem;
@@ -2885,7 +2883,7 @@ body.post-gallery-lightbox-active {
 .post .post-meta-social {
   position: absolute;
   top: 30px;
-  left: 0; }
+  right: 0; }
   .post .post-meta-social .fa {
     font-size: 1rem;
     padding-top: 10px;
@@ -2893,7 +2891,7 @@ body.post-gallery-lightbox-active {
     padding-left: 14px;
     padding-right: 14px; }
   .post .post-meta-social a {
-    display: block;
+    display: inline-block;
     height: 40px;
     width: 40px; }
 .post .post-meta-bottom .fa.post-taxonomy {

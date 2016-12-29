@@ -254,20 +254,7 @@
 
 					if ( scrollTop > topBreakPoint && scrollTop < bottomBreakPoint && ! el.hasClass('cst-active-scroll-post') ) {
             mainPost.removeClass('cst-active-scroll-post');
-
-						if( windowWidth > 736 ) {
-              mainPost.addClass('cst-sharing-relative').removeClass('cst-sharing-absolute');
-							if ( ! el.hasClass('type-cst_embed' ) ) {
-								el.addClass('cst-sharing-absolute').removeClass('cst-sharing-relative');
-							}
-						}
-
 						el.addClass('cst-active-scroll-post');
-					}
-					if( windowWidth > 736 ) {
-						if ( scrollTop < topBreakPoint || scrollTop > bottomBreakPoint && el.hasClass('cst-sharing-absolute' ) ) {
-							el.removeClass('cst-sharing-absolute').addClass('cst-sharing-relative');
-						}
 					}
 				}, this ) );
 

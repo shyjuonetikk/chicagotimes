@@ -7,16 +7,16 @@
 		if ( 'image' === $media_type ) :
 			CST()->featured_image_markup( $obj );
 		elseif ( 'gallery' === $media_type && $gallery = $obj->get_featured_gallery() ) : ?>
-			<div class="post-lead-media post-content columns medium-11 medium-offset-1 end">
+			<div class="post-lead-media post-content columns small-12 end">
 				<?php echo do_shortcode( '[cst-content id="' . $gallery->get_id() . '"]' ); ?>
 			</div>
 		<?php elseif ( 'video' === $media_type ) : ?>
-			<div class="post-lead-media post-content columns medium-11 medium-offset-1 end">
+			<div class="post-lead-media post-content columns small-12 end">
 				<?php echo $obj->get_featured_video_embed(); ?>
 			</div>
 		<?php endif; ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
-		<div class="post-content columns medium-11 medium-offset-1 p402_premium end" itemprop="articleBody">
+		<div class="post-content columns small-12 p402_premium end" itemprop="articleBody">
 		<?php
 		CST()->frontend->inject_chatter_parameters( $obj );
 		$yieldmo_tag = $obj->get_yieldmo_tag();
