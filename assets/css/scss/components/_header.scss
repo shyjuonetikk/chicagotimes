@@ -383,12 +383,12 @@ header#header {
 			width: 30px;
 			cursor: pointer;
 			background: transparent;
-			bottom: 57px;
+			bottom: 38px;
 			padding: 0;
 			border: none;
 			outline: none;
 			color: $cst_black;
-			font-size: 1.6rem;
+			font-size: 1.4rem;
 		}
 
 		.header-prev.fa {
@@ -396,7 +396,7 @@ header#header {
 		}
 
 		.header-next.fa {
-			right: 2px;
+			right: -5px;
 		}
 
 		.slick-dots li button:before {
@@ -421,14 +421,14 @@ header#header {
 			}
 			.slide-image-container {
 				float: left;
-				height: 100px;
-				width: 100px;
+				height: 80px;
+				width: 80px;
 				position: relative;
 			}
 			.slide-text {
 				position: relative;
 				display: block;
-				padding: 0 1.5rem 0 6.8rem;
+				padding: 0 1.5rem 0 5.4rem;
 				/*@media #{$large-range} {
 					max-width: 250px;
 				}*/
@@ -436,11 +436,11 @@ header#header {
 
 
 			.slide-inner {
-				margin: 13px 8px;
+				margin: 8px;
 				width: auto;
 				overflow: hidden;
 				box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-				height:100px;
+				height:80px;
 				.slide-image {
 					overflow: hidden;
 					width: 100%;
@@ -463,8 +463,8 @@ header#header {
 				margin-bottom: 0.2rem;
 			}
 			h3 {
-				font-size: 0.9rem;
-				line-height: 1.23rem;
+				font-size: 0.8rem;
+				line-height: 0.95rem;
 				font-weight: 400;
 				a {
 					color: $cst_black;
@@ -474,7 +474,7 @@ header#header {
 
 		.slick-dots {
 			margin-left: 0;
-			bottom: -29px;
+			bottom: -36px;
 
 			li {
 				height: 21px;
