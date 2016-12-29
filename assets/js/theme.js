@@ -469,6 +469,9 @@
 				slide: '.slide',
 				slidesToShow: 5,
 				dots: true,
+        customPaging: function(slider, i) {
+          return '<button type="button" data-on="click" data-event-category="slider-dot" data-event-action="dot-navigate">' + (i + 1) + '</button>';
+        },
 				arrows: true,
 				prevArrow: '<a href="#" data-on="click" data-event-category="slider-arrow" data-event-action="navigate-prev"><i class="fa fa-chevron-left header-prev"></i></a>',
 				nextArrow: '<a href="#" data-on="click" data-event-category="slider-arrow" data-event-action="navigate-next"><i class="fa fa-chevron-right header-next"></i></a>',
