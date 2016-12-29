@@ -23,8 +23,6 @@ class CST_DFP_Handler {
 	 * @param $index
 	 * @param string $type
 	 * @param string $class
-	 * @param int $deprecated
-	 *
 	 * @return string
 	 *
 	 * Create a generic markup unit
@@ -290,7 +288,7 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_lead_unit_mapping, cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping;
+  var article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -319,9 +317,9 @@ var dfp = {
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
-    cube_mapping = googletag.sizeMapping()
+    article_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
-	  .addSize([1025, 0], [[300, 250]]) //desktop
+	  .addSize([1025, 0], [[300, 600], [300, 250]]) //desktop
 	  .build();
     gallery_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
@@ -341,8 +339,8 @@ var dfp = {
     build();
     sf_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
-	  .addSize([992, 0], [[300, 250], [300, 600]]) //desktop
-      .addSize([768, 0], [[300, 250], [300, 600]]) //tablet
+	  .addSize([992, 0], [[300, 600], [300, 250]]) //desktop
+      .addSize([768, 0], [[300, 600], [300, 250]]) //tablet
       .build();
     sf_inline_mapping = googletag.sizeMapping()
       .addSize([992, 0], [[300, 250]]) //desktop
@@ -355,7 +353,7 @@ var dfp = {
     googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
       .addService(googletag.pubads()).setTargeting("pos", "1x1");
     if (dfp.front_page) {
-    googletag.defineSlot(adUnitPath, [[300, 250], [300, 600]], 'div-gpt-rr-cube-1')
+    googletag.defineSlot(adUnitPath, [[300, 600], [300, 250]], 'div-gpt-rr-cube-1')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
