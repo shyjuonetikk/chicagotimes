@@ -402,11 +402,11 @@ header#header {
       display: inline-block;
       overflow-y: hidden;
       height: 50px;
-      padding-top: 5px;
+      padding-top: 3px;
       padding-right: 5px; }
       @media only screen and (max-width: 40em) {
         header#header section#primary-navigation #logo-wrap {
-          margin-left: 55px; } }
+          float: right; } }
       @media (min-width: 981px) {
         header#header section#primary-navigation #logo-wrap #tablet-home {
           display: none; } }
@@ -415,7 +415,7 @@ header#header {
           display: none;
           position: absolute;
           top: 3px;
-          left: 55px;
+          left: 147px;
           font-size: 40px; }
           header#header section#primary-navigation #logo-wrap #tablet-home .fa {
             color: white; } }
@@ -434,7 +434,8 @@ header#header {
             width: 227px; } }
     header#header section#primary-navigation a#newsfeed-logo {
       display: none;
-      text-transform: uppercase; }
+      text-transform: uppercase;
+      margin: 3px 42px 0; }
       header#header section#primary-navigation a#newsfeed-logo img {
         width: 204px; }
         @media only screen and (max-width: 40em) {
@@ -454,7 +455,7 @@ header#header {
         display: none;
         position: absolute;
         right: 15px;
-        top: 10px; }
+        top: 11px; }
         header#header section#primary-navigation #mobile-home a {
           color: white;
           font-size: 1.55rem; } }
@@ -2886,10 +2887,7 @@ body.post-gallery-lightbox-active {
   right: 0; }
   .post .post-meta-social .fa {
     font-size: 1rem;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 14px;
-    padding-right: 14px; }
+    padding: 10px 14px; }
   .post .post-meta-social a {
     display: inline-block;
     height: 40px;

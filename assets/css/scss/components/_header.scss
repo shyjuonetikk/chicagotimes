@@ -89,11 +89,11 @@ header#header {
 			display: inline-block;
 			overflow-y: hidden;
 			height: 50px;
-			padding-top: 5px;
+			padding-top: 3px;
 			padding-right: 5px;
 
 			@media #{$small-only} {
-				margin-left: 55px;
+				float:right;
 			}
 
 			#tablet-home {
@@ -105,7 +105,7 @@ header#header {
 					display: none;
 					position: absolute;
 				    top: 3px;
-				    left: 55px;
+				    left: 147px;
 				    font-size: 40px;
 
 				    .fa {
@@ -135,7 +135,7 @@ header#header {
 		a#newsfeed-logo {
 			display: none;
 			text-transform: uppercase;
-
+			margin: 3px 42px 0;
 			img {
 				width: 204px;
 				@media #{$small-only} {
@@ -166,7 +166,7 @@ header#header {
 				display: none;
 				position: absolute;
 				right: 15px;
-				top: 10px;
+				top: 11px;
 
 				a {
 					color: $white;
