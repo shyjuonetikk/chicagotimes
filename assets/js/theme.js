@@ -470,8 +470,8 @@
 				slidesToShow: 5,
 				dots: true,
 				arrows: true,
-				prevArrow: '<i class="fa fa-chevron-left header-prev"></i>',
-				nextArrow: '<i class="fa fa-chevron-right header-next"></i>',
+				prevArrow: '<a href="#" data-on="click" data-event-category="slider-arrow" data-event-action="navigate-prev"><i class="fa fa-chevron-left header-prev"></i></a>',
+				nextArrow: '<a href="#" data-on="click" data-event-category="slider-arrow" data-event-action="navigate-next"><i class="fa fa-chevron-right header-next"></i></a>',
 				responsive: [
 					// Small desktop
 					{
