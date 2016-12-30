@@ -24,10 +24,6 @@ header#header {
 	z-index: 99998;
 	width: 100%;
 	background: $cst_black;
-	-webkit-transition: all .5s;
-	-moz-transition: all .5s;
-	-o-transition: all .5s;
-	transition: all .5s;
 
 	#weather {
 		position:absolute;

@@ -284,18 +284,15 @@
         togglePrimaryNavigation: function() {
 
             if ( this.primaryNavigation.hasClass("primary-normal") ) {
-                this.primaryNavigation.removeClass("primary-normal").addClass("primary-fixed");
+                // this.primaryNavigation.removeClass("primary-normal").addClass("primary-fixed");
                 // Prevents jitter when the navigation is getting fixed
-                this.featuredPosts.addClass( "slider-fixed" );
                 // Accommodate desktop admin bar, but not mobile
                 if ( $("body").hasClass("admin-bar") && $(window).width() > 782 ) {
                     this.primaryNavigation.css( "top", this.adminBar.height() );
                 }
             } else  {
-                this.primaryNavigation.removeClass("primary-fixed").addClass("primary-normal");
-                this.featuredPosts.removeClass( "slider-fixed" );
-                this.primaryNavigation.removeAttr( "style" );
-                this.featuredPosts.removeAttr("style");
+                // this.primaryNavigation.removeClass("primary-fixed").addClass("primary-normal");
+                this.primaryNavigation.removeAttr( "style" );               this.featuredPosts.removeAttr("style");
             }
 
         },

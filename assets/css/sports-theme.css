@@ -358,11 +358,7 @@ header#header {
   top: 0;
   z-index: 99998;
   width: 100%;
-  background: #231f20;
-  -webkit-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  transition: all 0.5s; }
+  background: #231f20; }
   header#header #weather {
     position: absolute;
     right: 0px;
