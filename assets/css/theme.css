@@ -2933,6 +2933,9 @@ body.post-gallery-lightbox-active {
   /* CONTENT */
   /* SIDEBAR */
   /* FOOTER */ }
+  @media only screen and (max-width:64em) {
+    .homepage_wrapper {
+      margin-top: 60px; } }
   .homepage_wrapper .news-cat:hover {
     background: #d22d42 !important;
     /* The Fallback */
