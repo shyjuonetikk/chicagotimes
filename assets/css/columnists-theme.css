@@ -382,7 +382,7 @@ header#header {
       height: 45px;
       margin: -2px auto 0; }
   header#header section#primary-navigation {
-    height: 50px;
+    height: 46px;
     z-index: 100100;
     background-color: #231f20; }
     header#header section#primary-navigation a#burger-bar {
@@ -391,11 +391,11 @@ header#header {
       header#header section#primary-navigation a#burger-bar .fa {
         padding-left: 10px;
         padding-right: 10px;
-        font-size: 30px;
-        line-height: 50px; }
+        font-size: 26px;
+        line-height: 46px; }
       header#header section#primary-navigation a#burger-bar span {
         height: 46px;
-        line-height: 47px;
+        line-height: 45px;
         position: relative;
         vertical-align: bottom;
         padding-right: 10px; }
@@ -407,7 +407,7 @@ header#header {
       line-height: 36px;
       display: inline-block;
       overflow-y: hidden;
-      height: 50px;
+      height: 46px;
       padding-top: 3px;
       padding-right: 5px; }
       @media only screen and (max-width: 40em) {
@@ -431,7 +431,7 @@ header#header {
     header#header section#primary-navigation a#suntimes-logo {
       display: block; }
       header#header section#primary-navigation a#suntimes-logo img {
-        width: 216px; }
+        width: 207px; }
         @media only screen and (min-width:40.063em) and (max-width:47.398em) {
           header#header section#primary-navigation a#suntimes-logo img {
             width: 267px; } }
@@ -551,18 +551,16 @@ header#header {
       font-size: 0.75rem;
       font-style: italic;
       height: 40px;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      border-bottom: 1px solid #9a9a9a; }
+      border: 1px solid #9a9a9a; }
     .left-off-canvas-menu .search-wrap #search-input:focus {
-      outline: 0; }
+      outline: 0;
+      border: 1px solid white; }
     .left-off-canvas-menu .search-wrap a#search-button {
-      background-color: #333333;
       color: #f8f8f8;
       position: relative;
-      top: -32px;
-      margin-left: 205px; }
+      top: -39px;
+      margin-left: 207px;
+      font-size: 1.5rem; }
   .left-off-canvas-menu .off-canvas-logo {
     margin: 0 auto;
     width: 200px;
@@ -3709,7 +3707,7 @@ header .contain-to-grid .cst-row {
 #social-links {
   position: absolute;
   right: 80px;
-  top: 3px;
+  top: 1px;
   color: white;
   text-transform: uppercase;
   font-family: 'Libre Frankin', Arial, sans-serif; }

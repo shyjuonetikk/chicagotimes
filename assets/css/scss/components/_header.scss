@@ -55,7 +55,7 @@ header#header {
 	}
 
 	section#primary-navigation {
-		height: 50px;
+		height: 46px;
 		z-index: 100100;
 		background-color: $cst_black;
 
@@ -66,12 +66,12 @@ header#header {
 			.fa {
 				padding-left: 10px;
 				padding-right: 10px;
-				font-size: 30px;
-				line-height: 50px;
+				font-size: 26px;
+				line-height: 46px;
 			}
 			span {
 				height: 46px;
-				line-height: 47px;
+				line-height: 45px;
 				position: relative;
 				vertical-align: bottom;
 				padding-right: 10px;
@@ -90,7 +90,7 @@ header#header {
 			line-height: 36px;
 			display: inline-block;
 			overflow-y: hidden;
-			height: 50px;
+			height: 46px;
 			padding-top: 3px;
 			padding-right: 5px;
 
@@ -123,7 +123,7 @@ header#header {
 		a#suntimes-logo {
 			display: block;
 			img {
-				width: 216px;
+				width: 207px;
 
 				@media #{$medium-only} {
 					width: 267px;
@@ -307,22 +307,20 @@ header#header {
 			font-size: 0.75rem;
 			font-style: italic;
 			height: 40px;
-			border-top: none;
-			border-left: none;
-			border-right: none;
-			border-bottom: 1px solid $social_grey;
+			border: 1px solid $social_grey;
 		}
 
 		#search-input:focus {
 			outline: 0;
+			border: 1px solid $white;
 		}
 
 		a#search-button {
-			background-color: $menu_black;
 			color: $light_grey;
 			position: relative;
-			top: -32px;
-			margin-left: 205px;
+			top: -39px;
+			margin-left: 207px;
+			font-size: 1.5rem;
 		}
 	}
 
