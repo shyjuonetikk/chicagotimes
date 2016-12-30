@@ -27,7 +27,7 @@
             }
             this.positionAndSizePostSidebar();
             if (this.body.hasClass("tax-cst_section")) {
-                this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.primaryNavigation.height() + 10 });
+                this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10 });
             }
         },
 
