@@ -26,9 +26,9 @@
                 this.recalibrateTrendingItems();
             }
             this.positionAndSizePostSidebar();
-            if (this.body.hasClass('tax-cst_section')) {
-        this.anchorMe.stick_in_parent({'bottoming' : false, 'offset_top': this.adminBar.height() + this.primaryNavigation.height() + 10 });
-      }
+            if (this.body.hasClass("tax-cst_section")) {
+                this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.primaryNavigation.height() + 10 });
+            }
         },
 
         /**
@@ -75,7 +75,7 @@
          */
         bindEvents: function() {
 
-            $(document.body).on('post-load', $.proxy( function() {
+            $(document.body).on("post-load", $.proxy( function() {
                 setTimeout( $.proxy( function() {
                     this.responsiveIframes();
                 }, this ), 1 );
@@ -87,7 +87,7 @@
                 }
                 delayedTimer = setTimeout( $.proxy( function(){
                     this.responsiveIframes();
-          this.positionAndSizePostSidebar();
+                    this.positionAndSizePostSidebar();
                     this.rescaleHeadlinesImages();
                     if ( this.trendingNav.length ) {
                         this.recalibrateTrendingItems();
@@ -96,10 +96,10 @@
             }, this ) );
 
             $(window).scroll( $.proxy( function() {
-        clearTimeout(throttleScroll);
-        throttleScroll = setTimeout(function(){
-            CST.doScrollEvent();
-        }, 10);
+              clearTimeout(throttleScroll);
+              throttleScroll = setTimeout(function(){
+                  CST.doScrollEvent();
+              }, 10);
             }, this ) );
 
             this.postBody.on( 'click', '.post-comments', $.proxy( function( e ) {
@@ -110,7 +110,7 @@
             this.backToTop.on( "click", $.proxy( function (e) {
 
                 e.preventDefault();
-                $('html,body').animate({scrollTop: '0'}, 800);
+                $("html,body").animate({scrollTop: "0"}, 800);
                 this.fixedBackToTop.hide();
             }, this ) );
 
@@ -166,11 +166,11 @@
             }, this ) );
 
             $(document)
-            .on('open.fndtn.offcanvas', '[data-offcanvas]', function() {
-                $('html').css('overflow', 'hidden');
+            .on("open.fndtn.offcanvas", "[data-offcanvas]", function() {
+                $("html").css("overflow", "hidden");
             })
-            .on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
-                $('html').css('overflow', 'auto');
+            .on("close.fndtn.offcanvas", "[data-offcanvas]", function() {
+                $("html").css("overflow", "auto");
             });
 
         },
@@ -181,7 +181,7 @@
         doScrollEvent: function() {
 
             var scrollTop = $(window).scrollTop();
-      var windowWidth = $(window).width();
+            var windowWidth = $(window).width();
             if ( scrollTop > 0 ) {
 
                 this.topHeight = $(document).scrollTop();
@@ -195,7 +195,7 @@
                 }
 
             } else {
-                this.offCanvasList.removeClass('fixed-canvas-menu');
+                this.offCanvasList.removeClass("fixed-canvas-menu");
             }
 
             if ( scrollTop > this.featuredPosts.height() + this.dfpSBB.height() ) {
@@ -206,26 +206,26 @@
                 }
 
                 // Primary Navigation
-                if ( this.primaryNavigation.hasClass('primary-normal') ) {
+                if ( this.primaryNavigation.hasClass("primary-normal") ) {
                     this.togglePrimaryNavigation();
                 }
 
-                if ( this.nfLogo.is(':hidden') ) {
+                if ( this.nfLogo.is(":hidden") ) {
                     this.cstLogo.hide();
-                    this.nfLogo.show('slide', { direction: 'down' } );
-                    this.nfLogo.css('display', 'block');
+                    this.nfLogo.show("slide", { direction: "down" } );
+                    this.nfLogo.css("display", "block");
                     if ( windowWidth <= 640 ) {
-                        this.mobileHome.show('slide', { direction: 'down' } );
+                        this.mobileHome.show("slide", { direction: "down" } );
                     }
                     if ( windowWidth > 640 && windowWidth < 981 ) {
-                        this.tabletHome.show('slide', { direction: 'down' } );
+                        this.tabletHome.show("slide", { direction: "down" } );
                     }
                 }
 
             } else {
 
                 // Back to Top element
-                if ( this.fixedBackToTop.is(':visible') ) {
+                if ( this.fixedBackToTop.is(":visible") ) {
                     this.toggleBackToTop();
                 }
 
@@ -283,18 +283,19 @@
          */
         togglePrimaryNavigation: function() {
 
-            if ( this.primaryNavigation.hasClass('primary-normal') ) {
-                this.primaryNavigation.removeClass('primary-normal').addClass('primary-fixed');
+            if ( this.primaryNavigation.hasClass("primary-normal") ) {
+                this.primaryNavigation.removeClass("primary-normal").addClass("primary-fixed");
                 // Prevents jitter when the navigation is getting fixed
-                this.featuredPosts.css( 'padding-bottom', this.primaryNavigation.outerHeight() + 'px' );
+                this.featuredPosts.addClass( "slider-fixed" );
                 // Accommodate desktop admin bar, but not mobile
-                if ( $('body').hasClass('admin-bar') && $(window).width() > 782 ) {
-                    this.primaryNavigation.css( 'top', $('#wpadminbar').height() );
+                if ( $("body").hasClass("admin-bar") && $(window).width() > 782 ) {
+                    this.primaryNavigation.css( "top", this.adminBar.height() );
                 }
             } else  {
-                this.primaryNavigation.removeClass('primary-fixed').addClass('primary-normal');
-                this.primaryNavigation.removeAttr( 'style' );
-                this.featuredPosts.removeAttr('style');
+                this.primaryNavigation.removeClass("primary-fixed").addClass("primary-normal");
+                this.featuredPosts.removeClass( "slider-fixed" );
+                this.primaryNavigation.removeAttr( "style" );
+                this.featuredPosts.removeAttr("style");
             }
 
         },
@@ -328,11 +329,11 @@
 
       if ( this.postSidebar.hasClass('sidebar-normal') ) {
         postSidebarTop += this.featuredPosts.outerHeight() - this.adminBar.height();
-        if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
+        if ( postSidebarTop + 'px' !== this.postSidebar.css('top' ) ) {
           this.postSidebar.css('top', postSidebarTop + 'px' );
         }
       } else if ( ! this.postSidebar.hasClass('sidebar-normal') || this.postSidebar.hasClass('sidebar-fixed') ) {
-        if ( postSidebarTop + 'px' != this.postSidebar.css('top' ) ) {
+        if ( postSidebarTop + 'px' !== this.postSidebar.css('top' ) ) {
           this.postSidebar.css('top', postSidebarTop + 'px' );
         }
       }
@@ -454,7 +455,7 @@
                     this.featuredPosts.find('.slick-dots').removeClass('force-normal-dots');
                 }, this ),
                 slide: '.slide',
-                slidesToShow: 5,
+                slidesToShow: 6,
                 dots: true,
         customPaging: function(slider, i) {
           return '<button type="button" data-on="click" data-event-category="slider-dot" data-event-action="dot-navigate">' + (i + 1) + '</button>';
@@ -467,29 +468,28 @@
                     {
                         breakpoint: 1300,
                         settings: {
-                            slidesToShow: 4
+                            slidesToShow: 5
                         }
                     },
                     // Small desktop
                     {
                         breakpoint: 1100,
                         settings: {
-                            slidesToShow: 3
+                            slidesToShow: 4
                         }
                     },
                     // Mobile
                     {
                         breakpoint: 768,
                         settings: {
-                            slidesToShow: 2
+                            slidesToShow: 3
                         }
                     },
                     // Mobile
                     {
                         breakpoint: 580,
                         settings: {
-                            slidesToShow: 1
-                        }
+                            slidesToShow: 2                       }
                     }
                 ]
             });

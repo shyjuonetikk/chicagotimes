@@ -354,8 +354,15 @@ body.error404 {
     margin-right: 15px; }
 
 header#header {
-  position: relative;
-  background-color: white; }
+  position: fixed;
+  top: 0;
+  z-index: 99998;
+  width: 100%;
+  background: #231f20;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  transition: all 0.5s; }
   header#header #weather {
     position: absolute;
     right: 0px;
@@ -504,10 +511,10 @@ header#header {
             content: "#"; } }
   header#header .primary-fixed {
     position: fixed;
-    top: 0px;
+    top: 0;
     z-index: 99998;
     width: 100%;
-    background: #282828; }
+    background: #231f20; }
   header#header .primary-normal {
     position: relative;
     top: auto; }
@@ -584,7 +591,7 @@ header#header {
 #headlines-slider {
   background-color: #f8f8f8;
   border-bottom: 1px solid #9a9a9a;
-  height: 134px; }
+  height: 90px; }
   #headlines-slider .slider {
     background-color: #f8f8f8;
     margin-bottom: 0; }
@@ -595,7 +602,7 @@ header#header {
       width: 30px;
       cursor: pointer;
       background: transparent;
-      bottom: 38px;
+      bottom: 18px;
       padding: 0;
       border: none;
       outline: none;
@@ -619,13 +626,13 @@ header#header {
         display: inline-block; }
       #headlines-slider .slider .slide .slide-image-container {
         float: left;
-        height: 80px;
-        width: 80px;
+        height: 60px;
+        width: 60px;
         position: relative; }
       #headlines-slider .slider .slide .slide-text {
         position: relative;
         display: block;
-        padding: 0 1.5rem 0 5.4rem;
+        padding: 0 0 0 4.1rem;
         /*@media #{$large-range} {
 					max-width: 250px;
 				}*/ }
@@ -634,7 +641,7 @@ header#header {
         width: auto;
         overflow: hidden;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-        height: 80px; }
+        height: 60px; }
         #headlines-slider .slider .slide .slide-inner .slide-image {
           overflow: hidden;
           width: 100%;
@@ -646,14 +653,14 @@ header#header {
           background: #f8f8f8; }
       #headlines-slider .slider .slide h4 {
         font-size: 0.75rem;
-        line-height: 0.9rem;
+        line-height: 0.76rem;
         color: #231f20;
         font-weight: 700;
         text-transform: uppercase;
-        margin-bottom: 0.2rem; }
+        margin: 0.1rem 0 0.2rem; }
       #headlines-slider .slider .slide h3 {
-        font-size: 0.8rem;
-        line-height: 0.95rem;
+        font-size: 0.7rem;
+        line-height: 0.85rem;
         font-weight: 400; }
         #headlines-slider .slider .slide h3 a {
           color: #231f20; }
@@ -662,12 +669,15 @@ header#header {
       bottom: -36px; }
       #headlines-slider .slider .slick-dots li {
         height: 21px; }
+  #headlines-slider.slider-fixed {
+    top: 50px;
+    position: fixed; }
 
 .menu-footer-fixed-bottom {
-  bottom: 0px; }
+  bottom: 0; }
   .menu-footer-fixed-bottom #menu-footer-container {
     position: relative;
-    margin-bottom: 0px; }
+    margin-bottom: 0; }
     .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info {
       background: #333333;
       padding: 10px;
@@ -1457,7 +1467,8 @@ body[class~="archive"] article.post {
     margin: 5px; }
 .single #post-body {
   position: relative;
-  float: left; }
+  float: left;
+  margin-top: 132px; }
   @media (max-width: 1200px) {
     .single #post-body .row {
       margin-left: 0; }
