@@ -323,7 +323,7 @@ var dfp = {
 	  .build();
     hp_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
-	  .addSize([1025, 0], [[300, 250]]) //desktop
+	  .addSize([1025, 0], [[300, 600], [300, 250]]) //desktop
 	  .addSize([768,1024], [[728, 90]]) //desktop no sidebar
 	  .addSize([768, 0], [[728, 90]]) //desktop
 	  .addSize([640, 480], [300, 50], [320, 50]) //phone
