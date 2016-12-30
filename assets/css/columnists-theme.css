@@ -358,7 +358,10 @@ header#header {
   top: 0;
   z-index: 99998;
   width: 100%;
-  background: #231f20; }
+  background: #231f20;
+  -webkit-transition: -webkit-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: -moz-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1); }
   header#header #weather {
     position: absolute;
     right: 0px;
@@ -453,18 +456,7 @@ header#header {
         position: absolute;
         left: 46px; }
       header#header section#primary-navigation a#burger-bar {
-        position: absolute; }
-      header#header section#primary-navigation #mobile-home {
-        display: none;
-        position: absolute;
-        right: 15px;
-        top: 11px; }
-        header#header section#primary-navigation #mobile-home a {
-          color: white;
-          font-size: 1.55rem; } }
-    @media only screen and (min-width:40.063em) {
-      header#header section#primary-navigation #mobile-home {
-        display: none; } }
+        position: absolute; } }
     @media only screen and (min-width:48em) {
       header#header section#primary-navigation #trending-container {
         font-weight: 700;
@@ -516,6 +508,13 @@ header#header {
     top: auto; }
   header#header #headlines-slider {
     width: auto; }
+  @media only screen and (max-width:47.398em) {
+    header#header.hide-header {
+      -webkit-transform: translateY(-100%);
+      -moz-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+      -o-transform: translateY(-100%);
+      transform: translateY(-100%); } }
 
 .off-canvas-wrap, .inner-wrap {
   min-height: 100%; }
@@ -1457,7 +1456,7 @@ body[class~="archive"] article.post {
 .single #post-body {
   position: relative;
   float: left;
-  margin-top: 132px; }
+  margin-top: 163px; }
   @media (max-width: 1200px) {
     .single #post-body .row {
       margin-left: 0; }

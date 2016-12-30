@@ -164,24 +164,6 @@ header#header {
 				position:absolute;
 			}
 
-			#mobile-home {
-				display: none;
-				position: absolute;
-				right: 15px;
-				top: 11px;
-
-				a {
-					color: $white;
-					font-size: 1.55rem;
-				}
-			}
-		}
-
-		@media #{$medium-up} {
-
-			#mobile-home {
-				display: none;
-			}
 		}
 
 		@media #{$xmedium-up} {
@@ -265,7 +247,18 @@ header#header {
 	#headlines-slider {
 		width: auto;
 	}
-
+	-webkit-transition: -webkit-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+	-moz-transition: -moz-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+	transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+	@media #{$medium-down} {
+		&.hide-header {
+			-webkit-transform: translateY(-100%);
+			-moz-transform: translateY(-100%);
+			-ms-transform: translateY(-100%);
+			-o-transform: translateY(-100%);
+			transform: translateY(-100%);
+		}
+	}
 }
 
   .off-canvas-wrap, .inner-wrap {

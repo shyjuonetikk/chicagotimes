@@ -1,5 +1,5 @@
-(function( $ ){
-  var throttleScroll;
+;(function( $ ){
+  var throttleScroll, previousPosition;
 
     var CST = {
 
@@ -57,7 +57,6 @@
             this.closeInterstitial = $('#dfp-interstitial-close');
             this.cstLogo = $('header #suntimes-logo');
             this.nfLogo = $('header #newsfeed-logo');
-            this.mobileHome = $('header #mobile-home');
             this.tabletHome = $('header #logo-wrap #tablet-home');
             this.header = $('#header');
       this.adminBar = $('#wpadminbar');
@@ -182,6 +181,8 @@
 
             var scrollTop = $(window).scrollTop();
             var windowWidth = $(window).width();
+            this.header.toggleClass("hide-header",scrollTop > previousPosition);
+            previousPosition = scrollTop;
             if ( scrollTop > 0 ) {
 
                 this.topHeight = $(document).scrollTop();
@@ -214,9 +215,6 @@
                     this.cstLogo.hide();
                     this.nfLogo.show("slide", { direction: "down" } );
                     this.nfLogo.css("display", "block");
-                    if ( windowWidth <= 640 ) {
-                        this.mobileHome.show("slide", { direction: "down" } );
-                    }
                     if ( windowWidth > 640 && windowWidth < 981 ) {
                         this.tabletHome.show("slide", { direction: "down" } );
                     }
@@ -236,7 +234,6 @@
 
                 if ( this.nfLogo.is(':visible') ) {
                     this.nfLogo.hide();
-                    this.mobileHome.hide();
                     this.tabletHome.hide();
                     this.cstLogo.show('slide', { direction: 'up' } );
                 }
