@@ -1463,9 +1463,6 @@ body[class~="archive"] article.post {
       margin-left: 0; }
       .single #post-body .row #main {
         padding-left: 0; } }
-  @media only screen and (max-width: 40em) {
-    .single #post-body {
-      margin-top: 30px; } }
   .single #post-body .dfp-wire-cube {
     padding-top: 30px;
     clear: left; }
