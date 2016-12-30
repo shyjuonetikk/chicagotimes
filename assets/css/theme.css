@@ -381,6 +381,9 @@ header#header {
       width: 230px;
       height: 45px;
       margin: -2px auto 0; }
+    @media only screen and (max-width:64em) {
+      header#header .responsive-logo-wrapper {
+        height: 48px; } }
   header#header section#primary-navigation {
     height: 46px;
     z-index: 100100;
@@ -797,6 +800,8 @@ header .contain-to-grid .top-bar ul li {
     padding-left: 1px;
     right: 21px; } }
 
+.masthead .contain-to-grid {
+  background: #231f20; }
 .masthead .utility {
   background-color: #231f20; }
   .masthead .utility .weather {
@@ -2921,7 +2926,7 @@ body.post-gallery-lightbox-active {
 
 .homepage_wrapper {
   width: 100%;
-  margin: 0 auto;
+  margin: 198px auto 0;
   background-color: #f8f8f8;
   /* HEADER */
   /* BREAKING NEWS */
@@ -3167,7 +3172,6 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .breaking-news-story h3 .button:hover, .homepage_wrapper .bears-cube-story h3 .button:hover, .homepage_wrapper .breaking-section-story h3 .button:hover {
       opacity: 0.75; }
   .homepage_wrapper .homepage-content {
-    max-width: 60.7rem;
     margin: 0 auto; }
   @media (min-width: 1200px) and (max-width: 1275px) {
     .homepage_wrapper .homepage-content {

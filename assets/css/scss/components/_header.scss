@@ -52,6 +52,9 @@ header#header {
 			height: 45px;
 			margin: -2px auto 0;
 		}
+		@media #{$xmedium-down} {
+			height: 48px;
+		};
 	}
 
 	section#primary-navigation {
@@ -681,7 +684,9 @@ header .contain-to-grid .top-bar ul li {
 	}
 }
 .masthead {
-
+	.contain-to-grid {
+		background: $cst_black;
+	}
 	.utility {
 		background-color: $cst_black;
 		.weather {
