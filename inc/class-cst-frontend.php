@@ -987,6 +987,7 @@ class CST_Frontend {
 				<hr>
 			</div>
 			<?php foreach( $result->pages as $item ) {
+				$image_url = false;
 				$chart_beat_top_content = (array) $item->metrics->post_id->top;
 				$top_item = [];
 				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
@@ -994,7 +995,8 @@ class CST_Frontend {
 				}
 				if ( isset( $top_item[0] ) ) {
 					$image_url = $this->get_remote_featured_image( $top_item[0] );
-				} else {
+				}
+				if ( ! $image_url ) {
 					$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
 				}
 				$temporary_title       = explode( '|', $item->title );
@@ -1004,7 +1006,7 @@ class CST_Frontend {
 					<div class="cst-article">
 						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
 						<div class="cst-recommended-image -amp-layout-size-defined">
-							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="80" height="65" >
 						</div>
 						</a>
 						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
@@ -1029,10 +1031,10 @@ class CST_Frontend {
 		$featured_image_url = false;
 		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
 		$response = wpcom_vip_file_get_contents( $remote_url );
-		if ( ! is_wp_error( $response ) ) {
+		if ( ! is_wp_error( $response ) && ! false == $response ) {
 			$pages = json_decode( $response );
 			if ( '' !== $pages->featured_image ) {
-				$featured_image_url = $pages->featured_image . '?w=100';
+				$featured_image_url = $pages->featured_image . '?w=80&h=80&crop=1';
 			} else {
 				return $featured_image_url;
 			}
