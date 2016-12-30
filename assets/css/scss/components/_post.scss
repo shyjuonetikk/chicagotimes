@@ -414,7 +414,9 @@ body[class~="archive"] {
 		@media (max-width: 1024px){
 			float:none;
 		}
-
+		@media #{$small-only} {
+			margin-top:132px;
+		}
 	}
 
 	.post.cst-sharing-absolute {
@@ -575,9 +577,8 @@ body[class~="archive"] {
 				a {
 					height: auto;
 					width: auto;
-					margin-top: 15px;
+					margin-top: 7px;
 					margin-right: 15px;
-                    margin-bottom: 30px;
 					display: inline-block;
 					opacity: 1;
 					&:hover {

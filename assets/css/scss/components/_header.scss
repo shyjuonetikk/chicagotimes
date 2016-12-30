@@ -129,7 +129,7 @@ header#header {
 					width: 267px;
 				}
 				@media #{$small-only} {
-					width: 227px;
+					width: 207px;
 				}
 			}
 		}
@@ -645,7 +645,8 @@ body.single {
 	#newsfeed-logo {
 
 		@media #{$small-only} {
-			margin-bottom: 15px;
+			margin-top: 3px;
+			margin-bottom: 10px;
 		}
 
 	}

@@ -437,7 +437,7 @@ header#header {
             width: 267px; } }
         @media only screen and (max-width: 40em) {
           header#header section#primary-navigation a#suntimes-logo img {
-            width: 227px; } }
+            width: 207px; } }
     header#header section#primary-navigation a#newsfeed-logo {
       display: none;
       text-transform: uppercase;
@@ -776,7 +776,8 @@ ul#menu-sun-times-network {
 
 @media only screen and (max-width: 40em) {
   body.single #newsfeed-logo {
-    margin-bottom: 15px; } }
+    margin-top: 3px;
+    margin-bottom: 10px; } }
 
 #wpadminbar {
   z-index: 999999; }
@@ -1481,6 +1482,9 @@ body[class~="archive"] article.post {
   @media (max-width: 1024px) {
     .single #post-body {
       float: none; } }
+  @media only screen and (max-width: 40em) {
+    .single #post-body {
+      margin-top: 132px; } }
 .single .post.cst-sharing-absolute .post-meta-social {
   position: fixed;
   top: 80px;
@@ -1567,9 +1571,8 @@ body[class~="archive"] article.post {
       .single article.post .post-meta-social a {
         height: auto;
         width: auto;
-        margin-top: 15px;
+        margin-top: 7px;
         margin-right: 15px;
-        margin-bottom: 30px;
         display: inline-block;
         opacity: 1; }
         .single article.post .post-meta-social a:hover {
