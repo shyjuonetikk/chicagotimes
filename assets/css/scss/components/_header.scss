@@ -326,11 +326,17 @@ header#header {
 		}
 	}
 
+	.off-canvas-logo {
+		margin:0 auto;
+		width: 200px;
+		padding: 0.3rem;
+	}
     .off-canvas-list {
         .menu {
             li {
                 a {
-                    border-bottom: 1px solid $social_grey
+                    border-bottom: 1px solid $social_grey;
+					padding: 0.5rem 0.666rem;
                 }
             }
         }

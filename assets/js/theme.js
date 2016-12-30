@@ -177,9 +177,7 @@
         /**
          * Events that might need to happen when scrolling
          */
-        doScrollEvent: function() {
-
-            var scrollTop = $(window).scrollTop();
+        doScrollEvent: function() {            var scrollTop = $(window).scrollTop();
             var windowWidth = $(window).width();
             this.header.toggleClass("hide-header",scrollTop > previousPosition);
             previousPosition = scrollTop;

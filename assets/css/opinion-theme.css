@@ -563,8 +563,13 @@ header#header {
       position: relative;
       top: -32px;
       margin-left: 205px; }
+  .left-off-canvas-menu .off-canvas-logo {
+    margin: 0 auto;
+    width: 200px;
+    padding: 0.3rem; }
   .left-off-canvas-menu .off-canvas-list .menu li a {
-    border-bottom: 1px solid #9a9a9a; }
+    border-bottom: 1px solid #9a9a9a;
+    padding: 0.5rem 0.666rem; }
 
 #fixed-back-to-top {
   margin-left: -75px;
@@ -3669,7 +3674,6 @@ header .contain-to-grid .cst-row {
     header .contain-to-grid .top-bar {
       max-width: 100%;
       margin: 0 auto;
-      height: 189px;
       background-color: transparent; }
       @media (min-width: 1250px) {
         header .contain-to-grid .top-bar .small-logo {
