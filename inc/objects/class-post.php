@@ -615,6 +615,7 @@ abstract class Post {
 	 * Get the preferred term field for the article
 	 *
 	 * @param $term_field_name
+	 *
 	 * @return bool|mixed
 	 */
 
