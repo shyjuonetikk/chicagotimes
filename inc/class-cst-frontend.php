@@ -169,8 +169,7 @@ class CST_Frontend {
 			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 			wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 
-			$this->action_load_section_styling();
-
+			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 			// If we are on a 404 page don't try and load scripts/css that we won't be using.
 			if ( ! is_404() && ! is_page() ) {
 				// The theme

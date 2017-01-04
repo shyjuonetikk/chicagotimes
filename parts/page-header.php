@@ -98,9 +98,11 @@ if ( is_single() ) {
 		</div>
 	</section>
 	<?php } ?>
+	<?php if ( is_singular() ) { ?>
 	<section id="headlines-slider">
 		<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
 	</section>
+	<?php } ?>
 </header>
 
 <aside class="left-off-canvas-menu">
