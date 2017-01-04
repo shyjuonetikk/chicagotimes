@@ -1,8 +1,11 @@
 .homepage_wrapper {
 	width:100%;
-	margin:0 auto;
+	margin: 198px auto 0;
 	background-color: $site_background;
 
+	@media #{$xmedium-down} {
+		margin-top: 60px;
+	}
 	.news-cat:hover {
 		background: rgb(210, 45, 66) !important; /* The Fallback */
 		background: rgba(210, 45, 66, 0.9) !important;
@@ -418,7 +421,6 @@
 
 /* CONTENT */
 .homepage-content {
-	max-width: $homepage_content_width;
 	margin: 0 auto;
 }
 

@@ -73,6 +73,7 @@ class CST {
 
 		add_image_size( 'chiwire-article', 570, 260, true );
 		add_image_size( 'chiwire-small-square', 80, 80, true );
+		add_image_size( 'chiwire-slider-square', 60, 60, true );
 		add_image_size( 'chiwire-featured-content-widget', 295, 165, true );
 		add_image_size( 'chiwire-header-large', 640, 480, true );
 		add_image_size( 'chiwire-header-medium', 425, 320, true );

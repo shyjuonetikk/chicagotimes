@@ -288,7 +288,7 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping;
+  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -321,9 +321,13 @@ var dfp = {
       .addSize([0, 0], []) //other
 	  .addSize([1025, 0], [[300,600], [300, 250]]) //desktop
 	  .build();
+    article_skyscraper_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([1025, 0], [[160,600]]) //desktop
+	  .build();
     hp_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
-	  .addSize([1025, 0], [[300, 250]]) //desktop
+	  .addSize([1025, 0], [[300, 600], [300, 250]]) //desktop
 	  .addSize([768,1024], [[728, 90]]) //desktop no sidebar
 	  .addSize([768, 0], [[728, 90]]) //desktop
 	  .addSize([640, 480], [300, 50], [320, 50]) //phone
@@ -434,6 +438,7 @@ var dfp = {
         .addService(googletag.pubads())
         .setTargeting("pos", "atf leaderboard");
       CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot(adUnitPath, [160, 600], 'div-gpt-sky-scraper-1')
+        .defineSizeMapping(article_skyscraper_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "SkyScraper");
     }

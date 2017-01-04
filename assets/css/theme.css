@@ -354,8 +354,14 @@ body.error404 {
     margin-right: 15px; }
 
 header#header {
-  position: relative;
-  background-color: white; }
+  position: fixed;
+  top: 0;
+  z-index: 99998;
+  width: 100%;
+  background: #231f20;
+  -webkit-transition: -webkit-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+  -moz-transition: -moz-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+  transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1); }
   header#header #weather {
     position: absolute;
     right: 0px;
@@ -375,8 +381,11 @@ header#header {
       width: 230px;
       height: 45px;
       margin: -2px auto 0; }
+    @media only screen and (max-width:64em) {
+      header#header .responsive-logo-wrapper {
+        height: 48px; } }
   header#header section#primary-navigation {
-    height: 50px;
+    height: 46px;
     z-index: 100100;
     background-color: #231f20; }
     header#header section#primary-navigation a#burger-bar {
@@ -385,11 +394,11 @@ header#header {
       header#header section#primary-navigation a#burger-bar .fa {
         padding-left: 10px;
         padding-right: 10px;
-        font-size: 30px;
-        line-height: 50px; }
+        font-size: 26px;
+        line-height: 46px; }
       header#header section#primary-navigation a#burger-bar span {
         height: 46px;
-        line-height: 47px;
+        line-height: 45px;
         position: relative;
         vertical-align: bottom;
         padding-right: 10px; }
@@ -401,7 +410,7 @@ header#header {
       line-height: 36px;
       display: inline-block;
       overflow-y: hidden;
-      height: 50px;
+      height: 46px;
       padding-top: 3px;
       padding-right: 5px; }
       @media only screen and (max-width: 40em) {
@@ -425,13 +434,13 @@ header#header {
     header#header section#primary-navigation a#suntimes-logo {
       display: block; }
       header#header section#primary-navigation a#suntimes-logo img {
-        width: 216px; }
+        width: 207px; }
         @media only screen and (min-width:40.063em) and (max-width:47.398em) {
           header#header section#primary-navigation a#suntimes-logo img {
             width: 267px; } }
         @media only screen and (max-width: 40em) {
           header#header section#primary-navigation a#suntimes-logo img {
-            width: 227px; } }
+            width: 207px; } }
     header#header section#primary-navigation a#newsfeed-logo {
       display: none;
       text-transform: uppercase;
@@ -450,18 +459,7 @@ header#header {
         position: absolute;
         left: 46px; }
       header#header section#primary-navigation a#burger-bar {
-        position: absolute; }
-      header#header section#primary-navigation #mobile-home {
-        display: none;
-        position: absolute;
-        right: 15px;
-        top: 11px; }
-        header#header section#primary-navigation #mobile-home a {
-          color: white;
-          font-size: 1.55rem; } }
-    @media only screen and (min-width:40.063em) {
-      header#header section#primary-navigation #mobile-home {
-        display: none; } }
+        position: absolute; } }
     @media only screen and (min-width:48em) {
       header#header section#primary-navigation #trending-container {
         font-weight: 700;
@@ -504,15 +502,22 @@ header#header {
             content: "#"; } }
   header#header .primary-fixed {
     position: fixed;
-    top: 0px;
+    top: 0;
     z-index: 99998;
     width: 100%;
-    background: #282828; }
+    background: #231f20; }
   header#header .primary-normal {
     position: relative;
     top: auto; }
   header#header #headlines-slider {
     width: auto; }
+  @media only screen and (max-width:47.398em) {
+    header#header.hide-header {
+      -webkit-transform: translateY(-100%);
+      -moz-transform: translateY(-100%);
+      -ms-transform: translateY(-100%);
+      -o-transform: translateY(-100%);
+      transform: translateY(-100%); } }
 
 .off-canvas-wrap, .inner-wrap {
   min-height: 100%; }
@@ -549,20 +554,23 @@ header#header {
       font-size: 0.75rem;
       font-style: italic;
       height: 40px;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      border-bottom: 1px solid #9a9a9a; }
+      border: 1px solid #9a9a9a; }
     .left-off-canvas-menu .search-wrap #search-input:focus {
-      outline: 0; }
+      outline: 0;
+      border: 1px solid white; }
     .left-off-canvas-menu .search-wrap a#search-button {
-      background-color: #333333;
       color: #f8f8f8;
       position: relative;
-      top: -32px;
-      margin-left: 205px; }
+      top: -39px;
+      margin-left: 207px;
+      font-size: 1.5rem; }
+  .left-off-canvas-menu .off-canvas-logo {
+    margin: 0 auto;
+    width: 200px;
+    padding: 0.3rem; }
   .left-off-canvas-menu .off-canvas-list .menu li a {
-    border-bottom: 1px solid #9a9a9a; }
+    border-bottom: 1px solid #9a9a9a;
+    padding: 0.5rem 0.666rem; }
 
 #fixed-back-to-top {
   margin-left: -75px;
@@ -584,7 +592,7 @@ header#header {
 #headlines-slider {
   background-color: #f8f8f8;
   border-bottom: 1px solid #9a9a9a;
-  height: 134px; }
+  height: 90px; }
   #headlines-slider .slider {
     background-color: #f8f8f8;
     margin-bottom: 0; }
@@ -595,7 +603,7 @@ header#header {
       width: 30px;
       cursor: pointer;
       background: transparent;
-      bottom: 38px;
+      bottom: 18px;
       padding: 0;
       border: none;
       outline: none;
@@ -619,13 +627,13 @@ header#header {
         display: inline-block; }
       #headlines-slider .slider .slide .slide-image-container {
         float: left;
-        height: 80px;
-        width: 80px;
+        height: 60px;
+        width: 60px;
         position: relative; }
       #headlines-slider .slider .slide .slide-text {
         position: relative;
         display: block;
-        padding: 0 1.5rem 0 5.4rem;
+        padding: 0 0 0 4.1rem;
         /*@media #{$large-range} {
 					max-width: 250px;
 				}*/ }
@@ -634,7 +642,7 @@ header#header {
         width: auto;
         overflow: hidden;
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
-        height: 80px; }
+        height: 60px; }
         #headlines-slider .slider .slide .slide-inner .slide-image {
           overflow: hidden;
           width: 100%;
@@ -646,14 +654,14 @@ header#header {
           background: #f8f8f8; }
       #headlines-slider .slider .slide h4 {
         font-size: 0.75rem;
-        line-height: 0.9rem;
+        line-height: 0.76rem;
         color: #231f20;
         font-weight: 700;
         text-transform: uppercase;
-        margin-bottom: 0.2rem; }
+        margin: 0.1rem 0 0.2rem; }
       #headlines-slider .slider .slide h3 {
-        font-size: 0.8rem;
-        line-height: 0.95rem;
+        font-size: 0.7rem;
+        line-height: 0.85rem;
         font-weight: 400; }
         #headlines-slider .slider .slide h3 a {
           color: #231f20; }
@@ -662,12 +670,15 @@ header#header {
       bottom: -36px; }
       #headlines-slider .slider .slick-dots li {
         height: 21px; }
+  #headlines-slider.slider-fixed {
+    top: 50px;
+    position: fixed; }
 
 .menu-footer-fixed-bottom {
-  bottom: 0px; }
+  bottom: 0; }
   .menu-footer-fixed-bottom #menu-footer-container {
     position: relative;
-    margin-bottom: 0px; }
+    margin-bottom: 0; }
     .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info {
       background: #333333;
       padding: 10px;
@@ -768,7 +779,8 @@ ul#menu-sun-times-network {
 
 @media only screen and (max-width: 40em) {
   body.single #newsfeed-logo {
-    margin-bottom: 15px; } }
+    margin-top: 3px;
+    margin-bottom: 10px; } }
 
 #wpadminbar {
   z-index: 999999; }
@@ -788,6 +800,8 @@ header .contain-to-grid .top-bar ul li {
     padding-left: 1px;
     right: 21px; } }
 
+.masthead .contain-to-grid {
+  background: #231f20; }
 .masthead .utility {
   background-color: #231f20; }
   .masthead .utility .weather {
@@ -1375,7 +1389,7 @@ article.post {
     right: 0; }
   article.post .cst-recommendations .cst-recommended-image {
     float: left;
-    width: 100px;
+    width: 80px;
     height: 65px;
     margin-right: 10px;
     padding: 0;
@@ -1383,7 +1397,7 @@ article.post {
     position: relative; }
   article.post .cst-recommendations .cst-recommended-image img {
     max-width: 100%;
-    width: 100px;
+    width: 80px;
     height: 65px;
     display: inline-block;
     vertical-align: middle; }
@@ -1457,15 +1471,13 @@ body[class~="archive"] article.post {
     margin: 5px; }
 .single #post-body {
   position: relative;
-  float: left; }
+  float: left;
+  margin-top: 163px; }
   @media (max-width: 1200px) {
     .single #post-body .row {
       margin-left: 0; }
       .single #post-body .row #main {
         padding-left: 0; } }
-  @media only screen and (max-width: 40em) {
-    .single #post-body {
-      margin-top: 30px; } }
   .single #post-body .dfp-wire-cube {
     padding-top: 30px;
     clear: left; }
@@ -1475,6 +1487,9 @@ body[class~="archive"] article.post {
   @media (max-width: 1024px) {
     .single #post-body {
       float: none; } }
+  @media only screen and (max-width: 40em) {
+    .single #post-body {
+      margin-top: 132px; } }
 .single .post.cst-sharing-absolute .post-meta-social {
   position: fixed;
   top: 80px;
@@ -1561,9 +1576,8 @@ body[class~="archive"] article.post {
       .single article.post .post-meta-social a {
         height: auto;
         width: auto;
-        margin-top: 15px;
+        margin-top: 7px;
         margin-right: 15px;
-        margin-bottom: 30px;
         display: inline-block;
         opacity: 1; }
         .single article.post .post-meta-social a:hover {
@@ -2528,7 +2542,6 @@ header .contain-to-grid .cst-row {
     header .contain-to-grid .top-bar {
       max-width: 100%;
       margin: 0 auto;
-      height: 189px;
       background-color: transparent; }
       @media (min-width: 1250px) {
         header .contain-to-grid .top-bar .small-logo {
@@ -2564,7 +2577,7 @@ header .contain-to-grid .cst-row {
 #social-links {
   position: absolute;
   right: 80px;
-  top: 3px;
+  top: 1px;
   color: white;
   text-transform: uppercase;
   font-family: 'Libre Frankin', Arial, sans-serif; }
@@ -2913,13 +2926,16 @@ body.post-gallery-lightbox-active {
 
 .homepage_wrapper {
   width: 100%;
-  margin: 0 auto;
+  margin: 198px auto 0;
   background-color: #f8f8f8;
   /* HEADER */
   /* BREAKING NEWS */
   /* CONTENT */
   /* SIDEBAR */
   /* FOOTER */ }
+  @media only screen and (max-width:64em) {
+    .homepage_wrapper {
+      margin-top: 60px; } }
   .homepage_wrapper .news-cat:hover {
     background: #d22d42 !important;
     /* The Fallback */
@@ -3159,7 +3175,6 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .breaking-news-story h3 .button:hover, .homepage_wrapper .bears-cube-story h3 .button:hover, .homepage_wrapper .breaking-section-story h3 .button:hover {
       opacity: 0.75; }
   .homepage_wrapper .homepage-content {
-    max-width: 60.7rem;
     margin: 0 auto; }
   @media (min-width: 1200px) and (max-width: 1275px) {
     .homepage_wrapper .homepage-content {
