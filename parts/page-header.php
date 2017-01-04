@@ -105,31 +105,7 @@ if ( is_single() ) {
 	<?php } ?>
 </header>
 
-<aside class="left-off-canvas-menu">
-	<div class="off-canvas-menu">
-		<div class="off-canvas-logo">
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
-		</div>
-		<ul class="off-canvas-list">
-			<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<input id="search-input" placeholder="<?php esc_attr_e( 'search...', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" />
-				<a href="#" id="search-button" class="search-in">
-					<i class="fa fa-search"></i>
-				</a>
-			</form>
-<?php if ( $current_obj ) {
-	if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
-		wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false ) );
-	} else {
-		wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
-	}
-} else {
-	wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
-}?>
-		</ul>
-	</div>
-</aside>
-
+<?php get_template_part( 'parts/off-canvas-menu' ); ?>
 <?php
 if ( is_singular() ) {
 	$classes = array( 'columns', 'large-10', 'large-offset-2', 'end' );
@@ -137,6 +113,19 @@ if ( is_singular() ) {
 	$classes = array();
 }
 ?>
+		<?php
+		if ( is_front_page() ) {
+			wp_nav_menu( array(
+				'theme_location' => 'homepage-menu',
+				'fallback_cb' => false,
+				'depth' => 1,
+				'container_class' => 'cst-navigation-container',
+				'items_wrap' => '<div class="row nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
+				'walker' => new GC_walker_nav_menu(),
+				)
+			);
+		}
+		?>
 
 <?php do_action( 'header_sliding_billboard' ); ?>
 
@@ -162,7 +151,7 @@ if ( is_singular() ) {
 	<?php if ( isset( $section_slug ) ) : ?>
 		<?php do_action( 'cst_section_front_upper_heading' );  ?>
 		<?php $action_slug = str_replace( '-', '_', get_queried_object()->slug ); ?>
-		<?php do_action( "cst_section_head_comscore", $section_slug, $action_slug ); ?>
+		<?php do_action( 'cst_section_head_comscore', $section_slug, $action_slug ); ?>
 		<?php do_action( "cst_section_head_{$action_slug}" ); ?>
 		<section id="rss" class="row grey-background">
 			<div class="large-8 columns">

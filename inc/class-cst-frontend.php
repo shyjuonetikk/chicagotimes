@@ -1398,6 +1398,7 @@ class CST_Frontend {
 	* @param $sponsor_markup
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
+		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
 	<div class="<?php echo esc_attr( $name_width ); ?>">
@@ -1405,6 +1406,18 @@ class CST_Frontend {
 	</div>
 	<?php echo $sponsor_markup; ?>
 </section>
+		<?php
+		wp_nav_menu( array(
+			'theme_location' => "{$action_slug}-menu",
+			'fallback_cb' => false,
+			'depth' => 1,
+			'container_class' => 'cst-navigation-container',
+			'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="">%3$s</ul></div></div>',
+			'walker' => new GC_walker_nav_menu(),
+			)
+		);
+		?>
+
 		<?php
 	}
 	/**

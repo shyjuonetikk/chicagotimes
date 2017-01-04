@@ -288,13 +288,12 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping;
+  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
   googletag.cmd.push(function () {
-    article_lead_unit_mapping = googletag.sizeMapping()
-      .addSize([992, 0], [728, 90]) //desktop
+    article_lead_unit_mapping = googletag.sizeMapping()992, 0], [728, 90]) //desktop
       .addSize([0, 0], [320, 50]) //other
 	  .addSize([800, 1200], [ [728,90] ] ) //tablet
 	  .addSize([768, 1024], [ [728,90] ] ) //tablet
@@ -324,6 +323,10 @@ var dfp = {
     article_skyscraper_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
 	  .addSize([1025, 0], [[160,600]]) //desktop
+	  .build();
+    hp_ear_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([992, 0], [[184,90]]) //desktop
 	  .build();
     hp_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
@@ -403,14 +406,14 @@ var dfp = {
       googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-rr-cube-7')
         .defineSizeMapping(hp_cube_mapping)
         .addService(googletag.pubads()).setTargeting("pos", "rr cube 7");
-      if (window.innerWidth > 1256) {
         googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-left')
+          .defineSizeMapping(hp_ear_mapping)
           .addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Left")
           .setCollapseEmptyDiv(true, true);
         googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-right')
+          .defineSizeMapping(hp_ear_mapping)
           .addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Right")
           .setCollapseEmptyDiv(true, true);
-      }
     }
     if (dfp.front_page || dfp.section) {
       googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')

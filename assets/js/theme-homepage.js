@@ -138,26 +138,6 @@
 
       var scrollTop = $(window).scrollTop();
 
-      if ( scrollTop > this.topBarSection.height() ) {
-
-        // Primary Navigation
-        if ( this.wpAdminBar && $(window).width() > 782 ) {
-          if ( this.primaryNavigation.hasClass('fixed') ) {
-            this.primaryNavigation.css( 'top', this.wpAdminBar.height() );
-          }
-        }
-
-      } else {
-
-        // Primary Navigation
-        if ( this.wpAdminBar ) {
-          if ( this.primaryNavigation.removeClass('fixed') ) {
-            this.primaryNavigation.removeAttr('style');
-          }
-        }
-
-      }
-
       if( scrollTop >= ( this.header.height() + this.breakingNews.height() ) ) {
         if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
           this.dfpWallpaper.removeClass('dfp-wallpaper-normal').addClass('dfp-wallpaper-fixed');

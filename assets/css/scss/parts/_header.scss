@@ -1,14 +1,14 @@
 /* HEADER */
 .logo-wrapper.large-logo {
-	@media (min-width: 1250px) {
+	@media (min-width: 1024px) {
 		display: block;
 	}
-	@media (max-width: 1249px) {
+	@media (max-width: 1023px) {
 		display: none !important;
 	}
 }
 .sponsor-wrapper {
-	max-width: 60.7rem;
+	max-width: 62.5rem;
 	width: 100%;
 	margin-left: auto;
 	margin-right: auto;
@@ -24,28 +24,60 @@
 		}
 	}
 }
-
+.cst-navigation-container {
+	margin: 10px auto 0;
+	text-align: center;
+	clear: both;
+	height: 32px;
+	ul {
+		margin:0;
+		display: inline-block;
+		li {
+			float:left;
+			list-style: none;
+			background:transparent;
+		}
+	}
+	a {
+		font-size: 1rem;
+		line-height:1rem;
+	}
+	.nav-holder {
+		max-width: 62.5rem;
+		border-top: 4px solid $cst_black;
+	}
+	.nav-descriptor {
+		float: left;
+		display: inline-block;
+		height: auto;
+		line-height: 32px;
+		padding: 0;
+		margin: 0;
+		font-size: 1rem;
+		font-weight: bold;
+		ul {
+			li {
+				background: $light_grey;
+				color: $cst_black;
+				line-height:32px;
+				padding-right:10px;
+			}
+		}
+	}
+}
+@media #{$large-down} {
+	.cst-navigation-container {
+		margin-top:0;
+	}
+}
 header {
 	.contain-to-grid {
 		.top-bar {
-			.cst-navigation-container {
-				margin-top:10px;
-				background-color: #ffffff;
-				border-top: 1px solid $cst_black;
-				border-bottom: 1px solid $cst_black;
-				a {
-					font-size: 1rem;
-					line-height:1rem;
-				}
-			}
-			@media #{$large-down} {
-				.cst-navigation-container {
-					margin-top:0;
-				}
-			}
+			background: $cst_black;
+
 
 		.top-bar-section {
-				background-color: $masthead_background;
+			background: $light_grey;
 				#menu-homepage-left, #menu-homepage {
 					.menu-item {
 						&.obit-external {
@@ -60,10 +92,10 @@ header {
 					padding-right: 0 !important;
 				}
 				.sponsor-wrapper {
-					@media (min-width: 1250px) {
+					@media (min-width: 1024px) {
 						display: block;
 					}
-					@media (max-width: 1249px) {
+					@media (max-width: 1023px) {
 						display: none;
 					}
 				}
@@ -106,6 +138,9 @@ header {
 					border-radius: 2px;
 					border-top: 1px solid #333;
 				}
+			}
+			.has-form {
+				background: $cst_black;
 			}
 		}
 		.cst-row {
