@@ -120,7 +120,7 @@ if ( is_singular() ) {
 				'fallback_cb' => false,
 				'depth' => 1,
 				'container_class' => 'cst-navigation-container',
-				'items_wrap' => '<div class="row nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
+				'items_wrap' => '<div class="nav-holder hp"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
 				'walker' => new GC_walker_nav_menu(),
 				)
 			);

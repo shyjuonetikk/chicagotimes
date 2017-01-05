@@ -45,7 +45,7 @@ hr {
 }
 
 a {
-	color: $red;
+	color: $anchor-highlight;
 }
 
 h2.subscribe-product {
@@ -109,7 +109,7 @@ footer {
 	}
 }
 .news_bg {
-	background: $red;
+	background: $anchor-highlight;
 
 	h3.title {
 		a:hover {

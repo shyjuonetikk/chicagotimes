@@ -28,7 +28,7 @@
 	margin: 10px auto 0;
 	text-align: center;
 	clear: both;
-	height: 32px;
+	height: 40px;
 	ul {
 		margin:0;
 		display: inline-block;
@@ -63,11 +63,6 @@
 				padding-right:10px;
 			}
 		}
-	}
-}
-@media #{$large-down} {
-	.cst-navigation-container {
-		margin-top:0;
 	}
 }
 header {

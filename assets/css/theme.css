@@ -43,7 +43,7 @@ hr {
   clear: right; }
 
 a {
-  color: #d22d42; }
+  color: #7d7e7e; }
 
 h2.subscribe-product {
   text-transform: uppercase;
@@ -80,7 +80,7 @@ footer {
     color: #e0e0e0; }
 
 .news_bg {
-  background: #d22d42; }
+  background: #7d7e7e; }
   .news_bg h3.title a:hover {
     color: #e4828f; }
 
@@ -183,7 +183,7 @@ body.error404 {
       color: #333333;
       margin-left: 10px; }
     body.error404 .search-wrap #search-button:hover {
-      color: #d22d42; }
+      color: #7d7e7e; }
   body.error404 .left-off-canvas-menu {
     overflow-y: inherit; }
   body.error404 .exit-off-canvas {
@@ -312,7 +312,7 @@ body.error404 {
         font-size: 120%;
         text-decoration: none; }
       .dfp-interstitial #dfp-interstitial-container .dfp-interstitial-headerbar a:visited {
-        color: #d22d42; }
+        color: #7d7e7e; }
     .dfp-interstitial #dfp-interstitial-container #dfp-interstitial-content {
       height: 100%;
       text-align: center;
@@ -479,7 +479,7 @@ header#header {
         header#header section#primary-navigation #trending-container span.menu-label {
           font-weight: 700;
           text-transform: uppercase;
-          color: #d22d42; }
+          color: #7d7e7e; }
         header#header section#primary-navigation #trending-container ul {
           list-style-type: none;
           display: inline;
@@ -712,7 +712,7 @@ header#header {
         .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info .follow_us .fa-facebook:hover {
           color: #3c5a96; }
         .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info .follow_us .fa-youtube-play:hover {
-          color: #d22d42; }
+          color: #7d7e7e; }
       .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info .cst_logo {
         width: 75%;
         opacity: 0.7;
@@ -738,7 +738,7 @@ header#header {
         font-weight: 700;
         white-space: nowrap; }
       .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info li a:hover {
-        color: #d22d42; }
+        color: #7d7e7e; }
       .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info .copyright {
         font-style: italic;
         font-size: 9px;
@@ -753,7 +753,7 @@ header#header {
         .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info .vip-text a {
           color: #9a9a9a; }
         .menu-footer-fixed-bottom #menu-footer-container .menu-footer-more-info .vip-text a:hover {
-          color: #d22d42; }
+          color: #7d7e7e; }
 
 ul#menu-chiwire {
   font-weight: 700;
@@ -763,7 +763,7 @@ ul#menu-chiwire {
   margin-bottom: 60px;
   line-height: 1rem; }
   ul#menu-chiwire a:hover {
-    background: #d22d42; }
+    background: #7d7e7e; }
 
 ul#menu-sun-times-network {
   font-weight: 700;
@@ -772,7 +772,7 @@ ul#menu-sun-times-network {
   margin-bottom: 0;
   line-height: 1; }
   ul#menu-sun-times-network a:hover {
-    background: #d22d42; }
+    background: #7d7e7e; }
 
 #newsfeed-logo {
   display: block;
@@ -818,14 +818,16 @@ ul#menu-sun-times-network {
 .masthead .utility {
   background-color: #231f20; }
   .masthead .utility .weather {
-    border-left: 1px solid #ffe000;
-    border-right: 1px solid #ffe000;
     padding: 10px 8px; }
     .masthead .utility .weather .weather-link {
       line-height: 24px;
       color: white; }
       .masthead .utility .weather .weather-link:hover, .masthead .utility .weather .weather-link:visited {
         color: white; }
+      .masthead .utility .weather .weather-link .degrees {
+        color: #ffe000; }
+        .masthead .utility .weather .weather-link .degrees i {
+          color: #ffe000; }
   .masthead .utility .search {
     background-color: #231f20; }
     .masthead .utility .search .has-form {
@@ -910,8 +912,7 @@ ul#menu-sun-times-network {
     font-weight: 700;
     text-transform: uppercase;
     display: inline-block;
-    margin-top: 10px;
-    text-shadow: -1px 0px #3e3e3e; }
+    margin-top: 10px; }
   .wire a.section-front-sponsor {
     font-weight: 700;
     text-transform: uppercase;
@@ -1024,7 +1025,7 @@ ul#menu-sun-times-network {
   .wire .post.type-cst_embed .hover-state {
     margin-top: 15px; }
   .wire .post .hover-state:hover, .wire .post h1:hover + .hover-state {
-    background: #d22d42; }
+    background: #7d7e7e; }
     .wire .post .hover-state:hover .fa, .wire .post h1:hover + .hover-state .fa {
       display: block;
       position: absolute;
@@ -1043,14 +1044,14 @@ ul#menu-sun-times-network {
     .wire .post .embed-content .tweet-body a {
       color: #282828; }
     .wire .post .embed-content .tweet-body a:hover {
-      color: #d22d42; }
+      color: #7d7e7e; }
     @media only screen and (min-width:40.063em) {
       .wire .post .embed-content .instagram-body {
         margin-top: 10px; } }
     .wire .post .embed-content .instagram-body a {
       color: #282828; }
     .wire .post .embed-content .instagram-body a:hover {
-      color: #d22d42; }
+      color: #7d7e7e; }
     .wire .post .embed-content .instagram-body p {
       margin: 5px 0 0 0;
       margin-bottom: 5px; }
@@ -1067,7 +1068,7 @@ ul#menu-sun-times-network {
       font-family: 'Libre Frankin', Arial, sans-serif;
       font-size: 1rem; }
       .wire .post .embed-content .instagram-byline .fa {
-        color: #d22d42; }
+        color: #7d7e7e; }
         @media only screen and (max-width: 40em) {
           .wire .post .embed-content .instagram-byline .fa {
             display: none; } }
@@ -1076,12 +1077,12 @@ ul#menu-sun-times-network {
         font-weight: 700; }
         @media only screen and (max-width: 40em) {
           .wire .post .embed-content .instagram-byline a {
-            color: #d22d42;
+            color: #7d7e7e;
             text-transform: uppercase;
             font-weight: 700;
             font-size: 0.75rem; } }
       .wire .post .embed-content .instagram-byline a:hover {
-        color: #d22d42; }
+        color: #7d7e7e; }
   .wire .post .liveblog-entry {
     padding-left: 15px;
     padding-right: 15px; }
@@ -1135,7 +1136,7 @@ ul#menu-sun-times-network {
     height: 35px;
     overflow: hidden; }
   .wire .post .post-meta-bottom .fa-reply:hover, .wire .post .post-meta-bottom .fa-retweet:hover, .wire .post .post-meta-bottom .fa-star:hover {
-    background: #d22d42; }
+    background: #7d7e7e; }
   .wire .post .post-meta-side .fa {
     color: #9a9a9a;
     background: white;
@@ -1148,7 +1149,7 @@ ul#menu-sun-times-network {
     .wire .cst-embed-twitter .embed-content .tweet-byline .fa-twitter {
       display: none; }
     .wire .cst-embed-twitter .embed-content .tweet-byline .tweet-username {
-      color: #d22d42;
+      color: #7d7e7e;
       text-transform: uppercase;
       font-weight: 700;
       font-size: 0.75rem; }
@@ -1227,7 +1228,7 @@ body.search {
       margin: 8px 0 0 20px;
       background: transparent; }
     #search-body .search-widget #search-button:hover {
-      color: #d22d42; }
+      color: #7d7e7e; }
 
 #main .video-injection {
   margin-bottom: 0;
@@ -1267,7 +1268,7 @@ article.post {
   article.post .read-more-wrap {
     text-align: center; }
     article.post .read-more-wrap a.button.read-more {
-      background-color: #d22d42; }
+      background-color: #7d7e7e; }
   article.post .read-more-hidden {
     display: none; }
   article.post .post-comments {
@@ -1576,7 +1577,7 @@ body[class~="archive"] article.post {
         color: #9a9a9a;
         padding-left: 0; }
       .single article.post.cst-embed-twitter .post-meta-social a .fa:hover {
-        color: #d22d42; }
+        color: #7d7e7e; }
   @media only screen and (max-width: 40em) {
     .single article.post .post-meta-social {
       clear: left;
@@ -1610,13 +1611,13 @@ body[class~="archive"] article.post {
 .single .instagram-byline {
   font-family: 'Libre Frankin', Arial, sans-serif; }
   .single .instagram-byline .fa {
-    color: #d22d42; }
+    color: #7d7e7e; }
   .single .instagram-byline a {
     color: #282828;
     font-weight: 700;
     font-family: 'Libre Frankin', Arial, sans-serif; }
   .single .instagram-byline a:hover {
-    color: #d22d42; }
+    color: #7d7e7e; }
 .single .ndn_embed {
   margin-bottom: 20px !important;
   width: 100%;
@@ -1689,7 +1690,7 @@ article[id^="post-"] h4.agg-sponsored {
   text-transform: uppercase; }
   article[id^="post-"] h4.agg-sponsored span {
     text-transform: capitalize;
-    color: #d22d42; }
+    color: #7d7e7e; }
 
 section#subscribe {
   background: white;
@@ -1745,7 +1746,7 @@ section#subscribe {
     section#subscribe .just-in-wrapper .just-in-alerts {
       line-height: 1rem; }
       section#subscribe .just-in-wrapper .just-in-alerts h3 {
-        color: #d22d42;
+        color: #7d7e7e;
         text-transform: uppercase;
         font-weight: 700;
         font-size: 0.9rem;
@@ -1917,7 +1918,7 @@ section#subscribe {
       color: #282828;
       overflow: auto; }
     section#subscribe .trending li:first-child {
-      color: #d22d42;
+      color: #7d7e7e;
       border: none;
       text-transform: uppercase;
       padding: 0px;
@@ -1962,7 +1963,7 @@ section#subscribe {
       font-weight: 700;
       color: #282828; }
     .cst-embed-twitter .embed-content .tweet-byline .tweet-display-name:hover {
-      color: #d22d42; }
+      color: #7d7e7e; }
     .cst-embed-twitter .embed-content .tweet-byline .tweet-username {
       color: #9a9a9a;
       font-size: 0.9rem; }
@@ -2032,7 +2033,7 @@ section#subscribe {
           .sidebar#post-sidebar .load-buttons .button#latest:hover {
             cursor: default; }
         .sidebar#post-sidebar .load-buttons .button#load-latest {
-          background-color: #d22d42;
+          background-color: #7d7e7e;
           display: none; }
           .sidebar#post-sidebar .load-buttons .button#load-latest:hover, .sidebar#post-sidebar .load-buttons .button#load-latest .active-loading {
             background-color: #9a9a9a; }
@@ -2057,7 +2058,7 @@ section#subscribe {
         background-color: white;
         margin-right: -10px; }
         .sidebar#post-sidebar ul.latest-posts li.post.active {
-          border-left: 10px solid #d22d42;
+          border-left: 10px solid #7d7e7e;
           margin-left: -10px; }
         .sidebar#post-sidebar ul.latest-posts li.post h3 {
           font-size: 0.8rem;
@@ -2102,7 +2103,7 @@ section#subscribe {
       background: #282828;
       padding: 15px; }
     #fixed-footer-container .footer-bottom {
-      background: #d22d42;
+      background: #7d7e7e;
       text-align: center;
       margin-top: 2px;
       padding: 5px;
@@ -2141,7 +2142,7 @@ section#subscribe {
         color: #9a9a9a;
         font-weight: 700; }
       #fixed-footer-container .footer-more-info li a:hover {
-        color: #d22d42; }
+        color: #7d7e7e; }
       #fixed-footer-container .footer-more-info .copyright {
         font-style: italic;
         font-size: 9px;
@@ -2156,7 +2157,7 @@ section#subscribe {
         #fixed-footer-container .footer-more-info .vip-text a {
           color: #9a9a9a; }
         #fixed-footer-container .footer-more-info .vip-text a:hover {
-          color: #d22d42; } }
+          color: #7d7e7e; } }
 
 @media only screen and (max-width:64em) {
   .footer-fixed {
@@ -2207,7 +2208,7 @@ section#subscribe {
       background: #f8f8f8;
       color: #282828; }
     .widgets ul.widget-recent-posts .section, .widgets ul.widget-chartbeat-currently-viewing .section {
-      color: #d22d42;
+      color: #7d7e7e;
       text-transform: uppercase;
       font-weight: 700; }
     .widgets ul.widget-recent-posts .title a, .widgets ul.widget-chartbeat-currently-viewing .title a {
@@ -2248,11 +2249,11 @@ section#subscribe {
         font-size: 14px;
         color: #9a9a9a; }
         .widgets li.widget.widget_cst_twitter_widget .tweet-tweet span.twitter-title .fa {
-          color: #d22d42; }
+          color: #7d7e7e; }
         .widgets li.widget.widget_cst_twitter_widget .tweet-tweet span.twitter-title a {
           color: #9a9a9a; }
         .widgets li.widget.widget_cst_twitter_widget .tweet-tweet span.twitter-title a:hover {
-          color: #d22d42; }
+          color: #7d7e7e; }
       .widgets li.widget.widget_cst_twitter_widget .tweet-tweet span.twitter-time {
         font-weight: 300;
         font-size: 12px; }
@@ -2293,7 +2294,7 @@ section#subscribe {
         color: #9a9a9a; }
   .widgets .big {
     font-size: 50px;
-    color: #d22d42; }
+    color: #7d7e7e; }
   .widgets .tweet-bird {
     background: transparent;
     font-size: 16px; }
@@ -2320,7 +2321,7 @@ section#subscribe {
     .widgets .featured-story .hover-state .fa {
       display: none; }
     .widgets .featured-story .hover-state:hover {
-      background: #d22d42; }
+      background: #7d7e7e; }
       .widgets .featured-story .hover-state:hover .fa {
         display: block;
         position: absolute;
@@ -2334,7 +2335,7 @@ section#subscribe {
     .widgets .featured-story .featured-story-body {
       padding: 10px; }
       .widgets .featured-story .featured-story-body .section a {
-        color: #d22d42;
+        color: #7d7e7e;
         text-transform: uppercase;
         font-weight: 900;
         font-size: 12px; }
@@ -2347,9 +2348,9 @@ section#subscribe {
           color: #282828;
           font-weight: 900; }
         .widgets .featured-story .featured-story-body h3.title a:hover {
-          color: #d22d42; }
+          color: #7d7e7e; }
       .widgets .featured-story .featured-story-body .fa {
-        color: #d22d42;
+        color: #7d7e7e;
         height: 15px;
         font-size: 12px; }
   .widgets #polar-widget {
@@ -2389,7 +2390,7 @@ section#subscribe {
       margin: 8px 0 0 -26px;
       background: transparent; }
     .widgets .search-widget #search-button:hover {
-      color: #d22d42; }
+      color: #7d7e7e; }
   .widgets li.ap_ncaa_cbb_scoreboard_widget, .widgets li.ap_ncaa_cbb_news_widget {
     overflow: hidden;
     margin-bottom: 10px; }
@@ -2442,7 +2443,7 @@ section#subscribe {
         font-style: italic; }
       .widgets li.cst_newsletter_signup p .button.tiny {
         margin: 0;
-        background: #d22d42; }
+        background: #7d7e7e; }
       .widgets li.cst_newsletter_signup p .button:hover {
         opacity: 0.5; }
 
@@ -2492,7 +2493,7 @@ section#subscribe {
   margin: 10px auto 0;
   text-align: center;
   clear: both;
-  height: 32px; }
+  height: 40px; }
   .cst-navigation-container ul {
     margin: 0;
     display: inline-block; }
@@ -2520,10 +2521,6 @@ section#subscribe {
       color: #231f20;
       line-height: 32px;
       padding-right: 10px; }
-
-@media only screen and (max-width:90em) {
-  .cst-navigation-container {
-    margin-top: 0; } }
 
 header .contain-to-grid .top-bar {
   background: #231f20; }
@@ -2691,7 +2688,7 @@ footer {
     position: absolute;
     top: 15px;
     left: 15px;
-    background-color: #d22d42;
+    background-color: #7d7e7e;
     color: white;
     padding: 8px;
     font-size: 0.8rem;
@@ -2739,7 +2736,7 @@ body.post-gallery-lightbox-active {
     display: block;
     z-index: 100; }
   #cst-gallery-wrap #cst-close-gallery-button:hover .fa {
-    color: #d22d42; }
+    color: #7d7e7e; }
   #cst-gallery-wrap #cst-gallery-slides-wrap, #cst-gallery-wrap .slides, #cst-gallery-wrap .slick-list, #cst-gallery-wrap .slick-track {
     height: 100%; }
   #cst-gallery-wrap #cst-gallery-slides-sidebar {
@@ -2890,7 +2887,7 @@ body.post-gallery-lightbox-active {
   .post .post-meta .post-section-taxonomy, .post .post-meta .post-embed-source {
     position: relative; }
     .post .post-meta .post-section-taxonomy a, .post .post-meta .post-embed-source a {
-      color: #d22d42;
+      color: #7d7e7e;
       text-transform: uppercase;
       font-weight: 700; }
     .post .post-meta .post-section-taxonomy a:hover, .post .post-meta .post-embed-source a:hover {
@@ -2921,14 +2918,14 @@ body.post-gallery-lightbox-active {
     .post .post-meta-byline .post-meta-author-contact a {
       color: #9a9a9a; }
       .post .post-meta-byline .post-meta-author-contact a:hover {
-        color: #d22d42; }
+        color: #7d7e7e; }
     .post .post-meta-byline .post-meta-author-contact .fa {
       width: 20px;
       height: 20px;
       font-size: 20px;
       margin-right: 10px; }
     .post .post-meta-byline .post-meta-author-contact .fa:hover {
-      color: #d22d42; }
+      color: #7d7e7e; }
 .post .byline-author {
   color: #282828; }
 @media only screen and (min-width:40.063em) {
@@ -2966,9 +2963,9 @@ body.post-gallery-lightbox-active {
     body.single .post .post-meta-bottom .post-meta-taxonomy-terms a {
       padding-right: 14px; }
   .post .post-meta-bottom .post-meta-taxonomy-terms a:hover {
-    color: #d22d42; }
+    color: #7d7e7e; }
 .post .post-meta-bottom .post-meta-taxonomy-terms:hover a:hover .fa {
-  color: #d22d42; }
+  color: #7d7e7e; }
 
 .homepage_wrapper {
   width: 100%;
@@ -2987,13 +2984,13 @@ body.post-gallery-lightbox-active {
     /* The Fallback */
     background: rgba(210, 45, 66, 0.9) !important; }
   .homepage_wrapper .news-title {
-    background: #d22d42; }
+    background: #7d7e7e; }
   .homepage_wrapper .news-border:after, .homepage_wrapper .news-menu {
-    border-color: #d22d42 !important; }
+    border-color: #7d7e7e !important; }
   .homepage_wrapper .news-menu:hover a:not(.button):hover {
-    background: #d22d42; }
+    background: #7d7e7e; }
   .homepage_wrapper .news-triangle:after {
-    border-color: #d22d42 transparent transparent transparent !important; }
+    border-color: #7d7e7e transparent transparent transparent !important; }
   .homepage_wrapper .sports-cat:hover {
     background: #34485e !important;
     /* The Fallback */
@@ -3169,7 +3166,7 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .top-bar-section {
     z-index: 3; }
   .homepage_wrapper .breaking-news-story, .homepage_wrapper .breaking-section-story {
-    background: #d22d42; }
+    background: #7d7e7e; }
   .homepage_wrapper .bears-cube-story h3.title a:hover {
     opacity: 0.75; }
   .homepage_wrapper .bears-cube-story .terry-ford {
@@ -3275,7 +3272,7 @@ body.post-gallery-lightbox-active {
       text-transform: uppercase;
       font-family: inherit;
       font-weight: 700;
-      color: #d22d42;
+      color: #7d7e7e;
       background: white;
       border-bottom: none;
       padding: 0 10px;
@@ -3291,8 +3288,7 @@ body.post-gallery-lightbox-active {
     height: auto;
     margin-bottom: 10px;
     float: none;
-    overflow: hidden;
-    background: whitesmoke; }
+    overflow: hidden; }
     .homepage_wrapper section#main-well .main-article-container a {
       display: block;
       position: relative; }
@@ -3813,7 +3809,7 @@ body.post-gallery-lightbox-active {
       right: 20px;
       top: 5px; }
     .homepage_wrapper .search-widget #search-button:hover {
-      color: #d22d42; }
+      color: #7d7e7e; }
   .homepage_wrapper li.widget_cst_ad_widget {
     list-style-type: none; }
   .homepage_wrapper footer .row {

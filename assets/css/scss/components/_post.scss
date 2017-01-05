@@ -46,7 +46,7 @@ article.post {
 		text-align: center;
 
 		a.button.read-more {
-			background-color: $red;
+			background-color: $anchor-highlight;
 		}
 	}
 
@@ -558,7 +558,7 @@ body[class~="archive"] {
 					}
 
 					.fa:hover {
-						color: $red;
+						color: $anchor-highlight;
 					}
 				}
 			}
@@ -617,7 +617,7 @@ body[class~="archive"] {
 		font-family: $open_sans;
 
 		.fa {
-			color: $red;
+			color: $anchor-highlight;
 		}
 
 		 a {
@@ -627,7 +627,7 @@ body[class~="archive"] {
 		 }
 
 		 a:hover {
-		 	color: $red;
+		 	color: $anchor-highlight;
 		 }
 
 	}
@@ -738,7 +738,7 @@ article[id^="post-"] {
 
 		span {
 			text-transform: capitalize;
-			color: $red;
+			color: $anchor-highlight;
 		}
 
 	}

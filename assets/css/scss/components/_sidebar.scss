@@ -88,7 +88,7 @@
 				}
 
 				&#load-latest {
-					background-color: $red;
+					background-color: $anchor-highlight;
 					display: none;
 
 					&:hover,
@@ -134,7 +134,7 @@
 				margin-right: -10px;
 
 				&.active {
-					border-left: 10px solid $red;
+					border-left: 10px solid $anchor-highlight;
 					margin-left: -10px;
 				}
 
@@ -221,7 +221,7 @@
 		}
 		
 		.footer-bottom {
-			background: $red;
+			background: $anchor-highlight;
 			text-align: center;
 			margin-top: 2px;
 			padding: 5px;
@@ -280,7 +280,7 @@
 			}
 			
 			li a:hover {
-				color:$red;
+				color:$anchor-highlight;
 			}
 
 			.copyright {
@@ -302,7 +302,7 @@
 				}
 
 				a:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 			}
 			

@@ -63,7 +63,7 @@
 		}
 
 		.section {
-			color: $red;
+			color: $anchor-highlight;
 			text-transform: uppercase;
 			font-weight: 700;
 		}
@@ -126,7 +126,7 @@
 				color:$social_grey;
 
 				.fa {
-					color: $red;
+					color: $anchor-highlight;
 				}
 
 				a {
@@ -134,7 +134,7 @@
 				}
 
 				a:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 			}
 			
@@ -203,7 +203,7 @@
 	
 	.big {
 			font-size:50px;
-			color:$red;
+			color:$anchor-highlight;
 		}
 	
 	.tweet-bird {
@@ -248,7 +248,7 @@
 		}
 
 		.hover-state:hover {
-			background: $red;
+			background: $anchor-highlight;
 
 			.fa {
 				display:block;
@@ -271,7 +271,7 @@
 			
 			.section {
 				a {
-					color: $red;
+					color: $anchor-highlight;
 					text-transform: uppercase;
 					font-weight: 900;
 					font-size:12px;
@@ -295,12 +295,12 @@
 				}
 
 				a:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 			}
 			
 			.fa {
-				color: $red;
+				color: $anchor-highlight;
 				height:15px;
 				font-size:12px;
 			}
@@ -368,7 +368,7 @@
 	    }
 
 	    #search-button:hover {
-			color: $red;
+			color: $anchor-highlight;
 	    }
 	}
 
@@ -448,7 +448,7 @@
 
 			.button.tiny {
 				margin: 0;
-				background: $red;
+				background: $anchor-highlight;
 			}
 			.button:hover {
 				opacity: .5;

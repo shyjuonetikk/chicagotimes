@@ -48,7 +48,7 @@
 			position: relative;
 
 			a {
-				color: $red;
+				color: $anchor-highlight;
 				text-transform: uppercase;
 				font-weight: 700;
 			}
@@ -108,7 +108,7 @@
 				color: $social_grey;
 
 				&:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 			}
 
@@ -120,7 +120,7 @@
 			}
 
 			.fa:hover {
-				color: $red;
+				color: $anchor-highlight;
 			}
 		}
 
@@ -195,14 +195,14 @@
 			}
 
 			a:hover {
-				color: $red;
+				color: $anchor-highlight;
 			}
 
 		}
 
 		.post-meta-taxonomy-terms:hover {
 			a:hover .fa {
-				color: $red;
+				color: $anchor-highlight;
 			}
 		}
 

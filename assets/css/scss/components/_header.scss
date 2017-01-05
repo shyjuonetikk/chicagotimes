@@ -190,7 +190,7 @@ header#header {
 				span.menu-label {
 					font-weight:700;
 					text-transform:uppercase;
-					color:$red;
+					color:$anchor-highlight;
 				}
 
 				ul {
@@ -539,7 +539,7 @@ header#header {
 				}
 
 				.fa-youtube-play:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 			}
 
@@ -580,7 +580,7 @@ header#header {
 			}
 
 			li a:hover {
-				color:$red;
+				color:$anchor-highlight;
 			}
 
 			.copyright {
@@ -602,7 +602,7 @@ header#header {
 				}
 
 				a:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 			}
 		}
@@ -618,7 +618,7 @@ ul#menu-chiwire {
 	line-height:1.0rem;
 
 	a:hover {
-		background: $red;
+		background: $anchor-highlight;
 	}
 }
 
@@ -630,7 +630,7 @@ ul#menu-sun-times-network {
 	line-height:1.0;
 
 	a:hover {
-		background: $red;
+		background: $anchor-highlight;
 	}
 }
 
@@ -702,8 +702,6 @@ body.single {
 	.utility {
 		background-color: $cst_black;
 		.weather {
-			border-left: 1px solid $cst_yellow;
-			border-right: 1px solid $cst_yellow;
 			padding: 10px 8px;
 			.weather-link {
 				line-height: 24px;
@@ -711,6 +709,12 @@ body.single {
 				&:hover,
 				&:visited {
 					color: $white;
+				}
+				.degrees {
+					color: $cst_yellow;
+					i {
+						color: $cst_yellow;
+					}
 				}
 			}
 		}

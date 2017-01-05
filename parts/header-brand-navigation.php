@@ -2,11 +2,11 @@
 	<div class="inner-wrap">
 		<header id="header" class="masthead">
 
-	<div class="contain-to-grid">
+	<div class="contain-to-grid row">
 		<nav class="top-bar" data-topbar role="navigation">
 			<div class="responsive-logo-wrapper">
 				<ul class="title-area">
-					<li class="search hide-for-small-only hide-for-large-up">
+					<li class="search hide-for-large-up">
 						<div class="utility">
 							<ul>
 								<li class="has-form">
@@ -15,13 +15,13 @@
 											<ul class="left">
 												<li class="has-form">
 													<div class="row collapse search-input-wrapper">
-														<div class="large-1 small-1 columns search-icon"><i class="fa fa-search"></i></div>
-														<div class="large-5 small-5 columns">
+														<div class="large-1 small-1 columns search-icon hide-for-small-only"><i class="fa fa-search"></i></div>
+														<div class="large-5 small-5 columns hide-for-small-only">
 															<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'SEARCH', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
 														</div>
-														<div class="large-5 small-5 columns">
+														<div class="large-5 small-11 columns">
 															<a href="#" class="left-off-canvas-toggle" id="burger-bar">
-																<i class="fa fa-bars"></i><span>SECTIONS</span>
+																<i class="fa fa-bars"></i><span class="hide-for-small-only">SECTIONS</span>
 															</a>
 														</div>
 													</div>
@@ -40,7 +40,6 @@
 							</a>
 						</h1>
 					</li>
-					<li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
 				</ul>
 			</div>
 
@@ -108,7 +107,7 @@
 					'fallback_cb' => false,
 					'depth' => 2,
 					'container_class' => 'cst-navigation-container',
-					'items_wrap' => '<div class="row nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
+					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
 					'walker' => new GC_walker_nav_menu(),
 					)
 				);

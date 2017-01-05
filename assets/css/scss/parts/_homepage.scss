@@ -12,19 +12,19 @@
 	}
 
 	.news-title {
-		background: $red;
+		background: $anchor-highlight;
 	}
 
 	.news-border:after, .news-menu {
-		border-color: $red !important;
+		border-color: $anchor-highlight !important;
 	}
 
 	.news-menu:hover a:not(.button):hover {
-	    background: $red;
+	    background: $anchor-highlight;
 	}
 
 	.news-triangle:after {
-		border-color: $red transparent transparent transparent !important;
+		border-color: $anchor-highlight transparent transparent transparent !important;
 	}
 
 	.sports-cat:hover {
@@ -340,7 +340,7 @@
 /* BREAKING NEWS */
 .breaking-news-story,
 .breaking-section-story {
-	background: $red;
+	background: $anchor-highlight;
 }
 .bears-cube-story {
 
@@ -423,7 +423,6 @@
 .homepage-content {
 	margin: 0 auto;
 }
-
 
 
 @media (min-width: 1200px) and (max-width: 1275px) {
@@ -512,7 +511,7 @@
 			text-transform: uppercase;
 			font-family: inherit;
 			font-weight: 700;
-			color: $red;
+			color: $anchor-highlight;
 			background: $white;
 			border-bottom: none;
 			padding: 0 10px;
@@ -536,7 +535,6 @@
 			margin-bottom: 10px;
 			float: none;
 			overflow: hidden;
-			background: #f5f5f5;
 			a {
 				display: block;
 				position: relative;
@@ -1278,7 +1276,7 @@
 	}
 
     #search-button:hover {
-      color: $red;
+      color: $anchor-highlight;
     }
 }
 

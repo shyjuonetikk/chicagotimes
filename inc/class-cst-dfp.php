@@ -293,7 +293,8 @@ var dfp = {
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
   googletag.cmd.push(function () {
-    article_lead_unit_mapping = googletag.sizeMapping()992, 0], [728, 90]) //desktop
+    article_lead_unit_mapping = googletag.sizeMapping()
+      .addSize([992, 0], [728, 90]) //desktop
       .addSize([0, 0], [320, 50]) //other
 	  .addSize([800, 1200], [ [728,90] ] ) //tablet
 	  .addSize([768, 1024], [ [728,90] ] ) //tablet
