@@ -201,18 +201,6 @@ body.error404 {
     body.error404 .home-page-link:hover, body.error404 .home-page-link:active, body.error404 .home-page-link:visited {
       color: #282828; }
 
-.vip-local div[id^="div-gpt-"], .vip-local .tcx_widget {
-  border: 1px solid #cccccc;
-  color: #333333;
-  font-size: 0.7rem; }
-  .vip-local div[id^="div-gpt-"][data-visual-label]:before, .vip-local .tcx_widget[data-visual-label]:before {
-    content: attr(data-visual-label) ": "; }
-.vip-local .tcx_widget {
-  height: 600px;
-  background-color: white; }
-  .vip-local .tcx_widget:before {
-    content: "tcx widget"; }
-
 #div-gpt-ym-craig {
   margin-top: 1.25rem; }
 
@@ -365,13 +353,14 @@ header#header {
     position: absolute;
     right: 0px;
     top: 17px;
-    color: white;
     text-transform: uppercase;
     font-family: 'Libre Frankin', Arial, sans-serif; }
     header#header #weather .degrees {
+      color: #ffe000;
       font-size: 1.2rem;
       margin-right: 10px; }
     header#header #weather .description {
+      color: #ffe000;
       font-weight: 600;
       font-size: 0.75rem; }
   header#header .responsive-logo-wrapper {

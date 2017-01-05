@@ -1,21 +1,21 @@
-.vip-local {
-	div[id^="div-gpt-"],
-	.tcx_widget {
-		border: 1px solid #ccc;
-		color: #333;
-		font-size: 0.7rem;
-		&[data-visual-label]:before {
-			content: attr(data-visual-label) ": ";
-		}
-	}
-	.tcx_widget {
-		&:before {
-			content: "tcx widget";
-		}
-		height: 600px;
-		background-color: #fff;
-	}
-}
+//.vip-local {
+//	div[id^="div-gpt-"],
+//	.tcx_widget {
+//		border: 1px solid #ccc;
+//		color: #333;
+//		font-size: 0.7rem;
+//		&[data-visual-label]:before {
+//			content: attr(data-visual-label) ": ";
+//		}
+//	}
+//	.tcx_widget {
+//		&:before {
+//			content: "tcx widget";
+//		}
+//		height: 600px;
+//		background-color: #fff;
+//	}
+//}
 #div-gpt-ym-craig {
 	margin-top: 1.25rem;
 }
