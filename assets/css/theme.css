@@ -356,7 +356,7 @@ body.error404 {
 header#header {
   position: fixed;
   top: 0;
-  z-index: 99998;
+  z-index: 100;
   width: 100%;
   -webkit-transition: -webkit-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
   -moz-transition: -moz-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
@@ -519,7 +519,7 @@ header#header {
   header#header .primary-fixed {
     position: fixed;
     top: 0;
-    z-index: 99998;
+    z-index: 100;
     width: 100%;
     background: #231f20; }
   header#header .primary-normal {
@@ -847,6 +847,8 @@ ul#menu-sun-times-network {
         margin-left: 1rem;
         color: white;
         padding: 0; }
+        .masthead .utility .search .search-input-wrapper .search-icon a, .masthead .utility .search .search-input-wrapper .search-icon a:visited, .masthead .utility .search .search-input-wrapper .search-icon a:hover, .masthead .utility .search .search-input-wrapper .search-icon a:active {
+          color: white; }
     .masthead .utility .search .glass {
       font-size: 1.5rem;
       color: white;
@@ -887,6 +889,12 @@ ul#menu-sun-times-network {
   .masthead .subscribe-link a, .masthead .subscribe-link a:visited, .masthead .subscribe-link a:focus, .masthead .subscribe-link a:hover {
     color: #f8f8f8;
     font-size: 0.8rem; }
+
+#full-search-input {
+  border: 1px solid #231f20;
+  -webkit-box-shadow: 0;
+  -moz-box-shadow: 0;
+  box-shadow: 0; }
 
 .wire {
   position: relative;

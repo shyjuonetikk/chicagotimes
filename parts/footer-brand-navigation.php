@@ -61,3 +61,17 @@ if ( has_nav_menu( 'page-footer-3' ) ) {
 	<iframe src="http://wssp.suntimes.com/subscribe/" frameborder="0" class="cst-responsive" width="100%" height="700" allowfullscreen></iframe>
 	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
+<div id="search-container" class="reveal-modal large" data-reveal aria-labelledby="searchContainer" aria-hidden="true" role="dialog">
+	<a class="close-reveal-modal">&#215;</a>
+	<div class="row">
+		<div class="small-4 small-centered columns">
+			<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-masthead.svg' ); ?>" alt='Chicago Sun-Times logo'>
+		</div>
+	</div>
+	<div class="small-12 columns">
+		<h3>Search</h3>
+		<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+			<input type="text" id="full-search-input" class="search-input" placeholder="<?php esc_attr_e( 'SEARCH', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
+		</form>
+	</div>
+</div>

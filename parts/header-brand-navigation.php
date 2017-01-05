@@ -21,7 +21,7 @@
 														</div>
 														<div class="large-5 small-11 columns">
 															<a href="#" class="left-off-canvas-toggle" id="burger-bar">
-																<i class="fa fa-bars"></i><span class="hide-for-small-only">SECTIONS</span>
+																<i class="fa fa-bars"></i>
 															</a>
 														</div>
 													</div>
@@ -52,13 +52,14 @@
 							<ul class="left">
 								<li class="has-form">
 									<div class="row collapse search-input-wrapper hide-for-medium-down">
-										<div class="large-1 small-1 columns search-icon"><i class="fa fa-search"></i></div>
-										<div class="large-5 small-5 columns">
-											<input type="text" id="search-field" class="search-input" placeholder="<?php esc_attr_e( 'Search', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>"/>
+										<div class="large-1 small-1 columns search-icon">
+											<a href="#" data-reveal-id="search-container">
+											<i class="fa fa-search"></i>
+											</a>
 										</div>
 										<div class="large-5 small-5 columns">
 											<a href="#" class="left-off-canvas-toggle" id="burger-bar">
-												<i class="fa fa-bars"></i><span>SECTIONS</span>
+												<i class="fa fa-bars"></i>
 											</a>
 										</div>
 									</div>

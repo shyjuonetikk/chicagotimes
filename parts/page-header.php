@@ -59,7 +59,7 @@ if ( is_single() ) {
 		<?php get_template_part( 'parts/social-links' ); ?>
 
 		<a href="#" class="left-off-canvas-toggle" id="burger-bar">
-			<i class="fa fa-bars"></i><span>SECTIONS</span>
+			<i class="fa fa-bars"></i>
 		</a>
 
 		<div id="logo-wrap">
