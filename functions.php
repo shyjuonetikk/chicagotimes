@@ -49,7 +49,6 @@ class CST {
 		$this->wire_curator = CST_Wire_Curator::get_instance();
 		$this->usa_today_wire_curator = CST_USA_Today_Wire_Curator::get_instance();
 		$this->shia_kapos_wire_curator = CST_Shia_Kapos_Wire_Curator::get_instance();
-		$this->chicago_wire_curator = CST_Chicago_Wire_Curator::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
 
@@ -161,7 +160,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-usa-today-wire-curator.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-yieldmo-tags.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shia-kapos-wire-curator.php';
-		require_once dirname( __FILE__ ) . '/inc/class-cst-chicago-wire-curator.php';
 
 		// Objects
 		require_once dirname( __FILE__ ) . '/inc/objects/class-post.php';

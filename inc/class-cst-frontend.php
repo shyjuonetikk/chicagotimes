@@ -1632,4 +1632,31 @@ ready(fn);
 	<?php
 	}
 
+	/**
+	 * Handle ad injection logic for section fronts and article pages and related infinite scrolling
+	 *
+	 * @param $paged page number within infinite scroll
+	 */
+	public function content_ad_injection( $paged ) {
+?>
+<section class="ad-container">
+		<?php
+		global $wp_query;
+		if ( is_singular() ) {
+			echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_lead_unit_mapping', 'atf leaderboard 2' );
+		} else {
+			if ( 0 === $wp_query->current_post && 0 === $paged ) {
+				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 2' );
+			} else {
+				$every_two = $wp_query->current_post % 2;
+				if ( ( ! $every_two ) ) {
+					echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 3' );
+				}
+			}
+		}
+		?>
+</section>
+<?php
+	}
+
 }

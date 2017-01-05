@@ -60,19 +60,7 @@
 		</div>
 		<?php endif; ?>
 
-		<section class="ad-container">
-			<?php
-			global $wp_query;
-			if ( is_singular() ) {
-				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_lead_unit_mapping', 'atf leaderboard' );
-			} else {
-				$every_two = $wp_query->current_post % 2;
-				if ( ( ! $every_two ) ) {
-					echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 2' );
-				}
-			}
-			?>
-		</section>
+		<?php CST()->frontend->content_ad_injection( $paged ); ?>
 
 		<?php if ( is_singular() ) : ?>
 		</div>
