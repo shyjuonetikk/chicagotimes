@@ -701,6 +701,8 @@ body.single {
 	}
 	.utility {
 		background-color: $cst_black;
+		width: 100%;
+		float: left;
 		.weather {
 			padding: 10px 8px;
 			.weather-link {
@@ -804,16 +806,14 @@ body.single {
 		}
 	}
 	.subscribe-link {
-		-webkit-border-radius:3px;
-		-moz-border-radius:3px;
-		border-radius:3px;
-		border: 2px #666 solid;
-		padding:3px 5px;
-		margin-top:4px;
+		border: 1px $white solid;
+		padding:0 6px;
+		margin-top:7px;
 		display:block;
-		background-color: $white;
+		color: $light_grey;
 		a, a:visited, a:focus, a:hover {
-			color: $cst_black;
+			color: $light_grey;
+			font-size: 0.8rem;
 		}
 	}
 }

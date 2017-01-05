@@ -816,7 +816,9 @@ ul#menu-sun-times-network {
 .masthead .contain-to-grid {
   background: #f8f8f8; }
 .masthead .utility {
-  background-color: #231f20; }
+  background-color: #231f20;
+  width: 100%;
+  float: left; }
   .masthead .utility .weather {
     padding: 10px 8px; }
     .masthead .utility .weather .weather-link {
@@ -877,16 +879,14 @@ ul#menu-sun-times-network {
     padding: 0 17px;
     display: inline-block; } }
 .masthead .subscribe-link {
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-  border: 2px #666666 solid;
-  padding: 3px 5px;
-  margin-top: 4px;
+  border: 1px white solid;
+  padding: 0 6px;
+  margin-top: 7px;
   display: block;
-  background-color: white; }
+  color: #f8f8f8; }
   .masthead .subscribe-link a, .masthead .subscribe-link a:visited, .masthead .subscribe-link a:focus, .masthead .subscribe-link a:hover {
-    color: #231f20; }
+    color: #f8f8f8;
+    font-size: 0.8rem; }
 
 .wire {
   position: relative;
@@ -2534,7 +2534,8 @@ header .contain-to-grid .top-bar {
       padding-right: 0 !important; }
     @media (min-width: 1024px) {
       header .contain-to-grid .top-bar .top-bar-section .sponsor-wrapper {
-        display: block; } }
+        display: block;
+        clear: both; } }
     @media (max-width: 1023px) {
       header .contain-to-grid .top-bar .top-bar-section .sponsor-wrapper {
         display: none; } }

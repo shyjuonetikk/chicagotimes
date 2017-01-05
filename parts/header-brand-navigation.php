@@ -1,8 +1,8 @@
 <div class="off-canvas-wrap" data-offcanvas>
 	<div class="inner-wrap">
 		<header id="header" class="masthead">
-
-	<div class="contain-to-grid row">
+<div class="row">
+	<div class="contain-to-grid columns">
 		<nav class="top-bar" data-topbar role="navigation">
 			<div class="responsive-logo-wrapper">
 				<ul class="title-area">
@@ -44,7 +44,7 @@
 			</div>
 
 			<section class="top-bar-section">
-				<div class="utility row">
+				<div class="utility">
 					<ul>
 						<li class="has-form">
 					<div class="search">
@@ -115,7 +115,8 @@
 			</section>
 		</nav>
 	</div>
-</header>
+</div>
+		</header>
 
 
 <?php get_template_part( 'parts/off-canvas-menu' );
