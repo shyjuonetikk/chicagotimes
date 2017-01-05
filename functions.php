@@ -421,6 +421,7 @@ class CST {
 		add_filter( 'coauthors_guest_author_manage_cap', function() {
 			return 'edit_others_posts';
 		} );
+		add_filter( 'coauthors_guest_author_parent_page', function() { return 'tools.php'; } );
 
 		add_filter( 'wpcom_sitemap_post_types', array( $this, 'filter_sitemap_post_types' ) );
 		add_filter( 'wpcom_sitemap_news_sitemap_post_types', array( $this, 'filter_sitemap_post_types' ) );
