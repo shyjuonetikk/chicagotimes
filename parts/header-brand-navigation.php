@@ -2,7 +2,7 @@
 	<div class="inner-wrap">
 		<header id="header" class="masthead">
 <div class="row">
-	<div class="contain-to-grid columns">
+	<div class="contain-to-grid columns sticky">
 		<nav class="top-bar" data-topbar role="navigation">
 			<div class="responsive-logo-wrapper">
 				<ul class="title-area">
@@ -63,6 +63,18 @@
 											</a>
 										</div>
 									</div>
+								</li>
+								<li class="has-form">
+									<?php
+									wp_nav_menu( array(
+										'theme_location' => 'homepage-masthead',
+										'fallback_cb' => false,
+										'depth' => 1,
+										'container_class' => 'masthead-sections',
+										'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+										)
+									);
+									?>
 								</li>
 							</ul>
 						</form>

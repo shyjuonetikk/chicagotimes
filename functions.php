@@ -153,6 +153,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-elections.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -448,6 +449,7 @@ class CST {
 			return $classes;
 		});
 
+		add_filter( 'wp_nav_menu_objects', [ $this, 'cst_menu_set_dropdown' ], 10, 2 );
 		/**
 		 * Filter to whitelist chicago.suntimes.com as suggested in VIP ticket
 		 * https://wordpressvip.zendesk.com/hc/en-us/requests/50256
@@ -480,6 +482,7 @@ class CST {
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
+		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 
 	}
 
@@ -808,28 +811,29 @@ class CST {
 
 		register_nav_menus(
 			array(
-				'homepage-menu'     	=> esc_html__( 'Homepage', 'chicagosuntimes' ),
-				'homepage-footer-menu'  => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
-				'news-menu'         	=> esc_html__( 'News', 'chicagosuntimes' ),
-				'news-trending'     	=> esc_html__( 'News Trending', 'chicagosuntimes' ),
-				'sports-menu'       	=> esc_html__( 'Sports', 'chicagosuntimes' ),
-				'sports-trending'   	=> esc_html__( 'Sports Trending', 'chicagosuntimes' ),
-				'politics-menu'     	=> esc_html__( 'Politics', 'chicagosuntimes' ),
-				'politics-trending' 	=> esc_html__( 'Politics Trending', 'chicagosuntimes' ),
-				'entertainment-menu'    => esc_html__( 'Entertainment', 'chicagosuntimes' ),
-				'entertainment-trending'=> esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
-				'lifestyles-menu'      	=> esc_html__( 'Lifestyles', 'chicagosuntimes' ),
-				'lifestyles-trending'   => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
-				'opinion-menu'       	=> esc_html__( 'Opinion', 'chicagosuntimes' ),
-				'opinion-trending'   	=> esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
-				'columnists-menu'       => esc_html__( 'Columnists', 'chicagosuntimes' ),
-				'columnists-trending'   => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
-				'autos-menu'            => esc_html__( 'Autos', 'chicagosuntimes' ),
-				'autos-trending'        => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
-				'page-footer-1'         => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
-				'page-footer-2'         => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
-				'page-footer-3'         => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
-				'election-page'         => esc_html__( 'Election Page', 'chicagosuntimes' ),
+				'homepage-menu'          => esc_html__( 'Homepage', 'chicagosuntimes' ),
+				'homepage-footer-menu'   => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
+				'news-menu'              => esc_html__( 'News', 'chicagosuntimes' ),
+				'news-trending'          => esc_html__( 'News Trending', 'chicagosuntimes' ),
+				'sports-menu'            => esc_html__( 'Sports', 'chicagosuntimes' ),
+				'sports-trending'        => esc_html__( 'Sports Trending', 'chicagosuntimes' ),
+				'politics-menu'          => esc_html__( 'Politics', 'chicagosuntimes' ),
+				'politics-trending'      => esc_html__( 'Politics Trending', 'chicagosuntimes' ),
+				'entertainment-menu'     => esc_html__( 'Entertainment', 'chicagosuntimes' ),
+				'entertainment-trending' => esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
+				'lifestyles-menu'        => esc_html__( 'Lifestyles', 'chicagosuntimes' ),
+				'lifestyles-trending'    => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
+				'opinion-menu'           => esc_html__( 'Opinion', 'chicagosuntimes' ),
+				'opinion-trending'       => esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
+				'columnists-menu'        => esc_html__( 'Columnists', 'chicagosuntimes' ),
+				'columnists-trending'    => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
+				'autos-menu'             => esc_html__( 'Autos', 'chicagosuntimes' ),
+				'autos-trending'         => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
+				'page-footer-1'          => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
+				'page-footer-2'          => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
+				'page-footer-3'          => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
+				'election-page'          => esc_html__( 'Election Page', 'chicagosuntimes' ),
+				'homepage-masthead'      => esc_html__( 'Hompage Masthead', 'chicagosuntimes' ),
 			)
 		);
 
@@ -1750,6 +1754,44 @@ class CST {
 		$atts['data-event-action'] = 'navigate';
 		return $atts;
 	}
+
+	/**
+	 * Set parent class with supported Foundation class to indicate presence of a dropdown
+	 * @param $sorted_menu_items
+	 *
+	 * @return mixed
+	 */
+	function cst_menu_set_dropdown( $sorted_menu_items ) {
+		$last_top = 0;
+		foreach ( $sorted_menu_items as $key => $obj ) {
+			// it is a top lv item?
+			if ( 0 == $obj->menu_item_parent ) {
+				// set the key of the parent
+				$last_top = $key;
+			} else {
+				$sorted_menu_items[ $last_top ]->classes['dropdown'] = 'has-dropdown';
+			}
+		}
+		return $sorted_menu_items;
+	}
+
+	/**
+	 * @param $classes
+	 * @param $item
+	 * @param $args
+	 * @param $depth
+	 *
+	 * @return array
+	 *
+	 * Add Foundation class to masthead navigation to work with top bar
+	 */
+	function masthead_nav_classes( $classes, $item, $args, $depth ) {
+
+		if ( 'masthead-sections' === $args->container_class ) {
+			$classes[] .= 'left';
+		}
+		return $classes;
+	}
 }
 
 /**
@@ -1759,41 +1801,6 @@ function CST() {
 	return CST::get_instance();
 }
 add_action( 'after_setup_theme', 'CST' );
-
-class GC_walker_nav_menu extends Walker_Nav_Menu {
-
-	// add classes to ul sub-menus
-	public function start_lvl(&$output, $depth = 0, $args = array() ) {
-		
-		// depth dependent classes
-		$indent = ( $depth > 0 ? str_repeat( "\t", $depth ) : '' ); // code indent
-
-		// build html
-		$output .= "\n" . $indent . '<ul class="dropdown">' . "\n";
-
-	}
-
-}
-
-if ( ! function_exists( 'GC_menu_set_dropdown' ) ) :
-
-	function GC_menu_set_dropdown($sorted_menu_items, $args) {
-		$last_top = 0;
-	  	foreach ( $sorted_menu_items as $key => $obj) {
-	    	// it is a top lv item?
-	    	if ( 0 == $obj->menu_item_parent ) {
-	      	// set the key of the parent
-	      		$last_top = $key;
-	    	} else {
-	      		$sorted_menu_items[$last_top]->classes['dropdown'] = 'has-dropdown';
-	    	}
-	  	}
-	  return $sorted_menu_items;
-
-	}
-
-endif;
-add_filter( 'wp_nav_menu_objects', 'GC_menu_set_dropdown', 10, 2 );
 
 function GC_force_published_status_front_end( $query ){
 	if ( ( is_category() || is_home() ) && $query->is_main_query() ){

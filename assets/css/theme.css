@@ -343,12 +343,15 @@ body.error404 {
 
 header#header {
   position: fixed;
-  top: 0;
+  top: auto;
   z-index: 100;
   width: 100%;
   -webkit-transition: -webkit-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
   -moz-transition: -moz-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
   transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1); }
+  header#header .contain-to-grid.sticky.fixed {
+    left: auto;
+    max-width: 62.5rem; }
   header#header #weather {
     position: absolute;
     right: 0px;
@@ -523,6 +526,11 @@ header#header {
       -ms-transform: translateY(-100%);
       -o-transform: translateY(-100%);
       transform: translateY(-100%); } }
+
+body.admin-bar header#header {
+  top: 32px; }
+  body.admin-bar header#header .contain-to-grid.sticky.fixed {
+    top: 32px; }
 
 .off-canvas-wrap, .inner-wrap {
   min-height: 100%; }
@@ -1235,7 +1243,7 @@ body.search {
   margin-bottom: 30px; }
 
 #rss {
-  margin-top: 50px; }
+  margin-top: 70px; }
 
 article.post {
   background-color: white;
@@ -2676,7 +2684,7 @@ footer {
   margin-bottom: 30px; }
 
 #rss {
-  margin-top: 50px; }
+  margin-top: 70px; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }
