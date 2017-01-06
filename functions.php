@@ -833,7 +833,8 @@ class CST {
 				'page-footer-2'          => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
 				'page-footer-3'          => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
 				'election-page'          => esc_html__( 'Election Page', 'chicagosuntimes' ),
-				'homepage-masthead'      => esc_html__( 'Hompage Masthead', 'chicagosuntimes' ),
+				'homepage-masthead'      => esc_html__( 'Homepage Masthead', 'chicagosuntimes' ),
+				'homepage-itn'      => esc_html__( 'Homepage In The News', 'chicagosuntimes' ),
 			)
 		);
 

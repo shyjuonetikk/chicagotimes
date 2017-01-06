@@ -116,7 +116,7 @@
 				</div>
 				<?php
 				wp_nav_menu( array(
-					'theme_location' => 'homepage-menu',
+					'theme_location' => 'homepage-itn',
 					'fallback_cb' => false,
 					'depth' => 2,
 					'container_class' => 'cst-navigation-container',

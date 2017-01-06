@@ -201,6 +201,18 @@ body.error404 {
     body.error404 .home-page-link:hover, body.error404 .home-page-link:active, body.error404 .home-page-link:visited {
       color: #282828; }
 
+.vip-local div[id^="div-gpt-"], .vip-local .tcx_widget {
+  border: 1px solid #cccccc;
+  color: #333333;
+  font-size: 0.7rem; }
+  .vip-local div[id^="div-gpt-"][data-visual-label]:before, .vip-local .tcx_widget[data-visual-label]:before {
+    content: attr(data-visual-label) ": "; }
+.vip-local .tcx_widget {
+  height: 600px;
+  background-color: white; }
+  .vip-local .tcx_widget:before {
+    content: "tcx widget"; }
+
 #div-gpt-ym-craig {
   margin-top: 1.25rem; }
 
@@ -526,6 +538,12 @@ header#header {
       -ms-transform: translateY(-100%);
       -o-transform: translateY(-100%);
       transform: translateY(-100%); } }
+  header#header .masthead-sections li > a {
+    background: #231f20;
+    line-height: 45px;
+    color: white; }
+    header#header .masthead-sections li > a:visited, header#header .masthead-sections li > a:hover, header#header .masthead-sections li > a:active {
+      color: white; }
 
 body.admin-bar header#header {
   top: 32px; }

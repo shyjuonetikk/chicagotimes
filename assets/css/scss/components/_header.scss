@@ -285,6 +285,16 @@ header#header {
 			transform: translateY(-100%);
 		}
 	}
+	.masthead-sections {
+		li > a {
+			background: $cst_black;
+			line-height:45px;
+			color: $white;
+			&:visited, &:hover, &:active {
+				color: $white;
+			}
+		}
+	}
 }
 
 body.admin-bar {
