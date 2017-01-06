@@ -1,6 +1,6 @@
 .homepage_wrapper {
 	width:100%;
-	margin: 198px auto 0;
+	margin: auto 0;
 	background-color: $site_background;
 
 	@media #{$xmedium-down} {
@@ -225,15 +225,7 @@
 	}
 
 /* HEADER */
-	.logo-wrapper.large-logo {
-		border-bottom: 1px solid $black;
-		@media (min-width: 1250px) {
-			display: block;
-		}
-		@media (max-width: 1249px) {
-			display: none !important;
-		}
-	}
+
 	header {
 		.contain-to-grid {
 			background-color: $masthead_background;
@@ -479,6 +471,7 @@
 		z-index: 2;
 		overflow: hidden;
 		height: auto;
+		clear: both;
 	}
 
 	h2.section-title {

@@ -1,11 +1,104 @@
 /* HEADER */
+.search {
+	.has-form {
+		background-color: $cst_black;
+	}
+	background-color: $cst_black;
+	.button,
+	.search-input {
+		height: 1.7rem;
+		width: 100%;
+		//transition: width 1s;
+		&:focus {
+			width: 100%;
+		}
+	}
+	.search-input-wrapper {
+		.search-icon{
+			font-size: 1.675rem;
+			float:left;
+			margin-left:1rem;
+			color: $white;
+			padding:0;
+			a, a:visited, a:hover, a:active {
+				color: $white;
+			}
+		}
+	}
+	.glass {
+		font-size: 1.5rem;
+		color: #ffffff;
+		line-height: 2.5rem;
+	}
+
+	.subscribe {
+		color: $white;
+		background-color: $site_background;
+
+	}
+	#search-button {
+		font-size: 1.5rem;
+		color: #333333;
+		position: absolute;
+		right: inherit;
+		top: 5px;
+		background: transparent;
+	}
+}
+.weather {
+	padding: 10px 8px;
+	.weather-link {
+		line-height: 24px;
+		color: $white;
+		&:hover,
+		&:visited {
+			color: $white;
+		}
+		.degrees {
+			color: $cst_yellow;
+			i {
+				color: $cst_yellow;
+			}
+		}
+	}
+}
+.responsive-logo-wrapper {
+	margin-top:50px;
+	.utility {
+		.search {
+			.search-wrap {
+				ul {
+					margin-left:0;
+				}
+			}
+			.search-input-wrapper {
+				.search-icon {
+					margin: 0;
+					font-size: 1.7rem;
+					line-height: 1rem;
+				}
+			}
+		}
+	}
+	.large-logo {
+		max-width: 300px;
+		margin: 0 auto;
+	}
+}
 .logo-wrapper.large-logo {
-	@media (min-width: 1024px) {
+	@media #{$xmedium-up} {
 		display: block;
 	}
-	@media (max-width: 1023px) {
+	@media #{$medium-down} {
 		display: none !important;
 	}
+}
+
+.date {
+	font-family: $merriweather;
+	height: 26px;
+	font-size: 1rem;
+	line-height: 1.5rem;
 }
 .sponsor-wrapper {
 	max-width: 62.5rem;
@@ -153,7 +246,6 @@ header {
 			.top-bar {
 				max-width: 100%;
 				margin: 0 auto;
-				background-color: transparent;
 
 				.small-logo {
 					@media (min-width: 1250px) {

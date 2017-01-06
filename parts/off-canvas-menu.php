@@ -1,8 +1,15 @@
 <?php ?>
 <aside class="left-off-canvas-menu">
 	<div class="off-canvas-menu">
-		<div class="off-canvas-logo">
-			<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
+		<div class="columns small-4">
+			<a href="#" class="left-off-canvas-toggle burger-bar">
+				<i class="fa fa-bars"></i>
+			</a>
+		</div>
+		<div class="columns small-12">
+			<div class="off-canvas-logo">
+				<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
+			</div>
 		</div>
 		<ul class="off-canvas-list">
 			<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">

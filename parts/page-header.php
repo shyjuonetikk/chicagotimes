@@ -36,12 +36,6 @@ if ( is_single() ) {
 <div class="off-canvas-wrap" data-offcanvas>
 	<?php get_template_part( 'parts/dfp/dfp-interstitial' ); ?>
 	<div class="inner-wrap">
-	<?php
-	if ( is_home() || is_front_page() || is_tax() ) {
-		get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
-		echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
-	}
-	?>
 <header id="header">
 
 	<?php if ( ! is_404() ) { ?>
@@ -58,7 +52,7 @@ if ( is_single() ) {
 		<?php endif; ?>
 		<?php get_template_part( 'parts/social-links' ); ?>
 
-		<a href="#" class="left-off-canvas-toggle" id="burger-bar">
+		<a href="#3" class="left-off-canvas-toggle burger-bar">
 			<i class="fa fa-bars"></i>
 		</a>
 
@@ -104,28 +98,30 @@ if ( is_single() ) {
 	</section>
 	<?php } ?>
 </header>
-
-<?php get_template_part( 'parts/off-canvas-menu' ); ?>
+<div class="spacer"></div>
 <?php
+if ( is_home() || is_front_page() || is_tax() ) {
+	echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
+}
+get_template_part( 'parts/off-canvas-menu' );
 if ( is_singular() ) {
 	$classes = array( 'columns', 'large-10', 'large-offset-2', 'end' );
 } else {
 	$classes = array();
 }
+
+if ( is_front_page() ) {
+	wp_nav_menu( array(
+		'theme_location' => 'homepage-menu',
+		'fallback_cb' => false,
+		'depth' => 1,
+		'container_class' => 'cst-navigation-container',
+		'items_wrap' => '<div class="nav-holder hp"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
+		'walker' => new GC_walker_nav_menu(),
+		)
+	);
+}
 ?>
-		<?php
-		if ( is_front_page() ) {
-			wp_nav_menu( array(
-				'theme_location' => 'homepage-menu',
-				'fallback_cb' => false,
-				'depth' => 1,
-				'container_class' => 'cst-navigation-container',
-				'items_wrap' => '<div class="nav-holder hp"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
-				'walker' => new GC_walker_nav_menu(),
-				)
-			);
-		}
-		?>
 
 <?php do_action( 'header_sliding_billboard' ); ?>
 
