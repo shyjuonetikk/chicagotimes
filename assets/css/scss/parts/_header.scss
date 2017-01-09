@@ -200,13 +200,22 @@ header {
 					top: 22.5px;
 					right: -14px;
 				}
+				.masthead-sections {
+					ul {
+						list-style-type: none;
+						background: $cst_black;
+					}
+					li,
+					li:not(.has-form) > a, a:not(.button) {
+						background: $cst_black;
+						line-height:45px;
+						color: $white;
+					}
+				}
 			}
 			@media only screen and (min-width: 78.063em) {
 				.top-bar-section li:not(.has-form) a:not(.button) {
-					color: $black;
 					padding: 0 14px !important;
-					line-height:32px;
-					background-color: #ffffff;
 					&:hover {
 						background-color: $cst_black;
 						color:#fff;

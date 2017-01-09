@@ -491,12 +491,6 @@ header#header {
       -ms-transform: translateY(-100%);
       -o-transform: translateY(-100%);
       transform: translateY(-100%); } }
-  header#header .masthead-sections li > a {
-    background: #231f20;
-    line-height: 45px;
-    color: white; }
-    header#header .masthead-sections li > a:visited, header#header .masthead-sections li > a:hover, header#header .masthead-sections li > a:active {
-      color: white; }
 
 .responsive-logo-wrapper {
   position: relative; }
@@ -2582,12 +2576,16 @@ header .contain-to-grid .top-bar {
       margin-top: -8px;
       top: 22.5px;
       right: -14px; }
+    header .contain-to-grid .top-bar .top-bar-section .masthead-sections ul {
+      list-style-type: none;
+      background: #231f20; }
+    header .contain-to-grid .top-bar .top-bar-section .masthead-sections li, header .contain-to-grid .top-bar .top-bar-section .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .top-bar-section .masthead-sections a:not(.button) {
+      background: #231f20;
+      line-height: 45px;
+      color: white; }
   @media only screen and (min-width: 78.063em) {
     header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
-      color: #282828;
-      padding: 0 14px !important;
-      line-height: 32px;
-      background-color: white; }
+      padding: 0 14px !important; }
       header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button):hover {
         background-color: #231f20;
         color: white; } }

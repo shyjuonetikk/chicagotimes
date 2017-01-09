@@ -36,70 +36,16 @@ if ( is_single() ) {
 <div class="off-canvas-wrap" data-offcanvas>
 	<?php get_template_part( 'parts/dfp/dfp-interstitial' ); ?>
 	<div class="inner-wrap">
-<header id="header">
 
-	<?php if ( ! is_404() ) { ?>
-
-	<section id="primary-navigation" class="primary-normal">
-		<?php $weather = CST()->frontend->get_weather(); ?>
-		<?php if ( ! empty( $weather ) ) : ?>
-		<div id="weather" class="show-for-medium-up">
-			<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link"  data-on="click" data-event-category="navigation" data-event-action="navigate-weather">
-				<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
-				<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
-			</a>
-		</div>
-		<?php endif; ?>
-		<?php get_template_part( 'parts/social-links' ); ?>
-
-		<a href="#3" class="left-off-canvas-toggle burger-bar">
-			<i class="fa fa-bars"></i>
-		</a>
-
-		<div id="logo-wrap">
-			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo">
-				<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="40" width="207"></a>
-			<?php get_template_part( 'parts/images/main-site-logo' ); ?>
-
-			<div id="tablet-home">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa fa-home"></i></a>
-			</div>
-		</div>
-		<div id="trending-container">
-		<?php
-		if ( $current_obj ) {
-			if ( in_array( $conditional_nav->slug, CST_Frontend::$post_sections ) ) {
-				switch ( $conditional_nav->slug ) {
-					case 'news': ?>
-					<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
-				<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container', 'fallback_cb' => false ) );
-						break;
-					case 'sports': ?>
-					<span class="menu-label"><?php _e( 'Chicago Teams', 'chicagosuntimes' ); ?></span>
-				<?php	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container', 'fallback_cb' => false ) );
-						break;
-					default: ?>
-					<span class="menu-label"><?php _e( 'Trending', 'chicagosuntimes' ); ?></span>
-				<?php 	wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu ' . $conditional_nav->slug, 'container_class' => 'menu-trending-container', 'fallback_cb' => false ) );
-						break;
-				}
-			} else { ?>
-				<span class="menu-label"><?php esc_html_e( 'Trending', 'chicagosuntimes' ); ?></span>
-				<?php 	wp_nav_menu( array( 'theme_location' => 'news-trending', 'menu_id' => 'menu-trending', 'menu_class' => 'menu', 'container_class' => 'menu-trending-container', 'fallback_cb' => false ) );
-			}
-		}
-		?>
-		</div>
-	</section>
-	<?php } ?>
-	<?php if ( is_singular() ) { ?>
-	<section id="headlines-slider">
-		<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
-	</section>
-	<?php } ?>
-</header>
+<?php if ( ! is_page_template( 'page-monster.php' ) ) {
+	get_template_part( 'parts/header-brand-navigation' );
+} ?>
 <div class="spacer"></div>
-<?php
+<?php if ( is_tax() ) { ?>
+	<div class="row">
+		<?php CST()->frontend->masthead_navigation( 'section-front' ); ?>
+	</div>
+<?php }
 if ( is_home() || is_front_page() || is_tax() ) {
 	echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
 }

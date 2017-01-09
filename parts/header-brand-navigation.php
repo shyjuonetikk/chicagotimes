@@ -5,7 +5,7 @@
 				<nav class="top-bar" data-topbar role="navigation">
 					<ul class="title-area">
 							<li class="name">
-								<div class="small-9 small-offset-3 medium-3 medium-offset-9 columns">
+								<div class="small-3 small-centered columns">
 									<div class="small-logo">
 										<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
 									</div>
@@ -39,18 +39,23 @@
 									<i class="fa fa-bars"></i>
 								</a>
 							</li>
+							<?php if ( is_front_page() ) {?>
 							<li class="has-form">
-								<?php
-								wp_nav_menu( array(
-										'theme_location'  => 'homepage-masthead',
-										'fallback_cb'     => false,
-										'depth'           => 1,
-										'container_class' => 'masthead-sections',
-										'items_wrap'      => '<ul id="%1$s" class="">%3$s</ul>',
-									)
-								);
-								?>
+								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</li>
+							<?php } else { ?>
+								<li class="has-form">
+									<div class="row">
+										<div class="small-12 small-centered columns">
+											<div class="logo">
+												<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+													<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200">
+												</a>
+											</div>
+										</div>
+									</div>
+								</li>
+							<?php } ?>
 						</ul>
 
 						<ul class="right">
@@ -72,8 +77,14 @@
 					</section>
 				</nav>
 			</div>
+			<?php if ( is_singular() ) { ?>
+				<section id="headlines-slider">
+					<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
+				</section>
+			<?php } ?>
 		</header>
-<div class="responsive-logo-wrapper row">
+<?php if ( is_front_page() ) { ?>
+		<div class="responsive-logo-wrapper row">
 	<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
 			<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left"></div>
 			<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right"></div>
@@ -98,6 +109,6 @@
 	);
 	?>
 </div>
-
+<?php } ?>
 <?php get_template_part( 'parts/off-canvas-menu' );
 

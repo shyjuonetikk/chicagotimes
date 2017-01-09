@@ -1439,6 +1439,32 @@ class CST_Frontend {
 	}
 
 	/**
+	* Display masthead navigation if needed
+ 	* @param string $page_type
+ 	*/
+	public function masthead_navigation( $page_type ) {
+		$page_types = array(
+			'homepage' => array(
+					'container_class' => 'masthead-sections',
+					'items_wrap'      => '<ul id="%1$s" class="">%3$s</ul>',
+			),
+			'section-front' => array(
+					'container_class' => 'cst-navigation-container',
+					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="">%3$s</ul></div></div>',
+			)
+		);
+		if ( array_key_exists( $page_type, $page_types ) ) {
+		wp_nav_menu( array(
+			'theme_location'  => 'homepage-masthead',
+			'fallback_cb'     => false,
+			'depth'           => 1,
+			'container_class' => $page_types[$page_type]['container_class'],
+			'items_wrap'      => $page_types[$page_type]['items_wrap'],
+			)
+		);
+		}
+	}
+	/**
 	*  Inject dfp ad settings, variables into header before gpt script call
 	*/
 	public function setup_dfp_header_ad_settings() {
