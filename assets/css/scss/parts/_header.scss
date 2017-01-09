@@ -175,6 +175,15 @@ header {
 					line-height:45px;
 					color: $white;
 				}
+				@media #{$xmedium-down} {
+					margin-left:5rem;
+					li {
+						padding-right: 0.4rem;
+						&:last-child {
+							padding-right:0;
+						}
+					}
+				}
 			}
 		.top-bar-section {
 			background: $light_grey;

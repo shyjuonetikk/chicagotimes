@@ -6,12 +6,12 @@
 
 	<div class="row">
 
-		<div id="main" class="columns large-10 end">
-			<?php
-			if ( is_singular() ) :
-				echo CST()->dfp_handler->unit( 1, 'div-gpt-atf-leaderboard', 'dfp dfp-leaderboard dfp-centered' );
-			endif;
-			?>
+		<?php
+		if ( is_singular() ) :
+			echo CST()->dfp_handler->unit( 1, 'div-gpt-atf-leaderboard', 'dfp dfp-leaderboard dfp-centered article-upper-ad-unit' );
+		endif;
+		?>
+		<div id="main" class="columns small-12 medium-8 large-10 end">
 			<div class="columns small-12 end">
 				<?php get_template_part( 'parts/images/main-site-logo' ); ?>
 			</div>

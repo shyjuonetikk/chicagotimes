@@ -1441,6 +1441,7 @@ class CST_Frontend {
 	/**
 	* Display masthead navigation if needed
  	* @param string $page_type
+ 	* @TODO caching
  	*/
 	public function masthead_navigation( $page_type ) {
 		$page_types = array(

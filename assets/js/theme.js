@@ -58,6 +58,7 @@
             this.nfLogo = $('header #newsfeed-logo');
             this.tabletHome = $('header #logo-wrap #tablet-home');
             this.header = $('#header');
+            this.articleUpperAdUnit = $('.article-upper-ad-unit');
       this.adminBar = $('#wpadminbar');
       this.sidebarWidgetCount = $('.widgets > li').length - 1;
       this.anchorMe = $('.widgets > li:nth(' + this.sidebarWidgetCount + ')');
@@ -321,7 +322,7 @@
       }
 
       if ( this.postSidebar.hasClass('sidebar-normal') ) {
-        postSidebarTop += this.featuredPosts.outerHeight() - this.adminBar.height();
+        postSidebarTop += this.header.outerHeight() - this.adminBar.height() + this.articleUpperAdUnit.height();
         if ( postSidebarTop + 'px' !== this.postSidebar.css('top' ) ) {
           this.postSidebar.css('top', postSidebarTop + 'px' );
         }

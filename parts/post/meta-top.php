@@ -11,7 +11,7 @@ if ( ! $obj ) {
 			if ( CST()->frontend->do_sponsor_header( $section->term_id ) ) {
 				$classes[] = 'columns medium-4';
 			} else {
-				$classes[] = 'columns small-12 end';
+				$classes[] = 'columns small-11 medium-8 end';
 			}
 		}
 	}

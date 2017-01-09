@@ -2,33 +2,26 @@
 	<div class="inner-wrap">
 		<header id="header" class="masthead">
 			<div class="contain-to-grid sticky">
-				<nav class="top-bar" data-topbar role="navigation">
+				<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
 					<ul class="title-area">
+						<li class="has-form hide-for-large-up">
+							<a href="#0" class="left-off-canvas-toggle burger-bar">
+								<i class="fa fa-bars"></i>
+							</a>
+						</li>
 						<?php if ( is_front_page() ) { ?>
-							<li class="has-form">
+							<li class="has-form section-navigation hide-for-large-up">
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</li>
 						<?php } else { ?>
+						<li class="name">
 							<div class="small-3 small-centered columns">
 								<div class="small-logo">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
 								</div>
 							</div>
-						<?php } ?>
-							<li class="name">
-								<div class="small-3 small-centered columns">
-									<div class="small-logo">
-										<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
-									</div>
-								</div>
-							</li>
-						<li class="toggle-topbar">
-							<div class="large-5 small-5 columns">
-								<a href="#0" class="left-off-canvas-toggle burger-bar">
-									<i class="fa fa-bars"></i>
-								</a>
-							</div>
 						</li>
+						<?php } ?>
 					</ul>
 					<section class="top-bar-section">
 						<ul class="left">

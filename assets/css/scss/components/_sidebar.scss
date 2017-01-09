@@ -320,3 +320,13 @@
 		display:none;
 	}
 }
+@media #{$xmedium-only} and (orientation:portrait) {
+	.article-sidebar {
+		display: block;
+	}
+}
+@media #{$medium-down} {
+	.article-sidebar {
+		display: none;
+	}
+}

@@ -1453,7 +1453,7 @@ body[class~="archive"] article.post {
 .single #post-body {
   position: relative;
   float: left;
-  margin-top: 163px; }
+  margin-top: 89px; }
   @media (max-width: 1200px) {
     .single #post-body .row {
       margin-left: 0; }
@@ -2133,6 +2133,14 @@ section#subscribe {
   .fixed-footer-container {
     display: none; } }
 
+@media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
+  .article-sidebar {
+    display: block; } }
+
+@media only screen and (max-width:47.398em) {
+  .article-sidebar {
+    display: none; } }
+
 .widgets {
   margin-left: 0; }
   .widgets li.widget {
@@ -2561,6 +2569,13 @@ header .contain-to-grid .top-bar {
     background: #231f20;
     line-height: 45px;
     color: white; }
+  @media only screen and (max-width:64em) {
+    header .contain-to-grid .top-bar .masthead-sections {
+      margin-left: 5rem; }
+      header .contain-to-grid .top-bar .masthead-sections li {
+        padding-right: 0.4rem; }
+        header .contain-to-grid .top-bar .masthead-sections li:last-child {
+          padding-right: 0; } }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
