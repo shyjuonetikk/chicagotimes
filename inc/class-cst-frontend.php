@@ -1454,14 +1454,14 @@ class CST_Frontend {
 			)
 		);
 		if ( array_key_exists( $page_type, $page_types ) ) {
-		wp_nav_menu( array(
-			'theme_location'  => 'homepage-masthead',
-			'fallback_cb'     => false,
-			'depth'           => 1,
-			'container_class' => $page_types[$page_type]['container_class'],
-			'items_wrap'      => $page_types[$page_type]['items_wrap'],
-			)
-		);
+			wp_nav_menu( array(
+				'theme_location'  => 'homepage-masthead',
+				'fallback_cb'     => false,
+				'depth'           => 1,
+				'container_class' => $page_types[$page_type]['container_class'],
+				'items_wrap'      => $page_types[$page_type]['items_wrap'],
+				)
+			);
 		}
 	}
 	/**

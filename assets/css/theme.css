@@ -7,6 +7,9 @@
 /**
 * Custom padding, spacing for homepage
 */
+/**
+* Sizes and other variables
+ */
 html, body {
   margin: 0;
   padding: 0; }
@@ -2448,7 +2451,8 @@ section#subscribe {
     color: white;
     padding: 0; }
     .search .search-input-wrapper .search-icon a, .search .search-input-wrapper .search-icon a:visited, .search .search-input-wrapper .search-icon a:hover, .search .search-input-wrapper .search-icon a:active {
-      color: white; }
+      color: white;
+      line-height: 45px; }
   .search .glass {
     font-size: 1.5rem;
     color: white;
@@ -2550,6 +2554,13 @@ section#subscribe {
 
 header .contain-to-grid .top-bar {
   background: #231f20; }
+  header .contain-to-grid .top-bar .masthead-sections ul {
+    list-style-type: none;
+    background: #231f20; }
+  header .contain-to-grid .top-bar .masthead-sections li, header .contain-to-grid .top-bar .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .masthead-sections a:not(.button) {
+    background: #231f20;
+    line-height: 45px;
+    color: white; }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
@@ -2583,6 +2594,8 @@ header .contain-to-grid .top-bar {
       background: #231f20;
       line-height: 45px;
       color: white; }
+    header .contain-to-grid .top-bar .top-bar-section .logo a {
+      line-height: 42px; }
   @media only screen and (min-width: 78.063em) {
     header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
       padding: 0 14px !important; }

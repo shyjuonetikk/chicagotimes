@@ -164,7 +164,18 @@ header {
 		.top-bar {
 			background: $cst_black;
 
-
+			.masthead-sections {
+				ul {
+					list-style-type: none;
+					background: $cst_black;
+				}
+				li,
+				li:not(.has-form) > a, a:not(.button) {
+					background: $cst_black;
+					line-height:45px;
+					color: $white;
+				}
+			}
 		.top-bar-section {
 			background: $light_grey;
 				#menu-homepage-left, #menu-homepage {
@@ -213,6 +224,11 @@ header {
 						color: $white;
 					}
 				}
+			.logo {
+				a {
+					line-height:42px;
+				}
+			}
 			}
 			@media only screen and (min-width: 78.063em) {
 				.top-bar-section li:not(.has-form) a:not(.button) {

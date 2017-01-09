@@ -4,6 +4,17 @@
 			<div class="contain-to-grid sticky">
 				<nav class="top-bar" data-topbar role="navigation">
 					<ul class="title-area">
+						<?php if ( is_front_page() ) { ?>
+							<li class="has-form">
+								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
+							</li>
+						<?php } else { ?>
+							<div class="small-3 small-centered columns">
+								<div class="small-logo">
+									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
+								</div>
+							</div>
+						<?php } ?>
 							<li class="name">
 								<div class="small-3 small-centered columns">
 									<div class="small-logo">
@@ -49,7 +60,7 @@
 										<div class="small-12 small-centered columns">
 											<div class="logo">
 												<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
-													<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200">
+													<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="38" width="200">
 												</a>
 											</div>
 										</div>
