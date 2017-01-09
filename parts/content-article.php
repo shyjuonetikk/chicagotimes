@@ -16,7 +16,7 @@
 			</div>
 		<?php endif; ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
-		<div class="post-content columns small-12 medium-8 p402_premium end" itemprop="articleBody">
+		<div class="post-content columns small-12 medium-8 large-12 p402_premium end" itemprop="articleBody">
 		<?php
 		CST()->frontend->inject_chatter_parameters( $obj );
 		$yieldmo_tag = $obj->get_yieldmo_tag();

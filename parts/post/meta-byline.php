@@ -1,4 +1,4 @@
-<div class="post-meta post-meta-byline columns small-12 medium-8 end">
+<div class="post-meta post-meta-byline columns small-12 medium-8 large-12 end">
 	<div class="row">
 
 		<div class="large-5 medium-4 small-12 columns author-meta-box">
