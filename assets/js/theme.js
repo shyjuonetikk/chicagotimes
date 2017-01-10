@@ -156,7 +156,7 @@
                 this.offCanvasList.removeClass("fixed-canvas-menu");
             }
 
-            if ( scrollTop > this.featuredPosts.height() + this.dfpSBB.height() ) {
+            if ( scrollTop > this.dfpSBB.height() ) {
 
                 // Back to Top element
                 if ( ! this.fixedBackToTop.is(":visible") ) {

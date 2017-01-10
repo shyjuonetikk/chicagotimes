@@ -1972,7 +1972,7 @@ section#subscribe {
     background-color: #f8f8f8;
     padding: 10px;
     width: 320px;
-    top: 291px;
+    top: 0;
     right: 0;
     position: absolute;
     bottom: 0;
@@ -2709,6 +2709,17 @@ header .contain-to-grid .cst-row {
 
 footer {
   background: #282828; }
+  footer .back-to-top a {
+    color: white; }
+  footer .back-to-top p {
+    margin: 0; }
+  footer .footerlead {
+    background: #9a9a9a;
+    padding: 10px; }
+  footer .footer-upper {
+    padding: 10px 0; }
+  footer .footer-lower {
+    border-top: 1px solid #f0f0f0; }
   footer .copyright {
     color: white; }
   footer hr {

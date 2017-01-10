@@ -1,12 +1,22 @@
 <?php if ( is_front_page() || is_page() ) { ?>
 <footer>
-	<hr>
-<div class="row footer-upper">
-	<div class="small-12 medium-3 columns">
-			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><?php get_template_part( 'parts/images/company-logo' ); ?></a>
-			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', date( 'Y' ) ); ?><br>Chicago Sun-Times</p>
+	<div class="footerlead">
+		<div class="row">
+			<div class="columns small-12 back-to-top">
+				<a href="#0">
+					<p><i class="fa fa-arrow-circle-up"></i><?php esc_html_e( '&nbsp;Back To Top', 'chicagosuntimes' ); ?></p>
+				</a>
+			</div>
+		</div>
 	</div>
-	<div class="small-12 medium-7 columns">
+<div class="row footer-upper">
+	<div class="small-10 columns">
+			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
+	</div>
+	<div class="small-12 medium-2 columns">
+		<?php echo CST()->get_template_part( 'social-links' ); ?>
+	</div>
+	<div class="small-12 columns">
 <?php if ( has_nav_menu( 'page-footer-1' ) ) {
 	wp_nav_menu( array(
 		'theme_location' => 'page-footer-1',
@@ -53,10 +63,18 @@ if ( has_nav_menu( 'page-footer-3' ) ) {
 	</ul>
 	<?php } ?>
 	</div>
-	<div class="small-12 medium-2 columns">
-		<?php echo CST()->get_template_part( 'social-links' ); ?>
-	</div>
 </div>
+	<div class="row footer-lower">
+		<div class="small-12 columns">
+			<ul>
+				<li><a href="<?php echo esc_url( '/about-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about">About us</a></li>
+				<li><a href="<?php echo esc_url( '/contact-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-contact">Contact us</a></li>
+			</ul>
+		</div>
+		<div class="small-12 columns">
+			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', date( 'Y' ) ); ?> Chicago Sun-Times</p>
+		</div>
+	</div>
 </footer>
 <?php } ?>
 <div id="subscribe-modal" class="reveal-modal xlarge" data-reveal aria-labelledby="Subscribe to Chicago Sun-Times" aria-hidden="true" role="dialog">

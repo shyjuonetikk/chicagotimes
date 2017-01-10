@@ -1,4 +1,22 @@
 footer {
+	.back-to-top {
+		a {
+			color: #fff;
+		}
+		p {
+			margin:0;
+		}
+	}
+	.footerlead {
+		background: #9a9a9a;
+		padding:10px;
+	}
+	.footer-upper {
+		padding: 10px 0;
+	}
+	.footer-lower {
+		border-top: 1px solid #f0f0f0;
+	}
 	.copyright {
 		color: #fff;
 	}
