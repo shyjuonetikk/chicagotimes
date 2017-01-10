@@ -54,9 +54,6 @@
             this.interstitial = $('#div-gpt-interstitial');
             this.interstitialContainer = $('#dfp-interstitial-container');
             this.closeInterstitial = $('#dfp-interstitial-close');
-            this.cstLogo = $('header #suntimes-logo');
-            this.nfLogo = $('header #newsfeed-logo');
-            this.tabletHome = $('header #logo-wrap #tablet-home');
             this.header = $('#header');
             this.articleUpperAdUnit = $('.article-upper-ad-unit');
       this.adminBar = $('#wpadminbar');
@@ -172,18 +169,6 @@
                 if ( this.fixedBackToTop.is(":visible") ) {
                     this.toggleBackToTop();
                 }
-
-                // Primary Navigation
-                if ( this.primaryNavigation.hasClass('primary-fixed') ) {
-                    this.togglePrimaryNavigation();
-                }
-
-                if ( this.nfLogo.is(':visible') ) {
-                    this.nfLogo.hide();
-                    this.tabletHome.hide();
-                    this.cstLogo.show('slide', { direction: 'up' } );
-                }
-
             }
 
 
