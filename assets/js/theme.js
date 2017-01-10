@@ -50,9 +50,6 @@
             this.searchButton = $('#search-button');
             this.searchInput = $('#search-input');
             this.leftSidebar = $('.stick-sidebar-left');
-            this.footerFixed = $('#fixed-footer-container');
-            this.footerBottom = this.footerFixed.find('.footer-bottom');
-            this.footerMoreInfo = $('.footer-more-info');
             this.dfpSBB = $('#div-gpt-sbb');
             this.interstitial = $('#div-gpt-interstitial');
             this.interstitialContainer = $('#dfp-interstitial-container');
@@ -114,22 +111,7 @@
                 this.fixedBackToTop.hide();
             }, this ) );
 
-
-            this.footerBottom.on( "click", $.proxy( function (e) {
-
-                e.preventDefault();
-                this.footerMoreInfo.slideToggle();
-
-                var footerCircle = this.footerBottom.find('#footer-circle');
-
-                if( footerCircle.hasClass("fa-chevron-circle-up") ) {
-                    footerCircle.removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
-                } else {
-                    footerCircle.removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
-                }
-            }, this ) );
-
-            this.dfpSBB.mouseover(function() {
+           this.dfpSBB.mouseover(function() {
                 $( "#dfp-sbb-top" ).hide();
                 $( "#dfp-sbb-bottom" ).show();
             }).mouseout(function() {
