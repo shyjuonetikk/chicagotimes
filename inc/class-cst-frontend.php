@@ -191,7 +191,6 @@ class CST_Frontend {
 						'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
 					) );
 					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
-					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-autotrack', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
 					$analytics_data = array(
@@ -1407,7 +1406,9 @@ class CST_Frontend {
 			<a href="#0" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 		</div>
 		<div class="small-1 section-feed">
-			<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
+			<div class="icon">
+				<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
+			</div>
 		</div>
 	</div>
 	<?php echo $sponsor_markup; ?>

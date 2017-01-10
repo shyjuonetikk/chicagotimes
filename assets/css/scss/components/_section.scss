@@ -1,7 +1,17 @@
+body[class~="archive"] {
+	article.post {
+		box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+	}
+	.dfp-super-leaderboard {
+		margin-top: 0;
+	}
+	.cst-navigation-container {
+		margin-top: 5px;
+	}
+}
 #main {
 	.video-injection {
 		margin-bottom:0;
-		margin-top:30px;
 	}
 }
 .upper-heading {
@@ -11,5 +21,11 @@
 	.section-name,
 	.section-feed {
 		float: left;
+	}
+	.section-feed {
+		.icon {
+			float:right;
+			margin-top: 15px;
+		}
 	}
 }

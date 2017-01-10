@@ -15,12 +15,12 @@
             this.bindEvents();
 
             // Trigger the scroll with styling for social
-            if ( $('body.single').length ) {
-                $('#main .post').addClass('cst-active-scroll-post');
+            if ( this.body.hasClass("single").length ) {
+                $("#main .post").addClass("cst-active-scroll-post");
             }
 
             this.responsiveIframes();
-            if ( this.body.hasClass('single') ) {
+            if ( this.body.hasClass("single") ) {
               this.headerSlider();
               this.rescaleHeadlinesImages();
               this.positionAndSizePostSidebar();
@@ -28,9 +28,10 @@
           if ( this.trendingNav.length ) {
               this.recalibrateTrendingItems();
             }
-            if (this.body.hasClass("tax-cst_section")) {
-                this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10 });
-            }        },
+          if (this.body.hasClass("tax-cst_section")) {
+              this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10 });
+          }
+        },
 
         /**
          * Cache elements to object-level variables
@@ -113,28 +114,6 @@
                 this.fixedBackToTop.hide();
             }, this ) );
 
-            this.searchButton.on( "click", $.proxy( function (e) {
-
-                e.preventDefault();
-
-                if( this.searchButton.hasClass('search-in')) {
-                    this.searchButton.removeClass('search-in').addClass('search-out');
-                } else {
-                    this.searchButton.removeClass('search-out').addClass('search-in');
-                }
-
-                if ( this.searchInput.is(':visible') ) {
-
-                    if ( this.searchInput.val().length ) {
-                        this.searchInput.closest('form').trigger( 'submit' );
-                    } else {
-                        this.searchInput.toggle( "slide", { direction: "right" }  );
-                    }
-                } else {
-
-                    this.searchInput.toggle( "slide", { direction: "right" } );
-                }
-            }, this ) );
 
             this.footerBottom.on( "click", $.proxy( function (e) {
 
@@ -144,9 +123,9 @@
                 var footerCircle = this.footerBottom.find('#footer-circle');
 
                 if( footerCircle.hasClass("fa-chevron-circle-up") ) {
-                    footerCircle.removeClass('fa-chevron-circle-up').addClass('fa-chevron-circle-down');
+                    footerCircle.removeClass("fa-chevron-circle-up").addClass("fa-chevron-circle-down");
                 } else {
-                    footerCircle.removeClass('fa-chevron-circle-down').addClass('fa-chevron-circle-up');
+                    footerCircle.removeClass("fa-chevron-circle-down").addClass("fa-chevron-circle-up");
                 }
             }, this ) );
 
@@ -203,20 +182,6 @@
                 // Back to Top element
                 if ( ! this.fixedBackToTop.is(":visible") ) {
                     this.toggleBackToTop();
-                }
-
-                // Primary Navigation
-                if ( this.primaryNavigation.hasClass("primary-normal") ) {
-                    this.togglePrimaryNavigation();
-                }
-
-                if ( this.nfLogo.is(":hidden") ) {
-                    this.cstLogo.hide();
-                    this.nfLogo.show("slide", { direction: "down" } );
-                    this.nfLogo.css("display", "block");
-                    if ( windowWidth > 640 && windowWidth < 981 ) {
-                        this.tabletHome.show("slide", { direction: "down" } );
-                    }
                 }
 
             } else {

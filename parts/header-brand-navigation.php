@@ -1,7 +1,7 @@
 <div class="off-canvas-wrap" data-offcanvas>
 	<div class="inner-wrap">
 		<header id="header" class="masthead">
-			<div class="contain-to-grid sticky">
+			<div class="contain-to-grid">
 				<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
 					<ul class="title-area">
 						<li class="has-form hide-for-large-up">
