@@ -207,26 +207,6 @@
         },
 
         /**
-         * Stick and unstick the primary navigation element
-         */
-        togglePrimaryNavigation: function() {
-
-            if ( this.primaryNavigation.hasClass("primary-normal") ) {
-                this.primaryNavigation.removeClass("primary-normal").addClass("primary-fixed");
-                // Prevents jitter when the navigation is getting fixed
-                // Accommodate desktop admin bar, but not mobile
-                if ( $("body").hasClass("admin-bar") && $(window).width() > 782 ) {
-                    this.primaryNavigation.css( "top", this.adminBar.height() );
-                }
-            } else  {
-                this.primaryNavigation.removeClass("primary-fixed").addClass("primary-normal");
-                this.primaryNavigation.removeAttr( "style" );
-                this.featuredPosts.removeAttr("style");
-            }
-
-        },
-
-        /**
          * Show and hide the "Back to Top" element
          */
         toggleBackToTop: function() {
