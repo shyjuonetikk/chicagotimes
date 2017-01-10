@@ -20,12 +20,14 @@
             }
 
             this.responsiveIframes();
-            this.headerSlider();
-            this.rescaleHeadlinesImages();
-            if ( this.trendingNav.length ) {
-                this.recalibrateTrendingItems();
+            if ( this.body.hasClass('single') ) {
+              this.headerSlider();
+              this.rescaleHeadlinesImages();
+              this.positionAndSizePostSidebar();
             }
-            this.positionAndSizePostSidebar();
+          if ( this.trendingNav.length ) {
+              this.recalibrateTrendingItems();
+            }
             if (this.body.hasClass("tax-cst_section")) {
                 this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10 });
             }        },
@@ -94,17 +96,15 @@
                 }, this ), 30 );
             }, this ) );
 
-            $(window).scroll( $.proxy( function() {
-              clearTimeout(throttleScroll);
-              throttleScroll = setTimeout(function(){
+            if ( this.body.hasClass("single") ||  this.body.hasClass("archive") ) {
+              $(window).scroll($.proxy(function () {
+                clearTimeout(throttleScroll);
+                throttleScroll = setTimeout(function () {
                   CST.doScrollEvent();
-              }, 10);
-            }, this ) );
+                }, 10);
+              }, this));
+            }
 
-            this.postBody.on( 'click', '.post-comments', $.proxy( function( e ) {
-                e.preventDefault();
-                var el = $(e.currentTarget);
-            }, this ) );
 
             this.backToTop.on( "click", $.proxy( function (e) {
 

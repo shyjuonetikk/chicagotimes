@@ -9,8 +9,6 @@
 			this.carouselArrowNext 		= $('.header-next');
 			this.carouselArrowPrev 		= $('.header-prev');
 			this.trending		 		= $('.menu-trending-container a');
-			this.articleComments 		= $('.post-comments');
-			this.articleCommentsOpen 	= $('.post-comments-open');
 
 			this.bindEvents();
 		},
