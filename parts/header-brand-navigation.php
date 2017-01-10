@@ -59,6 +59,13 @@
 										</div>
 									</div>
 								</li>
+								<li class="has-form">
+									<div class="row">
+										<div class="small-12 columns">
+											<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
+										</div>
+									</div>
+								</li>
 							<?php } ?>
 						</ul>
 

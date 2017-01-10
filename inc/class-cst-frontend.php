@@ -1458,7 +1458,7 @@ class CST_Frontend {
 			'section-front' => array(
 					'container_class' => 'cst-navigation-container',
 					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="">%3$s</ul></div></div>',
-			)
+			),
 		);
 		if ( array_key_exists( $page_type, $page_types ) ) {
 			wp_nav_menu( array(
