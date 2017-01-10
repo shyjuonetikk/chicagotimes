@@ -12,11 +12,9 @@ if ( is_singular() ) {
 	get_template_part( 'parts/vendors/aggrego-chatter-footer' );
 	get_template_part( 'parts/vendors/gum-gum-footer' );
 }
-?>
-<?php get_template_part( 'parts/analytics/chartbeat-footer' ); ?>
-<?php if ( is_front_page() ) {
-	get_template_part( 'parts/footer-brand-navigation' );
-}
+get_template_part( 'parts/analytics/chartbeat-footer' );
+get_template_part( 'parts/footer-brand-navigation' );
+
 do_action( 'closing_body' );
 ?>
 </body>

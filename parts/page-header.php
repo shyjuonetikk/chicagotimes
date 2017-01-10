@@ -41,7 +41,10 @@ if ( is_single() ) {
 	get_template_part( 'parts/header-brand-navigation' );
 } ?>
 <div class="spacer"></div>
-<?php
+		<div class="row">
+			<?php do_action( 'cst_section_front_heading', $section_front_spacing ); ?>
+		</div>
+		<?php
 if ( is_home() || is_front_page() || is_tax() ) {
 	echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
 }

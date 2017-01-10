@@ -1,3 +1,4 @@
+<?php if ( is_front_page() || is_page() ) { ?>
 <footer>
 	<hr>
 <div class="row footer-upper">
@@ -57,6 +58,7 @@ if ( has_nav_menu( 'page-footer-3' ) ) {
 	</div>
 </div>
 </footer>
+<?php } ?>
 <div id="subscribe-modal" class="reveal-modal xlarge" data-reveal aria-labelledby="Subscribe to Chicago Sun-Times" aria-hidden="true" role="dialog">
 	<iframe src="http://wssp.suntimes.com/subscribe/" frameborder="0" class="cst-responsive" width="100%" height="700" allowfullscreen></iframe>
 	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
