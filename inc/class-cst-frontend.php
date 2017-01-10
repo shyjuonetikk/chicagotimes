@@ -1399,10 +1399,16 @@ class CST_Frontend {
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
 		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
+		$section_obj = get_queried_object();
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
-	<div class="<?php echo esc_attr( $name_width ); ?>">
-		<a href="" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+	<div class="<?php echo esc_attr( $name_width ); ?> section-meta">
+		<div class="small-11 section-name">
+			<a href="#0" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+		</div>
+		<div class="small-1 section-feed">
+			<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
+		</div>
 	</div>
 	<?php echo $sponsor_markup; ?>
 </section>

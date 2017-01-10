@@ -1204,8 +1204,8 @@ body.search {
 .upper-heading {
   margin-bottom: 30px; }
 
-#rss {
-  margin-top: 70px; }
+.section-meta .section-name, .section-meta .section-feed {
+  float: left; }
 
 article.post {
   background-color: white;
@@ -1941,12 +1941,10 @@ section#subscribe {
 .sidebar {
   position: relative;
   z-index: 2; }
-  .sidebar#index-sidebar {
-    margin-top: 30px; }
-    .sidebar#index-sidebar.fixed-bottom {
-      position: fixed;
-      bottom: 0px;
-      width: 303.32812px; }
+  .sidebar#index-sidebar.fixed-bottom {
+    position: fixed;
+    bottom: 0px;
+    width: 303.32812px; }
   .sidebar#post-sidebar-left {
     background-color: #f8f8f8;
     padding: 10px 0 0 0;
@@ -2735,8 +2733,8 @@ footer {
 .upper-heading {
   margin-bottom: 30px; }
 
-#rss {
-  margin-top: 70px; }
+.section-meta .section-name, .section-meta .section-feed {
+  float: left; }
 
 .post-gallery .post-gallery-lead-image-wrap {
   position: relative; }

@@ -7,6 +7,9 @@
 .upper-heading {
 	margin-bottom: 30px;
 }
-#rss {
-	margin-top: 70px;
+.section-meta {
+	.section-name,
+	.section-feed {
+		float: left;
+	}
 }

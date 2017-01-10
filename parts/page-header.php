@@ -95,10 +95,5 @@ if ( is_front_page() ) {
 		<?php $action_slug = str_replace( '-', '_', get_queried_object()->slug ); ?>
 		<?php do_action( 'cst_section_head_comscore', $section_slug, $action_slug ); ?>
 		<?php do_action( "cst_section_head_{$action_slug}" ); ?>
-		<section id="rss" class="row grey-background">
-			<div class="large-8 columns">
-				<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss">Subscribe to <?php esc_html_e( $section_obj->name ); ?></a>
-			</div>
-		</section>
 	<?php endif; ?>
 <?php endif; ?>
