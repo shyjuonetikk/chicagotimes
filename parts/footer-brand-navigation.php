@@ -24,11 +24,11 @@
 		'fallback_cb' => false,
 		'container' => false,
 		'depth' => 2,
-		'items_wrap' => '<div class="small-12 medium-3 columns" data-equalizer-watch><ul id="%1$s" class="">%3$s</ul></div>',
+		'items_wrap' => '<div class="small-12 medium-3 columns" ><ul id="%1$s" class="">%3$s</ul></div>',
 		)
 	);
 } else { ?>
-	<div class="small-12 medium-3 columns" data-equalizer-watch>
+	<div class="small-12 medium-3 columns" >
 		<ul>
 			<li><a href="<?php echo esc_url( '/about-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about">About us</a></li>
 			<li><a href="<?php echo esc_url( '/contact-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-contact">Contact us</a></li>
@@ -41,11 +41,11 @@ if ( has_nav_menu( 'page-footer-2' ) ) {
 		'fallback_cb' => false,
 		'container' => false,
 		'depth' => 2,
-		'items_wrap' => '<div class="small-12 medium-3 columns" data-equalizer-watch><ul id="%1$s" class="">%3$s</ul></div>',
+		'items_wrap' => '<div class="small-12 medium-3 columns" ><ul id="%1$s" class="">%3$s</ul></div>',
 		)
 	);
 } else { ?>
-	<div class="small-12 medium-3 columns" data-equalizer-watch>
+	<div class="small-12 medium-3 columns" >
 		<ul>
 			<li><a href="<?php echo esc_url( '/about-our-ads' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about-ads">About our ads</a></li>
 			<li><a href="<?php echo esc_url( '/privacy-policy' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-privacy">Privacy Policy</a></li>
@@ -58,11 +58,11 @@ if ( has_nav_menu( 'page-footer-3' ) ) {
 		'fallback_cb' => false,
 		'container' => false,
 		'depth' => 2,
-		'items_wrap' => '<div class="small-12 medium-3 columns" data-equalizer-watch><ul id="%1$s" class="">%3$s</ul></div>',
+		'items_wrap' => '<div class="small-12 medium-3 columns" ><ul id="%1$s" class="">%3$s</ul></div>',
 		)
 	);
 } else { ?>
-	<div class="small-12 medium-3 columns" data-equalizer-watch>
+	<div class="small-12 medium-3 columns" >
 		<ul>
 			<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-terms">Terms of use</a></li>
 			<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-back-order">Order Back Issues</a>&nbsp;<i
@@ -76,11 +76,11 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 		'fallback_cb' => false,
 		'container' => false,
 		'depth' => 2,
-		'items_wrap' => '<div class="small-12 medium-3 columns" data-equalizer-watch><ul id="%1$s" class="">%3$s</ul></div>',
+		'items_wrap' => '<div class="small-12 medium-3 columns" ><ul id="%1$s" class="">%3$s</ul></div>',
 		)
 	);
 } else { ?>
-	<div class="small-12 medium-3 columns" data-equalizer-watch>
+	<div class="small-12 medium-3 columns" >
 		<ul>
 			<li><a href="<?php echo esc_url( '/subscribe' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-terms">Subscribe-temp</a></li>
 			<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-terms">Terms of use</a></li>
@@ -93,12 +93,6 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 	</div>
 	</div>
 	<div class="row footer-lower">
-		<div class="small-12 columns">
-			<ul>
-				<li><a href="<?php echo esc_url( '/about-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about">About us</a></li>
-				<li><a href="<?php echo esc_url( '/contact-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-contact">Contact us</a></li>
-			</ul>
-		</div>
 		<div class="small-12 columns">
 			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', date( 'Y' ) ); ?> Chicago Sun-Times</p>
 		</div>

@@ -2721,15 +2721,15 @@ footer {
   footer .separate-me {
     border-top: 1px solid #f8f8f8;
     border-bottom: 1px solid #f8f8f8;
-    margin: 10px auto;
-    padding: 10px 0; }
+    margin: 10px auto; }
   footer .copyright {
     color: white; }
   footer hr {
     color: white; }
   footer ul {
     display: inline-block;
-    line-height: 1; }
+    line-height: 1;
+    margin: 0.7rem 0 0.7rem; }
     footer ul li {
       color: white;
       list-style: none;
@@ -2738,6 +2738,8 @@ footer {
       footer ul li a, footer ul li:visited, footer ul li:hover {
         color: white;
         text-transform: uppercase; }
+      footer ul li:last-child {
+        margin-bottom: 0; }
   footer #social-links {
     position: relative;
     top: inherit;
