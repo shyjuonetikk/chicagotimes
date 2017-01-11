@@ -1,7 +1,7 @@
 <?php ?>
 <aside class="left-off-canvas-menu">
 	<div class="off-canvas-menu">
-		<div class="columns small-4">
+		<div class="columns small-4 cst-toggle">
 			<a href="#" class="left-off-canvas-toggle burger-bar">
 				<i class="fa fa-bars"></i>
 			</a>
@@ -18,17 +18,7 @@
 					<i class="fa fa-search"></i>
 				</a>
 			</form>
-<?php if ( is_front_page() ) {
-	wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false ) );
-} else if ( $current_obj ) {
-	if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
-		wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false ) );
-	} else {
-		wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
-	}
-} else {
-	wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
-}?>
+			<?php CST()->frontend->generate_off_canvas_menu(); ?>
 		</ul>
 	</div>
 </aside>

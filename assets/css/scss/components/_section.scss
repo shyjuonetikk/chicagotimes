@@ -8,6 +8,26 @@ body[class~="archive"] {
 	.cst-navigation-container {
 		margin-top: 5px;
 	}
+	.masthead {
+		.cst-navigation-container {
+			li {
+				background: transparent;
+				a {
+					color: #fff;
+				}
+			}
+			float:right;
+		}
+		.logo-container {
+			padding-right:0;
+			padding-left: 4px;
+			margin-top: 6px;
+		}
+		.nav-container {
+			padding:0;
+			overflow: hidden;
+		}
+	}
 }
 #main {
 	.video-injection {

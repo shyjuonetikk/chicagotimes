@@ -1,4 +1,7 @@
 /* HEADER */
+.cst-toggle {
+	padding: 0.3rem;
+}
 .search {
 	.has-form {
 		background-color: $cst_black;
@@ -45,6 +48,9 @@
 		top: 5px;
 		background: transparent;
 	}
+}
+.search-wrap {
+	max-height:50px;
 }
 .weather {
 	padding: 10px 8px;

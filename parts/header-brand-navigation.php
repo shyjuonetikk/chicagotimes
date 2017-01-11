@@ -15,10 +15,19 @@
 							</li>
 						<?php } else { ?>
 						<li class="name">
-							<div class="small-3 small-centered columns">
+							<div class="small-2 columns logo-container">
 								<div class="small-logo">
-									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
+									<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+										<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
+									</a>
 								</div>
+							</div>
+							<div class="small-8 columns nav-container">
+								<?php if ( is_front_page() ) {
+									CST()->frontend->masthead_navigation( 'homepage' );
+								} else {
+									CST()->frontend->masthead_navigation( 'section-front' );
+								} ?>
 							</div>
 						</li>
 						<?php } ?>
