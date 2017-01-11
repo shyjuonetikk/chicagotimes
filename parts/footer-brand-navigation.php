@@ -9,28 +9,31 @@
 			</div>
 		</div>
 	</div>
-<div class="row footer-upper">
+	<div class="row footer-upper" data-equalizer>
 	<div class="small-10 columns">
 			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
 	</div>
 	<div class="small-12 medium-2 columns">
 		<?php echo CST()->get_template_part( 'social-links' ); ?>
 	</div>
-	<div class="small-12 columns">
+	<div class="small-12 columns separate-me">
+		<div class="row">
 <?php if ( has_nav_menu( 'page-footer-1' ) ) {
 	wp_nav_menu( array(
 		'theme_location' => 'page-footer-1',
 		'fallback_cb' => false,
 		'container' => false,
 		'depth' => 2,
-		'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+		'items_wrap' => '<div class="small-12 medium-3 columns" data-equalizer-watch><ul id="%1$s" class="">%3$s</ul></div>',
 		)
 	);
 } else { ?>
-	<ul>
-		<li><a href="<?php echo esc_url( '/about-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about">About us</a></li>
-		<li><a href="<?php echo esc_url( '/contact-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-contact">Contact us</a></li>
-	</ul>
+	<div class="small-12 medium-3 columns" data-equalizer-watch>
+		<ul>
+			<li><a href="<?php echo esc_url( '/about-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about">About us</a></li>
+			<li><a href="<?php echo esc_url( '/contact-us' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-contact">Contact us</a></li>
+		</ul>
+	</div>
 	<?php }
 if ( has_nav_menu( 'page-footer-2' ) ) {
 	wp_nav_menu( array(
@@ -38,32 +41,57 @@ if ( has_nav_menu( 'page-footer-2' ) ) {
 		'fallback_cb' => false,
 		'container' => false,
 		'depth' => 2,
-		'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+		'items_wrap' => '<div class="small-12 medium-3 columns" data-equalizer-watch><ul id="%1$s" class="">%3$s</ul></div>',
 		)
 	);
 } else { ?>
-	<ul>
-		<li><a href="<?php echo esc_url( '/about-our-ads' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about-ads">About our ads</a></li>
-		<li><a href="<?php echo esc_url( '/privacy-policy' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-privacy">Privacy Policy</a></li>
-	</ul>
-	<?php }
+	<div class="small-12 medium-3 columns" data-equalizer-watch>
+		<ul>
+			<li><a href="<?php echo esc_url( '/about-our-ads' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-about-ads">About our ads</a></li>
+			<li><a href="<?php echo esc_url( '/privacy-policy' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-privacy">Privacy Policy</a></li>
+		</ul>
+	</div>
+<?php }
 if ( has_nav_menu( 'page-footer-3' ) ) {
 	wp_nav_menu( array(
 		'theme_location' => 'page-footer-3',
 		'fallback_cb' => false,
 		'container' => false,
 		'depth' => 2,
-		'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+		'items_wrap' => '<div class="small-12 medium-3 columns" data-equalizer-watch><ul id="%1$s" class="">%3$s</ul></div>',
 		)
 	);
 } else { ?>
-	<ul>
-		<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-terms">Terms of use</a></li>
-		<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-back-order">Order Back Issues</a>&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></li>
-	</ul>
-	<?php } ?>
+	<div class="small-12 medium-3 columns" data-equalizer-watch>
+		<ul>
+			<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-terms">Terms of use</a></li>
+			<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-back-order">Order Back Issues</a>&nbsp;<i
+						class="fa fa-external-link" aria-hidden="true"></i></li>
+		</ul>
 	</div>
-</div>
+	<?php }
+if ( has_nav_menu( 'page-footer-4' ) ) {
+	wp_nav_menu( array(
+		'theme_location' => 'page-footer-4',
+		'fallback_cb' => false,
+		'container' => false,
+		'depth' => 2,
+		'items_wrap' => '<div class="small-12 medium-3 columns" data-equalizer-watch><ul id="%1$s" class="">%3$s</ul></div>',
+		)
+	);
+} else { ?>
+	<div class="small-12 medium-3 columns" data-equalizer-watch>
+		<ul>
+			<li><a href="<?php echo esc_url( '/subscribe' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-terms">Subscribe-temp</a></li>
+			<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-terms">Terms of use</a></li>
+			<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-footer-back-order">Order Back Issues</a>&nbsp;<i
+						class="fa fa-external-link" aria-hidden="true"></i></li>
+		</ul>
+	</div>
+	<?php } ?>
+		</div>
+	</div>
+	</div>
 	<div class="row footer-lower">
 		<div class="small-12 columns">
 			<ul>

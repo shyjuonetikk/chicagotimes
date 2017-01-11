@@ -14,8 +14,11 @@ footer {
 	.footer-upper {
 		padding: 10px 0;
 	}
-	.footer-lower {
-		border-top: 1px solid #f0f0f0;
+	.separate-me {
+		border-top: 1px solid $light_grey;
+		border-bottom: 1px solid $light_grey;
+		margin: 10px auto;
+		padding: 10px 0;
 	}
 	.copyright {
 		color: #fff;

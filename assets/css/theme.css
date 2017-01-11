@@ -2718,8 +2718,11 @@ footer {
     padding: 10px; }
   footer .footer-upper {
     padding: 10px 0; }
-  footer .footer-lower {
-    border-top: 1px solid #f0f0f0; }
+  footer .separate-me {
+    border-top: 1px solid #f8f8f8;
+    border-bottom: 1px solid #f8f8f8;
+    margin: 10px auto;
+    padding: 10px 0; }
   footer .copyright {
     color: white; }
   footer hr {
