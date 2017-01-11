@@ -14,7 +14,7 @@
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</li>
 						<?php } else { ?>
-						<li class="name">
+						<li class="name hide-for-large-up">
 							<div class="small-2 columns logo-container">
 								<div class="small-logo">
 									<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
