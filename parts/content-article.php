@@ -22,7 +22,7 @@
 		$yieldmo_tag = $obj->get_yieldmo_tag();
 		if ( $yieldmo_tag ) {
 			$yieldmo_printed_tag = CST()->yieldmo_tags->ym_get_demo_tag( $yieldmo_tag );
-			esc_html_e( $yieldmo_printed_tag );
+			echo esc_html( $yieldmo_printed_tag );
 		}
 		$obj->the_content();
 		$user_logins = array();
