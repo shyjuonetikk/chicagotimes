@@ -319,7 +319,7 @@ var dfp = {
     build();
     article_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
-	  .addSize([1025, 0], [[300,600], [300, 250]]) //desktop
+	  .addSize([1025, 0], [[300, 600], [300, 250]]) //desktop
 	  .build();
     article_skyscraper_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
