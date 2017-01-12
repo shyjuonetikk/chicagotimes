@@ -834,6 +834,11 @@ ul#menu-sun-times-network {
   background-color: #231f20;
   width: 100%;
   float: left; }
+.masthead .title-area .logo-container {
+  margin-top: 7px;
+  padding-right: 0; }
+.masthead .title-area .nav-container {
+  padding: 0; }
 @media only screen and (max-width:90em) {
   .masthead .top-bar-section ul {
     width: inherit; }
@@ -1452,8 +1457,7 @@ article.post {
     margin: 5px; }
 .single #post-body {
   position: relative;
-  float: left;
-  margin-top: 89px; }
+  float: left; }
   @media (max-width: 1200px) {
     .single #post-body .row {
       margin-left: 0; }
@@ -1666,30 +1670,36 @@ body[class~="archive"] .dfp-super-leaderboard {
 body[class~="archive"] .cst-navigation-container {
   margin-top: 5px; }
 
-body[class~="archive"] .masthead .cst-navigation-container, body[class~="single"] .masthead .cst-navigation-container {
+body[class~="archive"] .masthead .cst-navigation-container li, body[class~="single"] .masthead .cst-navigation-container li {
+  background: transparent;
   float: right; }
-  body[class~="archive"] .masthead .cst-navigation-container li, body[class~="single"] .masthead .cst-navigation-container li {
-    background: transparent; }
-    body[class~="archive"] .masthead .cst-navigation-container li a, body[class~="single"] .masthead .cst-navigation-container li a {
-      color: white; }
-body[class~="archive"] .masthead .logo-container, body[class~="single"] .masthead .logo-container {
+  body[class~="archive"] .masthead .cst-navigation-container li a, body[class~="single"] .masthead .cst-navigation-container li a {
+    color: white;
+    font-weight: normal; }
+body[class~="archive"] .masthead .cst-navigation-container .logo-container, body[class~="single"] .masthead .cst-navigation-container .logo-container {
   padding-right: 0;
   padding-left: 4px;
   margin-top: 6px; }
-body[class~="archive"] .masthead .nav-container, body[class~="single"] .masthead .nav-container {
+body[class~="archive"] .masthead .cst-navigation-container .nav-container, body[class~="single"] .masthead .cst-navigation-container .nav-container {
   padding: 0;
   overflow: hidden; }
 @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
-  body[class~="archive"] #main, body[class~="single"] #main {
+  body[class~="archive"] .masthead #main, body[class~="single"] .masthead #main {
     padding-right: 0; }
-  body[class~="archive"] .single-view.column-adjust, body[class~="single"] .single-view.column-adjust {
+    body[class~="archive"] .masthead #main.medium-8, body[class~="single"] .masthead #main.medium-8 {
+      width: 100%; }
+  body[class~="archive"] .masthead .single-view.column-adjust, body[class~="single"] .masthead .single-view.column-adjust {
     max-width: 56%; }
-  body[class~="archive"] .taboola-container, body[class~="single"] .taboola-container {
+  body[class~="archive"] .masthead .taboola-container, body[class~="single"] .masthead .taboola-container {
     max-width: 56%;
     float: left; }
-  body[class~="archive"] .cst-recommended-content, body[class~="single"] .cst-recommended-content {
+  body[class~="archive"] .masthead .cst-recommended-content, body[class~="single"] .masthead .cst-recommended-content {
     width: 100%; } }
 
+body[class~="single"] .masthead .cst-navigation-container {
+  float: right;
+  height: 35px;
+  margin-top: 3px; }
 @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
   body[class~="single"] article.post h1 {
     font-size: 1.95rem;
@@ -1697,7 +1707,7 @@ body[class~="archive"] .masthead .nav-container, body[class~="single"] .masthead
   body[class~="single"] article.post .post-meta-social {
     top: 0; }
   body[class~="single"] article.post .post-meta-top {
-    width: 33%; } }
+    width: 44%; } }
 
 section#subscribe {
   background: white;
@@ -2612,14 +2622,13 @@ header .contain-to-grid .top-bar {
   header .contain-to-grid .top-bar .masthead-sections li, header .contain-to-grid .top-bar .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .masthead-sections a:not(.button) {
     background: #231f20;
     line-height: 45px;
-    color: white; }
+    color: white;
+    padding: 0 2px; }
   @media only screen and (max-width:64em) {
-    header .contain-to-grid .top-bar .masthead-sections {
-      margin-left: 5rem; }
-      header .contain-to-grid .top-bar .masthead-sections li {
-        padding-right: 0.4rem; }
-        header .contain-to-grid .top-bar .masthead-sections li:last-child {
-          padding-right: 0; } }
+    header .contain-to-grid .top-bar .masthead-sections li {
+      padding-right: 0.6rem; }
+      header .contain-to-grid .top-bar .masthead-sections li:last-child {
+        padding-right: 0; } }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {

@@ -23,11 +23,7 @@
 								</div>
 							</div>
 							<div class="small-8 columns nav-container">
-								<?php if ( is_front_page() ) {
-									CST()->frontend->masthead_navigation( 'homepage' );
-								} else {
-									CST()->frontend->masthead_navigation( 'section-front' );
-								} ?>
+								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</div>
 						</li>
 						<?php } ?>

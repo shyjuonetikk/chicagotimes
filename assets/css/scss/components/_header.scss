@@ -732,6 +732,16 @@ body.single {
 
 	}
 
+	.title-area {
+		.logo-container {
+			margin-top: 7px;
+			padding-right: 0;
+		}
+		.nav-container {
+			padding:0;
+		}
+	}
+
 	@media #{$large-down} {
 		.top-bar-section {
 			ul {

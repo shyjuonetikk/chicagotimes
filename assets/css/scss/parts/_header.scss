@@ -180,11 +180,11 @@ header {
 					background: $cst_black;
 					line-height:45px;
 					color: $white;
+					padding: 0 2px;
 				}
 				@media #{$xmedium-down} {
-					margin-left:5rem;
 					li {
-						padding-right: 0.4rem;
+						padding-right: 0.6rem;
 						&:last-child {
 							padding-right:0;
 						}
