@@ -773,4 +773,39 @@ body[class~="single"] {
 			overflow: hidden;
 		}
 	}
+	@media #{$xmediumi-only}  and (orientation: portrait) {
+		#main {
+			padding-right: 0;
+		}
+		.single-view {
+			&.column-adjust {
+				max-width:56%;
+			}
+		}
+		.taboola-container {
+			max-width: 56%;
+			float:left;
+		}
+		.cst-recommended-content {
+			width: 100%;
+		}
+	}
+}
+body[class~="single"] {
+	@media #{$xmediumi-only} and (orientation: portrait) {
+		article {
+			&.post {
+				h1 {
+					font-size: 1.95rem;
+					line-height: 2.4rem;
+				}
+				.post-meta-social {
+					top:0;
+				}
+				.post-meta-top {
+					width: 44%;
+				}
+			}
+		}
+	}
 }

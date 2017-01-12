@@ -296,8 +296,9 @@ var dfp = {
     article_lead_unit_mapping = googletag.sizeMapping()
       .addSize([992, 0], [728, 90]) //desktop
       .addSize([0, 0], [320, 50]) //other
-	  .addSize([800, 1200], [ [728,90] ] ) //tablet
-	  .addSize([768, 1024], [ [728,90] ] ) //tablet
+	  .addSize([800, 1200], [ [320, 50] ] ) //tablet
+	  .addSize([800, 1280], [ [320, 50] ] ) //tablet
+	  .addSize([768, 1024], [ [320, 50] ] ) //tablet
 	  .build();
     super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet

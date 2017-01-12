@@ -6,7 +6,7 @@
 
 		<?php
 		if ( is_singular() ) {
-			$classes = array( 'single-view', 'columns', 'small-12', 'end', 'cst-sharing-relative' );
+			$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
 		} else {
 			$classes = array( 'index-view' );
 		}

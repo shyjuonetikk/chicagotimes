@@ -157,6 +157,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 0, 640px */
 /* 641px, 767px */
 /* 768px, 1024px */
+/* 768px, 1023px */
 /* 1025px, 1440px */
 /* 1200px (approx 75em), 1300px (approx 81.250em), 1366px (approx 85.250em)  */
 /* 1300px */
@@ -1678,6 +1679,25 @@ body[class~="archive"] .masthead .logo-container, body[class~="single"] .masthea
 body[class~="archive"] .masthead .nav-container, body[class~="single"] .masthead .nav-container {
   padding: 0;
   overflow: hidden; }
+@media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
+  body[class~="archive"] #main, body[class~="single"] #main {
+    padding-right: 0; }
+  body[class~="archive"] .single-view.column-adjust, body[class~="single"] .single-view.column-adjust {
+    max-width: 56%; }
+  body[class~="archive"] .taboola-container, body[class~="single"] .taboola-container {
+    max-width: 56%;
+    float: left; }
+  body[class~="archive"] .cst-recommended-content, body[class~="single"] .cst-recommended-content {
+    width: 100%; } }
+
+@media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
+  body[class~="single"] article.post h1 {
+    font-size: 1.95rem;
+    line-height: 2.4rem; }
+  body[class~="single"] article.post .post-meta-social {
+    top: 0; }
+  body[class~="single"] article.post .post-meta-top {
+    width: 33%; } }
 
 section#subscribe {
   background: white;
