@@ -109,6 +109,7 @@ class CST_Frontend {
 		add_filter( 'nav_menu_link_attributes', array( $this, 'filter_nav_menu_link_attributes' ), 10, 3 );
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
+		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 	}
 
 	/**
@@ -1477,6 +1478,56 @@ ready(fn);
 	<?php
 		}
 	}
+
+	/**
+	* Inject sponsored content into selected article in the third paragraph
+  	* @param string $article_content
+  	* @return string $article_content
+ 	*/
+ 	public function inject_sponsored_content( $article_content ) {
+ 
+ 		if ( is_admin() ) {
+ 			return $article_content;
+ 		}
+ 		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+ 		if ( 'cst_article' !== $obj->get_post_type() ) {
+ 			return $article_content;
+ 		}
+		if ( $sponsor_array = $obj->get_sponsored_content() ) {
+			$matched_content = preg_match_all( '/(?:[^(p>)].*){1}/i', $article_content, $matched_items );
+			if ( false === $matched_content ) {
+				return $article_content;
+			}
+			if ( ! empty( $matched_items ) && $matched_content >= 2 ) {
+				$matches = $matched_items[0];
+				$sponsor_image_url = wp_get_attachment_image_src( $sponsor_array['sponsor_image'], 'chiwire-header-small' );
+				$markup_to_inject_template = '
+<div class="sponsored-content">
+	<div class="row">
+		<div class="small-5"></div>
+		<div class="small-7 sponsor-title">
+			<h4>Sponsored by <a href="%2$s">%1$s</a></h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="small-5"><img src="%5$s"></div>
+		<div class="small-7"><p>%3$s</p><p>%4$s</p></div>
+	</div>
+</div>
+';
+				$content_with_sponsorship = sprintf( $markup_to_inject_template,
+					$sponsor_array['sponsor_content_name'],
+					$sponsor_array['sponsor_url'],
+					$sponsor_array['sponsor_line1'],
+					$sponsor_array['sponsor_line2'],
+					esc_url( $sponsor_image_url[0] )
+				 );
+				$paragraph_with_script = trim( "\n" . $matches[2] ) . $content_with_sponsorship;
+				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
+			}
+ 		}
+ 		return $article_content;
+ 	}
 
 	public function inject_newsletter_signup( $newsletter ) {
 

@@ -1155,4 +1155,11 @@ abstract class Post {
 		wp_set_object_terms( $this->get_id(), array_map( 'sanitize_title', $terms ), $taxonomy );
 	}
 
+	public function get_sponsored_content() {
+		if ( $media_type = $this->get_fm_field( 'cst_production', 'sponsored_content' ) ) {
+			return $media_type;
+		} else {
+			return false;
+		}
+	}
 }
