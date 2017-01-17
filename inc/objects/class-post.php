@@ -24,6 +24,8 @@ abstract class Post {
 	 * Get the proper object based on its post ID
 	 *
 	 * @param int
+	 *
+	 * @return Article|Gallery|Link|Video|bool
 	 */
 	public static function get_by_post_id( $post_id ) {
 
@@ -40,9 +42,9 @@ abstract class Post {
 		if ( '\CST\Objects\Post' == $class ) {
 			return false;
 		}
-		if ( class_exists( $class ) ){
+		if ( class_exists( $class ) ) {
 			return new $class( $post_id );
-		}else{
+		} else {
 			return false;
 		}
 

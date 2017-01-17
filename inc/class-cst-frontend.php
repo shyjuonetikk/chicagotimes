@@ -1504,14 +1504,14 @@ ready(fn);
 				$markup_to_inject_template = '
 <div class="sponsored-content">
 	<div class="row">
-		<div class="small-5"></div>
-		<div class="small-7 sponsor-title">
+		<div class="small-5 columns"></div>
+		<div class="small-7 columns sponsor-title">
 			<h4>Sponsored by <a href="%2$s">%1$s</a></h4>
 		</div>
 	</div>
 	<div class="row">
-		<div class="small-5"><img src="%5$s"></div>
-		<div class="small-7"><p>%3$s</p><p>%4$s</p></div>
+		<div class="small-5 columns"><img src="%5$s"></div>
+		<div class="small-7 columns"><p>%3$s</p><p>%4$s</p></div>
 	</div>
 </div>
 ';
