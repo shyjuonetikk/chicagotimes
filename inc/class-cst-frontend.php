@@ -1502,16 +1502,10 @@ ready(fn);
 				$matches = $matched_items[0];
 				$sponsor_image_url = wp_get_attachment_image_src( $sponsor_array['sponsor_image'], 'chiwire-header-small' );
 				$markup_to_inject_template = '
-<div class="sponsored-content">
-	<div class="row">
-		<div class="small-5 columns"></div>
-		<div class="small-7 columns sponsor-title">
-			<h4>Sponsored by <a href="%2$s">%1$s</a></h4>
-		</div>
-	</div>
+<div class="sponsored-insert">
 	<div class="row">
 		<div class="small-5 columns"><img src="%5$s"></div>
-		<div class="small-7 columns"><p>%3$s</p><p>%4$s</p></div>
+		<div class="small-7 columns"><h4>Sponsored by <a href="%2$s">%1$s</a></h4><p>%3$s</p><p>%4$s</p></div>
 	</div>
 </div>
 ';

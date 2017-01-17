@@ -208,7 +208,15 @@ article.post {
 				height: 348px;
 			}
 		}
-		
+		> .sponsored-insert {
+			h4 {
+				font-size:0.8rem;
+			}
+			display: inline-block;
+			width: 100%;
+			background: $white;
+			margin:10px 0;
+		}
 	}
 
 	.addthis_toolbox {
@@ -290,7 +298,10 @@ article.post {
 			line-height: 1.3rem;
 		}
 	}
-
+	&.sponsored-content {
+		background: $box_grey;
+		border: 1px solid $cst_black;
+	}
 }
 
 .single {

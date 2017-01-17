@@ -10,7 +10,9 @@
 		} else {
 			$classes = array( 'index-view' );
 		}
-
+		if ( $obj->get_sponsored_content() ) {
+			$classes[] = 'sponsored-content';
+		}
 		$attrs = '';
 		if ( is_singular() ) {
 			$data = array(
