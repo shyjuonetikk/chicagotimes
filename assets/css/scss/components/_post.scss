@@ -209,13 +209,19 @@ article.post {
 			}
 		}
 		> .sponsored-insert {
-			h4 {
-				font-size:0.8rem;
-			}
 			display: inline-block;
 			width: 100%;
 			background: $white;
-			margin:10px 0;
+			margin:10px 0 20px;
+			h4 {
+				font-size:0.8rem;
+			}
+			p {
+				margin-bottom:0;
+			}
+			.sponsor-thumbnail {
+				text-align: center;
+			}
 		}
 	}
 
@@ -298,12 +304,38 @@ article.post {
 			line-height: 1.3rem;
 		}
 	}
-	&.sponsored-content {
+	.sponsored-notification {
+		background: $red;
+		padding: 5px;
+		text-align: right;
+		color: $white;
+		font-size: 0.9rem;
+		float: right;
+	}
+	>.sponsored-treatment {
 		background: $box_grey;
 		border: 1px solid $cst_black;
+		float:left;
 	}
 }
-
+body[class^="archive"] {
+	article {
+		&.post {
+			.sponsored-notification {
+				margin-top: -29px;
+			}
+		}
+	}
+}
+body[class^="cst_article-"] {
+	article {
+		&.post {
+			.sponsored-notification {
+				margin-top: -14px;
+			}
+		}
+	}
+}
 .single {
 
 	#div-gpt-atf-leaderboard, #div-gpt-mobile-leaderboard {

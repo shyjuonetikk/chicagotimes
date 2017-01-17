@@ -32,7 +32,9 @@
 
 		?>
 		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo $attrs; ?>>
-
+			<?php if ( $obj->get_sponsored_content() ) { ?>
+				<div class="sponsored-treatment">
+			<?php } ?>
 			<?php if ( is_singular() ) : ?>
 
 				<?php if ( 'cst_embed' !== $obj->get_post_type() || 'twitter' !== $obj->get_embed_type() ) : ?>
@@ -46,6 +48,9 @@
 			<?php
 			echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
 			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
+			if ( $obj->get_sponsored_content() ) { ?>
+				</div>
+			<?php }
 			if ( is_singular() ) {
 				echo CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) );
 			}

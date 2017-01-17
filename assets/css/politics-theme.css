@@ -1260,9 +1260,13 @@ article.post {
       display: inline-block;
       width: 100%;
       background: white;
-      margin: 10px 0; }
+      margin: 10px 0 20px; }
       article.post .post-content > .sponsored-insert h4 {
         font-size: 0.8rem; }
+      article.post .post-content > .sponsored-insert p {
+        margin-bottom: 0; }
+      article.post .post-content > .sponsored-insert .sponsor-thumbnail {
+        text-align: center; }
   article.post .addthis_toolbox {
     position: relative;
     float: left;
@@ -1325,9 +1329,23 @@ article.post {
     width: 100%;
     display: block;
     line-height: 1.3rem; }
-  article.post.sponsored-content {
+  article.post .sponsored-notification {
+    background: #29aae2;
+    padding: 5px;
+    text-align: right;
+    color: white;
+    font-size: 0.9rem;
+    float: right; }
+  article.post > .sponsored-treatment {
     background: #e6e6e6;
-    border: 1px solid #231f20; }
+    border: 1px solid #231f20;
+    float: left; }
+
+body[class^="archive"] article.post .sponsored-notification {
+  margin-top: -29px; }
+
+body[class^="cst_article-"] article.post .sponsored-notification {
+  margin-top: -14px; }
 
 .single #div-gpt-atf-leaderboard, .single #div-gpt-mobile-leaderboard {
   margin-bottom: 0px; }

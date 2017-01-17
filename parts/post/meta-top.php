@@ -54,5 +54,9 @@ if ( $section = $obj->get_primary_section() ) {
 		<div class="medium-7 end" style="float: right;">
 			<?php CST()->frontend->sponsor_header( $section->term_id ); ?>
 		</div>
-<?php }
-}
+	<?php } elseif ( $obj->get_sponsored_content() ) { ?>
+	<div class="medium-7 end" style="float: right;">
+		<h4 class="sponsored-notification">SPONSORED CONTENT</h4>
+	</div>
+	<?php } ?>
+<?php } ?>
