@@ -1000,6 +1000,7 @@ class CST_Admin {
 	 * @param string $title_prefix
 	 *
 	 * Build the payload and perform the app notification
+	 * Update to include all sections article is placed in
 	 * @return bool
 	 */
 	private function app_notify( $post_id, $title_prefix = '' ) {
@@ -1011,7 +1012,17 @@ class CST_Admin {
 
 		$slug        = basename( $obj->get_permalink() );
 		$title       = '' === $title_prefix ? '' : $title_prefix . $obj->get_title();
-		$section     = $obj->get_primary_section()->slug;
+		$sections    = $obj->get_sections();
+		$body_array  = array(
+			'token'   => 'suntimes',
+			'message' => $title,
+			'slug'    => ( '' === $title ) ? '' : esc_attr( $slug ),
+		);
+		$section_count = 1;
+		foreach ( $sections as $section_object ) {
+			$body_array["section{$section_count}"] = esc_attr( $section_object->name );
+			$section_count++;
+		}
 		$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
 		$payload_array = array(
 			'method'      => 'POST',
@@ -1020,12 +1031,7 @@ class CST_Admin {
 			'httpversion' => '1.0',
 			'blocking'    => true,
 			'headers'     => array(),
-			'body'        => array(
-				'token'   => 'suntimes',
-				'message' => $title,
-				'slug'    => ( '' === $title ) ? '' : esc_attr( $slug ),
-				'section' => esc_attr( $section ),
-			),
+			'body'        => $body_array,
 			'cookies'     => array()
 		);
 		$response = wp_remote_post( $app_api_url, $payload_array );
