@@ -1517,7 +1517,7 @@ ready(fn);
 ';
 				$content_with_sponsorship = sprintf( $markup_to_inject_template,
 					esc_attr( $sponsor_array['sponsor_content_name'] ),
-					esc_url( $sponsor_array['sponsor_url'] ),
+					esc_url( $sponsor_array['sponsor_url'] . '?utm_source=sponsored_article&utm_medium=autos' ),
 					esc_attr( $sponsor_array['sponsor_line1'] ),
 					esc_attr( $sponsor_array['sponsor_line2'] ),
 					esc_url( $sponsor_image_url[0] ),
