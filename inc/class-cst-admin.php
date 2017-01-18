@@ -216,48 +216,72 @@ class CST_Admin {
 		$featured_media = new \Fieldmanager_Group( '', array(
 			'name'        => 'cst_production',
 			'tabbed'      => true,
-			) );
+			)
+		);
 		$featured_media->children['featured_media'] = new \Fieldmanager_Group( esc_html__( 'Featured Media', 'chicagosuntimes' ), array(
-			'name'             => 'featured_media',
-			'children'         => array(
-				'featured_media_type'         => new \Fieldmanager_Select( esc_html__( 'Type of media to feature', 'chicagosuntimes' ), array(
-					'name'     => 'featured_media_type',
-					'options'  => array(
-						'image'        => esc_html__( "Article's Featured Image", 'chicagosuntimes' ),
-						'gallery'      => esc_html__( 'Gallery', 'chicagosuntimes' ),
-						'video'      => esc_html__( 'Video', 'chicagosuntimes' ),
+			'name'     => 'featured_media',
+			'children' => array(
+				'featured_media_type' => new \Fieldmanager_Select( esc_html__( 'Type of media to feature', 'chicagosuntimes' ), array(
+					'name'    => 'featured_media_type',
+					'options' => array(
+						'image'   => esc_html__( "Article's Featured Image", 'chicagosuntimes' ),
+						'gallery' => esc_html__( 'Gallery', 'chicagosuntimes' ),
+						'video'   => esc_html__( 'Video', 'chicagosuntimes' ),
+					),
+				) ),
+				'featured_gallery'    => new \Fieldmanager_Autocomplete( esc_html__( 'Featured Gallery', 'chicagosuntimes' ), array(
+					'name'       => 'featured_gallery',
+					'attributes' => array(
+						'placeholder' => esc_html__( 'Search by title', 'chicagosuntimes' ),
+						'size'        => 45,
+					),
+					'datasource' => new \Fieldmanager_Datasource_Post( array(
+						'query_args' => array(
+							'post_type' => array( 'cst_gallery' ),
 						),
-					) ),
-				'featured_gallery'     => new \Fieldmanager_Autocomplete( esc_html__( 'Featured Gallery', 'chicagosuntimes' ), array(
-					'name'             => 'featured_gallery',
-					'attributes'       => array(
-						'placeholder'  => esc_html__( 'Search by title', 'chicagosuntimes' ),
-						'size'         => 45,
-						),
-					'datasource'       => new \Fieldmanager_Datasource_Post( array(
-						'query_args'        => array(
-							'post_type'     => array( 'cst_gallery' ),
-							),
-						) )
-					) ),
-				'featured_video'          => new \Fieldmanager_Select( esc_html__( 'Choose video category', 'chicagosuntimes' ), array(
-					'name'     => 'featured_video',
+					) )
+				) ),
+				'featured_video'      => new \Fieldmanager_Select( esc_html__( 'Choose video category', 'chicagosuntimes' ), array(
+					'name'        => 'featured_video',
 					'description' => 'Choosing this option replaces the featured image with a video embed element and automatically places the featured image further down the content.',
-					'options'  => array(
-						'cubs'       => esc_html__( "Chicago Cubs", 'chicagosuntimes' ),
-						'white-sox'  => esc_html__( 'Chicago White Sox', 'chicagosuntimes' ),
-						'bulls'      => esc_html__( "Chicago Bulls", 'chicagosuntimes' ),
-						'bears'      => esc_html__( 'Chicago Bears', 'chicagosuntimes' ),
-						'pga-golf'   => esc_html__( 'PGA Golf', 'chicagosuntimes' ),
-						'nascar'     => esc_html__( 'NASCAR', 'chicagosuntimes' ),
-						'ahl-wolves' => esc_html__( 'AHL Wolves', 'chicagosuntimes' ),
-						'college'    => esc_html__( 'College', 'chicagosuntimes' ),
-						'rio-2016'   => esc_html__( 'Rio 2016', 'chicagosuntimes' ),
+					'options'     => array(
+						'cubs'              => esc_html__( "Chicago Cubs", 'chicagosuntimes' ),
+						'white-sox'         => esc_html__( 'Chicago White Sox', 'chicagosuntimes' ),
+						'bulls'             => esc_html__( "Chicago Bulls", 'chicagosuntimes' ),
+						'bears'             => esc_html__( 'Chicago Bears', 'chicagosuntimes' ),
+						'pga-golf'          => esc_html__( 'PGA Golf', 'chicagosuntimes' ),
+						'nascar'            => esc_html__( 'NASCAR', 'chicagosuntimes' ),
+						'ahl-wolves'        => esc_html__( 'AHL Wolves', 'chicagosuntimes' ),
+						'college'           => esc_html__( 'College', 'chicagosuntimes' ),
+						'rio-2016'          => esc_html__( 'Rio 2016', 'chicagosuntimes' ),
 						'blackhawks-hockey' => esc_html__( 'Blackhawks', 'chicagosuntimes' ),
 					),
 				) )
-				),
-			) );
+			),
+		) );
+		$featured_media->children['sponsored_content'] = new \Fieldmanager_Group( esc_html__( 'Sponsored Content', 'chicagosuntimes' ), array(
+			'name'     => 'sponsored_content',
+			'children' => array(
+				'sponsor_content_name' => new \Fieldmanager_TextField( esc_html__( 'Sponsor Name', 'chicagosuntimes' ), array(
+					'description' => esc_html__( 'Enter the title for Sponsored content', 'chicagosuntimes' )
+				) ),
+				'sponsor_url'          => new \Fieldmanager_Link( esc_html__( 'Sponsor URL/Link', 'chicagosuntimes' ), array(
+					'description' => esc_html__( 'Enter the url for "See more"', 'chicagosuntimes' )
+				) ),
+				'sponsor_image'        => new \Fieldmanager_Media( esc_html__( 'Sponsor Image', 'chicagosuntimes' ), array(
+					'description'        => esc_html__( 'Display a sponsors image beside sponsored content. Preferred image size is 160x160', 'chicagosuntimes' ),
+					'button_label'       => esc_html__( 'Choose or upload and select a sponsored content image', 'chicagosuntimes' ),
+					'modal_button_label' => esc_html__( 'Select sponsor content image', 'chicagosuntimes' ),
+					'modal_title'        => esc_html__( 'Choose or upload and select a sponsor content image', 'chicagosuntimes' ),
+				) ),
+				'sponsor_line1'        => new \Fieldmanager_TextField( esc_html__( 'Sponsor line 1', 'chicagosuntimes' ), array(
+					'description' => esc_html__( 'Enter the text for line 1 of sponsored content', 'chicagosuntimes' )
+				) ),
+				'sponsor_line2'        => new \Fieldmanager_TextField( esc_html__( 'Sponsor line 2', 'chicagosuntimes' ), array(
+					'description' => esc_html__( 'Enter the text for line 2 of sponsored content', 'chicagosuntimes' )
+				) ),
+			)
+		) );
 		$featured_media->add_meta_box( esc_html__( 'Production', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
 		$terms_group = new \Fieldmanager_Group( '', array(
 			'name'        => 'cst_preferred_terms',
