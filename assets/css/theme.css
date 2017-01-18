@@ -1267,13 +1267,53 @@ article.post {
       display: inline-block;
       width: 100%;
       background: white;
-      margin: 10px 0 20px; }
+      margin: 10px 0 20px;
+      max-height: 160px;
+      border-top: 1px solid #231f20;
+      border-bottom: 1px solid #231f20; }
       article.post .post-content > .sponsored-insert h4 {
-        font-size: 0.8rem; }
+        font-size: 1rem;
+        line-height: 2rem; }
+      article.post .post-content > .sponsored-insert .sponsorname {
+        color: #d22d42; }
       article.post .post-content > .sponsored-insert p {
         margin-bottom: 0; }
       article.post .post-content > .sponsored-insert .sponsor-thumbnail {
         text-align: center; }
+      article.post .post-content > .sponsored-insert .sponsor-wording, article.post .post-content > .sponsored-insert .sponsor-thumbnail {
+        line-height: 9.7rem; }
+      article.post .post-content > .sponsored-insert .holder {
+        line-height: 4.6rem; }
+      article.post .post-content > .sponsored-insert .seemore {
+        background: #d22d42;
+        padding: 4px 8px;
+        color: white;
+        font-size: 0.7rem; }
+  @media only screen and (max-width: 40em) {
+    article.post .post-content .sponsored-insert .holder {
+      line-height: 1.3rem; }
+    article.post .post-content .sponsored-insert h4 {
+      line-height: 1.4rem; }
+    article.post .post-content .sponsored-insert p {
+      font-size: 0.8rem;
+      line-height: 1.3rem; }
+    article.post .post-content .sponsored-insert .sponsored-thumbnail {
+      padding-right: 0; }
+    article.post .post-content .sponsored-insert .sponsor-wording {
+      padding-left: 0; }
+    article.post .post-content .sponsored-insert p {
+      font-size: 0.6rem;
+      line-height: 1.3rem; } }
+  @media only screen and (min-width:48em) and (max-width:64em) {
+    article.post .post-content .sponsored-insert {
+      max-height: 166px; }
+      article.post .post-content .sponsored-insert .sponsor-thumbnail {
+        text-align: left;
+        padding-left: 0;
+        margin-left: 0;
+        line-height: 9rem; }
+      article.post .post-content .sponsored-insert .holder {
+        line-height: 3.4rem; } }
   article.post .addthis_toolbox {
     position: relative;
     float: left;

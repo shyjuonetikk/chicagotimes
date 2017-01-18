@@ -1511,7 +1511,7 @@ ready(fn);
 <div class="sponsored-insert">
 	<div class="row">
 		<div class="small-5 columns sponsor-thumbnail"><a href="%2$s"><img src="%5$s" width="%6$s" height="%7$s"></a></div>
-		<div class="small-7 columns"><h4>Sponsored by <a href="%2$s">%1$s</a></h4><p>%3$s</p><p>%4$s</p></div>
+		<div class="small-7 columns sponsor-wording"><div class="holder"><h4>Sponsored by <a href="%2$s" class="sponsorname">%1$s</a></h4><p>%3$s</p><p>%4$s</p><a href="%2$s"><span class="seemore">See More</span></a></div></div>
 	</div>
 </div>
 ';
