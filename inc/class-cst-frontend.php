@@ -92,6 +92,7 @@ class CST_Frontend {
 
 		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
 		add_action( 'wp_head', array( $this, 'action_cst_openx_header_bidding_script' ) );
+		add_action( 'wp_head', [ $this, 'action_distroscale_injection' ] );
 	}
 
 	/**
@@ -1679,4 +1680,26 @@ ready(fn);
 <?php
 	}
 
+	/**
+	* Include Distroscale on Production homepage and all pages on Pre-Production
+	*/
+	public function action_distroscale_injection() {
+		$site = $this->dfp_handler->get_parent_dfp_inventory();
+		if ( 'chicago.suntimes.com' === $site ) {
+			if ( is_front_page() ) { ?>
+<!-- distroscale -->
+<script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"></script>
+<div id="ds_default_anchor"></div>
+<!-- /distroscale -->
+			<?php }
+		}
+		if ( 'dev.suntimes.com' === $site ) {
+			if ( is_front_page() || is_tax() || is_singular() ) { ?>
+<!-- ddistroscale -->
+<script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"></script>
+<div id="ds_default_anchor"></div>
+<!-- /ddistroscale -->
+			<?php }
+		}
+	}
 }
