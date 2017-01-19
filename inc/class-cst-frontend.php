@@ -1685,14 +1685,6 @@ ready(fn);
 	*/
 	public function action_distroscale_injection() {
 		$site = CST()->dfp_handler->get_parent_dfp_inventory();
-		if ( 'chicago.suntimes.com' === $site ) {
-			if ( is_front_page() ) { ?>
-<!-- distroscale -->
-<script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"></script>
-<div id="ds_default_anchor"></div>
-<!-- /distroscale -->
-			<?php }
-		}
 		if ( 'chicago.suntimes.com.test' === $site ) {
 			if ( is_front_page() || is_tax() || is_singular() ) { ?>
 <!-- ddistroscale -->
