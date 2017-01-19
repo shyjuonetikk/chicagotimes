@@ -1486,12 +1486,13 @@ ready(fn);
 
 	/**
 	* Inject sponsored content into selected article in the third paragraph
-  	* @param string $article_content
-  	* @return string $article_content
- 	*/
- 	public function inject_sponsored_content( $article_content ) {
- 
- 		if ( is_admin() ) {
+	* Does not inject into feeds
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_sponsored_content( $article_content ) {
+
+ 		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
  			return $article_content;
  		}
  		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
