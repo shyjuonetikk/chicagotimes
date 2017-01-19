@@ -1,4 +1,12 @@
 <?php $obj = \CST\Objects\Post::get_by_post_id( get_the_ID() ); ?>
+<?php
+$sponsored = false;
+if ( $obj ) {
+	if ( is_callable( array( $obj, 'get_sponsored_content' ) ) ) {
+		$sponsored = $obj->get_sponsored_content();
+	}
+}
+?>
 <?php if ( ! is_sticky() ) : ?>
 	<?php if ( is_singular() ) : ?>
 		<div class="row post-row">
@@ -10,7 +18,7 @@
 		} else {
 			$classes = array( 'index-view' );
 		}
-		if ( $obj->get_sponsored_content() ) {
+		if ( $sponsored ) {
 			$classes[] = 'sponsored-content';
 		}
 		$attrs = '';
@@ -32,7 +40,7 @@
 
 		?>
 		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo $attrs; ?>>
-			<?php if ( $obj->get_sponsored_content() ) { ?>
+			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
 			<?php if ( is_singular() ) : ?>
@@ -48,7 +56,7 @@
 			<?php
 			echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
 			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
-			if ( $obj->get_sponsored_content() ) { ?>
+			if ( $sponsored ) { ?>
 				</div>
 			<?php }
 			if ( is_singular() ) {
