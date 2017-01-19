@@ -1157,11 +1157,38 @@ abstract class Post {
 		wp_set_object_terms( $this->get_id(), array_map( 'sanitize_title', $terms ), $taxonomy );
 	}
 
+	/**
+	 * Get content for sponsored settings and return content array
+	 * or false if empty array and to not display sponsored content
+	 * @return array | bool
+	 */
 	public function get_sponsored_content() {
-		if ( $media_type = $this->get_fm_field( 'cst_production', 'sponsored_content' ) ) {
-			return $media_type;
+		if ( $sponsor_array = $this->get_fm_field( 'cst_production', 'sponsored_content' ) ) {
+			if ( $this->is_sponsored_content_active( $sponsor_array ) ) {
+				return $sponsor_array;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * Check for content and settings in the sponsored meta for the content item
+	 *
+	 * @param array $sponsor_array
+	 * @return bool
+	 */
+	private function is_sponsored_content_active( $sponsor_array ) {
+		if ( null === $sponsor_array['sponsor_url'] ||
+			 null === $sponsor_array['sponsor_image'] ||
+			 empty( trim( $sponsor_array['sponsor_content_name'] ) ) ||
+			 empty( trim( $sponsor_array['sponsor_line1'] ) ) ||
+			 empty( trim( $sponsor_array['sponsor_line2'] ) ) ) {
+			return false;
+		} else {
+			return true;
 		}
 	}
 }

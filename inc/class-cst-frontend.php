@@ -1486,12 +1486,13 @@ ready(fn);
 
 	/**
 	* Inject sponsored content into selected article in the third paragraph
-  	* @param string $article_content
-  	* @return string $article_content
- 	*/
- 	public function inject_sponsored_content( $article_content ) {
- 
- 		if ( is_admin() ) {
+	* Does not inject into feeds
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_sponsored_content( $article_content ) {
+
+ 		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
  			return $article_content;
  		}
  		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
@@ -1499,7 +1500,7 @@ ready(fn);
  			return $article_content;
  		}
  		$after_paragraph_number = 2;
-		if ( $sponsor_array = $obj->get_sponsored_content() ) {
+ 		if ( $sponsor_array = $obj->get_sponsored_content() ) {
 			$matched_content = preg_match_all( '/(?:[^(p>)].*){1}/i', $article_content, $matched_items );
 			if ( false === $matched_content ) {
 				return $article_content;
@@ -1508,16 +1509,16 @@ ready(fn);
 				$matches = $matched_items[0];
 				$sponsor_image_url = wp_get_attachment_image_src( $sponsor_array['sponsor_image'], 'chiwire-header-small' );
 				$markup_to_inject_template = '
-<div class="sponsored-insert">
+	<div class="sponsored-insert">
 	<div class="row">
 		<div class="small-5 columns sponsor-thumbnail"><a href="%2$s"><img src="%5$s" width="%6$s" height="%7$s"></a></div>
 		<div class="small-7 columns sponsor-wording"><div class="holder"><h4>Sponsored by <a href="%2$s" class="sponsorname">%1$s</a></h4><p>%3$s</p><p>%4$s</p><a href="%2$s"><span class="seemore">See More</span></a></div></div>
 	</div>
-</div>
-';
+	</div>
+	';
 				$content_with_sponsorship = sprintf( $markup_to_inject_template,
 					esc_attr( $sponsor_array['sponsor_content_name'] ),
-					esc_url( $sponsor_array['sponsor_url'] ),
+					esc_url( $sponsor_array['sponsor_url'] . '?utm_source=sponsored_article&utm_medium=autos' ),
 					esc_attr( $sponsor_array['sponsor_line1'] ),
 					esc_attr( $sponsor_array['sponsor_line2'] ),
 					esc_url( $sponsor_image_url[0] ),
@@ -1528,6 +1529,7 @@ ready(fn);
 				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
 			}
  		}
+
  		return $article_content;
  	}
 
@@ -1661,7 +1663,7 @@ ready(fn);
 		<?php
 		global $wp_query;
 		if ( is_singular() ) {
-			echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_lead_unit_mapping', 'atf leaderboard 2' );
+			echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_lead_unit_mapping', ( ! $paged ) ? 'atf leaderboard 2' : 'atf leaderboard 3' );
 		} else {
 			if ( 0 === $wp_query->current_post && 0 === $paged ) {
 				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 2' );

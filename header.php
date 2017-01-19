@@ -13,7 +13,7 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width">
-<?php if( is_front_page() ) { ?>
+<?php if ( is_front_page() ) { ?>
 <meta property="fb:pages" content="47864940833" />
 <?php } ?>
 <title><?php wp_title( '|', true, 'right' ); ?></title>
@@ -48,7 +48,11 @@
 	node.parentNode.insertBefore(gads, node);
 })();
 </script>
+<?php if ( is_front_page() ) { ?>
+<!-- distroscale -->
 <script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"> </script> <div id="ds_default_anchor"></div>
+<!-- /distroscale -->
+<?php } ?>
 <?php do_action( 'cst_dfp_ad_settings' ); ?>
 <meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>

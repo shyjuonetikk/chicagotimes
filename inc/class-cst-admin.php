@@ -269,16 +269,16 @@ class CST_Admin {
 					'description' => esc_html__( 'Enter the url for "See more"', 'chicagosuntimes' )
 				) ),
 				'sponsor_image'        => new \Fieldmanager_Media( esc_html__( 'Sponsor Image', 'chicagosuntimes' ), array(
-					'description'        => esc_html__( 'Display a sponsors image beside sponsored content. Preferred image size is 160x160', 'chicagosuntimes' ),
+					'description'        => esc_html__( 'Display a sponsors image beside sponsored content. Preferred image size is 300x165', 'chicagosuntimes' ),
 					'button_label'       => esc_html__( 'Choose or upload and select a sponsored content image', 'chicagosuntimes' ),
 					'modal_button_label' => esc_html__( 'Select sponsor content image', 'chicagosuntimes' ),
 					'modal_title'        => esc_html__( 'Choose or upload and select a sponsor content image', 'chicagosuntimes' ),
 				) ),
 				'sponsor_line1'        => new \Fieldmanager_TextField( esc_html__( 'Sponsor line 1', 'chicagosuntimes' ), array(
-					'description' => esc_html__( 'Enter the text for line 1 of sponsored content', 'chicagosuntimes' )
+					'description' => esc_html__( 'Enter the text for line 1 of sponsored content (max 40 characters)', 'chicagosuntimes' )
 				) ),
 				'sponsor_line2'        => new \Fieldmanager_TextField( esc_html__( 'Sponsor line 2', 'chicagosuntimes' ), array(
-					'description' => esc_html__( 'Enter the text for line 2 of sponsored content', 'chicagosuntimes' )
+					'description' => esc_html__( 'Enter the text for line 2 of sponsored content (max 40 characters)', 'chicagosuntimes' )
 				) ),
 			)
 		) );
