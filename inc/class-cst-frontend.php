@@ -1693,7 +1693,7 @@ ready(fn);
 <!-- /distroscale -->
 			<?php }
 		}
-		if ( 'dev.suntimes.com' === $site ) {
+		if ( 'chicago.suntimes.com.test' === $site ) {
 			if ( is_front_page() || is_tax() || is_singular() ) { ?>
 <!-- ddistroscale -->
 <script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"></script>
