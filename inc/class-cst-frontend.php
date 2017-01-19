@@ -1684,7 +1684,7 @@ ready(fn);
 	* Include Distroscale on Production homepage and all pages on Pre-Production
 	*/
 	public function action_distroscale_injection() {
-		$site = $this->dfp_handler->get_parent_dfp_inventory();
+		$site = CST()->dfp_handler->get_parent_dfp_inventory();
 		if ( 'chicago.suntimes.com' === $site ) {
 			if ( is_front_page() ) { ?>
 <!-- distroscale -->
