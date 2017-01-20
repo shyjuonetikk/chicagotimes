@@ -7,8 +7,9 @@
 
       this.bindEvents();
       this.setSort();
-      wp.customize.bind( 'ready', this.setSort() );
-
+      if ( wp.customize ) {
+        wp.customize.bind( 'ready', this.setSort() );
+      }
     },
 
     bindEvents: function () {

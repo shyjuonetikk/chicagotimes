@@ -1001,6 +1001,13 @@ class CST_Frontend {
 			} else {
 				$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
 			}
+			$obj = \CST\Objects\Post::get_by_post_id( $top_item[0] );
+			if ( $obj ) {
+				$sponsored_markup = '';
+				if ( $obj->get_sponsored_content() ) {
+					$sponsored_markup = '<div class="sponsored-notification"></div>';
+				}
+			}
 			$temporary_title       = explode( '|', $item->title );
 			$article_curated_title = $temporary_title[0];
 			?>
@@ -1014,6 +1021,7 @@ class CST_Frontend {
 					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
 						<span><?php echo esc_html( $article_curated_title ); ?></span>
 					</a>
+					<?php echo wp_kses_post( $sponsored_markup ); ?>
 				</div>
 			</div>
 		<?php } ?>
