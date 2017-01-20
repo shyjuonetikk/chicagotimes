@@ -207,7 +207,7 @@ article.post {
 			width: 100%;
 			background: $white;
 			margin:10px 0 20px;
-			max-height: 160px;
+			max-height: 162px;
 			border-top: 1px solid $cst_black;
 			border-bottom: 1px solid $cst_black;
 			h4 {
@@ -226,6 +226,9 @@ article.post {
 			.sponsor-wording,
 			.sponsor-thumbnail {
 				line-height:9.7rem;
+				img {
+					max-height:160px;
+				}
 			}
 			.holder {
 				line-height: 4.6rem;

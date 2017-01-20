@@ -1255,7 +1255,7 @@ article.post {
       width: 100%;
       background: white;
       margin: 10px 0 20px;
-      max-height: 160px;
+      max-height: 162px;
       border-top: 1px solid #231f20;
       border-bottom: 1px solid #231f20; }
       article.post .post-content > .sponsored-insert h4 {
@@ -1269,6 +1269,8 @@ article.post {
         text-align: center; }
       article.post .post-content > .sponsored-insert .sponsor-wording, article.post .post-content > .sponsored-insert .sponsor-thumbnail {
         line-height: 9.7rem; }
+        article.post .post-content > .sponsored-insert .sponsor-wording img, article.post .post-content > .sponsored-insert .sponsor-thumbnail img {
+          max-height: 160px; }
       article.post .post-content > .sponsored-insert .holder {
         line-height: 4.6rem; }
       article.post .post-content > .sponsored-insert .seemore {

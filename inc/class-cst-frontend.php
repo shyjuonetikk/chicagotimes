@@ -1508,7 +1508,7 @@ ready(fn);
 			}
 			if ( ! empty( $matched_items ) && $matched_content >= $after_paragraph_number ) {
 				$matches = $matched_items[0];
-				$sponsor_image_url = wp_get_attachment_image_src( $sponsor_array['sponsor_image'], 'chiwire-header-small' );
+				$sponsor_image_url = wp_get_attachment_image_src( $sponsor_array['sponsor_image'], array( 300, 165 ) );
 				$markup_to_inject_template = '
 	<div class="sponsored-insert">
 	<div class="row">
