@@ -99,6 +99,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 		wp_localize_script( 'cst_category_headlines', 'CSTSectionHeadlinesData', array(
 			'placeholder_text' => esc_html__( 'Search for content to feature', 'chicagosuntimes' ),
 			'nonce'            => wp_create_nonce( 'cst_category_headlines' ),
+			'widget_id'        => esc_attr( $this->id ),
 		) );
 		wp_enqueue_style( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' );
 		wp_enqueue_script( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.min.js' );
@@ -190,8 +191,9 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 
 		$this->enqueue_scripts();
 		$count = 0;
+		$classes = join( ' ', array( 'cst-headline-sort', 'ui-sortable', $this->id ) );
 		?>
-		<div class="cst-headline-sort ui-sortable">
+		<div class="<?php echo esc_attr( $classes ); ?>">
 			<?php
 			foreach ( $this->headlines as $array_member ) {
 				$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
@@ -211,7 +213,8 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 				</p>
 				<?php
 				$count ++;
-			} ?>
+			}
+			?>
 		</div>
 		<?php
 
