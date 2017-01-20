@@ -29,10 +29,7 @@ article.post {
 			.fa {
 					font-size: 1rem;
 					color: $white;
-					padding-right: 14px;
-					padding-left: 14px;
-					padding-top: 10px;
-					padding-bottom: 10px;
+					padding: 10px 14px;
 					background: $social_grey;
 				}
 		
@@ -71,10 +68,7 @@ article.post {
 
 		.fa {
 			font-size: 1rem;
-			padding-top: 14px;
-			padding-bottom: 14px;
-			padding-left: 14px;
-			padding-right: 14px;
+			padding: 14px;
 			background-color: $social_grey;
 			color: $white;
 			opacity: 0.5;
@@ -398,8 +392,8 @@ body[class^="cst_article-"] {
 		}
 	}
 }
-.single {
 
+.single {
 	#div-gpt-atf-leaderboard, #div-gpt-mobile-leaderboard {
 		margin-bottom: 0px;
 	}

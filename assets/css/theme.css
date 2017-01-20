@@ -1151,10 +1151,7 @@ article.post {
     article.post .post-social-mobile .post-social .fa {
       font-size: 1rem;
       color: white;
-      padding-right: 14px;
-      padding-left: 14px;
-      padding-top: 10px;
-      padding-bottom: 10px;
+      padding: 10px 14px;
       background: #9a9a9a; }
   article.post .read-more-wrap {
     text-align: center; }
@@ -1176,10 +1173,7 @@ article.post {
       float: left; }
     article.post .post-comments .fa {
       font-size: 1rem;
-      padding-top: 14px;
-      padding-bottom: 14px;
-      padding-left: 14px;
-      padding-right: 14px;
+      padding: 14px;
       background-color: #9a9a9a;
       color: white;
       opacity: 0.5;
