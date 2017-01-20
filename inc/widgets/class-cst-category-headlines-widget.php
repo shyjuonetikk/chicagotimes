@@ -129,9 +129,13 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 			foreach ( $category_headline_posts as $headline ) {
 				$obj = \CST\Objects\Post::get_by_post_id( $headline );
 				if ( $obj ) {
+					$sponsored = $obj->get_sponsored_content();
 					?>
 					<div class="slide">
 						<div class="slide-inner">
+							<?php if ( $sponsored ) { ?>
+						<div class="sponsored-notification">SPONSORED</div>
+						<?php } ?>
 							<?php if ( $obj->get_featured_image_url() ) : ?>
 								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-image">
 									<div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url( 'chiwire-header-medium' ) ); ?>')">
