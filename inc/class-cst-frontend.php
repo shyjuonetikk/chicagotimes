@@ -1486,10 +1486,10 @@ class CST_Frontend {
 	* Generate off canvas menu items
 	*/
 	public function generate_off_canvas_menu() {
-		$conditional_nav = $this->get_conditional_nav();
 		if ( is_front_page() ) {
 			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
 		} else if ( $current_obj = $this->get_current_object() ) {
+			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
 				wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 			} else {
