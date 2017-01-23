@@ -42,7 +42,7 @@ if ( is_single() ) {
 } ?>
 <div class="spacer"></div>
 		<?php if ( is_tax() ) { ?>
-			<div class="row">
+			<div class="row sf-head">
 				<?php do_action( 'cst_section_front_heading', $section_front_spacing ); ?>
 			</div>
 			<?php

@@ -1397,7 +1397,6 @@ class CST_Frontend {
 	* @param $sponsor_markup
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
-		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
 		$section_obj = get_queried_object();
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
@@ -1413,21 +1412,37 @@ class CST_Frontend {
 	</div>
 	<?php echo $sponsor_markup; ?>
 </section>
-		<?php
+<?php
+	$this->determine_and_display_section_subnav( $section_obj );
+	}
+
+	/**
+	* @param $section_obj
+	* Determine and display a sb navigation on section fronts
+	* If a child sub nav display a link to the parent section before the sub nav
+	*/
+	public function determine_and_display_section_subnav( $section_obj ) {
+		$action_slug = str_replace( '-', '_', $section_obj->slug );
+		$section_parent_link = '';
+		if ( has_nav_menu( "{$action_slug}-menu" ) ) {
+			$theme_location = "{$action_slug}-menu";
+		} else {
+			$parent_term = get_term_by( 'id', $section_obj->parent, 'cst_section' );
+			$action_slug = $parent_term->slug;
+			$theme_location = "{$action_slug}-menu";
+			$term_link = wpcom_vip_get_term_link( $parent_term->term_id, 'cst_section' );
+			$section_parent_link = sprintf( '<li class="menu-item menu-item-type-taxonomy menu-item-object-cst_section"><a href="%1$s">%2$s</a></li>', $term_link, $parent_term->name );
+		}
 		wp_nav_menu( array(
-			'theme_location' => "{$action_slug}-menu",
+			'theme_location' => $theme_location,
 			'fallback_cb' => false,
 			'depth' => 1,
 			'container_class' => 'cst-navigation-container',
-			'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="">%3$s</ul></div></div>',
+			'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor ' . $section_obj->slug . '"><ul id="%1$s" class="">' . $section_parent_link . '%3$s</ul></div></div>',
 			'walker' => new GC_walker_nav_menu(),
 			)
 		);
-		?>
-
-		<?php
 	}
-
 	/**
 	* @return bool|object
 	*
