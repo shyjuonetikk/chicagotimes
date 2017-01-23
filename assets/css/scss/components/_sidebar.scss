@@ -197,6 +197,9 @@
 		}
 	}
 
+	.sidebar-scroll-container {
+		position: absolute;
+	}
 }
 
 @media #{$large-up} {

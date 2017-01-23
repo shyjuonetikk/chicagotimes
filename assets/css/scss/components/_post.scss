@@ -294,7 +294,10 @@ article.post {
 	}
 
 }
-
+.single-wrapper {
+	position: relative;
+	top: auto;
+}
 .single {
 
 	#div-gpt-atf-leaderboard, #div-gpt-mobile-leaderboard {
@@ -747,6 +750,9 @@ body[class~="archive"] {
 	}
 	.cst-navigation-container {
 		margin-top: 5px;
+	}
+	.spacer {
+		height:45px;
 	}
 }
 

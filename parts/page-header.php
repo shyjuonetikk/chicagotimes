@@ -35,7 +35,6 @@ if ( is_single() ) {
 ?>
 <div class="off-canvas-wrap" data-offcanvas>
 	<?php get_template_part( 'parts/dfp/dfp-interstitial' ); ?>
-	<div class="inner-wrap">
 
 <?php if ( ! is_page_template( 'page-monster.php' ) ) {
 	get_template_part( 'parts/header-brand-navigation' );

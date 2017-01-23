@@ -1,9 +1,6 @@
 <?php get_header(); ?>
-<?php if ( is_singular() ) { ?>
-	<div class="article-upper-ad-unit">
-		<?php echo CST()->dfp_handler->unit( 1, 'div-gpt-atf-leaderboard', 'dfp dfp-leaderboard dfp-centered article-upper-ad-unit' ); ?>
-	</div>
-<?php } ?>
+<div class="single-wrapper">
+
 	<?php get_sidebar( 'left' ); ?>
 
 	<section id="post-body">
@@ -12,6 +9,11 @@
 
 
 		<div id="main" class="columns small-12 medium-8 large-10 end">
+			<?php if ( is_singular() ) { ?>
+				<div class="article-upper-ad-unit">
+					<?php echo CST()->dfp_handler->unit( 1, 'div-gpt-atf-leaderboard', 'dfp dfp-leaderboard dfp-centered article-upper-ad-unit' ); ?>
+				</div>
+			<?php } ?>
 			<div class="columns small-12 end">
 				<?php get_template_part( 'parts/images/main-site-logo' ); ?>
 			</div>
@@ -45,5 +47,6 @@
 	</section>
 
 	<?php get_sidebar( 'right' ); ?>
+</div>
 
 <?php get_footer(); ?>

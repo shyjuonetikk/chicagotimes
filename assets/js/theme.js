@@ -56,6 +56,7 @@
             this.closeInterstitial = $('#dfp-interstitial-close');
             this.header = $('#header');
             this.articleUpperAdUnit = $('.article-upper-ad-unit');
+            this.spacer = $(".spacer");
       this.adminBar = $('#wpadminbar');
       this.sidebarWidgetCount = $('.widgets > li').length - 1;
       this.anchorMe = $('.widgets > li:nth(' + this.sidebarWidgetCount + ')');
@@ -223,7 +224,7 @@
          * Stick and unstick the post sidebar
          */
         positionAndSizePostSidebar: function(scrollTop) {
-
+          return;
             if ( ! this.leftSidebar.length ) {
                 return;
             }
@@ -234,7 +235,8 @@
       }
 
       if ( this.postSidebar.hasClass('sidebar-normal') ) {
-        postSidebarTop += this.header.outerHeight() - this.adminBar.height() + this.articleUpperAdUnit.height();
+        // postSidebarTop += this.header.outerHeight() - this.adminBar.height() + this.articleUpperAdUnit.height();
+        postSidebarTop += this.spacer.outerHeight() - this.adminBar.height();
         if ( postSidebarTop + 'px' !== this.postSidebar.css('top' ) ) {
           this.postSidebar.css('top', postSidebarTop + 'px' );
         }
@@ -243,7 +245,7 @@
           this.postSidebar.css('top', postSidebarTop + 'px' );
         }
       }
-            if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.featuredPosts.outerHeight() - this.adminBar.height() ) / 2 ) < scrollTop ) {
+            if( this.leftSidebar.length && ( ( this.leftSidebar.height() + this.spacer.outerHeight() - this.adminBar.height() ) / 2 ) < scrollTop ) {
                 if ( ! this.leftSidebar.hasClass('fixed-bottom') ) {
                     this.leftSidebar.addClass('fixed-bottom');
                 }
