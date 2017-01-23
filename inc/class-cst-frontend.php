@@ -1749,7 +1749,7 @@ ready(fn);
 		<?php
 		global $wp_query;
 		if ( is_singular() ) {
-			echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_lead_unit_mapping', 'atf leaderboard 2' );
+			echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_lead_unit_mapping', ( ! $paged ) ? 'atf leaderboard 2' : 'atf leaderboard 3' );
 		} else {
 			if ( 0 === $wp_query->current_post && 0 === $paged ) {
 				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 2' );
