@@ -123,11 +123,12 @@
 				this.galleryTitle.append( title );
 
 			this.slidesWrap.html( slides );
+			var isMobile = $(window).width() <= 640;
 			this.slidesWrap.find(".slide").each($.proxy( function( key, value ){
 				var single_slide = $( value );
 				var img = $("<img />");
 				var src = single_slide.data("image-desktop-src");
-				if ( $(window).width() <= 640 ) {
+				if ( isMobile ) {
 					src = single_slide.data("image-mobile-src");
 				}
 				img.data("caption", single_slide.data("image-caption") ).attr("src", src ).data("slide-url", single_slide.data("slide-url"));
