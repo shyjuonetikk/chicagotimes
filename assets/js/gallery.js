@@ -11,6 +11,7 @@
 		],
 
 		currentAdUnit: "",
+		adContainerId: "",
 
 		adCounter: 0,
 
@@ -116,7 +117,7 @@
 			$("body").addClass("post-gallery-lightbox-active");
 
 			var slides = el.closest(".post-gallery").find(".slides").clone();
-			
+			CSTGallery.adContainerId = el.closest(".post-gallery").attr("id");
 			var gallery_title = $(".slides").data("gallery-title");
 			var title = jQuery( "<h2 />" );
 				title.text( gallery_title );
@@ -125,17 +126,8 @@
 			this.slidesWrap.html( slides );
 			var isMobile = $(window).width() <= 640;
 			this.slidesWrap.find(".slide").each($.proxy( function( key, value ){
-				var single_slide = $( value );
-				var img = $("<img />");
-				var src = single_slide.data("image-desktop-src");
-				if ( isMobile ) {
-					src = single_slide.data("image-mobile-src");
-				}
-				img.data("caption", single_slide.data("image-caption") ).attr("src", src ).data("slide-url", single_slide.data("slide-url"));
-				single_slide.append( img );
-				img.on("load",$.proxy(function(){
-					this.centerImageWithinSlide( img );
-				}, this ) );
+			  this.possiblyInjectAd(key,value);
+        this.buildSlide(value,isMobile);
 			}, this ) );
 			this.slidesWrap.find( ".slides" ).slick({
 				onBeforeChange: $.proxy( function( e ) {
@@ -245,6 +237,31 @@
 			return this.currentAdUnit;
 		},
 
+    buildSlide: function(value,isMobile) {
+      var single_slide = $( value );
+      var img = $("<img />");
+      var src = single_slide.data("image-desktop-src");
+      if ( isMobile ) {
+        src = single_slide.data("image-mobile-src");
+      }
+      img.data("caption", single_slide.data("image-caption") ).attr("src", src ).data("slide-url", single_slide.data("slide-url"));
+      single_slide.append( img );
+      img.on("load",$.proxy(function(){
+        this.centerImageWithinSlide( img );
+      }, this ) );
+    },
+
+    possiblyInjectAd: function(key,value) {
+		  if ( 0 === key ) {
+        return;
+      }
+		  if ( 0 === key%3 ) {
+        var single_slide = $( value );
+        var divAd = $("<div>");
+        divAd.attr("id",CSTGallery.adContainerId+"-"+key);
+        single_slide.append(divAd);
+      }
+    },
 		/**
 		 * Trigger refresh of the ad unit
 		 */

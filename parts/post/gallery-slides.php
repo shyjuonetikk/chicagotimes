@@ -11,7 +11,7 @@
 		<?php foreach ( $obj->get_gallery_image_ids() as $slide_number => $image_id ) :
 			$image = get_post( $image_id );
 			if ( ! $image ) {
-				continue;
+				continue; // insert ad as slide unit here?
 			}
 
 			$attachment = new \CST\Objects\Attachment( $image );
