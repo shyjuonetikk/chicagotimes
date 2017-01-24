@@ -92,6 +92,7 @@ class CST_Frontend {
 
 		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
 		add_action( 'wp_head', array( $this, 'action_cst_openx_header_bidding_script' ) );
+		add_action( 'wp_head', [ $this, 'action_distroscale_injection' ] );
 	}
 
 	/**
@@ -109,6 +110,7 @@ class CST_Frontend {
 		add_filter( 'nav_menu_link_attributes', array( $this, 'filter_nav_menu_link_attributes' ), 10, 3 );
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
+		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 	}
 
 	/**
@@ -202,7 +204,9 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-						wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
+						if ( ! $obj->get_sponsored_content() ) {
+							wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
+						}
 						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
 					}
 
@@ -971,49 +975,57 @@ class CST_Frontend {
 	public function cst_post_recommendation_block( $feed_url, $section_name ) {
 
 		$cache_key = md5( $feed_url );
-			$result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-			if ( $result === false ) {
-				$response = wpcom_vip_file_get_contents( $feed_url );
-				if ( ! is_wp_error( $response ) ) {
-					$result = json_decode( $response );
-					wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+		$result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		if ( $result === false ) {
+			$response = wpcom_vip_file_get_contents( $feed_url );
+			if ( ! is_wp_error( $response ) ) {
+				$result = json_decode( $response );
+				wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+			}
+		}
+		?>
+		<div class="medium-11 medium-offset-1 cst-recommendations">
+			<div class="columns">
+			<hr>
+			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
+			<hr>
+		</div>
+		<?php foreach( $result->pages as $item ) {
+			$chart_beat_top_content = (array) $item->metrics->post_id->top;
+			$top_item = [];
+			if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
+				$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
+			}
+			if ( isset( $top_item[0] ) ) {
+				$image_url = $this->get_remote_featured_image( $top_item[0] );
+			} else {
+				$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
+			}
+			$obj = \CST\Objects\Post::get_by_post_id( $top_item[0] );
+			if ( $obj ) {
+				$sponsored_markup = '';
+				if ( $obj->get_sponsored_content() ) {
+					$sponsored_markup = '<div class="sponsored-notification"></div>';
 				}
 			}
+			$temporary_title       = explode( '|', $item->title );
+			$article_curated_title = $temporary_title[0];
 			?>
-			<div class="medium-11 medium-offset-1 cst-recommendations">
-				<div class="columns">
-			 	<hr>
-				<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
-				<hr>
-			</div>
-			<?php foreach( $result->pages as $item ) {
-				$chart_beat_top_content = (array) $item->metrics->post_id->top;
-				$top_item = [];
-				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
-					$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
-				}
-				if ( isset( $top_item[0] ) ) {
-					$image_url = $this->get_remote_featured_image( $top_item[0] );
-				} else {
-					$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
-				}
-				$temporary_title       = explode( '|', $item->title );
-				$article_curated_title = $temporary_title[0];
-				?>
-				<div class="cst-recommended-content columns medium-6 small-12">
-					<div class="cst-article">
-						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
-						<div class="cst-recommended-image -amp-layout-size-defined">
-							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
-						</div>
-						</a>
-						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
-							<span><?php echo esc_html( $article_curated_title ); ?></span>
-						</a>
+			<div class="cst-recommended-content columns medium-6 small-12">
+				<div class="cst-article">
+					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
+					<div class="cst-recommended-image -amp-layout-size-defined">
+						<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
 					</div>
+					</a>
+					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
+						<span><?php echo esc_html( $article_curated_title ); ?></span>
+					</a>
+					<?php echo wp_kses_post( $sponsored_markup ); ?>
 				</div>
-			<?php } ?>
 			</div>
+		<?php } ?>
+		</div>
 <?php
 
 	}
@@ -1281,14 +1293,17 @@ class CST_Frontend {
  	 *
 	 * @param $section_front_spacing
 	 *
+	 * @return  boolean
 	 * Pretty title for section front
 	 */
 	function action_cst_section_front_heading( $section_front_spacing ) {
 
 		if ( $this->do_sponsor_header() ) {
 			$this->sponsor_header();
+			return true;
 		} else {
 			$this->display_section_front_title( 'row grey-background wire upper-heading', 'columns small-12', '' );
+			return false;
 		}
 	}
 	/**
@@ -1478,6 +1493,55 @@ ready(fn);
 		}
 	}
 
+	/**
+	* Inject sponsored content into selected article in the third paragraph
+	* Does not inject into feeds
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_sponsored_content( $article_content ) {
+
+ 		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
+ 			return $article_content;
+ 		}
+ 		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+ 		if ( 'cst_article' !== $obj->get_post_type() ) {
+ 			return $article_content;
+ 		}
+ 		$after_paragraph_number = 2;
+ 		if ( $sponsor_array = $obj->get_sponsored_content() ) {
+			$matched_content = preg_match_all( '/(?:[^(p>)].*){1}/i', $article_content, $matched_items );
+			if ( false === $matched_content ) {
+				return $article_content;
+			}
+			if ( ! empty( $matched_items ) && $matched_content >= $after_paragraph_number ) {
+				$matches = $matched_items[0];
+				$sponsor_image_url = wp_get_attachment_image_src( $sponsor_array['sponsor_image'], array( 300, 165 ) );
+				$markup_to_inject_template = '
+	<div class="sponsored-insert">
+	<div class="row">
+		<div class="small-5 columns sponsor-thumbnail"><a href="%2$s"><img src="%5$s" width="%6$s" height="%7$s"></a></div>
+		<div class="small-7 columns sponsor-wording"><div class="holder"><h4>Sponsored by <a href="%2$s" class="sponsorname">%1$s</a></h4><p>%3$s</p><p>%4$s</p><a href="%2$s"><span class="seemore">See More</span></a></div></div>
+	</div>
+	</div>
+	';
+				$content_with_sponsorship = sprintf( $markup_to_inject_template,
+					esc_attr( $sponsor_array['sponsor_content_name'] ),
+					esc_url( $sponsor_array['sponsor_url'] . '?utm_source=sponsored_article&utm_medium=autos' ),
+					esc_attr( $sponsor_array['sponsor_line1'] ),
+					esc_attr( $sponsor_array['sponsor_line2'] ),
+					esc_url( $sponsor_image_url[0] ),
+					esc_attr( $sponsor_image_url[1] ),
+					esc_attr( $sponsor_image_url[2] )
+				 );
+				$paragraph_with_script = trim( "\n" . $matches[2] ) . $content_with_sponsorship;
+				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
+			}
+ 		}
+
+ 		return $article_content;
+ 	}
+
 	public function inject_newsletter_signup( $newsletter ) {
 
 		$newsletter_codes = array(
@@ -1624,4 +1688,18 @@ ready(fn);
 <?php
 	}
 
+	/**
+	* Include Distroscale on Production homepage and all pages on Pre-Production
+	*/
+	public function action_distroscale_injection() {
+		$site = CST()->dfp_handler->get_parent_dfp_inventory();
+		if ( 'chicago.suntimes.com.test' === $site ) {
+			if ( is_front_page() || is_tax() || is_singular() ) { ?>
+<!-- ddistroscale -->
+<script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"></script>
+<div id="ds_default_anchor"></div>
+<!-- /ddistroscale -->
+			<?php }
+		}
+	}
 }
