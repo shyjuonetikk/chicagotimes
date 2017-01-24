@@ -40,10 +40,10 @@
 				this.openLightboxGallery( e );
 			}, this) );
 
-			var delayedTimer = false;
+			var delayedTimer = 0;
 			$(window).resize( $.proxy( function() {
 
-				if ( delayedTimer ) {
+				if ( 0 !== delayedTimer ) {
 					clearTimeout( delayedTimer );
 				}
 
