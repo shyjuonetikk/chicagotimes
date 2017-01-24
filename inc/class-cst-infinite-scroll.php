@@ -100,8 +100,8 @@ class CST_Infinite_Scroll {
 							'field'     => 'slug',
 							'terms'     => $query_args['cst_section'],
 							'include_children' => false,
-							)
-						)
+							),
+						),
 					);
 				$temp_query = new WP_Query( $temp_query_args );
 
@@ -112,10 +112,10 @@ class CST_Infinite_Scroll {
 
 				$post = array_pop( $temp_query->posts );
 
-				$query_args[ 'post_type' ] = $post->post_type;
-				$query_args[ 'name' ] = $post->post_name;
+				$query_args['post_type'] = $post->post_type;
+				$query_args['name'] = $post->post_name;
 				$query_args[ $post->post_type ] = $post->post_name;
-				$query_args[ 'posts_per_page' ] = 1;
+				$query_args['posts_per_page'] = 1;
 
 				// Make sure Liveblog has access to the global post when setting the entries query
 				add_action( 'wp_head', function(){
@@ -171,7 +171,7 @@ class CST_Infinite_Scroll {
 						'field'     => 'slug',
 						'terms'     => get_query_var( 'cst_section' ),
 					),
-				)
+				),
 			);
 		if ( get_query_var( 'infinite-sidebar-date' ) ) {
 			$last_post_date = get_query_var( 'infinite-sidebar-date' );
@@ -186,8 +186,8 @@ class CST_Infinite_Scroll {
 		$wp_query->is_singular = true; // Fake single context
 
 		$response = '';
-		if ( $latest_query->have_posts() ):
-			while( $latest_query->have_posts() ) : $latest_query->the_post();
+		if ( $latest_query->have_posts() ) :
+			while ( $latest_query->have_posts() ) : $latest_query->the_post();
 				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 				$response .= CST()->get_template_part( 'sidebar/post', array( 'obj' => $obj ) );
 			endwhile;

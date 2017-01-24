@@ -1,7 +1,7 @@
 /* global googletag, CSTYieldMoData, CSTData, CSTData.home_url, CSTInfiniteScrollData, CSTInfiniteScrollData.readMoreLabel */
 ;(function( $ ){
 
-	var isIE = ( -1 !== navigator.userAgent.search( "MSIE" ) );
+	var isIE = ( -1 != navigator.userAgent.search( "MSIE" ) );
 	if ( isIE ) {
 		var IEVersion = navigator.userAgent.match(/MSIE\s?(\d+)\.?\d*;/);
 		var IEVersion = parseInt( IEVersion[1] );
@@ -101,12 +101,12 @@
 				uri = post.data("cst-post-uri");
 				wp_title = post.data("cst-wp-title");
 
-				if ( uri === CSTInfiniteScroll.activeURI ) {
+				if ( uri == CSTInfiniteScroll.activeURI ) {
 					return;
 				}
 				CSTInfiniteScroll.activeURI = uri;
 
-				if ( CSTInfiniteScroll.supportsPushState() && window.location.href !== uri ) {
+				if ( CSTInfiniteScroll.supportsPushState() && window.location.href != uri ) {
 					history.pushState( null, null, uri );
 					CSTAnalytics.currentURL = window.location.href;
 				} else if ( ! CSTInfiniteScroll.supportsPushState() ) {
@@ -121,9 +121,9 @@
 
 
         active_post = jQuery(".cst-active-scroll-post");
-				var trigger = active_post.find(".post-content")||null;
+				var trigger = active_post.find(".post-meta-social")||null;
         if ( trigger ) {
-          var active_post_position = active_post.position().top + 251;
+          var active_post_position = active_post.position().top + 135;
           jQuery(".sidebar-scroll-container").css("top", active_post_position + "px");
         }
 
@@ -148,9 +148,9 @@
 					offset = window.infiniteScroll.scroller.offset > 0 ? window.infiniteScroll.scroller.offset - 1 : 0;
 					visible_page = CSTInfiniteScroll.activePage + offset;
 					url = CSTInfiniteScroll.baseURLWithoutPage;
-					if ( CSTInfiniteScroll.activePage < 1 && current_hash !== "" && current_hash !== "#" && current_hash !== "#page/" + visible_page + "/" ) {
+					if ( CSTInfiniteScroll.activePage < 1 && current_hash != "" && current_hash != "#" && current_hash != "#page/" + visible_page + "/" ) {
 						window.location.hash = "";
-					} else if ( CSTInfiniteScroll.activePage > 1 && current_hash !== "#page/" + visible_page + "/" ) {
+					} else if ( CSTInfiniteScroll.activePage > 1 && current_hash != "#page/" + visible_page + "/" ) {
 						window.location.hash = "page/" + visible_page + "/";
 					}
 
@@ -162,7 +162,7 @@
 
 					uri = url.replace( window.location.origin, "" );
 
-					if ( CSTInfiniteScroll.activeURI !== uri ) {
+					if ( CSTInfiniteScroll.activeURI != uri ) {
 						CSTAnalytics.currentURL = url;
 						CSTAnalytics.triggerPageview();
 						CSTInfiniteScroll.activeURI = CSTAnalytics.currentURL.replace( window.location.origin, "" );
@@ -182,7 +182,7 @@
 			var self = window.infiniteScroll.scroller,
 				offset = self.offset > 0 ? self.offset - 1 : 0,
 				pageSlug = -1 == page ? self.origURL : window.location.protocol + "//" + self.history.host + self.history.path.replace( /%d/, page + offset ) + self.history.parameters;
-			if ( CSTInfiniteScroll.supportsPushState() && window.location.href !== pageSlug ) {
+			if ( CSTInfiniteScroll.supportsPushState() && window.location.href != pageSlug ) {
 				history.pushState( null, null, pageSlug );
 			}
 
@@ -236,7 +236,7 @@
 		/*
 		 * Jetpack supports IE >= 10, but we support IE9 too
 		 */
-		if ( isIE && IEVersion === 9 ) {
+		if ( isIE && IEVersion == 9 ) {
 			var timer = false;
 			$( window ).bind( "scroll", function() {
 				if ( timer ) {
