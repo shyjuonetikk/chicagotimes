@@ -3,12 +3,12 @@
 	<?php if ( $src = $obj->get_featured_image_url( 'cst-article-featured' ) ) : ?>
 	<div class="post-gallery-lead-image-wrap">
 		<img src="<?php echo esc_url( $src ); ?>" class="post-gallery-lead-image" />
-		<a href="#" class="post-gallery-open-button"><i class="fa fa-photo"></i>&nbsp;<?php esc_html_e( 'Gallery', 'chicagosuntimes' ); ?></a>
+		<a href="#" class="post-gallery-open-button"><i class="fa fa-photo"></i>&nbsp;<?php echo esc_html( 'Gallery', 'chicagosuntimes' ); ?></a>
 	</div>
 	<?php endif; ?>
 
 	<div class="slides" data-gallery-title="<?php echo esc_html( $obj->the_title() ); ?>">
-		<?php foreach( $obj->get_gallery_image_ids() as $slide_number => $image_id ) :
+		<?php foreach ( $obj->get_gallery_image_ids() as $slide_number => $image_id ) :
 			$image = get_post( $image_id );
 			if ( ! $image ) {
 				continue;
