@@ -124,14 +124,14 @@
 
 			this.slidesWrap.html( slides );
 			this.slidesWrap.find(".slide").each($.proxy( function( key, value ){
-				var el = $( value );
+				var single_slide = $( value );
 				var img = $("<img />");
-				var src = el.data("image-desktop-src");
+				var src = single_slide.data("image-desktop-src");
 				if ( $(window).width() <= 640 ) {
-					src = el.data("image-mobile-src");
+					src = single_slide.data("image-mobile-src");
 				}
-				img.data("caption", el.data("image-caption") ).attr("src", src ).data("slide-url", el.data("slide-url"));
-				el.append( img );
+				img.data("caption", single_slide.data("image-caption") ).attr("src", src ).data("slide-url", single_slide.data("slide-url"));
+				single_slide.append( img );
 				img.on("load",$.proxy(function(){
 					this.centerImageWithinSlide( img );
 				}, this ) );
