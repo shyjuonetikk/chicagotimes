@@ -53,7 +53,7 @@
 						this.centerImageWithinSlide( $( value ) );
 					}, this ) );
 
-					delayedTimer = false;
+					delayedTimer = 0;
 				}, this ), 10 );
 			}, this ) );
 
