@@ -96,7 +96,10 @@ body.post-gallery-lightbox-active {
 		background: $black;
 		border-left: 2px solid $white;
 		padding: 15px 20px 10px;
-
+		@media ( max-width: 667px ) {
+			z-index: 4;
+			padding-top: 10px;
+		}
 		#cst-gallery-title {
 			margin-top: 15px;
 			@media #{$medium-down} and (orientation: landscape){
@@ -131,8 +134,9 @@ body.post-gallery-lightbox-active {
 			@media #{$medium-down} {
 				padding-bottom: 0;
 				background: $cst_black;
+				display: none;
 				@media #{$landscape} {
-					display: none !important;
+					display: none;
 				}
 			}
 
@@ -153,12 +157,18 @@ body.post-gallery-lightbox-active {
 				display: block;
 			}
 		}
-		@media #{$landscape} and ( min-width: 668px ) {
+		.show-on-small-either-orientation {
+			display: block;
+			color: #fff;
+			font-size:0.8rem;
+			margin-bottom:4px;
+		}
+		@media #{$landscape} and ( min-width: 737px ) {
 			.show-on-small-either-orientation {
 				display: none;
 			}
 		}
-		@media #{$portrait} and ( min-width: 668px ) {
+		@media #{$portrait} and ( min-width: 415px ) {
 			.show-on-small-either-orientation {
 				display: none;
 			}
@@ -266,7 +276,7 @@ body.post-gallery-lightbox-active {
 		}
 		@media #{$small-only} and (orientation: portrait ){
 			.slick-slide img {
-				top: 30px !important;
+				top: 75px !important;
 			}
 		}
 		@media #{$xmedium-only} and (orientation: landscape ){

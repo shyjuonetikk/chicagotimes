@@ -2472,6 +2472,10 @@ body.post-gallery-lightbox-active {
     background: #282828;
     border-left: 2px solid white;
     padding: 15px 20px 10px; }
+    @media (max-width: 667px) {
+      #cst-gallery-wrap #cst-gallery-slides-sidebar {
+        z-index: 4;
+        padding-top: 10px; } }
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title {
       margin-top: 15px; }
       @media only screen and (max-width:47.398em) and (orientation: landscape) {
@@ -2501,10 +2505,11 @@ body.post-gallery-lightbox-active {
       @media only screen and (max-width:47.398em) {
         #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
           padding-bottom: 0;
-          background: #231f20; }
+          background: #231f20;
+          display: none; }
           @media only screen and (orientation: landscape) {
             #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
-              display: none !important; } } }
+              display: none; } } }
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-ad {
       position: absolute;
       bottom: 30px; }
@@ -2516,10 +2521,15 @@ body.post-gallery-lightbox-active {
       display: none; }
       #cst-gallery-wrap #cst-gallery-slides-sidebar .show-on-small-either-orientation.active {
         display: block; }
-    @media only screen and (orientation: landscape) and (min-width: 668px) {
+    #cst-gallery-wrap #cst-gallery-slides-sidebar .show-on-small-either-orientation {
+      display: block;
+      color: white;
+      font-size: 0.8rem;
+      margin-bottom: 4px; }
+    @media only screen and (orientation: landscape) and (min-width: 737px) {
       #cst-gallery-wrap #cst-gallery-slides-sidebar .show-on-small-either-orientation {
         display: none; } }
-    @media only screen and (orientation: portrait) and (min-width: 668px) {
+    @media only screen and (orientation: portrait) and (min-width: 415px) {
       #cst-gallery-wrap #cst-gallery-slides-sidebar .show-on-small-either-orientation {
         display: none; } }
   @media only screen and (max-width:64em) {
@@ -2580,7 +2590,7 @@ body.post-gallery-lightbox-active {
         top: 1px !important; } }
     @media only screen and (max-width: 40em) and (orientation: portrait) {
       #cst-gallery-wrap .slick-slider .slick-slide img {
-        top: 30px !important; } }
+        top: 75px !important; } }
     @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
       #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
         top: 12%; } }
