@@ -111,6 +111,7 @@ body.post-gallery-lightbox-active {
 		}
 
 		#cst-gallery-slide-caption {
+			background: $cst_black;
 			font-family: $open_sans;
 			font-size: 1rem;
 			line-height: 1.5rem;
@@ -143,8 +144,25 @@ body.post-gallery-lightbox-active {
 		}
 		.accordion dd>a {
 			padding: 0.1rem;
+			background: $cst_black;
+			color: $white;
 		}
-
+		.show-on-small-either-orientation {
+			display: none;
+			&.active {
+				display: block;
+			}
+		}
+		@media #{$landscape} and ( min-width: 668px ) {
+			.show-on-small-either-orientation {
+				display: none;
+			}
+		}
+		@media #{$portrait} and ( min-width: 668px ) {
+			.show-on-small-either-orientation {
+				display: none;
+			}
+		}
 	}
 	@media #{$xmedium-down} {
 		#cst-gallery-slides-wrap {
@@ -266,7 +284,7 @@ body.post-gallery-lightbox-active {
 		@media #{$small-only}{
 			.slick-prev,
 			.slick-next {
-				top: 0;
+				top: 30%;
 			}
 		}
 	}

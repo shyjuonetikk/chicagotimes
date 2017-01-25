@@ -22,6 +22,8 @@
 
 			this.postBody = $("#post-body");
 			this.backdrop = $("#cst-gallery-backdrop");
+			this.captionButton = $("#cst-caption-button");
+			this.gallerySlideCaption = $("#cst-gallery-slide-caption");
 			this.wrap = $("#cst-gallery-wrap");
 			this.slidesWrap = this.wrap.find("#cst-gallery-slides-wrap");
 			this.ad = $("#cst-gallery-slide-ad");
@@ -71,6 +73,11 @@
 			this.wrap.on("click", "#cst-gallery-desktop-next-button", $.proxy( function( e ) {
 				e.preventDefault();
 				this.slidesWrap.find( ".slides" ).slickNext();
+			}, this ) );
+
+			this.wrap.on("click", "#cst-caption-button", $.proxy( function( e ) {
+				e.preventDefault();
+				this.gallerySlideCaption.toggle();
 			}, this ) );
 
 			this.wrap.on("click", ".slick-active", $.proxy( function( e ) {
@@ -130,20 +137,20 @@
 			}, this ) );
 			this.slidesWrap.find( ".slides" ).slick({
 				onBeforeChange: $.proxy( function( e ) {
-					// this.wrap.find("#cst-gallery-slide-caption").hide();
+					this.wrap.find("#cst-gallery-slide-caption").hide();
 				}, this ),
 				onAfterChange: $.proxy( function( e ) {
 
 					var caption = this.slidesWrap.find(".slick-active").data("image-caption");
 
-					this.wrap.find("#cst-gallery-slide-caption").text( caption );
+					this.wrap.find("#cst-gallery-slide-caption").text( caption ).hide();
           var orientation = window.matchMedia("(orientation: portrait)");
           if ( orientation.matches ) {
             var viewportHeight = $(window).width();
-            var captionHeight = $("#cst-gallery-slide-caption").height();
             var currentSlideHeight = this.slidesWrap.find(".slick-active").height();
 
-            $("#cst-gallery-slides-wrap").css("margin-top", ((currentSlideHeight-(viewportHeight-captionHeight)) / 2) + "px");
+            $("#cst-gallery-slides-wrap").css("margin-top", ((currentSlideHeight-viewportHeight) / 2) + "px");
+            this.wrap.find("#cst-gallery-slide-caption").text( caption ).show();
           }
 
           var slideUrl = this.slidesWrap.find(".slick-active").data("slide-url");
@@ -157,7 +164,7 @@
 				}, this ),
 				onInit: $.proxy( function() {
 					var caption = this.slidesWrap.find(".slick-active").data("image-caption");
-					this.wrap.find("#cst-gallery-slide-caption").text( caption );
+					this.wrap.find("#cst-gallery-slide-caption").text( caption ).show();
 					this.slidesWrap.find( ".slick-prev").html("<i class=\"fa fa-chevron-left\"></i>");
 					this.slidesWrap.find( ".slick-next").html("<i class=\"fa fa-chevron-right\"></i>");
 
