@@ -129,7 +129,7 @@ body.post-gallery-lightbox-active {
 
 			@media #{$medium-down} {
 				padding-bottom: 0;
-
+				background: $cst_black;
 				@media #{$landscape} {
 					display: none !important;
 				}
@@ -140,6 +140,9 @@ body.post-gallery-lightbox-active {
 		#cst-gallery-slide-ad {
 			position: absolute;
 			bottom: 30px;
+		}
+		.accordion dd>a {
+			padding: 0.1rem;
 		}
 
 	}
