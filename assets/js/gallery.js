@@ -126,7 +126,6 @@
 			this.slidesWrap.html( slides );
 			var isMobile = $(window).width() <= 640;
 			this.slidesWrap.find(".slide").each($.proxy( function( key, value ){
-			  this.possiblyInjectAd(key,value);
         this.buildSlide(value,isMobile);
 			}, this ) );
 			this.slidesWrap.find( ".slides" ).slick({
@@ -241,27 +240,18 @@
       var single_slide = $( value );
       var img = $("<img />");
       var src = single_slide.data("image-desktop-src");
-      if ( isMobile ) {
-        src = single_slide.data("image-mobile-src");
+      if ( src ) {
+        if ( isMobile ) {
+          src = single_slide.data("image-mobile-src");
+        }
+        img.data("caption", single_slide.data("image-caption") ).attr("src", src ).data("slide-url", single_slide.data("slide-url"));
+        single_slide.append( img );
+        img.on("load",$.proxy(function(){
+          this.centerImageWithinSlide( img );
+        }, this ) );
       }
-      img.data("caption", single_slide.data("image-caption") ).attr("src", src ).data("slide-url", single_slide.data("slide-url"));
-      single_slide.append( img );
-      img.on("load",$.proxy(function(){
-        this.centerImageWithinSlide( img );
-      }, this ) );
     },
 
-    possiblyInjectAd: function(key,value) {
-		  if ( 0 === key ) {
-        return;
-      }
-		  if ( 0 === key%3 ) {
-        var single_slide = $( value );
-        var divAd = $("<div>");
-        divAd.attr("id",CSTGallery.adContainerId+"-"+key);
-        single_slide.append(divAd);
-      }
-    },
 		/**
 		 * Trigger refresh of the ad unit
 		 */

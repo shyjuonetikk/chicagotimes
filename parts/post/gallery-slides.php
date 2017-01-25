@@ -8,26 +8,34 @@
 	<?php endif; ?>
 
 	<div class="slides" data-gallery-title="<?php echo esc_html( $obj->the_title() ); ?>">
-		<?php foreach ( $obj->get_gallery_image_ids() as $slide_number => $image_id ) :
-			$image = get_post( $image_id );
-			if ( ! $image ) {
-				continue; // insert ad as slide unit here?
-			}
+		<?php $gallery_items = $obj->get_gallery_image_ids();
+//			array_splice( $gallery_items, 2, 0, -1 ); // -1 represents insert ad
+		?>
+		<?php foreach ( $gallery_items as $slide_number => $image_id ) :
+			if ( -1 === $image_id ) { ?>
+				<div class="slide" id="post-gallery-<?php echo (int) $obj->get_id() . '-' . $slide_number; ?>">
+				<?php echo CST()->dfp_handler->dynamic_unit( $obj->get_id(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 3' ); ?>
+				</div>
+			<?php } else {
+				$image = get_post( $image_id );
+				if ( ! $image ) {
+					continue;
+				}
+				$attachment = new \CST\Objects\Attachment( $image );
+				$orientation = $attachment->get_orientation();
+				if ( 'vertical' == $orientation ) {
+					$desktop_src = $attachment->get_url( 'cst-gallery-desktop-vertical' );
+					$mobile_src = $attachment->get_url( 'cst-gallery-mobile-vertical' );
+				} else {
+					$desktop_src = $attachment->get_url( 'cst-gallery-desktop-horizontal' );
+					$mobile_src = $attachment->get_url( 'cst-gallery-mobile-horizontal' );
+				}
 
-			$attachment = new \CST\Objects\Attachment( $image );
-			$orientation = $attachment->get_orientation();
-			if ( 'vertical' == $orientation ) {
-				$desktop_src = $attachment->get_url( 'cst-gallery-desktop-vertical' );
-				$mobile_src = $attachment->get_url( 'cst-gallery-mobile-vertical' );
-			} else {
-				$desktop_src = $attachment->get_url( 'cst-gallery-desktop-horizontal' );
-				$mobile_src = $attachment->get_url( 'cst-gallery-mobile-horizontal' );
-			}
-
-			$caption = $attachment->get_caption();
-			$slide_url = $obj->get_permalink() . '#slide-' . $slide_number;
+				$caption = $attachment->get_caption();
+				$slide_url = $obj->get_permalink() . '#slide-' . $slide_number;
 		?>
 		<div class="slide" data-image-desktop-src="<?php echo esc_url( $desktop_src ); ?>" data-image-mobile-src="<?php echo esc_url( $mobile_src ); ?>" data-image-caption="<?php echo esc_attr( $caption ); ?>" data-slide-url="<?php echo esc_url( $slide_url ); ?>"></div>
+		<?php } ?>
 		<?php endforeach; ?>
 	</div>
 </div>
