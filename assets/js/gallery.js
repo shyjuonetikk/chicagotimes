@@ -135,8 +135,18 @@
 				onAfterChange: $.proxy( function( e ) {
 
 					var caption = this.slidesWrap.find(".slick-active").data("image-caption");
+
 					this.wrap.find("#cst-gallery-slide-caption").text( caption ).show();
-					var slideUrl = this.slidesWrap.find(".slick-active").data("slide-url");
+          var orientation = window.matchMedia("(orientation: portrait)");
+          if ( orientation.matches ) {
+            var viewportHeight = $(window).width();
+            var captionHeight = $("#cst-gallery-slide-caption").height();
+            var currentSlideHeight = this.slidesWrap.find(".slick-active").height();
+
+            $("#cst-gallery-slides-wrap").css("margin-top", ((currentSlideHeight-(viewportHeight-captionHeight)) / 2) + "px");
+          }
+
+          var slideUrl = this.slidesWrap.find(".slick-active").data("slide-url");
 					var parts = slideUrl.split("#");
 					window.location.hash = parts[1];
 					CSTAnalytics.currentURL = slideUrl;

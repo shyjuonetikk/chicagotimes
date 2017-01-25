@@ -245,7 +245,7 @@ body.post-gallery-lightbox-active {
 		}
 		@media #{$small-only} and (orientation: portrait ){
 			.slick-slide img {
-				top: 55px !important;
+				top: 30px !important;
 			}
 		}
 		@media #{$xmedium-only} and (orientation: landscape ){
