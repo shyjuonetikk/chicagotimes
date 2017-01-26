@@ -1701,7 +1701,7 @@ ready(fn);
 <!-- /ddistroscale -->
 			<?php }
 		} elseif ( 'chicago.suntimes.com' === $site ) {
-			if ( is_front_page() ) { ?>
+			if ( is_singular() ) { ?>
 <!-- distroscale -->
 <script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"></script>
 <div id="ds_default_anchor"></div>
