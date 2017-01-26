@@ -1164,17 +1164,17 @@ class CST_Frontend {
 
 	/**
 	 * @return string
-	 * 
+	 *
 	 * Determine and return the slug for use in headlines slider, sidebar and other template files.
 	 */
 	public function slug_detection() {
 		if ( is_author() ) {
 			$primary_slug = 'news';
-		} elseif( is_single() ) {
+		} elseif ( is_single() ) {
 			$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 			$primary_section = $obj->get_primary_parent_section();
 			$primary_slug = $primary_section->slug;
-			if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
+			if ( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 				$parent_terms = get_term( $primary_section->parent, 'cst_section' );
 				if ( is_wp_error( $parent_terms ) ) {
 					$primary_slug = $primary_section->slug;
@@ -1187,14 +1187,14 @@ class CST_Frontend {
 			}
 		} else {
 			$primary_section = get_queried_object();
-			if( isset( $primary_section ) && $primary_section->taxonomy == 'cst_section') {
-				if( $primary_section->parent != 0 ) {
+			if ( isset( $primary_section ) && ( 'cst_section' === $primary_section->taxonomy ) ) {
+				if ( 0 !== $primary_section->parent ) {
 					$primary_slug = $primary_section->slug;
-					if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
+					if ( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 						$current_section = get_term( $primary_section->parent, 'cst_section' );
-						if( ! in_array( $current_section->slug, CST_Frontend::$post_sections ) ) {
+						if ( ! in_array( $current_section->slug, CST_Frontend::$post_sections ) ) {
 							$current_section = get_term( $current_section->parent, 'cst_section' );
-							if( ! in_array( $current_section->slug, CST_Frontend::$post_sections ) ) {
+							if ( ! in_array( $current_section->slug, CST_Frontend::$post_sections ) ) {
 								$current_section = get_term( $current_section->parent, 'cst_section' );
 							} else {
 								$primary_slug = $current_section->slug;
@@ -1206,11 +1206,11 @@ class CST_Frontend {
 				} else {
 					$primary_slug = $primary_section->slug;
 				}
-			}  else {
+			} else {
 				$primary_slug = 'news';
 			}
 		}
-		
+
 		return $primary_slug;
 	}
 
