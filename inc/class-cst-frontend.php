@@ -1735,10 +1735,9 @@ ready(fn);
 	}
 
 	/**
-	* @param $content_obj
 	* @return bool
 	*/
-	public function is_syndicated_content( $content_obj ) {
+	public function is_syndicated_content(  ) {
 		// Determine if content_obj is a syndicated item and should not be included in a feed
 
 		$syndication_partners = array(
