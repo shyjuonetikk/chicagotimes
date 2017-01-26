@@ -479,6 +479,9 @@ class CST_Frontend {
 
 	/**
 	 * Remove the title filter if there is one
+	 * @param $output
+	 *
+	 * @return mixed
 	 */
 	public function filter_walker_nav_menu_start_el( $output ) {
 
@@ -492,6 +495,12 @@ class CST_Frontend {
 
 	/**
 	 * Filter oEmbed response HTML to make some embeds responsive
+	 * @param $cache
+	 * @param $url
+	 * @param $attr
+	 * @param $post_ID
+	 *
+	 * @return mixed
 	 */
 	public function filter_embed_oembed_html( $cache, $url, $attr, $post_ID ) {
 
@@ -630,11 +639,10 @@ class CST_Frontend {
 					'taxonomy'  => 'cst_section',
 					'field'     => 'slug',
 					'terms'     => $section,
-				)
+				),
 			);
 			unset( $query_args['cst_section'] );
 		}
-
 
 		$post_query = new \WP_Query( $query_args );
 		$fetched_posts = array_merge( $fetched_posts, wp_list_pluck( $post_query->posts, 'ID' ) );
@@ -646,14 +654,19 @@ class CST_Frontend {
 		$data = json_decode( $response );
 		if ( ! $data ) {
 			return false;
-		} 
+		}
 		return $data;
 
 	}
 
-	public function get_weather_icon($number) {
+	/**
+	 * @param $number
+	 *
+	 * @return string
+	 */
+	public function get_weather_icon( $number ) {
 		$icon = '';
-		switch( $number ) {
+		switch ( $number ) {
 
 			case 1:
 				$icon = 'wi-sunny-day';
@@ -765,22 +778,24 @@ class CST_Frontend {
 
 	}
 
-	public function get_taxonomy_image($taxonomy) {
+	/**
+	* @param $taxonomy name of taxonomy icon
+	*
+	* @return bool|string
+	*/
+	public function get_taxonomy_image( $taxonomy ) {
 
 		$taxonomy = sanitize_key( $taxonomy );
-		if( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg' ) ) {
+		if ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg' ) ) {
 		    return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg';
-		}
-		elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.svg' ) ) {
+		} elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.svg' ) ) {
 			return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.svg';
-		}
-		elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.png' ) ) {
+		} elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.png' ) ) {
 			return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.png';
-		}
-		 else {
+		} else {
 		    return false;
 		}
-		
+
 	}
 
 	public function cst_homepage_get_traffic() {
@@ -795,24 +810,23 @@ class CST_Frontend {
 
 		$data = (object) array( json_decode( $response ) );
 
-		$count = 0;
 		$total_severity = 0;
-		foreach( $data as $traffic ) {
+		foreach ( $data as $traffic ) {
 
-			$total = count($traffic->incidents);
-			for( $i=0; $i <= ( $total - 1); $i++ ) {
-				$total_severity += $traffic->incidents[$i]->severity;
+			$total = count( $traffic->incidents );
+			for ( $i = 0; $i <= ( $total - 1); $i++ ) {
+				$total_severity += $traffic->incidents[ $i ]->severity;
 			}
 
 		}
 		$_traffic['accidents'] = $total;
-		if( $total_severity <= $total ) {
+		if ( $total_severity <= $total ) {
 			$_traffic['icon'] = 'green';
 			$_traffic['word'] = 'Light';
-		} elseif( $total_severity >= ($total * 2) ) {
+		} elseif ( $total_severity >= ($total * 2) ) {
 			$_traffic['icon'] = 'orange';
 			$_traffic['word'] = 'Mild';
-		} elseif( $total_severity >= ($total * 3) ) {
+		} elseif ( $total_severity >= ($total * 3) ) {
 			$_traffic['icon'] = 'red';
 			$_traffic['word'] = 'High';
 		}
