@@ -925,7 +925,7 @@ class CST_Frontend {
 						if ( 'image' == $obj->get_featured_media_type() ) {
 							$featured_image_id = $obj->get_featured_image_id();
 							if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
+								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
 								<?php echo $attachment->get_html( 'homepage-columns' ); ?>
 								</a>
 								<?php
@@ -941,7 +941,7 @@ class CST_Frontend {
 					$count--;
 					?>
 					<li>
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</li>
@@ -961,25 +961,25 @@ class CST_Frontend {
 	 */
 	public function cst_dear_abby_recommendation_block( $content_query ) {
 
-		$cache_key = md5( serialize($content_query) );
+		$cache_key = md5( serialize( $content_query ) );
 		$cached_content = wp_cache_get( $cache_key );
-		if ($cached_content === false ){
+		if ( false === $cached_content ) {
 			$items = new \WP_Query( $content_query );
 			ob_start();
 			if ( $items->have_posts() ) { ?>
 			<div class="large-10 medium-offset-1 post-recommendations">
 				<h3>Previously from Dear Abby</h3>
 			<?php
-				while( $items->have_posts() ) {
-					$items->the_post();
-					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-				?>
-					<div class="columns large-3 medium-6 small-12 recommended-post">
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
-							<?php echo esc_html( $obj->get_title() ); ?>
-						</a>
-					</div>
-				<?php } ?>
+			while ( $items->have_posts() ) {
+				$items->the_post();
+				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+			?>
+				<div class="columns large-3 medium-6 small-12 recommended-post">
+					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
+						<?php echo esc_html( $obj->get_title() ); ?>
+					</a>
+				</div>
+			<?php } ?>
 			</div>
 			<?php
 			}
@@ -998,7 +998,7 @@ class CST_Frontend {
 
 		$cache_key = md5( $feed_url );
 		$result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( $result === false ) {
+		if ( false === $result ) {
 			$response = wpcom_vip_file_get_contents( $feed_url );
 			if ( ! is_wp_error( $response ) ) {
 				$result = json_decode( $response );
@@ -1012,7 +1012,7 @@ class CST_Frontend {
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
 		</div>
-		<?php foreach( $result->pages as $item ) {
+		<?php foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$top_item = [];
 			if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
@@ -1074,89 +1074,93 @@ class CST_Frontend {
 		return $featured_image_url;
 	}
 
-	public function cst_nativo_determine_positions($slug) {
+	/**
+	 * @param $slug
+	 *
+	 * @return array
+	 */
+	public function cst_nativo_determine_positions( $slug ) {
 
-        $positions = array();
-        switch( $slug ) {
-
-            case 'news':
-                $positions = array( 'News1', 'News2' );
-                break;
-            case 'chicago':
-                $positions = array('NewsChi1', 'NewsChi2' );
-                break;
-            case 'crime':
-                $positions = array( 'NewsCrime1', 'NewsCrime2' );
-                break;
-            case 'the-watchdogs':
-                $positions = array( 'NewsWatch1', 'NewsWatch2' );
-                break;
-            case 'nation-world':
-                $positions = array( 'NewsNation1', 'NewsNation2' );
-                break;
-            case 'education':
-                $positions = array( 'NewsEdu1', 'NewsEdu2' );
-                break;
-            case 'transportation':
-                $positions = array( 'NewsTrans1', 'NewsTrans2' );
-                break;
-            case 'business':
-                $positions = array( 'NewsBus1', 'NewsBus2' );
-                break;
-            case 'sneed':
-                $positions = array( 'NewsSneed1', 'NewsSneed2' );
-                break;
-            case 'chicago-politics':
-                $positions = array( 'PolChi1', 'PolChi2' );
-                break;
-            case 'springfield-politics':
-                $positions = array( 'PolSpring1', 'PolSpring2' );
-                break;
-            case 'washington-politics':
-                $positions = array( 'PolWash1', 'PolWash2' );
-                break;
-            case 'lynn-sweet-politics':
-                $positions = array( 'PolSweet1', 'PolSweet2' );
-                break;
-            case 'rick-morrissey':
-                $positions = array( 'SportsMorrissey1', 'SportsMorrissey2' );
-                break;
-            case 'rick-telander':
-                $positions = array( 'SportsTelander1', 'SportsTelander2' );
-                break;
-            case 'cubs-baseball':
-                $positions = array( 'SportsCubs1', 'SportsCubs2' );
-                break;
-            case 'white-sox':
-                $positions = array( 'SportsSox1', 'SportsSox2' );
-                break;
-            case 'bears':
-                $positions = array( 'SportsBears1', 'SportsBears2' );
-                break;
-            case 'blackhawks':
-                $positions = array( 'SportsHawks1', 'SportsHawks2' );
-                break;
-            case 'bulls':
-                $positions = array( 'SportsBulls1', 'SportsBulls2' );
-                break;
-            case 'outdoor':
-                $positions = array( 'SportsOutdoor1', 'SportsOutdoor2' );
-                break;
-            case 'fire':  
-                $positions = array( 'SportsFire1', 'SportsFire2' );
-                break;
-            case 'colleges':
-                $positions = array( 'SportsColleges1', 'SportsColleges2' );
-                break;
-            case 'entertainment':
-            	$positions = array( 'Entertainment1', 'Entertainment2' );
-            	break;
-            default:
-            	$positions = array( 'News1', 'News2' );
-                break;
-        }
-        return $positions;
-    }
+		$positions = array();
+		switch ( $slug ) {
+			case 'news':
+			    $positions = array( 'News1', 'News2' );
+			    break;
+			case 'chicago':
+			    $positions = array( 'NewsChi1', 'NewsChi2' );
+			    break;
+			case 'crime':
+			    $positions = array( 'NewsCrime1', 'NewsCrime2' );
+			    break;
+			case 'the-watchdogs':
+			    $positions = array( 'NewsWatch1', 'NewsWatch2' );
+			    break;
+			case 'nation-world':
+			    $positions = array( 'NewsNation1', 'NewsNation2' );
+			    break;
+			case 'education':
+			    $positions = array( 'NewsEdu1', 'NewsEdu2' );
+			    break;
+			case 'transportation':
+			    $positions = array( 'NewsTrans1', 'NewsTrans2' );
+			    break;
+			case 'business':
+			    $positions = array( 'NewsBus1', 'NewsBus2' );
+			    break;
+			case 'sneed':
+			    $positions = array( 'NewsSneed1', 'NewsSneed2' );
+			    break;
+			case 'chicago-politics':
+			    $positions = array( 'PolChi1', 'PolChi2' );
+			    break;
+			case 'springfield-politics':
+			    $positions = array( 'PolSpring1', 'PolSpring2' );
+			    break;
+			case 'washington-politics':
+			    $positions = array( 'PolWash1', 'PolWash2' );
+			    break;
+			case 'lynn-sweet-politics':
+			    $positions = array( 'PolSweet1', 'PolSweet2' );
+			    break;
+			case 'rick-morrissey':
+			    $positions = array( 'SportsMorrissey1', 'SportsMorrissey2' );
+			    break;
+			case 'rick-telander':
+			    $positions = array( 'SportsTelander1', 'SportsTelander2' );
+			    break;
+			case 'cubs-baseball':
+			    $positions = array( 'SportsCubs1', 'SportsCubs2' );
+			    break;
+			case 'white-sox':
+			    $positions = array( 'SportsSox1', 'SportsSox2' );
+			    break;
+			case 'bears':
+			    $positions = array( 'SportsBears1', 'SportsBears2' );
+			    break;
+			case 'blackhawks':
+			    $positions = array( 'SportsHawks1', 'SportsHawks2' );
+			    break;
+			case 'bulls':
+			    $positions = array( 'SportsBulls1', 'SportsBulls2' );
+			    break;
+			case 'outdoor':
+			    $positions = array( 'SportsOutdoor1', 'SportsOutdoor2' );
+			    break;
+			case 'fire':
+			    $positions = array( 'SportsFire1', 'SportsFire2' );
+			    break;
+			case 'colleges':
+			    $positions = array( 'SportsColleges1', 'SportsColleges2' );
+			    break;
+			case 'entertainment':
+				$positions = array( 'Entertainment1', 'Entertainment2' );
+				break;
+			default:
+				$positions = array( 'News1', 'News2' );
+			    break;
+		}
+		return $positions;
+	}
 
 	/**
 	 * @return string
