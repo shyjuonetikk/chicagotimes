@@ -2625,7 +2625,7 @@ body.post-gallery-lightbox-active {
         padding-top: 10px; } }
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title {
       margin-top: 15px; }
-      @media only screen and (max-width:47.398em) and (orientation: landscape) {
+      @media only screen and (max-width:47.398em) {
         #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title {
           margin-top: 0; } }
       #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title h2 {
@@ -2649,6 +2649,7 @@ body.post-gallery-lightbox-active {
         #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
           padding-bottom: 0;
           background: #231f20;
+          margin-top: 10px;
           display: none; }
           @media only screen and (orientation: landscape) {
             #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
@@ -2665,10 +2666,12 @@ body.post-gallery-lightbox-active {
       #cst-gallery-wrap #cst-gallery-slides-sidebar .show-on-small-either-orientation.active {
         display: block; }
     #cst-gallery-wrap #cst-gallery-slides-sidebar .show-on-small-either-orientation {
-      display: block;
       color: white;
       font-size: 0.8rem;
-      margin-bottom: 4px; }
+      margin-bottom: 4px;
+      background: #555555;
+      display: inline;
+      padding: 4px; }
     @media only screen and (orientation: landscape) and (min-width: 737px) {
       #cst-gallery-wrap #cst-gallery-slides-sidebar .show-on-small-either-orientation {
         display: none; } }
@@ -2745,9 +2748,13 @@ body.post-gallery-lightbox-active {
   @media only screen and (max-width: 40em) {
     #cst-gallery-wrap #cst-gallery-slides-wrap {
       margin-top: 51px; }
+    #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
+      top: 34%; }
     #cst-gallery-wrap .slick-slide img {
       max-height: 91% !important;
-      top: 1px !important; } }
+      top: 1px !important; }
+    #cst-gallery-wrap .slick-initialized .slick-slide {
+      margin-top: 9px; } }
 
 .post .post-meta {
   font-size: 0.75rem;
