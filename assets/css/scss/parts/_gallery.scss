@@ -96,10 +96,13 @@ body.post-gallery-lightbox-active {
 		background: $black;
 		border-left: 2px solid $white;
 		padding: 15px 20px 10px;
-
+		@media ( max-width: 737px ) {
+			z-index: 4;
+			padding-top: 10px;
+		}
 		#cst-gallery-title {
-			margin-top: 20px;
-			@media #{$medium-down} and (orientation: landscape){
+			margin-top: 15px;
+			@media #{$medium-down} {
 				margin-top:0;
 			}
 			h2 {
@@ -111,6 +114,7 @@ body.post-gallery-lightbox-active {
 		}
 
 		#cst-gallery-slide-caption {
+			background: $cst_black;
 			font-family: $open_sans;
 			font-size: 1rem;
 			line-height: 1.5rem;
@@ -122,16 +126,13 @@ body.post-gallery-lightbox-active {
 			border-top: 1px solid white;
 			border-bottom: 1px solid white;
 
-			@media #{$small-only} {
-				font-size: 0.75rem;
-				line-height: 1rem;
-			}
-
 			@media #{$medium-down} {
 				padding-bottom: 0;
-
+				background: $cst_black;
+				margin-top:10px;
+				display: none;
 				@media #{$landscape} {
-					display: none !important;
+					display: none;
 				}
 			}
 
@@ -141,25 +142,34 @@ body.post-gallery-lightbox-active {
 			position: absolute;
 			bottom: 30px;
 		}
-
-	}
-	@media #{$xmedium-down} {
-		#cst-gallery-slides-wrap {
-			margin-top:260px;
+		.accordion dd>a {
+			padding: 0.1rem;
+			background: $cst_black;
+			color: $white;
 		}
-	}
-	@media #{$xmedium-down} and (orientation: landscape) {
-		#cst-gallery-slides-wrap {
-			margin-top:128px;
+		.show-on-small-either-orientation {
+			display: none;
+			&.active {
+				display: block;
+			}
 		}
-	}
-	@media #{$medium-down} and (orientation: landscape) {
-		#cst-gallery-slides-wrap {
-			margin-top: 51px;
+		.show-on-small-either-orientation {
+			color: #fff;
+			font-size:0.8rem;
+			margin-bottom:4px;
+			background: #555;
+			display: inline;
+			padding: 4px;
 		}
-		.slick-slider {
-			margin: 0;
-			padding: 0;
+		@media #{$landscape} and ( min-width: 737px ) {
+			.show-on-small-either-orientation {
+				display: none;
+			}
+		}
+		@media #{$portrait} and ( min-width: 415px ) {
+			.show-on-small-either-orientation {
+				display: none;
+			}
 		}
 	}
 	@media #{$large-up} {
@@ -185,7 +195,7 @@ body.post-gallery-lightbox-active {
 				display: inline-block !important;
 
 				&#cst-gallery-desktop-next-button {
-					padding-left: 30px;
+					margin-left: 30px;
 				}
 
 			}
@@ -198,10 +208,10 @@ body.post-gallery-lightbox-active {
 	}
 
 	.slick-slider {
-		padding-top: 10px;
+		padding-top: 40px;
 		padding-left: 10px;
 		padding-right: 10px;
-		padding-bottom: 40px;
+		padding-bottom: 10px;
 
 		.slick-prev,
 		.slick-next {
@@ -233,25 +243,18 @@ body.post-gallery-lightbox-active {
 		}
 		@media #{$xmedium-only} {
 			.slick-slide img {
-				max-height: 65% !important;
-				top: 130px !important;
+				max-height: 78% !important;
+				top: 80px !important;
 			}
 		}
-		@media #{$small-only} {
+		@media #{$xmedium-only} and (orientation: landscape ) {
 			.slick-slide img {
-				max-height: 91% !important;
-				top: 1px !important;
+				max-height: 78% !important;
+				top: 144px !important;
 			}
-		}
-		@media #{$small-only} and (orientation: portrait ){
-			.slick-slide img {
-				top: 55px !important;
-			}
-		}
-		@media #{$xmedium-only} and (orientation: landscape ){
 			.slick-prev,
 			.slick-next {
-				top: 12%;
+				top: 24%;
 			}
 		}
 		@media #{$medium-only} and (orientation: landscape ){
@@ -263,8 +266,48 @@ body.post-gallery-lightbox-active {
 		@media #{$small-only}{
 			.slick-prev,
 			.slick-next {
-				top: 0;
+				top: 30%;
 			}
+		}
+	}
+	@media #{$medium-down} and (orientation: landscape) {
+		#cst-gallery-slides-wrap {
+			margin-top: 51px;
+		}
+		.slick-slider {
+			margin: 59px 0 0;
+			padding: 0;
+		}
+	}
+	@media #{$xmedium-down} and (orientation: portrait) {
+		#cst-gallery-slides-wrap {
+			margin-top: 143px;
+		}
+		.slick-slider {
+			margin: 59px 0 0;
+			padding: 0;
+			.slick-prev,
+			.slick-next {
+				top: 34%;
+			}
+		}
+	}
+	@media #{$small-only}{
+		#cst-gallery-slides-wrap {
+			margin-top: 51px;
+		}
+		.slick-slider {
+			.slick-prev,
+			.slick-next {
+				top: 34%;
+			}
+		}
+		.slick-slide img {
+			max-height: 91% !important;
+			top: 1px !important;
+		}
+		.slick-initialized .slick-slide {
+			margin-top: 9px;
 		}
 	}
 }
