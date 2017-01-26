@@ -1264,7 +1264,7 @@ class CST_Frontend {
 	 * Return author for use in homepage wells.
 	 */
 	public function get_article_author( \CST\Objects\Post $obj ) {
-		if( $byline = $obj->get_byline() ) {
+		if ( $byline = $obj->get_byline() ) {
 			$author = $byline;
 		} else {
 			$authors = $obj->get_authors();
@@ -1276,7 +1276,7 @@ class CST_Frontend {
 
 	/**
 	* Adding OpenX script tag in header section of markup for all
- 	* site templates that might display advertising
+	* site templates that might display advertising
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
@@ -1316,13 +1316,11 @@ class CST_Frontend {
 	 * Do not display section heading in the regular place
 	 *  for the listed section names (based on slug)
 	 * Immediately below the RSS area of the section front
- 	 *
-	 * @param $section_front_spacing
 	 *
 	 * @return  boolean
 	 * Pretty title for section front
 	 */
-	function action_cst_section_front_heading( $section_front_spacing ) {
+	function action_cst_section_front_heading() {
 
 		if ( $this->do_sponsor_header() ) {
 			$this->sponsor_header();
@@ -1335,13 +1333,11 @@ class CST_Frontend {
 	/**
 	 * Display section heading in the upper location
 	 * only for the sections listed
- 	 * Immediately above the RSS area of the section front
-	 *
-	 * @param $section_front_spacing
+	 * Immediately above the RSS area of the section front
 	 *
 	 * Pretty title for section front
 	 */
-	function action_cst_section_front_upper_heading( ) {
+	function action_cst_section_front_upper_heading() {
 		if ( $this->do_sponsor_header() ) {
 			$this->sponsor_header();
 		}
@@ -1355,7 +1351,7 @@ class CST_Frontend {
 	* @param string $section_id
 	*
 	* @return bool
- 	*/
+	*/
 	function do_sponsor_header( $section_id = '' ) {
 		if ( '' === $section_id ) {
 			// Section
