@@ -60,7 +60,6 @@ class CST_Frontend {
 		 */
 		add_action( 'template_redirect', function() {
 			global $wpdb;
-
 			/*
 			 * Pattern like /2014/09/24/emanuel-criticizes-lewis-for-wanting-to-legalize-tax-marijuana/
 			 * Turns into pagename=2014%2F09%2F24%2Femanuel-criticizes-lewis-for-wanting-to-legalize-tax-marijuana
@@ -79,7 +78,6 @@ class CST_Frontend {
 					exit;
 				}
 			}
-
 		}, 9 );
 
 		add_action( 'cst_section_head', array( $this, 'action_cst_section_head_video' ) );
@@ -156,7 +154,6 @@ class CST_Frontend {
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
 		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
-
 
 		// Fonts
 		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
@@ -244,10 +241,10 @@ class CST_Frontend {
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 		} elseif ( is_tax() ) {
 			$section_obj = get_queried_object();
-			if( $section_obj->taxonomy == 'cst_section' ) {
-				if( $section_obj->parent != 0 ) {
+			if ( 'cst_section' === $section_obj->taxonomy ) {
+				if ( 0 !== $section_obj->parent ) {
 					$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-					if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+					if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 						$section_slug = $child_terms->slug;
 					} else {
@@ -259,7 +256,7 @@ class CST_Frontend {
 			} else {
 				$section_slug = 'news';
 			}
-			
+
 			switch ( $section_slug ) {
 				case 'sports':
 					wp_enqueue_style( 'chicagosuntimes-sports', get_template_directory_uri() . '/assets/css/sports-theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -289,9 +286,8 @@ class CST_Frontend {
 			}
 
 		} elseif ( $obj = get_queried_object() ) {
-			
-					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 
+					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 
 		} else {
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -309,8 +305,7 @@ class CST_Frontend {
 			$meta_description = $post->get_seo_description();
 		} elseif ( is_tax() && $description = get_queried_object()->description ) {
 			$meta_description = $description;
-		} 
-		else {
+		} else {
 			$meta_description = get_bloginfo( 'description' );
 		}
 
@@ -318,7 +313,7 @@ class CST_Frontend {
 		$twitter_tags = $this->get_twitter_card_meta_tags();
 
 		$tags = array_merge( array( 'description' => $meta_description ), $facebook_tags, $twitter_tags );
-		foreach( $tags as $name => $value ) {
+		foreach ( $tags as $name => $value ) {
 			echo '<meta property="' . esc_attr( $name ) . '" content="' . esc_attr( $value ) . '" />' . PHP_EOL;
 		}
 
@@ -337,7 +332,7 @@ class CST_Frontend {
 		}
 		// Discard the first as it's already been added
 		array_shift( $authors );
-		foreach( $authors as $author ) {
+		foreach ( $authors as $author ) {
 			echo '<dc:creator><![CDATA[' . esc_html( $author->display_name ) . ']]></dc:creator>';
 		}
 
@@ -385,7 +380,7 @@ class CST_Frontend {
 					return get_queried_object()->name . ' - Chicago Sun-Times';
 			}
 		}
-		
+
 		if ( is_author() ) {
 			return $wp_title . get_bloginfo( 'name' );
 		}
@@ -423,7 +418,12 @@ class CST_Frontend {
 	}
 
 	/**
-	 * Filter nav menu item links
+	* Filter nav menu item links
+	* @param $atts
+	* @param $item
+	* @param $args
+	 *
+	* @return mixed
 	 */
 	public function filter_nav_menu_link_attributes( $atts, $item, $args ) {
 
@@ -431,7 +431,7 @@ class CST_Frontend {
 			return $atts;
 		}
 
-		switch( $args->theme_location ) {
+		switch ( $args->theme_location ) {
 
 			case 'trending-menu':
 
@@ -1708,5 +1708,9 @@ ready(fn);
 <!-- /distroscale -->
 			<?php }
 		}
+	}
+
+	public function is_syndicated_content( $content_obj ) {
+
 	}
 }
