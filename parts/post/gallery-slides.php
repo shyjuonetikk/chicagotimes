@@ -9,14 +9,8 @@
 
 	<div class="slides" data-gallery-title="<?php echo esc_html( $obj->the_title() ); ?>">
 		<?php $gallery_items = $obj->get_gallery_image_ids();
-//			array_splice( $gallery_items, 2, 0, -1 ); // -1 represents insert ad
 		?>
 		<?php foreach ( $gallery_items as $slide_number => $image_id ) :
-			if ( -1 === $image_id ) { ?>
-				<div class="slide" id="post-gallery-<?php echo (int) $obj->get_id() . '-' . $slide_number; ?>">
-				<?php echo CST()->dfp_handler->dynamic_unit( $obj->get_id(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 3' ); ?>
-				</div>
-			<?php } else {
 				$image = get_post( $image_id );
 				if ( ! $image ) {
 					continue;

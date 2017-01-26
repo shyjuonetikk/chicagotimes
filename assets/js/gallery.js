@@ -144,44 +144,21 @@
 					var caption = this.slidesWrap.find(".slick-active").data("image-caption");
 
 					this.wrap.find("#cst-gallery-slide-caption").text( caption ).hide();
-          var orientation = window.matchMedia("(orientation: portrait)");
-          var viewportHeight = $(window).width();
-          if ( orientation.matches ) {
-            var currentSlideHeight = this.slidesWrap.find(".slick-active").height();
-            $("#cst-gallery-slides-wrap").css("margin-top", ((currentSlideHeight-viewportHeight) / 2) + "px");
-          } else if ( viewportHeight > 737 ) {
-            this.wrap.find("#cst-gallery-slide-caption").text( caption ).show();
-          }
-
-          var slideUrl = this.slidesWrap.find(".slick-active").data("slide-url");
-					var parts = slideUrl.split("#");
-					window.location.hash = parts[1];
-					CSTAnalytics.currentURL = slideUrl;
-					CSTAnalytics.triggerPageview();
+					CSTGallery.handleSmallDeviceLayout(caption)
+          CSTGallery.handleUrlAndPageview();
 
 					this.displayNextGalleryAd();
 
 				}, this ),
 				onInit: $.proxy( function() {
 					var caption = this.slidesWrap.find(".slick-active").data("image-caption");
-          var orientation = window.matchMedia("(orientation: portrait)");
-          var viewportHeight = $(window).width();
-          if ( orientation.matches ) {
-            var currentSlideHeight = this.slidesWrap.find(".slick-active").height();
-            this.wrap.find("#cst-gallery-slide-caption").text( caption );
-            $("#cst-gallery-slides-wrap").css("margin-top", ((currentSlideHeight-viewportHeight) / 2) + "px");
-          } else if ( viewportHeight > 737 ) {
-            this.wrap.find("#cst-gallery-slide-caption").text( caption ).show();
-          }
+          this.wrap.find("#cst-gallery-slide-caption").text( caption );
+          CSTGallery.handleSmallDeviceLayout(caption)
+
 					this.slidesWrap.find( ".slick-prev").html("<i class=\"fa fa-chevron-left\"></i>");
 					this.slidesWrap.find( ".slick-next").html("<i class=\"fa fa-chevron-right\"></i>");
 
-					var slideUrl = this.slidesWrap.find(".slick-active").data("slide-url");
-					var parts = slideUrl.split("#");
-					window.location.hash = parts[1];
-					CSTAnalytics.currentURL = slideUrl;
-					CSTAnalytics.triggerPageview();
-					
+          CSTGallery.handleUrlAndPageview();
 					this.displayNextGalleryAd();
 
 				}, this )
@@ -190,6 +167,21 @@
 			
 
 		},
+		handleSmallDeviceLayout: function(caption) {
+      var orientation = window.matchMedia("(orientation: portrait)");
+      var viewportHeight = $(window).width();
+      if ( orientation.matches && viewportHeight < 768 ) {
+      } else if ( viewportHeight > 737 ) {
+        this.wrap.find("#cst-gallery-slide-caption").text( caption ).show();
+      }
+    },
+		handleUrlAndPageview: function () {
+      var slideUrl = this.slidesWrap.find(".slick-active").data("slide-url");
+      var parts = slideUrl.split("#");
+      window.location.hash = parts[1];
+      CSTAnalytics.currentURL = slideUrl;
+      CSTAnalytics.triggerPageview();
+    },
 
 		/**
 		 * Close the gallery lightbox
@@ -303,7 +295,7 @@
 			var slidesBox = this.slidesWrap.find(".slides"),
 				slidesBoxOuterWidth = slidesBox.outerWidth(),
 				slidesBoxInnerHeight = slidesBox.innerHeight();
-				el = img.parent();
+				var el = img.parent();
 				el.css("position", "relative");
 				img.css("position", "absolute");
 				img.css("max-height", slidesBoxInnerHeight + "px");
