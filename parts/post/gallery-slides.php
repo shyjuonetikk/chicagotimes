@@ -29,7 +29,6 @@
 				$slide_url = $obj->get_permalink() . '#slide-' . $slide_number;
 		?>
 		<div class="slide" data-image-desktop-src="<?php echo esc_url( $desktop_src ); ?>" data-image-mobile-src="<?php echo esc_url( $mobile_src ); ?>" data-image-caption="<?php echo esc_attr( $caption ); ?>" data-slide-url="<?php echo esc_url( $slide_url ); ?>"></div>
-		<?php } ?>
 		<?php endforeach; ?>
 	</div>
 </div>
