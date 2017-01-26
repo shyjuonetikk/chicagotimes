@@ -1735,10 +1735,10 @@ ready(fn);
 	}
 
 	/**
-	* @return bool
-	*/
+	 * Determine if content destined for the feed is syndicated or not
+	 * @return bool
+	 */
 	public function is_syndicated_content() {
-		// Determine if content_obj is a syndicated item and should not be included in a feed
 
 		$syndication_partners = array(
 			'Associated Press',
