@@ -1385,7 +1385,7 @@ class CST_Frontend {
 	* @param string $section_id
 	*/
 
-	function sponsor_header( $section_id = '') {
+	function sponsor_header( $section_id = '' ) {
 		// Handle sponsor image and link
 		if ( '' === $section_id ) {
 			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
@@ -1401,25 +1401,25 @@ class CST_Frontend {
 			$end_date = $term_metadata['end_date'];
 			$today = time();
 			if ( ( $today >= $start_date )  && ( $today <= $end_date ) ) {
-			$sponsor_template = '
+				$sponsor_template = '
 <div class="%1$s">
 	<a href="%2$s" target="_blank">
 		<img style="float:right;" src="%3$s" width="%4$s" height="%5$s">
 	</a>
 </div>
 ';
-			$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
-			if ( $sponsor_image ) {
-				$sponsor_markup = sprintf( $sponsor_template,
-					( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-7 small-12' ),
-					esc_url( $term_metadata['destination_url'] ),
-					esc_url( $sponsor_image[0] ),
-					esc_attr( $sponsor_image[1] ),
-					esc_attr( $sponsor_image[2] )
-				);
-			}
-			// DIV size if there is a sponsor image
-			$name_width = 'columns medium-5 small-12';
+				$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
+				if ( $sponsor_image ) {
+					$sponsor_markup = sprintf( $sponsor_template,
+						( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-7 small-12' ),
+						esc_url( $term_metadata['destination_url'] ),
+						esc_url( $sponsor_image[0] ),
+						esc_attr( $sponsor_image[1] ),
+						esc_attr( $sponsor_image[2] )
+					);
+				}
+				// DIV size if there is a sponsor image
+				$name_width = 'columns medium-5 small-12';
 			}
 		}
 		if ( '' !== $section_id ) {
@@ -1430,7 +1430,7 @@ class CST_Frontend {
 	}
 
 	/**
- 	* Display Section Front Title with/without sponsorship
+	* Display Section Front Title with/without sponsorship
 	* @param $class
 	* @param $name_width
 	* @param $sponsor_markup
@@ -1447,14 +1447,14 @@ class CST_Frontend {
 	}
 	/**
 	* http://wordpressvip.zendesk.com/hc/requests/56671
- 	*/
+	*/
 	function cst_remove_extra_twitter_js() {
 		wp_deregister_script( 'twitter-widgets' );
 	}
 
 	/**
 	* Determine whether to display the sliding billboard markup
-    */
+	*/
 	function action_maybe_render_sliding_billboard() {
 
 		if ( ! is_404() && ! is_singular() ) :
@@ -1469,7 +1469,8 @@ class CST_Frontend {
 	public function setup_dfp_header_ad_settings() {
 		CST()->dfp_handler->ad_header_settings();
 	}
-		/**
+
+	/**
 	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
 	*
@@ -1523,15 +1524,15 @@ ready(fn);
 	*/
 	public function inject_sponsored_content( $article_content ) {
 
- 		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
- 			return $article_content;
- 		}
- 		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
- 		if ( 'cst_article' !== $obj->get_post_type() ) {
- 			return $article_content;
- 		}
- 		$after_paragraph_number = 2;
- 		if ( $sponsor_array = $obj->get_sponsored_content() ) {
+		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
+			return $article_content;
+		}
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return $article_content;
+		}
+		$after_paragraph_number = 2;
+		if ( $sponsor_array = $obj->get_sponsored_content() ) {
 			$matched_content = preg_match_all( '/(?:[^(p>)].*){1}/i', $article_content, $matched_items );
 			if ( false === $matched_content ) {
 				return $article_content;
@@ -1555,14 +1556,14 @@ ready(fn);
 					esc_url( $sponsor_image_url[0] ),
 					esc_attr( $sponsor_image_url[1] ),
 					esc_attr( $sponsor_image_url[2] )
-				 );
+				);
 				$paragraph_with_script = trim( "\n" . $matches[2] ) . $content_with_sponsorship;
 				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
 			}
- 		}
+		}
 
- 		return $article_content;
- 	}
+		return $article_content;
+	}
 
 	public function inject_newsletter_signup( $newsletter ) {
 
@@ -1591,15 +1592,16 @@ ready(fn);
 	/**
 	* Detect section and if appropriate inject Public Good markup
 	* @param $obj \CST\Objects\Article | \CST\Objects\Post
+	* @return string
 	*/
 	public function inject_public_good_markup( $obj ) {
 
 		if ( $section = $obj->get_primary_parent_section() ) {
 			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
 				return sprintf( '<div class="pgs-container"><a href="%1$s" target="_blank"><img src="%2$s" style="height:50px"></a></div>',
-				 esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
-				 esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
-				 );
+					esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
+					esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
+				);
 			}
 		}
 
@@ -1619,9 +1621,9 @@ ready(fn);
 			if ( $obj ) {
 				$sections = $obj->get_sections();
 				$section_list = array();
-				if( $sections ) {
+				if ( $sections ) {
 					if ( isset( $obj ) && is_object( $obj ) ) {
-						foreach( $sections as $section ) {
+						foreach ( $sections as $section ) {
 							array_push( $section_list, strtolower( $section->name ) );
 						}
 					}
@@ -1638,7 +1640,7 @@ ready(fn);
 	public function inject_chatter_parameters( $obj ) {
 		$chatter_selection = $obj->get_chatter_widget_selection();
 
-		if ( $chatter_selection ) :
+		if ( $chatter_selection ) {
 			switch ( $chatter_selection ) {
 				case 'default_chatter':
 					if ( $agg_primary_section = $obj->get_primary_section() ) :
@@ -1665,7 +1667,7 @@ ready(fn);
 				default:
 					break;
 			}
-		else :
+		} else {
 			if ( $agg_primary_section = $obj->get_primary_section() ) :
 				if ( 0 != $agg_primary_section->parent ) {
 					$agg_primary_section = $obj->get_grandchild_parent_section();
@@ -1674,7 +1676,7 @@ ready(fn);
 			else :
 				$agg_primary_section_slug = '';
 			endif;
-		endif;
+		};
 
 		?>
 <script type="text/javascript">
