@@ -1737,7 +1737,7 @@ ready(fn);
 	/**
 	* @return bool
 	*/
-	public function is_syndicated_content(  ) {
+	public function is_syndicated_content() {
 		// Determine if content_obj is a syndicated item and should not be included in a feed
 
 		$syndication_partners = array(
@@ -1749,6 +1749,14 @@ ready(fn);
 			'| Associated Press',
 			'| AP Auto Writer',
 			'| AP White House Correspondent',
+			'S. E. Cupp',
+			'Roger Simon',
+			'Anthony L. Komaroff, M.D.',
+			'Robert Ashley, M.D.',
+			'Eve Glazier, M.D., and Elizabeth Ko, M.D.',
+			'Eve Glazier, M.D.',
+			'Elizabeth Ko, M.D.',
+			'Kaiser Health News',
 		);
 		$authors = get_coauthors();
 		foreach ( $authors as $author ) {
