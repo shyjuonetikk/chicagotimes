@@ -1741,7 +1741,23 @@ ready(fn);
 	public function is_syndicated_content( $content_obj ) {
 		// Determine if content_obj is a syndicated item and should not be included in a feed
 
-		return true;
+		$syndication_partners = array(
+			'Associated Press',
+			'USA Today',
+			'USA TODAY',
+			'USA TODAY Network',
+			'Georgia Nicols',
+			'| Associated Press',
+			'| AP Auto Writer',
+			'| AP White House Correspondent',
+		);
+		$authors = get_coauthors();
+		foreach ( $authors as $author ) {
+			if ( in_array( $author->display_name, $syndication_partners ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
