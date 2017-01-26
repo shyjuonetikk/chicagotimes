@@ -2592,7 +2592,15 @@ body.post-gallery-lightbox-active {
       margin-top: 143px; }
     #cst-gallery-wrap .slick-slider {
       margin: 59px 0 0;
-      padding: 0; } }
+      padding: 0; }
+      #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
+        top: 34%; } }
+  @media only screen and (max-width: 40em) {
+    #cst-gallery-wrap #cst-gallery-slides-wrap {
+      margin-top: 51px; }
+    #cst-gallery-wrap .slick-slide img {
+      max-height: 91% !important;
+      top: 1px !important; } }
 
 .post .post-meta {
   font-size: 0.75rem;
