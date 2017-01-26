@@ -779,7 +779,7 @@ class CST_Frontend {
 	}
 
 	/**
-	* @param $taxonomy name of taxonomy icon
+	* @param $taxonomy string The filename of taxonomy icon
 	*
 	* @return bool|string
 	*/
@@ -811,7 +811,7 @@ class CST_Frontend {
 		$data = (object) array( json_decode( $response ) );
 
 		$total_severity = 0;
-		$total =0;
+		$total = 0;
 		foreach ( $data as $traffic ) {
 
 			$total = count( $traffic->incidents );
@@ -1732,7 +1732,14 @@ ready(fn);
 		}
 	}
 
+	/**
+	* @param $content_obj
+	* @return bool
+	*/
 	public function is_syndicated_content( $content_obj ) {
+		// Determine if content_obj is a syndicated item and should not be included in a feed
 
+		return true;
 	}
+
 }
