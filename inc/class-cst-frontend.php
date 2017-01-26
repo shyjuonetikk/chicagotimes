@@ -811,6 +811,7 @@ class CST_Frontend {
 		$data = (object) array( json_decode( $response ) );
 
 		$total_severity = 0;
+		$total =0;
 		foreach ( $data as $traffic ) {
 
 			$total = count( $traffic->incidents );
@@ -846,8 +847,8 @@ class CST_Frontend {
 
 		$data = (object) array( json_decode( $response ) );
 		$all_incidents = array();
-		foreach( $data as $traffic ) {
-			foreach( $traffic->incidents as $incident ) {
+		foreach ( $data as $traffic ) {
+			foreach ( $traffic->incidents as $incident ) {
 				array_push( $all_incidents, $incident );
 			}
 		}
@@ -856,22 +857,28 @@ class CST_Frontend {
 
 	}
 
-	public function cst_homepage_fetch_feed($feed_url, $max_display) {
+	/**
+	* @param $feed_url
+	* @param $max_display
+	*
+	* @return array|bool|mixed|null
+	*/
+	public function cst_homepage_fetch_feed( $feed_url, $max_display ) {
 
 		$cache_key = md5( $feed_url . (int) $max_display );
 		$cached_feed = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( $cached_feed === false || WP_DEBUG ) {
+		if ( ( false === $cached_feed ) || WP_DEBUG ) {
 			$headlines = fetch_feed( $feed_url );
 			if ( ! is_wp_error( $headlines ) ) :
 				$maxitems = $headlines->get_item_quantity( $max_display );
 				$items    = $headlines->get_items( 0, $maxitems );
 				wp_cache_set( $cache_key, $items, 'default', 15 * MINUTE_IN_SECONDS );
-				$test = strlen(serialize($items));
+				$test = strlen( serialize( $items ) );
 				return $items;
 			else :
 				return; //todo: VIP note: cache when the feed is not found.
 			endif;
-		}else{
+		} else {
 			return $cached_feed;
 		}
 	}
@@ -879,10 +886,10 @@ class CST_Frontend {
 
 	/**
 	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
-	 * @param int $count
-	 * @return json array
+	 * @param string $json_feed
+	 * @return json array|null
 	 */
-	public function cst_get_chatter_site($json_feed) {
+	public function cst_get_chatter_site( $json_feed ) {
 
 		$response = wpcom_vip_file_get_contents( $json_feed );
 		if ( is_wp_error( $response ) ) :
@@ -900,17 +907,18 @@ class CST_Frontend {
 	/**
 	 * Fetch and output content from the specified section
 	 * @param $content_query
+	 * @param $nativo_slug
 	 */
-	public function cst_homepage_content_block( $content_query, $nativo_slug = NULL ) {
+	public function cst_homepage_content_block( $content_query, $nativo_slug = null ) {
 
-		$cache_key = md5( serialize($content_query) );
+		$cache_key = md5( serialize( $content_query ) );
 		$cached_content = wp_cache_get( $cache_key );
-		if ($cached_content === false ){
+		if ( false === $cached_content ) {
 			$items = new \WP_Query( $content_query );
 			ob_start();
 			if ( $items->have_posts() ) {
 				$count = $content_query['posts_per_page'];
-				while( $items->have_posts() ) {
+				while ( $items->have_posts() ) {
 					$items->the_post();
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 					if ( $count == $content_query['posts_per_page'] ) {
@@ -924,7 +932,7 @@ class CST_Frontend {
 							}
 						}
 						?>
-			<?php if( $nativo_slug != NULL ) { ?>
+			<?php if ( null !== $nativo_slug ) { ?>
 				<ul id="<?php echo esc_html( $nativo_slug ); ?>">
 			<?php } else { ?>
 				<ul>
