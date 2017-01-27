@@ -1757,6 +1757,14 @@ ready(fn);
 			'Eve Glazier, M.D.',
 			'Elizabeth Ko, M.D.',
 			'Kaiser Health News',
+			'Connie Schultz',
+			'John Stossel',
+			'Jacob Sullum',
+			'Linda Chavez',
+			'Jesse Jackson',
+			'Mona Charon',
+			'Roger Simon',
+			'Gene Lyons',
 		);
 		if ( $byline = $obj->get_byline() ) {
 			if ( array_key_exists( $byline, $syndication_partners ) ) {
