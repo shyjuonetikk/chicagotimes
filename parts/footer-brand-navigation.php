@@ -3,7 +3,7 @@
 	<div class="footerlead">
 		<div class="row">
 			<div class="columns small-12 back-to-top">
-				<a href="#0">
+				<a href="#">
 					<p><i class="fa fa-arrow-circle-up"></i><?php esc_html_e( '&nbsp;Back To Top', 'chicagosuntimes' ); ?></p>
 				</a>
 			</div>

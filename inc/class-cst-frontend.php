@@ -1454,6 +1454,7 @@ class CST_Frontend {
 	* Get object for article / section front
 	*/
 	public function get_current_object() {
+		$current_obj = false;
 		if ( is_single() ) {
 			$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 		} else if ( is_tax() ) {

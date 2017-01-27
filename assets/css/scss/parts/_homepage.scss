@@ -779,6 +779,10 @@
 				padding: 0;
 				line-height: 28px;
 				font-weight: 700;
+				@media #{$small-only} {
+					line-height:1.2rem;
+					font-size: 1rem;
+				}
 			}
 		}
 
@@ -818,6 +822,10 @@
 			display: block;
 			margin-bottom: 10px;
 			padding-left:15px;
+			@media #{$small-only} {
+				padding-right:0;
+				margin-bottom:0;
+			}
 		}
 
 		.article-image:hover:after {
@@ -831,6 +839,9 @@
 	        top:0;
 		}
 
+		.article-headline {
+			font-size: 0.9rem;
+		}
 		@media (min-width: 1200px) {
 			.columns {
 				padding-left: 0.9375rem;
@@ -954,9 +965,7 @@
 
 /* SIDEBAR */
 
-	.homepage-sidebar {
-		padding: 0 0 0 $homepage_sidebar;
-	}
+
 .widget_cst_featured_content_widget:nth-of-type(1) {
 	margin-top: 5px;
 	padding: 0;
