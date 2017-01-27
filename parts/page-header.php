@@ -49,11 +49,6 @@ if ( is_single() ) {
 if ( is_home() || is_front_page() || is_tax() ) {
 	echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
 }
-if ( is_singular() ) {
-	$classes = array( 'columns', 'large-10', 'large-offset-2', 'end' );
-} else {
-	$classes = array();
-}
 ?>
 
 <?php do_action( 'header_sliding_billboard' ); ?>
