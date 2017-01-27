@@ -868,7 +868,8 @@ ul#menu-sun-times-network {
     position: relative;
     display: block;
     text-align: center;
-    clear: both; }
+    clear: both;
+    margin-bottom: 10px; }
     .wire .ad-container .dfp-cube {
       display: inline-block;
       margin: 5px; }
@@ -1281,8 +1282,7 @@ article.post {
       display: inline-block; }
   @media only screen and (min-width:40.063em) {
     article.post {
-      margin-bottom: 15px;
-      margin-top: 15px; }
+      margin-bottom: 10px; }
       article.post h1 {
         font-size: 2rem;
         line-height: 2.5rem;
@@ -1455,7 +1455,8 @@ article.post {
   position: relative;
   display: block;
   text-align: center;
-  clear: both; }
+  clear: both;
+  margin-bottom: 10px; }
   .single .ad-container .dfp-cube {
     display: inline-block;
     margin: 5px; }
@@ -1672,7 +1673,15 @@ body[class~="archive"] article.post {
 body[class~="archive"] .dfp-super-leaderboard {
   margin-top: 0; }
 body[class~="archive"] .cst-navigation-container {
-  margin-top: 5px; }
+  margin-top: 5px;
+  z-index: 5; }
+  body[class~="archive"] .cst-navigation-container.section-itn {
+    border-top: none; }
+    body[class~="archive"] .cst-navigation-container.section-itn > .nav-holder {
+      border-top: none;
+      border-bottom: 1px solid #888888;
+      float: left;
+      width: 100%; }
 body[class~="archive"] .spacer {
   height: 45px; }
 
@@ -2612,7 +2621,6 @@ section#subscribe {
     float: left;
     display: inline-block;
     height: auto;
-    line-height: 32px;
     padding: 0;
     margin: 0;
     font-size: 1rem;

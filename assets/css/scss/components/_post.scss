@@ -106,8 +106,7 @@ article.post {
 	}
 
 	@media #{$medium-up} {
-		margin-bottom: 15px;
-		margin-top: 15px;
+		margin-bottom: 10px;
 		h1 {
 			font-size: 2rem;
 			line-height: 2.5rem;
@@ -381,7 +380,7 @@ article.post {
 		display: block;
 		text-align: center;
 		clear: both;
-		
+		margin-bottom: 10px;
 		.dfp-cube {
 			display: inline-block;
 			margin: 5px;
@@ -750,6 +749,17 @@ body[class~="archive"] {
 	}
 	.cst-navigation-container {
 		margin-top: 5px;
+		z-index: 5;
+		&.section-itn {
+			border-top:none;
+			> .nav-holder {
+				border-top: none;
+				border-bottom: 1px solid #888;
+				float: left;
+				width:100%;
+			}
+		}
+
 	}
 	.spacer {
 		height:45px;

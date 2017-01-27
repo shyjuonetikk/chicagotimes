@@ -1333,7 +1333,7 @@ class CST_Frontend {
 		// Handle sponsor image and link
 		if ( '' === $section_id ) {
 			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
-			$class = 'row grey-background wire upper-heading';
+			$class = 'grey-background wire upper-heading';
 		} else {
 			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
 			$class = 'upper-heading';
@@ -1380,6 +1380,16 @@ class CST_Frontend {
 	* @param $sponsor_markup
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
+					 // TODO cache me
+			wp_nav_menu( array(
+					'theme_location'  => 'homepage-itn',
+					'fallback_cb'     => false,
+					'depth'           => 2,
+					'container_class' => 'cst-navigation-container columns section-itn',
+					'items_wrap'      => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
+					'walker'          => new GC_walker_nav_menu(),
+				)
+			);
 		$section_obj = get_queried_object();
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
@@ -1420,7 +1430,7 @@ class CST_Frontend {
 			'theme_location' => $theme_location,
 			'fallback_cb' => false,
 			'depth' => 1,
-			'container_class' => 'cst-navigation-container',
+			'container_class' => 'cst-navigation-container columns section-subnav',
 			'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor ' . $section_obj->slug . '"><ul id="%1$s" class="">' . $section_parent_link . '%3$s</ul></div></div>',
 			'walker' => new GC_walker_nav_menu(),
 			)

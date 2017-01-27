@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 	
-	<section class="row grey-background">
+	<section class="row grey-background index">
 		<?php if ( is_tax() ): ?>
 			<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
 		<?php elseif ( is_author() ): ?>
