@@ -103,6 +103,9 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 	<iframe src="http://wssp.suntimes.com/subscribe/" frameborder="0" class="cst-responsive" width="100%" height="700" allowfullscreen></iframe>
 	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
+<?php
+// Inject newsletter modal customized to the section being displayed
+?>
 <div id="search-container" class="reveal-modal large" data-reveal aria-labelledby="searchContainer" aria-hidden="true" role="dialog">
 	<a class="close-reveal-modal">&#215;</a>
 	<div class="row">
