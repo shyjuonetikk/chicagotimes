@@ -1264,11 +1264,9 @@ class CST_Frontend {
 	 *  for the listed section names (based on slug)
 	 * Immediately below the RSS area of the section front
  	 *
-	 * @param $section_front_spacing
-	 *
 	 * Pretty title for section front
 	 */
-	function action_cst_section_front_heading( $section_front_spacing ) {
+	function action_cst_section_front_heading() {
 
 		if ( $this->do_sponsor_header() ) {
 			$this->sponsor_header();
