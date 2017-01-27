@@ -1738,7 +1738,7 @@ ready(fn);
 	 * Determine if content destined for the feed is syndicated or not
 	 * @return bool
 	 */
-	public function is_syndicated_content() {
+	public function is_syndicated_content( $obj ) {
 
 		$syndication_partners = array(
 			'Associated Press',
@@ -1758,6 +1758,11 @@ ready(fn);
 			'Elizabeth Ko, M.D.',
 			'Kaiser Health News',
 		);
+		if ( $byline = $obj->get_byline() ) {
+			if ( in_array( $byline, $syndication_partners ) ) {
+				return true;
+			}
+		}
 		$authors = get_coauthors();
 		foreach ( $authors as $author ) {
 			if ( in_array( $author->display_name, $syndication_partners ) ) {

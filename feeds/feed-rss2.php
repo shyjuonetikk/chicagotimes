@@ -78,7 +78,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 
 		while ( have_posts() ) : the_post();
 			$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-			if ( ! CST()->frontend->is_syndicated_content() ) {
+			if ( ! CST()->frontend->is_syndicated_content( $obj ) ) {
 				?>
 				<item>
 					<title><?php the_title_rss() ?></title>
