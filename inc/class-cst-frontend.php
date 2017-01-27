@@ -238,22 +238,7 @@ class CST_Frontend {
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 		} elseif ( is_tax() ) {
 			$section_obj = get_queried_object();
-			if( $section_obj->taxonomy == 'cst_section' ) {
-				if( $section_obj->parent != 0 ) {
-					$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-					if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
-						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
-						$section_slug = $child_terms->slug;
-					} else {
-						$section_slug = $parent_terms->slug;
-					}
-				} else {
-					$section_slug = $section_obj->slug;
-				}
-			} else {
-				$section_slug = 'news';
-			}
-			
+			$section_slug = $this->determine_section_slug( $section_obj );
 			switch ( $section_slug ) {
 				case 'sports':
 					wp_enqueue_style( 'chicagosuntimes-sports', get_template_directory_uri() . '/assets/css/sports-theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -1780,4 +1765,27 @@ ready(fn);
 <?php
 	}
 
+	/**
+	 * @param $section_obj
+	 *
+	 * @return string
+	 */
+	public function determine_section_slug( $section_obj ) {
+		if ( 'cst_section' === $section_obj->taxonomy ) {
+			if ( $section_obj->parent != 0 ) {
+				$parent_terms = get_term( $section_obj->parent, 'cst_section' );
+				if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
+					$section_slug = $child_terms->slug;
+				} else {
+					$section_slug = $parent_terms->slug;
+				}
+			} else {
+				$section_slug = $section_obj->slug;
+			}
+		} else {
+			$section_slug = 'news';
+		}
+		return $section_slug;
+	}
 }

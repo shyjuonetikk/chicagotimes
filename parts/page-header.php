@@ -56,22 +56,8 @@ if ( is_home() || is_front_page() || is_tax() ) {
 <?php if ( ! is_single() ) : ?>
 	<?php if ( is_tax() ) {
 		$section_obj = get_queried_object();
-		if ( $section_obj->taxonomy == 'cst_section' ) {
-			if ( $section_obj->parent != 0 ) {
-				$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-				if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
-					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
-					$section_slug = $child_terms->slug;
-				} else {
-					$section_slug = $parent_terms->slug;
-				}
-			} else {
-				$section_slug = $section_obj->slug;
-			}
-		} else {
-			$section_slug = 'news';
-		}
-	} ?>
+		$section_slug = CST()->frontend->determine_section_slug( $section_obj );
+} ?>
 	<?php if ( isset( $section_slug ) ) : ?>
 		<?php do_action( 'cst_section_front_upper_heading' );  ?>
 		<?php $action_slug = str_replace( '-', '_', get_queried_object()->slug ); ?>
