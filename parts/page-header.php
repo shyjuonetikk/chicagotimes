@@ -14,21 +14,7 @@ if ( is_single() ) {
 	}
 } elseif ( is_tax() ) {
 	$current_obj = get_queried_object();
-	if ( 'cst_section' == $current_obj->taxonomy ) {
-		if ( 0 != $current_obj->parent ) {
-			$parent_terms = get_term( $current_obj->parent, 'cst_section' );
-			if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
-				$child_terms = get_term( $parent_terms->parent, 'cst_section' );
-				$conditional_nav = $child_terms;
-			} else {
-				$conditional_nav = $parent_terms;
-			}
-		} else {
-			$conditional_nav = $current_obj;
-		}
-	} else {
-		$conditional_nav = 'news';
-	}
+	$conditional_nav = CST()->frontend->determine_section_slug( $current_obj );
 } else {
 	$conditional_nav = 'menu';
 }
