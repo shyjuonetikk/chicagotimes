@@ -1759,14 +1759,26 @@ ready(fn);
 			'Kaiser Health News',
 		);
 		if ( $byline = $obj->get_byline() ) {
-			if ( in_array( $byline, $syndication_partners ) ) {
+			if ( array_key_exists( $byline, $syndication_partners ) ) {
 				return true;
+			} else {
+				foreach ( $syndication_partners as $syndication_partner ) {
+					if ( stristr( $byline, $syndication_partner ) ) {
+						return true;
+					}
+				}
 			}
 		}
 		$authors = get_coauthors();
 		foreach ( $authors as $author ) {
-			if ( in_array( $author->display_name, $syndication_partners ) ) {
+			if ( array_key_exists( $author->display_name, $syndication_partners ) ) {
 				return true;
+			} else {
+				foreach ( $syndication_partners as $syndication_partner ) {
+					if ( stristr( $author->display_name, $syndication_partner ) ) {
+						return true;
+					}
+				}
 			}
 		}
 		return false;
