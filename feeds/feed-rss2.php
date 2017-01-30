@@ -78,7 +78,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 
 		while ( have_posts() ) : the_post();
 			$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-			if ( ! CST()->frontend->is_syndicated_content( $obj ) ) {
+			if ( CST()->cst_feeds->publish_this_content_item( $obj ) ) {
 				?>
 				<item>
 					<title><?php the_title_rss() ?></title>
@@ -200,7 +200,7 @@ do_action( 'rss_tag_pre', 'rss2' );
 					do_action( 'rss2_item' );
 					?>
 				</item>
-			<?php } ?>
+				<?php } ?>
 		<?php endwhile; ?>
 	</channel>
 </rss>
