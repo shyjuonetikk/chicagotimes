@@ -306,8 +306,8 @@
 				} else {
 					img.css("top", "auto");
 				}
-				if ( el.innerWidth() > img.innerWidth() ) {
-					img.css("left", ( ( el.innerWidth() - img.innerWidth() ) / 2 ) + "px" );
+				if ( slidesBoxOuterWidth > img.innerWidth() ) {
+					img.css("left", ( ( slidesBoxOuterWidth - img.innerWidth() ) / 2 ) + "px" );
 				} else {
 					img.css("left", "auto");
 				}
