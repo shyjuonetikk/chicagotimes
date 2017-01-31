@@ -2579,7 +2579,7 @@ body.post-gallery-lightbox-active {
         max-height: 78% !important;
         top: 144px !important; }
       #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
-        top: 24%; } }
+        top: 50%; } }
     @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
       #cst-gallery-wrap .slick-slider .slick-slide img {
         max-height: 91% !important;
@@ -2592,8 +2592,19 @@ body.post-gallery-lightbox-active {
       margin-top: 51px; }
     #cst-gallery-wrap .slick-slider {
       margin: 63px 0 0;
-      padding: 0; } }
+      padding: 0; }
+      #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
+        top: 34%; } }
   @media only screen and (max-width:64em) and (orientation: portrait) {
+    #cst-gallery-wrap #cst-gallery-slides-wrap {
+      margin-top: 224px; }
+      #cst-gallery-wrap #cst-gallery-slides-wrap .slick-slider .slick-prev, #cst-gallery-wrap #cst-gallery-slides-wrap .slick-slider .slick-next {
+        top: 34%; }
+      #cst-gallery-wrap #cst-gallery-slides-wrap .slick-slide img {
+        top: -6px !important; }
+      #cst-gallery-wrap #cst-gallery-slides-wrap .slick-initialized .slick-slide {
+        margin-top: 7px; } }
+  @media only screen and (max-width:47.398em) and (orientation: portrait) {
     #cst-gallery-wrap #cst-gallery-slides-wrap {
       margin-top: 143px; }
     #cst-gallery-wrap .slick-slider {
@@ -2601,16 +2612,6 @@ body.post-gallery-lightbox-active {
       padding: 0; }
       #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
         top: 34%; } }
-  @media only screen and (max-width:64em) {
-    #cst-gallery-wrap #cst-gallery-slides-wrap {
-      margin-top: 51px; }
-      #cst-gallery-wrap #cst-gallery-slides-wrap .slick-slider .slick-prev, #cst-gallery-wrap #cst-gallery-slides-wrap .slick-slider .slick-next {
-        top: 34%; }
-      #cst-gallery-wrap #cst-gallery-slides-wrap .slick-slide img {
-        max-height: 83% !important;
-        top: -6px !important; }
-      #cst-gallery-wrap #cst-gallery-slides-wrap .slick-initialized .slick-slide {
-        margin-top: 7px; } }
 
 .post .post-meta {
   font-size: 0.75rem;
