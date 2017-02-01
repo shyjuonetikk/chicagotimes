@@ -77,6 +77,7 @@ class CST {
 		add_image_size( 'chiwire-header-medium', 425, 320, true );
 		add_image_size( 'chiwire-header-small', 320, 240, true );
 		add_image_size( 'cst-article-featured', 670, 9999, false );
+		add_image_size( 'cst-feature-hero', 1200, 9999, false );
 		add_image_size( 'cst-gallery-desktop-vertical', 1200, 1600, true );
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
@@ -1076,6 +1077,7 @@ class CST {
 		register_post_type( 'cst_feature', array(
 			'hierarchical'      => false,
 			'public'            => true,
+			'publicly_queryable' => true,
 			'show_in_nav_menus' => true,
 			'menu_position'     => 6,
 			'show_ui'           => true,
@@ -1092,6 +1094,7 @@ class CST {
 			'query_var'         => true,
 			'rewrite'           => array(
 				'slug'          => 'cst_feature',
+				'feeds'			=> false,
 			),
 			'labels'            => array(
 				'name'                => esc_html__( 'Features', 'chicagosuntimes' ),
@@ -1335,7 +1338,9 @@ class CST {
 		// Rewrite rules for our custom post types
 		$post_types = '';
 		foreach( $this->get_post_types() as $ptype ) {
-			$post_types .= '&post_type[]=' . $ptype;
+			if ( 'cst_feature' !== $ptype ) {
+				$post_types .= '&post_type[]=' . $ptype;
+			}
 		}
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
@@ -1345,6 +1350,7 @@ class CST {
 		$rewrites[ '(' . $sections_match . ')/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&page=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/liveblog/(.*)/?$' ] = 'index.php?index.php?cst_section=$matches[1]&name=$matches[2]&liveblog=$matches[3]' . $post_types;
 
+		$rewrites[ '(.+)/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?pagename=$matches[1]&name=$matches[2]&page=$matches[3]&post_type[]=cst_feature';
 		return $rewrites;
 	}
 
@@ -1397,29 +1403,31 @@ class CST {
 			}
 
 			$post = \CST\Objects\Post::get_by_post_id( $post->ID );
-			$primary_section = $post->get_primary_parent_section();
-			// This shouldn't ever happen, but just in case
-			if ( empty( $primary_section ) ) {
+			if ( 'cst_feature' !== $post->get_post_type() ) {
+				$primary_section = $post->get_primary_parent_section();
+				// This shouldn't ever happen, but just in case
+				if ( empty( $primary_section ) ) {
 
-				if( $post->get_child_parent_section() ) {
-					$section_slug = $post->get_child_parent_section();
+					if ( $post->get_child_parent_section() ) {
+						$section_slug = $post->get_child_parent_section();
+					} else {
+						$section_slug = CST_DEFAULT_SECTION;
+					}
+
 				} else {
-					$section_slug = CST_DEFAULT_SECTION;
+					$section_slug = $primary_section->slug;
 				}
 
-			} else {
-				$section_slug = $primary_section->slug;
 			}
-
-			$search_replace = array(
-				'%year%'        => $date[0],
-				'%monthnum%'    => $date[1],
-				'%day%'         => $date[2],
-				'%postname%'    => $post_name,
-				'%cst_section%' => $section_slug,
+				$search_replace = array(
+					'%year%'        => $date[0],
+					'%monthnum%'    => $date[1],
+					'%day%'         => $date[2],
+					'%postname%'    => $post_name,
+					'%cst_section%' => $section_slug,
+					'%post_type%' => str_replace( 'cst_', '', $post->get_post_type() ),
 				);
-
-			$permalink_struct = '%cst_section%/%postname%/';
+			'cst_feature' === $post->get_post_type() ? $permalink_struct = '%post_type%/%postname%/': $permalink_struct = '%cst_section%/%postname%/';
 			$link = home_url( str_replace( array_keys( $search_replace ), array_values( $search_replace ), $permalink_struct ) );
 		}
 
@@ -1642,7 +1650,7 @@ class CST {
 	 * Inject or return markup for featured image catering for featured
 	 * position or in body position
 	 *
-	 * @param \CST\Objects\Article $obj
+	 * @param $obj
 	 *
 	 * @return string
 	 */
@@ -1651,6 +1659,7 @@ class CST {
 
 		$featured_image_id = $obj->get_featured_image_id();
 		$output = '';
+		$image_type = 'cst-article-featured';
 		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) :
 			if ( doing_filter( 'the_content' ) ) {
 				$class = 'post-lead-media end';
@@ -1658,7 +1667,10 @@ class CST {
 				$class = 'post-lead-media columns medium-11 medium-offset-1 end';
 			}
 			$output .= '<div class="' . esc_attr( $class ) . '">';
-			$output .= $attachment->get_html( 'cst-article-featured' );
+		if ( is_singular( 'cst_feature' ) ) {
+			$image_type = 'feature-hero';
+		}
+			$output .= $attachment->get_html( $image_type );
 			if ( $caption = $attachment->get_caption() ) :
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
 			endif;

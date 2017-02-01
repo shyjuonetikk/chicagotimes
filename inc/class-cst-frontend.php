@@ -1668,7 +1668,7 @@ ready(fn);
 	 */
 	public function content_ad_injection( $paged ) {
 		if ( ! is_singular( 'cst_article' ) ) {
-			return;
+
 		}
 ?>
 <section class="ad-container">

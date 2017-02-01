@@ -951,12 +951,13 @@ class CST_Admin {
 		}
 
 		if ( in_array( $post_type, CST()->get_post_types() ) ) {
-			$obj = \CST\Objects\Post::get_by_post_id( $post_id );
+			if (  'cst_feature' !== $post_type ) {
+				$obj = \CST\Objects\Post::get_by_post_id( $post_id );
 
-			if ( ! $obj->get_sections() ) {
-				wp_set_object_terms( $obj->get_id(), array( CST_DEFAULT_SECTION ), 'cst_section', true );
+				if ( ! $obj->get_sections() ) {
+					wp_set_object_terms( $obj->get_id(), array( CST_DEFAULT_SECTION ), 'cst_section', true );
+				}
 			}
-
 		}
 
 	}
