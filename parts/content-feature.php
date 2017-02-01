@@ -1,4 +1,3 @@
-<!-- Content-feature.php -->
 <?php echo CST()->get_template_part( 'post/feature-title', $vars ); ?>
 <?php if ( ! empty( $is_main_query ) ) : ?>
 

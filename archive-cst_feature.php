@@ -1,5 +1,4 @@
 <?php get_header( 'features' ); ?>
-	<h1>Feature archive!</h1>
 	<section class="row grey-background">
 		<div id="main" class="wire columns large-12">
 			<div id="fixed-back-to-top" class="hide-back-to-top">
