@@ -1,5 +1,5 @@
 <?php if ( ! empty( $is_main_query ) ) : ?>
-	<?php if ( is_singular( 'cst_article' ) ) : ?>
+	<?php if ( is_singular() ) : ?>
 	<div class="columns medium-11 medium-offset-1 end">
 		<h1><?php $obj->the_title(); ?></h1>
 	</div>
