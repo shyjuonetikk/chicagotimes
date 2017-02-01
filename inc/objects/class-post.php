@@ -623,6 +623,22 @@ abstract class Post {
 	}
 
 	/**
+	 * Get the preferred term field for the article
+	 *
+	 * @return bool|mixed
+	 */
+
+	public function get_hero_sig() {
+
+		if ( $value = $this->get_fm_field( 'feature-sig' ) ) {
+			return $value;
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
 	 * Get the newsletter field for the post
 	 *
 	 * @return string

@@ -179,7 +179,9 @@ class CST_Frontend {
 				if ( is_front_page() ) {
 					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
 				} else {
-					if ( ! is_singular( 'cst_feature' ) ) {
+					if ( is_singular( 'cst_feature' ) ) {
+						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/feature-theme.js', array() );
+					} else {
 						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
 					}
 				}

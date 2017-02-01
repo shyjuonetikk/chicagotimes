@@ -288,6 +288,15 @@ class CST_Admin {
 			'tabbed'      => true,
 			'persist_active_tab' => false,
 		) );
+		if ( 'post.php' == $pagenow && ( ( $article && 'cst_feature' == $article->post_type ) || ! isset( $_GET['post'] ) ) ) {
+			$feature_sig = new Fieldmanager_Textfield( array(
+				'name'    => 'feature-sig',
+				'label'   => false,
+				'description'           => esc_html__( 'Sig line.', 'chicagosuntimes' ),
+			) );
+			$feature_sig->add_meta_box( esc_html__( 'Sig line on hero image', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
+		}
+
 		if ( 'post.php' == $pagenow && ( ( $article && 'cst_article' == $article->post_type ) || ! isset( $_GET['post'] ) ) ) {
 			$selected_sections = array();
 			if ( $article ) {
@@ -403,7 +412,7 @@ class CST_Admin {
 			) );
 		$fm->add_meta_box( esc_html__( 'Newsletter Tag', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
 
-	if( is_admin() ) {
+	if ( is_admin() ) {
 		$fm = new Fieldmanager_Select( array( 
 			'name' 	  => 'yieldmo_tags',
 			'description' => esc_html__( 'Used to test YieldMo Tags on Live Articles. Do not select an option if you do not know what this is.', 'chicagosuntimes' ),

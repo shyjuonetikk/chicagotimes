@@ -1404,6 +1404,8 @@ class CST {
 
 			$post = \CST\Objects\Post::get_by_post_id( $post->ID );
 			if ( 'cst_feature' !== $post->get_post_type() ) {
+				$section_slug = CST_DEFAULT_SECTION;
+			} else {
 				$primary_section = $post->get_primary_parent_section();
 				// This shouldn't ever happen, but just in case
 				if ( empty( $primary_section ) ) {
@@ -1674,7 +1676,14 @@ class CST {
 		if ( is_singular( 'cst_feature' ) ) {
 			$image_type = 'feature-hero';
 		}
+
 			$output .= $attachment->get_html( $image_type );
+
+			if ( is_singular( 'cst_feature' ) ) {
+				$output .= '<div class="hero-sig">';
+				$hero_sig = $obj->get_hero_sig();
+				$output .= '<h3>' . $hero_sig . '</h3></div>';
+			}
 			if ( $caption = $attachment->get_caption() ) :
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
 			endif;

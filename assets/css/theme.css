@@ -3927,7 +3927,12 @@ body.post-gallery-lightbox-active {
     width: 263px; }
   .cst_feature-template-default header#header section#primary-navigation #burger-bar, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar {
     background-color: #231f20; }
+    .cst_feature-template-default header#header section#primary-navigation #burger-bar .fa, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar .fa {
+      font-size: 40px;
+      line-height: 60px; }
 
+.cst_feature-template-default article .row {
+  max-width: 80rem; }
 .cst_feature-template-default h2 {
   border-top: 1px solid #cdcdcd;
   border-bottom: 1px solid #cdcdcd;
@@ -3936,6 +3941,26 @@ body.post-gallery-lightbox-active {
   color: #cccccc;
   text-align: center;
   font-family: 'Open Sans', Arial, sans-serif; }
+.cst_feature-template-default .post-lead-media {
+  position: relative; }
+  .cst_feature-template-default .post-lead-media .hero-sig {
+    position: absolute;
+    bottom: 25px;
+    height: auto;
+    float: left;
+    padding: 20px;
+    background: #231f20;
+    width: 80%; }
+    .cst_feature-template-default .post-lead-media .hero-sig h3 {
+      font-size: 1.8rem;
+      color: white;
+      line-height: 2.3rem; }
+.cst_feature-template-default .post-content div[id^="attachment_"] {
+  margin: 30px 0; }
+  .cst_feature-template-default .post-content div[id^="attachment_"] .wp-caption.alignleft {
+    margin-right: 30px; }
+  .cst_feature-template-default .post-content div[id^="attachment_"] .wp-caption.alignright {
+    margin-left: 30px; }
 .cst_feature-template-default p {
   font-size: 18px;
   font-weight: 300;
@@ -3944,10 +3969,6 @@ body.post-gallery-lightbox-active {
     color: #9a9a9a;
     font-family: 'Open Sans', Arial, sans-serif;
     font-style: normal; }
-.cst_feature-template-default div[id^="attachment_"].alignleft {
-  margin-left: -25%; }
-.cst_feature-template-default div[id^="attachment_"].alignright {
-  margin-right: -25%; }
 .cst_feature-template-default .post-lead-media .image-caption p {
   color: #9a9a9a;
   font-family: 'Open Sans', Arial, sans-serif;

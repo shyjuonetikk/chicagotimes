@@ -3,7 +3,6 @@
 <?php if ( ! empty( $is_main_query ) ) : ?>
 
 	<?php if ( is_singular() ) : ?>
-		<?php echo CST()->get_template_part( 'post/feature-meta-byline', array( 'obj' => $obj ) ); ?>
 		<?php
 		$media_type = $obj->get_featured_media_type();
 		if ( 'image' === $media_type ) :
@@ -17,6 +16,7 @@
 				<?php echo $obj->get_featured_video_embed(); ?>
 			</div>
 		<?php endif; ?>
+		<?php echo CST()->get_template_part( 'post/feature-meta-byline', array( 'obj' => $obj ) ); ?>
 		<div class="row">
 			<div class="post-content columns small-12 end" itemprop="articleBody">
 				<?php

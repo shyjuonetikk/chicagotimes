@@ -12,12 +12,12 @@
 			<?php elseif ( is_author() ): ?>
 				<?php get_template_part( 'parts/section/author-top' ); ?>
 			<?php else: ?>
-				<a id="newsfeed-logo" href="<?php echo home_url('/'); ?>"><?php get_template_part( 'parts/images/main-site-logo'); ?></a>
+				<a id="newsfeed-logo" href="<?php echo home_url('/'); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
 			<?php endif; ?>
 
 			<?php if ( have_posts() ) : ?>
 
-				<?php while( have_posts() ) : the_post(); ?>
+				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php get_template_part( 'sticky-content' ); ?>
 
@@ -26,8 +26,7 @@
 			<?php endif; ?>
 
 			<?php if ( have_posts() ) : ?>
-				<?php do_action( 'cst_section_head' ); ?>
-				<?php while( have_posts() ) : the_post(); ?>
+				<?php while ( have_posts() ) : the_post(); ?>
 
 					<?php get_template_part( 'content' ); ?>
 
@@ -40,4 +39,4 @@
 
 	</section>
 
-<?php get_footer( 'features' ); ?>
+<?php get_footer( 'features' );
