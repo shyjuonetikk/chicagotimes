@@ -95,6 +95,9 @@ abstract class Post {
 			case 'cst_gallery':
 				$post_type_name = 'gallery';
 				break;
+			case 'cst_feature':
+				$post_type_name = 'feature';
+				break;
 			default:
 				break;
 		}
@@ -612,6 +615,22 @@ abstract class Post {
 	public function get_preferred_terms( $term_field_name ) {
 
 		if ( $value = $this->get_fm_field( $term_field_name ) ) {
+			return $value;
+		} else {
+			return false;
+		}
+
+	}
+
+	/**
+	 * Get the preferred term field for the article
+	 *
+	 * @return bool|mixed
+	 */
+
+	public function get_hero_sig() {
+
+		if ( $value = $this->get_fm_field( 'feature-sig' ) ) {
 			return $value;
 		} else {
 			return false;

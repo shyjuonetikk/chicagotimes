@@ -179,21 +179,27 @@ class CST_Frontend {
 				if ( is_front_page() ) {
 					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
 				} else {
-					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+					if ( is_singular( 'cst_feature' ) ) {
+						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/feature-theme.js', array() );
+					} else {
+						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+					}
 				}
 				if ( ! is_front_page() || ! is_page() ) {
 					// Scripty-scripts
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 
-					// Slick
-					wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
-					wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
-					wp_localize_script( 'chicagosuntimes', 'CSTData', array(
-						'home_url'                           => esc_url_raw( home_url() ),
-						'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
-					) );
-					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
+					if ( ! is_singular( 'cst_feature' ) ) {
+						// Slick
+						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
+						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
+						wp_localize_script( 'chicagosuntimes', 'CSTData', array(
+							'home_url'                           => esc_url_raw( home_url() ),
+							'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
+						) );
+						wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
+					}
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-autotrack', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
@@ -221,7 +227,7 @@ class CST_Frontend {
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
 				}
-				if ( ( is_tax() || is_singular() ) && ! is_admin() ) {
+				if ( ( is_tax() || is_singular( 'cst_article', 'cst_gallery' ) ) && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-sticky', get_template_directory_uri() . '/assets/js/vendor/sticky-kit.min.js', array( 'jquery' ) );
 				}
@@ -1254,7 +1260,7 @@ class CST_Frontend {
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
-		if ( is_page() ) {
+		if ( is_page() || is_singular( 'cst_feature' ) ) {
 			return;
 		}
 		?>
@@ -1454,7 +1460,7 @@ class CST_Frontend {
 	*/
 	public function inject_teads_tag() {
 
-		if ( is_page() ) {
+		if ( is_page() || is_singular( 'cst_feature' ) ) {
 			return;
 		}
 		if ( is_singular() ) {
@@ -1667,6 +1673,9 @@ ready(fn);
 	 * @param $paged page number within infinite scroll
 	 */
 	public function content_ad_injection( $paged ) {
+		if ( is_singular( 'cst_feature' ) ) {
+			return;
+		}
 ?>
 <section class="ad-container">
 		<?php
@@ -1692,6 +1701,9 @@ ready(fn);
 	* Include Distroscale on Production homepage and all pages on Pre-Production
 	*/
 	public function action_distroscale_injection() {
+		if ( is_singular( 'cst_feature' ) ) {
+			return;
+		}
 		$site = CST()->dfp_handler->get_parent_dfp_inventory();
 		if ( 'chicago.suntimes.com.test' === $site ) {
 			if ( is_front_page() || is_tax() || is_singular() ) { ?>
