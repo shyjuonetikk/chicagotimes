@@ -1667,6 +1667,9 @@ ready(fn);
 	 * @param $paged page number within infinite scroll
 	 */
 	public function content_ad_injection( $paged ) {
+		if ( ! is_singular( 'cst_article' ) ) {
+			return;
+		}
 ?>
 <section class="ad-container">
 		<?php

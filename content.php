@@ -1,7 +1,7 @@
 <?php $obj = \CST\Objects\Post::get_by_post_id( get_the_ID() ); ?>
 <?php
 $sponsored = false;
-if ( $obj ) {
+if ( $obj && is_singular( 'cst_article' ) ) {
 	if ( is_callable( array( $obj, 'get_sponsored_content' ) ) ) {
 		$sponsored = $obj->get_sponsored_content();
 	}
@@ -59,19 +59,20 @@ if ( $obj ) {
 			if ( $sponsored ) { ?>
 				</div>
 			<?php }
-			if ( is_singular() ) {
+			if ( is_singular( 'cst_article', 'cst_gallery' ) ) {
 				echo CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) );
 			}
 			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
-			?>
-			<div class="agg-chatter <?php the_id(); ?> small-12"></div>
+			if ( is_singular( 'cst_article', 'cst_gallery' ) ) { ?>
+				<div class="agg-chatter <?php the_id(); ?> small-12"></div>
+			<?php } ?>
 		</article>
 
-		<?php if ( is_singular() ) : ?>
+		<?php if ( is_singular( 'cst_article' ) ) { ?>
 		<section class="taboola-container">
 		<?php get_template_part( 'parts/taboola/taboola-container' ); ?>
 		</section>
-		<?php endif; ?>
+		<?php } ?>
 
 		<?php CST()->frontend->content_ad_injection( $paged ); ?>
 

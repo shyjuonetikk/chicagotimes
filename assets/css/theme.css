@@ -3896,3 +3896,10 @@ body.post-gallery-lightbox-active {
 
 .homepage-content .elections-2016 .ap-data {
   min-height: 14.1rem; }
+
+.cst_feature-template-default header#header section#primary-navigation #logo-wrap {
+  padding-top: 0; }
+.cst_feature-template-default header#header section#primary-navigation #suntimes-logo img {
+  width: 300px; }
+.cst_feature-template-default header#header section#primary-navigation #burger-bar {
+  background-color: #231f20; }

@@ -1,0 +1,17 @@
+.cst_feature-template-default {
+	header#header {
+		section#primary-navigation {
+			#logo-wrap {
+				padding-top:0;
+			}
+			#suntimes-logo {
+				img {
+					width: 300px;
+				}
+			}
+			#burger-bar {
+				background-color: $cst_black;
+			}
+		}
+	}
+}

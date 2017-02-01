@@ -167,6 +167,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/objects/class-guest-author.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-user.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-article.php';
+		require_once dirname( __FILE__ ) . '/inc/objects/class-feature.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-link.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-liveblog.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-gallery.php';
@@ -1071,6 +1072,44 @@ class CST {
 			),
 		) );
 
+		$this->post_types[] = 'cst_feature';
+		register_post_type( 'cst_feature', array(
+			'hierarchical'      => false,
+			'public'            => true,
+			'show_in_nav_menus' => true,
+			'menu_position'     => 6,
+			'show_ui'           => true,
+			'supports'          => array(
+				'title',
+				'editor',
+				'author',
+				'thumbnail',
+				'excerpt',
+				'bitly',
+				'revisions',
+			),
+			'has_archive'       => 'features',
+			'query_var'         => true,
+			'rewrite'           => array(
+				'slug'          => 'cst_feature',
+			),
+			'labels'            => array(
+				'name'                => esc_html__( 'Features', 'chicagosuntimes' ),
+				'singular_name'       => esc_html__( 'Feature', 'chicagosuntimes' ),
+				'all_items'           => esc_html__( 'Features', 'chicagosuntimes' ),
+				'new_item'            => esc_html__( 'New Feature', 'chicagosuntimes' ),
+				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
+				'add_new_item'        => esc_html__( 'Add New Feature', 'chicagosuntimes' ),
+				'edit_item'           => esc_html__( 'Edit Feature', 'chicagosuntimes' ),
+				'view_item'           => esc_html__( 'View Feature', 'chicagosuntimes' ),
+				'search_items'        => esc_html__( 'Search Features', 'chicagosuntimes' ),
+				'not_found'           => esc_html__( 'No Features found', 'chicagosuntimes' ),
+				'not_found_in_trash'  => esc_html__( 'No Features found in trash', 'chicagosuntimes' ),
+				'parent_item_colon'   => esc_html__( 'Parent Feature', 'chicagosuntimes' ),
+				'menu_name'           => esc_html__( 'Features', 'chicagosuntimes' ),
+			),
+		) );
+
 		foreach( $this->get_post_types() as $post_type ) {
 			// We have custom rewrite rules below
 			add_filter( "{$post_type}_rewrite_rules", '__return_empty_array' );
@@ -1608,7 +1647,7 @@ class CST {
 	 * @return string
 	 */
 
-	public function featured_image_markup( \CST\Objects\Article $obj ) {
+	public function featured_image_markup( $obj ) {
 
 		$featured_image_id = $obj->get_featured_image_id();
 		$output = '';
