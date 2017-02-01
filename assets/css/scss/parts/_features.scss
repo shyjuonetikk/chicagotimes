@@ -1,16 +1,83 @@
-.cst_feature-template-default {
+@import "../base/_variables";
+
+.cst_feature-template-default,
+.post-type-archive-cst_feature {
 	header#header {
 		section#primary-navigation {
+			height: 60px;
 			#logo-wrap {
-				padding-top:0;
+				height: 60px;
 			}
 			#suntimes-logo {
 				img {
-					width: 300px;
+					width: 263px;
 				}
 			}
 			#burger-bar {
 				background-color: $cst_black;
+			}
+		}
+	}
+}
+.cst_feature-template-default {
+	h1 {
+	}
+	h2 {
+		border-top: 1px solid $line_grey;
+		border-bottom: 1px solid $line_grey;
+		text-transform: uppercase;
+		font-size: 3rem;
+		color: $grey;
+		text-align: center;
+		font-family: $open_sans;
+	}
+	h3 {
+
+	}
+	p {
+		font-size: 18px;
+		font-weight: 300;
+		line-height: 1.8;
+		&.wp-caption-text {
+			color: $social_grey;
+			font-family: $open_sans;
+			font-style: normal;
+		}
+	}
+	div[id^="attachment_"] {
+		&.alignleft {
+			margin-left: -25%;
+		}
+		&.alignright {
+			margin-right: -25%;
+		}
+	}
+	.post-lead-media {
+		.image-caption {
+			p {
+				color: $social_grey;
+				font-family: $open_sans;
+				font-style: normal;
+			}
+		}
+	}
+	blockquote {
+		p {
+			color: $chiwire_grey;
+			font-size: 3rem;
+		}
+	}
+	#social-links ul li {
+		display: inline-block;
+		margin:0;
+		width: 35px;
+		height: 41px;
+		padding: 9px;
+		text-align: center;
+		border-radius: 0;
+		a {
+			i.fa {
+				font-size: 1.5rem;
 			}
 		}
 	}

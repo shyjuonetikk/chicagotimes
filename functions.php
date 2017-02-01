@@ -77,7 +77,7 @@ class CST {
 		add_image_size( 'chiwire-header-medium', 425, 320, true );
 		add_image_size( 'chiwire-header-small', 320, 240, true );
 		add_image_size( 'cst-article-featured', 670, 9999, false );
-		add_image_size( 'cst-feature-hero', 1200, 9999, false );
+		add_image_size( 'cst-feature-hero', 1200, 1600, false );
 		add_image_size( 'cst-gallery-desktop-vertical', 1200, 1600, true );
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
@@ -343,7 +343,7 @@ class CST {
 
 		remove_all_actions( 'do_feed_rss2' );
 		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
-		add_action('do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1);
+		add_action( 'do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1 );
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
@@ -1664,7 +1664,11 @@ class CST {
 			if ( doing_filter( 'the_content' ) ) {
 				$class = 'post-lead-media end';
 			} else {
-				$class = 'post-lead-media columns medium-11 medium-offset-1 end';
+				if ( is_singular( 'cst_feature' ) ) {
+					$class = 'post-lead-media columns small-12 end';
+				} else {
+					$class = 'post-lead-media columns medium-11 medium-offset-1 end';
+				}
 			}
 			$output .= '<div class="' . esc_attr( $class ) . '">';
 		if ( is_singular( 'cst_feature' ) ) {

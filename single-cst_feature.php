@@ -5,9 +5,6 @@
 	<div class="">
 
 		<div id="main" class="columns small-12 end">
-			<div class="columns large-11 large-offset-1 end">
-				<?php get_template_part( 'parts/images/main-site-logo' ); ?>
-			</div>
 
 			<?php if ( have_posts() ) : ?>
 

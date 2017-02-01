@@ -50,17 +50,9 @@ if( is_single() ) {
 
 		<div id="logo-wrap">
 			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo">
-				<img src="<?php echo esc_url( get_stylesheet_directory_uri()  . '/cst-amp-logo.svg' ); ?>" alt="Chicago Sun-Times logo">
+				<img src="<?php echo esc_url( get_stylesheet_directory_uri()  . '/cst-amp-logo.svg' ); ?>" height="57" width="300" alt="Chicago Sun-Times logo">
 			</a>
-			<?php get_template_part( 'parts/images/main-site-logo' ); ?>
 
-			<div id="tablet-home">
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa fa-home"></i></a>
-			</div>
-		</div>
-
-		<div id="mobile-home">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><i class="fa fa-home"></i></a>
 		</div>
 
 		<div id="trending-container">

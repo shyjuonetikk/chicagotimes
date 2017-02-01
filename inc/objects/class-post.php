@@ -95,6 +95,9 @@ abstract class Post {
 			case 'cst_gallery':
 				$post_type_name = 'gallery';
 				break;
+			case 'cst_feature':
+				$post_type_name = 'feature';
+				break;
 			default:
 				break;
 		}

@@ -8,7 +8,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 }
 ?>
 <?php if ( ! is_sticky() ) : ?>
-	<?php if ( is_singular() ) : ?>
+	<?php if ( is_singular( 'cst_article', 'cst_gallery' ) ) : ?>
 		<div class="row post-row">
 		<?php endif; ?>
 
@@ -43,7 +43,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
-			<?php if ( is_singular() ) : ?>
+			<?php if ( is_singular( 'cst_article', 'cst_gallery' ) ) : ?>
 
 				<?php if ( 'cst_embed' !== $obj->get_post_type() || 'twitter' !== $obj->get_embed_type() ) : ?>
 					<div class="post-meta post-meta-social show-for-medium-up">
@@ -54,7 +54,9 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			<?php endif; ?>
 
 			<?php
-			echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
+			if ( is_singular( 'cst_article', 'cst_gallery' ) ) {
+				echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
+			}
 			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
 			if ( $sponsored ) { ?>
 				</div>
@@ -76,7 +78,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 
 		<?php CST()->frontend->content_ad_injection( $paged ); ?>
 
-		<?php if ( is_singular() ) : ?>
+		<?php if ( is_singular( 'cst_article', 'cst_gallery' ) ) : ?>
 		</div>
 	<?php endif; ?>
 <?php endif; ?>

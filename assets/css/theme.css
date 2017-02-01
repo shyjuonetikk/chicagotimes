@@ -2521,6 +2521,19 @@ header .contain-to-grid .cst-row {
 
 footer {
   background: #282828; }
+  footer .back-to-top a {
+    color: white; }
+  footer .back-to-top p {
+    margin: 0; }
+  footer .footerlead {
+    background: #9a9a9a;
+    padding: 10px; }
+  footer .footer-upper {
+    padding: 10px 0; }
+  footer .separate-me {
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    margin: 10px auto; }
   footer .copyright {
     color: white; }
   footer hr {
@@ -3897,9 +3910,58 @@ body.post-gallery-lightbox-active {
 .homepage-content .elections-2016 .ap-data {
   min-height: 14.1rem; }
 
-.cst_feature-template-default header#header section#primary-navigation #logo-wrap {
-  padding-top: 0; }
-.cst_feature-template-default header#header section#primary-navigation #suntimes-logo img {
-  width: 300px; }
-.cst_feature-template-default header#header section#primary-navigation #burger-bar {
-  background-color: #231f20; }
+/**
+ * Colors
+ */
+/**
+ * Fonts
+ */
+/**
+* Custom padding, spacing for homepage
+*/
+.cst_feature-template-default header#header section#primary-navigation, .post-type-archive-cst_feature header#header section#primary-navigation {
+  height: 60px; }
+  .cst_feature-template-default header#header section#primary-navigation #logo-wrap, .post-type-archive-cst_feature header#header section#primary-navigation #logo-wrap {
+    height: 60px; }
+  .cst_feature-template-default header#header section#primary-navigation #suntimes-logo img, .post-type-archive-cst_feature header#header section#primary-navigation #suntimes-logo img {
+    width: 263px; }
+  .cst_feature-template-default header#header section#primary-navigation #burger-bar, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar {
+    background-color: #231f20; }
+
+.cst_feature-template-default h2 {
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+  text-transform: uppercase;
+  font-size: 3rem;
+  color: #cccccc;
+  text-align: center;
+  font-family: 'Open Sans', Arial, sans-serif; }
+.cst_feature-template-default p {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.8; }
+  .cst_feature-template-default p.wp-caption-text {
+    color: #9a9a9a;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-style: normal; }
+.cst_feature-template-default div[id^="attachment_"].alignleft {
+  margin-left: -25%; }
+.cst_feature-template-default div[id^="attachment_"].alignright {
+  margin-right: -25%; }
+.cst_feature-template-default .post-lead-media .image-caption p {
+  color: #9a9a9a;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-style: normal; }
+.cst_feature-template-default blockquote p {
+  color: #484848;
+  font-size: 3rem; }
+.cst_feature-template-default #social-links ul li {
+  display: inline-block;
+  margin: 0;
+  width: 35px;
+  height: 41px;
+  padding: 9px;
+  text-align: center;
+  border-radius: 0; }
+  .cst_feature-template-default #social-links ul li a i.fa {
+    font-size: 1.5rem; }
