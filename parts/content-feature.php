@@ -30,7 +30,7 @@
 						if ( date( 'Y' ) != $obj->get_post_date_gmt( 'Y' ) ) {
 							echo esc_html( $obj->get_post_date_gmt( 'Y' ) ) . '-';
 						}
-						echo date( 'Y' ); ?> Associated Press. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</p>
+						echo esc_html( date( 'Y' ) ); ?> Associated Press. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</p>
 				<?php } ?>
 			</div>
 		</div>

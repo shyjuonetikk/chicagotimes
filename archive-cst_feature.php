@@ -11,7 +11,7 @@
 			<?php elseif ( is_author() ): ?>
 				<?php get_template_part( 'parts/section/author-top' ); ?>
 			<?php else: ?>
-				<a id="newsfeed-logo" href="<?php echo home_url('/'); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
+				<a id="newsfeed-logo" href="<?php echo esc_url( home_url('/') ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
 			<?php endif; ?>
 
 			<?php if ( have_posts() ) : ?>
