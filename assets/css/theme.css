@@ -4099,11 +4099,19 @@ h1, h2, h3, h4, h5, h6 {
   text-transform: uppercase; }
   @media only screen and (max-width:90em) {
     .cst_feature-template-default article.post h1.hero-feature-title {
-      font-size: 3.5rem;
-      line-height: 4rem; } }
+      font-size: 4rem;
+      line-height: 4.5rem; } }
   @media only screen and (max-width:47.398em) {
     .cst_feature-template-default article.post h1.hero-feature-title {
+      font-size: 3.4rem;
+      line-height: 3.5rem; } }
+  @media only screen and (max-width:64em) {
+    .cst_feature-template-default article.post h1.hero-feature-title {
       font-size: 3rem;
+      line-height: 3.5rem; } }
+  @media only screen and (max-width:64em) and (orientation: portrait) {
+    .cst_feature-template-default article.post h1.hero-feature-title {
+      font-size: 2.7rem;
       line-height: 3.5rem; } }
   @media only screen and (max-width: 40em) {
     .cst_feature-template-default article.post h1.hero-feature-title {
@@ -4130,12 +4138,24 @@ h1, h2, h3, h4, h5, h6 {
       @media only screen and (max-width:90em) {
         .cst_feature-template-default .post-lead-media .hero-image .hero-title {
           top: 70%; } }
+      @media only screen and (max-width:90em) and (orientation: portrait) {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+          top: 60%;
+          padding: 0 104px; } }
+      @media only screen and (max-width:64em) and (orientation: landscape) {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+          padding: 0 18px; } }
+      @media only screen and (max-width:64em) and (orientation: portrait) {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+          top: 60%;
+          padding: 0; } }
       @media only screen and (max-width:47.398em) {
         .cst_feature-template-default .post-lead-media .hero-image .hero-title {
-          top: 60%; } }
+          top: 60%;
+          padding: 0 15px; } }
       @media only screen and (max-width: 40em) {
         .cst_feature-template-default .post-lead-media .hero-image .hero-title {
-          top: 50%; } }
+          top: 47%; } }
     .cst_feature-template-default .post-lead-media .hero-image .hero-sig {
       bottom: 0;
       height: auto;
@@ -4194,3 +4214,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 0; }
   .cst_feature-template-default #social-links ul li a i.fa {
     font-size: 1.5rem; }
+@media only screen and (max-width:64em) {
+  .cst_feature-template-default footer .columns:first-child {
+    padding-left: 0.9375rem; } }
+@media only screen and (max-width: 40em) {
+  .cst_feature-template-default footer p {
+    font-size: 0.8rem; } }
