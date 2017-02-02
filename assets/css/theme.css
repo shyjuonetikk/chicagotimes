@@ -4075,21 +4075,21 @@ h1, h2, h3, h4, h5, h6 {
 /* 1921px */
 @media only screen and (max-width:90em) { }
 
-.cst_feature-template-default header#header section#primary-navigation, .post-type-archive-cst_feature header#header section#primary-navigation {
+.cst_feature-template-default header#header section#primary-navigation, .post-type-archive-cst_feature header#header section#primary-navigation, .single-cst_feature header#header section#primary-navigation {
   height: 60px; }
-  .cst_feature-template-default header#header section#primary-navigation #logo-wrap, .post-type-archive-cst_feature header#header section#primary-navigation #logo-wrap {
+  .cst_feature-template-default header#header section#primary-navigation #logo-wrap, .post-type-archive-cst_feature header#header section#primary-navigation #logo-wrap, .single-cst_feature header#header section#primary-navigation #logo-wrap {
     height: 60px; }
-  .cst_feature-template-default header#header section#primary-navigation #suntimes-logo img, .post-type-archive-cst_feature header#header section#primary-navigation #suntimes-logo img {
+  .cst_feature-template-default header#header section#primary-navigation #suntimes-logo img, .post-type-archive-cst_feature header#header section#primary-navigation #suntimes-logo img, .single-cst_feature header#header section#primary-navigation #suntimes-logo img {
     width: 263px; }
-  .cst_feature-template-default header#header section#primary-navigation #burger-bar, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar {
+  .cst_feature-template-default header#header section#primary-navigation #burger-bar, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar, .single-cst_feature header#header section#primary-navigation #burger-bar {
     background-color: #231f20; }
-    .cst_feature-template-default header#header section#primary-navigation #burger-bar .fa, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar .fa {
+    .cst_feature-template-default header#header section#primary-navigation #burger-bar .fa, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar .fa, .single-cst_feature header#header section#primary-navigation #burger-bar .fa {
       font-size: 40px;
       line-height: 60px; }
 
-.cst_feature-template-default article .row {
+.cst_feature-template-default article .row, .single-cst_feature article .row {
   max-width: 80rem; }
-.cst_feature-template-default article.post h1.hero-feature-title {
+.cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
   color: white;
   font-size: 5rem;
   line-height: 6rem;
@@ -4098,26 +4098,26 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Merriweather', Georgia, serif;
   text-transform: uppercase; }
   @media only screen and (max-width:90em) {
-    .cst_feature-template-default article.post h1.hero-feature-title {
+    .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 4rem;
       line-height: 4.5rem; } }
   @media only screen and (max-width:47.398em) {
-    .cst_feature-template-default article.post h1.hero-feature-title {
+    .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 3.4rem;
       line-height: 3.5rem; } }
   @media only screen and (max-width:64em) {
-    .cst_feature-template-default article.post h1.hero-feature-title {
+    .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 3rem;
       line-height: 3.5rem; } }
   @media only screen and (max-width:64em) and (orientation: portrait) {
-    .cst_feature-template-default article.post h1.hero-feature-title {
+    .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 2.7rem;
       line-height: 3.5rem; } }
   @media only screen and (max-width: 40em) {
-    .cst_feature-template-default article.post h1.hero-feature-title {
+    .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 1.5rem;
       line-height: 1.8rem; } }
-.cst_feature-template-default article.post h2 {
+.cst_feature-template-default article.post h2, .single-cst_feature article.post h2 {
   border-top: 1px solid #cdcdcd;
   border-bottom: 1px solid #cdcdcd;
   text-transform: uppercase;
@@ -4125,86 +4125,86 @@ h1, h2, h3, h4, h5, h6 {
   color: #cccccc;
   text-align: center;
   font-family: 'Open Sans', Arial, sans-serif; }
-.cst_feature-template-default article.post .post-meta-byline {
+.cst_feature-template-default article.post .post-meta-byline, .single-cst_feature article.post .post-meta-byline {
   text-align: center; }
-.cst_feature-template-default .post-lead-media {
+.cst_feature-template-default .post-lead-media, .single-cst_feature .post-lead-media {
   position: relative; }
-  .cst_feature-template-default .post-lead-media .hero-image {
+  .cst_feature-template-default .post-lead-media .hero-image, .single-cst_feature .post-lead-media .hero-image {
     position: relative; }
-    .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+    .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
       position: absolute;
       max-width: 100%;
       top: 70%; }
       @media only screen and (max-width:90em) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 70%; } }
       @media only screen and (max-width:90em) and (orientation: portrait) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 60%;
           padding: 0 104px; } }
       @media only screen and (max-width:64em) and (orientation: landscape) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           padding: 0 18px; } }
       @media only screen and (max-width:64em) and (orientation: portrait) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 60%;
           padding: 0; } }
       @media only screen and (max-width:47.398em) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 60%;
           padding: 0 15px; } }
       @media only screen and (max-width: 40em) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-title {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 47%; } }
-    .cst_feature-template-default .post-lead-media .hero-image .hero-sig {
+    .cst_feature-template-default .post-lead-media .hero-image .hero-sig, .single-cst_feature .post-lead-media .hero-image .hero-sig {
       bottom: 0;
       height: auto;
       padding: 20px;
       background: #231f20; }
-      .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3 {
+      .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3, .single-cst_feature .post-lead-media .hero-image .hero-sig h3 {
         font-size: 1.8rem;
         color: white;
         line-height: 2.3rem; }
       @media only screen and (max-width:90em) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-sig {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-sig, .single-cst_feature .post-lead-media .hero-image .hero-sig {
           padding: 15px; }
-          .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3 {
+          .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3, .single-cst_feature .post-lead-media .hero-image .hero-sig h3 {
             font-size: 1.2rem;
             line-height: 1.8rem; } }
       @media only screen and (max-width:47.398em) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-sig {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-sig, .single-cst_feature .post-lead-media .hero-image .hero-sig {
           padding: 10px; }
-          .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3 {
+          .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3, .single-cst_feature .post-lead-media .hero-image .hero-sig h3 {
             font-size: 1rem;
             line-height: 1.4rem; } }
       @media only screen and (max-width: 40em) {
-        .cst_feature-template-default .post-lead-media .hero-image .hero-sig {
+        .cst_feature-template-default .post-lead-media .hero-image .hero-sig, .single-cst_feature .post-lead-media .hero-image .hero-sig {
           padding: 5px; }
-          .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3 {
+          .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3, .single-cst_feature .post-lead-media .hero-image .hero-sig h3 {
             font-size: 0.8rem;
             line-height: 1.2rem; } }
-.cst_feature-template-default .post-content div[id^="attachment_"] {
+.cst_feature-template-default .post-content div[id^="attachment_"], .single-cst_feature .post-content div[id^="attachment_"] {
   margin: 30px 0; }
-  .cst_feature-template-default .post-content div[id^="attachment_"] .wp-caption.alignleft {
+  .cst_feature-template-default .post-content div[id^="attachment_"] .wp-caption.alignleft, .single-cst_feature .post-content div[id^="attachment_"] .wp-caption.alignleft {
     margin-right: 30px; }
-  .cst_feature-template-default .post-content div[id^="attachment_"] .wp-caption.alignright {
+  .cst_feature-template-default .post-content div[id^="attachment_"] .wp-caption.alignright, .single-cst_feature .post-content div[id^="attachment_"] .wp-caption.alignright {
     margin-left: 30px; }
-.cst_feature-template-default p {
+.cst_feature-template-default p, .single-cst_feature p {
   font-size: 18px;
   font-weight: 300;
   line-height: 1.8; }
-  .cst_feature-template-default p.wp-caption-text {
+  .cst_feature-template-default p.wp-caption-text, .single-cst_feature p.wp-caption-text {
     color: #9a9a9a;
     font-family: 'Open Sans', Arial, sans-serif;
     font-style: normal; }
-.cst_feature-template-default .post-lead-media .image-caption p {
+.cst_feature-template-default .post-lead-media .image-caption p, .single-cst_feature .post-lead-media .image-caption p {
   color: #9a9a9a;
   font-family: 'Open Sans', Arial, sans-serif;
   font-style: normal; }
-.cst_feature-template-default blockquote p {
+.cst_feature-template-default blockquote p, .single-cst_feature blockquote p {
   color: #484848;
   font-size: 3rem; }
-.cst_feature-template-default #social-links ul li {
+.cst_feature-template-default #social-links ul li, .single-cst_feature #social-links ul li {
   display: inline-block;
   margin: 0;
   width: 35px;
@@ -4212,11 +4212,11 @@ h1, h2, h3, h4, h5, h6 {
   padding: 9px;
   text-align: center;
   border-radius: 0; }
-  .cst_feature-template-default #social-links ul li a i.fa {
+  .cst_feature-template-default #social-links ul li a i.fa, .single-cst_feature #social-links ul li a i.fa {
     font-size: 1.5rem; }
 @media only screen and (max-width:64em) {
-  .cst_feature-template-default footer .columns:first-child {
+  .cst_feature-template-default footer .columns:first-child, .single-cst_feature footer .columns:first-child {
     padding-left: 0.9375rem; } }
 @media only screen and (max-width: 40em) {
-  .cst_feature-template-default footer p {
+  .cst_feature-template-default footer p, .single-cst_feature footer p {
     font-size: 0.8rem; } }

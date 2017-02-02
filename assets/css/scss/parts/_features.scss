@@ -5,7 +5,8 @@
 @import "../base/_screensize";
 @import "../base/_layout";
 .cst_feature-template-default,
-.post-type-archive-cst_feature {
+.post-type-archive-cst_feature,
+.single-cst_feature {
 	header#header {
 		section#primary-navigation {
 			height: 60px;
@@ -27,7 +28,8 @@
 		}
 	}
 }
-.cst_feature-template-default {
+.cst_feature-template-default,
+.single-cst_feature {
 	article {
 		.row {
 			max-width:80rem;
