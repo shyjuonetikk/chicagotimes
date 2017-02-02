@@ -1019,20 +1019,7 @@ class CST_Admin {
 		if ( ! $obj ) {
 			return false;
 		}
-
-		$slug        = basename( $obj->get_permalink() );
-		$title       = '' === $title_prefix ? '' : $title_prefix . $obj->get_title();
-		$sections    = $obj->get_sections();
-		$body_array  = array(
-			'token'   => 'suntimes',
-			'message' => $title,
-			'slug'    => ( '' === $title ) ? '' : esc_attr( $slug ),
-		);
-		$section_count = 1;
-		foreach ( $sections as $section_object ) {
-			$body_array["section{$section_count}"] = esc_attr( $section_object->name );
-			$section_count++;
-		}
+		$body_array = $this->determine_sections( $obj, $title_prefix );
 		$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
 		$payload_array = array(
 			'method'      => 'POST',
@@ -1055,6 +1042,27 @@ class CST_Admin {
 		}
 	}
 
+	private function determine_sections( \CST\Objects\Post $obj, $title_prefix) {
+
+		$slug        = basename( $obj->get_permalink() );
+		$title       = '' === $title_prefix ? '' : $title_prefix . $obj->get_title();
+		$body_array  = array(
+			'token'   => 'suntimes',
+			'message' => $title,
+			'slug'    => ( '' === $title ) ? '' : esc_attr( $slug ),
+		);
+		if ( 'cst_feature' === $obj->get_post_type() ) {
+			$body_array["section0"] = esc_attr( $obj->get_post_type() );
+		} else {
+			$sections    = $obj->get_sections();
+			$section_count = 1;
+			foreach ( $sections as $section_object ) {
+				$body_array["section{$section_count}"] = esc_attr( $section_object->name );
+				$section_count++;
+			}
+		}
+		return $body_array;
+	}
 	/**
 	 * Filter markup to include placeholders specific to this post
 	 */

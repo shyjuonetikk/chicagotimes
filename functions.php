@@ -1195,7 +1195,10 @@ class CST {
 			'assign_terms'  => 'edit_posts'
 			);
 
-		register_taxonomy( 'cst_section', $this->post_types, array(
+		$section_based_post_types = $this->post_types;
+		$unset_feature = array_keys( $section_based_post_types, 'cst_feature' );
+		unset( $section_based_post_types[ $unset_feature[0] ] );
+		register_taxonomy( 'cst_section', $section_based_post_types, array(
 			'hierarchical'      => true,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -1225,7 +1228,7 @@ class CST {
 			),
 		) );
 
-		register_taxonomy( 'cst_topic', $this->post_types, array(
+		register_taxonomy( 'cst_topic', $section_based_post_types, array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -1255,7 +1258,7 @@ class CST {
 			),
 		) );
 
-		register_taxonomy( 'cst_location', $this->post_types, array(
+		register_taxonomy( 'cst_location', $section_based_post_types, array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -1285,7 +1288,7 @@ class CST {
 			),
 		) );
 
-		register_taxonomy( 'cst_person', $this->post_types, array(
+		register_taxonomy( 'cst_person', $section_based_post_types, array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -1682,7 +1685,7 @@ class CST {
 			if ( is_singular( 'cst_feature' ) ) {
 				$output .= '<div class="hero-sig">';
 				$hero_sig = $obj->get_hero_sig();
-				$output .= '<h3>' . $hero_sig . '</h3></div>';
+				$output .= '<h3>' . esc_html( $hero_sig ) . '</h3></div>';
 			}
 			if ( $caption = $attachment->get_caption() ) :
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';

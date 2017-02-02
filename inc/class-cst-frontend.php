@@ -179,7 +179,7 @@ class CST_Frontend {
 				if ( is_front_page() ) {
 					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
 				} else {
-					if ( is_singular( 'cst_feature' ) ) {
+					if ( is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/feature-theme.js', array() );
 					} else {
 						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
@@ -190,7 +190,7 @@ class CST_Frontend {
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 
-					if ( ! is_singular( 'cst_feature' ) ) {
+					if ( ! is_singular( 'cst_feature' ) && ! is_post_type_archive( 'cst_feature' ) ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
@@ -1746,7 +1746,7 @@ ready(fn);
 	 * @param $paged page number within infinite scroll
 	 */
 	public function content_ad_injection( $paged ) {
-		if ( is_singular( 'cst_feature' ) ) {
+		if ( is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
 ?>
