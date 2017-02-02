@@ -288,7 +288,7 @@ class CST_Admin {
 			'tabbed'      => true,
 			'persist_active_tab' => false,
 		) );
-		if ( 'post.php' == $pagenow && ( ( $article && 'cst_feature' == $article->post_type ) || ! isset( $_GET['post'] ) ) ) {
+		if ( 'post.php' === $pagenow && ( ( $article && 'cst_feature' === $article->post_type ) || ! isset( $_GET['post'] ) ) ) {
 			$feature_sig = new Fieldmanager_Textfield( array(
 				'name'    => 'feature-sig',
 				'label'   => false,

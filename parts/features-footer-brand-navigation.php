@@ -18,7 +18,7 @@
 	</div>
 	<div class="row footer-lower">
 		<div class="small-12 columns">
-			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', date( 'Y' ) ); ?> Chicago Sun-Times</p>
+			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', esc_html( date( 'Y' ) ) ); ?> Chicago Sun-Times</p>
 		</div>
 	</div>
 </footer>
