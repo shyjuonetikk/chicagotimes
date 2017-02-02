@@ -114,4 +114,18 @@ class Feature extends Post {
 			return false;
 		}
 	}
+	/**
+	 * Get the preferred term field for the article
+	 *
+	 * @return bool|mixed
+	 */
+
+	public function get_hero_title() {
+
+		if ( $value = $this->get_fm_field( 'feature-title' ) ) {
+			return $value;
+		} else {
+			return false;
+		}
+	}
 }

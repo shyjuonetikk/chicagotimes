@@ -14,23 +14,11 @@
 				<?php echo $obj->get_featured_video_embed(); ?>
 			</div>
 		<?php endif; ?>
-		<?php echo CST()->get_template_part( 'post/feature-meta-byline', array( 'obj' => $obj ) ); ?>
 		<div class="row">
+			<?php echo CST()->get_template_part( 'post/feature-meta-byline', array( 'obj' => $obj ) ); ?>
 			<div class="post-content columns small-12 end" itemprop="articleBody">
-				<?php
-				$obj->the_content();
-				$user_logins = array();
-				foreach ( $obj->get_authors() as $author ) {
-					$user_logins[] = $author->get_user_login();
-				}
-				if ( in_array( 'associated-press', $user_logins, true ) ) { ?>
-					<p class="post-copyright">Copyright <?php
-						// Support for multiple years
-					if ( date( 'Y' ) !== $obj->get_post_date_gmt( 'Y' ) ) {
-						echo esc_html( $obj->get_post_date_gmt( 'Y' ) ) . '-';
-					}
-						echo esc_html( date( 'Y' ) ); ?> Associated Press. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</p>
-				<?php } ?>
+				<?php $obj->the_content(); ?>
+
 			</div>
 		</div>
 	<?php else : ?>

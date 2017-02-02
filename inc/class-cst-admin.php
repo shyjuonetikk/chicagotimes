@@ -295,6 +295,12 @@ class CST_Admin {
 				'description'           => esc_html__( 'Sig line.', 'chicagosuntimes' ),
 			) );
 			$feature_sig->add_meta_box( esc_html__( 'Sig line on hero image', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
+			$feature_title = new Fieldmanager_Textfield( array(
+				'name'    => 'feature-title',
+				'label'   => false,
+				'description'           => esc_html__( 'Title of feature - overlaid on hero image.', 'chicagosuntimes' ),
+			) );
+			$feature_title->add_meta_box( esc_html__( 'Title of feature', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
 		}
 
 		if ( 'post.php' == $pagenow && ( ( $article && 'cst_article' == $article->post_type ) || ! isset( $_GET['post'] ) ) ) {

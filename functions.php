@@ -1679,7 +1679,7 @@ class CST {
 		if ( is_singular( 'cst_feature' ) ) {
 			$image_type = 'cst-feature-hero';
 			$hero_sig = $obj->get_hero_sig();
-			$hero_title = $obj->get_title();
+			$hero_title = $obj->get_hero_title();
 			$featured_image_id = $obj->get_featured_image_id();
 			$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
 		} else {
