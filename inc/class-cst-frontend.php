@@ -1746,7 +1746,7 @@ ready(fn);
 	 * @param $paged page number within infinite scroll
 	 */
 	public function content_ad_injection( $paged ) {
-		if ( is_singular( 'cst_feature' ) ) {
+		if ( is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
 ?>
