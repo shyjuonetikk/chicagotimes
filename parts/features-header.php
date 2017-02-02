@@ -1,37 +1,5 @@
-<?php 
-if( is_single() ) {
-	$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-	if ( $current_obj ) {
-		$conditional_nav = $current_obj->get_primary_parent_section();
-		if( ! $conditional_nav ) {
-			$conditional_nav = $current_obj->get_child_parent_section();
-			if( ! in_array( $conditional_nav, CST_Frontend::$post_sections ) ) {
-				$conditional_nav = $current_obj->get_grandchild_parent_section();
-			}
-		}
-	} else {
-		$conditional_nav = 'menu';
-	}
-} elseif( is_tax() ) {
-	$current_obj = get_queried_object();
-	if( $current_obj->taxonomy == 'cst_section' ) {
-		if( $current_obj->parent != 0 ) {
-			$parent_terms = get_term( $current_obj->parent, 'cst_section' );
-			if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
-				$child_terms = get_term( $parent_terms->parent, 'cst_section' );
-				$conditional_nav = $child_terms;
-			} else {
-				$conditional_nav = $parent_terms;
-			}
-		} else {
-			$conditional_nav = $current_obj;
-		}
-	} else {
-		$conditional_nav = 'news';
-	}
-} else {
-	$conditional_nav = 'menu';
-}
+<?php
+$conditional_nav = CST()->frontend->get_conditional_nav;
 ?>
 <div class="off-canvas-wrap" data-offcanvas>
 	<div class="inner-wrap">
@@ -71,7 +39,7 @@ if( is_single() ) {
 					<i class="fa fa-search"></i>
 				</a>
 			</form>
-			<?php if ( $current_obj ) {
+			<?php if ( CST()->frontend->get_current_object() ) {
 				if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
 					wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false ) );
 				} else {
@@ -95,12 +63,12 @@ if ( is_singular() ) {
 
 
 <?php if ( ! is_single() ) : ?>
-	<?php if ( is_tax() ){
+	<?php if ( is_tax() ) {
 		$section_obj = get_queried_object();
-		if( $section_obj->taxonomy == 'cst_section' ) {
-			if( $section_obj->parent != 0 ) {
+		if ( 'cst_section' === $section_obj->taxonomy ) {
+			if ( 0 !== $section_obj->parent ) {
 				$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-				if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+				if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections, true ) ) {
 					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 					$section_slug = $child_terms->slug;
 				} else {
@@ -116,7 +84,7 @@ if ( is_singular() ) {
 	<?php if ( isset( $section_slug ) ) : ?>
 		<?php do_action( 'cst_section_front_upper_heading' );  ?>
 		<?php $action_slug = str_replace( '-', '_', get_queried_object()->slug ); ?>
-		<?php do_action( "cst_section_head_comscore", $section_slug, $action_slug ); ?>
+		<?php do_action( 'cst_section_head_comscore', $section_slug, $action_slug ); ?>
 		<?php do_action( "cst_section_head_{$action_slug}" ); ?>
 		<section id="rss" class="row grey-background">
 			<div class="large-8 columns">
