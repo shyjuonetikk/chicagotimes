@@ -292,13 +292,19 @@ class CST_Admin {
 			$feature_sig = new Fieldmanager_Textfield( array(
 				'name'    => 'feature-sig',
 				'label'   => false,
-				'description'           => esc_html__( 'Sig line.', 'chicagosuntimes' ),
+				'description' => esc_html__( 'Sig line.', 'chicagosuntimes' ),
 			) );
 			$feature_sig->add_meta_box( esc_html__( 'Sig line on hero image', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
+			$persistent_date = new Fieldmanager_Textfield( array(
+				'name'    => 'feature-persistent-date',
+				'label'   => false,
+				'description' => esc_html__( 'Date aside byline - to be shown next to byline in perpetuity', 'chicagosuntimes' ),
+			) );
+			$persistent_date->add_meta_box( esc_html__( 'Persistent date', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
 			$feature_title = new Fieldmanager_Textfield( array(
 				'name'    => 'feature-title',
 				'label'   => false,
-				'description'           => esc_html__( 'Title of feature - overlaid on hero image.', 'chicagosuntimes' ),
+				'description' => esc_html__( 'Title of feature - overlaid on hero image.', 'chicagosuntimes' ),
 			) );
 			$feature_title->add_meta_box( esc_html__( 'Title of feature', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
 		}

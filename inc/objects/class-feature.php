@@ -115,7 +115,7 @@ class Feature extends Post {
 		}
 	}
 	/**
-	 * Get the preferred term field for the article
+	 * Get the hero title overlaid on hero image field for the feature
 	 *
 	 * @return bool|mixed
 	 */
@@ -123,6 +123,20 @@ class Feature extends Post {
 	public function get_hero_title() {
 
 		if ( $value = $this->get_fm_field( 'feature-title' ) ) {
+			return $value;
+		} else {
+			return false;
+		}
+	}
+	/**
+	 * Get the persistent date to be shown next to byline in perpetuity field for the feature
+	 *
+	 * @return bool|mixed
+	 */
+
+	public function get_persistent_date() {
+
+		if ( $value = $this->get_fm_field( 'feature-persistent-date' ) ) {
 			return $value;
 		} else {
 			return false;
