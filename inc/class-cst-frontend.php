@@ -1453,7 +1453,80 @@ class CST_Frontend {
 	public function setup_dfp_header_ad_settings() {
 		CST()->dfp_handler->ad_header_settings();
 	}
-		/**
+
+	/**
+	* @return bool|object
+	*
+	* Get object for article / section front
+	*/
+	public function get_current_object() {
+		$current_obj = false;
+		if ( is_single() ) {
+			$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+		} else if ( is_tax() ) {
+			$current_obj = get_queried_object();
+		}
+		return $current_obj;
+	}
+	/**
+	* @return array|bool|null|object|string|WP_Error|WP_Term
+	 *
+	 * Get conditional nav object / setting
+ 	*/
+	public function get_conditional_nav() {
+		$current_obj = $this->get_current_object();
+		if ( is_single() ) {
+			if ( $current_obj ) {
+				$conditional_nav = $current_obj->get_primary_parent_section();
+				if ( ! $conditional_nav ) {
+					$conditional_nav = $current_obj->get_child_parent_section();
+					if ( ! in_array( $conditional_nav, CST_Frontend::$post_sections, true ) ) {
+						$conditional_nav = $current_obj->get_grandchild_parent_section();
+					}
+				}
+			} else {
+				$conditional_nav = 'menu';
+			}
+		} elseif ( is_tax() ) {
+			if ( 'cst_section' === $current_obj->taxonomy ) {
+				if ( 0 !== $current_obj->parent ) {
+					$parent_terms = get_term( $current_obj->parent, 'cst_section' );
+					if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections, true ) ) {
+						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
+						$conditional_nav = $child_terms;
+					} else {
+						$conditional_nav = $parent_terms;
+					}
+				} else {
+					$conditional_nav = $current_obj;
+				}
+			} else {
+				$conditional_nav = 'news';
+			}
+		} else {
+			$conditional_nav = 'menu';
+		}
+		return $conditional_nav;
+	}
+
+	/**
+	* Generate off canvas menu items
+	*/
+	public function generate_off_canvas_menu() {
+		if ( is_front_page() ) {
+			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
+		} else if ( $current_obj = $this->get_current_object() ) {
+			$conditional_nav = $this->get_conditional_nav();
+			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
+				wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			} else {
+				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			}
+		} else {
+		wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+		}
+	}
+	/**
 	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
 	*
