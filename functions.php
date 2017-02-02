@@ -1677,16 +1677,15 @@ class CST {
 			}
 			$output .= '<div class="' . esc_attr( $class ) . '">';
 		if ( is_singular( 'cst_feature' ) ) {
-			$image_type = 'feature-hero';
+			$image_type = 'cst-feature-hero';
+			$hero_sig = $obj->get_hero_sig();
+			$hero_title = $obj->get_title();
+			$featured_image_id = $obj->get_featured_image_id();
+			$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
+		} else {
+			$output .= $attachment->get_html( $image_type );
 		}
 
-			$output .= $attachment->get_html( $image_type );
-
-			if ( is_singular( 'cst_feature' ) ) {
-				$output .= '<div class="hero-sig">';
-				$hero_sig = $obj->get_hero_sig();
-				$output .= '<h3>' . esc_html( $hero_sig ) . '</h3></div>';
-			}
 			if ( $caption = $attachment->get_caption() ) :
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
 			endif;

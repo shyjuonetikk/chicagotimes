@@ -5,18 +5,7 @@ namespace CST\Objects;
 class Feature extends Post {
 
 	protected static $post_type = 'cst_feature';
-	private $send_to_news_embeds = array(
-		'cubs'              => 'uqWfqG2Y',
-		'white-sox'         => 'WOOeQ5Jw',
-		'bulls'             => 's3AyJdaz',
-		'bears'             => 'C30fZO7v',
-		'pga-golf'          => '8Owdfvnq',
-		'nascar'            => 'hdUJ4uMz',
-		'ahl-wolves'        => 'dAT6rZV6',
-		'college'           => 'IS3jNqMB',
-		'rio-2016'          => 'BQ3NYJzd',
-		'blackhawks-hockey' => 'idn8h9Kj',
-	);
+
 	/**
 	 * Get the font icon for an article
 	 */
@@ -106,6 +95,21 @@ class Feature extends Post {
 	public function get_featured_gallery() {
 		if ( $gallery = Gallery::get_by_post_id( $this->get_fm_field( 'cst_production', 'featured_media', 'featured_gallery' ) ) ) {
 			return $gallery;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Get the preferred term field for the article
+	 *
+	 * @return bool|mixed
+	 */
+
+	public function get_hero_sig() {
+
+		if ( $value = $this->get_fm_field( 'feature-sig' ) ) {
+			return $value;
 		} else {
 			return false;
 		}
