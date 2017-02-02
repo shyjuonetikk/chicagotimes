@@ -1685,7 +1685,7 @@ class CST {
 			if ( is_singular( 'cst_feature' ) ) {
 				$output .= '<div class="hero-sig">';
 				$hero_sig = $obj->get_hero_sig();
-				$output .= '<h3>' . $hero_sig . '</h3></div>';
+				$output .= '<h3>' . esc_html( $hero_sig ) . '</h3></div>';
 			}
 			if ( $caption = $attachment->get_caption() ) :
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
