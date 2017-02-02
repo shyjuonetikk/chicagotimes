@@ -1,5 +1,9 @@
 @import "../base/_variables";
-
+@import "../base/_functions";
+@import "../base/_general";
+@import "../base/_typography";
+@import "../base/_screensize";
+@import "../base/_layout";
 .cst_feature-template-default,
 .post-type-archive-cst_feature {
 	header#header {
@@ -37,6 +41,19 @@
 					text-align: center;
 					text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.4);
 					font-family: $merriweather;
+					text-transform: uppercase;
+					@media #{$large-down} {
+						font-size:3.5rem;
+						line-height:4rem;
+					}
+					@media #{$medium-down} {
+						font-size:3rem;
+						line-height:3.5rem;
+					}
+					@media #{$small-only} {
+						font-size: 1.5rem;
+						line-height: 1.8rem;
+					}
 				}
 			}
 			h2 {
@@ -59,12 +76,21 @@
 		.hero-image {
 			position: relative;
 			.hero-middle {
-				width: 1170px;
+
 			}
 			.hero-title {
 				position: absolute;
 				max-width: 100%;
 				top:70%;
+				@media #{$large-down} {
+					top:70%;
+				}
+				@media #{$medium-down} {
+					top:60%;
+				}
+				@media #{$small-only} {
+					top:50%;
+				}
 			}
 			.hero-sig {
 				bottom: 0;
@@ -75,6 +101,27 @@
 					font-size:1.8rem;
 					color: #fff;
 					line-height: 2.3rem;
+				}
+				@media #{$large-down} {
+					padding: 15px;
+					h3 {
+						font-size:1.2rem;
+						line-height: 1.8rem;
+					}
+				}
+				@media #{$medium-down} {
+					padding: 10px;
+					h3 {
+						font-size:1rem;
+						line-height: 1.4rem;
+					}
+				}
+				@media #{$small-only} {
+					padding: 5px;
+					h3 {
+						font-size:0.8rem;
+						line-height: 1.2rem;
+					}
 				}
 			}
 		}
