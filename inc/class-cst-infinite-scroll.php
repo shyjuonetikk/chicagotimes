@@ -65,7 +65,10 @@ class CST_Infinite_Scroll {
 			global $wpdb;
 
 			// Figure out the next post in relation to this post
-			$post_types = CST()->get_post_types();
+			$section_based_post_types = CST()->get_post_types();
+			$unset_feature = array_keys( $section_based_post_types, 'cst_feature' );
+			unset( $section_based_post_types[ $unset_feature[0] ] );
+			$post_types = $section_based_post_types;
 			if ( ! empty( $query_args['post_type'] ) && ! empty( $query_args['name'] ) && ( in_array( $query_args['post_type'], $post_types ) || ( is_array( $query_args['post_type'] ) && $query_args['post_type'] == $post_types ) ) ) {
 
 				$key = array_search( 'cst_link', $post_types );
@@ -136,7 +139,7 @@ class CST_Infinite_Scroll {
 	 * Infinite scroll JavaScript hacks.
 	 */
 	public function action_wp_enqueue_scripts() {
-		if ( is_page_template( 'page-monster.php' ) || is_front_page() ) {
+		if ( is_page_template( 'page-monster.php' ) || is_front_page() || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' )) {
 			return;
 		}
 		wp_enqueue_script( 'cst-infinite-scroll', get_template_directory_uri() . '/assets/js/infinite-scroll.js', array( 'chicagosuntimes', 'the-neverending-homepage', 'cst-ga-custom-actions' ), false, true );

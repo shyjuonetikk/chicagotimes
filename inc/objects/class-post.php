@@ -95,6 +95,9 @@ abstract class Post {
 			case 'cst_gallery':
 				$post_type_name = 'gallery';
 				break;
+			case 'cst_feature':
+				$post_type_name = 'feature';
+				break;
 			default:
 				break;
 		}
@@ -650,19 +653,19 @@ abstract class Post {
 	}
 
 	/**
-     * Get the yieldmo tag field for the post
-     *
-     * @return string
-     */
-    public function get_yieldmo_tag() {
+	 * Get the yieldmo tag field for the post
+	 *
+	 * @return string
+	 */
+	public function get_yieldmo_tag() {
 
-        if ( $yieldmo_tag = $this->get_fm_field( 'yieldmo_tags' ) ) {
-            return $yieldmo_tag;
-        } else {
-            return false;
-        }
+		if ( $yieldmo_tag = $this->get_fm_field( 'yieldmo_tags' ) ) {
+			return $yieldmo_tag;
+		} else {
+			return false;
+		}
 
-    }
+	}
 
 	/**
 	 * Get the SEO title for the post

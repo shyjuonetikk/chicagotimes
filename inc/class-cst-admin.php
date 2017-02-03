@@ -288,6 +288,27 @@ class CST_Admin {
 			'tabbed'      => true,
 			'persist_active_tab' => false,
 		) );
+		if ( 'post.php' === $pagenow && ( ( $article && 'cst_feature' === $article->post_type ) || ! isset( $_GET['post'] ) ) ) {
+			$feature_sig = new Fieldmanager_Textfield( array(
+				'name'    => 'feature-sig',
+				'label'   => false,
+				'description' => esc_html__( 'Sig line.', 'chicagosuntimes' ),
+			) );
+			$feature_sig->add_meta_box( esc_html__( 'Sig line on hero image', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
+			$persistent_date = new Fieldmanager_Textfield( array(
+				'name'    => 'feature-persistent-date',
+				'label'   => false,
+				'description' => esc_html__( 'Date aside byline - to be shown next to byline in perpetuity', 'chicagosuntimes' ),
+			) );
+			$persistent_date->add_meta_box( esc_html__( 'Persistent date', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
+			$feature_title = new Fieldmanager_Textfield( array(
+				'name'    => 'feature-title',
+				'label'   => false,
+				'description' => esc_html__( 'Title of feature - overlaid on hero image.', 'chicagosuntimes' ),
+			) );
+			$feature_title->add_meta_box( esc_html__( 'Title of feature', 'chicagosuntimes' ), array( 'cst_feature' ), 'normal', 'high' );
+		}
+
 		if ( 'post.php' == $pagenow && ( ( $article && 'cst_article' == $article->post_type ) || ! isset( $_GET['post'] ) ) ) {
 			$selected_sections = array();
 			if ( $article ) {
@@ -403,7 +424,7 @@ class CST_Admin {
 			) );
 		$fm->add_meta_box( esc_html__( 'Newsletter Tag', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
 
-	if( is_admin() ) {
+	if ( is_admin() ) {
 		$fm = new Fieldmanager_Select( array( 
 			'name' 	  => 'yieldmo_tags',
 			'description' => esc_html__( 'Used to test YieldMo Tags on Live Articles. Do not select an option if you do not know what this is.', 'chicagosuntimes' ),
@@ -951,12 +972,13 @@ class CST_Admin {
 		}
 
 		if ( in_array( $post_type, CST()->get_post_types() ) ) {
-			$obj = \CST\Objects\Post::get_by_post_id( $post_id );
+			if (  'cst_feature' !== $post_type ) {
+				$obj = \CST\Objects\Post::get_by_post_id( $post_id );
 
-			if ( ! $obj->get_sections() ) {
-				wp_set_object_terms( $obj->get_id(), array( CST_DEFAULT_SECTION ), 'cst_section', true );
+				if ( ! $obj->get_sections() ) {
+					wp_set_object_terms( $obj->get_id(), array( CST_DEFAULT_SECTION ), 'cst_section', true );
+				}
 			}
-
 		}
 
 	}
@@ -1009,20 +1031,7 @@ class CST_Admin {
 		if ( ! $obj ) {
 			return false;
 		}
-
-		$slug        = basename( $obj->get_permalink() );
-		$title       = '' === $title_prefix ? '' : $title_prefix . $obj->get_title();
-		$sections    = $obj->get_sections();
-		$body_array  = array(
-			'token'   => 'suntimes',
-			'message' => $title,
-			'slug'    => ( '' === $title ) ? '' : esc_attr( $slug ),
-		);
-		$section_count = 1;
-		foreach ( $sections as $section_object ) {
-			$body_array["section{$section_count}"] = esc_attr( $section_object->name );
-			$section_count++;
-		}
+		$body_array = $this->determine_sections( $obj, $title_prefix );
 		$app_api_url = 'http://cst.atapi.net/apicst_v2/_newstory.php';
 		$payload_array = array(
 			'method'      => 'POST',
@@ -1045,6 +1054,27 @@ class CST_Admin {
 		}
 	}
 
+	private function determine_sections( \CST\Objects\Post $obj, $title_prefix) {
+
+		$slug        = basename( $obj->get_permalink() );
+		$title       = '' === $title_prefix ? '' : $title_prefix . $obj->get_title();
+		$body_array  = array(
+			'token'   => 'suntimes',
+			'message' => $title,
+			'slug'    => ( '' === $title ) ? '' : esc_attr( $slug ),
+		);
+		if ( 'cst_feature' === $obj->get_post_type() ) {
+			$body_array["section0"] = esc_attr( $obj->get_post_type() );
+		} else {
+			$sections    = $obj->get_sections();
+			$section_count = 1;
+			foreach ( $sections as $section_object ) {
+				$body_array["section{$section_count}"] = esc_attr( $section_object->name );
+				$section_count++;
+			}
+		}
+		return $body_array;
+	}
 	/**
 	 * Filter markup to include placeholders specific to this post
 	 */
