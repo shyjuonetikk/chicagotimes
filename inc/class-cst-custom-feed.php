@@ -19,7 +19,6 @@ class CST_Feeds {
 		foreach ( $this->syndicated_feeds as $syndicated_feed ) {
 			add_feed( $syndicated_feed, [ $this, 'process_syndicated_news_feed' ] );
 		}
-		add_action( 'post_rss', [ $this, 'track_feed_referer' ] );
 	}
 
 	/**
@@ -127,25 +126,5 @@ class CST_Feeds {
 		return $publish_me;
 	}
 
-	public function track_feed_referer() {
-
-		$requester = array();
-		$requester['user_ip']    = esc_attr( $_SERVER['REMOTE_ADDR'] );
-		$requester['user_agent'] = esc_attr( $_SERVER['HTTP_USER_AGENT'] );
-		$requester['referrer']   = esc_url( $_SERVER['HTTP_REFERER'] );
-		$requester['https']   = esc_url( $_SERVER['HTTPS'] );
-		$requester['host']   = esc_url( $_SERVER['HTTP_HOST'] );
-		$requester['request_uri']   = esc_url( $_SERVER['REQUEST_URI'] );
-		$var_utmac = defined( 'CST_GOOGLE_ANALYTICS' ) || 'UA-52083976-1';
-		$var_utmhn = $requester['host'] . $requester['request_uri'];
-		$var_utmn = rand( 1000000000, 9999999999 );//random request number
-		$var_cookie = rand( 10000000, 99999999 );//random cookie number
-		$var_random = rand( 1000000000, 2147483647 ); //number under 2147483647
-		$var_today = time(); //today
-		$var_referer = $_SERVER['HTTP_REFERER']; //referer url
-		$var_uservar = '-rsswho';
-		$ga_remote_url = 'http://www.google-analytics.com/__utm.gif?utmwv=1&amp;utmn=' . $var_utmn . '&amp;utmsr=-&amp;utmsc=-&amp;utmul=-&amp;utmje=0&amp;utmfl=-&amp;utmdt=-&amp;utmhn=' . $var_utmhn . '&amp;utmr=' . $var_referer . '&amp;utmp=' . $var_utmp . '&amp;utmac=' . $var_utmac . '&amp;utmcc=__utma%3D' . $var_cookie . '.' . $var_random . '.' . $var_today . '.' . $var_today . '.' . $var_today . '.2%3B%2B__utmb%3D' . $var_cookie . '%3B%2B__utmc%3D' . $var_cookie . '%3B%2B__utmz%3D' . $var_cookie . '.' . $var_today . '.2.2.utmccn%3D(direct)%7Cutmcsr%3D(direct)%7Cutmcmd%3D(none)%3B%2B__utmv%3D' . $var_cookie . '.' . $var_uservar . '%3B';
-		$b = $ga_remote_url;
-	}
 }
 
