@@ -65,7 +65,6 @@ class CST_Infinite_Scroll {
 			global $wpdb;
 
 			// Figure out the next post in relation to this post
-			$post_types = CST()->get_post_types();
 			$section_based_post_types = CST()->get_post_types();
 			$unset_feature = array_keys( $section_based_post_types, 'cst_feature' );
 			unset( $section_based_post_types[ $unset_feature[0] ] );
