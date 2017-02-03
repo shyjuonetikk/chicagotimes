@@ -1,0 +1,247 @@
+@import "../base/_variables";
+@import "../base/_functions";
+@import "../base/_general";
+@import "../base/_typography";
+@import "../base/_screensize";
+@import "../base/_layout";
+.cst_feature-template-default,
+.post-type-archive-cst_feature,
+.single-cst_feature {
+	header#header {
+		section#primary-navigation {
+			height: 60px;
+			#logo-wrap {
+				height: 60px;
+			}
+			#suntimes-logo {
+				img {
+					width: 263px;
+				}
+			}
+			#burger-bar {
+				background-color: $cst_black;
+				.fa {
+					font-size: 40px;
+					line-height: 60px;
+				}
+			}
+		}
+	}
+}
+.cst_feature-template-default,
+.single-cst_feature {
+	article {
+		.row {
+			max-width:80rem;
+		}
+		&.post {
+			h1 {
+				&.hero-feature-title {
+					color: #fff;
+					font-size: 5rem;
+					line-height: 6rem;
+					text-align: center;
+					text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.4);
+					font-family: $merriweather;
+					text-transform: uppercase;
+					@media #{$large-down} {
+						font-size:4rem;
+						line-height:4.5rem;
+					}
+					@media #{$medium-down} {
+						font-size:3.4rem;
+						line-height:3.5rem;
+					}
+					@media #{$xmedium-down} {
+						font-size:3rem;
+						line-height:3.5rem;
+					}
+					@media #{$xmedium-down} and (orientation: portrait ) {
+						font-size:2.7rem;
+						line-height:3.5rem;
+					}
+					@media #{$small-only} {
+						font-size: 1.5rem;
+						line-height: 1.8rem;
+					}
+				}
+			}
+			h2 {
+				border-top: 1px solid $line_grey;
+				border-bottom: 1px solid $line_grey;
+				text-transform: uppercase;
+				font-size: 3rem;
+				color: $grey;
+				text-align: center;
+				font-family: $open_sans;
+				clear: both;
+			}
+			h3 {
+
+			}
+			.post-meta-byline {
+				text-align: center;
+			}
+		}
+	}
+
+	.feature-social-container {
+		float: right;
+		padding-right: 1.975rem;
+		padding-top: 0.3rem;
+		.post-social{
+			padding: 8px;
+			height: 45px;
+			width: 45px;
+			display: inline-block;
+			&.twitter {
+				background-color: $twitter_blue;
+			}
+
+			&.facebook {
+				background-color: $facebook_blue;
+			}
+
+			.fa {
+				color: $white;
+			}
+			.fa {
+				font-size: 1.9rem;
+				color: white;
+			}
+
+		}
+	}
+	.post-lead-media {
+		position: relative;
+		.hero-image {
+			position: relative;
+			.hero-middle {
+
+			}
+			.hero-title {
+				position: absolute;
+				max-width: 100%;
+				top:70%;
+				@media #{$large-down} {
+					top:70%;
+				}
+				@media #{$large-down} and ( orientation: portrait ) {
+					top: 60%;
+					padding: 0 104px;
+				}
+				@media #{$xmedium-down} and ( orientation: landscape ) {
+					padding: 0 18px;
+				}
+				@media #{$xmedium-down} and ( orientation: portrait ) {
+					top: 60%;
+					padding: 0;
+				}
+				@media #{$medium-down} {
+					top:60%;
+					padding:0 15px;
+				}
+				@media #{$small-only} {
+					top:47%;
+				}
+			}
+			.hero-sig {
+				bottom: 0;
+				height: auto;
+				padding: 20px;
+				background: #231f20;
+				h3 {
+					font-size:1.8rem;
+					color: #fff;
+					line-height: 2.3rem;
+				}
+				@media #{$large-down} {
+					padding: 15px;
+					h3 {
+						font-size:1.2rem;
+						line-height: 1.8rem;
+					}
+				}
+				@media #{$medium-down} {
+					padding: 10px;
+					h3 {
+						font-size:1rem;
+						line-height: 1.4rem;
+					}
+				}
+				@media #{$small-only} {
+					padding: 5px;
+					h3 {
+						font-size:0.8rem;
+						line-height: 1.2rem;
+					}
+				}
+			}
+		}
+	}
+	.post-content {
+		div[id^="attachment_"] {
+			margin: 30px 0;
+			.wp-caption {
+				&.alignleft {
+					margin-right: 30px;
+				}
+				&.alignright {
+					margin-left: 30px;
+				}
+			}
+		}
+	}
+	p {
+		font-size: 18px;
+		font-weight: 300;
+		line-height: 1.8;
+		&.wp-caption-text {
+			color: $social_grey;
+			font-family: $open_sans;
+			font-style: normal;
+		}
+	}
+
+	.post-lead-media {
+		.image-caption {
+			p {
+				color: $social_grey;
+				font-family: $open_sans;
+				font-style: normal;
+			}
+		}
+	}
+	blockquote {
+		p {
+			color: $chiwire_grey;
+			font-size: 3rem;
+		}
+	}
+	#social-links ul li {
+		display: inline-block;
+		margin:0;
+		width: 35px;
+		height: 41px;
+		padding: 9px;
+		text-align: center;
+		border-radius: 0;
+		a {
+			i.fa {
+				font-size: 1.5rem;
+			}
+		}
+	}
+	footer {
+		@media #{$xmedium-down} {
+			.columns:first-child {
+				padding-left: 0.9375rem;
+			}
+		}
+		@media #{$small-only} {
+			p {
+				font-size: 0.8rem;
+			}
+		}
+	}
+}

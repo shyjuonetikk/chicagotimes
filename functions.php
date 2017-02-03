@@ -78,6 +78,7 @@ class CST {
 		add_image_size( 'chiwire-header-medium', 425, 320, true );
 		add_image_size( 'chiwire-header-small', 320, 240, true );
 		add_image_size( 'cst-article-featured', 670, 9999, false );
+		add_image_size( 'cst-feature-hero', 1200, 1600, false );
 		add_image_size( 'cst-gallery-desktop-vertical', 1200, 1600, true );
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
@@ -168,6 +169,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/objects/class-guest-author.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-user.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-article.php';
+		require_once dirname( __FILE__ ) . '/inc/objects/class-feature.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-link.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-liveblog.php';
 		require_once dirname( __FILE__ ) . '/inc/objects/class-gallery.php';
@@ -345,7 +347,7 @@ class CST {
 
 		remove_all_actions( 'do_feed_rss2' );
 		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
-		add_action('do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1);
+		add_action( 'do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1 );
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
@@ -1075,6 +1077,46 @@ class CST {
 			),
 		) );
 
+		$this->post_types[] = 'cst_feature';
+		register_post_type( 'cst_feature', array(
+			'hierarchical'      => false,
+			'public'            => true,
+			'publicly_queryable' => true,
+			'show_in_nav_menus' => true,
+			'menu_position'     => 6,
+			'show_ui'           => true,
+			'supports'          => array(
+				'title',
+				'editor',
+				'author',
+				'thumbnail',
+				'excerpt',
+				'bitly',
+				'revisions',
+			),
+			'has_archive'       => 'features',
+			'query_var'         => true,
+			'rewrite'           => array(
+				'slug'          => 'cst_feature',
+				'feeds'			=> false,
+			),
+			'labels'            => array(
+				'name'                => esc_html__( 'Features', 'chicagosuntimes' ),
+				'singular_name'       => esc_html__( 'Feature', 'chicagosuntimes' ),
+				'all_items'           => esc_html__( 'Features', 'chicagosuntimes' ),
+				'new_item'            => esc_html__( 'New Feature', 'chicagosuntimes' ),
+				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
+				'add_new_item'        => esc_html__( 'Add New Feature', 'chicagosuntimes' ),
+				'edit_item'           => esc_html__( 'Edit Feature', 'chicagosuntimes' ),
+				'view_item'           => esc_html__( 'View Feature', 'chicagosuntimes' ),
+				'search_items'        => esc_html__( 'Search Features', 'chicagosuntimes' ),
+				'not_found'           => esc_html__( 'No Features found', 'chicagosuntimes' ),
+				'not_found_in_trash'  => esc_html__( 'No Features found in trash', 'chicagosuntimes' ),
+				'parent_item_colon'   => esc_html__( 'Parent Feature', 'chicagosuntimes' ),
+				'menu_name'           => esc_html__( 'Features', 'chicagosuntimes' ),
+			),
+		) );
+
 		foreach( $this->get_post_types() as $post_type ) {
 			// We have custom rewrite rules below
 			add_filter( "{$post_type}_rewrite_rules", '__return_empty_array' );
@@ -1157,7 +1199,10 @@ class CST {
 			'assign_terms'  => 'edit_posts'
 			);
 
-		register_taxonomy( 'cst_section', $this->post_types, array(
+		$section_based_post_types = $this->post_types;
+		$unset_feature = array_keys( $section_based_post_types, 'cst_feature' );
+		unset( $section_based_post_types[ $unset_feature[0] ] );
+		register_taxonomy( 'cst_section', $section_based_post_types, array(
 			'hierarchical'      => true,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -1187,7 +1232,7 @@ class CST {
 			),
 		) );
 
-		register_taxonomy( 'cst_topic', $this->post_types, array(
+		register_taxonomy( 'cst_topic', $section_based_post_types, array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -1217,7 +1262,7 @@ class CST {
 			),
 		) );
 
-		register_taxonomy( 'cst_location', $this->post_types, array(
+		register_taxonomy( 'cst_location', $section_based_post_types, array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -1247,7 +1292,7 @@ class CST {
 			),
 		) );
 
-		register_taxonomy( 'cst_person', $this->post_types, array(
+		register_taxonomy( 'cst_person', $section_based_post_types, array(
 			'hierarchical'      => false,
 			'public'            => true,
 			'show_in_nav_menus' => true,
@@ -1300,7 +1345,9 @@ class CST {
 		// Rewrite rules for our custom post types
 		$post_types = '';
 		foreach( $this->get_post_types() as $ptype ) {
-			$post_types .= '&post_type[]=' . $ptype;
+			if ( 'cst_feature' !== $ptype ) {
+				$post_types .= '&post_type[]=' . $ptype;
+			}
 		}
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
@@ -1310,6 +1357,7 @@ class CST {
 		$rewrites[ '(' . $sections_match . ')/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?cst_section=$matches[1]&name=$matches[2]&page=$matches[3]' . $post_types;
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/liveblog/(.*)/?$' ] = 'index.php?index.php?cst_section=$matches[1]&name=$matches[2]&liveblog=$matches[3]' . $post_types;
 
+		$rewrites[ '([^/]+)/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?pagename=$matches[1]&name=$matches[2]&page=$matches[3]&post_type[]=cst_feature';
 		return $rewrites;
 	}
 
@@ -1362,29 +1410,33 @@ class CST {
 			}
 
 			$post = \CST\Objects\Post::get_by_post_id( $post->ID );
-			$primary_section = $post->get_primary_parent_section();
-			// This shouldn't ever happen, but just in case
-			if ( empty( $primary_section ) ) {
+			if ( 'cst_feature' !== $post->get_post_type() ) {
+				$section_slug = CST_DEFAULT_SECTION;
+			} else {
+				$primary_section = $post->get_primary_parent_section();
+				// This shouldn't ever happen, but just in case
+				if ( empty( $primary_section ) ) {
 
-				if( $post->get_child_parent_section() ) {
-					$section_slug = $post->get_child_parent_section();
+					if ( $post->get_child_parent_section() ) {
+						$section_slug = $post->get_child_parent_section();
+					} else {
+						$section_slug = CST_DEFAULT_SECTION;
+					}
+
 				} else {
-					$section_slug = CST_DEFAULT_SECTION;
+					$section_slug = $primary_section->slug;
 				}
 
-			} else {
-				$section_slug = $primary_section->slug;
 			}
-
-			$search_replace = array(
-				'%year%'        => $date[0],
-				'%monthnum%'    => $date[1],
-				'%day%'         => $date[2],
-				'%postname%'    => $post_name,
-				'%cst_section%' => $section_slug,
+				$search_replace = array(
+					'%year%'        => $date[0],
+					'%monthnum%'    => $date[1],
+					'%day%'         => $date[2],
+					'%postname%'    => $post_name,
+					'%cst_section%' => $section_slug,
+					'%post_type%' => str_replace( 'cst_', '', $post->get_post_type() ),
 				);
-
-			$permalink_struct = '%cst_section%/%postname%/';
+			'cst_feature' === $post->get_post_type() ? $permalink_struct = '%post_type%/%postname%/': $permalink_struct = '%cst_section%/%postname%/';
 			$link = home_url( str_replace( array_keys( $search_replace ), array_values( $search_replace ), $permalink_struct ) );
 		}
 
@@ -1607,23 +1659,37 @@ class CST {
 	 * Inject or return markup for featured image catering for featured
 	 * position or in body position
 	 *
-	 * @param \CST\Objects\Article $obj
+	 * @param $obj
 	 *
 	 * @return string
 	 */
 
-	public function featured_image_markup( \CST\Objects\Article $obj ) {
+	public function featured_image_markup( $obj ) {
 
 		$featured_image_id = $obj->get_featured_image_id();
 		$output = '';
+		$image_type = 'cst-article-featured';
 		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) :
 			if ( doing_filter( 'the_content' ) ) {
 				$class = 'post-lead-media end';
 			} else {
-				$class = 'post-lead-media columns medium-11 medium-offset-1 end';
+				if ( is_singular( 'cst_feature' ) ) {
+					$class = 'post-lead-media columns small-12 end';
+				} else {
+					$class = 'post-lead-media columns medium-11 medium-offset-1 end';
+				}
 			}
 			$output .= '<div class="' . esc_attr( $class ) . '">';
-			$output .= $attachment->get_html( 'cst-article-featured' );
+		if ( is_singular( 'cst_feature' ) ) {
+			$image_type = 'cst-feature-hero';
+			$hero_sig = $obj->get_hero_sig();
+			$hero_title = $obj->get_hero_title();
+			$featured_image_id = $obj->get_featured_image_id();
+			$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
+		} else {
+			$output .= $attachment->get_html( $image_type );
+		}
+
 			if ( $caption = $attachment->get_caption() ) :
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
 			endif;

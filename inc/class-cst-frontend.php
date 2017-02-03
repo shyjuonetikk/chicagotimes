@@ -176,21 +176,27 @@ class CST_Frontend {
 				if ( is_front_page() ) {
 					wp_enqueue_script( 'chicagosuntimes-homepage', get_template_directory_uri() . '/assets/js/theme-homepage.js' );
 				} else {
-					wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+					if ( is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
+						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/feature-theme.js', array() );
+					} else {
+						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
+					}
 				}
 				if ( ! is_front_page() || ! is_page() ) {
 					// Scripty-scripts
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 
-					// Slick
-					wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
-					wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
-					wp_localize_script( 'chicagosuntimes', 'CSTData', array(
-						'home_url'                           => esc_url_raw( home_url() ),
-						'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
-					) );
-					wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
+					if ( ! is_singular( 'cst_feature' ) && ! is_post_type_archive( 'cst_feature' ) ) {
+						// Slick
+						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
+						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
+						wp_localize_script( 'chicagosuntimes', 'CSTData', array(
+							'home_url'                           => esc_url_raw( home_url() ),
+							'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
+						) );
+						wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
+					}
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-ga-autotrack', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
@@ -218,7 +224,7 @@ class CST_Frontend {
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
 				}
-				if ( ( is_tax() || is_singular() ) && ! is_admin() ) {
+				if ( ( is_tax() || is_singular( 'cst_article', 'cst_gallery' ) ) && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 					wp_enqueue_script( 'cst-sticky', get_template_directory_uri() . '/assets/js/vendor/sticky-kit.min.js', array( 'jquery' ) );
 				}
@@ -1280,7 +1286,7 @@ class CST_Frontend {
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
-		if ( is_page() ) {
+		if ( is_page() || is_singular( 'cst_feature' ) ) {
 			return;
 		}
 		?>
@@ -1471,13 +1477,85 @@ class CST_Frontend {
 	}
 
 	/**
+	* @return bool|object
+	*
+	* Get object for article / section front
+	*/
+	public function get_current_object() {
+		$current_obj = false;
+		if ( is_single() ) {
+			$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+		} else if ( is_tax() ) {
+			$current_obj = get_queried_object();
+		}
+		return $current_obj;
+	}
+	/**
+	* @return array|bool|null|object|string|WP_Error|WP_Term
+	 *
+	 * Get conditional nav object / setting
+ 	*/
+	public function get_conditional_nav() {
+		$current_obj = $this->get_current_object();
+		if ( is_single() ) {
+			if ( $current_obj ) {
+				$conditional_nav = $current_obj->get_primary_parent_section();
+				if ( ! $conditional_nav ) {
+					$conditional_nav = $current_obj->get_child_parent_section();
+					if ( ! in_array( $conditional_nav, CST_Frontend::$post_sections, true ) ) {
+						$conditional_nav = $current_obj->get_grandchild_parent_section();
+					}
+				}
+			} else {
+				$conditional_nav = 'menu';
+			}
+		} elseif ( is_tax() ) {
+			if ( 'cst_section' === $current_obj->taxonomy ) {
+				if ( 0 !== $current_obj->parent ) {
+					$parent_terms = get_term( $current_obj->parent, 'cst_section' );
+					if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections, true ) ) {
+						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
+						$conditional_nav = $child_terms;
+					} else {
+						$conditional_nav = $parent_terms;
+					}
+				} else {
+					$conditional_nav = $current_obj;
+				}
+			} else {
+				$conditional_nav = 'news';
+			}
+		} else {
+			$conditional_nav = 'menu';
+		}
+		return $conditional_nav;
+	}
+
+	/**
+	* Generate off canvas menu items
+	*/
+	public function generate_off_canvas_menu() {
+		if ( is_front_page() ) {
+			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
+		} else if ( $current_obj = $this->get_current_object() ) {
+			$conditional_nav = $this->get_conditional_nav();
+			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
+				wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			} else {
+				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			}
+		} else {
+		wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+		}
+	}
+	/**
 	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
 	*
 	*/
 	public function inject_teads_tag() {
 
-		if ( is_page() ) {
+		if ( is_page() || is_singular( 'cst_feature' ) ) {
 			return;
 		}
 		if ( is_singular() ) {
@@ -1691,6 +1769,9 @@ ready(fn);
 	 * @param $paged page number within infinite scroll
 	 */
 	public function content_ad_injection( $paged ) {
+		if ( is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
+			return;
+		}
 ?>
 <section class="ad-container">
 		<?php
@@ -1716,6 +1797,9 @@ ready(fn);
 	* Include Distroscale on Production homepage and all pages on Pre-Production
 	*/
 	public function action_distroscale_injection() {
+		if ( is_singular( 'cst_feature' ) ) {
+			return;
+		}
 		$site = CST()->dfp_handler->get_parent_dfp_inventory();
 		if ( 'chicago.suntimes.com.test' === $site ) {
 			if ( is_front_page() || is_tax() || is_singular() ) { ?>

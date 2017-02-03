@@ -16,7 +16,7 @@ class CST_Shortcode_Manager {
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new CST_Shortcode_Manager;
 			self::$instance->register_shortcodes();
-		} 
+		}
 		return self::$instance;
 	}
 
@@ -25,7 +25,7 @@ class CST_Shortcode_Manager {
 	 */
 	private function register_shortcodes() {
 
-		foreach( $this->shortcodes as $shortcode ) {
+		foreach ( $this->shortcodes as $shortcode ) {
 			add_shortcode( 'cst-' . $shortcode, array( $this, str_replace( '-', '_', $shortcode ) ) );
 		}
 
@@ -72,7 +72,7 @@ class CST_Shortcode_Manager {
 			return '';
 		}
 
-		return '<div class="ndn_embed cst-responsive" data-config-widget-id="2" data-config-type="VideoPlayer/Single" data-config-tracking-group="58285" data-config-playlist-id="13434" data-config-video-id="' . (int)$atts['id'] . '" data-config-site-section="beaconnews_hom_non_fro"></div>';
+		return '<div class="ndn_embed cst-responsive" data-config-widget-id="2" data-config-type="VideoPlayer/Single" data-config-tracking-group="58285" data-config-playlist-id="13434" data-config-video-id="' . (int) $atts['id'] . '" data-config-site-section="beaconnews_hom_non_fro"></div>';
 
 	}
 
