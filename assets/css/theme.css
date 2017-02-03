@@ -4124,7 +4124,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 3rem;
   color: #cccccc;
   text-align: center;
-  font-family: 'Open Sans', Arial, sans-serif; }
+  font-family: 'Open Sans', Arial, sans-serif;
+  clear: both; }
 .cst_feature-template-default article.post .post-meta-byline, .single-cst_feature article.post .post-meta-byline {
   text-align: center; }
 .cst_feature-template-default .post-lead-media, .single-cst_feature .post-lead-media {
