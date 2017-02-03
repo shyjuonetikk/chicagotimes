@@ -85,6 +85,33 @@
 		}
 	}
 
+	.feature-social-container {
+		float: right;
+		padding-right: 1.975rem;
+		padding-top: 0.3rem;
+		.post-social{
+			padding: 8px;
+			height: 45px;
+			width: 45px;
+			display: inline-block;
+			&.twitter {
+				background-color: $twitter_blue;
+			}
+
+			&.facebook {
+				background-color: $facebook_blue;
+			}
+
+			.fa {
+				color: $white;
+			}
+			.fa {
+				font-size: 1.9rem;
+				color: white;
+			}
+
+		}
+	}
 	.post-lead-media {
 		position: relative;
 		.hero-image {

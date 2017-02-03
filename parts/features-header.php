@@ -1,5 +1,6 @@
 <?php
-$conditional_nav = CST()->frontend->get_conditional_nav;
+$conditional_nav = CST()->frontend->get_conditional_nav();
+$obj = CST()->frontend->get_current_object();
 ?>
 <div class="off-canvas-wrap" data-offcanvas>
 	<div class="inner-wrap">
@@ -10,7 +11,9 @@ $conditional_nav = CST()->frontend->get_conditional_nav;
 
 	<section id="primary-navigation" class="primary-normal">
 
-		<?php get_template_part( 'parts/social-links' ); ?>
+		<div class="feature-social-container show-for-medium-up">
+			<?php echo CST()->get_template_part( 'post/social-share', array( 'obj' => $obj ) ); ?>
+		</div>
 
 		<a href="#" class="left-off-canvas-toggle" id="burger-bar">
 			<i class="fa fa-bars"></i>
@@ -45,11 +48,15 @@ $conditional_nav = CST()->frontend->get_conditional_nav;
 				} else {
 					wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
 				}
-			} else {
+} else {
 				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false ) );
-			}?>
+}?>
 		</ul>
-		<?php echo CST()->get_template_part( 'social-links' ); ?>
+		<?php
+		if ( $obj ) {
+			echo CST()->get_template_part( 'post/social-share', array( 'obj' => $obj ) );
+		}
+		?>
 	</div>
 </aside>
 
@@ -80,7 +87,7 @@ if ( is_singular() ) {
 		} else {
 			$section_slug = 'news';
 		}
-	} ?>
+} ?>
 	<?php if ( isset( $section_slug ) ) : ?>
 		<?php do_action( 'cst_section_front_upper_heading' );  ?>
 		<?php $action_slug = str_replace( '-', '_', get_queried_object()->slug ); ?>
