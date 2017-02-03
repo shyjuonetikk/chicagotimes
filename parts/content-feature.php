@@ -22,6 +22,7 @@
 			</div>
 		</div>
 	<?php else : ?>
+		<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
 		<?php
 		if ( $obj->get_excerpt() ) :
 			echo CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) );
