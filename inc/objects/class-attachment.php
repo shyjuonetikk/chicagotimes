@@ -150,6 +150,7 @@ class Attachment extends Post {
 	 * Get the HTML for the hero image html
 	 * @param featured_image_id
 	 * @param $hero_sig
+	 * @param $hero_title
 	 * @param $size
 	 * @return string
 	 */
@@ -158,7 +159,7 @@ class Attachment extends Post {
 			$output = '<div class="hero-image">';
 			$output .= wp_get_attachment_image( $featured_image_id, $size, '' );
 			$output .= '<div class="row hero-title">';
-			$output .= '<div class="columns small-12 small-centered hero-middle"><h1 class="hero-feature-title">FREEDOM FOR A COP-KILLER</h1></div>';
+			$output .= '<div class="columns small-12 small-centered hero-middle"><h1 class="hero-feature-title">' . esc_html( $hero_title ) . '</h1></div>';
 			$output .= '</div>';
 			$output .= '<div class="hero-sig">';
 			$output .= '<h3>' . esc_html( $hero_sig ) . '</h3></div>';
