@@ -1406,8 +1406,8 @@ class CST {
 			}
 
 			$post = \CST\Objects\Post::get_by_post_id( $post->ID );
-			if ( 'cst_feature' !== $post->get_post_type() ) {
-				$section_slug = CST_DEFAULT_SECTION;
+			if ( 'cst_feature' === $post->get_post_type() ) {
+				$section_slug = '';
 			} else {
 				$primary_section = $post->get_primary_parent_section();
 				// This shouldn't ever happen, but just in case
