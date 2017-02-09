@@ -25,7 +25,7 @@ abstract class Post {
 	 *
 	 * @param int
 	 *
-	 * @return Article|Gallery|Link|Video|bool
+	 * @return Article|Gallery|Attachment|Link|Video|bool
 	 */
 	public static function get_by_post_id( $post_id ) {
 

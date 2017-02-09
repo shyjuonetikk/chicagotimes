@@ -8,7 +8,7 @@
 			$section_front_spacing = str_replace( '-', ' ', $section_front ); 
 		endif;
 	?>
-		<?php do_action( 'cst_section_front_heading', $section_front_spacing ); ?>
+		<?php do_action( 'cst_section_front_heading' ); ?>
 	<?php if( $section_front_spacing == 'television' ) : ?>
 		<a href="http://www.wciu.com" target="_blank" class="section-front-sponsor">Brought to you by
 			<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/wciu-logo.png" alt="WCIU LOGO">
