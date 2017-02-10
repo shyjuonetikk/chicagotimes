@@ -26,6 +26,14 @@ class CST_Frontend {
 		'blackhawks-hockey' => 'idn8h9Kj',
 		'sports'            => 'uDnVEu1d',
 	);
+
+	private $headlines_network_slugs = array(
+		'sports' => 'f64bb30a45d9141fd5a905788a725121',
+		'news' => '8b29b9f9866acb90e8b00e42c1353f4c',
+		'entertainment' => 'a5c0c8e47c50c3acd6a8d95d5d1a3939',
+		'opinion' => '82e7629cdb9eb1b0aa1d2d86a52c394e',
+	);
+
 	public static $pgs_section_slugs = array();
 	private $default_image_partial_url = '/assets/images/favicons/mstile-144x144.png';
 
@@ -210,7 +218,10 @@ class CST_Frontend {
 						if ( ! $obj->get_sponsored_content() ) {
 							wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
 						}
-						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
+						if ( $this->should_we_inject_headlinesnetwork( $obj ) ) {
+							wp_enqueue_script( 'aggrego-headlinesnetwork', get_template_directory_uri(). '/assets/js/vendor/aggrego-headlinesnetwork.js', array(), false, true );
+							wp_localize_script( 'aggrego-headlinesnetwork', 'vendor_hn', $this->headlines_network_slugs );
+						}
 					}
 
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
@@ -1758,7 +1769,7 @@ ready(fn);
 
 		?>
 <script type="text/javascript">
-  window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
+  window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
 </script>
 	<?php
 	}
@@ -1818,4 +1829,41 @@ ready(fn);
 		}
 	}
 
+	/**
+	* @param $obj \CST\Objects\Article
+	*
+	* @return bool|\CST\Objects\Article
+	*/
+	public function should_we_inject_headlinesnetwork( $obj ) {
+		$primary_section = $obj->get_primary_parent_section();
+		if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
+			return $primary_section->slug;
+		}
+		return false;
+	}
+	/**
+	* @param $obj \CST\Objects\Article
+	*
+	* @return string
+	*
+	* Determine if we can inject Headlines Network markup and if so return the markup
+	*/
+	public function inject_headlines_network_markup( $obj ) {
+
+		$slug = $this->should_we_inject_headlinesnetwork( $obj );
+		if ( $slug ) {
+			return $this->generate_in_article_headlinesnetwork_markup( $obj );
+		} else {
+			return '';
+		}
+	}
+
+	/**
+	* @param $obj \CST\Objects\Article
+	*
+	* @return string
+	*/
+	public function generate_in_article_headlinesnetwork_markup( $obj ) {
+		return sprintf( '<div id="exchange-embed-widget-%1$s" class="agg-hn columns medium-11 medium-offset-1 end"></div>', $obj->get_id() );
+	}
 }
