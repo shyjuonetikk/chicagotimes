@@ -60,7 +60,6 @@ class CST_Frontend {
 		 */
 		add_action( 'template_redirect', function() {
 			global $wpdb;
-
 			/*
 			 * Pattern like /2014/09/24/emanuel-criticizes-lewis-for-wanting-to-legalize-tax-marijuana/
 			 * Turns into pagename=2014%2F09%2F24%2Femanuel-criticizes-lewis-for-wanting-to-legalize-tax-marijuana
@@ -79,7 +78,6 @@ class CST_Frontend {
 					exit;
 				}
 			}
-
 		}, 9 );
 
 		add_action( 'cst_section_head', array( $this, 'action_cst_section_head_video' ) );
@@ -156,7 +154,6 @@ class CST_Frontend {
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
 		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
-
 
 		// Fonts
 		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
@@ -250,10 +247,10 @@ class CST_Frontend {
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 		} elseif ( is_tax() ) {
 			$section_obj = get_queried_object();
-			if( $section_obj->taxonomy == 'cst_section' ) {
-				if( $section_obj->parent != 0 ) {
+			if ( 'cst_section' === $section_obj->taxonomy ) {
+				if ( 0 !== $section_obj->parent ) {
 					$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-					if( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+					if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
 						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 						$section_slug = $child_terms->slug;
 					} else {
@@ -265,7 +262,7 @@ class CST_Frontend {
 			} else {
 				$section_slug = 'news';
 			}
-			
+
 			switch ( $section_slug ) {
 				case 'sports':
 					wp_enqueue_style( 'chicagosuntimes-sports', get_template_directory_uri() . '/assets/css/sports-theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -295,9 +292,8 @@ class CST_Frontend {
 			}
 
 		} elseif ( $obj = get_queried_object() ) {
-			
-					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 
+					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 
 		} else {
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -315,8 +311,7 @@ class CST_Frontend {
 			$meta_description = $post->get_seo_description();
 		} elseif ( is_tax() && $description = get_queried_object()->description ) {
 			$meta_description = $description;
-		} 
-		else {
+		} else {
 			$meta_description = get_bloginfo( 'description' );
 		}
 
@@ -324,7 +319,7 @@ class CST_Frontend {
 		$twitter_tags = $this->get_twitter_card_meta_tags();
 
 		$tags = array_merge( array( 'description' => $meta_description ), $facebook_tags, $twitter_tags );
-		foreach( $tags as $name => $value ) {
+		foreach ( $tags as $name => $value ) {
 			echo '<meta property="' . esc_attr( $name ) . '" content="' . esc_attr( $value ) . '" />' . PHP_EOL;
 		}
 
@@ -343,7 +338,7 @@ class CST_Frontend {
 		}
 		// Discard the first as it's already been added
 		array_shift( $authors );
-		foreach( $authors as $author ) {
+		foreach ( $authors as $author ) {
 			echo '<dc:creator><![CDATA[' . esc_html( $author->display_name ) . ']]></dc:creator>';
 		}
 
@@ -391,7 +386,7 @@ class CST_Frontend {
 					return get_queried_object()->name . ' - Chicago Sun-Times';
 			}
 		}
-		
+
 		if ( is_author() ) {
 			return $wp_title . get_bloginfo( 'name' );
 		}
@@ -429,7 +424,12 @@ class CST_Frontend {
 	}
 
 	/**
-	 * Filter nav menu item links
+	* Filter nav menu item links
+	* @param $atts
+	* @param $item
+	* @param $args
+	 *
+	* @return mixed
 	 */
 	public function filter_nav_menu_link_attributes( $atts, $item, $args ) {
 
@@ -437,7 +437,7 @@ class CST_Frontend {
 			return $atts;
 		}
 
-		switch( $args->theme_location ) {
+		switch ( $args->theme_location ) {
 
 			case 'trending-menu':
 
@@ -485,6 +485,9 @@ class CST_Frontend {
 
 	/**
 	 * Remove the title filter if there is one
+	 * @param $output
+	 *
+	 * @return mixed
 	 */
 	public function filter_walker_nav_menu_start_el( $output ) {
 
@@ -498,6 +501,12 @@ class CST_Frontend {
 
 	/**
 	 * Filter oEmbed response HTML to make some embeds responsive
+	 * @param $cache
+	 * @param $url
+	 * @param $attr
+	 * @param $post_ID
+	 *
+	 * @return mixed
 	 */
 	public function filter_embed_oembed_html( $cache, $url, $attr, $post_ID ) {
 
@@ -636,11 +645,10 @@ class CST_Frontend {
 					'taxonomy'  => 'cst_section',
 					'field'     => 'slug',
 					'terms'     => $section,
-				)
+				),
 			);
 			unset( $query_args['cst_section'] );
 		}
-
 
 		$post_query = new \WP_Query( $query_args );
 		$fetched_posts = array_merge( $fetched_posts, wp_list_pluck( $post_query->posts, 'ID' ) );
@@ -652,14 +660,19 @@ class CST_Frontend {
 		$data = json_decode( $response );
 		if ( ! $data ) {
 			return false;
-		} 
+		}
 		return $data;
 
 	}
 
-	public function get_weather_icon($number) {
+	/**
+	 * @param $number
+	 *
+	 * @return string
+	 */
+	public function get_weather_icon( $number ) {
 		$icon = '';
-		switch( $number ) {
+		switch ( $number ) {
 
 			case 1:
 				$icon = 'wi-sunny-day';
@@ -771,22 +784,24 @@ class CST_Frontend {
 
 	}
 
-	public function get_taxonomy_image($taxonomy) {
+	/**
+	* @param $taxonomy string The filename of taxonomy icon
+	*
+	* @return bool|string
+	*/
+	public function get_taxonomy_image( $taxonomy ) {
 
 		$taxonomy = sanitize_key( $taxonomy );
-		if( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg' ) ) {
+		if ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg' ) ) {
 		    return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg';
-		}
-		elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.svg' ) ) {
+		} elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.svg' ) ) {
 			return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.svg';
-		}
-		elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.png' ) ) {
+		} elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.png' ) ) {
 			return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.png';
-		}
-		 else {
+		} else {
 		    return false;
 		}
-		
+
 	}
 
 	public function cst_homepage_get_traffic() {
@@ -801,24 +816,24 @@ class CST_Frontend {
 
 		$data = (object) array( json_decode( $response ) );
 
-		$count = 0;
 		$total_severity = 0;
-		foreach( $data as $traffic ) {
+		$total = 0;
+		foreach ( $data as $traffic ) {
 
-			$total = count($traffic->incidents);
-			for( $i=0; $i <= ( $total - 1); $i++ ) {
-				$total_severity += $traffic->incidents[$i]->severity;
+			$total = count( $traffic->incidents );
+			for ( $i = 0; $i <= ( $total - 1); $i++ ) {
+				$total_severity += $traffic->incidents[ $i ]->severity;
 			}
 
 		}
 		$_traffic['accidents'] = $total;
-		if( $total_severity <= $total ) {
+		if ( $total_severity <= $total ) {
 			$_traffic['icon'] = 'green';
 			$_traffic['word'] = 'Light';
-		} elseif( $total_severity >= ($total * 2) ) {
+		} elseif ( $total_severity >= ($total * 2) ) {
 			$_traffic['icon'] = 'orange';
 			$_traffic['word'] = 'Mild';
-		} elseif( $total_severity >= ($total * 3) ) {
+		} elseif ( $total_severity >= ($total * 3) ) {
 			$_traffic['icon'] = 'red';
 			$_traffic['word'] = 'High';
 		}
@@ -838,8 +853,8 @@ class CST_Frontend {
 
 		$data = (object) array( json_decode( $response ) );
 		$all_incidents = array();
-		foreach( $data as $traffic ) {
-			foreach( $traffic->incidents as $incident ) {
+		foreach ( $data as $traffic ) {
+			foreach ( $traffic->incidents as $incident ) {
 				array_push( $all_incidents, $incident );
 			}
 		}
@@ -848,22 +863,28 @@ class CST_Frontend {
 
 	}
 
-	public function cst_homepage_fetch_feed($feed_url, $max_display) {
+	/**
+	* @param $feed_url
+	* @param $max_display
+	*
+	* @return array|bool|mixed|null
+	*/
+	public function cst_homepage_fetch_feed( $feed_url, $max_display ) {
 
 		$cache_key = md5( $feed_url . (int) $max_display );
 		$cached_feed = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( $cached_feed === false || WP_DEBUG ) {
+		if ( ( false === $cached_feed ) || WP_DEBUG ) {
 			$headlines = fetch_feed( $feed_url );
 			if ( ! is_wp_error( $headlines ) ) :
 				$maxitems = $headlines->get_item_quantity( $max_display );
 				$items    = $headlines->get_items( 0, $maxitems );
 				wp_cache_set( $cache_key, $items, 'default', 15 * MINUTE_IN_SECONDS );
-				$test = strlen(serialize($items));
+				$test = strlen( serialize( $items ) );
 				return $items;
 			else :
 				return; //todo: VIP note: cache when the feed is not found.
 			endif;
-		}else{
+		} else {
 			return $cached_feed;
 		}
 	}
@@ -871,10 +892,10 @@ class CST_Frontend {
 
 	/**
 	 * Fetch the JSON feed of aggregated posts being used on another CST Network site
-	 * @param int $count
-	 * @return json array
+	 * @param string $json_feed
+	 * @return json array|null
 	 */
-	public function cst_get_chatter_site($json_feed) {
+	public function cst_get_chatter_site( $json_feed ) {
 
 		$response = wpcom_vip_file_get_contents( $json_feed );
 		if ( is_wp_error( $response ) ) :
@@ -892,31 +913,32 @@ class CST_Frontend {
 	/**
 	 * Fetch and output content from the specified section
 	 * @param $content_query
+	 * @param $nativo_slug
 	 */
-	public function cst_homepage_content_block( $content_query, $nativo_slug = NULL ) {
+	public function cst_homepage_content_block( $content_query, $nativo_slug = null ) {
 
-		$cache_key = md5( serialize($content_query) );
+		$cache_key = md5( serialize( $content_query ) );
 		$cached_content = wp_cache_get( $cache_key );
-		if ($cached_content === false ){
+		if ( false === $cached_content ) {
 			$items = new \WP_Query( $content_query );
 			ob_start();
 			if ( $items->have_posts() ) {
 				$count = $content_query['posts_per_page'];
-				while( $items->have_posts() ) {
+				while ( $items->have_posts() ) {
 					$items->the_post();
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 					if ( $count == $content_query['posts_per_page'] ) {
 						if ( 'image' == $obj->get_featured_media_type() ) {
 							$featured_image_id = $obj->get_featured_image_id();
 							if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
+								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
 								<?php echo $attachment->get_html( 'homepage-columns' ); ?>
 								</a>
 								<?php
 							}
 						}
 						?>
-			<?php if( $nativo_slug != NULL ) { ?>
+			<?php if ( null !== $nativo_slug ) { ?>
 				<ul id="<?php echo esc_html( $nativo_slug ); ?>">
 			<?php } else { ?>
 				<ul>
@@ -925,7 +947,7 @@ class CST_Frontend {
 					$count--;
 					?>
 					<li>
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</li>
@@ -945,25 +967,25 @@ class CST_Frontend {
 	 */
 	public function cst_dear_abby_recommendation_block( $content_query ) {
 
-		$cache_key = md5( serialize($content_query) );
+		$cache_key = md5( serialize( $content_query ) );
 		$cached_content = wp_cache_get( $cache_key );
-		if ($cached_content === false ){
+		if ( false === $cached_content ) {
 			$items = new \WP_Query( $content_query );
 			ob_start();
 			if ( $items->have_posts() ) { ?>
 			<div class="large-10 medium-offset-1 post-recommendations">
 				<h3>Previously from Dear Abby</h3>
 			<?php
-				while( $items->have_posts() ) {
-					$items->the_post();
-					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-				?>
-					<div class="columns large-3 medium-6 small-12 recommended-post">
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->the_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
-							<?php echo esc_html( $obj->get_title() ); ?>
-						</a>
-					</div>
-				<?php } ?>
+			while ( $items->have_posts() ) {
+				$items->the_post();
+				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+			?>
+				<div class="columns large-3 medium-6 small-12 recommended-post">
+					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
+						<?php echo esc_html( $obj->get_title() ); ?>
+					</a>
+				</div>
+			<?php } ?>
 			</div>
 			<?php
 			}
@@ -982,7 +1004,7 @@ class CST_Frontend {
 
 		$cache_key = md5( $feed_url );
 		$result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( $result === false ) {
+		if ( false === $result ) {
 			$response = wpcom_vip_file_get_contents( $feed_url );
 			if ( ! is_wp_error( $response ) ) {
 				$result = json_decode( $response );
@@ -996,7 +1018,7 @@ class CST_Frontend {
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
 		</div>
-		<?php foreach( $result->pages as $item ) {
+		<?php foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$top_item = [];
 			if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
@@ -1008,8 +1030,8 @@ class CST_Frontend {
 				$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
 			}
 			$obj = \CST\Objects\Post::get_by_post_id( $top_item[0] );
+			$sponsored_markup = '';
 			if ( $obj ) {
-				$sponsored_markup = '';
 				if ( $obj->get_sponsored_content() ) {
 					$sponsored_markup = '<div class="sponsored-notification"></div>';
 				}
@@ -1058,103 +1080,107 @@ class CST_Frontend {
 		return $featured_image_url;
 	}
 
-	public function cst_nativo_determine_positions($slug) {
+	/**
+	 * @param $slug
+	 *
+	 * @return array
+	 */
+	public function cst_nativo_determine_positions( $slug ) {
 
-        $positions = array();
-        switch( $slug ) {
-
-            case 'news':
-                $positions = array( 'News1', 'News2' );
-                break;
-            case 'chicago':
-                $positions = array('NewsChi1', 'NewsChi2' );
-                break;
-            case 'crime':
-                $positions = array( 'NewsCrime1', 'NewsCrime2' );
-                break;
-            case 'the-watchdogs':
-                $positions = array( 'NewsWatch1', 'NewsWatch2' );
-                break;
-            case 'nation-world':
-                $positions = array( 'NewsNation1', 'NewsNation2' );
-                break;
-            case 'education':
-                $positions = array( 'NewsEdu1', 'NewsEdu2' );
-                break;
-            case 'transportation':
-                $positions = array( 'NewsTrans1', 'NewsTrans2' );
-                break;
-            case 'business':
-                $positions = array( 'NewsBus1', 'NewsBus2' );
-                break;
-            case 'sneed':
-                $positions = array( 'NewsSneed1', 'NewsSneed2' );
-                break;
-            case 'chicago-politics':
-                $positions = array( 'PolChi1', 'PolChi2' );
-                break;
-            case 'springfield-politics':
-                $positions = array( 'PolSpring1', 'PolSpring2' );
-                break;
-            case 'washington-politics':
-                $positions = array( 'PolWash1', 'PolWash2' );
-                break;
-            case 'lynn-sweet-politics':
-                $positions = array( 'PolSweet1', 'PolSweet2' );
-                break;
-            case 'rick-morrissey':
-                $positions = array( 'SportsMorrissey1', 'SportsMorrissey2' );
-                break;
-            case 'rick-telander':
-                $positions = array( 'SportsTelander1', 'SportsTelander2' );
-                break;
-            case 'cubs-baseball':
-                $positions = array( 'SportsCubs1', 'SportsCubs2' );
-                break;
-            case 'white-sox':
-                $positions = array( 'SportsSox1', 'SportsSox2' );
-                break;
-            case 'bears':
-                $positions = array( 'SportsBears1', 'SportsBears2' );
-                break;
-            case 'blackhawks':
-                $positions = array( 'SportsHawks1', 'SportsHawks2' );
-                break;
-            case 'bulls':
-                $positions = array( 'SportsBulls1', 'SportsBulls2' );
-                break;
-            case 'outdoor':
-                $positions = array( 'SportsOutdoor1', 'SportsOutdoor2' );
-                break;
-            case 'fire':  
-                $positions = array( 'SportsFire1', 'SportsFire2' );
-                break;
-            case 'colleges':
-                $positions = array( 'SportsColleges1', 'SportsColleges2' );
-                break;
-            case 'entertainment':
-            	$positions = array( 'Entertainment1', 'Entertainment2' );
-            	break;
-            default:
-            	$positions = array( 'News1', 'News2' );
-                break;
-        }
-        return $positions;
-    }
+		$positions = array();
+		switch ( $slug ) {
+			case 'news':
+			    $positions = array( 'News1', 'News2' );
+			    break;
+			case 'chicago':
+			    $positions = array( 'NewsChi1', 'NewsChi2' );
+			    break;
+			case 'crime':
+			    $positions = array( 'NewsCrime1', 'NewsCrime2' );
+			    break;
+			case 'the-watchdogs':
+			    $positions = array( 'NewsWatch1', 'NewsWatch2' );
+			    break;
+			case 'nation-world':
+			    $positions = array( 'NewsNation1', 'NewsNation2' );
+			    break;
+			case 'education':
+			    $positions = array( 'NewsEdu1', 'NewsEdu2' );
+			    break;
+			case 'transportation':
+			    $positions = array( 'NewsTrans1', 'NewsTrans2' );
+			    break;
+			case 'business':
+			    $positions = array( 'NewsBus1', 'NewsBus2' );
+			    break;
+			case 'sneed':
+			    $positions = array( 'NewsSneed1', 'NewsSneed2' );
+			    break;
+			case 'chicago-politics':
+			    $positions = array( 'PolChi1', 'PolChi2' );
+			    break;
+			case 'springfield-politics':
+			    $positions = array( 'PolSpring1', 'PolSpring2' );
+			    break;
+			case 'washington-politics':
+			    $positions = array( 'PolWash1', 'PolWash2' );
+			    break;
+			case 'lynn-sweet-politics':
+			    $positions = array( 'PolSweet1', 'PolSweet2' );
+			    break;
+			case 'rick-morrissey':
+			    $positions = array( 'SportsMorrissey1', 'SportsMorrissey2' );
+			    break;
+			case 'rick-telander':
+			    $positions = array( 'SportsTelander1', 'SportsTelander2' );
+			    break;
+			case 'cubs-baseball':
+			    $positions = array( 'SportsCubs1', 'SportsCubs2' );
+			    break;
+			case 'white-sox':
+			    $positions = array( 'SportsSox1', 'SportsSox2' );
+			    break;
+			case 'bears':
+			    $positions = array( 'SportsBears1', 'SportsBears2' );
+			    break;
+			case 'blackhawks':
+			    $positions = array( 'SportsHawks1', 'SportsHawks2' );
+			    break;
+			case 'bulls':
+			    $positions = array( 'SportsBulls1', 'SportsBulls2' );
+			    break;
+			case 'outdoor':
+			    $positions = array( 'SportsOutdoor1', 'SportsOutdoor2' );
+			    break;
+			case 'fire':
+			    $positions = array( 'SportsFire1', 'SportsFire2' );
+			    break;
+			case 'colleges':
+			    $positions = array( 'SportsColleges1', 'SportsColleges2' );
+			    break;
+			case 'entertainment':
+				$positions = array( 'Entertainment1', 'Entertainment2' );
+				break;
+			default:
+				$positions = array( 'News1', 'News2' );
+			    break;
+		}
+		return $positions;
+	}
 
 	/**
 	 * @return string
-	 * 
+	 *
 	 * Determine and return the slug for use in headlines slider, sidebar and other template files.
 	 */
 	public function slug_detection() {
 		if ( is_author() ) {
 			$primary_slug = 'news';
-		} elseif( is_single() ) {
+		} elseif ( is_single() ) {
 			$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 			$primary_section = $obj->get_primary_parent_section();
 			$primary_slug = $primary_section->slug;
-			if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
+			if ( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 				$parent_terms = get_term( $primary_section->parent, 'cst_section' );
 				if ( is_wp_error( $parent_terms ) ) {
 					$primary_slug = $primary_section->slug;
@@ -1167,14 +1193,14 @@ class CST_Frontend {
 			}
 		} else {
 			$primary_section = get_queried_object();
-			if( isset( $primary_section ) && $primary_section->taxonomy == 'cst_section') {
-				if( $primary_section->parent != 0 ) {
+			if ( isset( $primary_section ) && ( 'cst_section' === $primary_section->taxonomy ) ) {
+				if ( 0 !== $primary_section->parent ) {
 					$primary_slug = $primary_section->slug;
-					if( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
+					if ( ! in_array( $primary_slug, CST_Frontend::$post_sections ) ) {
 						$current_section = get_term( $primary_section->parent, 'cst_section' );
-						if( ! in_array( $current_section->slug, CST_Frontend::$post_sections ) ) {
+						if ( ! in_array( $current_section->slug, CST_Frontend::$post_sections ) ) {
 							$current_section = get_term( $current_section->parent, 'cst_section' );
-							if( ! in_array( $current_section->slug, CST_Frontend::$post_sections ) ) {
+							if ( ! in_array( $current_section->slug, CST_Frontend::$post_sections ) ) {
 								$current_section = get_term( $current_section->parent, 'cst_section' );
 							} else {
 								$primary_slug = $current_section->slug;
@@ -1186,11 +1212,11 @@ class CST_Frontend {
 				} else {
 					$primary_slug = $primary_section->slug;
 				}
-			}  else {
+			} else {
 				$primary_slug = 'news';
 			}
 		}
-		
+
 		return $primary_slug;
 	}
 
@@ -1244,7 +1270,7 @@ class CST_Frontend {
 	 * Return author for use in homepage wells.
 	 */
 	public function get_article_author( \CST\Objects\Post $obj ) {
-		if( $byline = $obj->get_byline() ) {
+		if ( $byline = $obj->get_byline() ) {
 			$author = $byline;
 		} else {
 			$authors = $obj->get_authors();
@@ -1256,7 +1282,7 @@ class CST_Frontend {
 
 	/**
 	* Adding OpenX script tag in header section of markup for all
- 	* site templates that might display advertising
+	* site templates that might display advertising
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
@@ -1296,13 +1322,11 @@ class CST_Frontend {
 	 * Do not display section heading in the regular place
 	 *  for the listed section names (based on slug)
 	 * Immediately below the RSS area of the section front
- 	 *
-	 * @param $section_front_spacing
 	 *
 	 * @return  boolean
 	 * Pretty title for section front
 	 */
-	function action_cst_section_front_heading( $section_front_spacing ) {
+	function action_cst_section_front_heading() {
 
 		if ( $this->do_sponsor_header() ) {
 			$this->sponsor_header();
@@ -1315,13 +1339,11 @@ class CST_Frontend {
 	/**
 	 * Display section heading in the upper location
 	 * only for the sections listed
- 	 * Immediately above the RSS area of the section front
-	 *
-	 * @param $section_front_spacing
+	 * Immediately above the RSS area of the section front
 	 *
 	 * Pretty title for section front
 	 */
-	function action_cst_section_front_upper_heading( ) {
+	function action_cst_section_front_upper_heading() {
 		if ( $this->do_sponsor_header() ) {
 			$this->sponsor_header();
 		}
@@ -1335,7 +1357,7 @@ class CST_Frontend {
 	* @param string $section_id
 	*
 	* @return bool
- 	*/
+	*/
 	function do_sponsor_header( $section_id = '' ) {
 		if ( '' === $section_id ) {
 			// Section
@@ -1369,7 +1391,7 @@ class CST_Frontend {
 	* @param string $section_id
 	*/
 
-	function sponsor_header( $section_id = '') {
+	function sponsor_header( $section_id = '' ) {
 		// Handle sponsor image and link
 		if ( '' === $section_id ) {
 			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
@@ -1385,25 +1407,25 @@ class CST_Frontend {
 			$end_date = $term_metadata['end_date'];
 			$today = time();
 			if ( ( $today >= $start_date )  && ( $today <= $end_date ) ) {
-			$sponsor_template = '
+				$sponsor_template = '
 <div class="%1$s">
 	<a href="%2$s" target="_blank">
 		<img style="float:right;" src="%3$s" width="%4$s" height="%5$s">
 	</a>
 </div>
 ';
-			$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
-			if ( $sponsor_image ) {
-				$sponsor_markup = sprintf( $sponsor_template,
-					( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-7 small-12' ),
-					esc_url( $term_metadata['destination_url'] ),
-					esc_url( $sponsor_image[0] ),
-					esc_attr( $sponsor_image[1] ),
-					esc_attr( $sponsor_image[2] )
-				);
-			}
-			// DIV size if there is a sponsor image
-			$name_width = 'columns medium-5 small-12';
+				$sponsor_image = wp_get_attachment_image_src( intval( $term_metadata['image'] ), array( 320, 50 ) );
+				if ( $sponsor_image ) {
+					$sponsor_markup = sprintf( $sponsor_template,
+						( '' !== $section_id ) ? esc_attr( '' ) : esc_attr( 'columns medium-7 small-12' ),
+						esc_url( $term_metadata['destination_url'] ),
+						esc_url( $sponsor_image[0] ),
+						esc_attr( $sponsor_image[1] ),
+						esc_attr( $sponsor_image[2] )
+					);
+				}
+				// DIV size if there is a sponsor image
+				$name_width = 'columns medium-5 small-12';
 			}
 		}
 		if ( '' !== $section_id ) {
@@ -1414,7 +1436,7 @@ class CST_Frontend {
 	}
 
 	/**
- 	* Display Section Front Title with/without sponsorship
+	* Display Section Front Title with/without sponsorship
 	* @param $class
 	* @param $name_width
 	* @param $sponsor_markup
@@ -1431,14 +1453,14 @@ class CST_Frontend {
 	}
 	/**
 	* http://wordpressvip.zendesk.com/hc/requests/56671
- 	*/
+	*/
 	function cst_remove_extra_twitter_js() {
 		wp_deregister_script( 'twitter-widgets' );
 	}
 
 	/**
 	* Determine whether to display the sliding billboard markup
-    */
+	*/
 	function action_maybe_render_sliding_billboard() {
 
 		if ( ! is_404() && ! is_singular() ) :
@@ -1580,15 +1602,15 @@ ready(fn);
 	*/
 	public function inject_sponsored_content( $article_content ) {
 
- 		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
- 			return $article_content;
- 		}
- 		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
- 		if ( 'cst_article' !== $obj->get_post_type() ) {
- 			return $article_content;
- 		}
- 		$after_paragraph_number = 2;
- 		if ( $sponsor_array = $obj->get_sponsored_content() ) {
+		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
+			return $article_content;
+		}
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return $article_content;
+		}
+		$after_paragraph_number = 2;
+		if ( $sponsor_array = $obj->get_sponsored_content() ) {
 			$matched_content = preg_match_all( '/(?:[^(p>)].*){1}/i', $article_content, $matched_items );
 			if ( false === $matched_content ) {
 				return $article_content;
@@ -1612,14 +1634,14 @@ ready(fn);
 					esc_url( $sponsor_image_url[0] ),
 					esc_attr( $sponsor_image_url[1] ),
 					esc_attr( $sponsor_image_url[2] )
-				 );
+				);
 				$paragraph_with_script = trim( "\n" . $matches[2] ) . $content_with_sponsorship;
 				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
 			}
- 		}
+		}
 
- 		return $article_content;
- 	}
+		return $article_content;
+	}
 
 	public function inject_newsletter_signup( $newsletter ) {
 
@@ -1648,15 +1670,16 @@ ready(fn);
 	/**
 	* Detect section and if appropriate inject Public Good markup
 	* @param $obj \CST\Objects\Article | \CST\Objects\Post
+	* @return string
 	*/
 	public function inject_public_good_markup( $obj ) {
 
 		if ( $section = $obj->get_primary_parent_section() ) {
 			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
 				return sprintf( '<div class="pgs-container"><a href="%1$s" target="_blank"><img src="%2$s" style="height:50px"></a></div>',
-				 esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
-				 esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
-				 );
+					esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
+					esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
+				);
 			}
 		}
 
@@ -1676,9 +1699,9 @@ ready(fn);
 			if ( $obj ) {
 				$sections = $obj->get_sections();
 				$section_list = array();
-				if( $sections ) {
+				if ( $sections ) {
 					if ( isset( $obj ) && is_object( $obj ) ) {
-						foreach( $sections as $section ) {
+						foreach ( $sections as $section ) {
 							array_push( $section_list, strtolower( $section->name ) );
 						}
 					}
@@ -1695,7 +1718,7 @@ ready(fn);
 	public function inject_chatter_parameters( $obj ) {
 		$chatter_selection = $obj->get_chatter_widget_selection();
 
-		if ( $chatter_selection ) :
+		if ( $chatter_selection ) {
 			switch ( $chatter_selection ) {
 				case 'default_chatter':
 					if ( $agg_primary_section = $obj->get_primary_section() ) :
@@ -1722,7 +1745,7 @@ ready(fn);
 				default:
 					break;
 			}
-		else :
+		} else {
 			if ( $agg_primary_section = $obj->get_primary_section() ) :
 				if ( 0 != $agg_primary_section->parent ) {
 					$agg_primary_section = $obj->get_grandchild_parent_section();
@@ -1731,7 +1754,7 @@ ready(fn);
 			else :
 				$agg_primary_section_slug = '';
 			endif;
-		endif;
+		};
 
 		?>
 <script type="text/javascript">
@@ -1794,4 +1817,5 @@ ready(fn);
 			<?php }
 		}
 	}
+
 }
