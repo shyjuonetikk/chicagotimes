@@ -65,7 +65,10 @@ class CST_Infinite_Scroll {
 			global $wpdb;
 
 			// Figure out the next post in relation to this post
-			$post_types = CST()->get_post_types();
+			$section_based_post_types = CST()->get_post_types();
+			$unset_feature = array_keys( $section_based_post_types, 'cst_feature' );
+			unset( $section_based_post_types[ $unset_feature[0] ] );
+			$post_types = $section_based_post_types;
 			if ( ! empty( $query_args['post_type'] ) && ! empty( $query_args['name'] ) && ( in_array( $query_args['post_type'], $post_types ) || ( is_array( $query_args['post_type'] ) && $query_args['post_type'] == $post_types ) ) ) {
 
 				$key = array_search( 'cst_link', $post_types );
@@ -99,8 +102,8 @@ class CST_Infinite_Scroll {
 							'field'     => 'slug',
 							'terms'     => $query_args['cst_section'],
 							'include_children' => false,
-							)
-						)
+							),
+						),
 					);
 				$temp_query = new WP_Query( $temp_query_args );
 
@@ -111,10 +114,10 @@ class CST_Infinite_Scroll {
 
 				$post = array_pop( $temp_query->posts );
 
-				$query_args[ 'post_type' ] = $post->post_type;
-				$query_args[ 'name' ] = $post->post_name;
+				$query_args['post_type'] = $post->post_type;
+				$query_args['name'] = $post->post_name;
 				$query_args[ $post->post_type ] = $post->post_name;
-				$query_args[ 'posts_per_page' ] = 1;
+				$query_args['posts_per_page'] = 1;
 
 				// Make sure Liveblog has access to the global post when setting the entries query
 				add_action( 'wp_head', function(){
@@ -136,7 +139,7 @@ class CST_Infinite_Scroll {
 	 * Infinite scroll JavaScript hacks.
 	 */
 	public function action_wp_enqueue_scripts() {
-		if ( is_page_template( 'page-monster.php' ) || is_front_page() ) {
+		if ( is_page_template( 'page-monster.php' ) || is_front_page() || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' )) {
 			return;
 		}
 		wp_enqueue_script( 'cst-infinite-scroll', get_template_directory_uri() . '/assets/js/infinite-scroll.js', array( 'chicagosuntimes', 'the-neverending-homepage', 'cst-ga-custom-actions' ), false, true );
@@ -170,7 +173,7 @@ class CST_Infinite_Scroll {
 						'field'     => 'slug',
 						'terms'     => get_query_var( 'cst_section' ),
 					),
-				)
+				),
 			);
 		if ( get_query_var( 'infinite-sidebar-date' ) ) {
 			$last_post_date = get_query_var( 'infinite-sidebar-date' );
@@ -185,8 +188,8 @@ class CST_Infinite_Scroll {
 		$wp_query->is_singular = true; // Fake single context
 
 		$response = '';
-		if ( $latest_query->have_posts() ):
-			while( $latest_query->have_posts() ) : $latest_query->the_post();
+		if ( $latest_query->have_posts() ) :
+			while ( $latest_query->have_posts() ) : $latest_query->the_post();
 				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 				$response .= CST()->get_template_part( 'sidebar/post', array( 'obj' => $obj ) );
 			endwhile;

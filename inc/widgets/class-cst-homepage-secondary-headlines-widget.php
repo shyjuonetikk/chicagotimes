@@ -51,7 +51,7 @@ class CST_Homepage_Secondary_Headlines_Widget extends WP_Widget {
         $term = sanitize_text_field( $_GET['searchTerm'] );
 
         $search_args = array(
-            'post_type'     => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery' ),
+            'post_type'     => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery', 'cst_feature' ),
             's'             => $term,
             'post_status'   => 'publish',
             'no_found_rows' => true,
