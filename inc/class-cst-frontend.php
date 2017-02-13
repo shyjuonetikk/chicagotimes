@@ -1864,6 +1864,6 @@ ready(fn);
 	* @return string
 	*/
 	public function generate_in_article_headlinesnetwork_markup( $obj ) {
-		return sprintf( '<div id="exchange-embed-widget-%1$s" class="agg-hn columns medium-11 medium-offset-1 end"></div>', $obj->get_id() );
+		echo sprintf( '<div id="exchange-embed-widget-%1$s" class="agg-hn columns medium-11 medium-offset-1 end"></div>', esc_attr( $obj->get_id() ) );
 	}
 }
