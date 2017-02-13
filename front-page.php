@@ -37,13 +37,12 @@ endif;
 </div>
 
 <!-- circular flipp -->
-	<div class="row">
 		<?php
 		if ( is_active_sidebar( 'undermorefrom' ) ) :
 			dynamic_sidebar( 'undermorefrom' );
 		endif;
 		?>     
-	</div>
+
 
 	<div>
 		<div class="large-12 dfp-atf-leaderboard">
