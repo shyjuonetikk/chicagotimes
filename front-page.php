@@ -35,6 +35,15 @@ endif;
 	<h2 class="section-title"><span><?php esc_html_e( 'More From', 'chicagosuntimes' ); ?></span></h2>
 	<hr/>
 </div>
+
+<!-- circular flipp -->
+		<?php
+		if ( is_active_sidebar( 'undermorefrom' ) ) :
+			dynamic_sidebar( 'undermorefrom' );
+		endif;
+		?>     
+
+
 	<div>
 		<div class="large-12 dfp-atf-leaderboard">
 			<?php echo CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
@@ -45,6 +54,8 @@ endif;
 			<?php get_template_part( 'parts/homepage/column-wells' ); ?>
 		</div>
 	</div>
+
+
 </div>
 <?php get_template_part( 'parts/homepage/footer' ); ?>
 <?php get_footer(); ?>
