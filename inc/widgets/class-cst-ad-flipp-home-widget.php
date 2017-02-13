@@ -2,14 +2,14 @@
 
 class CST_Ad_Flipp_Home_Widget extends WP_Widget {
 
-    public function __construct() {
-        $widget_options = array( 
-          'classname' => 'Flipp_Home_Widget',
-          'description' => 'Flipp for home page',
-        );
-        parent::__construct( 'CST_Ad_Flipp_Home_Widget', 'CST Ad Flipp Home Widget', $widget_options );
-      }  
-    
+	public function __construct() {
+		$widget_options = array(
+			'classname'   => 'Flipp_Home_Widget',
+			'description' => 'Flipp for home page',
+		);
+		parent::__construct( 'CST_Ad_Flipp_Home_Widget', 'CST Ad Flipp Home Widget', $widget_options );
+	}
+
 	/**
 	 * Outputs the content of the widget
 	 *
@@ -17,12 +17,12 @@ class CST_Ad_Flipp_Home_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
-        ?>
+		?>
 
-        <div id="circularhub_module_10380" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>
-        <script src="//api.circularhub.com/10380/2e2e1d92cebdcba9/circularhub_module.js"></script>
+		<div id="circularhub_module_10380" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>
+		<script src="//api.circularhub.com/10380/2e2e1d92cebdcba9/circularhub_module.js"></script>
 
-        <?php
+		<?php
 	}
 
 	/**
@@ -44,5 +44,3 @@ class CST_Ad_Flipp_Home_Widget extends WP_Widget {
 		// processes widget options to be saved
 	}
 }
-
-?>
