@@ -38,6 +38,8 @@
 
 		<div class="columns large-4">
 			<?php get_sidebar(); ?>
+            <div id="circularhub_module_10381" style="background-color: #ffffff; margin: 5px; padding: 5px;"></div>
+            <script src="//api.circularhub.com/10381/2e2e1d92cebdcba9/circularhub_module.js"></script>
 		</div>
 
 	</section>
