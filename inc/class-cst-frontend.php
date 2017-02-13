@@ -1030,8 +1030,8 @@ class CST_Frontend {
 				$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
 			}
 			$obj = \CST\Objects\Post::get_by_post_id( $top_item[0] );
+			$sponsored_markup = '';
 			if ( $obj ) {
-				$sponsored_markup = '';
 				if ( $obj->get_sponsored_content() ) {
 					$sponsored_markup = '<div class="sponsored-notification"></div>';
 				}
