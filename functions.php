@@ -184,6 +184,9 @@ class CST {
 
 		// Widgets
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-flipp-article-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-flipp-home-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-flipp-section-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-recent-posts-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-twitter-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-featured-content-widget.php';
@@ -745,6 +748,11 @@ class CST {
 			'id'          => 'obitswire',
 			'name'        => esc_html__( 'ObitsWire', 'chicagosuntimes' ),
 		) );
+        
+		register_sidebar( array(
+			'id'          => 'undermorefrom',
+			'name'        => esc_html__( 'UnderMoreFrom', 'chicagosuntimes' ),
+		) );
 
 		if ( class_exists( 'CST_Elections' ) ) {
 			register_sidebar( array(
@@ -761,6 +769,9 @@ class CST {
 
 		// Register our custom widgets
 		register_widget( 'CST_Ad_Widget' );
+		register_widget( 'CST_Ad_Flipp_Article_Widget' );
+		register_widget( 'CST_Ad_Flipp_Home_Widget' );
+		register_widget( 'CST_Ad_Flipp_Section_Widget' );
 		register_widget( 'CST_Recent_Posts' );
 		register_widget( 'CST_Twitter_Feed_Widget' );
 		register_widget( 'CST_Featured_Content_Widget' );
