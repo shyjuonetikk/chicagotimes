@@ -2,14 +2,14 @@
 
 class CST_Ad_Flipp_Article_Widget extends WP_Widget {
 
-    public function __construct() {
-        $widget_options = array( 
-          'classname' => 'Flipp_Article_Widget',
-          'description' => 'Flipp circular for article page',
-        );
-        parent::__construct( 'CST_Ad_Flipp_Article_Widget', 'CST Ad Flipp Article Widget', $widget_options );
-      }  
-    
+	public function __construct() {
+		$widget_options = array(
+			'classname'   => 'Flipp_Article_Widget',
+			'description' => 'Flipp circular for article page',
+		);
+		parent::__construct( 'CST_Ad_Flipp_Article_Widget', 'CST Ad Flipp Article Widget', $widget_options );
+	}
+
 	/**
 	 * Outputs the content of the widget
 	 *
@@ -17,32 +17,34 @@ class CST_Ad_Flipp_Article_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
-        ?>
+		?>
 
-        <div id="circularhub_module_10382" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>
-        <script src="//api.circularhub.com/10382/2e2e1d92cebdcba9/circularhub_module.js"></script>
+		<div id="circularhub_module_10382" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>
+		<script src="//api.circularhub.com/10382/2e2e1d92cebdcba9/circularhub_module.js"></script>
 
-        <?php
+		<?php
 	}
 
 	/**
 	 * Outputs the options form on admin
+	 * @param array $instance
 	 *
-	 * @param array $instance The widget options
+	 * @return string
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
+		return 'noform';
 	}
 
 	/**
-	 * Processing widget options on save
+	 * @param array $new_instance
+	 * @param array $old_instance
 	 *
-	 * @param array $new_instance The new options
-	 * @param array $old_instance The previous options
+	 * @return array
 	 */
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
+		return $new_instance;
 	}
 }
 
-?>

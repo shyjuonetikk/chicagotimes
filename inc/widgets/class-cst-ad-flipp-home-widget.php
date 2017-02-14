@@ -27,20 +27,23 @@ class CST_Ad_Flipp_Home_Widget extends WP_Widget {
 
 	/**
 	 * Outputs the options form on admin
+	 * @param array $instance
 	 *
-	 * @param array $instance The widget options
+	 * @return string
 	 */
 	public function form( $instance ) {
 		// outputs the options form on admin
+		return 'noform';
 	}
 
 	/**
-	 * Processing widget options on save
+	 * @param array $new_instance
+	 * @param array $old_instance
 	 *
-	 * @param array $new_instance The new options
-	 * @param array $old_instance The previous options
+	 * @return array
 	 */
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
+		return $new_instance;
 	}
 }
