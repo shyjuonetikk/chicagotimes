@@ -15,14 +15,14 @@
 							</li>
 						<?php } else { ?>
 						<li class="name hide-for-large-up">
-							<div class="small-2 columns logo-container">
+							<div class="medium-2 small-3 columns logo-container">
 								<div class="small-logo">
 									<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
 										<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 									</a>
 								</div>
 							</div>
-							<div class="small-8 columns nav-container">
+							<div class="medium-8 small-7 columns nav-container">
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</div>
 						</li>

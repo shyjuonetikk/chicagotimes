@@ -1,16 +1,16 @@
 article.post {
 	background-color: $white;
-	
+
 	h1 {
 		font-family: $open_sans;
-		
+
 		@media #{$medium-up} {
 			font-weight: 800;
 		}
 
 		@media #{$small-only} {
 			font-weight: 700;
-		}	
+		}
 	}
 
 	.post-meta {
@@ -19,24 +19,24 @@ article.post {
 			max-width: 200px;
 			width: 100%;
 		}
-		
+
 	}
 
 	.post-social-mobile {
-		
+
 		.post-social{
-		
+
 			.fa {
 					font-size: 1rem;
 					color: $white;
 					padding: 10px 14px;
 					background: $social_grey;
 				}
-		
+
 				float: left;
-		
+
 				}
-	
+
 	}
 
 	.read-more-wrap {
@@ -48,7 +48,6 @@ article.post {
 	}
 
 	float: none;
-	overflow: hidden;
 	.read-more-hidden {
 		display: none;
 	}
@@ -145,7 +144,7 @@ article.post {
 	.post-content {
 		font-family: $merriweather;
 
-		
+
 
 		.wp-caption,
 		img {
@@ -436,7 +435,7 @@ body[class^="cst_article-"] {
 				.thumbBlock {
 					opacity: .5;
 				}
-				
+
 				.video-label-box {
 					.video-title {
 						text-decoration: none;
@@ -538,7 +537,7 @@ body[class^="cst_article-"] {
 				padding-right: 0;
 			}
 		}
- 
+
 		.infinite-wrap article.post {
 			padding-top: 30px;
 
@@ -620,9 +619,9 @@ body[class^="cst_article-"] {
 				border-bottom: 2px solid $light_grey;
 			}
 		}
-		
+
 		&.cst_liveblog {
-			
+
 			.post-meta-bottom {
 				padding-bottom: 30px;
 				border-bottom: 2px solid $line_grey;
@@ -736,7 +735,7 @@ body[class^="cst_article-"] {
 		margin-bottom: 20px !important;
 		width: 100%;
 		list-style-type: none;
-		
+
 		@media #{$small-only} {
 			height: 216px;
 		}
@@ -855,6 +854,7 @@ body[class~="archive"] {
 		z-index: 5;
 		&.section-itn {
 			border-top:none;
+            text-align: left;
 			> .nav-holder {
 				border-top: none;
 				border-bottom: 1px solid #888;

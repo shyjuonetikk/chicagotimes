@@ -844,9 +844,17 @@ ul#menu-sun-times-network {
   float: left; }
 .masthead .title-area .logo-container {
   margin-top: 7px;
-  padding-right: 0; }
+  padding-right: 0px;
+  padding-left: 3px;
+  width: 27%; }
 .masthead .title-area .nav-container {
   padding: 0; }
+  @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+    .masthead .title-area .nav-container {
+      width: 63%; } }
+  @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
+    .masthead .title-area .nav-container {
+      width: 66.36667%; } }
 @media only screen and (max-width:90em) {
   .masthead .top-bar-section ul {
     width: inherit; }
@@ -1226,8 +1234,7 @@ body.search {
 
 article.post {
   background-color: white;
-  float: none;
-  overflow: hidden; }
+  float: none; }
   article.post h1 {
     font-family: 'Libre Frankin', Arial, sans-serif; }
     @media only screen and (min-width:40.063em) {
@@ -1749,7 +1756,8 @@ body[class~="archive"] .cst-navigation-container {
   margin-top: 5px;
   z-index: 5; }
   body[class~="archive"] .cst-navigation-container.section-itn {
-    border-top: none; }
+    border-top: none;
+    text-align: left; }
     body[class~="archive"] .cst-navigation-container.section-itn > .nav-holder {
       border-top: none;
       border-bottom: 1px solid #888888;
@@ -2748,6 +2756,9 @@ header .contain-to-grid .top-bar {
     header .contain-to-grid .top-bar .top-bar-section .masthead-sections ul {
       list-style-type: none;
       background: #231f20; }
+      @media only screen and (max-width: 40em) {
+        header .contain-to-grid .top-bar .top-bar-section .masthead-sections ul {
+          margin-left: 1rem; } }
     header .contain-to-grid .top-bar .top-bar-section .masthead-sections li, header .contain-to-grid .top-bar .top-bar-section .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .top-bar-section .masthead-sections a:not(.button) {
       background: #231f20;
       line-height: 45px;
