@@ -28,7 +28,7 @@ abstract class Post {
 	 * @return bool
 	 * @param int
 	 *
-	 * @return Article|Gallery|Link|Attachment|Video|bool
+	 * @return Article|Gallery|Attachment|Link|Video|bool
 	 */
 	public static function get_by_post_id( $post_id ) {
 
@@ -99,6 +99,9 @@ abstract class Post {
 				break;
 			case 'cst_gallery':
 				$post_type_name = 'gallery';
+				break;
+			case 'cst_feature':
+				$post_type_name = 'feature';
 				break;
 			default:
 				break;

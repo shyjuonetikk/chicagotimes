@@ -118,7 +118,7 @@ var CSTAds;
 
 		},
     refreshAllArticleAds: function() {
-      if ( CSTAds.isSingular && ! CSTAds.refreshing ) {
+      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! $("body").hasClass( "post-gallery-lightbox-active" ) ) {
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function(ad_slot) {
@@ -130,7 +130,7 @@ var CSTAds;
 
     },
     refreshArticleCubeAds: function() {
-      if ( CSTAds.isSingular && ! CSTAds.refreshing ) {
+      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! $("body").hasClass( "post-gallery-lightbox-active" ) ) {
         console.info('Interval expired. Refreshing Cube Ads');
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);

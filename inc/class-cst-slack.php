@@ -142,7 +142,7 @@ class CST_Slack {
 		$response_code        = wp_remote_retrieve_response_code( $response );
 		$notification_message = '"' . $obj->get_title() . '" added/updated with this response code ' . $response_code;
 		$payload['text']      = html_entity_decode( $obj->get_title() .' published/updated' );
-		$section_array        = $this->notification_message_formatting( $payload_array );
+		$section_array        = $this->notification_message_formatting( $payload_array, $obj );
 		$payload['attachments']  = array(
 			array(
 				'text'        => html_entity_decode( $notification_message ),
@@ -185,19 +185,24 @@ class CST_Slack {
 
 	/**
 	 * @param $payload_array
+	 * @param $obj
 	 *
 	 * @return array
 	 *
 	 * Format the section information transmitted to the Slack notification channel
 	 */
-	private function notification_message_formatting( $payload_array ) {
+	private function notification_message_formatting( $payload_array, $obj ) {
 		$sections = array();
-		$section_counter = 1;
-		while ( isset( $payload_array['body'][ "section{$section_counter}" ] ) ) {
-			$sections[] = $payload_array['body'][ "section{$section_counter}" ];
-			$section_counter++;
+		if ( 'cst_feature' === $obj->get_post_type() ) {
+			$section_list = $obj->get_post_type();
+		} else {
+			$section_counter = 1;
+			while ( isset( $payload_array['body'][ "section{$section_counter}" ] ) ) {
+				$sections[] = $payload_array['body'][ "section{$section_counter}" ];
+				$section_counter++;
+			}
+			$section_list = implode( ',', $sections );
 		}
-		$section_list = implode( ',', $sections );
 		$section_array = array(
 			'title' => 'Sections',
 			'value' => $section_list,
