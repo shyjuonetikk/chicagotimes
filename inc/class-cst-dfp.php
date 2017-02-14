@@ -171,11 +171,7 @@ googletag.cmd.push(function() {
 	 *
 	 * Create a custom interstitial unit
 	 */
-	public function interstitial( ) {
-
-		if ( ! isset( $index ) ) {
-			$index = 1;
-		}
+	public function interstitial() {
 
 		return sprintf(
 			'

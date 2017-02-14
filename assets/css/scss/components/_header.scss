@@ -32,7 +32,7 @@ header#header {
 	}
 	#weather {
 		position:absolute;
-		right:0px;
+		right:0;
 		top:17px;
 		text-transform:uppercase;
 		font-family: $open_sans;
@@ -61,7 +61,7 @@ header#header {
 			line-height: 36px;
 			display: inline-block;
 			overflow-y: hidden;
-			height: 46px;
+			height: 50px;
 			padding-top: 3px;
 			padding-right: 5px;
 

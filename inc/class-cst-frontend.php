@@ -1500,7 +1500,7 @@ class CST_Frontend {
 	* @return array|bool|null|object|string|WP_Error|WP_Term
 	 *
 	 * Get conditional nav object / setting
- 	*/
+	*/
 	public function get_conditional_nav() {
 		$current_obj = $this->get_current_object();
 		if ( is_single() ) {
@@ -1542,7 +1542,7 @@ class CST_Frontend {
 	*/
 	public function generate_off_canvas_menu() {
 		if ( is_front_page() ) {
-			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
+			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
@@ -1551,7 +1551,7 @@ class CST_Frontend {
 				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 			}
 		} else {
-		wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 		}
 	}
 	/**
@@ -1567,14 +1567,16 @@ class CST_Frontend {
 	function action_maybe_render_sliding_billboard() {
 
 		if ( ! is_404() && ! is_singular() ) :
-	        echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
+			echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
 			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
 	    endif;
 	}
 
 	/**
 	* Display masthead navigation if needed
+ 	*
  	* @param string $page_type
+ 	*
  	* @TODO caching
  	*/
 	public function masthead_navigation( $page_type ) {
@@ -1593,8 +1595,8 @@ class CST_Frontend {
 				'theme_location'  => 'homepage-masthead',
 				'fallback_cb'     => false,
 				'depth'           => 1,
-				'container_class' => $page_types[$page_type]['container_class'],
-				'items_wrap'      => $page_types[$page_type]['items_wrap'],
+				'container_class' => $page_types[ $page_type ]['container_class'],
+				'items_wrap'      => $page_types[ $page_type ]['items_wrap'],
 				)
 			);
 		}
@@ -1603,10 +1605,12 @@ class CST_Frontend {
 	*  Inject dfp ad settings, variables into header before gpt script call
 	*/
 	public function setup_dfp_header_ad_settings() {
-		CST()->dfp_handler->ad_header_settings();
+		if ( ! is_404() ) {
+			CST()->dfp_handler->ad_header_settings();
+		}
 	}
 
-    /**
+	/**
 	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
 	*

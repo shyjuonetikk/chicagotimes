@@ -1,18 +1,12 @@
 <?php get_header( 'features' ); ?>
-	<section class="row grey-background">
+	<section class="row sf-head">
 		<div id="main" class="wire columns large-12">
 			<div id="fixed-back-to-top" class="hide-back-to-top">
 				<a id="back-to-top" href="#">
 					<p><i class="fa fa-arrow-circle-up"></i><?php esc_html_e( 'Back To Top', 'chicagosuntimes' ); ?></p>
 				</a>
 			</div>
-			<?php if ( is_tax() ): ?>
-				<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
-			<?php elseif ( is_author() ): ?>
-				<?php get_template_part( 'parts/section/author-top' ); ?>
-			<?php else: ?>
-				<a id="newsfeed-logo" href="<?php echo esc_url( home_url('/') ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
-			<?php endif; ?>
+			<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
 
 			<?php if ( have_posts() ) : ?>
 

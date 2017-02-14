@@ -20,18 +20,20 @@ if ( is_single() ) {
 }
 ?>
 <div class="off-canvas-wrap" data-offcanvas>
-	<?php get_template_part( 'parts/dfp/dfp-interstitial' ); ?>
+<?php if ( ! is_404() ) {
+	echo CST()->dfp_handler->interstitial();
+} ?>
 
 <?php if ( ! is_page_template( 'page-monster.php' ) ) {
 	get_template_part( 'parts/header-brand-navigation' );
 } ?>
 <div class="spacer"></div>
-		<?php if ( is_tax() ) { ?>
-			<div class="row sf-head">
-				<?php do_action( 'cst_section_front_heading' ); ?>
-			</div>
-			<?php
-		}
+<?php if ( is_tax() ) { ?>
+	<div class="row sf-head">
+		<?php do_action( 'cst_section_front_heading' ); ?>
+	</div>
+	<?php
+}
 if ( is_home() || is_front_page() || is_tax() ) {
 	echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
 }

@@ -35,7 +35,9 @@
 <meta name="msapplication-square150x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-150x150.png" />
 <meta name="msapplication-wide310x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x150.png" />
 <meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
-<script type="text/javascript" async src="http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
+<?php if ( ! is_404() ) { ?>
+	<script type="text/javascript" async src="http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
+<?php } ?>
 <script type="text/javascript">
 (function() {
 	var gads = document.createElement('script');
@@ -48,19 +50,24 @@
 	node.parentNode.insertBefore(gads, node);
 })();
 </script>
-<?php do_action( 'cst_dfp_ad_settings' ); ?>
+<?php if ( ! is_404() ) { ?>
+	<?php do_action( 'cst_dfp_ad_settings' ); ?>
+<?php } ?>
 <meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
-<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
+<?php if ( ! is_404() ) { ?>
+	<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
+<?php } ?>
+
 
 <?php
-if ( is_search() ) {
+if ( is_search() || is_404() ) {
 	get_template_part( 'parts/dfp/dfp-search' );
 } else {
 	CST()->dfp_handler->generate_header_definitions();
 }
 
-if ( is_singular() ) {
+if ( is_singular() && ! is_404() ) {
 	$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 	if ( $current_obj ) {
 		get_template_part( 'parts/vendors/adsupply-popunder-header' );
@@ -83,4 +90,4 @@ if ( is_front_page() || is_404() || is_page( 'yieldmo-homepage' ) || is_page_tem
 } else {
 	get_template_part( 'parts/page-header' );
 }
-?>
+
