@@ -529,6 +529,10 @@ header#header {
 .spacer {
   height: 135px; }
 
+@media only screen and (max-width: 40em) {
+  .spacer {
+    height: 0; } }
+
 body.admin-bar header#header {
   top: 32px; }
   @media screen and (max-width: 782px) {
@@ -679,12 +683,12 @@ body.admin-bar .move-right header#header {
           background: #f8f8f8; }
         #headlines-slider .slider .slide .slide-inner > .sponsored-notification {
           background-color: #d22d42;
-          padding: 5px;
+          padding: 3px;
           position: absolute;
           right: 8px;
           color: white;
           font-size: 0.9rem;
-          height: 24px; }
+          height: 19px; }
       #headlines-slider .slider .slide h4 {
         font-size: 0.75rem;
         line-height: 0.76rem;
@@ -801,7 +805,7 @@ ul#menu-sun-times-network {
     height: 34px; }
   @media (min-width: 641px) and (max-width: 981px) {
     #newsfeed-logo {
-      margin-left: 40px; } }
+      margin-left: 16px; } }
   @media only screen and (max-width: 40em) {
     #newsfeed-logo {
       margin-top: -10px;
@@ -1560,6 +1564,14 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   @media only screen and (max-width: 40em) {
     .single #post-body {
       margin-top: 132px; } }
+  @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+    .single #post-body #main {
+      padding-left: 0.9375rem; }
+      .single #post-body #main.medium-7 {
+        width: 68.33%; } }
+  @media only screen and (max-width: 40em) {
+    .single #post-body .cst-recommendations > .row {
+      margin-left: -0.9375rem; } }
 .single .post.cst-sharing-absolute .post-meta-social {
   position: fixed;
   top: 80px;
@@ -1583,7 +1595,8 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   @media only screen and (min-width:40.063em) {
     .single article.post {
       padding-top: 15px;
-      border-top: 7px solid #f8f8f8; } }
+      border-top: 7px solid #f8f8f8;
+      clear: both; } }
   .single article.post h1 {
     font-size: 2.25rem;
     line-height: 2.7rem; }
@@ -3205,6 +3218,15 @@ body.post-gallery-lightbox-active {
     display: inline-block;
     height: 40px;
     width: 40px; }
+  @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
+    .post .post-meta-social {
+      top: -40px; }
+      .post .post-meta-social a {
+        height: 30px;
+        width: 30px; }
+      .post .post-meta-social .fa {
+        font-size: 1rem;
+        padding: 7px; } }
 .post .post-meta-bottom .fa.post-taxonomy {
   color: #9a9a9a;
   padding-right: 4px; }

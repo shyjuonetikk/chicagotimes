@@ -271,6 +271,11 @@ header#header {
 .spacer {
 	height: 135px;
 }
+@media #{$small-only} {
+	.spacer {
+		height:0;
+	}
+}
 body.admin-bar {
 	header#header {
 		top: 32px;
@@ -490,12 +495,12 @@ body.admin-bar {
 				}
 				>.sponsored-notification {
 					background-color: $red;
-					padding: 5px;
+					padding: 3px;
 					position: absolute;
 					right: 8px;
 					color: $white;
 					font-size: 0.9rem;
-					height: 24px;
+					height: 19px;
 				}
 			}
 
@@ -673,7 +678,7 @@ ul#menu-sun-times-network {
 	}
 	margin-top: 3px;
 	@media (min-width: 641px) and (max-width: 981px) {
-		margin-left: 40px;
+		margin-left: 16px;
 	}
 
 	@media #{$small-only} {

@@ -996,12 +996,13 @@ class CST_Frontend {
 			}
 		}
 		?>
-		<div class="medium-11 medium-offset-1 cst-recommendations">
-			<div class="columns">
+		<div class="cst-recommendations">
+			<div>
 			<hr>
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
-		</div>
+			</div>
+		<div class="row">
 		<?php foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$top_item = [];
@@ -1023,7 +1024,7 @@ class CST_Frontend {
 			$temporary_title       = explode( '|', $item->title );
 			$article_curated_title = $temporary_title[0];
 			?>
-			<div class="cst-recommended-content columns medium-6 small-12">
+			<div class="cst-recommended-content medium-6 small-12 columns">
 				<div class="cst-article">
 					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
 					<div class="cst-recommended-image -amp-layout-size-defined">
@@ -1037,6 +1038,7 @@ class CST_Frontend {
 				</div>
 			</div>
 		<?php } ?>
+		</div>
 		</div>
 <?php
 

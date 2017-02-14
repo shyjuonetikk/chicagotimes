@@ -516,6 +516,21 @@ body[class^="cst_article-"] {
 		@media #{$small-only} {
 			margin-top:132px;
 		}
+		@media #{$xmedium-only} and (orientation: landscape) {
+			#main{
+				padding-left: 0.9375rem;
+				&.medium-7 {
+					width: 68.33%;
+				}
+			}
+		}
+		.cst-recommendations {
+			@media #{$small-only} {
+				> .row {
+					margin-left:-0.9375rem;
+				}
+			}
+		}
 	}
 
 	.post.cst-sharing-absolute {
@@ -566,6 +581,7 @@ body[class^="cst_article-"] {
 		@media #{$medium-up} {
 			padding-top: 15px;
 			border-top: 7px solid $light_grey;
+			clear: both;
 		}
 
 		h1 {

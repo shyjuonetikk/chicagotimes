@@ -1,6 +1,6 @@
 <?php if ( ! empty( $is_main_query ) ) { ?>
 	<?php if ( is_singular() ) { ?>
-	<div class="columns small-11 end">
+	<div class="columns small-11 medium-10 end">
 		<h1><?php $obj->the_title(); ?></h1>
 	</div>
 	<div class="post-meta post-meta-social show-for-small-only">

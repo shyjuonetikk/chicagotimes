@@ -158,13 +158,23 @@
 			font-size: 1rem;
 			padding: 10px 14px;
 		}
+		a {
+			display: inline-block;
+			height: 40px;
+			width: 40px;
+		}
 
+		@media #{$xmedium-only} and (orientation: portrait) {
+			top: -40px;
 			a {
-				display: inline-block;
-				height: 40px;
-				width: 40px;
+				height:30px;
+				width:30px;
 			}
-
+			.fa {
+				font-size: 1rem;
+				padding: 7px;
+			}
+		}
 	}
 
 	.post-meta-bottom {
