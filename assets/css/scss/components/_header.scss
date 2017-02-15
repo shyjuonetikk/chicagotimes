@@ -320,6 +320,13 @@ body.admin-bar {
 
 	.menu {
 		list-style-type:none;
+		label {
+			background: #111;
+			font-size: 16px;
+			text-transform: uppercase;
+			border-bottom: 4px #777 ridge;
+			padding: 4px;
+		}
 	}
 
 	.off-canvas-menu {

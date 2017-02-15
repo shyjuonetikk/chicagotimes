@@ -1388,7 +1388,7 @@ class CST_Frontend {
 			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
 			$class = 'upper-heading';
 		}
-		$name_width = 'columns small-12'; // DIV size if no sponsor image
+		$name_width = 'small-12'; // DIV size if no sponsor image
 		$sponsor_markup = '';
 		if ( ! empty( $term_metadata ) ) {
 			$start_date = $term_metadata['start_date'];
@@ -1413,7 +1413,7 @@ class CST_Frontend {
 					);
 				}
 				// DIV size if there is a sponsor image
-				$name_width = 'columns medium-5 small-12';
+				$name_width = 'medium-5 small-12';
 			}
 		}
 		if ( '' !== $section_id ) {
@@ -1541,7 +1541,25 @@ class CST_Frontend {
 		}
 		return $conditional_nav;
 	}
+	/**
+	* Create a section navigation list for use in the off canvas menu
+	* @return bool|mixed
+	*/
+	public function get_sections_nav() {
+		if ( false === ( $found = wp_cache_get( 'section_nav_cache_key' ) ) ) {
+			$sections = get_terms( array(
+				'taxonomy' => 'cst_section',
+				'hide_empty' => true,
+				'fields' => 'id=>slug',
+				)
+			);
+			
+			wp_cache_set( 'section_nav_cache_key', $sections, '', 1 * WEEK_IN_SECONDS );
+		}
 
+		return $section_navigation;
+
+	}
 	/**
 	* Generate off canvas menu items
 	*/
@@ -1551,7 +1569,7 @@ class CST_Frontend {
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
-				wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+				wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' ) );
 			} else {
 				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 			}
