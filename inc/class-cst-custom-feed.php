@@ -125,5 +125,6 @@ class CST_Feeds {
 		}
 		return $publish_me;
 	}
+
 }
 
