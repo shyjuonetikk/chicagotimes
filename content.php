@@ -66,7 +66,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			}
 			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) { ?>
-				<div class="agg-chatter <?php the_id(); ?> small-12"></div>
+				<?php CST()->frontend->inject_headlines_network_markup( $obj ); ?>
 			<?php } ?>
 		</article>
 

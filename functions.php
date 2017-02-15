@@ -10,7 +10,7 @@ class CST {
 
 	private static $instance;
 
-	public $frontend, $dfp_handler, $slack;
+	public $frontend, $dfp_handler, $slack, $cst_feeds;
 
 	private $post_types = array();
 
@@ -49,6 +49,7 @@ class CST {
 		$this->wire_curator = CST_Wire_Curator::get_instance();
 		$this->usa_today_wire_curator = CST_USA_Today_Wire_Curator::get_instance();
 		$this->shia_kapos_wire_curator = CST_Shia_Kapos_Wire_Curator::get_instance();
+		$this->cst_feeds = CST_Feeds::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
 
@@ -222,6 +223,9 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
 		// AMP
 		require_once dirname( __FILE__ ) . '/amp/class-cst-amp.php';
+
+		// Custom feeds
+		require_once dirname( __FILE__ ) . '/inc/class-cst-custom-feed.php';
 
 		wpcom_vip_require_lib( 'codebird' );
 
@@ -1417,8 +1421,8 @@ class CST {
 			}
 
 			$post = \CST\Objects\Post::get_by_post_id( $post->ID );
-			if ( 'cst_feature' !== $post->get_post_type() ) {
-				$section_slug = CST_DEFAULT_SECTION;
+			if ( 'cst_feature' === $post->get_post_type() ) {
+				$section_slug = '';
 			} else {
 				$primary_section = $post->get_primary_parent_section();
 				// This shouldn't ever happen, but just in case

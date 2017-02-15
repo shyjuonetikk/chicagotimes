@@ -127,8 +127,8 @@
 					window.YieldMo && YieldMo.inject(CSTYieldMoData.SECTIONS_FOR_YIELD_MO)
 			    }
 
-			    if(window.SECTIONS_FOR_AGGREGO_CHATTER){
-					window.AggregoChatter && AggregoChatter.inject(window.SECTIONS_FOR_AGGREGO_CHATTER)
+			    if(window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK){
+            window.AggregoHeadlinesNetwork && AggregoHeadlinesNetwork.inject(window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK)
 			    }
 
 			    if(window.YIELDMO_DEMO_TAG) {
