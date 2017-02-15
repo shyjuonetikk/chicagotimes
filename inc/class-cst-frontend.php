@@ -1428,7 +1428,8 @@ class CST_Frontend {
 	* @param $sponsor_markup
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
-					 // TODO cache me
+					// TODO cache me
+					// Call Chartbeat
 			wp_nav_menu( array(
 				'theme_location'  => 'homepage-itn',
 				'fallback_cb'     => false,
