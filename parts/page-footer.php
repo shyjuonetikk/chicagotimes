@@ -1,4 +1,5 @@
 	<div class="clear-both"></div>
-	<button class="exit-off-canvas"></button>
+	<a class="exit-off-canvas"></a>
+	</div>
 	</main>
 </div><!--homepage_wrapper-->
