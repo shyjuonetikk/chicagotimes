@@ -1,5 +1,8 @@
 <div class="off-canvas-wrap" data-offcanvas>
-	<div class="inner-wrap">
+	<main class="inner-wrap">
+		<a href="#0" class="left-off-canvas-toggle burger-bar">
+			<i class="fa fa-bars"></i>
+		</a>
 		<header id="header" class="masthead">
 			<div class="contain-to-grid">
 				<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
