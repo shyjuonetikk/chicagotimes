@@ -14,22 +14,28 @@ class CST_Ad_Flipp_Section_Widget extends WP_Widget {
 
 	}
 
+    public function enqueue_scripts() {
+
+        wp_enqueue_script( 'cst_ad_flipp_section', '//api.circularhub.com/10381/2e2e1d92cebdcba9/circularhub_module.js' ); 
+    }
+    
 	/**
 	 * Outputs the content of the widget
 	 *
 	 * @param array $args
 	 * @param array $instance
 	 */
+    
 	public function widget( $args, $instance ) {
-		echo $args['before_widget'];
+		echo wp_kses_post( $args['before_widget'] );
 		?>
 
 		<div id="circularhub_module_10381" style="background-color: #ffffff; margin: 5px; padding: 5px;"></div>
-		<script src="//api.circularhub.com/10381/2e2e1d92cebdcba9/circularhub_module.js"></script>
 
 		<?php
-		echo $args['after_widget'];
 
+		echo wp_kses_post( $args['after_widget'] );
+        $this->enqueue_scripts();
 	}
 
 	/**
