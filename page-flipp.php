@@ -15,7 +15,6 @@
 	<div class="row">
 		<div id="main" class="columns large-10 end">
 			<div id='circ-container'></div>
-			<script src="http://circulars.chicago.suntimes.com/distribution_services/iframe.js" type="text/javascript"></script>
 			<script>
               var pageSizing = 'WINDOW';
               var minHeight = 550;

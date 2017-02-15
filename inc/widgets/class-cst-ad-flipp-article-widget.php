@@ -3,12 +3,21 @@
 class CST_Ad_Flipp_Article_Widget extends WP_Widget {
 
 	public function __construct() {
-		$widget_options = array(
-			'classname'   => 'Flipp_Article_Widget',
-			'description' => 'Flipp circular for article page',
+
+		parent::__construct(
+			'CST_Ad_Flipp_Article_Widget',
+			esc_html__( 'CST Ad Flipp Article Widget', 'chicagosuntimes' ),
+			array(
+				'description' => esc_html__( 'Flipp circular for article pages', 'chicagosuntimes' ),
+			)
 		);
-		parent::__construct( 'CST_Ad_Flipp_Article_Widget', 'CST Ad Flipp Article Widget', $widget_options );
-	}
+
+	}    
+
+    public function enqueue_scripts() {
+
+        wp_enqueue_script( 'cst_ad_flipp_article', '//api.circularhub.com/10382/2e2e1d92cebdcba9/circularhub_module.js' ); 
+    }
 
 	/**
 	 * Outputs the content of the widget
@@ -16,13 +25,17 @@ class CST_Ad_Flipp_Article_Widget extends WP_Widget {
 	 * @param array $args
 	 * @param array $instance
 	 */
+    
 	public function widget( $args, $instance ) {
+		echo wp_kses_post( $args['before_widget'] );
 		?>
 
 		<div id="circularhub_module_10382" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>
-		<script src="//api.circularhub.com/10382/2e2e1d92cebdcba9/circularhub_module.js"></script>
 
 		<?php
+
+		echo wp_kses_post( $args['after_widget'] );
+        $this->enqueue_scripts();
 	}
 
 	/**

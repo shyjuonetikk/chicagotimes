@@ -158,9 +158,14 @@ class CST_Frontend {
 		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 
 
+
 		// Fonts
 		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
 
+		if ( is_page_template( 'page-flipp.php' ) ) {
+        		wp_enqueue_script( 'cst_ad_flipp_page', 'http://circulars.chicago.suntimes.com/distribution_services/iframe.js' );
+        }
+        
 		if ( is_page_template( 'page-monster.php' ) ) {
 			wp_enqueue_script( 'monster-footerhook', get_template_directory_uri() . '/assets/js/vendor/footerhookv1-min.js', array( 'jquery' ), false, true );
 			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
