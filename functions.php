@@ -364,6 +364,8 @@ class CST {
 				'read' => true,
 			));
 		} );
+		add_action( 'init', [ $this, 'theme_add_editor_styles' ] );
+		add_action( 'pre_get_posts', [ $this, 'theme_add_editor_styles' ] );
 	}
 
 	/**
@@ -488,6 +490,7 @@ class CST {
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
+		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 
 	}
 
@@ -1839,6 +1842,12 @@ class CST {
 	 * @global WP_Post $post Global post object.
 	 */
 	function theme_add_editor_styles() {
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return;
+		}
+		if ( ! is_admin() ) {
+			return;
+		}
 		global $post;
 
 		$my_post_type = 'cst_feature';
@@ -1847,7 +1856,7 @@ class CST {
 		if ( false !== stristr( $_SERVER['REQUEST_URI'], 'post-new.php' )
 			 && ( isset( $_GET['post_type'] ) === true && $my_post_type == $_GET['post_type'] )
 		) {
-			add_editor_style( get_stylesheet_directory_uri() . 'assets/css/editor-style-' . $my_post_type . '.css' );
+			add_editor_style( get_stylesheet_directory_uri() . '/assets/css/editor-style-' . $my_post_type . '.css' );
 		}
 
 		// Edit post (pre_get_posts hook).
@@ -1855,8 +1864,30 @@ class CST {
 			 && is_object( $post )
 			 && $my_post_type == get_post_type( $post->ID )
 		) {
-			add_editor_style( get_stylesheet_directory_uri() . 'assets/css/editor-style-' . $my_post_type . '.css' );
+			add_editor_style( get_stylesheet_directory_uri() . '/assets/css/editor-style-' . $my_post_type . '.css' );
 		}
+	}
+
+	function theme_editor_dynamic_styles( $mceInit ) {
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return $mceInit;
+		}
+		if ( ! is_admin() ) {
+			return $mceInit;
+		}
+
+		$my_post_type = 'cst_feature';
+		if ( false !== stristr( $_SERVER['REQUEST_URI'], 'post-new.php' )
+			 && ( isset( $_GET['post_type'] ) === true && $my_post_type == $_GET['post_type'] )
+		) {
+			$styles = 'body.mce-content-body ';
+			if ( isset( $mceInit['content_style'] ) ) {
+				$mceInit['content_style'] .= ' ' . $styles . ' ';
+			} else {
+				$mceInit['content_style'] = $styles . ' ';
+			}
+		}
+		return $mceInit;
 	}
 }
 
