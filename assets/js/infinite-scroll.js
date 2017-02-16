@@ -6,7 +6,6 @@
 		var IEVersion = navigator.userAgent.match(/MSIE\s?(\d+)\.?\d*;/);
 		var IEVersion = parseInt( IEVersion[1] );
 	}
-  var infinite_timer = false;
 
 	var CSTInfiniteScroll = {
 
@@ -219,15 +218,16 @@
 
 	$(document).ready(function(){
     // infiniteScroll isn't ready until the document is loaded
-    if ('object' !== typeof infiniteScroll) {
-      infinite_timer = setTimeout(function () {
-        if ('object' == typeof infiniteScroll) {
+    var infinite_timer = false;
+    infinite_timer = setTimeout(function() {
+      if ('object' === typeof infiniteScroll) {
+        if ( infinite_timer ) {
           clearTimeout(infinite_timer);
-          CSTInfiniteScroll.setupInfiniteScroll();
-          CSTInfiniteScroll.init();
         }
-      }, 500);
-    }
+        CSTInfiniteScroll.setupInfiniteScroll();
+        CSTInfiniteScroll.init();
+      }
+    }, 500);
 
 		/*
 		 * Jetpack supports IE >= 10, but we support IE9 too
