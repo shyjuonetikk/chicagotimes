@@ -6,6 +6,7 @@
 		var IEVersion = navigator.userAgent.match(/MSIE\s?(\d+)\.?\d*;/);
 		var IEVersion = parseInt( IEVersion[1] );
 	}
+  var infinite_timer = false;
 
 	var CSTInfiniteScroll = {
 
@@ -205,19 +206,28 @@
 		 */
 		supportsPushState: function() {
 			return typeof history.pushState !== 'undefined';
-		}
+		},
 
+		setupInfiniteScroll: function() {
+      CSTInfiniteScroll.scroller = window.infiniteScroll.scroller;
+      CSTInfiniteScroll.originalDetermineURL = window.infiniteScroll.scroller.determineURL;
+      window.infiniteScroll.scroller.determineURL = CSTInfiniteScroll.determineURL;
+      CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
+      window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
+    }
 	};
 
 	$(document).ready(function(){
-		// infiniteScroll isn't ready until the document is loaded
-		CSTInfiniteScroll.scroller = window.infiniteScroll.scroller;
-		CSTInfiniteScroll.originalDetermineURL = window.infiniteScroll.scroller.determineURL;
-		window.infiniteScroll.scroller.determineURL = CSTInfiniteScroll.determineURL;
-		CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
-		window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
-
-		CSTInfiniteScroll.init();
+    // infiniteScroll isn't ready until the document is loaded
+    if ('object' !== typeof infiniteScroll) {
+      infinite_timer = setTimeout(function () {
+        if ('object' == typeof infiniteScroll) {
+          clearTimeout(infinite_timer);
+          CSTInfiniteScroll.setupInfiniteScroll();
+          CSTInfiniteScroll.init();
+        }
+      }, 500);
+    }
 
 		/*
 		 * Jetpack supports IE >= 10, but we support IE9 too
