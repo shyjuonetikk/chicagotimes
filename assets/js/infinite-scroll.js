@@ -115,6 +115,12 @@
 					CSTAnalytics.currentURL = window.location.origin + uri;
 				}
 
+				if( ! $('#' + taboola_container_id).hasClass('trc_related_container') ) {
+					window._taboola = window._taboola || [];
+					_taboola.push({mode:'thumbnails-c', container: taboola_container_id, placement: 'Below Article Thumbnails', target_type: 'mix'});
+					_taboola.push({article:'auto', url:uri});
+				}
+
 				var active_post_position = jQuery('.cst-active-scroll-post').position().top + 460;
 				jQuery('#post-sidebar').css('top', active_post_position + 'px');
         if(CSTYieldMoData.SECTIONS_FOR_YIELD_MO){

@@ -1839,7 +1839,6 @@ ready(fn);
 	* @return bool|\CST\Objects\Article
 	*/
 	public function should_we_inject_headlinesnetwork( $obj ) {
-		return false;
 		$primary_section = $obj->get_primary_parent_section();
 		if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
 			return $primary_section->slug;
