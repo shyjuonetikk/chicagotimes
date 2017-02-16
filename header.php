@@ -64,7 +64,6 @@ if ( is_singular() ) {
 	$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 	if ( $current_obj ) {
 		get_template_part( 'parts/vendors/adsupply-popunder-header' );
-		get_template_part( 'parts/taboola/taboola-header' );
 	}
 }
 ?>
