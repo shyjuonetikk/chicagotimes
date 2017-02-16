@@ -219,10 +219,10 @@
 	$(document).ready(function(){
     // infiniteScroll isn't ready until the document is loaded
     var infinite_timer = false;
-    infinite_timer = setTimeout(function() {
+    infinite_timer = setInterval(function() {
       if ('object' === typeof infiniteScroll) {
         if ( infinite_timer ) {
-          clearTimeout(infinite_timer);
+          clearInterval(infinite_timer);
         }
         CSTInfiniteScroll.setupInfiniteScroll();
         CSTInfiniteScroll.init();
