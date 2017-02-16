@@ -66,14 +66,11 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			}
 			echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) { ?>
-				<?php CST()->frontend->inject_headlines_network_markup( $obj ); ?>
 			<?php } ?>
 		</article>
 
 		<?php if ( is_singular( 'cst_article' ) ) { ?>
-		<section class="taboola-container">
-		<?php get_template_part( 'parts/taboola/taboola-container' ); ?>
-		</section>
+
 		<?php } ?>
 
 		<?php CST()->frontend->content_ad_injection( $paged ); ?>
