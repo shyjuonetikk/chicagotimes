@@ -78,7 +78,7 @@ class CST {
 		add_image_size( 'chiwire-header-medium', 425, 320, true );
 		add_image_size( 'chiwire-header-small', 320, 240, true );
 		add_image_size( 'cst-article-featured', 670, 9999, false );
-		add_image_size( 'cst-feature-hero', 1200, 1600, false );
+		add_image_size( 'cst-feature-gallery-lead', 1024, 768, false );
 		add_image_size( 'cst-gallery-desktop-vertical', 1200, 1600, true );
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
@@ -1908,7 +1908,7 @@ class CST {
 	 */
 	function cst_custom_image_sizes( $sizes ) {
 		return array_merge( $sizes, array(
-			'cst-feature-hero' => __( 'Feature Image Size', 'chicagosuntimes' ),
+			'cst-gallery-desktop-horizontal' => __( 'Feature Image Size', 'chicagosuntimes' ),
 		) );
 	}
 
