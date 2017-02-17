@@ -176,11 +176,13 @@
       }
     },
 		handleUrlAndPageview: function () {
-      var slideUrl = this.slidesWrap.find(".slick-active").data("slide-url");
-      var parts = slideUrl.split("#");
-      window.location.hash = parts[1];
-      CSTAnalytics.currentURL = slideUrl;
-      CSTAnalytics.triggerPageview();
+		  if ( 'undefined' !== typeof CSTAnalytics ) {
+        var slideUrl = this.slidesWrap.find(".slick-active").data("slide-url");
+        var parts = slideUrl.split("#");
+        window.location.hash = parts[1];
+        CSTAnalytics.currentURL = slideUrl;
+        CSTAnalytics.triggerPageview();
+      }
     },
 
 		/**
@@ -274,13 +276,14 @@
 		 */
 		triggerUnitRefresh: function( unit ) {
 
-			if ( typeof CSTAdTags[unit] !== "undefined" ) {
-				googletag.cmd.push( function() {
-					var unitInstance = CSTAdTags[unit];
-					googletag.pubads().refresh([unitInstance]);
-				});
-			}
-
+      if ( 'undefined' !== typeof CSTAdTags ) {
+        if (typeof CSTAdTags[unit] !== "undefined") {
+          googletag.cmd.push(function () {
+            var unitInstance = CSTAdTags[unit];
+            googletag.pubads().refresh([unitInstance]);
+          });
+        }
+      }
 		},
 
 		/**

@@ -199,7 +199,7 @@ class CST_Frontend {
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 
-					if ( ! is_singular( 'cst_feature' ) && ! is_post_type_archive( 'cst_feature' ) ) {
+					if ( is_singular( 'cst_feature' ) && ! is_post_type_archive( 'cst_feature' ) ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
@@ -210,7 +210,9 @@ class CST_Frontend {
 						wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
 					}
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
-					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
+					if ( ! is_singular( 'cst_feature' ) ) {
+						wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
+					}
 					wp_enqueue_script( 'cst-ga-autotrack', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
 					$analytics_data = array(
 						'is_singular'     => is_singular(),
