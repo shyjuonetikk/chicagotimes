@@ -245,3 +245,36 @@
 		}
 	}
 }
+body#tinymce {
+	background: #ffffff;
+}
+#tinymce.post-type-cst_feature {
+	font-family: 'Merriweather', Georgia, serif;
+	margin: 5px;
+	h2 {
+		border-top: 1px solid $line_grey;
+		border-bottom: 1px solid $line_grey;
+		text-transform: uppercase;
+		font-size: 3rem;
+		color: $grey;
+		text-align: center;
+		font-family: $open_sans;
+		clear: both;
+	}
+	p {
+		font-size: 18px;
+		font-weight: 300;
+		line-height: 1.8;
+		&.wp-caption-text {
+			color: $social_grey;
+			font-family: $open_sans;
+			font-style: normal;
+		}
+	}
+	blockquote {
+		p {
+			color: $chiwire_grey;
+			font-size: 3rem;
+		}
+	}
+}
