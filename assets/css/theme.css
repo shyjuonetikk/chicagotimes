@@ -4239,3 +4239,30 @@ h1, h2, h3, h4, h5, h6 {
 @media only screen and (max-width: 40em) {
   .cst_feature-template-default footer p, .single-cst_feature footer p {
     font-size: 0.8rem; } }
+
+body#tinymce {
+  background: white; }
+
+#tinymce.post-type-cst_feature {
+  font-family: 'Merriweather', Georgia, serif;
+  margin: 5px; }
+  #tinymce.post-type-cst_feature h2 {
+    border-top: 1px solid #cdcdcd;
+    border-bottom: 1px solid #cdcdcd;
+    text-transform: uppercase;
+    font-size: 3rem;
+    color: #cccccc;
+    text-align: center;
+    font-family: 'Open Sans', Arial, sans-serif;
+    clear: both; }
+  #tinymce.post-type-cst_feature p {
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 1.8; }
+    #tinymce.post-type-cst_feature p.wp-caption-text {
+      color: #9a9a9a;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-style: normal; }
+  #tinymce.post-type-cst_feature blockquote p {
+    color: #484848;
+    font-size: 3rem; }
