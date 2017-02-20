@@ -4129,6 +4129,8 @@ h1, h2, h3, h4, h5, h6 {
   clear: both; }
 .cst_feature-template-default article.post .post-meta-byline, .single-cst_feature article.post .post-meta-byline {
   text-align: center; }
+.cst_feature-template-default article.post .post-meta-author, .single-cst_feature article.post .post-meta-author {
+  line-height: 1.6rem; }
 .cst_feature-template-default .feature-social-container, .single-cst_feature .feature-social-container {
   float: right;
   padding-right: 1.975rem;
