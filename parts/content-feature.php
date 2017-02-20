@@ -24,9 +24,9 @@
 	<?php else : ?>
 		<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
 		<?php
-		if ( $obj->get_excerpt() ) :
+		if ( $obj->get_excerpt() ) {
 			echo CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) );
-		endif;
+		}
 		if ( $obj->get_featured_image_id() ) {
 			echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) );
 		} ?>
