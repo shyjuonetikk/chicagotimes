@@ -1861,7 +1861,7 @@ class CST {
 		}
 
 		// Edit post (pre_get_posts hook).
-		if ( stristr( $_SERVER['REQUEST_URI'], 'post.php' ) !== false
+		if ( false !== stristr( $_SERVER['REQUEST_URI'], 'post.php' )
 			 && is_object( $post )
 			 && $my_post_type == get_post_type( $post->ID )
 		) {
