@@ -364,8 +364,7 @@ class CST {
 				'read' => true,
 			));
 		} );
-		add_action( 'init', [ $this, 'theme_add_editor_styles' ] );
-		add_action( 'pre_get_posts', [ $this, 'theme_add_editor_styles' ] );
+		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 	}
 
 	/**
@@ -1849,22 +1848,10 @@ class CST {
 		if ( ! is_admin() ) {
 			return;
 		}
-		global $post;
-
 		$my_post_type = 'cst_feature';
 
-		// New post (init hook).
-		if ( false !== stristr( $_SERVER['REQUEST_URI'], 'post-new.php' )
-			 && ( isset( $_GET['post_type'] ) === true && $my_post_type == $_GET['post_type'] )
-		) {
-			add_editor_style( get_stylesheet_directory_uri() . '/assets/css/editor-style-' . $my_post_type . '.css' );
-		}
-
-		// Edit post (pre_get_posts hook).
-		if ( false !== stristr( $_SERVER['REQUEST_URI'], 'post.php' )
-			 && is_object( $post )
-			 && $my_post_type == get_post_type( $post->ID )
-		) {
+		$screen = get_current_screen();
+		if ( $screen && $my_post_type === $screen->post_type ) {
 			add_editor_style( get_stylesheet_directory_uri() . '/assets/css/editor-style-' . $my_post_type . '.css' );
 		}
 	}
@@ -1885,9 +1872,8 @@ class CST {
 		}
 
 		$my_post_type = 'cst_feature';
-		if ( false !== stristr( $_SERVER['REQUEST_URI'], 'post-new.php' )
-			 && ( isset( $_GET['post_type'] ) === true && $my_post_type == $_GET['post_type'] )
-		) {
+		$screen = get_current_screen();
+		if ( $screen && $my_post_type === $screen->post_type ) {
 			$styles = 'body.mce-content-body ';
 			if ( isset( $mceInit['content_style'] ) ) {
 				$mceInit['content_style'] .= ' ' . $styles . ' ';
