@@ -1898,6 +1898,9 @@ class CST {
 		) );
 	}
 
+	public function cst_feature_image() {
+		return 'post/wire-featured-image-feature';
+	}
 }
 
 /**

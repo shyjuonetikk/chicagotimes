@@ -4243,6 +4243,20 @@ h1, h2, h3, h4, h5, h6 {
 body#tinymce {
   background: white; }
 
+.post-type-archive-cst_feature article.post.cst_feature {
+  float: left;
+  clear: both;
+  width: 100%; }
+  .post-type-archive-cst_feature article.post.cst_feature .cst_feature-media {
+    float: left; }
+  .post-type-archive-cst_feature article.post.cst_feature .cst_feature-title, .post-type-archive-cst_feature article.post.cst_feature .cst_feature-excerpt {
+    float: left; }
+  .post-type-archive-cst_feature article.post.cst_feature .cst_feature-meta-bottom {
+    clear: both; }
+.post-type-archive-cst_feature article.index-view .cst_feature-archive {
+  float: left;
+  clear: both; }
+
 #tinymce.post-type-cst_feature {
   font-family: 'Merriweather', Georgia, serif;
   margin: 5px; }

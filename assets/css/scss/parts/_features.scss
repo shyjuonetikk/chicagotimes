@@ -248,6 +248,33 @@
 body#tinymce {
 	background: #ffffff;
 }
+.post-type-archive-cst_feature {
+	article {
+		&.post {
+			&.cst_feature {
+				float: left;
+				clear: both;
+				width: 100%;
+				.cst_feature-media {
+					float:left;
+				}
+				.cst_feature-title,
+				.cst_feature-excerpt {
+					float: left;
+				}
+				.cst_feature-meta-bottom {
+					clear: both;
+				}
+			}
+		}
+		&.index-view {
+			.cst_feature-archive {
+				float:left;
+				clear:both;
+			}
+		}
+	}
+}
 #tinymce.post-type-cst_feature {
 	font-family: 'Merriweather', Georgia, serif;
 	margin: 5px;

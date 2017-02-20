@@ -22,14 +22,15 @@
 			</div>
 		</div>
 	<?php else : ?>
-		<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
+		<div class="cst_feature-archive columns">
+			<div class="row">
 		<?php
-		if ( $obj->get_excerpt() ) {
-			echo CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) );
-		}
 		if ( $obj->get_featured_image_id() ) {
-			echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) );
+			echo CST()->get_template_part( 'post/wire-featured-image-feature', array( 'obj' => $obj ) );
 		} ?>
+		<?php echo CST()->get_template_part( 'post/title-feature', $vars ); 	?>
+			</div>
+		</div>
 	<?php endif; ?>
 
 <?php endif;
