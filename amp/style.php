@@ -68,7 +68,7 @@ blockquote p:last-child {margin-bottom: 0;}
 .cst-article {box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);float: none;overflow: hidden;height: 65px;margin: 16px 0;border-radius: 2px;background: #f5f5f5;}
 a.cst-rec-anchor {text-decoration: none;color: #000;}
 .cst-rec-anchor > span {font-size: 0.85rem;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;font-weight: 400;vertical-align: top;width: 100%;display: block;line-height:1.3rem;}
-amp-carousel {background: #000;}
+amp-carousel {height:480px;}
 amp-iframe,
 amp-youtube,
 amp-instagram,
@@ -77,7 +77,7 @@ amp-vine {background: #f3f6f8;}
 .article{clear:both;}
 amp-carousel > amp-img > img {object-fit: contain;}
 .cst-amp-carousel {margin-bottom: 16px;}
-.cst-amp-carousel amp-img .caption {position: absolute;bottom: 0;left: 0;right: 0;padding: 8px;background: rgba(0, 0, 0, 0.6);color: #ddd;font-size: smaller;max-height: 30%;}
+.cst-amp-carousel amp-img .caption {z-index:2;position: absolute;bottom: 0;left: 0;right: 0;padding: 8px;background: rgba(0, 0, 0, 0.6);color: #fff;font-size: smaller;max-height: 30%;}
 .amp-wp-iframe-placeholder {background: #f3f6f8 url( <?php echo esc_url( $this->get( 'placeholder_image_url' ) ); ?> ) no-repeat center 40%;background-size: 48px 48px;min-height: 48px;}
 footer {width: 100%;background-color: #000;padding: 10px 0px;margin: 0 auto;font-family: "Source Sans Pro", sans-serif;}
 footer ul {list-style-type: none;padding: 0;margin: 0;display: inline;line-height: 17px;}

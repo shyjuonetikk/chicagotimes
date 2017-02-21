@@ -86,7 +86,6 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 
 		$this->did_convert_elements = true;
 		$images                     = array();
-		$captions                   = array();
 		foreach ( $args['images'] as $image ) {
 			$images[] = AMP_HTML_Utils::build_tag(
 				'div', array( 'class' => 'cst-image-container' ),
@@ -102,13 +101,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 						'div',
 						array(
 							'class' => 'caption',
-						), AMP_HTML_Utils::build_tag(
-							'p',
-							array(
-								'class' => 'captiontext',
-							),
-							$image['caption']
-						)
+						), $image['caption']
 					)
 				)
 			);
@@ -141,11 +134,5 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			implode( PHP_EOL, $images )
 		);
 
-		return AMP_HTML_Utils::build_tag(
-			'div',
-			array(
-				'class' => 'spacer',
-			), $carousel_content
-		);
 	}
 }
