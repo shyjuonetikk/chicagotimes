@@ -6,36 +6,25 @@
 					<p><i class="fa fa-arrow-circle-up"></i><?php esc_html_e( 'Back To Top', 'chicagosuntimes' ); ?></p>
 				</a>
 			</div>
-			<?php if ( is_tax() ): ?>
+			<?php if ( is_tax() ) { ?>
 				<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
-			<?php elseif ( is_author() ): ?>
+			<?php } elseif ( is_author() ) { ?>
 				<?php get_template_part( 'parts/section/author-top' ); ?>
-			<?php else: ?>
-				<a id="newsfeed-logo" href="<?php echo esc_url( home_url('/') ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
-			<?php endif; ?>
+			<?php } else { ?>
+				<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
+			<?php } ?>
 
 			<?php if ( have_posts() ) : ?>
-
 				<?php while ( have_posts() ) : the_post(); ?>
-
 					<?php get_template_part( 'sticky-content' ); ?>
-
 				<?php endwhile; ?>
-
 			<?php endif; ?>
 
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) : the_post(); ?>
-
 					<?php get_template_part( 'content' ); ?>
-
 				<?php endwhile; ?>
-
 			<?php endif; ?>
-
 		</div>
-
-
 	</section>
-
 <?php get_footer( 'features' );
