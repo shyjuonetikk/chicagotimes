@@ -129,7 +129,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			}
 		}
 
-		$carousel_content = AMP_HTML_Utils::build_tag(
+		return AMP_HTML_Utils::build_tag(
 			'amp-carousel',
 			array(
 				'width'  => $this->args['width'],
