@@ -4249,7 +4249,8 @@ body#tinymce {
 .post-type-archive-cst_feature article.post.cst_feature {
   float: left;
   clear: both;
-  width: 100%; }
+  width: 100%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
   .post-type-archive-cst_feature article.post.cst_feature .cst_feature-media {
     float: left; }
   .post-type-archive-cst_feature article.post.cst_feature .cst_feature-title, .post-type-archive-cst_feature article.post.cst_feature .cst_feature-excerpt {
@@ -4259,6 +4260,15 @@ body#tinymce {
 .post-type-archive-cst_feature article.index-view .cst_feature-archive {
   float: left;
   clear: both; }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-story-link {
+    display: inline-block;
+    float: right;
+    padding: 8px;
+    background: #231f20; }
+    .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-story-link a {
+      color: #ffe000; }
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-story-link a:visited, .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-story-link a:active, .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-story-link a:hover {
+        color: #ffe000; }
 
 #tinymce.post-type-cst_feature {
   font-family: 'Merriweather', Georgia, serif;
