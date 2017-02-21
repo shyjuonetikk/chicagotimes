@@ -409,6 +409,9 @@ class CST_Frontend {
 		if ( is_author() ) {
 			return $wp_title . get_bloginfo( 'name' );
 		}
+		if ( is_post_type_archive() ) {
+			return $wp_title . ' - Chicago Sun-Times';
+		}
 
 		if ( ! is_singular() ) {
 			return $wp_title;
