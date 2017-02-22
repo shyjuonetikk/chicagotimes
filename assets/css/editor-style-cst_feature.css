@@ -363,16 +363,40 @@ body#tinymce {
     @media only screen {
       .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
         font-size: 1.5rem;
-        line-height: 2rem; } }
+        line-height: 2rem;
+        margin-bottom: 5px; } }
     @media only screen and (orientation: landscape) {
       .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
         font-size: 1.3rem;
         line-height: 1.7rem;
         padding-bottom: 0; } }
+    @media only screen and (min-width:40.063em) and (orientation: landscape) {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
+        padding-bottom: 5px;
+        font-size: 1.6rem;
+        line-height: 2rem; } }
     @media only screen and (min-width:40.063em) {
       .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
-        font-size: 2rem;
-        line-height: 2.5rem; } }
+        font-size: 1.6rem;
+        line-height: 2rem; } }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    font-family: 'Merriweather', Georgia, serif; }
+    @media only screen {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
+        font-size: 1.4rem;
+        line-height: 2rem; } }
+    @media only screen and (min-width:40.063em) {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
+        font-size: 1.1rem;
+        line-height: 1.5rem; } }
+    @media only screen and (min-width:40.063em) and (orientation: landscape) {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
+        font-size: 1.2rem;
+        line-height: 1.5rem; } }
   .post-type-archive-cst_feature article.index-view .cst_feature-archive .post-meta-author {
     line-height: 1.4rem;
     font-weight: normal; }
@@ -382,6 +406,16 @@ body#tinymce {
     padding-bottom: 0; }
   .post-type-archive-cst_feature article.index-view .cst_feature-archive .post-meta-byline {
     margin-bottom: 0; }
+.post-type-archive-cst_feature footer .columns:first-child {
+  padding-left: 0.9375rem; }
+.post-type-archive-cst_feature footer .footer-navigation {
+  padding-top: 10px; }
+.post-type-archive-cst_feature footer .features-footer-navigation {
+  margin-left: 0; }
+.post-type-archive-cst_feature footer .footerlead {
+  padding: 10px 10px 10px 0; }
+.post-type-archive-cst_feature footer .footer-upper {
+  padding-left: 0.9375rem; }
 
 #tinymce.post-type-cst_feature {
   font-family: 'Merriweather', Georgia, serif;

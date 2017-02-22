@@ -11,11 +11,11 @@
 		<div class="row">
 			<h1><a href="<?php $obj->the_permalink(); ?>" data-on="click" data-event-category="sf-list" data-event-action="click-title"><?php $obj->the_title(); ?></a></h1>
 		</div>
-		<div class="row">
-			<?php if ( $obj->get_excerpt() ) {
-				echo CST()->get_template_part( 'post/post-excerpt-feature', array( 'obj' => $obj ) );
-			} ?>
-		</div>
+			<?php if ( $obj->get_hero_sig() ) { ?>
+				<div>
+				<?php echo sprintf( '<div class="feature-sig">%1$s</div>', esc_html( $obj->get_hero_sig() ) ); ?>
+				</div>
+			<?php } ?>
 		<div class="row">
 			<div class="feature-story-author small-12">
 				<?php echo CST()->get_template_part( 'post/feature-meta-byline', array( 'obj' => $obj ) ); ?>
