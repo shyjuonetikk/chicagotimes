@@ -27,6 +27,23 @@
 			}
 		}
 	}
+	footer {
+		.columns:first-child {
+			padding-left: 0.9375rem;
+		}
+		.footer-navigation {
+			padding-top: 10px;
+		}
+		.features-footer-navigation {
+			margin-left:0;
+		}
+		.footerlead {
+			padding: 10px 10px 10px 0;
+		}
+		.footer-upper {
+			padding-left:0.9375rem;
+		}
+	}
 }
 .cst_feature-template-default,
 .single-cst_feature {
@@ -350,23 +367,6 @@ body#tinymce {
 					margin-bottom:0;
 				}
 			}
-		}
-	}
-	footer {
-		.columns:first-child {
-			padding-left: 0.9375rem;
-		}
-		.footer-navigation {
-			padding-top: 10px;
-		}
-		.features-footer-navigation {
-			margin-left:0;
-		}
-		.footerlead {
-			padding: 10px 10px 10px 0;
-		}
-		.footer-upper {
-			padding-left:0.9375rem;
 		}
 	}
 }

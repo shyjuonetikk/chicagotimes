@@ -1522,7 +1522,7 @@ class CST_Frontend {
 	* @return array|bool|null|object|string|WP_Error|WP_Term
 	 *
 	 * Get conditional nav object / setting
- 	*/
+	*/
 	public function get_conditional_nav() {
 		$current_obj = $this->get_current_object();
 		if ( is_single() ) {

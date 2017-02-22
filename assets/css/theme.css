@@ -4088,6 +4088,16 @@ h1, h2, h3, h4, h5, h6 {
     .cst_feature-template-default header#header section#primary-navigation #burger-bar .fa, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar .fa, .single-cst_feature header#header section#primary-navigation #burger-bar .fa {
       font-size: 40px;
       line-height: 60px; }
+.cst_feature-template-default footer .columns:first-child, .post-type-archive-cst_feature footer .columns:first-child, .single-cst_feature footer .columns:first-child {
+  padding-left: 0.9375rem; }
+.cst_feature-template-default footer .footer-navigation, .post-type-archive-cst_feature footer .footer-navigation, .single-cst_feature footer .footer-navigation {
+  padding-top: 10px; }
+.cst_feature-template-default footer .features-footer-navigation, .post-type-archive-cst_feature footer .features-footer-navigation, .single-cst_feature footer .features-footer-navigation {
+  margin-left: 0; }
+.cst_feature-template-default footer .footerlead, .post-type-archive-cst_feature footer .footerlead, .single-cst_feature footer .footerlead {
+  padding: 10px 10px 10px 0; }
+.cst_feature-template-default footer .footer-upper, .post-type-archive-cst_feature footer .footer-upper, .single-cst_feature footer .footer-upper {
+  padding-left: 0.9375rem; }
 
 .cst_feature-template-default article .row, .single-cst_feature article .row {
   max-width: 80rem; }
@@ -4320,16 +4330,6 @@ body#tinymce {
     padding-bottom: 0; }
   .post-type-archive-cst_feature article.index-view .cst_feature-archive .post-meta-byline {
     margin-bottom: 0; }
-.post-type-archive-cst_feature footer .columns:first-child {
-  padding-left: 0.9375rem; }
-.post-type-archive-cst_feature footer .footer-navigation {
-  padding-top: 10px; }
-.post-type-archive-cst_feature footer .features-footer-navigation {
-  margin-left: 0; }
-.post-type-archive-cst_feature footer .footerlead {
-  padding: 10px 10px 10px 0; }
-.post-type-archive-cst_feature footer .footer-upper {
-  padding-left: 0.9375rem; }
 
 #tinymce.post-type-cst_feature {
   font-family: 'Merriweather', Georgia, serif;
