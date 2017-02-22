@@ -3676,6 +3676,8 @@ footer {
   footer .footerlead {
     background: #9a9a9a;
     padding: 10px; }
+    footer .footerlead .columns:first-child {
+      padding-left: 0.9375rem; }
   footer .footer-upper {
     padding: 10px 0; }
   footer .separate-me {
