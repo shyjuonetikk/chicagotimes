@@ -18,7 +18,6 @@
 			<?php echo CST()->get_template_part( 'post/feature-meta-byline', array( 'obj' => $obj ) ); ?>
 			<div class="post-content columns small-12 end" itemprop="articleBody">
 				<?php $obj->the_content(); ?>
-
 			</div>
 		</div>
 	<?php else : ?>

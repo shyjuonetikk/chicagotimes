@@ -164,8 +164,11 @@ class CST_Frontend {
 		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 
 		// Fonts
-		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
-
+		if ( is_post_type_archive( 'cst_feature' ) ) {
+			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,600i,700,700i,800,800i&amp;subset=latin' );
+		} else {
+			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
+		}
 		if ( is_page_template( 'page-flipp.php' ) ) {
 				wp_enqueue_script( 'cst_ad_flipp_page', 'http://circulars.chicago.suntimes.com/distribution_services/iframe.js' );
 		}
@@ -178,7 +181,9 @@ class CST_Frontend {
 
 		} else {
 			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
-			wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
+			if ( ! is_post_type_archive( 'cst_feature' ) && ! is_singular( 'cst_feature' ) ) {
+				wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
+			}
 
 			$this->action_load_section_styling();
 
@@ -195,9 +200,10 @@ class CST_Frontend {
 					}
 				}
 				if ( ! is_front_page() || ! is_page() ) {
-					// Scripty-scripts
+					if ( is_singular( array( 'cst_feature', 'cst_article', 'cst_gallery' ) ) ) {
+						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
+					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
-					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 
 					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() ) {
 						// Slick
@@ -1308,7 +1314,7 @@ class CST_Frontend {
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
-		if ( is_page() || is_singular( 'cst_feature' ) ) {
+		if ( is_page() || is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
 		?>
