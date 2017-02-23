@@ -10,7 +10,7 @@ class CST {
 
 	private static $instance;
 
-	public $frontend, $dfp_handler, $slack, $cst_feeds;
+	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler;
 
 	private $post_types = array();
 
@@ -39,6 +39,7 @@ class CST {
 
 		$this->yieldmo_tags = CST_Yieldmo_Tags::get_instance();
 		$this->dfp_handler = CST_DFP_Handler::get_instance();
+		$this->ad_vendor_handler = CST_Ad_Vendor_Handler::get_instance();
 		$this->slack = CST_Slack::get_instance();
 		$this->customizer = CST_Customizer::get_instance();
 		$this->liveblog = CST_Liveblog::get_instance();
@@ -154,6 +155,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-elections.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
