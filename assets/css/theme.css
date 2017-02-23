@@ -2528,6 +2528,8 @@ footer {
   footer .footerlead {
     background: #9a9a9a;
     padding: 10px; }
+    footer .footerlead .columns:first-child {
+      padding-left: 0.9375rem; }
   footer .footer-upper {
     padding: 10px 0; }
   footer .separate-me {
@@ -4086,6 +4088,16 @@ h1, h2, h3, h4, h5, h6 {
     .cst_feature-template-default header#header section#primary-navigation #burger-bar .fa, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar .fa, .single-cst_feature header#header section#primary-navigation #burger-bar .fa {
       font-size: 40px;
       line-height: 60px; }
+.cst_feature-template-default footer .columns:first-child, .post-type-archive-cst_feature footer .columns:first-child, .single-cst_feature footer .columns:first-child {
+  padding-left: 0.9375rem; }
+.cst_feature-template-default footer .footer-navigation, .post-type-archive-cst_feature footer .footer-navigation, .single-cst_feature footer .footer-navigation {
+  padding-top: 10px; }
+.cst_feature-template-default footer .features-footer-navigation, .post-type-archive-cst_feature footer .features-footer-navigation, .single-cst_feature footer .features-footer-navigation {
+  margin-left: 0; }
+.cst_feature-template-default footer .footerlead, .post-type-archive-cst_feature footer .footerlead, .single-cst_feature footer .footerlead {
+  padding: 10px 10px 10px 0; }
+.cst_feature-template-default footer .footer-upper, .post-type-archive-cst_feature footer .footer-upper, .single-cst_feature footer .footer-upper {
+  padding-left: 0.9375rem; }
 
 .cst_feature-template-default article .row, .single-cst_feature article .row {
   max-width: 80rem; }
@@ -4245,6 +4257,82 @@ h1, h2, h3, h4, h5, h6 {
 
 body#tinymce {
   background: white; }
+
+.post-type-archive-cst_feature article.post.cst_feature {
+  float: left;
+  clear: both;
+  width: 100%;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+  .post-type-archive-cst_feature article.post.cst_feature .cst_feature-media {
+    float: left; }
+  .post-type-archive-cst_feature article.post.cst_feature .cst_feature-meta-bottom {
+    clear: both; }
+.post-type-archive-cst_feature article.index-view .cst_feature-archive {
+  float: left;
+  clear: both; }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive .full-story {
+    display: inline-block;
+    float: right;
+    padding: 8px;
+    background: #231f20; }
+    .post-type-archive-cst_feature article.index-view .cst_feature-archive .full-story a {
+      color: #ffe000; }
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .full-story a:visited, .post-type-archive-cst_feature article.index-view .cst_feature-archive .full-story a:active, .post-type-archive-cst_feature article.index-view .cst_feature-archive .full-story a:hover {
+        color: #ffe000; }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
+    border-bottom: 1px solid #9a9a9a;
+    padding-bottom: 5px; }
+    .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 a {
+      font-weight: 700; }
+    @media only screen {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
+        font-size: 1.5rem;
+        line-height: 2rem;
+        margin-bottom: 5px; } }
+    @media only screen and (orientation: landscape) {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
+        font-size: 1.3rem;
+        line-height: 1.7rem;
+        padding-bottom: 0; } }
+    @media only screen and (min-width:40.063em) and (orientation: landscape) {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
+        padding-bottom: 5px;
+        font-size: 1.6rem;
+        line-height: 2rem; } }
+    @media only screen and (min-width:40.063em) {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
+        font-size: 1.6rem;
+        line-height: 2rem; } }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    font-family: 'Merriweather', Georgia, serif; }
+    @media only screen {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
+        font-size: 1.4rem;
+        line-height: 2rem; } }
+    @media only screen and (min-width:40.063em) {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
+        font-size: 1.1rem;
+        line-height: 1.5rem; } }
+    @media only screen and (min-width:40.063em) and (orientation: landscape) {
+      .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
+        font-size: 1.2rem;
+        line-height: 1.5rem; } }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive .post-meta-author {
+    line-height: 1.4rem;
+    font-weight: normal; }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-separator hr {
+    margin: 0; }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive p {
+    padding-bottom: 0; }
+  .post-type-archive-cst_feature article.index-view .cst_feature-archive .post-meta-byline {
+    margin-bottom: 0; }
+.post-type-archive-cst_feature .features {
+  color: #9a9a9a;
+  text-transform: uppercase; }
 
 #tinymce.post-type-cst_feature {
   font-family: 'Merriweather', Georgia, serif;

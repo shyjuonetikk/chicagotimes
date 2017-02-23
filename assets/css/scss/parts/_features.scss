@@ -27,6 +27,23 @@
 			}
 		}
 	}
+	footer {
+		.columns:first-child {
+			padding-left: 0.9375rem;
+		}
+		.footer-navigation {
+			padding-top: 10px;
+		}
+		.features-footer-navigation {
+			margin-left:0;
+		}
+		.footerlead {
+			padding: 10px 10px 10px 0;
+		}
+		.footer-upper {
+			padding-left:0.9375rem;
+		}
+	}
 }
 .cst_feature-template-default,
 .single-cst_feature {
@@ -251,6 +268,112 @@
 }
 body#tinymce {
 	background: #ffffff;
+}
+.post-type-archive-cst_feature {
+	article {
+		&.post {
+			&.cst_feature {
+				float: left;
+				clear: both;
+				width: 100%;
+				.cst_feature-media {
+					float:left;
+				}
+				.cst_feature-meta-bottom {
+					clear: both;
+				}
+				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+			}
+		}
+		&.index-view {
+			.cst_feature-archive {
+				float:left;
+				clear:both;
+				.full-story {
+					display: inline-block;
+					float: right;
+					padding:8px;
+					background: $cst_black;
+					a {
+						color: $cst_yellow;
+						&:visited,
+						&:active,
+						&:hover {
+							color: $cst_yellow;
+						}
+					}
+				}
+				.cst_feature-title {
+					h1 {
+						border-bottom: 1px solid $social_grey;
+						a {
+							font-weight: 700;
+						}
+						@media #{$small-up} {
+							font-size: 1.5rem;
+							line-height:2rem;
+							margin-bottom: 5px;
+						}
+						@media #{$small-up} and (orientation: landscape) {
+							font-size: 1.3rem;
+							line-height: 1.7rem;
+							padding-bottom: 0;
+						}
+						@media #{$medium-up} and (orientation: landscape) {
+							padding-bottom: 5px;
+							font-size: 1.6rem;
+							line-height: 2rem;
+						}
+						@media #{$medium-up} {
+							font-size: 1.6rem;
+							line-height: 2rem;
+						}
+						padding-bottom: 5px;
+					}
+				}
+				.feature-sig {
+					font-style: italic;
+					font-weight: 400;
+					font-size: 1.5rem;
+					line-height: 2.2rem;
+					font-family: $merriweather;
+					@media #{$small-up} {
+						font-size: 1.4rem;
+						line-height:2rem;
+					}
+
+					@media #{$medium-up} {
+						font-size: 1.1rem;
+						line-height: 1.5rem;
+					}
+					@media #{$medium-up} and (orientation: landscape) {
+						font-size: 1.2rem;
+						line-height: 1.5rem;
+					}
+				}
+				.post-meta-author {
+					line-height: 1.4rem;
+					font-weight: normal;
+				}
+				.feature-separator {
+					hr {
+						margin: 0;
+					}
+				}
+				p {
+					padding-bottom:0;
+				}
+				.post-meta-byline {
+					margin-bottom:0;
+				}
+			}
+		}
+	}
+	.features {
+		color: $social_grey;
+		text-transform: uppercase;
+	}
+
 }
 #tinymce.post-type-cst_feature {
 	font-family: 'Merriweather', Georgia, serif;

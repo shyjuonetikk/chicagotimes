@@ -1284,7 +1284,9 @@ class CST_Admin {
 	 */
 	public function trigger_notification_button( $post ) {
 
-		if ( 'cst_article' !== get_post_type( $post->ID ) ) {
+		$post_type = get_post_type( $post->ID );
+		$result = in_array( $post_type, array( 'cst_article', 'cst_feature' ) , true );
+		if ( ! $result ) {
 			return;
 		}
 		if ( strtotime( $post->post_date_gmt ) <= time() ) {
