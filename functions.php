@@ -1913,6 +1913,13 @@ class CST {
 			'logic' => array( 'is_singular' ),
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
+			'header' => 'triplelift-header.js',
+			'footer' => 'triplelift-footer.js',
+			'container' => false,
+			'logic' => array( 'is_singular', array( 'obj', 'is_sponsored_content' ) ),
+			)
+		);
 	}
 }
 

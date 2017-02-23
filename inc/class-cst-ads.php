@@ -55,21 +55,36 @@ class CST_Ad_Vendor_Handler {
 		add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ], 10, 2 );
 	}
 
-	public function scripts( $vendor_name ) {
+	/**
+	 * @return WP_Error
+	 * Logic around checking if we can enqueue the script(s) related to an ad vendor
+	 */
+	public function scripts() {
 
 		foreach ( $this->registered_vendors as $vendor_name => $registered_vendor ) {
 			if ( ! array_key_exists( $vendor_name, $this->registered_vendors ) ) {
 				return new \WP_Error( -1, 'Ad Vendor not found' );
 			}
 			if ( ! empty( $registered_vendor['logic'] ) ) {
-				foreach ( $registered_vendor['logic'] as $display_logic_function ) {
-					if ( is_callable( $display_logic_function ) && call_user_func( $display_logic_function ) ) {
-						if ( $registered_vendor['header'] ) {
-							wp_enqueue_script( esc_attr( $registered_vendor['header'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['header'] ), array( 'jquery' ), null, false );
+				foreach ( $registered_vendor['logic'] as $func => $display_logic_function ) {
+					$permission_to_enqueue = false;
+					if ( is_array( $display_logic_function ) ) {
+						if ( 'obj' === $display_logic_function[0] ) {
+							$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+							if ( $obj ) {
+								$permission_to_enqueue = call_user_func( array( $obj, $display_logic_function[1] ) );
+							}
 						}
-						if ( $registered_vendor['footer'] ) {
-							wp_enqueue_script( esc_attr( $registered_vendor['footer'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['footer'] ), array( 'jquery' ), null, true );
-						}
+					} else {
+						$permission_to_enqueue = is_callable( $display_logic_function ) && call_user_func( $display_logic_function );
+					}
+				}
+				if ( $permission_to_enqueue ) {
+					if ( $registered_vendor['header'] ) {
+						wp_enqueue_script( esc_attr( $registered_vendor['header'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['header'] ), array( 'jquery' ), null, false );
+					}
+					if ( $registered_vendor['footer'] ) {
+						wp_enqueue_script( esc_attr( $registered_vendor['footer'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['footer'] ), array( 'jquery' ), null, true );
 					}
 				}
 			}

@@ -230,9 +230,6 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-						if ( ! $obj->get_sponsored_content() ) {
-							wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
-						}
 						if ( $this->should_we_inject_headlinesnetwork( $obj ) ) {
 							wp_enqueue_script( 'aggrego-headlinesnetwork', get_template_directory_uri(). '/assets/js/vendor/aggrego-headlinesnetwork.js', array(), false, true );
 							wp_localize_script( 'aggrego-headlinesnetwork', 'vendor_hn', $this->headlines_network_slugs );
