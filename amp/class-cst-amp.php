@@ -89,8 +89,8 @@ class CST_AMP {
 	 * We have gallery post type and need AMP to support that with a template and content parsing
 	 */
 	function amp_add_custom_actions() {
-		add_filter( 'the_content', array( $this, 'amp_add_featured_image' ) );
 		add_filter( 'the_content', array( $this, 'amp_poss_add_gallery' ) );
+		add_filter( 'the_content', array( $this, 'amp_add_featured_image' ) );
 
 	}
 
