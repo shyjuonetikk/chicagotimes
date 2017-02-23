@@ -115,7 +115,7 @@
 					CSTAnalytics.currentURL = window.location.origin + uri;
 				}
 
-        CSTInfiniteScroll.taboola(uri);
+        CSTInfiniteScroll.vendor_taboola(uri);
 				var active_post_position = jQuery('.cst-active-scroll-post').position().top + 460;
 				jQuery('#post-sidebar').css('top', active_post_position + 'px');
         if(CSTYieldMoData.SECTIONS_FOR_YIELD_MO){
@@ -209,11 +209,31 @@
       CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
       window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
     },
-    taboola: function(uri) {
-      if( ! $('#' + taboola_container_id).hasClass('trc_related_container') ) {
+    vendor_taboola: function(uri) {
+      window.page_counter++;
+      if( ! $('#' + CSTData.taboola_container_id + window.page_counter).hasClass('trc_related_container') ) {
         window._taboola = window._taboola || [];
-        _taboola.push({mode:'thumbnails-c', container: taboola_container_id, placement: 'Below Article Thumbnails', target_type: 'mix'});
+        _taboola.push({mode:'thumbnails-c', container: CSTData.taboola_container_id + window.page_counter, placement: 'Below Article Thumbnails', target_type: 'mix'});
         _taboola.push({article:'auto', url:uri});
+      }
+      taboola_container_id = CSTData.taboola_container_id + window.page_counter;
+      var taboolaDiv = document.createElement("div");
+      taboolaDiv.id = taboola_container_id;
+      var placeholder = jQuery('.taboola-container').last();
+      placeholder.append( taboolaDiv );
+
+      if( window.page_counter == 1 ) {
+        window._taboola = window._taboola || [];
+        _taboola.push({
+          mode:'thumbnails-c',
+          container: taboola_container_id,
+          placement: 'Below Article Thumbnails',
+          target_type: 'mix'
+        });
+        _taboola.push({
+          article:'auto',
+          url:''
+        });
       }
     }
 	};

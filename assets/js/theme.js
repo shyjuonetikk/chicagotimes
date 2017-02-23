@@ -511,7 +511,7 @@
 
 		taboola: function() {
       window.page_counter++;
-      taboola_container_id = 'taboola-below-article-thumbnails-' + page_counter;
+      taboola_container_id = CSTData.taboola_container_id + window.page_counter;
       var taboolaDiv = document.createElement("div");
       taboolaDiv.id = taboola_container_id;
       var placeholder = jQuery('.taboola-container').last();

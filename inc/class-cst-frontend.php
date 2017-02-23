@@ -212,6 +212,7 @@ class CST_Frontend {
 						wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 							'home_url'                           => esc_url_raw( home_url() ),
 							'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
+							'taboola_container_id' => 'taboola-below-article-thumbnails-',
 						) );
 						if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) ) {
 							wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
