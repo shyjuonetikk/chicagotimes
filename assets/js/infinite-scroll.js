@@ -211,15 +211,15 @@
     },
     vendor_taboola: function(uri,post_id) {
       window.page_counter++;
-      if( ! $('#' + CSTData.taboola_container_id + window.page_counter).hasClass('trc_related_container') ) {
+      var taboola_container = jQuery('.taboola-container-' + post_id);
+      if ( ! taboola_container.children().length ) {
         window._taboola = window._taboola || [];
         _taboola.push({mode:'thumbnails-c', container: CSTData.taboola_container_id + window.page_counter, placement: 'Below Article Thumbnails', target_type: 'mix'});
         _taboola.push({article:'auto', url:uri});
-        taboola_container_id = CSTData.taboola_container_id + window.page_counter;
+        var taboola_container_id = CSTData.taboola_container_id + window.page_counter;
         var taboolaDiv = document.createElement("div");
         taboolaDiv.id = taboola_container_id;
-        var placeholder = jQuery('.taboola-container-' + post_id);
-        placeholder.append( taboolaDiv );
+        taboola_container.append( taboolaDiv );
       }
       if( window.page_counter == 1 ) {
         window._taboola = window._taboola || [];
