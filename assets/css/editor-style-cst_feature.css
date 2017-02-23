@@ -416,6 +416,9 @@ body#tinymce {
     padding-bottom: 0; }
   .post-type-archive-cst_feature article.index-view .cst_feature-archive .post-meta-byline {
     margin-bottom: 0; }
+.post-type-archive-cst_feature .features {
+  color: #9a9a9a;
+  text-transform: uppercase; }
 
 #tinymce.post-type-cst_feature {
   font-family: 'Merriweather', Georgia, serif;
