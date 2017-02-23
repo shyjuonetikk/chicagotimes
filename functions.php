@@ -1549,7 +1549,7 @@ class CST {
 	 * Add the gallery backdrop to the footer
 	 */
 	public function action_wp_footer_gallery_backdrop() {
-		if ( is_404() ) {
+		if ( is_404() || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
 		echo $this->get_template_part( 'post/gallery-backdrop' );
@@ -1898,6 +1898,9 @@ class CST {
 		) );
 	}
 
+	public function cst_feature_image() {
+		return 'post/wire-featured-image-feature';
+	}
 }
 
 /**
