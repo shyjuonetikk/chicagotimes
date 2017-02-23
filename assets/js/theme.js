@@ -510,11 +510,13 @@
 		},
 
 		taboola: function() {
+      var post = $('#main').find('.cst-active-scroll-post').eq(0);
+      var post_id = post.data('cst-post-id');
       window.page_counter++;
       taboola_container_id = CSTData.taboola_container_id + window.page_counter;
       var taboolaDiv = document.createElement("div");
       taboolaDiv.id = taboola_container_id;
-      var placeholder = jQuery('.taboola-container').last();
+      var placeholder = jQuery('.taboola-container-' + post_id);
       placeholder.append( taboolaDiv );
 
       if( window.page_counter == 1 ) {

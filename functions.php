@@ -1910,6 +1910,7 @@ class CST {
 			'header' => 'taboola-header.js',
 			'footer' => false,
 			'container' => false,
+			'logic' => array( 'is_singular' ),
 			)
 		);
 	}

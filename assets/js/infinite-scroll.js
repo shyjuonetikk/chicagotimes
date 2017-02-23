@@ -100,7 +100,7 @@
 
 				uri = post.data('cst-post-uri');
 				wp_title = post.data('cst-wp-title');
-
+        post_id = post.data('cst-post-id');
 				if ( uri == CSTInfiniteScroll.activeURI ) {
 					return;
 				}
@@ -115,7 +115,7 @@
 					CSTAnalytics.currentURL = window.location.origin + uri;
 				}
 
-        CSTInfiniteScroll.vendor_taboola(uri);
+        CSTInfiniteScroll.vendor_taboola(uri,post_id);
 				var active_post_position = jQuery('.cst-active-scroll-post').position().top + 460;
 				jQuery('#post-sidebar').css('top', active_post_position + 'px');
         if(CSTYieldMoData.SECTIONS_FOR_YIELD_MO){
@@ -209,19 +209,18 @@
       CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
       window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
     },
-    vendor_taboola: function(uri) {
+    vendor_taboola: function(uri,post_id) {
       window.page_counter++;
       if( ! $('#' + CSTData.taboola_container_id + window.page_counter).hasClass('trc_related_container') ) {
         window._taboola = window._taboola || [];
         _taboola.push({mode:'thumbnails-c', container: CSTData.taboola_container_id + window.page_counter, placement: 'Below Article Thumbnails', target_type: 'mix'});
         _taboola.push({article:'auto', url:uri});
+        taboola_container_id = CSTData.taboola_container_id + window.page_counter;
+        var taboolaDiv = document.createElement("div");
+        taboolaDiv.id = taboola_container_id;
+        var placeholder = jQuery('.taboola-container-' + post_id);
+        placeholder.append( taboolaDiv );
       }
-      taboola_container_id = CSTData.taboola_container_id + window.page_counter;
-      var taboolaDiv = document.createElement("div");
-      taboolaDiv.id = taboola_container_id;
-      var placeholder = jQuery('.taboola-container').last();
-      placeholder.append( taboolaDiv );
-
       if( window.page_counter == 1 ) {
         window._taboola = window._taboola || [];
         _taboola.push({

@@ -10,6 +10,10 @@ class CST_Ad_Vendor_Handler {
 
 	private $registered_vendors = array();
 	private static $instance;
+	private $default_vars = array(
+		'logic' => array(),
+	);
+
 
 	public static function get_instance() {
 
@@ -29,6 +33,8 @@ class CST_Ad_Vendor_Handler {
 		if ( in_array( $vendor_name, $this->registered_vendors, true ) ) {
 			return new \WP_Error( -1, 'Ad Vendor already registered' );
 		}
+		$parameters = wp_parse_args( $vendor_properties, $this->default_vars );
+
 		// Add the vendor to our registered list
 		$this->add_vendor( $vendor_name, $vendor_properties );
 		return true;
@@ -55,12 +61,17 @@ class CST_Ad_Vendor_Handler {
 			if ( ! array_key_exists( $vendor_name, $this->registered_vendors ) ) {
 				return new \WP_Error( -1, 'Ad Vendor not found' );
 			}
-
-			if ( $registered_vendor['header'] ) {
-				wp_enqueue_script( esc_attr( $registered_vendor['header'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['header'] ), array( 'jquery' ), null, false );
-			}
-			if ( $registered_vendor['footer'] ) {
-				wp_enqueue_script( esc_attr( $registered_vendor['footer'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['footer'] ), array( 'jquery' ), null, true );
+			if ( ! empty( $registered_vendor['logic'] ) ) {
+				foreach ( $registered_vendor['logic'] as $display_logic_function ) {
+					if ( is_callable( $display_logic_function ) && call_user_func( $display_logic_function ) ) {
+						if ( $registered_vendor['header'] ) {
+							wp_enqueue_script( esc_attr( $registered_vendor['header'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['header'] ), array( 'jquery' ), null, false );
+						}
+						if ( $registered_vendor['footer'] ) {
+							wp_enqueue_script( esc_attr( $registered_vendor['footer'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['footer'] ), array( 'jquery' ), null, true );
+						}
+					}
+				}
 			}
 		}
 	}
