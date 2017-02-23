@@ -6,14 +6,7 @@
 					<p><i class="fa fa-arrow-circle-up"></i><?php esc_html_e( 'Back To Top', 'chicagosuntimes' ); ?></p>
 				</a>
 			</div>
-			<?php if ( is_tax() ) { ?>
-				<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
-			<?php } elseif ( is_author() ) { ?>
-				<?php get_template_part( 'parts/section/author-top' ); ?>
-			<?php } else { ?>
-				<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
-			<?php } ?>
-
+			<a id="newsfeed-logo" class="features" href="<?php echo esc_url( get_post_type_archive_link( 'cst_feature' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-newsfeed-logo"><?php esc_html_e( 'Featured Stories', 'chicagosuntimes' ); ?></a>
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php get_template_part( 'sticky-content' ); ?>

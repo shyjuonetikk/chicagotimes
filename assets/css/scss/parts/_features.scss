@@ -369,6 +369,11 @@ body#tinymce {
 			}
 		}
 	}
+	.features {
+		color: $social_grey;
+		text-transform: uppercase;
+	}
+
 }
 #tinymce.post-type-cst_feature {
 	font-family: 'Merriweather', Georgia, serif;
