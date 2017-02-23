@@ -98,7 +98,7 @@ class CST {
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
-
+		$this->register_ad_vendors();
 		// CLI scripts
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once get_stylesheet_directory() . '/inc/class-cst-cli-commands.php';
@@ -1902,6 +1902,16 @@ class CST {
 
 	public function cst_feature_image() {
 		return 'post/wire-featured-image-feature';
+	}
+
+	public function register_ad_vendors() {
+
+		$this->ad_vendor_handler->register_vendor( 'taboola', array(
+			'header' => 'taboola-header.js',
+			'footer' => false,
+			'container' => false,
+			)
+		);
 	}
 }
 

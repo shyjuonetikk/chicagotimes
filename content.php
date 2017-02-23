@@ -71,8 +71,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 		</article>
 
 		<?php if ( is_singular( 'cst_article' ) ) { ?>
-		<section class="taboola-container">
-		<?php get_template_part( 'parts/taboola/taboola-container' ); ?>
+		<section class="taboola-container medium-11 medium-offset-1 columns ">
 		</section>
 		<?php } ?>
 
