@@ -1917,7 +1917,7 @@ class CST {
 			'header' => 'triplelift-header.js',
 			'footer' => 'triplelift-footer.js',
 			'container' => false,
-			'logic' => array( 'is_singular', array( 'obj', 'is_sponsored_content' ) ),
+			'logic' => array( 'is_singular', array( 'obj', 'get_sponsored_content' ) ),
 			)
 		);
 	}

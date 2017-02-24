@@ -36,7 +36,7 @@ class CST_Ad_Vendor_Handler {
 		$parameters = wp_parse_args( $vendor_properties, $this->default_vars );
 
 		// Add the vendor to our registered list
-		$this->add_vendor( $vendor_name, $vendor_properties );
+		$this->add_vendor( $vendor_name, $parameters );
 		return true;
 	}
 	/**
@@ -71,8 +71,8 @@ class CST_Ad_Vendor_Handler {
 					if ( is_array( $display_logic_function ) ) {
 						if ( 'obj' === $display_logic_function[0] ) {
 							$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
-							if ( $obj ) {
-								$permission_to_enqueue = call_user_func( array( $obj, $display_logic_function[1] ) );
+							if ( false !== $obj && $obj->get_post_type() === 'cst_article' ) {
+								$permission_to_enqueue = is_callable( array( $obj, $display_logic_function[1] ) ) && call_user_func( array( $obj, $display_logic_function[1] ) );
 							}
 						}
 					} else {
