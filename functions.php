@@ -1942,6 +1942,14 @@ class CST {
 				'logic' => array( 'is_singular' ),
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
+				'header' => 'gum-gum-header.js',
+				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
+				'footer-remote' => true,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
 
 	}
 }
