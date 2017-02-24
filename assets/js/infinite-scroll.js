@@ -114,7 +114,7 @@
 					window.location.hash = uri.replace( home_uri, '' ).slice( 1 );
 					CSTAnalytics.currentURL = window.location.origin + uri;
 				}
-				
+
 				if( ! $('#' + taboola_container_id).hasClass('trc_related_container') ) {
 					window._taboola = window._taboola || [];
 					_taboola.push({mode:'thumbnails-c', container: taboola_container_id, placement: 'Below Article Thumbnails', target_type: 'mix'});
@@ -205,19 +205,29 @@
 		 */
 		supportsPushState: function() {
 			return typeof history.pushState !== 'undefined';
-		}
+		},
 
+		setupInfiniteScroll: function() {
+      CSTInfiniteScroll.scroller = window.infiniteScroll.scroller;
+      CSTInfiniteScroll.originalDetermineURL = window.infiniteScroll.scroller.determineURL;
+      window.infiniteScroll.scroller.determineURL = CSTInfiniteScroll.determineURL;
+      CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
+      window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
+    }
 	};
 
 	$(document).ready(function(){
-		// infiniteScroll isn't ready until the document is loaded
-		CSTInfiniteScroll.scroller = window.infiniteScroll.scroller;
-		CSTInfiniteScroll.originalDetermineURL = window.infiniteScroll.scroller.determineURL;
-		window.infiniteScroll.scroller.determineURL = CSTInfiniteScroll.determineURL;
-		CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
-		window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
-
-		CSTInfiniteScroll.init();
+    // infiniteScroll isn't ready until the document is loaded
+    var infinite_timer = false;
+    infinite_timer = setInterval(function() {
+      if ('object' === typeof infiniteScroll) {
+        if ( infinite_timer ) {
+          clearInterval(infinite_timer);
+        }
+        CSTInfiniteScroll.setupInfiniteScroll();
+        CSTInfiniteScroll.init();
+      }
+    }, 500);
 
 		/*
 		 * Jetpack supports IE >= 10, but we support IE9 too

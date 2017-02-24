@@ -25,6 +25,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		$classes_to_avoid_injecting_ads = array(
 			'post-lead-media',
 			'captiontext',
+			'caption',
 			'image-caption',
 			'wp-caption',
 			'wp-caption-text',

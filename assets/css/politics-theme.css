@@ -1419,18 +1419,9 @@ body[class^="cst_article-"] article.post .sponsored-notification {
     .single .taboola-container .thumbnails-c .videoCube {
       margin: 0;
       margin-left: 2%; } }
-@media only screen and (min-width:64.063em) {
-  .single .taboola-container {
-    max-width: 615px; } }
 @media only screen and (min-width:64.063em) and (max-width:90em) {
   .single .taboola-container {
     max-width: 800px; } }
-@media only screen and (min-width:48em) and (max-width:64em) {
-  .single .taboola-container {
-    max-width: 700px; } }
-@media only screen and (min-width:40.063em) and (max-width:47.398em) {
-  .single .taboola-container {
-    max-width: 500px; } }
 @media only screen and (max-width: 40em) {
   .single .taboola-container {
     max-width: 100%; } }
@@ -3676,6 +3667,8 @@ footer {
   footer .footerlead {
     background: #9a9a9a;
     padding: 10px; }
+    footer .footerlead .columns:first-child {
+      padding-left: 0.9375rem; }
   footer .footer-upper {
     padding: 10px 0; }
   footer .separate-me {

@@ -4,13 +4,16 @@ if ( ! $obj ) {
     return;
 }
 
-	$classes = 'post-meta-bottom post-meta';
-	if ( is_singular() ) {
-		$classes .= ' columns medium-9 medium-offset-1 end';
-	}
-	if ( !is_singular() ) {
-		$classes .= ' show-for-medium-up';
-	}
+$classes = 'post-meta-bottom post-meta';
+if ( 'cst_feature' === $obj->get_post_type() ) {
+	$classes .= ' cst_feature-meta-bottom';
+}
+if ( is_singular() ) {
+	$classes .= ' columns medium-9 medium-offset-1 end';
+}
+if ( ! is_singular() ) {
+	$classes .= ' show-for-medium-up';
+}
 ?>
 <div class="<?php echo esc_attr( $classes ); ?>">
 	<?php if ( ! is_singular() ) : ?>
@@ -93,7 +96,7 @@ if ( ! $obj ) {
 	</div>
 <?php endif; ?>
 <div class="post-meta post-meta-top mobile-bottom hide-for-medium-up">
-<?php if ( !is_singular() ) : ?>
+<?php if ( ! is_singular() ) : ?>
 	<i class="post-type fa fa-<?php echo esc_attr( $obj->get_font_icon() ); ?>"></i>
 	<span class="post-relative-date"><?php echo human_time_diff( $obj->get_post_date_gmt() ); ?></span>
 <?php endif; ?>

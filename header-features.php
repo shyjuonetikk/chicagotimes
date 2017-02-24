@@ -16,7 +16,7 @@
 <?php if ( is_front_page() ) { ?>
 <meta property="fb:pages" content="47864940833" />
 <?php } ?>
-<title><?php wp_title( '|', true, 'right' ); ?></title>
+<title><?php wp_title( '', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 <link rel="apple-touch-icon" sizes="57x57" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-57x57.png">

@@ -78,7 +78,7 @@ class CST {
 		add_image_size( 'chiwire-header-medium', 425, 320, true );
 		add_image_size( 'chiwire-header-small', 320, 240, true );
 		add_image_size( 'cst-article-featured', 670, 9999, false );
-		add_image_size( 'cst-feature-hero', 1200, 1600, false );
+		add_image_size( 'cst-feature-gallery-lead', 1024, 768, false );
 		add_image_size( 'cst-gallery-desktop-vertical', 1200, 1600, true );
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
@@ -364,6 +364,7 @@ class CST {
 				'read' => true,
 			));
 		} );
+		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 	}
 
 	/**
@@ -474,20 +475,22 @@ class CST {
 			return 'edit_others_posts';
 		}, 10, 0 );
 
-		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author'), 10, 2 );
+		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author' ), 10, 2 );
 		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
 			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
 			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
 		}
 		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
 		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
-        add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
-        add_filter( 'instant_articles_post_types', function( $types ) {
-            return array( 'cst_article', 'cst_gallery' );
-        } );
+		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
+		add_filter( 'instant_articles_post_types', function ( $types ) {
+			return array( 'cst_article', 'cst_gallery' );
+		} );
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
+		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
+		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
 
 	}
 
@@ -850,6 +853,7 @@ class CST {
 		);
 
 		add_feed( 'print', array( $this, 'render_print_feed' ) );
+
 
 	}
 
@@ -1545,7 +1549,7 @@ class CST {
 	 * Add the gallery backdrop to the footer
 	 */
 	public function action_wp_footer_gallery_backdrop() {
-		if ( is_404() ) {
+		if ( is_404() || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
 		echo $this->get_template_part( 'post/gallery-backdrop' );
@@ -1829,6 +1833,73 @@ class CST {
 		$atts['data-event-category'] = 'navigation - ' . $args->menu->name;
 		$atts['data-event-action'] = 'navigate';
 		return $atts;
+	}
+
+	/**
+	 * Registers an editor stylesheet for the current theme for our cst_feature post_type.
+	 * Source:
+	 * https://developer.wordpress.org/reference/functions/add_editor_style/#Description
+	 * @global WP_Post $post Global post object.
+	 */
+	function theme_add_editor_styles() {
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return;
+		}
+		if ( ! is_admin() ) {
+			return;
+		}
+		$my_post_type = 'cst_feature';
+
+		$screen = get_current_screen();
+		if ( $screen && $my_post_type === $screen->post_type ) {
+			add_editor_style( get_stylesheet_directory_uri() . '/assets/css/editor-style-' . $my_post_type . '.css' );
+		}
+	}
+
+	/**
+	 * @param $mceInit
+	 *
+	 * @return mixed
+	 *
+	 * Add custom styling for TinyMCE Editor when working on cst_feature post_type
+	 */
+	function theme_editor_dynamic_styles( $mceInit ) {
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return $mceInit;
+		}
+		if ( ! is_admin() ) {
+			return $mceInit;
+		}
+
+		$my_post_type = 'cst_feature';
+		$screen = get_current_screen();
+		if ( $screen && $my_post_type === $screen->post_type ) {
+			$styles = 'body.mce-content-body ';
+			if ( isset( $mceInit['content_style'] ) ) {
+				$mceInit['content_style'] .= ' ' . $styles . ' ';
+			} else {
+				$mceInit['content_style'] = $styles . ' ';
+			}
+		}
+		return $mceInit;
+	}
+
+	/**
+	 * @param $sizes
+	 *
+	 * @return array
+	 *
+	 * Add an image size into the media library dropdown.
+	 * If the size of image exists then this additional image size will appear in the dropdown
+	 */
+	function cst_custom_image_sizes( $sizes ) {
+		return array_merge( $sizes, array(
+			'cst-gallery-desktop-horizontal' => __( 'Feature Image Size', 'chicagosuntimes' ),
+		) );
+	}
+
+	public function cst_feature_image() {
+		return 'post/wire-featured-image-feature';
 	}
 }
 

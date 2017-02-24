@@ -25,7 +25,7 @@ abstract class Post {
 	 *
 	 * @param int
 	 *
-	 * @return Article|Gallery|Attachment|Link|Video|bool
+	 * @return Article|Gallery|Attachment|Link|Video|Embed|bool
 	 */
 	public static function get_by_post_id( $post_id ) {
 
@@ -70,16 +70,17 @@ abstract class Post {
 
 	/**
 	 * Get a friendly text version of the post type
-	 * 
+	 *
+	 * @param string $post_type
 	 * @return string
 	 */
 	public function get_post_type_name( $post_type ) {
 
-		if( empty( $post_type ) ) {
+		if ( empty( $post_type ) ) {
 			return;
 		}
 
-		switch( $post_type ) {
+		switch ( $post_type ) {
 			case 'cst_article':
 				$post_type_name = 'article';
 				break;
