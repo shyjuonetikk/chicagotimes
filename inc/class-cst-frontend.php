@@ -1591,7 +1591,7 @@ _ttf.push({
        ,lang        : "en"
        ,slot        : '[itemprop="articleBody"] > p'
        ,format      : "inread"
-       ,minSlot     : 3
+       ,minSlot     : 2
        ,css         : "margin: 0px auto 5px; max-width: 550px;"
 });
 
@@ -1610,28 +1610,38 @@ ready(fn);
 	}
 
 	/**
-	* Inject sponsored content into selected article in the third paragraph
+	* Inject ads into articles after a specific numbered paragraph
+    * Triple lift injects sponsored content into selected article after the 4th paragraph
+    * Flipp injects after 3rd paragraph
 	* Does not inject into feeds
 	* @param string $article_content
 	* @return string $article_content
 	*/
 	public function inject_sponsored_content( $article_content ) {
 
-		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
-			return $article_content;
-		}
-		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
-		if ( 'cst_article' !== $obj->get_post_type() ) {
-			return $article_content;
-		}
-		$after_paragraph_number = 2;
-		if ( $sponsor_array = $obj->get_sponsored_content() ) {
-			$matched_content = preg_match_all( '/(?:[^(p>)].*){1}/i', $article_content, $matched_items );
-			if ( false === $matched_content ) {
-				return $article_content;
-			}
-			if ( ! empty( $matched_items ) && $matched_content >= $after_paragraph_number ) {
-				$matches = $matched_items[0];
+ 		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
+ 			return $article_content;
+ 		}
+ 		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+ 		if ( 'cst_article' !== $obj->get_post_type() ) {
+ 			return $article_content;
+ 		}
+
+        //  break up for ads other than triple lift  
+        $article_array = explode('</p>', $article_content);
+        $num_paragraphs = count($article_array) -1;
+     
+// triple lift sponsored content
+        
+ 		$after_paragraph_number = 4;   
+                    
+ 		if ( $sponsor_array = $obj->get_sponsored_content() ) {
+            $matched_items = $article_array;
+            $matched_content = $num_paragraphs;
+            
+			if ( false !== $matched_content ) {
+   
+                $matches = $matched_items;
 				$sponsor_image_url = wp_get_attachment_image_src( $sponsor_array['sponsor_image'], array( 300, 165 ) );
 				$markup_to_inject_template = '
 	<div class="sponsored-insert">
@@ -1649,14 +1659,43 @@ ready(fn);
 					esc_url( $sponsor_image_url[0] ),
 					esc_attr( $sponsor_image_url[1] ),
 					esc_attr( $sponsor_image_url[2] )
-				);
-				$paragraph_with_script = trim( "\n" . $matches[2] ) . $content_with_sponsorship;
-				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
+				 );
+                                      
+                
+                if ($num_paragraphs >= $after_paragraph_number) {
+                
+				$paragraph_with_script = trim( "\n" . $article_array[$after_paragraph_number-1] ) . $content_with_sponsorship;
+				$article_content = str_replace( $article_array[$after_paragraph_number-1], $paragraph_with_script, $article_content );
+                    
+                } else {
+                    $paragraph_with_script = trim( "\n" . $article_array[$num_paragraphs-1] ) . $content_with_sponsorship;
+                    $article_content = str_replace( $article_array[$num_paragraphs-1], $paragraph_with_script, $article_content );
+                }
 			}
-		}
+        }
+      
+        
+// flipp        
+        global $wp_query;
+        $postnum = $wp_query->query_vars['paged']; // number of post, going 0, 1, 2, 3, 4
+        // flipp recommends no more than 5 circulars per page
+        if ($postnum < 5) {
+            $flip_ad_paragraph = 3;
+            $flipp_ad = '<div id="circularhub_module_' . (10635 + $postnum) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>'; 
 
-		return $article_content;
-	}
+            $flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . (10635 + $postnum) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . (10635 + $postnum) . '"></script>';       
+
+            if ($num_paragraphs >= $flip_ad_paragraph) {
+
+                $article_content = str_replace( $article_array[$flip_ad_paragraph-1], ($article_array[$flip_ad_paragraph-1] . $flipp_ad), $article_content );
+            } else {
+                $article_content = str_replace( $article_array[$num_paragraphs-1], ($article_array[$num_paragraphs-1] . $flipp_ad), $article_content );
+            }
+        }
+             
+ 		return $article_content;
+ 	}
+    
 
 	public function inject_newsletter_signup( $newsletter ) {
 
