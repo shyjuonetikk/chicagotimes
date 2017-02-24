@@ -129,7 +129,7 @@ class CST_Homepage_Secondary_Headlines_Widget extends WP_Widget {
 		if ( false === ( $found = wp_cache_get( $this->cache_key_stub ) ) ) {
 			$widget_posts_query  = array(
 				'post__in'            => $widget_posts,
-				'post_type'           => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery' ),
+				'post_type'           => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery', 'cst_feature' ),
 				'orderby'             => 'post__in',
 				'ignore_sticky_posts' => true,
 			);
