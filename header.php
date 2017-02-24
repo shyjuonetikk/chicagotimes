@@ -59,13 +59,6 @@ if ( is_search() ) {
 } else {
 	CST()->dfp_handler->generate_header_definitions();
 }
-
-if ( is_singular() ) {
-	$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-	if ( $current_obj ) {
-		get_template_part( 'parts/vendors/adsupply-popunder-header' );
-	}
-}
 ?>
 
 <?php wp_head(); ?>
