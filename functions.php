@@ -1936,6 +1936,7 @@ class CST {
 		);
 		$this->ad_vendor_handler->register_vendor( 'nativo', array(
 				'header' => '//s.ntv.io/serve/load.js',
+				'header-remote' => true,
 				'footer' => false,
 				'container' => false,
 				'logic' => array( 'is_singular' ),

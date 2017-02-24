@@ -12,6 +12,8 @@ class CST_Ad_Vendor_Handler {
 	private static $instance;
 	private $default_vars = array(
 		'logic' => array(),
+		'header-remote' => false,
+		'footer-remote' => false,
 	);
 
 
@@ -81,10 +83,12 @@ class CST_Ad_Vendor_Handler {
 				}
 				if ( $permission_to_enqueue ) {
 					if ( $registered_vendor['header'] ) {
-						wp_enqueue_script( esc_attr( $registered_vendor['header'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['header'] ), array( 'jquery' ), null, false );
+						$path = $registered_vendor['header-remote'] ? $registered_vendor['header'] : get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['header'];
+						wp_enqueue_script( esc_attr( $registered_vendor['header'] . '-script' ), esc_url( $path ), array( 'jquery' ), null, false );
 					}
 					if ( $registered_vendor['footer'] ) {
-						wp_enqueue_script( esc_attr( $registered_vendor['footer'] . '-script' ), esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['footer'] ), array( 'jquery' ), null, true );
+						$path = $registered_vendor['footer-remote'] ? $registered_vendor['footer'] : get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['footer'];
+						wp_enqueue_script( esc_attr( $registered_vendor['footer'] . '-script' ), esc_url( $path ), array( 'jquery' ), null, true );
 					}
 				}
 			}

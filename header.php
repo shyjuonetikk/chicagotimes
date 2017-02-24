@@ -51,7 +51,6 @@
 <?php do_action( 'cst_dfp_ad_settings' ); ?>
 <meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
-<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
 
 <?php
 if ( is_search() ) {
