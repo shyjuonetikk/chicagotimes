@@ -17,11 +17,11 @@
     }
 
     if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
-      if (paragraphsCount >= 2) {
-        if (jQuery(paragraphs[2]).hasClass("wp-caption-text")) {
-          tripleliftContentNode = jQuery(paragraphs[1]);
+      if (paragraphsCount >= 4) {
+        if (jQuery(paragraphs[4]).hasClass("wp-caption-text")) {
+          tripleliftContentNode = jQuery(paragraphs[3]);
         } else {
-          tripleliftContentNode = jQuery(paragraphs[2]);
+          tripleliftContentNode = jQuery(paragraphs[4]);
         }
         this._insertTripleLiftJS(tripleliftContentNode);
         jQuery(".cst-active-scroll-post").addClass("triplelift-inserted");

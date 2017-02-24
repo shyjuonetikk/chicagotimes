@@ -117,6 +117,7 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
 	}
 
 	/**
@@ -1602,7 +1603,7 @@ _ttf.push({
        ,lang        : "en"
        ,slot        : '[itemprop="articleBody"] > p'
        ,format      : "inread"
-       ,minSlot     : 3
+       ,minSlot     : 2
        ,css         : "margin: 0px auto 5px; max-width: 550px;"
 });
 
@@ -1627,7 +1628,6 @@ ready(fn);
 	* @return string $article_content
 	*/
 	public function inject_sponsored_content( $article_content ) {
-
 		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
 			return $article_content;
 		}
@@ -1664,6 +1664,44 @@ ready(fn);
 				$paragraph_with_script = trim( "\n" . $matches[2] ) . $content_with_sponsorship;
 				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
 			}
+		}
+		return $article_content;
+	}
+
+	/**
+	* Determine paragraph position exists and whether to inject Flipp into content
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_flipp( $article_content ) {
+		global $wp_query;
+		//  break up for ads other than triple lift
+		$article_array = explode( '</p>', $article_content );
+		$num_paragraphs = count( $article_array ) - 1;
+		$after_paragraph_number = 4;
+
+		$postnum = $wp_query->query_vars['paged'];
+		// flipp recommends no more than 5 circulars per page
+		if ( $postnum < 5 ) {
+			$flip_ad_paragraph = 3;
+			$div_id_suffix = 10635 + $postnum;
+			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+
+			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . esc_attr( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . esc_attr( $div_id_suffix ) . '"></script>';
+
+			if ( $num_paragraphs >= $flip_ad_paragraph ) {
+				$article_content = str_replace( $article_array[ $flip_ad_paragraph - 1 ], ( $article_array[ $flip_ad_paragraph - 1 ] . $flipp_ad ), $article_content );
+			} else {
+				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], ( $article_array[ $num_paragraphs - 1 ] . $flipp_ad ), $article_content );
+			}
+			if ( $num_paragraphs >= $after_paragraph_number ) {
+				$paragraph_with_script = trim( "\n" . $article_array[ $after_paragraph_number - 1 ] ) . $article_content;
+				$article_content = str_replace( $article_array[ $after_paragraph_number - 1 ], $paragraph_with_script, $article_content );
+			} else {
+				$paragraph_with_script = trim( "\n" . $article_array[ $num_paragraphs - 1 ] ) . $article_content;
+				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], $paragraph_with_script, $article_content );
+			}
+
 		}
 
 		return $article_content;
