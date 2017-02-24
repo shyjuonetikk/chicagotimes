@@ -1927,6 +1927,13 @@ class CST {
 				'logic' => array( 'is_singular' ),
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'adblocker', array(
+				'header' => 'adblocker-header.js',
+				'footer' => false,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
 
 	}
 }
