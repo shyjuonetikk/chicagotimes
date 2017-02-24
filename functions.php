@@ -1934,6 +1934,13 @@ class CST {
 				'logic' => array( 'is_singular' ),
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'nativo', array(
+				'header' => '//s.ntv.io/serve/load.js',
+				'footer' => false,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
 
 	}
 }
