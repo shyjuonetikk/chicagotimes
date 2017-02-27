@@ -10,7 +10,7 @@ class CST {
 
 	private static $instance;
 
-	public $frontend, $dfp_handler, $slack, $cst_feeds;
+	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler;
 
 	private $post_types = array();
 
@@ -39,6 +39,7 @@ class CST {
 
 		$this->yieldmo_tags = CST_Yieldmo_Tags::get_instance();
 		$this->dfp_handler = CST_DFP_Handler::get_instance();
+		$this->ad_vendor_handler = CST_Ad_Vendor_Handler::get_instance();
 		$this->slack = CST_Slack::get_instance();
 		$this->customizer = CST_Customizer::get_instance();
 		$this->liveblog = CST_Liveblog::get_instance();
@@ -97,7 +98,7 @@ class CST {
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
-
+		$this->register_ad_vendors();
 		// CLI scripts
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once get_stylesheet_directory() . '/inc/class-cst-cli-commands.php';
@@ -154,6 +155,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-elections.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -1900,6 +1902,58 @@ class CST {
 
 	public function cst_feature_image() {
 		return 'post/wire-featured-image-feature';
+	}
+
+	/**
+	 * Centralized function to register Vendor scripts
+	 */
+	public function register_ad_vendors() {
+
+		$this->ad_vendor_handler->register_vendor( 'taboola', array(
+			'header' => 'taboola-header.js',
+			'footer' => false,
+			'container' => false,
+			'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
+			'header' => 'triplelift-header.js',
+			'footer' => 'triplelift-footer.js',
+			'container' => false,
+			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'adsupply', array(
+				'header' => 'adsupply-popunder-header.js',
+				'footer' => false,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'adblocker', array(
+				'header' => 'adblocker-header.js',
+				'footer' => false,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'nativo', array(
+				'header' => '//s.ntv.io/serve/load.js',
+				'header-remote' => true,
+				'footer' => false,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
+				'header' => 'gum-gum-header.js',
+				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
+				'footer-remote' => true,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+
 	}
 }
 

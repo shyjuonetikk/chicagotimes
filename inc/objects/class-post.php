@@ -1205,6 +1205,14 @@ abstract class Post {
 	}
 
 	/**
+	 * @return bool
+	 *
+	 * Callback content check function for Ad_Vendor handler
+	 */
+	public function is_not_sponsored_content() {
+		return ! $this->get_sponsored_content();
+	}
+	/**
 	 * Check for content and settings in the sponsored meta for the content item
 	 *
 	 * @param array $sponsor_array
