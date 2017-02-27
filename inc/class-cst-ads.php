@@ -12,8 +12,14 @@ class CST_Ad_Vendor_Handler {
 	private static $instance;
 	private $default_vars = array(
 		'logic' => array(),
+		'header' => false,
+		'footer' => false,
 		'header-remote' => false,
 		'footer-remote' => false,
+		'params' => array(
+			'argument' => false,
+			'value' => false,
+		),
 	);
 
 
@@ -85,13 +91,23 @@ class CST_Ad_Vendor_Handler {
 					if ( $registered_vendor['header'] ) {
 						$path = $registered_vendor['header-remote'] ? $registered_vendor['header'] : get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['header'];
 						wp_enqueue_script( esc_attr( $registered_vendor['header'] . '-script' ), esc_url( $path ), array( 'jquery' ), null, false );
+						$this->localize_vendor( $registered_vendor, $vendor_name, 'header' );
 					}
 					if ( $registered_vendor['footer'] ) {
 						$path = $registered_vendor['footer-remote'] ? $registered_vendor['footer'] : get_stylesheet_directory_uri() . '/assets/js/vendor/' . $registered_vendor['footer'];
 						wp_enqueue_script( esc_attr( $registered_vendor['footer'] . '-script' ), esc_url( $path ), array( 'jquery' ), null, true );
+						$this->localize_vendor( $registered_vendor, $vendor_name, 'footer' );
 					}
 				}
 			}
+		}
+	}
+
+	private function localize_vendor( $registered_vendor, $vendor_name, $position ) {
+		if ( isset( $registered_vendor['params']['argument'] ) ) {
+			wp_localize_script( esc_attr( $registered_vendor[ $position ] . '-script' ), esc_attr( $vendor_name ), array(
+				$registered_vendor['params']['argument'] => wp_json_encode( $registered_vendor['params']['value'] ),
+			) );
 		}
 	}
 }

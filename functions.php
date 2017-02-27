@@ -14,6 +14,11 @@ class CST {
 
 	private $post_types = array();
 
+	private $pagefair_ids = array(
+		'prod' => '7B8C6522340440F1',
+		'dev' => '2C63F38287CF46AC',
+	);
+
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -1934,6 +1939,10 @@ class CST {
 				'header' => 'adblocker-header.js',
 				'footer' => false,
 				'container' => false,
+				'params' => array(
+					'argument' => 'bm_website_code',
+					'value' => 'chicago.suntimes.com.test' === $this->dfp_handler->get_parent_dfp_inventory() ? $this->pagefair_ids['dev'] : $this->pagefair_ids['prod'],
+				),
 				'logic' => array( 'is_singular' ),
 			)
 		);
