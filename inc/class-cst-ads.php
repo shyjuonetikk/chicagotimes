@@ -104,7 +104,7 @@ class CST_Ad_Vendor_Handler {
 	}
 
 	private function localize_vendor( $registered_vendor, $vendor_name, $position ) {
-		if ( isset( $registered_vendor['params']['argument'] ) ) {
+		if ( $registered_vendor['params']['argument'] ) {
 			wp_localize_script( esc_attr( $registered_vendor[ $position ] . '-script' ), esc_attr( $vendor_name ), array(
 				$registered_vendor['params']['argument'] => wp_json_encode( $registered_vendor['params']['value'] ),
 			) );
