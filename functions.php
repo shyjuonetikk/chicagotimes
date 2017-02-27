@@ -1962,6 +1962,13 @@ class CST {
 				'logic' => array( 'is_singular' ),
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
+				'header' => false,
+				'footer' => 'google-survey-footer.js',
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
 
 	}
 }
