@@ -241,7 +241,6 @@ class CST_Frontend {
 				}
 
 				if ( is_singular( 'cst_article', 'cst_gallery' ) && ! is_admin() ) {
-					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 				}
 
