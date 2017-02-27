@@ -10,7 +10,7 @@
         s.id="infinity";
         s.setAttribute("data-guid","1ae74201-dc8b-489a-8f56-15492895bdcd");
         s.setAttribute("data-version","async");
-        var e=document.getElementsByTagName('script')[0];
-        e.parentNode.insertBefore(s,e)
+        var e=document.getElementsByTagName("script")[0];
+        e.parentNode.insertBefore(s,e);
 })();
 <!-- / End AdSupply -->
