@@ -120,6 +120,9 @@
         CSTInfiniteScroll.fireChatter();
 
 
+			    if(window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK){
+            window.AggregoHeadlinesNetwork && AggregoHeadlinesNetwork.inject(window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK)
+			    }
         active_post = jQuery(".cst-active-scroll-post");
 				var trigger = active_post.find(".post-meta-social")||null;
         if ( trigger ) {
@@ -210,28 +213,39 @@
       }
     },
 		fireYieldmo: function() {
-      if(CSTYieldMoData.SECTIONS_FOR_YIELD_MO){
+      if (CSTYieldMoData.SECTIONS_FOR_YIELD_MO) {
         window.YieldMo && YieldMo.inject(CSTYieldMoData.SECTIONS_FOR_YIELD_MO)
       }
-
-      if(window.YIELDMO_DEMO_TAG) {
-        googletag.cmd.push( function() {
+      if (window.YIELDMO_DEMO_TAG) {
+        googletag.cmd.push(function () {
           var unitInstance = googletag.defineSlot("/61924087/chicago.suntimes.com/chicago.suntimes.com.ym", [300, 250], "" + window.YIELDMO_DEMO_TAG + "");
           googletag.pubads().refresh([unitInstance]);
         });
       }
+    },
+
+		setupInfiniteScroll: function() {
+      CSTInfiniteScroll.scroller = window.infiniteScroll.scroller;
+      CSTInfiniteScroll.originalDetermineURL = window.infiniteScroll.scroller.determineURL;
+      window.infiniteScroll.scroller.determineURL = CSTInfiniteScroll.determineURL;
+      CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
+      window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
     }
 	};
 
+
 	$(document).ready(function(){
 		// infiniteScroll isn"t ready until the document is loaded
-		CSTInfiniteScroll.scroller = window.infiniteScroll.scroller;
-		CSTInfiniteScroll.originalDetermineURL = window.infiniteScroll.scroller.determineURL;
-		window.infiniteScroll.scroller.determineURL = CSTInfiniteScroll.determineURL;
-		CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
-		window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
-
-		CSTInfiniteScroll.init();
+    var infinite_timer = false;
+    infinite_timer = setInterval(function() {
+      if ('object' === typeof infiniteScroll) {
+        if ( infinite_timer ) {
+          clearInterval(infinite_timer);
+        }
+        CSTInfiniteScroll.setupInfiniteScroll();
+        CSTInfiniteScroll.init();
+      }
+    }, 500);
 
 		/*
 		 * Jetpack supports IE >= 10, but we support IE9 too

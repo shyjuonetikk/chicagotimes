@@ -6,7 +6,6 @@
  * Version 2
  *
  */
-
 class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 	private $headlines = array(
@@ -51,12 +50,12 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		$term = sanitize_text_field( $_GET['searchTerm'] );
 
-        $search_args = array(
-            'post_type'     => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery', 'cst_feature' ),
-            's'             => $term,
-            'post_status'   => 'publish',
-            'no_found_rows' => true,
-        );
+		$search_args = array(
+			'post_type'     => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery', 'cst_feature' ),
+			's'             => $term,
+			'post_status'   => 'publish',
+			'no_found_rows' => true,
+		);
 
 		$search_query = new WP_Query( $search_args );
 
@@ -122,6 +121,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 	/**
 	 * @param array $widget_posts Array of integers representing post ids
+	 *
 	 * @return array Of found posts
 	 *
 	 */
@@ -130,16 +130,17 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		if ( false === ( $found = wp_cache_get( $this->cache_key_stub ) ) ) {
 
 			$widget_posts_query  = array(
-				'post__in'  => $widget_posts,
-				'post_type' => 'any',
-				'orderby'   => 'post__in',
-				'ignore_sticky_posts'   => true,
+				'post__in'            => $widget_posts,
+				'post_type'           => 'any',
+				'orderby'             => 'post__in',
+				'ignore_sticky_posts' => true,
 			);
 			$display_these_posts = new \WP_Query( $widget_posts_query );
 			$display_these_posts->have_posts();
 			$found = $display_these_posts->get_posts();
 			wp_cache_set( $this->cache_key_stub, $found, '', 1 * HOUR_IN_SECONDS );
 		}
+
 		return $found;
 	}
 
@@ -147,6 +148,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 * Outputs the options form on admin
 	 *
 	 * @param array $instance The widget options
+	 *
 	 * @return array
 	 */
 	public function form( $instance ) {
@@ -158,10 +160,10 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			<?php
 			foreach ( $this->headlines as $array_member ) {
 				$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
-				$obj = get_post( $headline );
+				$obj      = get_post( $headline );
 				if ( $obj ) {
 					$content_type = get_post_type( $obj->ID );
-					$story_title = $obj->post_title . ' [' . $content_type . ']';
+					$story_title  = $obj->post_title . ' [' . $content_type . ']';
 				} else {
 					$story_title = '';
 				}
@@ -169,7 +171,8 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				?>
 				<p class="ui-state-default" id=i<?php echo $count; ?>>
 					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;" />
+					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>"
+						   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;"/>
 				</p>
 				<?php
 				$count++;
@@ -189,11 +192,12 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$total = count( $new_instance );
-		for ( $count = 0; $count < $total; $count++ ) {
+		$total    = count( $new_instance );
+		for ( $count = 0; $count < $total; $count ++ ) {
 			$instance[] = intval( array_shift( $new_instance ) );
 		}
 		wp_cache_delete( $this->cache_key_stub );
+
 		return $instance;
 	}
 }

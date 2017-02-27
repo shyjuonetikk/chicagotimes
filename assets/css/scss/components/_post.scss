@@ -459,18 +459,6 @@ body[class^="cst_article-"] {
 		}
 	}
 
-	@media #{$xmedium-only} {
-		.taboola-container {
-			max-width: 700px;
-		}
-	}
-
-	@media #{$medium-only} {
-		.taboola-container {
-			max-width: 500px;
-		}
-	}
-
 	@media #{$small-only} {
 		.taboola-container {
 			max-width: 100%;

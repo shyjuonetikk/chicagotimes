@@ -28,6 +28,9 @@ class CST_Infinite_Scroll {
 
 		add_action( 'wp_enqueue_scripts', array( $this, 'action_wp_enqueue_scripts' ) );
 
+		add_action( 'template_redirect', array( $this, 'bypass_is_last_batch_in_footer' ), 9, 0 );
+
+		add_action( 'template_redirect', array( $this, 'remove_bypass_is_last_batch_in_footer' ), 11, 0 );
 	}
 
 	/**
@@ -126,6 +129,11 @@ class CST_Infinite_Scroll {
 					$post = $wp_query->post;
 				}, -1 );
 
+				add_filter( 'infinite_scroll_results', function( $results, $query_args, $wp_query ) {
+					$results['lastbatch'] = false;
+					return $results;
+				}, 10, 3 );
+
 				return $query_args;
 
 			} else {
@@ -198,6 +206,28 @@ class CST_Infinite_Scroll {
 		echo $response;
 		exit;
 
+	}
+
+	/**
+	 * VIP: add filter which helps us bypassing JP's is_last_batch check
+	 */
+	public function bypass_is_last_batch_in_footer() {
+		add_filter( 'infinite_scroll_query_object', array( $this, 'set_high_found_posts' ), 99, 1 );
+	}
+
+	/**
+	 * VIP: remove filter which helps us bypassing JP's is_last_batch check
+	 */
+	public function remove_bypass_is_last_batch_in_footer() {
+		remove_filter( 'infinite_scroll_query_object', array( $this, 'set_high_found_posts' ), 99 );
+	}
+
+	/**
+	 * VIP: set the found_posts to unreasonably high number in order to pass the is_last_batch check
+	 */
+	public function set_high_found_posts( $wp_query ) {
+		$wp_query->found_posts = 999;
+		return $wp_query;
 	}
 
 }

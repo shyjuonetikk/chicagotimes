@@ -12,7 +12,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 
 	public function __construct( $args = array() ) {
 		parent::__construct( $args = array(
-			'width' => 640,
+			'width'  => 640,
 			'height' => 480,
 		) );
 		$this->dfp_handler = new CST_DFP_Handler;
@@ -59,7 +59,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			if ( ! $url ) {
 				continue;
 			}
-			$caption    = $attachment->get_caption();
+			$caption = $attachment->get_caption();
 
 			$urls[] = array(
 				'url'     => $url,
@@ -86,30 +86,29 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 
 		$this->did_convert_elements = true;
 		$images                     = array();
-		$captions                   = array();
 		foreach ( $args['images'] as $image ) {
-			$images[] = AMP_HTML_Utils::build_tag( 'div', array( 'class' => 'cst-image-container' ),
+			$images[] = AMP_HTML_Utils::build_tag(
+				'div', array( 'class' => 'cst-image-container' ),
 				AMP_HTML_Utils::build_tag(
-				'amp-img',
-				array(
-					'src'    => $image['url'],
-					'width'  => $image['width'],
-					'height' => $image['height'],
-					'layout' => 'responsive',
-				), AMP_HTML_Utils::build_tag(
-				'div',
-				array(
-					'class'  => 'caption',
-				), AMP_HTML_Utils::build_tag(
-				'p',
-				array(
-					'class' => 'captiontext',
-				), $image['caption']
-			) ) ) );
+					'amp-img',
+					array(
+						'src'    => $image['url'],
+						'width'  => $image['width'],
+						'height' => $image['height'],
+						'layout' => 'responsive',
+					),
+					AMP_HTML_Utils::build_tag(
+						'div',
+						array(
+							'class' => 'caption',
+						), $image['caption']
+					)
+				)
+			);
 		}
 		$number_of_slides = count( $images );
-		$ad_cadence = 3;
-		for ( $index = 0; $index < $number_of_slides; $index++ ) {
+		$ad_cadence       = 3;
+		for ( $index = 0; $index < $number_of_slides; $index ++ ) {
 			if ( $index > 0 ) { // avoid having an ad as the first slide :-)
 				if ( 0 === ( $index % $ad_cadence ) ) {
 					array_splice( $images, $index, 0, AMP_HTML_Utils::build_tag( 'amp-ad', array(
@@ -123,7 +122,7 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			}
 		}
 
-		$carousel_content = AMP_HTML_Utils::build_tag(
+		return AMP_HTML_Utils::build_tag(
 			'amp-carousel',
 			array(
 				'width'  => $this->args['width'],
@@ -135,11 +134,5 @@ class CST_AMP_Gallery_Embed extends AMP_Base_Embed_Handler {
 			implode( PHP_EOL, $images )
 		);
 
-		return AMP_HTML_Utils::build_tag(
-			'div',
-			array(
-				'class' => 'spacer',
-			), $carousel_content
-		);
 	}
 }

@@ -26,6 +26,14 @@ class CST_Frontend {
 		'blackhawks-hockey' => 'idn8h9Kj',
 		'sports'            => 'uDnVEu1d',
 	);
+
+	private $headlines_network_slugs = array(
+		'sports' => 'f64bb30a45d9141fd5a905788a725121',
+		'news' => '8b29b9f9866acb90e8b00e42c1353f4c',
+		'entertainment' => 'a5c0c8e47c50c3acd6a8d95d5d1a3939',
+		'opinion' => '82e7629cdb9eb1b0aa1d2d86a52c394e',
+	);
+
 	public static $pgs_section_slugs = array();
 	private $default_image_partial_url = '/assets/images/favicons/mstile-144x144.png';
 
@@ -109,6 +117,7 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
 	}
 
 	/**
@@ -156,7 +165,14 @@ class CST_Frontend {
 		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 
 		// Fonts
-		wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Libre+Franklin:300,400,400i,600,600i,700,700i,800,800i' );
+		if ( is_post_type_archive( 'cst_feature' ) ) {
+			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Open+Sans:400,400i,700,700i&amp;subset=latin' );
+		} else {
+			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
+		}
+		if ( is_page_template( 'page-flipp.php' ) ) {
+			wp_enqueue_script( 'cst_ad_flipp_page', 'http://circulars.chicago.suntimes.com/distribution_services/iframe.js' );
+		}
 
 		if ( is_page_template( 'page-monster.php' ) ) {
 			wp_enqueue_script( 'monster-footerhook', get_template_directory_uri() . '/assets/js/vendor/footerhookv1-min.js', array( 'jquery' ), false, true );
@@ -166,7 +182,9 @@ class CST_Frontend {
 
 		} else {
 			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
-			wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
+			if ( ! is_post_type_archive( 'cst_feature' ) && ! is_singular( 'cst_feature' ) ) {
+				wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
+			}
 
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 			// If we are on a 404 page don't try and load scripts/css that we won't be using.
@@ -182,11 +200,12 @@ class CST_Frontend {
 					}
 				}
 				if ( ! is_front_page() || ! is_page() ) {
-					// Scripty-scripts
+					if ( is_singular( array( 'cst_feature', 'cst_article', 'cst_gallery' ) ) ) {
+						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
+					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
-					wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 
-					if ( ! is_singular( 'cst_feature' ) && ! is_post_type_archive( 'cst_feature' ) ) {
+					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
@@ -194,10 +213,14 @@ class CST_Frontend {
 							'home_url'                           => esc_url_raw( home_url() ),
 							'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
 						) );
-						wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
+						if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) ) {
+							wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
+						}
 					}
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
-					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
+					if ( ! is_singular( 'cst_feature' ) ) {
+						wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
+					}
 					wp_enqueue_script( 'cst-ga-autotrack', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
 					$analytics_data = array(
 						'is_singular'     => is_singular(),
@@ -209,13 +232,16 @@ class CST_Frontend {
 						if ( ! $obj->get_sponsored_content() ) {
 							wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
 						}
-						wp_enqueue_script( 'aggrego-chatter', get_template_directory_uri(). '/assets/js/vendor/aggrego-chatter.js', array(), false, true );
+						if ( $this->should_we_inject_headlinesnetwork( $obj ) ) {
+							wp_enqueue_script( 'aggrego-headlinesnetwork', get_template_directory_uri(). '/assets/js/vendor/aggrego-headlinesnetwork.js', array(), false, true );
+							wp_localize_script( 'aggrego-headlinesnetwork', 'vendor_hn', $this->headlines_network_slugs );
+						}
 					}
 
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
 				}
 
-				if ( is_singular() && ! is_admin() ) {
+				if ( is_singular( 'cst_article', 'cst_gallery' ) && ! is_admin() ) {
 					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 				}
@@ -375,6 +401,9 @@ class CST_Frontend {
 
 		if ( is_author() ) {
 			return $wp_title . get_bloginfo( 'name' );
+		}
+		if ( is_post_type_archive() ) {
+			return $wp_title . ' - Chicago Sun-Times';
 		}
 
 		if ( ! is_singular() ) {
@@ -998,13 +1027,12 @@ class CST_Frontend {
 			}
 		}
 		?>
-		<div class="cst-recommendations">
-			<div>
+		<div class="medium-11 medium-offset-1 cst-recommendations">
+			<div class="columns">
 			<hr>
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
-			</div>
-		<div class="row">
+		</div>
 		<?php foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$top_item = [];
@@ -1026,7 +1054,7 @@ class CST_Frontend {
 			$temporary_title       = explode( '|', $item->title );
 			$article_curated_title = $temporary_title[0];
 			?>
-			<div class="cst-recommended-content medium-6 small-12 columns">
+			<div class="cst-recommended-content columns medium-6 small-12">
 				<div class="cst-article">
 					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
 					<div class="cst-recommended-image -amp-layout-size-defined">
@@ -1040,7 +1068,6 @@ class CST_Frontend {
 				</div>
 			</div>
 		<?php } ?>
-		</div>
 		</div>
 <?php
 
@@ -1274,7 +1301,7 @@ class CST_Frontend {
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
-		if ( is_page() || is_singular( 'cst_feature' ) ) {
+		if ( is_page() || is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
 		?>
@@ -1513,7 +1540,7 @@ class CST_Frontend {
 				$conditional_nav = $current_obj->get_primary_parent_section();
 				if ( ! $conditional_nav ) {
 					$conditional_nav = $current_obj->get_child_parent_section();
-					if ( ! in_array( $conditional_nav, CST_Frontend::$post_sections ) ) {
+					if ( ! in_array( $conditional_nav, CST_Frontend::$post_sections, true ) ) {
 						$conditional_nav = $current_obj->get_grandchild_parent_section();
 					}
 				}
@@ -1521,10 +1548,10 @@ class CST_Frontend {
 				$conditional_nav = 'menu';
 			}
 		} elseif ( is_tax() ) {
-			if ( 'cst_section' == $current_obj->taxonomy ) {
-				if ( 0 != $current_obj->parent ) {
+			if ( 'cst_section' === $current_obj->taxonomy ) {
+				if ( 0 !== $current_obj->parent ) {
 					$parent_terms = get_term( $current_obj->parent, 'cst_section' );
-					if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+					if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections, true ) ) {
 						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 						$conditional_nav = $child_terms;
 					} else {
@@ -1553,7 +1580,7 @@ class CST_Frontend {
 				'fields' => 'id=>slug',
 				)
 			);
-			
+
 			wp_cache_set( 'section_nav_cache_key', $sections, '', 1 * WEEK_IN_SECONDS );
 		}
 
@@ -1565,7 +1592,7 @@ class CST_Frontend {
 	*/
 	public function generate_off_canvas_menu() {
 		if ( is_front_page() ) {
-			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
@@ -1661,7 +1688,7 @@ _ttf.push({
        ,lang        : "en"
        ,slot        : '[itemprop="articleBody"] > p'
        ,format      : "inread"
-       ,minSlot     : 3
+       ,minSlot     : 2
        ,css         : "margin: 0px auto 5px; max-width: 550px;"
 });
 
@@ -1686,7 +1713,6 @@ ready(fn);
 	* @return string $article_content
 	*/
 	public function inject_sponsored_content( $article_content ) {
-
 		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
 			return $article_content;
 		}
@@ -1723,6 +1749,44 @@ ready(fn);
 				$paragraph_with_script = trim( "\n" . $matches[2] ) . $content_with_sponsorship;
 				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
 			}
+		}
+		return $article_content;
+	}
+
+	/**
+	* Determine paragraph position exists and whether to inject Flipp into content
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_flipp( $article_content ) {
+		global $wp_query;
+		//  break up for ads other than triple lift
+		$article_array = explode( '</p>', $article_content );
+		$num_paragraphs = count( $article_array ) - 1;
+		$after_paragraph_number = 4;
+
+		$postnum = $wp_query->query_vars['paged'];
+		// flipp recommends no more than 5 circulars per page
+		if ( $postnum < 5 ) {
+			$flip_ad_paragraph = 3;
+			$div_id_suffix = 10635 + $postnum;
+			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+
+			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
+
+			if ( $num_paragraphs >= $flip_ad_paragraph ) {
+				$article_content = str_replace( $article_array[ $flip_ad_paragraph - 1 ], ( $article_array[ $flip_ad_paragraph - 1 ] . $flipp_ad ), $article_content );
+			} else {
+				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], ( $article_array[ $num_paragraphs - 1 ] . $flipp_ad ), $article_content );
+			}
+			if ( $num_paragraphs >= $after_paragraph_number ) {
+				$paragraph_with_script = trim( "\n" . $article_array[ $after_paragraph_number - 1 ] ) . $article_content;
+				$article_content = str_replace( $article_array[ $after_paragraph_number - 1 ], $paragraph_with_script, $article_content );
+			} else {
+				$paragraph_with_script = trim( "\n" . $article_array[ $num_paragraphs - 1 ] ) . $article_content;
+				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], $paragraph_with_script, $article_content );
+			}
+
 		}
 
 		return $article_content;
@@ -1865,7 +1929,7 @@ ready(fn);
 
 		?>
 <script type="text/javascript">
-  window.SECTIONS_FOR_AGGREGO_CHATTER = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
+  window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK = <?php echo wp_json_encode( $agg_primary_section_slug ); ?>;
 </script>
 	<?php
 	}
@@ -1948,4 +2012,41 @@ ready(fn);
 		}
 	}
 
+	/**
+	* @param $obj \CST\Objects\Article
+	*
+	* @return bool|\CST\Objects\Article
+	*/
+	public function should_we_inject_headlinesnetwork( $obj ) {
+		$primary_section = $obj->get_primary_parent_section();
+		if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
+			return $primary_section->slug;
+		}
+		return false;
+	}
+	/**
+	* @param $obj \CST\Objects\Article
+	*
+	* @return string
+	*
+	* Determine if we can inject Headlines Network markup and if so return the markup
+	*/
+	public function inject_headlines_network_markup( $obj ) {
+
+		$slug = $this->should_we_inject_headlinesnetwork( $obj );
+		if ( $slug ) {
+			return $this->generate_in_article_headlinesnetwork_markup( $obj );
+		} else {
+			return '';
+		}
+	}
+
+	/**
+	* @param $obj \CST\Objects\Article
+	*
+	* @return string
+	*/
+	public function generate_in_article_headlinesnetwork_markup( $obj ) {
+		echo sprintf( '<h4 class="agg-sponsored columns medium-11 medium-offset-1">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn columns medium-11 medium-offset-1 end"></div>', esc_attr( $obj->get_id() ) );
+	}
 }

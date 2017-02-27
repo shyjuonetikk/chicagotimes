@@ -25,10 +25,7 @@ abstract class Post {
 	 *
 	 * @param $post_id
 	 *
-	 * @return bool
-	 * @param int
-	 *
-	 * @return Article|Gallery|Attachment|Link|Video|bool
+	 * @return Article|Gallery|Attachment|Link|Video|Embed|bool
 	 */
 	public static function get_by_post_id( $post_id ) {
 
@@ -73,9 +70,9 @@ abstract class Post {
 
 	/**
 	 * Get a friendly text version of the post type
-	 * @param $post_type
 	 *
-	 * @return string|void
+	 * @param string $post_type
+	 * @return string
 	 */
 
 	public function get_post_type_name( $post_type ) {
@@ -334,7 +331,33 @@ abstract class Post {
 	public function set_post_date_gmt( $post_date_gmt ) {
 		$this->set_field( 'post_date_gmt', date( 'Y-m-s H:i:s', strtotime( $post_date_gmt ) ) );
 	}
+	/**
+	 * Set the post modified for the post
+	 *
+	 * @param $format string
+	 * @return string
+	 */
+	public function get_post_modified( $format = 'U' ) {
+		return date( $format, strtotime( $this->get_field( 'post_modified' ) ) );
+	}
 
+	/**
+	 * Return the publish date or if modified the post modified date
+	 * @param string $format
+	 *
+	 * @return mixed|string
+	 *
+	 */
+	public function get_localized_pub_mod_date( $format = 'U' ) {
+		$post_modified_date = $this->get_post_modified();
+		$original_date = $this->get_post_date();
+		if ( $post_modified_date > $original_date ) {
+			$localized_display_date = $post_modified_date;
+		} else {
+			$localized_display_date = $original_date;
+		}
+		return $localized_display_date;
+	}
 	/**
 	 * Set the post modified for the post
 	 *

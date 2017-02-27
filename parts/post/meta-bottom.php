@@ -5,8 +5,11 @@ if ( ! $obj ) {
 }
 
 $classes = 'post-meta-bottom post-meta';
+if ( 'cst_feature' === $obj->get_post_type() ) {
+	$classes .= ' cst_feature-meta-bottom';
+}
 if ( is_singular() ) {
-	$classes .= ' columns small-12 end';
+	$classes .= ' columns medium-9 medium-offset-1 end';
 }
 if ( ! is_singular() ) {
 	$classes .= ' show-for-medium-up';
