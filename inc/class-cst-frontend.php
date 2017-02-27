@@ -1689,7 +1689,7 @@ ready(fn);
 			$div_id_suffix = 10635 + $postnum;
 			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
 
-			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . esc_attr( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . esc_attr( $div_id_suffix ) . '"></script>';
+			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
 
 			if ( $num_paragraphs >= $flip_ad_paragraph ) {
 				$article_content = str_replace( $article_array[ $flip_ad_paragraph - 1 ], ( $article_array[ $flip_ad_paragraph - 1 ] . $flipp_ad ), $article_content );
