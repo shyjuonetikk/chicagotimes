@@ -1904,6 +1904,9 @@ class CST {
 		return 'post/wire-featured-image-feature';
 	}
 
+	/**
+	 * Centralized function to register Vendor scripts
+	 */
 	public function register_ad_vendors() {
 
 		$this->ad_vendor_handler->register_vendor( 'taboola', array(
