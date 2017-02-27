@@ -1694,14 +1694,6 @@ ready(fn);
 			} else {
 				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], ( $article_array[ $num_paragraphs - 1 ] . $flipp_ad ), $article_content );
 			}
-			if ( $num_paragraphs >= $after_paragraph_number ) {
-				$paragraph_with_script = trim( "\n" . $article_array[ $after_paragraph_number - 1 ] ) . $article_content;
-				$article_content = str_replace( $article_array[ $after_paragraph_number - 1 ], $paragraph_with_script, $article_content );
-			} else {
-				$paragraph_with_script = trim( "\n" . $article_array[ $num_paragraphs - 1 ] ) . $article_content;
-				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], $paragraph_with_script, $article_content );
-			}
-
 		}
 
 		return $article_content;
