@@ -17,11 +17,11 @@
     }
 
     if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
-      if (paragraphsCount >= 4) {
-        if (jQuery(paragraphs[4]).hasClass("wp-caption-text")) {
-          tripleliftContentNode = jQuery(paragraphs[3]);
+      if (paragraphsCount >= 5) {
+        if (jQuery(paragraphs[5]).hasClass("wp-caption-text")) {
+          tripleliftContentNode = jQuery(paragraphs[6]);
         } else {
-          tripleliftContentNode = jQuery(paragraphs[4]);
+          tripleliftContentNode = jQuery(paragraphs[5]);
         }
         this._insertTripleLiftJS(tripleliftContentNode);
         jQuery(".cst-active-scroll-post").addClass("triplelift-inserted");
@@ -35,6 +35,5 @@
     script.src = "http://ib.3lift.com/ttj?inv_code=chicagosuntimes_midarticle";
     node[0].appendChild(script);
   }
-
 
 };
