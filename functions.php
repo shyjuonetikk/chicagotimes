@@ -1908,7 +1908,7 @@ class CST {
 	public function cst_feature_image() {
 		return 'post/wire-featured-image-feature';
 	}
-}
+
 
 	/**
 	 * Set parent class with supported Foundation class to indicate presence of a dropdown

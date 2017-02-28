@@ -36,11 +36,13 @@ endif;
 	<hr/>
 </div>
 <!-- circular flipp -->
+	<div class="row">
 		<?php
 		if ( is_active_sidebar( 'undermorefrom' ) ) :
 			dynamic_sidebar( 'undermorefrom' );
 		endif;
 		?>
+	</div>
 	<div>
 		<div class="large-12 dfp-atf-leaderboard">
 			<?php echo CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
