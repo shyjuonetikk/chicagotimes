@@ -1,4 +1,3 @@
-<!-- AdSupply Popunder -->
 (function(s,o,l,v,e,d){
     if(s[o]==null&&s[l+e]){s[o]="loading";sl+e}
 })(document,"readyState","add","remove","EventListener","DOMContentLoaded");
@@ -13,4 +12,3 @@
         var e=document.getElementsByTagName("script")[0];
         e.parentNode.insertBefore(s,e);
 })();
-<!-- / End AdSupply -->
