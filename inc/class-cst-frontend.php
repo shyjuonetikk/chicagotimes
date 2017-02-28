@@ -1883,7 +1883,7 @@ ready(fn);
 		if ( 'cst_article' !== $obj->get_post_type() ) {
 			return;
 		}
-		if ( ! $obj->get_sponsored_content() ) {
+		if ( $obj->get_sponsored_content() ) {
 			return;
 		}
 		$site = CST()->dfp_handler->get_parent_dfp_inventory();
