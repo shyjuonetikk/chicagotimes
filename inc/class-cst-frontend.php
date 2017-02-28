@@ -1747,7 +1747,11 @@ ready(fn);
 					esc_attr( $sponsor_image_url[2] )
 				);
 				$paragraph_with_script = trim( "\n" . $matches[2] ) . $content_with_sponsorship;
-				$article_content = str_replace( $matches[2], $paragraph_with_script, $article_content );
+				$pos = strpos( $article_content, $matches[2] );
+				if ( false !== $pos ) {
+					$new_article_content = substr_replace( $article_content, $paragraph_with_script, $pos, strlen( $matches[2] ) );
+					$article_content = $new_article_content;
+				}
 			}
 		}
 		return $article_content;
@@ -1755,15 +1759,26 @@ ready(fn);
 
 	/**
 	* Determine paragraph position exists and whether to inject Flipp into content
+	* Check if this content is sponsored and abort as appropriate.
+	*
 	* @param string $article_content
 	* @return string $article_content
 	*/
 	public function inject_flipp( $article_content ) {
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( ! $obj ) {
+			return $article_content;
+		}
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return $article_content;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return $article_content;
+		}
 		global $wp_query;
 		//  break up for ads other than triple lift
 		$article_array = explode( '</p>', $article_content );
 		$num_paragraphs = count( $article_array ) - 1;
-		$after_paragraph_number = 4;
 
 		$postnum = $wp_query->query_vars['paged'];
 		// flipp recommends no more than 5 circulars per page
@@ -1779,14 +1794,6 @@ ready(fn);
 			} else {
 				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], ( $article_array[ $num_paragraphs - 1 ] . $flipp_ad ), $article_content );
 			}
-			if ( $num_paragraphs >= $after_paragraph_number ) {
-				$paragraph_with_script = trim( "\n" . $article_array[ $after_paragraph_number - 1 ] ) . $article_content;
-				$article_content = str_replace( $article_array[ $after_paragraph_number - 1 ], $paragraph_with_script, $article_content );
-			} else {
-				$paragraph_with_script = trim( "\n" . $article_array[ $num_paragraphs - 1 ] ) . $article_content;
-				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], $paragraph_with_script, $article_content );
-			}
-
 		}
 
 		return $article_content;
@@ -1992,6 +1999,19 @@ ready(fn);
 	*/
 	public function action_distroscale_injection() {
 		if ( is_singular( 'cst_feature' ) ) {
+			return;
+		}
+		if ( is_front_page() ) {
+			return;
+		}
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( ! $obj ) {
+			return;
+		}
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return;
+		}
+		if ( $obj->get_sponsored_content() ) {
 			return;
 		}
 		$site = CST()->dfp_handler->get_parent_dfp_inventory();

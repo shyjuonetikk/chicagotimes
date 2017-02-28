@@ -18,7 +18,9 @@
 
 		init: function() {
 
-			addthis.toolbox(".addthis_toolbox");
+      if ( "object" === typeof (addthis) ) {
+        addthis.toolbox(".addthis_toolbox");
+      }
 
 			this.scroller.body.on( "post-load", function( e, response ) {
 				if ( typeof response.html !== "undefined" ) {
