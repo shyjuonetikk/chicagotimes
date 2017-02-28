@@ -36,5 +36,4 @@
     node[0].appendChild(script);
   }
 
-
 };
