@@ -5,7 +5,7 @@
     var x = document.getElementsByTagName("script")[0]; x.parentNode.insertBefore(s, x);
   }
   /* bm_website_code = "7B8C6522340440F1"; */
-  bm_website_code = adblocker.bm_website_code;
+  bm_website_code = JSON.parse(adblocker.bm_website_code);
   jQuery(document).ready(function(){async_load("asset.pagefair.com/measure.min.js")});
   jQuery(document).ready(function(){async_load("asset.pagefair.net/ads.min.js")});
 })();
