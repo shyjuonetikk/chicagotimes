@@ -9,21 +9,14 @@
 .single-cst_feature {
 	header#header {
 		section#primary-navigation {
-			height: 60px;
-			#logo-wrap {
-				height: 60px;
-			}
-			#suntimes-logo {
-				img {
-					width: 263px;
-				}
-			}
+			height: 46px;
 			#burger-bar {
 				background-color: $cst_black;
 				color: #fff;
+				float: left;
 				.fa {
 					font-size: 40px;
-					line-height: 60px;
+					line-height: 45px;
 				}
 			}
 		}
@@ -106,7 +99,9 @@
 			}
 		}
 	}
-
+	.spacer {
+		height: 65px;
+	}
 	.feature-social-container {
 		float: right;
 		padding-right: 1.975rem;

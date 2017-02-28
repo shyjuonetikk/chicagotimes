@@ -16,7 +16,7 @@ $obj = CST()->frontend->get_current_object();
 		</a>
 		<div id="logo-wrap">
 			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo">
-				<img src="<?php echo esc_url( get_stylesheet_directory_uri()  . '/cst-amp-logo.svg' ); ?>" height="57" width="300" alt="Chicago Sun-Times logo">
+				<img src="<?php echo esc_url( get_stylesheet_directory_uri()  . '/cst-amp-logo.svg' ); ?>" height="45" width="236" alt="Chicago Sun-Times logo">
 			</a>
 		</div>
 	</section>
