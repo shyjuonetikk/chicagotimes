@@ -15,7 +15,7 @@
             this.bindEvents();
 
             // Trigger the scroll with styling for social
-            if ( this.body.hasClass("single").length ) {
+            if ( this.body.hasClass("single") ) {
                 $("#main .post").addClass("cst-active-scroll-post");
             }
 
