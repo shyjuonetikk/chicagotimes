@@ -33,7 +33,9 @@
   _insertTripleLiftJS: function (node) {
     var script = document.createElement("script");
     script.src = "http://ib.3lift.com/ttj?inv_code=chicagosuntimes_midarticle";
-    node[0].appendChild(script);
+    if ( node.length && "undefined" !== typeof(node) ) {
+      node[0].appendChild(script);
+    }
   }
 
 };
