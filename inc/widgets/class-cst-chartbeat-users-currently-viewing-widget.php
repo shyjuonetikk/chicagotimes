@@ -56,7 +56,6 @@ class CST_Chartbeat_Currently_Viewing_Widget extends WP_Widget {
 					$count--;
 					if ( $is_dear_abby ) {
 						$seen_dear_abby = true;
-						$is_dear_abby = false;
 					}
 				} ?>
 			<?php } ?>
