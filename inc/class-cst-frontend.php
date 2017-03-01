@@ -209,10 +209,6 @@ class CST_Frontend {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
-						wp_localize_script( 'chicagosuntimes', 'CSTData', array(
-							'home_url'                           => esc_url_raw( home_url() ),
-							'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
-						) );
 						if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) ) {
 							wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
 						}
@@ -258,10 +254,17 @@ class CST_Frontend {
 			} else {
 				wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
 			}
-
 			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
 
 		}
+		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
+			'home_url'         => esc_url_raw( home_url( '/' ) ),
+			'disqus_shortname' => CST_DISQUS_SHORTNAME,
+		) );
+		wp_localize_script( 'chicagosuntimes-homepage', 'CSTData', array(
+			'home_url'         => esc_url_raw( home_url( '/' ) ),
+			'disqus_shortname' => CST_DISQUS_SHORTNAME,
+		) );
 
 	}
 
