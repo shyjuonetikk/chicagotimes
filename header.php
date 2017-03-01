@@ -51,7 +51,6 @@
 <?php do_action( 'cst_dfp_ad_settings' ); ?>
 <meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
-<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
 
 <?php
 if ( is_search() ) {
@@ -59,18 +58,9 @@ if ( is_search() ) {
 } else {
 	CST()->dfp_handler->generate_header_definitions();
 }
-
-if ( is_singular() ) {
-	$current_obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-	if ( $current_obj ) {
-		get_template_part( 'parts/vendors/adsupply-popunder-header' );
-		get_template_part( 'parts/taboola/taboola-header' );
-	}
-}
 ?>
 
 <?php wp_head(); ?>
-<?php get_template_part( 'parts/analytics/adblocker' ); ?>
 </head>
 
 <body <?php body_class(); ?>>

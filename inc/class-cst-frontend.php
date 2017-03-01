@@ -213,6 +213,7 @@ class CST_Frontend {
 						wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 							'home_url'                           => esc_url_raw( home_url() ),
 							'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
+							'taboola_container_id' => 'taboola-below-article-thumbnails-',
 						) );
 						if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) ) {
 							wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
@@ -230,9 +231,6 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-						if ( ! $obj->get_sponsored_content() ) {
-							wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
-						}
 						if ( $this->should_we_inject_headlinesnetwork( $obj ) ) {
 							wp_enqueue_script( 'aggrego-headlinesnetwork', get_template_directory_uri(). '/assets/js/vendor/aggrego-headlinesnetwork.js', array(), false, true );
 							wp_localize_script( 'aggrego-headlinesnetwork', 'vendor_hn', $this->headlines_network_slugs );
@@ -243,7 +241,6 @@ class CST_Frontend {
 				}
 
 				if ( is_singular( 'cst_article', 'cst_gallery' ) && ! is_admin() ) {
-					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 				}
 
@@ -1565,7 +1562,7 @@ class CST_Frontend {
 	*/
 	public function generate_off_canvas_menu() {
 		if ( is_front_page() ) {
-			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
+			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
@@ -1574,7 +1571,7 @@ class CST_Frontend {
 				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 			}
 		} else {
-		wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 		}
 	}
 	/**
@@ -1704,7 +1701,7 @@ ready(fn);
 			$div_id_suffix = 10635 + $postnum;
 			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
 
-			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . esc_attr( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . esc_attr( $div_id_suffix ) . '"></script>';
+			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
 
 			if ( $num_paragraphs >= $flip_ad_paragraph ) {
 				$article_content = str_replace( $article_array[ $flip_ad_paragraph - 1 ], ( $article_array[ $flip_ad_paragraph - 1 ] . $flipp_ad ), $article_content );
@@ -1883,7 +1880,7 @@ ready(fn);
 		if ( 'cst_article' !== $obj->get_post_type() ) {
 			return;
 		}
-		if ( ! $obj->get_sponsored_content() ) {
+		if ( $obj->get_sponsored_content() ) {
 			return;
 		}
 		$site = CST()->dfp_handler->get_parent_dfp_inventory();

@@ -1,5 +1,5 @@
 (function( $ ){
-  var throttleScroll;
+  var throttleScroll, taboola_container_id;
 
 	var CST = {
 
@@ -29,6 +29,7 @@
 			if (this.body.hasClass('tax-cst_section')) {
         this.anchorMe.stick_in_parent({'bottoming' : false, 'offset_top': this.adminBar.height() + this.primaryNavigation.height() + 10 });
       }
+      this.taboola();
 		},
 
 		/**
@@ -508,6 +509,30 @@
 
 		},
 
+		taboola: function() {
+      var post = $('#main').find('.cst-active-scroll-post').eq(0);
+      var post_id = post.data('cst-post-id');
+      window.page_counter++;
+      taboola_container_id = CSTData.taboola_container_id + window.page_counter;
+      var taboolaDiv = document.createElement("div");
+      taboolaDiv.id = taboola_container_id;
+      var placeholder = jQuery('.taboola-container-' + post_id);
+      placeholder.append( taboolaDiv );
+
+      if( window.page_counter == 1 ) {
+        window._taboola = window._taboola || [];
+        _taboola.push({
+          mode:'thumbnails-c',
+          container: taboola_container_id,
+          placement: 'Below Article Thumbnails',
+          target_type: 'mix'
+        });
+        _taboola.push({
+          article:'auto',
+          url:''
+        });
+      }
+    },
 		/**
 		 * Browser detection redirect
 		 */
