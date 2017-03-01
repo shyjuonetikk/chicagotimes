@@ -1,16 +1,19 @@
 <?php if ( is_singular() ) {
-    $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
-    $sections = $obj->get_sections();
-    $section_list = array();
-    if( $sections ) {
-        if ( isset( $obj ) && is_object( $obj ) ) {
-            foreach( $sections as $section ) {
-                array_push( $section_list, strtolower( $section->name ) );
-            }
-        }
-    }
+	$obj          = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+	$sections     = $obj->get_sections();
+	$section_list = array();
+	if ( $sections ) {
+		if ( isset( $obj ) && is_object( $obj ) ) {
+			foreach ( $sections as $section ) {
+				array_push( $section_list, strtolower( $section->name ) );
+			}
+		}
+	}
+	if ( is_singular( 'cst_feature' ) ) {
+		array_push( $section_list, 'features' );
+	}
 }
-    $domain = parse_url( home_url(), PHP_URL_HOST );
+$domain = parse_url( home_url(), PHP_URL_HOST );
 ?>
 
 <script type='text/javascript'>
@@ -23,7 +26,7 @@ _sf_async_config.useCanonical = true;
 _sf_async_config.sections = '<?php echo esc_js( implode( ', ', $section_list ) ); ?>';
 	<?php endif; ?>
 	<?php if ( $authors = $obj->get_authors() ) :
-$author = array_shift( $authors ); ?>
+		$author = array_shift( $authors ); ?>
 _sf_async_config.authors = '<?php echo esc_js( $author->get_display_name() ); ?>';
 	<?php endif; ?>
 <?php endif; ?>
