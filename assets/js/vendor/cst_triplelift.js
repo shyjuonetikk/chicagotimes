@@ -15,13 +15,30 @@
     if (!paragraphsCount) {
       return;
     }
-
+   
+    var triplelifeParNum = 5;
+    for (paraNum = 3; paraNum < 5; paraNum++) {
+        paraProto = paragraphs[paraNum];
+        paraContent = paraProto.toString();
+        if (paraContent.indexOf("blockquote") > -1) {
+        triplelifeParNum++;
+        continue;
+        } 
+        paraContent = paraContent.replace(/<[\/]{0,1}(p)[^><]*>/ig,"");
+        paraContent = paraContent.replace(/(<([^>]+)>)/ig,"");
+        paraContent = paraContent.trim();
+        if (paraContent.length === 0) {
+        triplelifeParNum++;
+        }       
+    }
+    
+      
     if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
-      if (paragraphsCount >= 6) {
-        if (jQuery(paragraphs[6]).hasClass("wp-caption-text")) {
-          tripleliftContentNode = jQuery(paragraphs[7]);
+      if (paragraphsCount >= triplelifeParNum) {
+        if (jQuery(paragraphs[Float64Array]).hasClass("wp-caption-text")) {
+          tripleliftContentNode = jQuery(paragraphs[(triplelifeParNum+1)]);
         } else {
-          tripleliftContentNode = jQuery(paragraphs[6]);
+          tripleliftContentNode = jQuery(paragraphs[triplelifeParNum]);
         }
         this._insertTripleLiftJS(tripleliftContentNode);
         jQuery(".cst-active-scroll-post").addClass("triplelift-inserted");
