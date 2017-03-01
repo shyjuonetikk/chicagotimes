@@ -1027,7 +1027,7 @@ class CST_Frontend {
 			}
 		}
 		?>
-		<div class="medium-11 medium-offset-1 cst-recommendations">
+		<div class="cst-recommendations">
 			<div class="columns">
 			<hr>
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
@@ -2067,6 +2067,6 @@ ready(fn);
 	* @return string
 	*/
 	public function generate_in_article_headlinesnetwork_markup( $obj ) {
-		echo sprintf( '<h4 class="agg-sponsored columns medium-11 medium-offset-1">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn columns medium-11 medium-offset-1 end"></div>', esc_attr( $obj->get_id() ) );
+		echo sprintf( '<h4 class="agg-sponsored columns small-12">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn columns small-12 end"></div>', esc_attr( $obj->get_id() ) );
 	}
 }

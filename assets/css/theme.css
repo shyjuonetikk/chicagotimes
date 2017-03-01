@@ -4744,3 +4744,11 @@ body#tinymce {
   #tinymce.post-type-cst_feature blockquote p {
     color: #484848;
     font-size: 3rem; }
+
+.cb-list {
+  margin-left: 0.1rem;
+  padding: 0; }
+  .cb-list .cb-articles {
+    list-style-type: none;
+    padding: 5px;
+    text-align: left; }
