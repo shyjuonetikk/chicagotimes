@@ -373,3 +373,31 @@ section#subscribe {
 		color: #fff;
 	}
 }
+.page {
+	div {
+		&.alignleft,
+		&.alignright,
+		&.aligncenter {
+			width: auto;
+			max-width: 100%;
+		}
+
+		&.alignleft {
+			float: left;
+			margin-right: 20px;
+			margin-bottom: 1px;
+		}
+
+		&.alignright {
+			float: right;
+			margin-left: 20px;
+			margin-bottom: 1px;
+		}
+
+		&.aligncenter {
+			margin-left: auto;
+			margin-right: auto;
+			margin-bottom: 10px;
+		}
+	}
+}

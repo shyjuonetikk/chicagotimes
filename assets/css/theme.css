@@ -2074,6 +2074,22 @@ section#subscribe {
   .weather-link:hover, .weather-link:visited {
     color: white; }
 
+.page div.alignleft, .page div.alignright, .page div.aligncenter {
+  width: auto;
+  max-width: 100%; }
+.page div.alignleft {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 1px; }
+.page div.alignright {
+  float: right;
+  margin-left: 20px;
+  margin-bottom: 1px; }
+.page div.aligncenter {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px; }
+
 .cst-embed-twitter .embed-content {
   padding-top: 10px;
   padding-bottom: 10px; }
