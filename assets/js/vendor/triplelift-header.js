@@ -30,8 +30,7 @@
         if (paraContent.length === 0) {
         triplelifeParNum++;
         }       
-    }
-    
+    }   
       
     if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
       if (paragraphsCount >= triplelifeParNum) {
