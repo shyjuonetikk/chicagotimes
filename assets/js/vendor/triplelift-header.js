@@ -34,7 +34,7 @@
       
     if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
       if (paragraphsCount >= triplelifeParNum) {
-        if (jQuery(paragraphs[Float64Array]).hasClass("wp-caption-text")) {
+        if (jQuery(paragraphs[triplelifeParNum]).hasClass("wp-caption-text")) {
           tripleliftContentNode = jQuery(paragraphs[(triplelifeParNum+1)]);
         } else {
           tripleliftContentNode = jQuery(paragraphs[triplelifeParNum]);
