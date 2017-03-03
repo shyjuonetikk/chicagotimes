@@ -1,6 +1,7 @@
 <?php $obj = \CST\Objects\Post::get_by_post_id( get_the_ID() ); ?>
 <?php
 $sponsored = false;
+$attrs = '';
 if ( $obj && is_singular( 'cst_article' ) ) {
 	if ( is_callable( array( $obj, 'get_sponsored_content' ) ) ) {
 		$sponsored = $obj->get_sponsored_content();
@@ -15,17 +16,13 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 		<?php
 		if ( is_singular() ) {
 			$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
+			$attrs = CST()->frontend->article_dimensions( $obj );
 		} else {
 			$classes = array( 'index-view' );
 		}
 		if ( $sponsored ) {
 			$classes[] = 'sponsored-content';
 		}
-		$attrs = '';
-		if ( is_singular() ) {
-			$attrs = CST()->frontend->article_dimensions( $obj );
-		}
-
 		?>
 		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo esc_attr( $attrs ); ?>>
 			<?php if ( $sponsored ) { ?>
