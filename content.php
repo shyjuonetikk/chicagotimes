@@ -54,9 +54,9 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 		</article>
 
 		<?php if ( is_singular( 'cst_article' ) ) { ?>
-		<section class="taboola-container small-12 columns">
+		<div class="taboola-container small-12 columns">
 		<?php get_template_part( 'parts/taboola/taboola-container' ); ?>
-		</section>
+		</div>
 		<?php } ?>
 
 		<?php CST()->frontend->content_ad_injection( $paged ); ?>
