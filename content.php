@@ -39,7 +39,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			<?php endif; ?>
 
 			<?php
-			echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
+
 			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
 			if ( $sponsored ) { ?>
 				</div>

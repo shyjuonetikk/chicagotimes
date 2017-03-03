@@ -2,7 +2,9 @@
 
 <?php if ( ! empty( $is_main_query ) ) { ?>
 
-	<?php if ( is_singular() ) { ?>
+	<?php if ( is_singular() ) {
+		echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
+		?>
 		<div class="post-lead-media post-content columns small-12 end">
 			<?php echo do_shortcode( '[cst-content id="' . $obj->get_id() . '"]' ); ?>
 		</div>

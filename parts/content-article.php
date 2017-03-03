@@ -3,6 +3,7 @@
 
 	<?php if ( is_singular() ) : ?>
 		<?php
+		echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
 		$media_type = $obj->get_featured_media_type();
 		if ( 'image' === $media_type ) :
 			CST()->featured_image_markup( $obj );
