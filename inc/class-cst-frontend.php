@@ -2035,6 +2035,23 @@ ready(fn);
 		}
 	}
 
+	public function article_dimensions( $obj ) {
+		$data = array(
+			'post-id'   => $obj->get_id(),
+			'post-uri'  => parse_url( get_permalink( $obj->get_id() ), PHP_URL_PATH ),
+			'wp-title'  => wp_title( '|', false, 'right' ),
+			);
+
+		for ( $i = 1;  $i <= 5;  $i++) {
+			$data[ 'ga-dimension-' . $i ] = $obj->get_ga_dimension( $i );
+		}
+
+		foreach ( $data as $key => $val ) {
+			$attrs .= ' data-cst-' . sanitize_key( $key ) . '="' . esc_attr( $val ) . '"';
+		}
+		return $attrs;
+	}
+
 	/**
 	* @param $obj \CST\Objects\Article
 	*

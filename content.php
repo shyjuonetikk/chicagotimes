@@ -23,23 +23,11 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 		}
 		$attrs = '';
 		if ( is_singular() ) {
-			$data = array(
-				'post-id'   => get_the_ID(),
-				'post-uri'  => parse_url( get_permalink( $obj->get_id() ), PHP_URL_PATH ),
-				'wp-title'  => wp_title( '|', false, 'right' ),
-				);
-
-			for ( $i = 1;  $i <= 5;  $i++) {
-				$data[ 'ga-dimension-' . $i ] = $obj->get_ga_dimension( $i );
-			}
-
-			foreach ( $data as $key => $val ) {
-				$attrs .= ' data-cst-' . sanitize_key( $key ) . '="' . esc_attr( $val ) . '"';
-			}
+			$attrs = CST()->frontend->article_dimensions( $obj );
 		}
 
 		?>
-		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo $attrs; ?>>
+		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo esc_attr( $attrs ); ?>>
 			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
