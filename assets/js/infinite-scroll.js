@@ -26,7 +26,9 @@
 				if ( typeof response.html !== 'undefined' ) {
 					var post = $(response.html).find('article.post'),
 						post_id = post.data('cst-post-id');
-					addthis.toolbox("#addthis-" + post_id);
+          if ( "object" === typeof (addthis) ) {
+            addthis.toolbox("#addthis-" + post_id);
+          }
 
 					// Add "Read More" link to articles longer than 350 words
 					if ( post.hasClass('cst_article') ) {
