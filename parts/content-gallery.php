@@ -1,9 +1,8 @@
-<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
-
 <?php if ( ! empty( $is_main_query ) ) { ?>
 
 	<?php if ( is_singular() ) {
 		echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
+		echo CST()->get_template_part( 'post/title', $vars );
 		?>
 		<div class="post-lead-media post-content columns small-12 end">
 			<?php echo do_shortcode( '[cst-content id="' . $obj->get_id() . '"]' ); ?>
@@ -18,14 +17,22 @@
 			</div>
 		<?php } ?>
 	<?php } else { ?>
-		<?php
-		if ( $obj->get_excerpt() ) {
-			echo CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) );
-		}
-		?>
-		<?php if ( $obj->get_featured_image_id() ) {
-			echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) );
-		} ?>
+		<div class="section-front small-12">
+
+			<?php
+			if ( $obj->get_excerpt() ) {
+				echo CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) );
+			}
+			if ( $obj->get_featured_image_id() ) { ?>
+				<div class="section-image small-12 medium-4">
+					<?php echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) ); ?>
+				</div>
+			<?php } ?>
+			<div class="section-title small-12 medium-8">
+				<?php echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) ); ?>
+				<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
+			</div>
+		</div>
 	<?php } ?>
 
 	<?php } ?>

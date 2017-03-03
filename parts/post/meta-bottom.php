@@ -9,7 +9,7 @@ if ( 'cst_feature' === $obj->get_post_type() ) {
 	$classes .= ' cst_feature-meta-bottom';
 }
 if ( is_singular() ) {
-	$classes .= ' columns medium-9 medium-offset-1 end';
+	$classes .= ' columns small-12 end';
 }
 if ( ! is_singular() ) {
 	$classes .= ' show-for-medium-up';

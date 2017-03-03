@@ -572,6 +572,7 @@ body[class^="cst_article-"] {
 			clear: both;
 		}
 
+
 		h1 {
 			font-size: 2.25rem;
 			line-height: 2.7rem;
@@ -847,8 +848,38 @@ article[id^="post-"] {
 	}
 }
 body[class~="archive"] {
-	article.post {
-		box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+	article {
+		&.post {
+			box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+		}
+		&.index-view {
+			.section-front {
+				float: left;
+			}
+			.post-lead-media {
+				float:left;
+			}
+			.section-title {
+				float:left;
+				h1 {
+					font-size: 1.6rem;
+					line-height:1.9rem;
+				}
+				@media #{$small-only} {
+					.post-meta-top {
+						padding-top:0;
+					}
+					h1 {
+						font-size: 1rem;
+						line-height: 1.25rem;
+						margin-bottom: 0;
+					}
+				}
+			}
+			.post-meta-bottom {
+				clear:both;
+			}
+		}
 	}
 	.dfp-super-leaderboard {
 		margin-top: 0;
@@ -858,7 +889,7 @@ body[class~="archive"] {
 		z-index: 5;
 		&.section-itn {
 			border-top:none;
-            text-align: left;
+			text-align: left;
 			> .nav-holder {
 				border-top: none;
 				border-bottom: 1px solid #888;
