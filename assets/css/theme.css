@@ -1591,7 +1591,8 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   padding-left: 0px;
   padding-right: 0px;
   padding-bottom: 0px;
-  position: relative; }
+  position: relative;
+  float: left; }
   @media only screen and (min-width:40.063em) {
     .single article.post {
       padding-top: 15px;

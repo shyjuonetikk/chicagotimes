@@ -175,21 +175,23 @@
 
             // Sticky sharing tools on the articles, as well as logic for the currently viewing post
             if ( $( 'body.single' ).length ) {
-        var mainPost = $('#main .post');
-        mainPost.each( $.proxy( function( key, value ) {
-                    var el = $(value);
-                    var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
-                    var bottomBreakPoint = topBreakPoint + el.height() - 80;
+              var mainPost = $('#main .post');
+            mainPost.each( $.proxy( function( key, value ) {
+                        var el = $(value);
+                        var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
+                        var bottomBreakPoint = topBreakPoint + el.height() - 80;
 
-                    if ( scrollTop > topBreakPoint && scrollTop < bottomBreakPoint && ! el.hasClass('cst-active-scroll-post') ) {
-            mainPost.removeClass('cst-active-scroll-post');
-                        el.addClass('cst-active-scroll-post');
-                    }
-                }, this ) );
+                        if ( ! el.hasClass('cst-active-scroll-post') ) {
+                          if ( scrollTop > topBreakPoint &&  scrollTop < bottomBreakPoint ) {
+                            mainPost.removeClass('cst-active-scroll-post');
+                            el.addClass('cst-active-scroll-post');
+                          }
+                        }
+                    }, this ) );
 
-            }
-      this.positionAndSizePostSidebar(scrollTop);
-        },
+                }
+            this.positionAndSizePostSidebar(scrollTop);
+            },
 
         /**
          * Make some iframes responsive

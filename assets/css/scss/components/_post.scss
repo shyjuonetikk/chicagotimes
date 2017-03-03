@@ -565,7 +565,7 @@ body[class^="cst_article-"] {
 		padding-right: 0px;
 		padding-bottom: 0px;
 		position: relative;
-
+		float: left;
 		@media #{$medium-up} {
 			padding-top: 15px;
 			border-top: 7px solid $light_grey;

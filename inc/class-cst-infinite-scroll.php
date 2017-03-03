@@ -148,7 +148,7 @@ class CST_Infinite_Scroll {
 	 * Infinite scroll JavaScript hacks.
 	 */
 	public function action_wp_enqueue_scripts() {
-		if ( is_page_template( 'page-monster.php' ) || is_front_page() || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' )) {
+		if ( is_page_template( 'page-monster.php' ) || is_front_page() || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' ) || is_tax() ) {
 			return;
 		}
 		wp_enqueue_script( 'cst-infinite-scroll', get_template_directory_uri() . '/assets/js/infinite-scroll.js', array( 'chicagosuntimes', 'the-neverending-homepage', 'cst-ga-custom-actions' ), false, true );

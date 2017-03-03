@@ -24,7 +24,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			$classes[] = 'sponsored-content';
 		}
 		?>
-		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo esc_attr( $attrs ); ?>>
+		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo $attrs; ?>>
 			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
