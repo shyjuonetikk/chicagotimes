@@ -970,9 +970,9 @@ class CST_Frontend {
 			} ?>
 			</ul>
 			<?php
+			$cached_content = ob_get_clean();
+			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
-		$cached_content = ob_get_clean();
-		wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		echo $cached_content;
 	}
 
