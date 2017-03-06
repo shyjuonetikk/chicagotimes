@@ -1953,24 +1953,41 @@ ready(fn);
 		if ( is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
-?>
-<section class="ad-container">
-		<?php
 		global $wp_query;
+		$ad_template = '<div class="ad-container">%s</div>';
+		$inject_ad_markup = false;
 		if ( is_singular() ) {
-			echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_lead_unit_mapping', ( ! $paged ) ? 'atf leaderboard 2' : 'atf leaderboard 3' );
+			$placement = 'div-gpt-placement-a';
+			$mapping = 'article_lead_unit_mapping';
+			$targeting = ( ! $paged ) ? 'atf leaderboard 2' : 'atf leaderboard 3';
+			$inject_ad_markup = true;
 		} else {
-			if ( 0 === $wp_query->current_post && 0 === $paged ) {
-				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 2' );
+			$placement = 'div-gpt-placement-s';
+			$mapping = 'sf_inline_mapping';
+			$sf_first_ad = ( 0 === $wp_query->current_post && 0 === $paged );
+			if ( $sf_first_ad ) {
+				$targeting = 'rr cube 2';
+				$inject_ad_markup = true;
 			} else {
 				$every_two = $wp_query->current_post % 2;
-				if ( ( ! $every_two ) ) {
-					echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 3' );
+				$sf_second_ad = ! $every_two;
+				if ( $sf_second_ad ) {
+					$targeting = 'rr cube 3';
+					$inject_ad_markup = true;
 				}
 			}
 		}
+		if ( $inject_ad_markup ) {
+			$ad_unit_definition = CST()->dfp_handler->dynamic_unit(
+				get_the_ID(),
+				esc_attr( $placement ),
+				esc_attr( 'dfp-placement' ),
+				esc_attr( $mapping ),
+				esc_attr( $targeting )
+			);
+			echo sprintf( $ad_template, $ad_unit_definition );
+		}
 		?>
-</section>
 <?php
 	}
 
