@@ -1,7 +1,9 @@
 <?php global $featured_homepage_story; ?>
+<a href="<?php echo esc_url( get_post_type_archive_link( 'cst_feature' ) ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
 <hr class="before">
 <h2 class="section-title"><span><?php echo esc_html_e( 'Featured Story', 'chicagosuntimes' ); ?></span></h2>
 <hr/>
+</a>
 <section id="featured-story-wells">
     <div>
         <div class="large-12 columns">
