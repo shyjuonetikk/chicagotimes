@@ -21,8 +21,10 @@ endif;
 	endif;
 	?>
 </div>
-<div class="large-12">
-	<h2>Currently trending:</h2>
+<div class="small-12 content-wrapper">
+	<hr class="before">
+	<h2 class="section-title"><span>Currently trending:</span></h2>
+	<hr>
 	<div id="root"></div>
 	<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/static/js/main.6c13c9a2.js"></script>
 </div>
