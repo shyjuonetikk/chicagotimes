@@ -953,13 +953,12 @@ class CST_Frontend {
 							</a>
 							<?php
 						}
-						?>
-			<?php if ( null !== $nativo_slug ) { ?>
-				<ul id="<?php echo esc_html( $nativo_slug ); ?>">
-			<?php } else { ?>
-				<ul>
-			<?php } ?>
-					<?php }
+						if ( null !== $nativo_slug ) { ?>
+							<ul id="<?php echo esc_html( $nativo_slug ); ?>">
+						<?php } else { ?>
+							<ul>
+						<?php }
+					}
 					$count--;
 					?>
 					<li>
@@ -967,13 +966,13 @@ class CST_Frontend {
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</li>
-				<?php } ?>
-				</ul>
-				<?php
-			}
-			$cached_content = ob_get_clean();
-			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
+			<?php }
+			} ?>
+			</ul>
+			<?php
 		}
+		$cached_content = ob_get_clean();
+		wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		echo $cached_content;
 	}
 
@@ -1981,7 +1980,7 @@ ready(fn);
 				esc_attr( $placement ),
 				esc_attr( 'dfp-placement' ),
 				esc_attr( $mapping ),
-				esc_attr( $targeting )
+					esc_attr( $targeting )
 			);
 			echo sprintf( $ad_template, $ad_unit_definition );
 		}
