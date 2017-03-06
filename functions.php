@@ -52,7 +52,7 @@ class CST {
 		$this->cst_feeds = CST_Feeds::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
-
+		add_theme_support( 'customize-selective-refresh-widgets' );
 		add_theme_support( 'infinite-scroll', array(
 			'container' => 'main',
 			'footer'    => false,
