@@ -684,9 +684,6 @@ ul#menu-sun-times-network {
 		height: 34px;
 	}
 	margin-top: 3px;
-	@media (min-width: 641px) and (max-width: 981px) {
-		margin-left: 16px;
-	}
 
 	@media #{$small-only} {
 		margin-top: -10px;
