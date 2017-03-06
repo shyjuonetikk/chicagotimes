@@ -20,17 +20,17 @@
 		<div class="section-front small-12">
 
 			<?php
-			if ( $obj->get_excerpt() ) {
-				echo CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) );
-			}
 			if ( $obj->get_featured_image_id() ) { ?>
-				<div class="section-image small-12 medium-4">
+				<div class="section-image small-4">
 					<?php echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) ); ?>
 				</div>
 			<?php } ?>
-			<div class="section-title small-12 medium-8">
+			<div class="section-title small-8">
 				<?php echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) ); ?>
 				<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
+				<?php if ( $obj->get_excerpt() ) {
+					echo CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) );
+				} ?>
 			</div>
 		</div>
 	<?php } ?>
