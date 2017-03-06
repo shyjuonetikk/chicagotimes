@@ -95,9 +95,4 @@ if ( ! is_singular() ) {
 		<hr class="end-of-post-line">
 	</div>
 <?php endif; ?>
-<div class="post-meta post-meta-top mobile-bottom hide-for-medium-up">
-<?php if ( ! is_singular() ) { ?>
-	<i class="post-type fa fa-<?php echo esc_attr( $obj->get_font_icon() ); ?>"></i>
-	<span class="post-relative-date"><?php echo human_time_diff( $obj->get_post_date_gmt() ); ?></span>
-<?php } ?>
-</div>
+

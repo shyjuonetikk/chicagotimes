@@ -108,9 +108,9 @@ article.post {
 	}
 
 	@media #{$small-only} {
-			padding-bottom: 10px;
-			margin-top: 10px;
-			margin-bottom: 10px;
+		margin-bottom: 10px;
+		width: 100%;
+		float: left;
 		h1 {
 			font-size: 1rem;
 			line-height: 1.25rem;
@@ -862,7 +862,7 @@ body[class~="archive"] {
 			.section-title {
 				float:left;
 				h1 {
-					font-size: 1.6rem;
+					font-size: 1.5rem;
 					line-height:1.9rem;
 				}
 				@media #{$small-only} {
