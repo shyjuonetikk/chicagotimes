@@ -378,8 +378,10 @@ var dfp = {
 	  .defineSizeMapping(hp_cube_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
+      .defineSizeMapping(sf_inline_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
+      .defineSizeMapping(sf_inline_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
       googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
         .defineSizeMapping(billboard_mapping)
