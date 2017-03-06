@@ -19,3 +19,19 @@
 		}
 	}
 }
+@media #{$medium-only} and (orientation: landscape ) {
+	section {
+		.right-rail {
+			padding-left: 0;
+			padding-right: 0.4rem;
+		}
+	}
+}
+@media #{$xmediumi-only} and (orientation: portrait ) {
+	section {
+		.right-rail {
+			padding-left: 0;
+			padding-right: 0.9375rem;
+		}
+	}
+}

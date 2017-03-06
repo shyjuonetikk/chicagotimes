@@ -1236,6 +1236,16 @@ body.search {
   float: right;
   margin-top: 15px; }
 
+@media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+  section .right-rail {
+    padding-left: 0;
+    padding-right: 0.4rem; } }
+
+@media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
+  section .right-rail {
+    padding-left: 0;
+    padding-right: 0.9375rem; } }
+
 article.post {
   background-color: white;
   float: none; }

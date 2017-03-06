@@ -1727,23 +1727,18 @@ class CST {
 			if ( doing_filter( 'the_content' ) ) {
 				$class = 'post-lead-media end';
 			} else {
-				if ( is_singular( 'cst_feature' ) ) {
-					$class = 'post-lead-media columns small-12 end';
-				} else {
-					$class = 'post-lead-media columns medium-11 medium-offset-1 end';
-				}
+				$class = 'post-lead-media columns small-12 end';
 			}
 			$output .= '<div class="' . esc_attr( $class ) . '">';
-		if ( is_singular( 'cst_feature' ) ) {
-			$image_type = 'cst-feature-hero';
-			$hero_sig = $obj->get_hero_sig();
-			$hero_title = $obj->get_hero_title();
-			$featured_image_id = $obj->get_featured_image_id();
-			$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
-		} else {
-			$output .= $attachment->get_html( $image_type );
-		}
-
+			if ( is_singular( 'cst_feature' ) ) {
+				$image_type = 'cst-feature-hero';
+				$hero_sig = $obj->get_hero_sig();
+				$hero_title = $obj->get_hero_title();
+				$featured_image_id = $obj->get_featured_image_id();
+				$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
+			} else {
+				$output .= $attachment->get_html( $image_type );
+			}
 			if ( $caption = $attachment->get_caption() ) :
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
 			endif;
