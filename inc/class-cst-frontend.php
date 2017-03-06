@@ -946,14 +946,12 @@ class CST_Frontend {
 					$items->the_post();
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 					if ( $count == $content_query['posts_per_page'] ) {
-						if ( 'image' == $obj->get_featured_media_type() ) {
-							$featured_image_id = $obj->get_featured_image_id();
-							if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
-								<?php echo $attachment->get_html( 'homepage-columns' ); ?>
-								</a>
-								<?php
-							}
+						$featured_image_id = $obj->get_featured_image_id();
+						if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
+							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
+							<?php echo $attachment->get_html( 'homepage-columns' ); ?>
+							</a>
+							<?php
 						}
 						?>
 			<?php if ( null !== $nativo_slug ) { ?>
