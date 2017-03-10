@@ -47,8 +47,8 @@ class Article extends Post {
 	public function get_featured_video_embed() {
 		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' ) ) {
 			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
-				$template   = '<div class="row video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=65&floatwidth=300&floatposition=top-left" data-type="s2nScript"></script></div>';
-				$markup     = sprintf( $template, $this->send_to_news_embeds[ $slug ], $this->post->ID );
+				$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=75&floatwidth=300&floatposition=top-left" data-type="s2nScript"></script></div>';
+				$markup     = sprintf( $template, $this->send_to_news_embeds[ $media_type ], $this->post->ID );
 				return $markup;
 			} else {
 				return '';
