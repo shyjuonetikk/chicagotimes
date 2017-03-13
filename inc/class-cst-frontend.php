@@ -1620,6 +1620,26 @@ ready(fn);
 	}
 
 	/**
+	* Determine if we should append the Public Good Take Action button
+	* @param \CST\Objects\Article $obj
+	* @return mixed
+	*/
+	public function inject_public_good_markup( $obj ) {
+		if ( ! $obj ) {
+			return;
+		}
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return;
+		}
+		if ( shortcode_exists( 'takeaction' ) ) {
+			echo do_shortcode( '[takeaction]' );
+		}
+		return;
+	}
+	/**
 	* Inject sponsored content into selected article in the third paragraph
 	* Does not inject into feeds
 	* @param string $article_content
