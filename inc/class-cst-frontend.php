@@ -207,7 +207,7 @@ class CST_Frontend {
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
-					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() ) {
+					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() || is_author() ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
