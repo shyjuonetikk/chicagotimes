@@ -96,10 +96,6 @@ class CST {
 		add_image_size( 'newspaper', 297, 287, true );
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
-
-		if ( 'chicago.suntimes.com' !== $this->dfp_handler->get_parent_dfp_inventory() ) {
-			wpcom_vip_load_plugin( 'inform-video-match', 'plugins', '1.7.3' );
-		}
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
@@ -205,7 +201,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-columnists-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newspaper-cover-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-breaking-news-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ndn-video-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-stng-wire-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-social-follow-us-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-category-headlines-widget.php';
@@ -795,7 +790,6 @@ class CST {
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
 		register_widget( 'CST_Breaking_News_Widget' );
-		register_widget( 'CST_Inform_Video_Widget' );
 		register_widget( 'CST_Gracenote_Sports_Widget' );
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
