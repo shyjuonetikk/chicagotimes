@@ -1737,24 +1737,6 @@ ready(fn);
 	}
 
 	/**
-	* Detect section and if appropriate inject Public Good markup
-	* @param $obj \CST\Objects\Article | \CST\Objects\Post
-	* @return string
-	*/
-	public function inject_public_good_markup( $obj ) {
-
-		if ( $section = $obj->get_primary_parent_section() ) {
-			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
-				return sprintf( '<div class="pgs-container"><a href="%1$s" target="_blank"><img src="%2$s" style="height:50px"></a></div>',
-					esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
-					esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
-				);
-			}
-		}
-
-	}
-
-	/**
 	 * Get and return an array of sections associated with this single object - article | gallery
 	 * @return array|bool
 	 *
