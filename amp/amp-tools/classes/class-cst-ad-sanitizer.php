@@ -58,7 +58,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 				'height'    => 250,
 				'type'      => 'doubleclick',
 				'data-slot' => $this->dfp_handler->ad_header_settings( true ),
-				'json'      => '{"targeting":{"pos":"rr cube 1"}}',
+				'json'      => '{"targeting":{"pos":"AMP Cube"}}',
 			) ) );
 			$cst_cube_ads[ $index ] = $center_div;
 		}
@@ -78,7 +78,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'height'    => 250,
 			'type'      => 'doubleclick',
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
-			'json'      => '{"targeting":{"pos":"rr cube 1"}}',
+			'json'      => '{"targeting":{"pos":"AMP Cube"}}',
 		) ) );
 		$ad_node_taboola = AMP_DOM_Utils::create_node( $this->dom, 'amp-embed', array(
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/taboola.md
