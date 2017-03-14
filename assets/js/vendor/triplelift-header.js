@@ -16,8 +16,8 @@
       return;
     }
    
-    var triplelifeParNum = 5;
-    for (paraNum = 3; paraNum < 5; paraNum++) {
+    var triplelifeParNum = 8;
+    for (paraNum = 8; paraNum < 10; paraNum++) {
         paraProto = paragraphs[paraNum];
         paraContent = paraProto.toString();
         if (paraContent.indexOf("blockquote") > -1) {

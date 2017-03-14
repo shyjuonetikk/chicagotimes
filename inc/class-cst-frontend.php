@@ -1691,13 +1691,18 @@ ready(fn);
 		}
 		global $wp_query;
 		//  break up for ads other than triple lift
-		$article_array = explode( '</p>', $article_content );
-		$num_paragraphs = count( $article_array ) - 1;
+//		$article_array = explode( '</p>', $article_content );
+//		$num_paragraphs = count( $article_array ) - 1;
+        
+        // try method from hss
+        $article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);           
+		$num_paragraphs = count( $article_array ) - 1;  
+        
 
 		$postnum = $wp_query->query_vars['paged'];
 		// flipp recommends no more than 5 circulars per page
 		if ( $postnum < 5 ) {
-			$flip_ad_paragraph = 3;
+			$flip_ad_paragraph = 5;
 			$div_id_suffix = 10635 + $postnum;
 			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
 
