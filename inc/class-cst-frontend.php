@@ -1634,10 +1634,56 @@ ready(fn);
 		if ( $obj->get_sponsored_content() ) {
 			return;
 		}
+		// Selected list of content we prefer not to display this button on
+		if ( $this->is_content_partner( $obj ) ) {
+			return;
+		}
 		if ( shortcode_exists( 'takeaction' ) ) {
 			echo do_shortcode( '[takeaction]' );
 		}
 		return;
+	}
+
+		/**
+	 * Determine if content destined for the display is partnership or we have
+	 * an arrangement or not
+	 * @param \CST\Objects\Article $obj
+	 * @return bool
+	 */
+	public function is_content_partner( $obj ) {
+
+		$content_partners = array(
+			'Associated Press',
+			'USA Today',
+			'USA TODAY',
+			'USA TODAY Network',
+			'Georgia Nicols',
+			'Abigail Van Buren',
+		);
+		if ( $byline = $obj->get_byline() ) {
+			if ( array_key_exists( $byline, $content_partners ) ) {
+				return true;
+			} else {
+				foreach ( $content_partners as $content_partner ) {
+					if ( stristr( $byline, $content_partner ) ) {
+						return true;
+					}
+				}
+			}
+		}
+		$authors = get_coauthors();
+		foreach ( $authors as $author ) {
+			if ( array_key_exists( $author->display_name, $content_partners ) ) {
+				return true;
+			} else {
+				foreach ( $content_partners as $content_partner ) {
+					if ( stristr( $author->display_name, $content_partner ) ) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	/**
 	* Inject sponsored content into selected article in the third paragraph
