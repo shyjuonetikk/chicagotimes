@@ -10,9 +10,14 @@ class CST {
 
 	private static $instance;
 
-	public $frontend, $dfp_handler, $slack, $cst_feeds;
+	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler;
 
 	private $post_types = array();
+
+	private $pagefair_ids = array(
+		'prod' => '7B8C6522340440F1',
+		'dev' => '2C63F38287CF46AC',
+	);
 
 	public static function get_instance() {
 
@@ -39,6 +44,7 @@ class CST {
 
 		$this->yieldmo_tags = CST_Yieldmo_Tags::get_instance();
 		$this->dfp_handler = CST_DFP_Handler::get_instance();
+		$this->ad_vendor_handler = CST_Ad_Vendor_Handler::get_instance();
 		$this->slack = CST_Slack::get_instance();
 		$this->customizer = CST_Customizer::get_instance();
 		$this->liveblog = CST_Liveblog::get_instance();
@@ -90,14 +96,10 @@ class CST {
 		add_image_size( 'newspaper', 297, 287, true );
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
-
-		if ( 'chicago.suntimes.com' !== $this->dfp_handler->get_parent_dfp_inventory() ) {
-			wpcom_vip_load_plugin( 'inform-video-match', 'plugins', '1.7.3' );
-		}
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
-
+		$this->register_ad_vendors();
 		// CLI scripts
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			require_once get_stylesheet_directory() . '/inc/class-cst-cli-commands.php';
@@ -154,6 +156,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-elections.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -198,7 +201,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-columnists-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newspaper-cover-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-breaking-news-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ndn-video-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-stng-wire-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-social-follow-us-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-category-headlines-widget.php';
@@ -788,7 +790,6 @@ class CST {
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
 		register_widget( 'CST_Breaking_News_Widget' );
-		register_widget( 'CST_Inform_Video_Widget' );
 		register_widget( 'CST_Gracenote_Sports_Widget' );
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
@@ -1929,6 +1930,69 @@ class CST {
 
 	public function cst_feature_image() {
 		return 'post/wire-featured-image-feature';
+	}
+
+	/**
+	 * Centralized function to register Vendor scripts
+	 */
+	public function register_ad_vendors() {
+
+		$this->ad_vendor_handler->register_vendor( 'taboola', array(
+			'header' => 'taboola-header.js',
+			'footer' => false,
+			'container' => false,
+			'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
+			'header' => 'triplelift-header.js',
+			'footer' => 'triplelift-footer.js',
+			'container' => false,
+			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'adsupply', array(
+				'header' => 'adsupply-popunder-header.js',
+				'footer' => false,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'adblocker', array(
+				'header' => 'adblocker-header.js',
+				'footer' => false,
+				'container' => false,
+				'params' => array(
+					'argument' => 'bm_website_code',
+					'value' => 'chicago.suntimes.com.test' === $this->dfp_handler->get_parent_dfp_inventory() ? $this->pagefair_ids['dev'] : $this->pagefair_ids['prod'],
+				),
+				'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'nativo', array(
+				'header' => '//s.ntv.io/serve/load.js',
+				'header-remote' => true,
+				'footer' => false,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
+				'header' => 'gum-gum-header.js',
+				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
+				'footer-remote' => true,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
+				'header' => false,
+				'footer' => 'google-survey-footer.js',
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+
 	}
 }
 
