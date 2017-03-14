@@ -461,6 +461,7 @@ class CST {
 			}
 			if ( WP_DEBUG ) {
 				$classes[] = 'vip-local';
+				$classes[] = 'vagrant-local';
 			}
 			return $classes;
 		});
