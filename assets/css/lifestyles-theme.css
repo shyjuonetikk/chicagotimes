@@ -1385,6 +1385,8 @@ article.post {
     border: 1px solid #231f20;
     float: left;
     width: 100%; }
+  article.post .pgs-dpg-btn {
+    width: 212px; }
 
 body[class^="archive"] article.post .sponsored-notification {
   margin-top: -29px; }

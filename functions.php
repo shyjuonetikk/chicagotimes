@@ -221,6 +221,8 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
 
+		// Vendor plugins
+		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
 		// AMP

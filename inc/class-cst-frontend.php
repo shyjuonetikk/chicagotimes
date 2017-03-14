@@ -1620,6 +1620,72 @@ ready(fn);
 	}
 
 	/**
+	* Determine if we should append the Public Good Take Action button
+	* @param \CST\Objects\Article $obj
+	* @return mixed
+	*/
+	public function inject_public_good_markup( $obj ) {
+		if ( ! $obj ) {
+			return;
+		}
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return;
+		}
+		// Selected list of content we prefer not to display this button on
+		if ( $this->is_content_partner( $obj ) ) {
+			return;
+		}
+		if ( shortcode_exists( 'takeaction' ) ) {
+			echo do_shortcode( '[takeaction]' );
+		}
+		return;
+	}
+
+		/**
+	 * Determine if content destined for the display is partnership or we have
+	 * an arrangement or not
+	 * @param \CST\Objects\Article $obj
+	 * @return bool
+	 */
+	public function is_content_partner( $obj ) {
+
+		$content_partners = array(
+			'Associated Press',
+			'USA Today',
+			'USA TODAY',
+			'USA TODAY Network',
+			'Georgia Nicols',
+			'Abigail Van Buren',
+		);
+		if ( $byline = $obj->get_byline() ) {
+			if ( array_key_exists( $byline, $content_partners ) ) {
+				return true;
+			} else {
+				foreach ( $content_partners as $content_partner ) {
+					if ( stristr( $byline, $content_partner ) ) {
+						return true;
+					}
+				}
+			}
+		}
+		$authors = get_coauthors();
+		foreach ( $authors as $author ) {
+			if ( array_key_exists( $author->display_name, $content_partners ) ) {
+				return true;
+			} else {
+				foreach ( $content_partners as $content_partner ) {
+					if ( stristr( $author->display_name, $content_partner ) ) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	/**
 	* Inject sponsored content into selected article in the third paragraph
 	* Does not inject into feeds
 	* @param string $article_content
@@ -1734,24 +1800,6 @@ ready(fn);
 			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
 			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
 		);
-	}
-
-	/**
-	* Detect section and if appropriate inject Public Good markup
-	* @param $obj \CST\Objects\Article | \CST\Objects\Post
-	* @return string
-	*/
-	public function inject_public_good_markup( $obj ) {
-
-		if ( $section = $obj->get_primary_parent_section() ) {
-			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
-				return sprintf( '<div class="pgs-container"><a href="%1$s" target="_blank"><img src="%2$s" style="height:50px"></a></div>',
-					esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
-					esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
-				);
-			}
-		}
-
 	}
 
 	/**
