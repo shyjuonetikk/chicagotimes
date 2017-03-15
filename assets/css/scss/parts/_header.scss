@@ -2,6 +2,7 @@
 .logo-wrapper.large-logo {
 	@media (min-width: 1250px) {
 		display: block;
+		height: 101px;
 	}
 	@media (max-width: 1249px) {
 		display: none !important;
@@ -26,6 +27,7 @@ header {
 			@media only screen and (min-width: 78.063em) {
 				.top-bar-section li:not(.has-form) a:not(.button) {
 					padding: 0 12px;
+					line-height:37px;
 				}
 			}
 		}
