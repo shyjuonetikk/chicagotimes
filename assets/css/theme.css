@@ -3541,7 +3541,8 @@ body.post-gallery-lightbox-active {
     display: block;
     position: relative;
     height: auto;
-    float: left; }
+    float: left;
+    margin-bottom: 10px; }
     .homepage_wrapper .widget_cst_todays_paper_widget img {
       position: relative;
       display: block; }
