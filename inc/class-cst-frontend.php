@@ -1498,21 +1498,26 @@ class CST_Frontend {
 		if ( has_nav_menu( "{$action_slug}-menu" ) ) {
 			$theme_location = "{$action_slug}-menu";
 		} else {
-			$parent_term = get_term_by( 'id', $section_obj->parent, 'cst_section' );
-			$action_slug = $parent_term->slug;
-			$theme_location = "{$action_slug}-menu";
-			$term_link = wpcom_vip_get_term_link( $parent_term->term_id, 'cst_section' );
-			$section_parent_link = sprintf( '<li class="menu-item menu-item-type-taxonomy menu-item-object-cst_section"><a href="%1$s">%2$s</a></li>', $term_link, $parent_term->name );
+			$theme_location = false;
+			if ( 0 !== $section_obj->parent ) {
+				$parent_term = get_term_by( 'id', $section_obj->parent, 'cst_section' );
+				$action_slug = $parent_term->slug;
+				$theme_location = "{$action_slug}-menu";
+				$term_link = wpcom_vip_get_term_link( $parent_term->term_id, 'cst_section' );
+				$section_parent_link = sprintf( '<li class="menu-item menu-item-type-taxonomy menu-item-object-cst_section"><a href="%1$s">%2$s</a></li>', $term_link, $parent_term->name );
+			}
 		}
-		wp_nav_menu( array(
-			'theme_location' => $theme_location,
-			'fallback_cb' => false,
-			'depth' => 1,
-			'container_class' => 'cst-navigation-container columns section-subnav',
-			'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor ' . $section_obj->slug . '"><ul id="%1$s" class="">' . $section_parent_link . '%3$s</ul></div></div>',
-			'walker' => new GC_walker_nav_menu(),
-			)
-		);
+		if ( $theme_location ) {
+			wp_nav_menu( array(
+				'theme_location' => $theme_location,
+				'fallback_cb' => false,
+				'depth' => 1,
+				'container_class' => 'cst-navigation-container columns section-subnav',
+				'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor ' . $section_obj->slug . '"><ul id="%1$s" class="">' . $section_parent_link . '%3$s</ul></div></div>',
+				'walker' => new GC_walker_nav_menu(),
+				)
+			);
+		}
 	}
 	/**
 	* @return bool|object
@@ -1633,7 +1638,7 @@ class CST_Frontend {
 		$page_types = array(
 			'homepage' => array(
 					'container_class' => 'masthead-sections',
-					'items_wrap'      => '<ul id="%1$s" class="">%3$s</ul>',
+					'items_wrap'      => '<div class="homepage-nav-holder"><ul id="%1$s" class="">%3$s</ul></div>',
 			),
 			'section-front' => array(
 					'container_class' => 'cst-navigation-container',
