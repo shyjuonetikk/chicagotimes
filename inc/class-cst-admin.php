@@ -1281,11 +1281,12 @@ class CST_Admin {
 	 * Upon navigation/menu update this function is called by wp_update_nav_item action
 	 * to clear the nav cache used by section fronts
 	 *
-	 * See functions.php -> amp_nav_markup()
+	 * See class-cst-frontend.php -> get_sections_nav()
 	 */
 	public function section_nav_invalidate() {
 		wp_cache_delete( 'cst_homepage', 'default' );
 		wp_cache_delete( 'cst_section-front', 'default' );
+		wp_cache_delete( 'section_nav_cache_key', 'default' );
 	}
 
 	/**
