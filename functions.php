@@ -221,6 +221,8 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
 
+		// Vendor plugins
+		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
 		// AMP
@@ -356,6 +358,7 @@ class CST {
 
 		remove_all_actions( 'do_feed_rss2' );
 		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
+		add_action( 'rss2_ns', [ $this, 'cst_custom_feed_ns' ], 10, 1 );
 		add_action( 'do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1 );
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
@@ -459,6 +462,7 @@ class CST {
 			}
 			if ( WP_DEBUG ) {
 				$classes[] = 'vip-local';
+				$classes[] = 'vagrant-local';
 			}
 			return $classes;
 		});
@@ -1778,6 +1782,15 @@ class CST {
 	        load_template( $rss_template );
 	    else
 	        do_feed_rss2( $for_comments ); // Call default function
+	}
+
+	/**
+	 * Add namespace local development only
+	 */
+	public function cst_custom_feed_ns() {
+		if ( 'http://vagrant.local' === get_bloginfo( 'url' ) ) {
+			echo 'xmlns:media="http://search.yahoo.com/mrss/"' . "\n";
+		}
 	}
 
 	/**

@@ -205,6 +205,9 @@ googletag.cmd.push(function() {
 	 */
 	public function ad_header_settings( $amp = false ) {
 		$parent_inventory = $this->get_parent_dfp_inventory();
+		if ( $amp ) {
+			return '/61924087/' . 'AMP_CST';
+		}
 		$dfp_slug         = 'news';
 		$dfp_parent = '';
 		$dfp_child = '';
@@ -252,9 +255,6 @@ googletag.cmd.push(function() {
 					}
 				}
 			}
-		}
-		if ( $amp ) {
-			return $ad_unit_path;
 		}
 		?>
 <script>/* <![CDATA[ */
@@ -455,6 +455,7 @@ var dfp = {
 			case 'http://dev.suntimes.com':
 			case 'https://suntimesmediapreprod.wordpress.com':
 			case 'http://vip.local':
+			case 'http://vagrant.local':
 				$parent_inventory = 'chicago.suntimes.com.test';
 				break;
 			case 'http://chicago.suntimes.com':

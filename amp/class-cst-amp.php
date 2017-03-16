@@ -164,11 +164,13 @@ class CST_AMP {
 	function amp_add_embed_handlers( $embed_handler_classes, $post ) {
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-cst-gallery-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-related-posts-embed.php' );
+		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-public-good-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-social-share-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-sidebar-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-banner-embed.php' );
 		$embed_handler_classes['CST_AMP_Gallery_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Related_Posts_Embed'] = array();
+		$embed_handler_classes['CST_AMP_Public_Good_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Social_Share_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Sidebar_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Banner_Embed'] = array();
