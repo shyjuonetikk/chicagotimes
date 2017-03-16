@@ -1785,11 +1785,12 @@ class CST {
 	}
 
 	/**
-	 * Add namespace - perhaps this will avoid
-	 * namespace duplication error in preprod?
+	 * Add namespace local development only
 	 */
 	public function cst_custom_feed_ns() {
-		echo 'xmlns:media="http://search.yahoo.com/mrss/"';
+		if ( 'http://vagrant.local' === get_bloginfo( 'url' ) ) {
+			echo 'xmlns:media="http://search.yahoo.com/mrss/"' . "\n";
+		}
 	}
 
 	/**
