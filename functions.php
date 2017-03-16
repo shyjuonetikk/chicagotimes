@@ -356,6 +356,7 @@ class CST {
 
 		remove_all_actions( 'do_feed_rss2' );
 		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
+		add_action( 'rss2_ns', [ $this, 'cst_custom_feed_ns' ], 10, 1 );
 		add_action( 'do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1 );
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
@@ -1778,6 +1779,14 @@ class CST {
 	        load_template( $rss_template );
 	    else
 	        do_feed_rss2( $for_comments ); // Call default function
+	}
+
+	/**
+	 * Add namespace - perhaps this will avoid
+	 * namespace duplication error in preprod?
+	 */
+	public function cst_custom_feed_ns() {
+		echo 'xmlns:media="http://search.yahoo.com/mrss/"';
 	}
 
 	/**
