@@ -49,19 +49,9 @@ class CST_Homepage_Featured_Story_Widget extends WP_Widget {
 
     public function form( $instance ) {
 
-        $featured_link    = $instance['cst_featured_story_link'];
-        if( empty( $featured_link ) ) {
-            $featured_link = '';
-        }
-        $featured_image   = $instance['cst_featured_story_image'];
-        if( empty( $featured_image ) ) {
-            $featured_image = '';
-        }
-        $featured_title   = $instance['cst_featured_story_title'];
-        if( empty( $featured_title ) ) {
-            $featured_title = '';
-        }
-
+        isset( $instance['cst_featured_story_link'] ) ? $featured_link = $instance['cst_featured_story_link'] : $featured_link = '';
+        isset( $instance['cst_featured_story_image'] ) ? $featured_image = $instance['cst_featured_story_image'] : $featured_image = '';
+        isset( $instance['cst_featured_story_title'] ) ? $featured_title = $instance['cst_featured_story_title'] : $featured_title = '';
     ?>
         <p>
             <label for="<?php echo esc_attr( $this->get_field_id( 'cst_featured_story_title' ) ); ?>"><?php esc_html_e( 'Story Title:', 'chicagosuntimes' ); ?></label> 
