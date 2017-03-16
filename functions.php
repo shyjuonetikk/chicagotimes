@@ -1721,7 +1721,7 @@ class CST {
 		$featured_image_id = $obj->get_featured_image_id();
 		$output = '';
 		$image_type = 'cst-article-featured';
-		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) :
+		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
 			if ( doing_filter( 'the_content' ) ) {
 				$class = 'post-lead-media end';
 			} else {
@@ -1737,11 +1737,11 @@ class CST {
 			} else {
 				$output .= $attachment->get_html( $image_type );
 			}
-			if ( $caption = $attachment->get_caption() ) :
+			if ( $caption = $attachment->get_caption() ) {
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
-			endif;
+			}
 			$output .= '</div>';
-		endif;
+		}
 
 		if ( doing_filter( 'the_content' ) ) {
 			return $output;

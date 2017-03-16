@@ -21,7 +21,7 @@ if ( ! $obj ) {
 	}
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
-<?php if ( $section = $obj->get_primary_section() ) : ?>
+<?php if ( $section = $obj->get_primary_section() ) { ?>
 <?php if ( is_sticky() && ! is_singular() ) : ?>
 	<span class="developing">
 		<span class="triangle-top-right"></span>
@@ -43,7 +43,7 @@ echo sprintf(
 );
 ?>
 <?php endif; // End VIP Hotfix ?>
-<?php endif; ?>
+<?php } ?>
 	<?php if ( ! is_sticky() ) : ?>
 	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_post_date() ); ?></span>
 <?php endif; ?>
@@ -54,9 +54,5 @@ if ( $section = $obj->get_primary_section() ) {
 		<div class="medium-7 end" style="float: right;">
 			<?php CST()->frontend->sponsor_header( $section->term_id ); ?>
 		</div>
-	<?php } elseif ( $obj->get_sponsored_content() ) { ?>
-	<div class="medium-7 end" style="float: right;">
-		<h4 class="sponsored-notification">SPONSORED CONTENT</h4>
-	</div>
 	<?php } ?>
 <?php } ?>

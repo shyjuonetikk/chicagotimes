@@ -502,12 +502,15 @@ body.admin-bar {
 				}
 				>.sponsored-notification {
 					background-color: $red;
-					padding: 3px;
 					position: absolute;
 					right: 8px;
 					color: $white;
-					font-size: 0.9rem;
-					height: 19px;
+					padding: 1px;
+					left: 8px;
+					z-index: 10;
+					font-size: 0.5rem;
+					width: 60px;
+					height: 10px;
 				}
 			}
 

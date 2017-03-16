@@ -382,7 +382,7 @@ body[class^="archive"] {
 	article {
 		&.post {
 			.sponsored-notification {
-				margin-top: -29px;
+				margin-top: -2px;
 			}
 		}
 	}
@@ -392,6 +392,7 @@ body[class^="cst_article-"] {
 		&.post {
 			.sponsored-notification {
 				margin-top: -14px;
+				float:left;
 			}
 		}
 	}
@@ -858,6 +859,13 @@ body[class~="archive"] {
 			}
 			.post-lead-media {
 				float:left;
+			}
+			.section-image {
+				position: relative;
+			}
+			.section-sponsor-banner {
+				position: absolute;
+				z-index: 10;
 			}
 			.section-title {
 				float:left;

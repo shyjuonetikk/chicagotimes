@@ -2,20 +2,25 @@
 
 	<?php if ( is_singular() ) : ?>
 		<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
+		<?php if ( $obj->get_sponsored_content() ) { ?>
+			<div class="medium-7 columns end section-sponsor-banner">
+				<h4 class="sponsored-notification">SPONSORED CONTENT</h4>
+			</div>
+		<?php } ?>
 		<?php
 		echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) );
 		$media_type = $obj->get_featured_media_type();
-		if ( 'image' === $media_type ) :
+		if ( 'image' === $media_type ) {
 			CST()->featured_image_markup( $obj );
-		elseif ( 'gallery' === $media_type && $gallery = $obj->get_featured_gallery() ) : ?>
+		} elseif ( 'gallery' === $media_type && $gallery = $obj->get_featured_gallery() ) { ?>
 			<div class="post-lead-media post-content columns small-12 end">
 				<?php echo do_shortcode( '[cst-content id="' . $gallery->get_id() . '"]' ); ?>
 			</div>
-		<?php elseif ( 'video' === $media_type ) : ?>
+		<?php } elseif ( 'video' === $media_type ) { ?>
 			<div class="post-lead-media post-content columns small-12 end">
 				<?php echo $obj->get_featured_video_embed(); ?>
 			</div>
-		<?php endif; ?>
+		<?php } ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
 		<div class="post-content columns small-12 large-12 p402_premium end" itemprop="articleBody">
 		<?php
