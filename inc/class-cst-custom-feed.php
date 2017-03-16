@@ -39,6 +39,12 @@ class CST_Feeds {
 
 	}
 
+	/**
+	 * @param $query
+	 *
+	 * Increasing get post limit for each syndicated or partner feed
+	 * given there is probably attrition due to use of licensed images
+	 */
 	public function increase_post_count( $query ) {
 		if ( $query->is_feed() ) {
 			foreach ( $this->syndicated_feeds as $syndicated_feed ) {
