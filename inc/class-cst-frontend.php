@@ -1580,17 +1580,20 @@ class CST_Frontend {
 	* @return bool|mixed
 	*/
 	public function get_sections_nav() {
+		$section_navigation = '';
 		if ( false === ( $found = wp_cache_get( 'section_nav_cache_key' ) ) ) {
 			$sections = get_terms( array(
 				'taxonomy' => 'cst_section',
 				'hide_empty' => true,
-				'fields' => 'id=>slug',
+				'include_children' => false,
+				'parent' => 0,
 				)
 			);
-
 			wp_cache_set( 'section_nav_cache_key', $sections, '', 1 * WEEK_IN_SECONDS );
 		}
-
+		foreach ( $sections as $section ) {
+			$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s">%2$s</a></li>', wpcom_vip_get_term_link( $section->term_id ), $section->name );
+		}
 		return $section_navigation;
 
 	}
@@ -1609,7 +1612,9 @@ class CST_Frontend {
 				if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
 					wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' ) );
 				} else {
-					echo '<div class="cst-navigation-container columns section-subnav"><div class="nav-holder"><div class="nav-descriptor '.$section_obj->slug.'"><ul id="" class="">No menu assigned: use Chartbeat perhaps?</ul></div></div></div>';
+					// echo '<div class="cst-navigation-container columns section-subnav"><div class="nav-holder"><div class="nav-descriptor '.$section_obj->slug.'"><ul id="" class="">No menu assigned: use Chartbeat perhaps?</ul></div></div></div>';
+					echo '<div class="cst-off-canvas-navigation-container"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
+					echo '<ul id="menu-section-subnav" class="menu">' . $this->get_sections_nav() . '</ul></div></div></div>';
 				}
 			} else {
 				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
