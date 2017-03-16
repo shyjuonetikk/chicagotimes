@@ -83,6 +83,7 @@ class CST_Admin {
 		});
 		add_action( 'fm_term_cst_section', array( $this, 'section_sponsorship_fields' ) );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'amp_nav_invalidate_cache' ) );
+		add_action( 'wp_update_nav_menu_item', array( $this, 'section_nav_invalidate' ) );
 		add_action( 'post_submitbox_misc_actions', array( $this, 'trigger_notification_button' ) );
 	}
 
@@ -1275,6 +1276,16 @@ class CST_Admin {
 	 */
 	public function amp_nav_invalidate_cache() {
 		wp_cache_delete( 'cst_amp_nav_json', 'default' );
+	}
+	/**
+	 * Upon navigation/menu update this function is called by wp_update_nav_item action
+	 * to clear the nav cache used by section fronts
+	 *
+	 * See functions.php -> amp_nav_markup()
+	 */
+	public function section_nav_invalidate() {
+		wp_cache_delete( 'cst_homepage', 'default' );
+		wp_cache_delete( 'cst_section-front', 'default' );
 	}
 
 	/**

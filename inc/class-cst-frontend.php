@@ -1457,18 +1457,18 @@ class CST_Frontend {
 	* @param $sponsor_markup
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
+			$section_obj = get_queried_object();
 					// TODO cache me
 					// Call Chartbeat
 			wp_nav_menu( array(
-				'theme_location'  => 'homepage-itn',
+				'theme_location'  => $section_obj->slug . '-trending',
 				'fallback_cb'     => false,
-				'depth'           => 2,
+				'depth'           => 1,
 				'container_class' => 'cst-navigation-container columns section-itn',
 				'items_wrap'      => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
 				'walker'          => new GC_walker_nav_menu(),
 				)
 			);
-			$section_obj = get_queried_object();
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
 	<div class="<?php echo esc_attr( $name_width ); ?> section-meta">
@@ -1517,6 +1517,8 @@ class CST_Frontend {
 				'walker' => new GC_walker_nav_menu(),
 				)
 			);
+		} else {
+			echo '<div class="cst-navigation-container columns section-subnav"><div class="nav-holder"><div class="nav-descriptor '.$section_obj->slug.'"><ul id="" class="">No menu assigned: use Chartbeat perhaps?</ul></div></div></div>';
 		}
 	}
 	/**
@@ -1601,7 +1603,12 @@ class CST_Frontend {
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
-				wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' ) );
+				// Nav menu $conditional_nav->slug.'-menu' exists but is unassigned what to do?
+				if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
+					wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' ) );
+				} else {
+					echo '<div class="cst-navigation-container columns section-subnav"><div class="nav-holder"><div class="nav-descriptor '.$section_obj->slug.'"><ul id="" class="">No menu assigned: use Chartbeat perhaps?</ul></div></div></div>';
+				}
 			} else {
 				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
 			}
@@ -1639,21 +1646,33 @@ class CST_Frontend {
 			'homepage' => array(
 					'container_class' => 'masthead-sections',
 					'items_wrap'      => '<div class="homepage-nav-holder"><ul id="%1$s" class="">%3$s</ul></div>',
+					'location'        => 'homepage-masthead',
 			),
 			'section-front' => array(
 					'container_class' => 'cst-navigation-container',
 					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="">%3$s</ul></div></div>',
 			),
+			'homepage-itn' => array(
+					'container_class' => 'cst-navigation-container columns',
+					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
+			),
 		);
 		if ( array_key_exists( $page_type, $page_types ) ) {
-			wp_nav_menu( array(
-				'theme_location'  => 'homepage-masthead',
-				'fallback_cb'     => false,
-				'depth'           => 1,
-				'container_class' => $page_types[ $page_type ]['container_class'],
-				'items_wrap'      => $page_types[ $page_type ]['items_wrap'],
-				)
-			);
+			$masthead_nav_markup = wp_cache_get( 'cst_' . $page_type, 'default' );
+			if ( false === $masthead_nav_markup ) {
+				$masthead_nav_markup = wp_nav_menu( array(
+					'menu'            => $page_type,
+					'theme_location'  => 'homepage-masthead',
+					'echo'            => false,
+					'fallback_cb'     => false,
+					'depth'           => 1,
+					'container_class' => $page_types[ $page_type ]['container_class'],
+					'items_wrap'      => $page_types[ $page_type ]['items_wrap'],
+					)
+				);
+				wp_cache_set( 'cst_' . $page_type, $masthead_nav_markup, 'default', 1 * DAY_IN_SECONDS );
+			}
+			echo wp_kses_post( $masthead_nav_markup );
 		}
 	}
 	/**

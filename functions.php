@@ -462,6 +462,7 @@ class CST {
 			}
 			if ( WP_DEBUG ) {
 				$classes[] = 'vip-local';
+				$classes[] = 'vagrant-local';
 			}
 			return $classes;
 		});
@@ -1864,7 +1865,7 @@ class CST {
 	function navigation_link_tracking( $atts, $item, $args ) {
 
 		$atts['data-on'] = 'click';
-		$atts['data-event-category'] = 'navigation - ' . $args->menu->name;
+		$atts['data-event-category'] = 'navigation - ' . $args->theme_location;
 		$atts['data-event-action'] = 'navigate';
 		return $atts;
 	}

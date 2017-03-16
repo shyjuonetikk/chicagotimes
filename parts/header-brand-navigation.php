@@ -116,18 +116,7 @@
 				<div class="date"><?php echo esc_html( date_i18n( 'l, F j, Y' ) ); ?></div>
 			</div>
 		</div>
-	<?php
-	// TODO cache me
-	wp_nav_menu( array(
-		'theme_location'  => 'homepage-itn',
-		'fallback_cb'     => false,
-		'depth'           => 2,
-		'container_class' => 'cst-navigation-container columns',
-		'items_wrap'      => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
-		'walker'          => new GC_walker_nav_menu(),
-		)
-	);
-	?>
+	<?php CST()->frontend->masthead_navigation( 'homepage-itn' ); ?>
 </div>
 <?php } ?>
 <?php get_template_part( 'parts/off-canvas-menu' );
