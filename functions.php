@@ -92,9 +92,6 @@ class CST {
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
 
-		if ( 'chicago.suntimes.com' !== $this->dfp_handler->get_parent_dfp_inventory() ) {
-			wpcom_vip_load_plugin( 'inform-video-match', 'plugins', '1.7.3' );
-		}
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
