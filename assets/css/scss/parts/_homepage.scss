@@ -4,7 +4,7 @@
 	background-color: $site_background;
 
 	@media #{$xmedium-down} {
-		margin-top: 90px;
+		margin-top: 40px;
 	}
 	.news-cat:hover {
 		background: rgb(210, 45, 66) !important; /* The Fallback */
@@ -1153,12 +1153,11 @@
 @media (max-width: 1025px) {
 	.widget_cst_columnists_content_widget, .widget_cst_stng_wire_widget, .widget_cst_todays_paper_widget {
 		margin: 10px 0;
-		text-align: center;
 	}
 }
 
 .widget_cst_stng_wire_widget {
-	padding-left: 0;
+	padding-left: 10px;
 	font-size: 12px;
 
 	h2.widgettitle {

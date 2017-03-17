@@ -2744,6 +2744,9 @@ section#subscribe {
   clear: both;
   height: 40px; }
   .cst-navigation-container ul {
+    height: 24px;
+    word-wrap: break-word;
+    overflow: hidden;
     margin: 0;
     display: inline-block; }
     .cst-navigation-container ul li {
@@ -3305,7 +3308,7 @@ body.post-gallery-lightbox-active {
   /* FOOTER */ }
   @media only screen and (max-width:64em) {
     .homepage_wrapper {
-      margin-top: 90px; } }
+      margin-top: 40px; } }
   .homepage_wrapper .news-cat:hover {
     background: #d22d42 !important;
     /* The Fallback */
@@ -4047,10 +4050,9 @@ body.post-gallery-lightbox-active {
           width: 100%; } }
   @media (max-width: 1025px) {
     .homepage_wrapper .widget_cst_columnists_content_widget, .homepage_wrapper .widget_cst_stng_wire_widget, .homepage_wrapper .widget_cst_todays_paper_widget {
-      margin: 10px 0;
-      text-align: center; } }
+      margin: 10px 0; } }
   .homepage_wrapper .widget_cst_stng_wire_widget {
-    padding-left: 0;
+    padding-left: 10px;
     font-size: 12px; }
     .homepage_wrapper .widget_cst_stng_wire_widget h2.widgettitle {
       text-transform: uppercase;

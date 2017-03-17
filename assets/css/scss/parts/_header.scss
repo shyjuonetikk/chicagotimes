@@ -131,6 +131,9 @@
 	clear: both;
 	height: 40px;
 	ul {
+		height: 24px;
+		word-wrap: break-word;
+		overflow: hidden;
 		margin:0;
 		display: inline-block;
 		li {
