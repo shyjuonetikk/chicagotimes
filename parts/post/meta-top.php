@@ -16,13 +16,13 @@ if ( ! $obj ) {
 		}
 	}
 
-	if ( is_sticky() && ! is_singular() ) {
+	if ( $developing && is_sticky() && ! is_singular() ) {
 		$classes[] = 'sticky-taxonomy';
 	}
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
 <?php if ( $section = $obj->get_primary_section() ) { ?>
-<?php if ( is_sticky() && ! is_singular() ) : ?>
+<?php if ( $developing && is_sticky() && ! is_singular() ) : ?>
 	<span class="developing">
 		<span class="triangle-top-right"></span>
 		<span class="developing-text">developing</span>
@@ -31,7 +31,7 @@ if ( ! $obj ) {
 <?php endif; ?>
 <?php
 // VIP: Stopping fatal errors "Call to undefined method CST\Objects\Gallery::get_preferred_section()"
-if ( is_callable( array( $obj, 'get_preferred_section' ) ) ) :
+if ( ! $developing && is_callable( array( $obj, 'get_preferred_section' ) ) ) :
 ?>
 <?php $preferred_section = $obj->get_preferred_section( $section );
 echo sprintf(

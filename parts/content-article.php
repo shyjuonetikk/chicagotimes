@@ -1,6 +1,6 @@
-<?php if ( ! empty( $is_main_query ) ) : ?>
+<?php if ( ! empty( $is_main_query ) ) { ?>
 
-	<?php if ( is_singular() ) : ?>
+	<?php if ( is_singular() ) { ?>
 		<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
 		<?php if ( $obj->get_sponsored_content() ) { ?>
 			<div class="medium-7 columns end section-sponsor-banner">
@@ -44,12 +44,13 @@
 			echo date( 'Y' ); ?> Associated Press. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</p>
 		<?php } ?>
 		</div>
-	<?php else : ?>
+	<?php } else { ?>
 		<div class="section-front small-12">
 		<?php
 		if ( $obj->get_featured_image_id() ) { ?>
 			<div class="section-image small-4">
-			<?php echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) ); ?>
+				<?php if ( is_sticky() && ! is_singular( ) ) { echo CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true, 'developing' => true ) ); } ?>
+				<?php echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) ); ?>
 			</div>
 		<?php } ?>
 			<div class="section-title small-8">
@@ -60,6 +61,6 @@
 				} ?>
 			</div>
 		</div>
-	<?php endif; ?>
+	<?php } ?>
 
-<?php endif;
+<?php }

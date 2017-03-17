@@ -14,8 +14,8 @@
 				width: 0;
 				border-top: 8px solid $black;
 				border-left: 9px solid transparent;
-				right: 23px;
-				top: 21px;
+				right: 19px;
+				top: 18px;
 			}
 
 			.developing-text {
@@ -25,8 +25,8 @@
 				color: $white;
 				background: $social_grey;
 				padding: 4px;
-				right: 32px;
-				bottom: 8px;
+				right: 28px;
+				bottom: 7px;
 			}
 
 			.right-ribbon {
@@ -34,10 +34,10 @@
 				position: relative;
 				height: 0;
 				width: 0;
-				border-top: 12px solid $social_grey;
+				border-top: 11px solid $social_grey;
 				border-right: 12px solid transparent;
-				border-bottom: 13px solid $social_grey;
-				right: 36px;
+				border-bottom: 11px solid $social_grey;
+				right: 31px;
 			}
 
 			
@@ -61,6 +61,8 @@
 		}
 
 		&.sticky-taxonomy {
+			position: absolute;
+			z-index: 10;
 			.post-section-taxonomy,
 			.post-embed-source {
 				bottom: 8px;
