@@ -123,13 +123,7 @@
                 this.interstitialContainer.css('display', 'none');
             }, this ) );
 
-            $(document)
-            .on("open.fndtn.offcanvas", "[data-offcanvas]", function() {
-                $("html").css("overflow", "hidden");
-            })
-            .on("close.fndtn.offcanvas", "[data-offcanvas]", function() {
-                $("html").css("overflow", "auto");
-            });
+
 
         },
 
@@ -138,8 +132,6 @@
          */
         doScrollEvent: function() {
           var scrollTop = $(window).scrollTop();
-            var windowWidth = $(window).width();
-            this.header.toggleClass("hide-header",scrollTop > previousPosition);
             previousPosition = scrollTop;
             if ( scrollTop > 0 ) {
 
@@ -432,7 +424,7 @@
 
         $(document).foundation({
           offcanvas: {
-            open_method: "overlap"
+            open_method: "move"
           }
         });
         CST.init();

@@ -1,8 +1,6 @@
 <?php
 $obj = CST()->frontend->get_current_object();
 ?>
-<div class="off-canvas-wrap" data-offcanvas>
-	<div class="inner-wrap">
 
 <header id="header" class="masthead">
 
@@ -22,6 +20,8 @@ $obj = CST()->frontend->get_current_object();
 	</section>
 	<?php } ?>
 </header>
+<div class="off-canvas-wrap" data-offcanvas>
+	<div class="inner-wrap">
 
 <aside class="left-off-canvas-menu">
 	<div class="off-canvas-menu">

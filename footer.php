@@ -3,7 +3,6 @@
 } ?>
 </div>
 
-<?php wp_footer(); ?>
 <?php
 if ( is_singular() ) {
 	get_template_part( 'parts/vendors/google-survey-footer' );
@@ -17,5 +16,6 @@ get_template_part( 'parts/footer-brand-navigation' );
 
 do_action( 'closing_body' );
 ?>
+<?php wp_footer(); ?>
 </body>
 </html>

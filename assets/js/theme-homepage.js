@@ -43,6 +43,7 @@
       this.closeInterstitial = $('#dfp-interstitial-close');
       this.searchButton = $('#search-button');
       this.searchInput = $('#search-input');
+      this.offCanvasList = $('.off-canvas-menu');
 
     },
 
@@ -154,8 +155,28 @@
           this.dfpWallpaper.addClass('dfp-wallpaper-normal');
         }
       }
+      if ( scrollTop > 0 && this.hasClass(document.getElementsByClassName('off-canvas-wrap')[0],'move-right') ) {
+        this.topHeight = $(document).scrollTop();
+        this.offCanvasList.addClass('fixed-canvas-menu');
+
+        // Specific for IE browser
+        if ( $.browser.msie ) {
+          this.offCanvasList.css("top", this.primaryNavigation.height() + this.topHeight + 'px');
+        } else {
+          this.offCanvasList.css("top", this.topHeight + 'px');
+        }
+
+      } else {
+        this.offCanvasList.removeClass("fixed-canvas-menu");
+      }
 
 
+    },
+    hasClass: function(el,className) {
+      if (el.classList)
+        return el.classList.contains(className);
+      else
+        return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
     }
 
   };
