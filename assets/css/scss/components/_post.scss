@@ -365,11 +365,10 @@ article.post {
 	}
 	.sponsored-notification {
 		background: $red;
-		padding: 5px;
-		text-align: right;
+		padding: 1px;
 		color: $white;
-		font-size: 0.9rem;
-		float: right;
+		font-size: 0.8rem;
+		margin-bottom:0;
 	}
 	>.sponsored-treatment {
 		background: $box_grey;
@@ -378,15 +377,7 @@ article.post {
 		width: 100%;
 	}
 }
-body[class^="archive"] {
-	article {
-		&.post {
-			.sponsored-notification {
-				margin-top: -2px;
-			}
-		}
-	}
-}
+
 body[class^="cst_article-"] {
 	article {
 		&.post {
@@ -506,6 +497,14 @@ body[class^="cst_article-"] {
 			margin-top:132px;
 		}
 		@media #{$xmedium-only} and (orientation: landscape) {
+			#main{
+				padding-left: 0.9375rem;
+				&.medium-7 {
+					width: 68.33%;
+				}
+			}
+		}
+		@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
 			#main{
 				padding-left: 0.9375rem;
 				&.medium-7 {
@@ -852,6 +851,9 @@ body[class~="archive"] {
 	article {
 		&.post {
 			box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+			.sponsored-notification {
+				margin-top: -2px;
+			}
 		}
 		&.index-view {
 			.section-front {
@@ -866,6 +868,8 @@ body[class~="archive"] {
 			.section-sponsor-banner {
 				position: absolute;
 				z-index: 10;
+				width: 100%;
+				text-align: center;
 			}
 			.section-title {
 				float:left;
@@ -873,7 +877,7 @@ body[class~="archive"] {
 					font-size: 1.5rem;
 					line-height:1.9rem;
 				}
-				@media #{$small-only} {
+				@media #{$xmediumi-down} {
 					.post-meta-top {
 						padding-top:0;
 					}

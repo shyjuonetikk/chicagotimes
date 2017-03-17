@@ -24,6 +24,7 @@ $xmedium-up: "#{$screen} and (min-width:#{lower-bound($xmedium-range)})" !defaul
 $xmedium-down: "#{$screen} and (max-width:#{upper-bound($xmedium-range)})" !default;
 $xmedium-only: "#{$screen} and (min-width:#{lower-bound($xmedium-range)}) and (max-width:#{upper-bound($xmedium-range)})" !default;
 $xmediumi-only: "#{$screen} and (min-width:#{lower-bound($xmediumi-range)}) and (max-width:#{upper-bound($xmediumi-range)})" !default;
+$xmediumi-down: "#{$screen} and (max-width:#{upper-bound($xmediumi-range)})" !default;
 
 $large-up: "#{$screen} and (min-width:#{lower-bound($large-range)})" !default;
 $large-down: "#{$screen} and (max-width:#{upper-bound($large-range)})" !default;

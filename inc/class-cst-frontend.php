@@ -199,7 +199,7 @@ class CST_Frontend {
 						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
 					}
 				}
-				if ( ! is_front_page() || ! is_page() ) {
+				if ( is_singular() || is_tax() ) {
 					if ( is_singular( array( 'cst_feature', 'cst_article', 'cst_gallery' ) ) ) {
 						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 					}

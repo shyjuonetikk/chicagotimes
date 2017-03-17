@@ -1487,19 +1487,15 @@ article.post {
     line-height: 1.3rem; }
   article.post .sponsored-notification {
     background: #d22d42;
-    padding: 5px;
-    text-align: right;
+    padding: 1px;
     color: white;
-    font-size: 0.9rem;
-    float: right; }
+    font-size: 0.8rem;
+    margin-bottom: 0; }
   article.post > .sponsored-treatment {
     background: #e6e6e6;
     border: 1px solid #231f20;
     float: left;
     width: 100%; }
-
-body[class^="archive"] article.post .sponsored-notification {
-  margin-top: -2px; }
 
 body[class^="cst_article-"] article.post .sponsored-notification {
   margin-top: -14px;
@@ -1570,6 +1566,11 @@ body[class^="cst_article-"] article.post .sponsored-notification {
     .single #post-body {
       margin-top: 132px; } }
   @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+    .single #post-body #main {
+      padding-left: 0.9375rem; }
+      .single #post-body #main.medium-7 {
+        width: 68.33%; } }
+  @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
     .single #post-body #main {
       padding-left: 0.9375rem; }
       .single #post-body #main.medium-7 {
@@ -1769,6 +1770,8 @@ article[id^="post-"] h4.agg-sponsored {
 
 body[class~="archive"] article.post {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+  body[class~="archive"] article.post .sponsored-notification {
+    margin-top: -2px; }
 body[class~="archive"] article.index-view .section-front {
   float: left; }
 body[class~="archive"] article.index-view .post-lead-media {
@@ -1777,13 +1780,15 @@ body[class~="archive"] article.index-view .section-image {
   position: relative; }
 body[class~="archive"] article.index-view .section-sponsor-banner {
   position: absolute;
-  z-index: 10; }
+  z-index: 10;
+  width: 100%;
+  text-align: center; }
 body[class~="archive"] article.index-view .section-title {
   float: left; }
   body[class~="archive"] article.index-view .section-title h1 {
     font-size: 1.5rem;
     line-height: 1.9rem; }
-  @media only screen and (max-width: 40em) {
+  @media only screen and (max-width:63.94em) {
     body[class~="archive"] article.index-view .section-title .post-meta-top {
       padding-top: 0; }
     body[class~="archive"] article.index-view .section-title h1 {
@@ -2257,7 +2262,8 @@ section#subscribe {
     .sidebar .letters-to-the-editor-widget img:hover {
       opacity: 0.75; }
   .sidebar .sidebar-scroll-container {
-    position: absolute; }
+    position: absolute;
+    padding: 0 8px; }
 
 @media only screen and (min-width:64.063em) {
   #fixed-footer-container {

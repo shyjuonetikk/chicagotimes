@@ -1,7 +1,7 @@
 <?php $image_size = is_tax() ? 'chiwire-header-small' : 'chiwire-article'; ?>
 <?php if ( $obj->get_sponsored_content() ) { ?>
 <div class="section-sponsor-banner">
-	<h4 class="sponsored-notification">SPONSORED CONTENT</h4>
+	<h4 class="sponsored-notification">SPONSORED</h4>
 </div>
 <?php } ?>
 <div class="post-lead-media <?php if ( $obj->get_post_type() != 'cst_article' ) { echo 'hover-state'; } ?>">
