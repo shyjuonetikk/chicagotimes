@@ -47,6 +47,7 @@
             this.postSidebar = $('.article-sidebar');
             this.postBody = $('#post-body');
             this.offCanvasList = $('.off-canvas-menu');
+            this.leftOffCanvasList = $('.left-off-canvas-menu');
             this.searchButton = $('#search-button');
             this.searchInput = $('#search-input');
             this.leftSidebar = $('.stick-sidebar-left');
@@ -133,16 +134,16 @@
         doScrollEvent: function() {
           var scrollTop = $(window).scrollTop();
             previousPosition = scrollTop;
-            if ( scrollTop > 0 ) {
+            if ( scrollTop > 0 && this.hasClass(document.getElementsByClassName('off-canvas-wrap')[0],'move-right') ) {
 
                 this.topHeight = $(document).scrollTop();
-                this.offCanvasList.addClass('fixed-canvas-menu');
+                this.leftOffCanvasList.addClass('fixed-canvas-menu');
 
                 // Specific for IE browser
                 if ( $.browser.msie ) {
-                    this.offCanvasList.css("top", this.primaryNavigation.height() + this.topHeight + 'px');
+                    this.leftOffCanvasList.css("top", this.primaryNavigation.height() + this.topHeight + this.featuredPosts.height() + 'px');
                 } else {
-                    this.offCanvasList.css("top", this.topHeight + 'px');
+                    this.leftOffCanvasList.css("top", this.topHeight + this.featuredPosts.height() + 'px');
                 }
 
             } else {
@@ -184,6 +185,12 @@
                 }
             this.positionAndSizePostSidebar(scrollTop);
             },
+      hasClass: function(el,className) {
+        if (el.classList)
+          return el.classList.contains(className);
+        else
+          return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+      },
 
         /**
          * Make some iframes responsive

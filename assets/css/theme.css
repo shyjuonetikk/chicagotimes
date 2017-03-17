@@ -16,7 +16,7 @@ html, body {
 
 body, .grey-background {
   background-color: #f8f8f8;
-  font-family: 'Libre Frankin', Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   color: #282828;
   height: auto;
   position: relative;
@@ -150,7 +150,7 @@ footer {
   width: 345px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Libre Frankin', Arial, sans-serif; }
+  font-family: 'Open Sans', Arial, sans-serif; }
   h1 a, h1 a:hover, h2 a, h2 a:hover, h3 a, h3 a:hover, h4 a, h4 a:hover, h5 a, h5 a:hover, h6 a, h6 a:hover {
     color: #282828; }
 
@@ -325,7 +325,7 @@ body.error404 {
       font-size: 1.15rem;
       font-weight: 700; }
     .dfp-interstitial #dfp-interstitial-container .dfp-interstitial-close {
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       font-size: 1rem;
       font-weight: 700; }
 
@@ -352,7 +352,7 @@ body.error404 {
   #ie8-user .update_browser {
     font-size: 2rem;
     text-transform: uppercase;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 800;
     vertical-align: middle;
     margin-right: 15px; }
@@ -369,7 +369,7 @@ header#header {
     right: 0;
     top: 17px;
     text-transform: uppercase;
-    font-family: 'Libre Frankin', Arial, sans-serif; }
+    font-family: 'Open Sans', Arial, sans-serif; }
     header#header #weather .degrees {
       color: #ffe000;
       font-size: 1.2rem;
@@ -955,7 +955,7 @@ ul#menu-sun-times-network {
     .wire #section-top.author h1 {
       font-size: 2rem;
       line-height: 2.5rem;
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       font-weight: 800; }
     .wire #section-top.author h4 {
       font-size: 1.3rem;
@@ -1007,7 +1007,7 @@ ul#menu-sun-times-network {
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     color: #484848;
     font-size: 0.9rem;
     line-height: 1.25rem; }
@@ -1056,13 +1056,13 @@ ul#menu-sun-times-network {
         .wire .post .embed-content .instagram-body p {
           margin-left: 0px;
           font-weight: 700;
-          font-family: 'Libre Frankin', Arial, sans-serif;
+          font-family: 'Open Sans', Arial, sans-serif;
           font-size: 1rem;
           line-height: 1.25rem; } }
     .wire .post .embed-content .instagram-body .instagram-image {
       margin-bottom: 10px; }
     .wire .post .embed-content .instagram-byline {
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       font-size: 1rem; }
       .wire .post .embed-content .instagram-byline .fa {
         color: #7d7e7e; }
@@ -1087,7 +1087,7 @@ ul#menu-sun-times-network {
       float: left;
       width: 65px; }
     .wire .post .liveblog-entry .liveblog-author-name {
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       font-weight: 700;
       font-size: 1rem; }
     .wire .post .liveblog-entry .liveblog-meta-time {
@@ -1153,7 +1153,7 @@ ul#menu-sun-times-network {
     .wire .cst-embed-twitter .embed-content .tweet-body {
       padding-bottom: 5px; }
     .wire .cst-embed-twitter .embed-content a p {
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       font-size: 1rem;
       line-height: 1.25rem;
       font-weight: 700; }
@@ -1250,7 +1250,7 @@ article.post {
   background-color: white;
   float: none; }
   article.post h1 {
-    font-family: 'Libre Frankin', Arial, sans-serif; }
+    font-family: 'Open Sans', Arial, sans-serif; }
     @media only screen and (min-width:40.063em) {
       article.post h1 {
         font-weight: 800; } }
@@ -1613,7 +1613,7 @@ body[class^="cst_article-"] article.post .sponsored-notification {
         font-weight: 700;
         line-height: 1.9rem; } }
   .single article.post .post-copyright {
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     font-size: 0.75rem;
     color: #9a9a9a;
     font-style: italic; }
@@ -1685,13 +1685,13 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   border-bottom: 2px solid #cdcdcd;
   margin-bottom: 0; }
 .single .instagram-byline {
-  font-family: 'Libre Frankin', Arial, sans-serif; }
+  font-family: 'Open Sans', Arial, sans-serif; }
   .single .instagram-byline .fa {
     color: #7d7e7e; }
   .single .instagram-byline a {
     color: #282828;
     font-weight: 700;
-    font-family: 'Libre Frankin', Arial, sans-serif; }
+    font-family: 'Open Sans', Arial, sans-serif; }
   .single .instagram-byline a:hover {
     color: #7d7e7e; }
 .single .ndn_embed {
@@ -1858,7 +1858,7 @@ section#subscribe {
   max-width: 1220px;
   padding: 20px;
   margin: 20px auto 10px;
-  font-family: 'Libre Frankin', Arial, sans-serif; }
+  font-family: 'Open Sans', Arial, sans-serif; }
   section#subscribe .mbox3 h1 {
     font-weight: 100;
     margin-bottom: 20px;
@@ -2016,7 +2016,7 @@ section#subscribe {
       margin-bottom: 20px; }
   section#subscribe .headlines {
     list-style-type: none;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     margin-left: 0px;
     margin-right: 45px;
     color: #282828; }
@@ -2074,7 +2074,7 @@ section#subscribe {
       border-right: 1px solid #eeeeee;
       padding: 0 15px;
       vertical-align: top;
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       color: #282828;
       overflow: auto; }
     section#subscribe .trending li:first-child {
@@ -2131,7 +2131,7 @@ section#subscribe {
     margin-right: 12px; }
   .cst-embed-twitter .embed-content .tweet-byline {
     padding-bottom: 2px;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     font-size: 1rem; }
     .cst-embed-twitter .embed-content .tweet-byline .fa-twitter {
       color: #59adeb; }
@@ -2200,7 +2200,7 @@ section#subscribe {
         text-transform: uppercase;
         font-weight: 700;
         font-size: 0.75rem;
-        font-family: 'Libre Frankin', Arial, sans-serif; }
+        font-family: 'Open Sans', Arial, sans-serif; }
         .sidebar#post-sidebar .load-buttons .button#latest {
           background-color: #9a9a9a;
           display: inline-block; }
@@ -2272,7 +2272,7 @@ section#subscribe {
     position: relative;
     margin-bottom: 5px;
     width: 303px;
-    font-family: 'Libre Frankin', Arial, sans-serif; }
+    font-family: 'Open Sans', Arial, sans-serif; }
     #fixed-footer-container h3 {
       font-weight: 700;
       text-transform: uppercase; }
@@ -2750,7 +2750,7 @@ section#subscribe {
   clear: both;
   height: 40px; }
   .cst-navigation-container ul {
-    height: 24px;
+    height: 26px;
     word-wrap: break-word;
     overflow: hidden;
     margin: 0;
@@ -2899,7 +2899,7 @@ header .contain-to-grid .cst-row {
   top: 1px;
   color: white;
   text-transform: uppercase;
-  font-family: 'Libre Frankin', Arial, sans-serif; }
+  font-family: 'Open Sans', Arial, sans-serif; }
   #social-links ul {
     list-style-type: none;
     margin: 0;
@@ -2979,7 +2979,7 @@ footer {
     color: white;
     padding: 8px;
     font-size: 0.8rem;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 700;
     text-transform: uppercase; }
     .post-gallery .post-gallery-lead-image-wrap a.post-gallery-open-button:hover {
@@ -3054,7 +3054,7 @@ body.post-gallery-lightbox-active {
             margin-top: 0; } }
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
       background: #231f20;
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       font-size: 1rem;
       line-height: 1.5rem;
       padding-top: 10px;
@@ -3189,24 +3189,24 @@ body.post-gallery-lightbox-active {
       border-top: 8px solid #282828;
       border-left: 9px solid transparent;
       right: 19px;
-      top: 18px; }
+      top: 21px; }
     .post .post-meta .developing .developing-text {
       position: relative;
       text-transform: uppercase;
       font-weight: 700;
       color: white;
       background: #9a9a9a;
-      padding: 4px;
+      padding: 5px;
       right: 28px;
-      bottom: 7px; }
+      bottom: 9px; }
     .post .post-meta .developing .right-ribbon {
       display: inline-block;
       position: relative;
       height: 0;
       width: 0;
-      border-top: 11px solid #9a9a9a;
-      border-right: 12px solid transparent;
-      border-bottom: 11px solid #9a9a9a;
+      border-top: 14px solid #9a9a9a;
+      border-right: 13px solid transparent;
+      border-bottom: 13px solid #9a9a9a;
       right: 31px; }
   .post .post-meta .post-section-taxonomy, .post .post-meta .post-embed-source {
     position: relative; }
@@ -3232,7 +3232,7 @@ body.post-gallery-lightbox-active {
   .post .post-meta-byline .newsletter-box {
     padding-left: 0; }
   .post .post-meta-byline .post-meta-author {
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     font-weight: 700;
     font-size: 1rem;
     margin-top: 10px;
@@ -3290,7 +3290,7 @@ body.post-gallery-lightbox-active {
 .post .post-meta-bottom .post-meta-taxonomy-terms {
   color: #9a9a9a;
   text-transform: uppercase;
-  font-family: 'Libre Frankin', Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   font-weight: 700;
   line-height: 1.4rem; }
   .post .post-meta-bottom .post-meta-taxonomy-terms a {
@@ -4370,7 +4370,7 @@ html, body {
 
 body, .grey-background {
   background-color: #f8f8f8;
-  font-family: 'Libre Frankin', Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   color: #282828;
   height: auto;
   position: relative;
@@ -4504,7 +4504,7 @@ footer {
   width: 345px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Libre Frankin', Arial, sans-serif; }
+  font-family: 'Open Sans', Arial, sans-serif; }
   h1 a, h1 a:hover, h2 a, h2 a:hover, h3 a, h3 a:hover, h4 a, h4 a:hover, h5 a, h5 a:hover, h6 a, h6 a:hover {
     color: #282828; }
 
@@ -4577,7 +4577,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 3rem;
   color: #cccccc;
   text-align: center;
-  font-family: 'Libre Frankin', Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   clear: both; }
 .cst_feature-template-default article.post .post-meta-byline, .single-cst_feature article.post .post-meta-byline {
   text-align: center; }
@@ -4671,11 +4671,11 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.8; }
   .cst_feature-template-default p.wp-caption-text, .single-cst_feature p.wp-caption-text {
     color: #9a9a9a;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     font-style: normal; }
 .cst_feature-template-default .post-lead-media .image-caption p, .single-cst_feature .post-lead-media .image-caption p {
   color: #9a9a9a;
-  font-family: 'Libre Frankin', Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   font-style: normal; }
 .cst_feature-template-default blockquote p, .single-cst_feature blockquote p {
   color: #484848;
@@ -4786,7 +4786,7 @@ body#tinymce {
     font-size: 3rem;
     color: #cccccc;
     text-align: center;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     clear: both; }
   #tinymce.post-type-cst_feature p {
     font-size: 18px;
@@ -4794,7 +4794,7 @@ body#tinymce {
     line-height: 1.8; }
     #tinymce.post-type-cst_feature p.wp-caption-text {
       color: #9a9a9a;
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       font-style: normal; }
   #tinymce.post-type-cst_feature blockquote p {
     color: #484848;

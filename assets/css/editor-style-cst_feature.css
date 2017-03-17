@@ -16,7 +16,7 @@ html, body {
 
 body, .grey-background {
   background-color: #f8f8f8;
-  font-family: 'Libre Frankin', Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   color: #282828;
   height: auto;
   position: relative;
@@ -150,7 +150,7 @@ footer {
   width: 345px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Libre Frankin', Arial, sans-serif; }
+  font-family: 'Open Sans', Arial, sans-serif; }
   h1 a, h1 a:hover, h2 a, h2 a:hover, h3 a, h3 a:hover, h4 a, h4 a:hover, h5 a, h5 a:hover, h6 a, h6 a:hover {
     color: #282828; }
 
@@ -223,7 +223,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 3rem;
   color: #cccccc;
   text-align: center;
-  font-family: 'Libre Frankin', Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   clear: both; }
 .cst_feature-template-default article.post .post-meta-byline, .single-cst_feature article.post .post-meta-byline {
   text-align: center; }
@@ -317,11 +317,11 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.8; }
   .cst_feature-template-default p.wp-caption-text, .single-cst_feature p.wp-caption-text {
     color: #9a9a9a;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     font-style: normal; }
 .cst_feature-template-default .post-lead-media .image-caption p, .single-cst_feature .post-lead-media .image-caption p {
   color: #9a9a9a;
-  font-family: 'Libre Frankin', Arial, sans-serif;
+  font-family: 'Open Sans', Arial, sans-serif;
   font-style: normal; }
 .cst_feature-template-default blockquote p, .single-cst_feature blockquote p {
   color: #484848;
@@ -432,7 +432,7 @@ body#tinymce {
     font-size: 3rem;
     color: #cccccc;
     text-align: center;
-    font-family: 'Libre Frankin', Arial, sans-serif;
+    font-family: 'Open Sans', Arial, sans-serif;
     clear: both; }
   #tinymce.post-type-cst_feature p {
     font-size: 18px;
@@ -440,7 +440,7 @@ body#tinymce {
     line-height: 1.8; }
     #tinymce.post-type-cst_feature p.wp-caption-text {
       color: #9a9a9a;
-      font-family: 'Libre Frankin', Arial, sans-serif;
+      font-family: 'Open Sans', Arial, sans-serif;
       font-style: normal; }
   #tinymce.post-type-cst_feature blockquote p {
     color: #484848;
