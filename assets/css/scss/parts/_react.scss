@@ -1,9 +1,14 @@
 .cb-list {
 	margin-left: 0.1rem;
 	padding:0;
-		.cb-articles {
+	.cb-articles {
 		list-style-type: none;
-		padding: 5px;
+		padding: 2px 5px;
 		text-align: left;
+		line-height: 1.4rem;
+		font-size: 0.8rem;
+		a {
+			color: $cst_black;
+		}
 	}
 }

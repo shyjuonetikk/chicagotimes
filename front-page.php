@@ -21,13 +21,6 @@ endif;
 	endif;
 	?>
 </div>
-<div class="small-12 content-wrapper">
-	<hr class="before">
-	<h2 class="section-title"><span>Currently trending:</span></h2>
-	<hr>
-	<div id="root"></div>
-	<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/static/js/main.6c13c9a2.js"></script>
-</div>
 <div class="large-12 dfp-atf-leaderboard">
 	<?php echo CST()->dfp_handler->unit( 3, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
 </div>
