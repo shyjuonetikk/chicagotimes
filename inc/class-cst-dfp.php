@@ -39,12 +39,14 @@ class CST_DFP_Handler {
 		}
 		return sprintf(
 			'
+<div class="row">
 <div id="%1$s" class="%2$s" data-visual-label="%3$s">
 <script>
 	googletag.cmd.push(function() {
 		googletag.display("%4$s");
 	})
 </script>
+</div>
 </div>
 ',
 			esc_attr( $type . '-' . intval( $index ) ),

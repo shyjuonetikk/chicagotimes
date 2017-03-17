@@ -4052,7 +4052,6 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .widget_cst_columnists_content_widget, .homepage_wrapper .widget_cst_stng_wire_widget, .homepage_wrapper .widget_cst_todays_paper_widget {
       margin: 10px 0; } }
   .homepage_wrapper .widget_cst_stng_wire_widget {
-    padding-left: 10px;
     font-size: 12px; }
     .homepage_wrapper .widget_cst_stng_wire_widget h2.widgettitle {
       text-transform: uppercase;

@@ -58,20 +58,22 @@ class CST_Newspaper_Cover_Widget extends WP_Widget {
 			$back_cover_url = '';
 		}
 		?>
-		<div class="large-12 medium-6 small-12 widget_cst_todays_paper_widget">
+		<div class="large-12 medium-6 small-12 columns widget_cst_todays_paper_widget">
 			<div><h2 class="widgettitle"><?php echo esc_html( 'Today\'s Cover', 'chicagosuntimes' ); ?></h2></div>
 			<div class="todays-paper-container columns">
-				<div class="todays-paper-front large-12 medium-6 small-12">
-					<a href="">
-						<img src="<?php echo esc_url( $front_cover_url ); ?>"/>
-					</a>
-				</div>
-				<div class="todays-paper-back large-12 medium-6 small-12">
-					<div class="todays-paper-links">
-						<a href="http://wssp.suntimes.com/subscribe/" target="_blank" class="button tiny radius"><?php esc_html_e( 'Subscribe', 'chicagosuntimes' ); ?></a>
-						<a href="http://eedition.suntimes.com/epaper/viewer.aspx" target="_blank" class="button secondary tiny radius"><?php esc_html_e( 'E-Paper', 'chicagosuntimes' ); ?></a>
+				<div class="row">
+					<div class="todays-paper-front large-12 medium-6 small-12">
+						<a href="">
+							<img src="<?php echo esc_url( $front_cover_url ); ?>"/>
+						</a>
 					</div>
-					<img src="<?php echo esc_url( $back_cover_url ); ?>"/>
+					<div class="todays-paper-back large-12 medium-6 small-12">
+						<div class="todays-paper-links">
+							<a href="http://wssp.suntimes.com/subscribe/" target="_blank" class="button tiny radius"><?php esc_html_e( 'Subscribe', 'chicagosuntimes' ); ?></a>
+							<a href="http://eedition.suntimes.com/epaper/viewer.aspx" target="_blank" class="button secondary tiny radius"><?php esc_html_e( 'E-Paper', 'chicagosuntimes' ); ?></a>
+						</div>
+						<img src="<?php echo esc_url( $back_cover_url ); ?>"/>
+					</div>
 				</div>
 			</div>
 		</div>
