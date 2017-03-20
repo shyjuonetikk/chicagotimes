@@ -116,6 +116,11 @@
           this.responsiveIframes();
         }, this ), 30 );
       }, this ) );
+      $(document)
+        .on('open.fndtn.offcanvas', '[data-offcanvas]', CST_Homepage.handleNavigation)
+        .on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
+          document.getElementsByTagName('body')[0].style.overflow='auto';
+        });
     },
     /**
      * Make some iframes responsive
@@ -171,6 +176,19 @@
       }
 
 
+    },
+    handleNavigation: function() {
+        document.getElementsByTagName('body')[0].style.overflow='hidden';
+        var scrollTop = $(window).scrollTop();
+        if ( scrollTop > 0 && ! CST_Homepage.hasClass(document.getElementsByClassName('off-canvas-wrap')[0],'move-right') ) {
+          // Specific for IE browser
+          if ( $.browser.msie ) {
+            this.offCanvasList.css("top", this.primaryNavigation.height() + scrollTop + 'px');
+          } else {
+            CST_Homepage.offCanvasList.css("top", scrollTop + 'px');
+            CST_Homepage.offCanvasList.css("position", 'absolute');
+          }
+        }
     },
     hasClass: function(el,className) {
       if (el.classList)

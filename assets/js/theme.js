@@ -124,7 +124,11 @@
                 this.interstitialContainer.css('display', 'none');
             }, this ) );
 
-
+          $(document)
+            .on('open.fndtn.offcanvas', '[data-offcanvas]', CST.handleNavigation)
+            .on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
+              document.getElementsByTagName('body')[0].style.overflow='auto';
+            });
 
         },
 
@@ -185,6 +189,19 @@
                 }
             this.positionAndSizePostSidebar(scrollTop);
             },
+      handleNavigation: function() {
+        document.getElementsByTagName('body')[0].style.overflow='hidden';
+        var scrollTop = $(window).scrollTop();
+        if ( scrollTop > 0 && ! CST.hasClass(document.getElementsByClassName('off-canvas-wrap')[0],'move-right') ) {
+          // Specific for IE browser
+          if ( $.browser.msie ) {
+            CST.offCanvasList.css("top", CST.header.height() + scrollTop + 'px');
+          } else {
+            CST.offCanvasList.css("top", CST.header.height() + scrollTop + 'px');
+            CST.offCanvasList.css("position", 'absolute');
+          }
+        }
+      },
       hasClass: function(el,className) {
         if (el.classList)
           return el.classList.contains(className);
