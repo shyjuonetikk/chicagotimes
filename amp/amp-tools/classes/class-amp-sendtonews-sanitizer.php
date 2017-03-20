@@ -30,17 +30,10 @@ class CST_AMP_Send_To_News_Sanitizer extends AMP_Base_Sanitizer {
 	 */
 	private function get_player_id() {
 		$xp = new DOMXPath( $this->dom );
-		$player_div = $xp->query('//div[contains(concat(" ", normalize-space(@class), " "), " s2nPlayer ")]');
+		$player_div = $xp->query('//span[contains(concat(" ", normalize-space(@class), " "), " s2nlegacy ")]');
 		if ( $player_div ) {
-			if ( 0 !== $player_div['length'] ) {
-				$legacy_player_div = $xp->query('//span[contains(concat(" ", normalize-space(@class), " "), " s2nlegacy ")]');
-				$player_id = $legacy_player_div->item(0)->getAttribute('data-video-id');
-				return $this->send_to_news_embeds_map[$player_id];
-			} else {
-				$player_id = $player_div->item(0)->getAttribute('data-pid');
-				$b = $this->send_to_news_embeds_map[$player_id];
-				return $this->send_to_news_embeds_map[$player_id];
-			}
+			$player_id = $player_div->item(0)->getAttribute('data-video-id');
+			return $this->send_to_news_embeds_map[$player_id];
 		} else {
 			return false;
 		}
