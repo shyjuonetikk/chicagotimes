@@ -1553,6 +1553,9 @@ body[class^="cst_article-"] article.post .sponsored-notification {
       margin-left: 0; }
       .single #post-body .row #main {
         padding-left: 0; } }
+  @media only screen and (min-width:85.25em) {
+    .single #post-body .row {
+      max-width: 68.5rem; } }
   .single #post-body .dfp-wire-cube {
     padding-top: 30px;
     clear: left; }
@@ -2173,8 +2176,6 @@ section#subscribe {
       width: 160px; }
   .sidebar#post-sidebar {
     background-color: #f8f8f8;
-    padding: 10px;
-    width: 320px;
     z-index: 1;
     border-left: 1px solid #9a9a9a; }
     .sidebar#post-sidebar .widget_cst_ad_widget {

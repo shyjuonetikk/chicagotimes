@@ -480,7 +480,11 @@ body[class^="cst_article-"] {
 				}
 			}
 		}
-
+		@media #{$overlap-up} {
+			.row {
+				max-width:68.5rem;
+			}
+		}
 		position: relative;
 		float: left;
 		.dfp-wire-cube {
