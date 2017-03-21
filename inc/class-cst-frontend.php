@@ -1624,7 +1624,7 @@ class CST_Frontend {
 		} else {
 			$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined' );
 		}
-		$cache_key = md5( $chosen_parameters );
+		$cache_key = md5( $chosen_parameters['container_class'] );
 		$navigation    = wp_cache_get( $cache_key, 'default' );
 		if ( false === $navigation ) {
 			$chosen_parameters['echo'] = false;
