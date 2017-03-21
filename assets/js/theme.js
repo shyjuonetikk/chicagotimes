@@ -61,7 +61,7 @@
       this.adminBar = $('#wpadminbar');
       this.sidebarWidgetCount = $('.widgets > li').length - 1;
       this.anchorMe = $('.widgets > li:nth(' + this.sidebarWidgetCount + ')');
-      this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
+      this.scrollToolbarHeight = this.header.outerHeight();
             if ( this.adminBar.length ) {
                 this.scrollToolbarHeight += this.adminBar.outerHeight();
             }

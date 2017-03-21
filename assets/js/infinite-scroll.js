@@ -15,6 +15,7 @@
 		activePage: 0,
 		activeURI: window.location.href.replace( window.location.origin, "" ),
 		baseURLWithoutPage: window.location.href.replace(/page\/[\d]+\//,"").replace( window.location.hash, "" ),
+    featuredPosts: $('#headlines-slider').height(),
 
 		init: function() {
 
@@ -103,8 +104,12 @@
 				}
 
 				uri = post.data("cst-post-uri");
-				wp_title = post.data("cst-wp-title");
-
+        active_post = jQuery(".cst-active-scroll-post");
+        var trigger = active_post.find(".post-meta-social")||null;
+        if ( trigger ) {
+          var active_post_position = active_post.position().top;
+          jQuery(".sidebar-scroll-container").css("top", active_post_position + "px");
+        }
 				if ( uri == CSTInfiniteScroll.activeURI ) {
 					return;
 				}
@@ -127,12 +132,7 @@
 			    if(window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK){
             window.AggregoHeadlinesNetwork && AggregoHeadlinesNetwork.inject(window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK)
 			    }
-        active_post = jQuery(".cst-active-scroll-post");
-				var trigger = active_post.find(".post-meta-social")||null;
-        if ( trigger ) {
-          var active_post_position = active_post.position().top + 135;
-          jQuery(".sidebar-scroll-container").css("top", active_post_position + "px");
-        }
+        wp_title = post.data("cst-wp-title");
 
 				document.title = wp_title;
 
