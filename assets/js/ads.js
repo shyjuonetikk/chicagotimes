@@ -71,7 +71,7 @@ var CSTAds;
     adTimer: 0,
     isSection: false,
     isSingular: false,
-
+    content_body: false,
 		scrollUnits: [
 			'div-gpt-rr-cube-2',
 			'div-gpt-rr-cube-3',
@@ -87,11 +87,11 @@ var CSTAds;
 		 * Initialize basic ads JavaScript
 		 */
 		init: function() {
-      $content_body = $('body');
-      if ( $content_body.hasClass('tax-cst_section') ) {
+      CSTAds.content_body = $('body');
+      if ( CSTAds.content_body.hasClass('tax-cst_section') ) {
         CSTAds.isSection = true;
       }
-      if ( $content_body.hasClass('single') ) {
+      if ( CSTAds.content_body.hasClass('single') ) {
         CSTAds.isSingular = true;
       }
       this.clearAndResetAdRefreshInterval();
@@ -130,19 +130,25 @@ var CSTAds;
 
     },
     refreshArticleCubeAds: function() {
-      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! $("body").hasClass( "post-gallery-lightbox-active" ) ) {
+      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! CSTAds.content_body.hasClass( "post-gallery-lightbox-active" ) ) {
         console.info('Interval expired. Refreshing Cube Ads');
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function (ad_slot) {
           if (ad_slot.match(/rr-cube-[0-9]{1,3}$/)) {
-            CSTAds.triggerUnitRefresh(ad_slot)
+            if ( !CSTAdTags[ad_slot].doNotRefresh ) {
+              CSTAds.triggerUnitRefresh(ad_slot)
+            }
           }
         })
         CSTAds.refreshing = false;
       }
+    },
+    handleGptVisibility: function(event) {
+		  var slotId = event.slot.getSlotElementId();
+      console.log('Slot visibility changed for: ' + slotId + ' to ' + event.inViewPercentage );
+      0 === event.inViewPercentage ? CSTAdTags[slotId].doNotRefresh = true :  CSTAdTags[slotId].doNotRefresh = false;
     }
-
 	};
 
 	/**

@@ -1,4 +1,4 @@
-<aside class="sidebar article-sidebar widgets columns medium-5 large-2" id="post-sidebar">
+<aside class="sidebar article-sidebar widgets columns medium-5 large-4" id="post-sidebar">
 	<div class="sidebar-scroll-container row">
 		<ul>
 			<?php if ( is_single() ) : ?>

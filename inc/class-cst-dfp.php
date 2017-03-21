@@ -443,9 +443,9 @@ var dfp = {
         .addService(googletag.pubads())
         .setTargeting("pos", "atf leaderboard");
       CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot(adUnitPath, [160, 600], 'div-gpt-sky-scraper-1')
-        .defineSizeMapping(article_skyscraper_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "SkyScraper");
+		.defineSizeMapping(article_skyscraper_mapping)
+		.addService(googletag.pubads())
+		.setTargeting("pos", "SkyScraper");
     }
     if(dfp.gallery) {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
@@ -454,6 +454,7 @@ var dfp = {
         .setTargeting("pos","gallery 1");
     }
     googletag.pubads().enableSingleRequest();
+    googletag.pubads().addEventListener('slotVisibilityChanged', CSTAds.handleGptVisibility);
     googletag.enableServices();
 });
 </script>

@@ -12,7 +12,7 @@
 			</div>
 		<?php } ?>
 
-		<div id="main" class="columns small-12 medium-7 large-10 end">
+		<div id="main" class="columns small-12 medium-7 large-8 end">
 			<div class="small-12 end">
 				<?php get_template_part( 'parts/images/main-site-logo' ); ?>
 			</div>
