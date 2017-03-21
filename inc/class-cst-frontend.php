@@ -1597,7 +1597,7 @@ class CST_Frontend {
 		foreach ( $sections as $section ) {
 			$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s">%2$s</a></li>', wpcom_vip_get_term_link( $section->term_id ), $section->name );
 		}
-		$section_navigation = '</ul></div></div></div>';
+		$section_navigation .= '</ul></div></div></div>';
 		return $section_navigation;
 
 	}
@@ -1606,24 +1606,32 @@ class CST_Frontend {
 	* Generate a conditional and a sectional
 	*/
 	public function generate_off_canvas_menu() {
-		// @TODO cache all the thingz
 		if ( is_front_page() ) {
-			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'depth' => 1, 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
+			$chosen_parameters = array( 'theme_location' => 'homepage-menu', 'depth' => 1, 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container homepage', );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
 				// Nav menu $conditional_nav->slug.'-menu' exists but is unassigned what to do?
 				if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
-					wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' ) );
+					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' );
 				} else {
 					echo wp_kses_post( $this->get_sections_nav() );
+					return;
 				}
 			} else {
-				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undefined-slug' );
 			}
 		} else {
-			wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined' );
 		}
+		$cache_key = md5( $chosen_parameters );
+		$navigation    = wp_cache_get( $cache_key, 'default' );
+		if ( false === $navigation ) {
+			$chosen_parameters['echo'] = false;
+			$navigation = wp_nav_menu( $chosen_parameters );
+			wp_cache_set( $cache_key, $navigation, 'default', 1 * WEEK_IN_SECONDS );
+		}
+		echo wp_kses_post( $navigation );
 	}
 	/**
 	* http://wordpressvip.zendesk.com/hc/requests/56671
