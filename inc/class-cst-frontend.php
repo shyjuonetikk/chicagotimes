@@ -1608,7 +1608,7 @@ class CST_Frontend {
 	public function generate_off_canvas_menu() {
 		// @TODO cache all the thingz
 		if ( is_front_page() ) {
-			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
+			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'depth' => 1, 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container', ) );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
