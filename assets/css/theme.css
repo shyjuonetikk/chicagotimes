@@ -3185,7 +3185,7 @@ body.post-gallery-lightbox-active {
       border-top: 8px solid #282828;
       border-left: 9px solid transparent;
       right: 19px;
-      top: 21px; }
+      top: 16px; }
     .post .post-meta .developing .developing-text {
       position: relative;
       text-transform: uppercase;
@@ -3194,7 +3194,7 @@ body.post-gallery-lightbox-active {
       background: #9a9a9a;
       padding: 5px;
       right: 28px;
-      bottom: 9px; }
+      bottom: 14px; }
     .post .post-meta .developing .right-ribbon {
       display: inline-block;
       position: relative;
@@ -3203,7 +3203,43 @@ body.post-gallery-lightbox-active {
       border-top: 14px solid #9a9a9a;
       border-right: 13px solid transparent;
       border-bottom: 13px solid #9a9a9a;
-      right: 31px; }
+      right: 31px;
+      top: -5px; }
+    @media only screen and (max-width: 40em) {
+      .post .post-meta .developing .developing-text {
+        font-weight: 600;
+        font-size: 0.6rem;
+        bottom: 13px; }
+      .post .post-meta .developing .triangle-top-right {
+        top: 16px; }
+      .post .post-meta .developing .right-ribbon {
+        border-top: 11px solid #9a9a9a;
+        border-bottom: 12px solid #9a9a9a; } }
+    @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+      .post .post-meta .developing .developing-text {
+        font-weight: 600;
+        font-size: 0.6rem;
+        bottom: 13px; }
+      .post .post-meta .developing .triangle-top-right {
+        top: 16px; }
+      .post .post-meta .developing .right-ribbon {
+        border-top: 11px solid #9a9a9a;
+        border-bottom: 12px solid #9a9a9a; } }
+    @media only screen and (min-width:48em) and (max-width:64em) {
+      .post .post-meta .developing .developing-text {
+        bottom: 14px; }
+      .post .post-meta .developing .triangle-top-right {
+        top: 16px; }
+      .post .post-meta .developing .right-ribbon {
+        right: 32px; } }
+    @media only screen and (min-width:64.063em) and (max-width:90em) {
+      .post .post-meta .developing .developing-text {
+        bottom: 15px; }
+      .post .post-meta .developing .triangle-top-right {
+        top: 15px; }
+      .post .post-meta .developing .right-ribbon {
+        right: 32px;
+        top: -6px; } }
   .post .post-meta .post-section-taxonomy, .post .post-meta .post-embed-source {
     position: relative; }
     .post .post-meta .post-section-taxonomy a, .post .post-meta .post-embed-source a {
