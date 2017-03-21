@@ -40,7 +40,21 @@
 				right: 31px;
 			}
 
-			
+			@media #{$small-only} {
+				.developing-text {
+					font-weight:600;
+					font-size: 0.6rem;
+					bottom: 13px;
+				}
+				.triangle-top-right {
+					top: 16px;
+				}
+				.right-ribbon {
+					border-top: 11px solid $social_grey;
+					border-bottom: 12px solid $social_grey;
+					top: -5px;
+				}
+			}
 		}
 
 		.post-section-taxonomy,
