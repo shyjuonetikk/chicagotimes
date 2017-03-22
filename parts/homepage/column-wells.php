@@ -9,6 +9,7 @@
                         'posts_per_page'        => 5,
                         'post_status'           => 'publish',
                         'cst_section'           => 'news',
+						'orderby'               => 'modified',
                     );
                     CST()->frontend->cst_homepage_content_block( $query, 'Home2' ); ?>
             </div>
@@ -22,6 +23,7 @@
                         'posts_per_page'        => 5,
                         'post_status'           => 'publish',
                         'cst_section'           => 'sports',
+						'orderby'               => 'modified',
                     );
                     CST()->frontend->cst_homepage_content_block( $query, 'Home3' ); ?>
             </div>
@@ -35,6 +37,7 @@
                         'posts_per_page'        => 5,
                         'post_status'           => 'publish',
                         'cst_section'           =>  'politics',
+						'orderby'               => 'modified',
                     );
                     CST()->frontend->cst_homepage_content_block( $query, 'Home4' ); ?>
             </div>
@@ -48,6 +51,7 @@
                         'posts_per_page'        => 5,
                         'post_status'           => 'publish',
                         'cst_section'           => 'the-watchdogs',
+						'orderby'               => 'modified',
                     );
                     CST()->frontend->cst_homepage_content_block( $query, 'Home5' ); ?>
             </div>
@@ -63,6 +67,7 @@
                         'posts_per_page'        => 5,
                         'post_status'           => 'publish',
                         'cst_section'           => 'entertainment',
+						'orderby'               => 'modified',
                     );
                     CST()->frontend->cst_homepage_content_block( $query ); ?>
             </div>
@@ -76,6 +81,7 @@
 		                'posts_per_page'        => 5,
 		                'post_status'           => 'publish',
 		                'cst_section'           => 'columnists',
+						'orderby'               => 'modified',
 	                );
 	                CST()->frontend->cst_homepage_content_block( $query ); ?>
             </div>
@@ -89,6 +95,7 @@
 		                'posts_per_page'        => 5,
 		                'post_status'           => 'publish',
 		                'cst_section'           => 'opinion',
+						'orderby'               => 'modified',
 	                );
 	                CST()->frontend->cst_homepage_content_block( $query ); ?>
             </div>
@@ -102,6 +109,7 @@
 		                'posts_per_page'        => 5,
 		                'post_status'           => 'publish',
 		                'cst_section'           => 'lifestyles',
+						'orderby'               => 'modified',
 	                );
 	                CST()->frontend->cst_homepage_content_block( $query ); ?>
             </div>
