@@ -1502,12 +1502,12 @@ class CST_Frontend {
 			if ( 0 !== $section_obj->parent ) {
 				$parent_term = get_term_by( 'id', $section_obj->parent, 'cst_section' );
 				$action_slug = $parent_term->slug;
-				$theme_location = "{$action_slug}-menu";
+				$theme_location = "{$action_slug}-trending";
 				$term_link = wpcom_vip_get_term_link( $parent_term->term_id, 'cst_section' );
 				$section_parent_link = sprintf( '<li class="menu-item menu-item-type-taxonomy menu-item-object-cst_section"><a href="%1$s">%2$s</a></li>', $term_link, $parent_term->name );
 			}
 		}
-		if ( $theme_location ) {
+		if ( $theme_location && has_nav_menu( $theme_location ) ) {
 			wp_nav_menu( array(
 				'theme_location' => $theme_location,
 				'fallback_cb' => false,
@@ -1518,7 +1518,7 @@ class CST_Frontend {
 				)
 			);
 		} else {
-			echo '<div class="cst-navigation-container columns section-subnav"><div class="nav-holder"><div class="nav-descriptor '.$section_obj->slug.'"><ul id="" class="">No menu assigned: use Chartbeat perhaps?</ul></div></div></div>';
+			echo '<div class="cst-navigation-container columns section-subnav"><div class="nav-holder"><div class="nav-descriptor '.$section_obj->slug.'"><ul id="" class="">No menu assigned for '.$theme_location.' use Chartbeat perhaps?</ul></div></div></div>';
 		}
 	}
 	/**
