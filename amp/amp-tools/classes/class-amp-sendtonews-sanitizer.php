@@ -32,8 +32,10 @@ class CST_AMP_Send_To_News_Sanitizer extends AMP_Base_Sanitizer {
 		$xp = new DOMXPath( $this->dom );
 		$player_div = $xp->query('//span[contains(concat(" ", normalize-space(@class), " "), " s2nlegacy ")]');
 		if ( $player_div ) {
-			$player_id = $player_div->item(0)->getAttribute('data-video-id');
-			return $this->send_to_news_embeds_map[$player_id];
+			if ( $player_div->item(0)->hasAttribute( 'data-video-id' ) ) {
+				$player_id = $player_div->item(0)->getAttribute('data-video-id');
+				return $this->send_to_news_embeds_map[$player_id];
+			}
 		} else {
 			return false;
 		}
