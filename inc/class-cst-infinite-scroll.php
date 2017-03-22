@@ -160,6 +160,15 @@ class CST_Infinite_Scroll {
 		wp_localize_script( 'cst-infinite-scroll', 'CSTYieldMoData', array(
 			'SECTIONS_FOR_YIELD_MO' => $post_sections,
 		) );
+		if ( is_singular( array( 'cst_article' ) ) ) {
+			$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+			$embed_code = $obj->get_featured_video_script();
+			wp_enqueue_script( 'send-to-news' . '-' . esc_attr( $embed_code . '-' . esc_attr( $obj->get_id() ) ),
+				esc_url(
+					sprintf(
+						'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left', esc_attr( $embed_code ) )
+				), array( 'chicagosuntimes' ), null, true );
+		}
 	}
 
 	/**

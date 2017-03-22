@@ -39,7 +39,7 @@ class Article extends Post {
 	}
 
 	/**
-	 * Get the featured video embed code for the article
+	 * Get the featured video embed markup for the article
 	 * Return empty string if for some reason array key is outside scope
 	 *
 	 * @return string
@@ -53,19 +53,27 @@ class Article extends Post {
 					$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $media_type ] );
 					$markup     = sprintf( $template, 's2nIframe-' . $this->send_to_news_embeds[ $media_type ] . '-' . $this->post->ID, $iframe_url, $styles, $this->send_to_news_embeds[ $media_type ] );
 				} else {
-					$template = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float" data-video-id=%1$s data-type="s2nScript"></script></div></div>';
+					$template = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float" data-type="s2nScript"></script></div></div>';
 					$markup   = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $media_type ] ), esc_attr( $this->post->ID ) );
-
-					wp_register_script( 'send-to-news' . '-' . esc_attr( $this->send_to_news_embeds[ $media_type ] . '-' . esc_attr( $this->post->ID ) ),
-						esc_url(
-							sprintf(
-								get_stylesheet_directory_uri() . '/assets/js/vendor/send-to-news-embed.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left', esc_attr( $this->send_to_news_embeds[ $media_type ] ) )
-						), array(), null );
-					wp_enqueue_script( 'send-to-news' . '-' . esc_attr( $this->send_to_news_embeds[ $media_type ] . '-' . esc_attr( $this->post->ID ) ) );
 				}
 				return $markup;
 			} else {
 				return '';
+			}
+		} else {
+			return '';
+		}
+	}
+	/**
+	 * Get the featured video embed code for the article
+	 * Return empty string if for some reason array key is outside scope
+	 *
+	 * @return string
+	 */
+	public function get_featured_video_script() {
+		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' ) ) {
+			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
+				return $this->send_to_news_embeds[ $media_type ];
 			}
 		} else {
 			return '';
