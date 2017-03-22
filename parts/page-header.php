@@ -1,4 +1,4 @@
-<?php if ( ! is_404() ) {
+<?php if ( ! is_404() && ! is_author() ) {
 	echo CST()->dfp_handler->interstitial();
 } ?>
 

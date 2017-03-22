@@ -1496,6 +1496,8 @@ article.post {
     border: 1px solid #231f20;
     float: left;
     width: 100%; }
+  article.post .pgs-dpg-btn {
+    width: 212px; }
 
 body[class^="cst_article-"] article.post .sponsored-notification {
   margin-top: -14px;
@@ -2715,7 +2717,8 @@ section#subscribe {
 
 @media only screen and (min-width:48em) {
   .logo-wrapper.large-logo {
-    display: block; } }
+    display: block;
+    height: 101px; } }
 @media only screen and (max-width:47.398em) {
   .logo-wrapper.large-logo {
     display: none !important; } }
@@ -3487,6 +3490,9 @@ body.post-gallery-lightbox-active {
         padding: 0 12px; } }
     .homepage_wrapper header .contain-to-grid .cst-row {
       margin: 0 auto; }
+  .homepage_wrapper header .top-bar-section .has-dropdown > a::after {
+    top: 14.5px;
+    margin-top: 0; }
   @media only screen and (min-width: 78.063em) {
     .homepage_wrapper header .contain-to-grid .top-bar {
       max-width: 100%;
@@ -3979,7 +3985,8 @@ body.post-gallery-lightbox-active {
     display: block;
     position: relative;
     height: auto;
-    float: left; }
+    float: left;
+    margin-bottom: 10px; }
     .homepage_wrapper .widget_cst_todays_paper_widget img {
       position: relative;
       display: block; }
@@ -4027,6 +4034,8 @@ body.post-gallery-lightbox-active {
       display: block; }
   .homepage_wrapper .widget_cst_featured_content_widget, .homepage_wrapper .widget_cst_columnists_content_widget {
     list-style-type: none;
+    margin-bottom: 10px;
+    float: left;
     /*	@media (min-width: 1025px) {
 		margin: 20px 0 20px 0;
 		padding: 10px 0 10px 0;

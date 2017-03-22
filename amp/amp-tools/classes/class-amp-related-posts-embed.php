@@ -86,12 +86,14 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 			$recommended_article_block_title = AMP_HTML_Utils::build_tag(
 				'div',
 				array(
-				'class' => 'cst-recommendations',
-				), AMP_HTML_Utils::build_tag(
-				'h3',
-				array(),
-				esc_html( 'Previously from ' . $this->section_name ) . '<hr>'
-			) );
+					'class' => 'cst-recommendations',
+				),
+				AMP_HTML_Utils::build_tag(
+					'h3',
+					array(),
+					esc_html( 'Previously from ' . $this->section_name ) . '<hr>'
+				)
+			);
 			$recommended_article_block = $recommended_article_block_title;
 			foreach ( $pages as $item ) {
 				$chart_beat_top_content = (array) $item->metrics->post_id->top;
@@ -104,21 +106,22 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 				}
 				$temporary_title                      = explode( '|', $item->title );
 				$recommended_article_curated_title    = $temporary_title[0];
-				$recommended_article_anchor_image     = AMP_HTML_Utils::build_tag(
+				$recommended_article_anchor_image = AMP_HTML_Utils::build_tag(
 					'a',
 					array(
 						'class' => 'cst-rec-anchor',
 						'href'  => esc_url( $item->path ),
 						'title' => esc_html( $recommended_article_curated_title ),
-					), AMP_HTML_Utils::build_tag(
-					'amp-img',
-					array(
-						'class'  => 'cst-recommended-image',
-						'src'    => esc_url( $image_url ),
-						'width'  => 100,
-						'height' => 65,
+					),
+					AMP_HTML_Utils::build_tag(
+						'amp-img',
+						array(
+							'class'  => 'cst-recommended-image',
+							'src'    => esc_url( $image_url ),
+							'width'  => 100,
+							'height' => 65,
+						)
 					)
-				)
 				);
 				$recommended_article_anchor_text_link = AMP_HTML_Utils::build_tag(
 					'a',
@@ -126,11 +129,12 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 						'class' => 'cst-rec-anchor',
 						'href'  => esc_url( $item->path ),
 						'title' => esc_html( $recommended_article_curated_title ),
-					), AMP_HTML_Utils::build_tag(
-					'span',
-					array(),
-					esc_html( $recommended_article_curated_title )
-				)
+					),
+					AMP_HTML_Utils::build_tag(
+						'span',
+						array(),
+						esc_html( $recommended_article_curated_title )
+					)
 				);
 
 				$recommended_article_block .= AMP_HTML_Utils::build_tag(
@@ -147,9 +151,7 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 			}
 		}
 
-		$public_good_markup =
-			in_array( $this->chart_beat_slug, CST_Frontend::$pgs_section_slugs, true ) ? $this->cst_build_public_good_element() : '';
-		return $content . $public_good_markup . $recommended_article_block;
+		return $content . $recommended_article_block;
 	}
 
 	/**
@@ -174,27 +176,4 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 		return $featured_image_url;
 	}
 
-
-	/**
-	 * @return string
-	 *
-	 * Individual Public Good button iframe element
-	 */
-
-	public function cst_build_public_good_element() {
-		return AMP_HTML_Utils::build_tag(
-			'a',
-			array(
-				'href'    => esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
-				'target' => '_blank',
-			)
-			,AMP_HTML_Utils::build_tag(
-			'amp-img', array(
-			'src'    => esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' ),
-			'width'  => '170',
-			'height' => '40',
-			),
-			''
-		) );
-	}
 }

@@ -203,7 +203,6 @@
 			text-align: center;
 		}
 	}
-
 	.dfp-mobile-leaderboard {
 		@media (max-width: 568px) {
 			padding-left: 0;
@@ -252,6 +251,14 @@
 			}
 			.cst-row {
 				margin: 0 auto;
+			}
+		}
+		.top-bar-section {
+			.has-dropdown {
+				> a::after {
+					top: 14.5px;
+					margin-top:0;
+				}
 			}
 		}
 	}
@@ -995,6 +1002,7 @@
 	position: relative;
 	height: auto;
 	float:left;
+	margin-bottom: 10px;
 
 	img {
 		position: relative;
@@ -1063,7 +1071,8 @@
 
 .widget_cst_featured_content_widget, .widget_cst_columnists_content_widget {
 	list-style-type: none;
-
+	margin-bottom: 10px;
+	float:left;
 /*	@media (min-width: 1025px) {
 		margin: 20px 0 20px 0;
 		padding: 10px 0 10px 0;
