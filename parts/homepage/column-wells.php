@@ -22,6 +22,7 @@
 				'posts_per_page'      => 5,
 				'post_status'         => 'publish',
 				'cst_section'         => esc_attr( $section_slug ),
+				'orderby'             => 'modified',
 			);
 			CST()->frontend->cst_homepage_content_block( $query, esc_attr( $sponsored_key ) ); ?>
 		</div>
