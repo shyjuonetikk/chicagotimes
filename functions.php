@@ -2053,7 +2053,6 @@ class CST {
 		}
 		return $classes;
 	}
-}
 
 /**
  * Load the theme
