@@ -205,11 +205,11 @@ body.error404 {
     body.error404 .home-page-link:hover, body.error404 .home-page-link:active, body.error404 .home-page-link:visited {
       color: #282828; }
 
-.vip-local div[id^="div-gpt-"], .vip-local .tcx_widget, .vagrant-local div[id^="div-gpt-"], .vagrant-local .tcx_widget {
+.vip-local div[id^="div-gpts-"], .vip-local .tcx_widget, .vagrant-local div[id^="div-gpts-"], .vagrant-local .tcx_widget {
   border: 1px solid #cccccc;
   color: #333333;
   font-size: 0.7rem; }
-  .vip-local div[id^="div-gpt-"][data-visual-label]:before, .vip-local .tcx_widget[data-visual-label]:before, .vagrant-local div[id^="div-gpt-"][data-visual-label]:before, .vagrant-local .tcx_widget[data-visual-label]:before {
+  .vip-local div[id^="div-gpts-"][data-visual-label]:before, .vip-local .tcx_widget[data-visual-label]:before, .vagrant-local div[id^="div-gpts-"][data-visual-label]:before, .vagrant-local .tcx_widget[data-visual-label]:before {
     content: attr(data-visual-label) ": "; }
 .vip-local .tcx_widget, .vagrant-local .tcx_widget {
   height: 600px;
