@@ -181,6 +181,7 @@ header {
 				}
 				li,
 				li:not(.has-form) > a, a:not(.button) {
+					display: inline-block;
 					background: $cst_black;
 					line-height:45px;
 					color: $white;

@@ -1666,10 +1666,12 @@ class CST_Frontend {
 			'section-front' => array(
 					'container_class' => 'cst-navigation-container',
 					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
+					'location'        => 'homepage-masthead',
 			),
 			'homepage-itn' => array(
 					'container_class' => 'cst-navigation-container columns',
 					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="homepage-itn">%3$s</ul></div></div>',
+					'location'        => 'homepage-itn',
 			),
 		);
 		if ( array_key_exists( $page_type, $page_types ) ) {
@@ -1677,7 +1679,7 @@ class CST_Frontend {
 			if ( false === $masthead_nav_markup ) {
 				$masthead_nav_markup = wp_nav_menu( array(
 					'menu'            => $page_type,
-					'theme_location'  => 'homepage-masthead',
+					'theme_location'  => $page_types[ $page_type ]['location'],
 					'echo'            => false,
 					'fallback_cb'     => false,
 					'depth'           => 1,

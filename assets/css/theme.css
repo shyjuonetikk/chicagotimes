@@ -2787,6 +2787,7 @@ header .contain-to-grid .top-bar {
     list-style-type: none;
     background: #231f20; }
   header .contain-to-grid .top-bar .masthead-sections li, header .contain-to-grid .top-bar .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .masthead-sections a:not(.button) {
+    display: inline-block;
     background: #231f20;
     line-height: 45px;
     color: white;
