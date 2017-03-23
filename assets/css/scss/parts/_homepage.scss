@@ -566,9 +566,13 @@
 						line-height: 1.2rem;
 						font-size: 1rem;
 					}
-					@media #{$large-only} {
-						font-size: 1.4rem;
-						line-height: 1.5rem;
+					@media #{$xmedium-only} {
+						font-size: 1.5rem;
+						line-height: 1.7rem;
+					}
+					@media #{$large-up} {
+						font-size: 1.9rem;
+						line-height: 2rem;
 					}
 
 					color: $light_grey;
@@ -662,6 +666,18 @@
 						@media #{$medium-only} {
 							font-size: 0.8rem;
 							line-height:1rem;
+						}
+						@media #{$medium-only} and (orientation: landscape) {
+							font-size: 1.2rem;
+							line-height:1.5rem;
+						}
+						@media #{$xmedium-only} {
+							font-size: 1.5rem;
+							line-height: 1.7rem;
+						}
+						@media #{$large-up} {
+							font-size: 1.7rem;
+							line-height: 1.9rem;
 						}
 						line-height: 18px;
 						font-family: $homepage_font;
