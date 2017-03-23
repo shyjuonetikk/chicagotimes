@@ -3680,20 +3680,16 @@ body.post-gallery-lightbox-active {
         font-family: 'Libre Franklin', Arial, sans-serif;
         font-weight: 700;
         color: #f8f8f8; }
-        @media (min-width: 569px) {
-          .homepage_wrapper section#main-well .main-article-container .article-title h3 {
-            font-size: 34px;
-            line-height: 34px; } }
-        @media (min-width: 480px) and (max-width: 568px) {
-          .homepage_wrapper section#main-well .main-article-container .article-title h3 {
-            font-size: 26px;
-            line-height: 26px; } }
         @media (max-width: 479px) {
           .homepage_wrapper section#main-well .main-article-container .article-title h3 {
             font-size: 18px;
             line-height: 20px; } }
+        @media only screen and (min-width:40.063em) and (max-width:47.398em) {
+          .homepage_wrapper section#main-well .main-article-container .article-title h3 {
+            line-height: 1.2rem;
+            font-size: 1rem; } }
       .homepage_wrapper section#main-well .main-article-container .article-title p {
-        padding: 0px 20px 0px 20px;
+        padding: 0 20px;
         color: white;
         margin-bottom: 5px;
         line-height: 18px;
@@ -3738,6 +3734,9 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper section#main-well .left-main-well .article-container img {
         width: 100%;
         height: auto; }
+      @media only screen and (min-width:40.063em) and (max-width:47.398em) {
+        .homepage_wrapper section#main-well .left-main-well .article-container {
+          height: 199px; } }
       .homepage_wrapper section#main-well .left-main-well .article-container .article-title {
         position: absolute;
         bottom: 0;
@@ -3748,6 +3747,9 @@ body.post-gallery-lightbox-active {
         background: rgba(0, 0, 0, 0.7);
         transition: background 0.5s ease;
         width: 100%; }
+        @media only screen and (min-width:40.063em) and (max-width:47.398em) {
+          .homepage_wrapper section#main-well .left-main-well .article-container .article-title {
+            padding: 0 5px 5px 5px; } }
         .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
           line-height: 18px;
           font-family: 'Libre Franklin', Arial, sans-serif;
@@ -3759,6 +3761,10 @@ body.post-gallery-lightbox-active {
           @media (max-width: 568px) {
             .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
               font-size: 20px; } }
+          @media only screen and (min-width:40.063em) and (max-width:47.398em) {
+            .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
+              font-size: 0.8rem;
+              line-height: 1rem; } }
         .homepage_wrapper section#main-well .left-main-well .article-container .article-title p {
           color: white;
           font-size: 12px;
