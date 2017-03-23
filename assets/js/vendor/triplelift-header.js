@@ -23,8 +23,7 @@
         
         if (paraContent.indexOf("read-more-wrap") > -1) {
         tripleliftParNum++;
-        } 
-        
+        }       
         
         if (paraContent.indexOf("blockquote") > -1) {
         tripleliftParNum++;
