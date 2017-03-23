@@ -472,6 +472,9 @@
         $(document).foundation({
           offcanvas: {
             open_method: "move"
+          },
+          reveal: {
+            close_on_background_click: true
           }
         });
         CST.init();

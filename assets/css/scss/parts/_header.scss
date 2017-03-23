@@ -28,6 +28,11 @@
 				line-height:$masthead_height;
 			}
 		}
+		@media #{$medium-down} {
+			.search-icon {
+				margin-left:0;
+			}
+		}
 	}
 	.glass {
 		font-size: 1.5rem;
@@ -183,7 +188,7 @@ header {
 				li:not(.has-form) > a, a:not(.button) {
 					display: inline-block;
 					background: $cst_black;
-					line-height:45px;
+					line-height:44px;
 					color: $white;
 					padding: 0 2px;
 				}
@@ -243,7 +248,7 @@ header {
 					li,
 					li:not(.has-form) > a, a:not(.button) {
 						background: $cst_black;
-						line-height:45px;
+						line-height:44px;
 						color: $white;
 					}
 				}

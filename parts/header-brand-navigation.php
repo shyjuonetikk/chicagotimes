@@ -2,8 +2,21 @@
 	<div class="contain-to-grid">
 		<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
 			<ul class="title-area">
-				<li class="has-form hide-for-large-up">
-					<a href="#0" class="left-off-canvas-toggle burger-bar">
+				<li class="has-form columns small-1 show-for-medium-down hide-for-small-only">
+					<div class="search">
+						<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+							<div class="row collapse search-input-wrapper">
+								<div class="large-1 small-1 columns search-icon">
+									<a href="#" data-reveal-id="search-container">
+										<i class="fa fa-search"></i>
+									</a>
+								</div>
+							</div>
+						</form>
+					</div>
+				</li>
+				<li class="has-form hide-for-large-up columns small-1 show-for-medium-down">
+					<a href="#1" class="left-off-canvas-toggle burger-bar">
 						<i class="fa fa-bars"></i>
 					</a>
 				</li>
@@ -20,7 +33,7 @@
 							</a>
 						</div>
 					</div>
-					<div class="medium-8 small-7 columns nav-container">
+					<div class="medium-9 small-7 columns nav-container">
 						<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 					</div>
 				</li>

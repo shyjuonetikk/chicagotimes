@@ -514,7 +514,9 @@ header#header {
   margin: 4px 0 0 4px;
   background: #231f20;
   padding: 0 6px !important;
-  line-height: 28px; }
+  line-height: 28px;
+  z-index: 100000;
+  position: relative; }
   .burger-bar .fa {
     padding-left: 5px;
     padding-right: 5px;
@@ -855,8 +857,7 @@ ul#menu-sun-times-network {
 .masthead .title-area .logo-container {
   margin-top: 7px;
   padding-right: 0px;
-  padding-left: 3px;
-  width: 27%; }
+  padding-left: 3px; }
 .masthead .title-area .nav-container {
   padding: 0; }
   @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
@@ -2675,6 +2676,9 @@ section#subscribe {
     .search .search-input-wrapper .search-icon a, .search .search-input-wrapper .search-icon a:visited, .search .search-input-wrapper .search-icon a:hover, .search .search-input-wrapper .search-icon a:active {
       color: white;
       line-height: 45px; }
+  @media only screen and (max-width:47.398em) {
+    .search .search-input-wrapper .search-icon {
+      margin-left: 0; } }
   .search .glass {
     font-size: 1.5rem;
     color: white;
@@ -2789,7 +2793,7 @@ header .contain-to-grid .top-bar {
   header .contain-to-grid .top-bar .masthead-sections li, header .contain-to-grid .top-bar .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .masthead-sections a:not(.button) {
     display: inline-block;
     background: #231f20;
-    line-height: 45px;
+    line-height: 44px;
     color: white;
     padding: 0 2px; }
   @media only screen and (max-width:64em) {
@@ -2831,7 +2835,7 @@ header .contain-to-grid .top-bar {
           margin-left: 1rem; } }
     header .contain-to-grid .top-bar .top-bar-section .masthead-sections li, header .contain-to-grid .top-bar .top-bar-section .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .top-bar-section .masthead-sections a:not(.button) {
       background: #231f20;
-      line-height: 45px;
+      line-height: 44px;
       color: white; }
     header .contain-to-grid .top-bar .top-bar-section .logo a {
       line-height: 42px; }

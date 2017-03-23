@@ -1660,7 +1660,7 @@ class CST_Frontend {
 		$page_types = array(
 			'homepage' => array(
 					'container_class' => 'masthead-sections',
-					'items_wrap'      => '<div class="homepage-nav-holder"><ul id="%1$s" class="homepage">%3$s</ul></div>',
+					'items_wrap'      => '<div class="homepage-nav-holder columns small-10 large-12"><ul id="%1$s" class="homepage">%3$s</ul></div>',
 					'location'        => 'homepage-masthead',
 			),
 			'section-front' => array(
