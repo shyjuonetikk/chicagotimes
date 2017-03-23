@@ -297,8 +297,9 @@ article.post {
 		overflow: hidden;
 	}
 	.cst-recommendations {
+		float:left;
 		hr {
-			margin: 0.3rem;
+			margin: 0.3rem 0;
 		}
 		h3 {
 			text-transform: uppercase;

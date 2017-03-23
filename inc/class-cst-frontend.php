@@ -1025,12 +1025,13 @@ class CST_Frontend {
 			}
 		}
 		?>
-		<div class="cst-recommendations">
-			<div class="columns">
+		<div class="cst-recommendations columns">
+			<div>
 			<hr>
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
 		</div>
+			<div class="row">
 		<?php foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$top_item = [];
@@ -1052,20 +1053,21 @@ class CST_Frontend {
 			$temporary_title       = explode( '|', $item->title );
 			$article_curated_title = $temporary_title[0];
 			?>
-			<div class="cst-recommended-content columns medium-6 small-12">
-				<div class="cst-article">
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
-					<div class="cst-recommended-image -amp-layout-size-defined">
-						<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+				<div class="cst-recommended-content columns medium-6 small-12">
+					<div class="cst-article">
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
+						<div class="cst-recommended-image -amp-layout-size-defined">
+							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+						</div>
+						</a>
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
+							<span><?php echo esc_html( $article_curated_title ); ?></span>
+						</a>
+						<?php echo wp_kses_post( $sponsored_markup ); ?>
 					</div>
-					</a>
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
-						<span><?php echo esc_html( $article_curated_title ); ?></span>
-					</a>
-					<?php echo wp_kses_post( $sponsored_markup ); ?>
 				</div>
-			</div>
 		<?php } ?>
+			</div>
 		</div>
 <?php
 
@@ -2191,6 +2193,6 @@ ready(fn);
 	* @return string
 	*/
 	public function generate_in_article_headlinesnetwork_markup( $obj ) {
-		echo sprintf( '<h4 class="agg-sponsored columns small-12">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn columns small-12 end"></div>', esc_attr( $obj->get_id() ) );
+		echo sprintf( '<div class="columns small-12"><h4 class="agg-sponsored">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn small-12 end"></div></div>', esc_attr( $obj->get_id() ) );
 	}
 }
