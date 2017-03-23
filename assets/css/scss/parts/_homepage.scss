@@ -562,11 +562,15 @@
 						font-size: 18px;
 						line-height: 20px;
 					}
-
 					@media #{$medium-only} {
 						line-height: 1.2rem;
 						font-size: 1rem;
 					}
+					@media #{$large-only} {
+						font-size: 1.4rem;
+						line-height: 1.5rem;
+					}
+
 					color: $light_grey;
 				}
 
