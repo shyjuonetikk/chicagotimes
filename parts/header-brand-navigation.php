@@ -33,7 +33,7 @@
 							</a>
 						</div>
 					</div>
-					<div class="medium-9 small-7 columns nav-container">
+					<div class="medium-8 large-9 small-7 columns nav-container">
 						<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 					</div>
 				</li>
@@ -98,7 +98,7 @@
 						<?php } ?>
 					</li>
 					<li class="has-form">
-						<span class="subscribe-link"><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
+						<span class="subscribe-link show-for-medium-up"><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
 					</li>
 				</ul>
 			</section>

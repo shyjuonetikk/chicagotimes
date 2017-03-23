@@ -2698,7 +2698,7 @@ section#subscribe {
   max-height: 50px; }
 
 .weather {
-  padding: 10px 6px; }
+  padding: 10px 5px; }
   .weather .weather-link {
     line-height: 24px;
     color: white; }
@@ -2837,6 +2837,9 @@ header .contain-to-grid .top-bar {
       background: #231f20;
       line-height: 44px;
       color: white; }
+    header .contain-to-grid .top-bar .top-bar-section .masthead-sections .homepage-nav-holder {
+      padding-left: 0;
+      padding-right: 0; }
     header .contain-to-grid .top-bar .top-bar-section .logo a {
       line-height: 42px; }
   @media only screen and (min-width: 78.063em) {
@@ -3692,6 +3695,9 @@ body.post-gallery-lightbox-active {
           .homepage_wrapper section#main-well .main-article-container .article-title h3 {
             font-size: 1.5rem;
             line-height: 1.7rem; } }
+        @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+          .homepage_wrapper section#main-well .main-article-container .article-title h3 {
+            padding: 5px; } }
         @media only screen and (min-width:64.063em) {
           .homepage_wrapper section#main-well .main-article-container .article-title h3 {
             font-size: 1.9rem;
@@ -3709,6 +3715,9 @@ body.post-gallery-lightbox-active {
         @media (max-width: 568px) {
           .homepage_wrapper section#main-well .main-article-container .article-title span {
             font-size: 12px; } }
+        @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+          .homepage_wrapper section#main-well .main-article-container .article-title span {
+            margin-left: 5px; } }
     .homepage_wrapper section#main-well .main-article-container a:hover {
       color: #cb8282; }
       .homepage_wrapper section#main-well .main-article-container a:hover .article-title {
@@ -3781,10 +3790,17 @@ body.post-gallery-lightbox-active {
             .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
               font-size: 1.5rem;
               line-height: 1.7rem; } }
+          @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+            .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
+              font-size: 1rem;
+              line-height: 1.3rem; } }
           @media only screen and (min-width:64.063em) {
             .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
               font-size: 1.7rem;
               line-height: 1.9rem; } }
+        @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+          .homepage_wrapper section#main-well .left-main-well .article-container .article-title {
+            padding: 5px; } }
         .homepage_wrapper section#main-well .left-main-well .article-container .article-title p {
           color: white;
           font-size: 12px;

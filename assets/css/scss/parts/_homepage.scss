@@ -570,6 +570,9 @@
 						font-size: 1.5rem;
 						line-height: 1.7rem;
 					}
+					@media #{$xmedium-only} and (orientation: landscape) {
+						padding: 5px;
+					}
 					@media #{$large-up} {
 						font-size: 1.9rem;
 						line-height: 2rem;
@@ -591,6 +594,9 @@
 						font-size: 12px;
 					}
 					margin-left: 20px;
+					@media #{$xmedium-only} and (orientation: landscape) {
+						margin-left:5px;
+					}
 					font-family: $homepage_font;
 					color: $white;
 				}
@@ -675,6 +681,10 @@
 							font-size: 1.5rem;
 							line-height: 1.7rem;
 						}
+						@media #{$xmedium-only} and (orientation: landscape) {
+							font-size: 1rem;
+							line-height:1.3rem;
+						}
 						@media #{$large-up} {
 							font-size: 1.7rem;
 							line-height: 1.9rem;
@@ -684,7 +694,9 @@
 						color: $light_grey;
 						font-weight: 700;
 					}
-
+					@media #{$xmedium-only} and (orientation: landscape) {
+						padding: 5px;
+					}
 					p {
 						color: $white;
 						font-size: 12px;
