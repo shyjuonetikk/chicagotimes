@@ -612,9 +612,11 @@ body.admin-bar .move-right header#header {
     margin: 0 auto;
     width: 200px;
     padding: 0.3rem; }
-  .left-off-canvas-menu .off-canvas-list .menu li a {
-    border-bottom: 1px solid #9a9a9a;
-    padding: 0.5rem 0.666rem; }
+  .left-off-canvas-menu .off-canvas-list {
+    margin-top: 44px; }
+    .left-off-canvas-menu .off-canvas-list .menu li a {
+      border-bottom: 1px solid #9a9a9a;
+      padding: 0.5rem 0.666rem; }
 
 #fixed-back-to-top {
   margin-left: -75px;
@@ -2860,7 +2862,8 @@ header .contain-to-grid .top-bar {
     header .contain-to-grid .top-bar .top-bar-section .logo a {
       line-height: 42px; }
     header .contain-to-grid .top-bar .top-bar-section .burger-wrapper-no-fries {
-      width: 44px; }
+      width: 44px;
+      padding: 0; }
   @media only screen and (min-width: 78.063em) {
     header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
       padding: 0 14px !important; }

@@ -6,11 +6,6 @@
 				<i class="fa fa-bars"></i>
 			</a>
 		</div>
-		<div class="columns small-12">
-			<div class="off-canvas-logo">
-				<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
-			</div>
-		</div>
 		<ul class="off-canvas-list">
 			<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 				<input id="search-input" placeholder="<?php esc_attr_e( 'search...', 'chicagosuntimes' ); ?>" name="s" value="<?php echo esc_attr( get_search_query() ); ?>" />
