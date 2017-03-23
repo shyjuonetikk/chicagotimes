@@ -19,7 +19,7 @@ class CST_CB_Trending_Widget extends WP_Widget {
 			echo wp_kses_post( '<div class="small-12 content-wrapper"><hr class="before"><h2 class="section-title"><span>Currently trending:</span></h2><hr>' );
 		} else {
 			echo wp_kses_post( $args['before_widget'] );
-			echo wp_kses_post( $args['before_title'] . 'Currently Trending' . $args['after_title'] );
+			echo wp_kses_post( $args['before_title'] . 'Currently Trending (live and retaining)' . $args['after_title'] );
 		}
 		?>
 		<div id="root"></div>
@@ -28,8 +28,8 @@ class CST_CB_Trending_Widget extends WP_Widget {
 		}else if ( is_singular() || is_tax() || is_post_type_archive() ) {
 			echo wp_kses_post( $args['after_widget'] );
 		}
-		wp_enqueue_script( 'cb-stats-js', esc_url(( get_stylesheet_directory_uri() . '/assets/static/js/main.ebc1551d.js' ) ) );
-		wp_enqueue_style( 'cb-stats-css', esc_url( get_stylesheet_directory_uri() . '/assets/static/css/main.90794983.css' ) );
+		wp_enqueue_script( 'cb-stats-js', esc_url(( get_stylesheet_directory_uri() . '/assets/static/js/main.e86ee534.js' ) ) );
+		wp_enqueue_style( 'cb-stats-css', esc_url( get_stylesheet_directory_uri() . '/assets/static/css/main.1eccd2fd.css' ) );
 	}
 
 	public function form( $instance ) {

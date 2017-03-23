@@ -4898,3 +4898,6 @@ body#tinymce {
     font-size: 0.8rem; }
     .cb-list .cb-articles a {
       color: #231f20; }
+
+.widget .cb-articles {
+  width: 100%; }
