@@ -159,6 +159,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
+//		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -2014,7 +2015,6 @@ class CST {
 		);
 
 	}
-}
 
 	/**
 	 * Set parent class with supported Foundation class to indicate presence of a dropdown
@@ -2035,6 +2035,7 @@ class CST {
 		}
 		return $sorted_menu_items;
 	}
+}
 
 	/**
 	 * @param $classes

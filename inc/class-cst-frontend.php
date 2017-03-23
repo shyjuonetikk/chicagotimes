@@ -1462,7 +1462,7 @@ class CST_Frontend {
 				'depth'           => 1,
 				'container_class' => 'cst-navigation-container columns section-itn',
 				'items_wrap'      => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news (AKA Trending):</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
-				'walker'          => new GC_walker_nav_menu(),
+//				'walker'          => new GC_walker_nav_menu(),
 				)
 			);
 		?>
@@ -1510,7 +1510,7 @@ class CST_Frontend {
 				'depth' => 1,
 				'container_class' => 'cst-navigation-container columns section-subnav',
 				'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor ' . $section_obj->slug . '"><ul id="%1$s" class="' . $theme_location . '-' .$section_obj->slug . '">' . $section_parent_link . '%3$s</ul></div></div>',
-				'walker' => new GC_walker_nav_menu(),
+//				'walker' => new GC_walker_nav_menu(),
 				)
 			);
 		} else {
@@ -1615,10 +1615,10 @@ class CST_Frontend {
 					return;
 				}
 			} else {
-				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-containerundefined-slug' ) ;
+				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undefined-slug' ) ;
 			}
 		} else {
-		$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-containerundetermined' );
+		$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined' );
 		}
 		$cache_key = md5( $chosen_parameters['container_class'] );
 		$navigation    = wp_cache_get( $cache_key, 'default' );
