@@ -2,7 +2,7 @@
 	<div class="contain-to-grid">
 		<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
 			<ul class="title-area">
-				<li class="has-form columns small-1 show-for-medium-down hide-for-small-only">
+				<li class="has-form columns small-1 show-for-medium-down hide-for-small-only search-wrapper">
 					<div class="search">
 						<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 							<div class="row collapse search-input-wrapper">
@@ -15,7 +15,7 @@
 						</form>
 					</div>
 				</li>
-				<li class="has-form hide-for-large-up columns small-1 show-for-medium-down">
+				<li class="has-form hide-for-large-up columns small-1 show-for-medium-down burger-wrapper-no-fries">
 					<a href="#1" class="left-off-canvas-toggle burger-bar">
 						<i class="fa fa-bars"></i>
 					</a>
@@ -54,7 +54,7 @@
 							</form>
 						</div>
 					</li>
-					<li class="has-form">
+					<li class="has-form burger-wrapper-no-fries">
 						<a href="#0" class="left-off-canvas-toggle burger-bar">
 							<i class="fa fa-bars"></i>
 						</a>

@@ -13,10 +13,6 @@
 			margin: 5px;
 		}
 	}
-	
-	@media #{$small-only} {
-		margin-top: 30px;
-	}
 
 	.taxonomy-image {
 		margin-top:15px;
@@ -503,4 +499,9 @@
 		}
 	}
 
+}
+@media #{$xmediumi-only} and (orientation: portrait) {
+	.wire {
+	width: 59.9%;
+	}
 }

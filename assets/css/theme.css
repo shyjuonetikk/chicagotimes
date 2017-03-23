@@ -506,27 +506,34 @@ header#header {
     .responsive-logo-wrapper {
       height: 40px; } }
 
-.burger-bar {
-  float: left;
-  color: white;
-  display: block;
-  border: 1px solid #9a9a9a;
-  margin: 4px 0 0 4px;
-  background: #231f20;
-  padding: 0 6px !important;
-  line-height: 28px;
-  z-index: 100000;
-  position: relative; }
-  .burger-bar .fa {
-    padding-left: 5px;
-    padding-right: 5px;
-    font-size: 26px;
-    line-height: 32px; }
-  .burger-bar span {
-    position: relative;
-    vertical-align: text-top;
-    padding-right: 10px;
-    line-height: 12px; }
+.burger-wrapper-no-fries {
+  width: 44px;
+  padding: 0; }
+  .burger-wrapper-no-fries .burger-bar {
+    float: left;
+    color: white;
+    display: block;
+    border: 1px solid #9a9a9a;
+    margin: 4px 0 0 4px;
+    background: #231f20;
+    padding: 0 6px !important;
+    line-height: 28px;
+    width: 44px;
+    z-index: 100000;
+    position: relative; }
+    .burger-wrapper-no-fries .burger-bar .fa {
+      padding-left: 5px;
+      padding-right: 5px;
+      font-size: 26px;
+      line-height: 32px; }
+    .burger-wrapper-no-fries .burger-bar span {
+      position: relative;
+      vertical-align: text-top;
+      padding-right: 10px;
+      line-height: 12px; }
+  @media only screen and (max-width: 40em) {
+    .burger-wrapper-no-fries {
+      padding: 0; } }
 
 .spacer {
   height: 135px; }
@@ -858,6 +865,9 @@ ul#menu-sun-times-network {
   margin-top: 7px;
   padding-right: 0px;
   padding-left: 3px; }
+@media only screen and (max-width: 40em) {
+  .masthead .title-area .logo-container {
+    padding-left: 10px; } }
 .masthead .title-area .nav-container {
   padding: 0; }
   @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
@@ -900,9 +910,6 @@ ul#menu-sun-times-network {
     .wire .ad-container .dfp-cube {
       display: inline-block;
       margin: 5px; }
-  @media only screen and (max-width: 40em) {
-    .wire {
-      margin-top: 30px; } }
   .wire .taxonomy-image {
     margin-top: 15px; }
   .wire .terry-ford {
@@ -1176,6 +1183,10 @@ ul#menu-sun-times-network {
     .wire .cst-embed-instagram .instagram-byline {
       margin-left: 0px; } }
 
+@media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
+  .wire {
+    width: 59.9%; } }
+
 body.search {
   background: white; }
 
@@ -1245,7 +1256,8 @@ body.search {
 @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
   section .right-rail {
     padding-left: 0;
-    padding-right: 0.9375rem; } }
+    padding-right: 0.9375rem;
+    width: 40%; } }
 
 article.post {
   background-color: white;
@@ -2801,6 +2813,11 @@ header .contain-to-grid .top-bar {
       padding-right: 0.6rem; }
       header .contain-to-grid .top-bar .masthead-sections li:last-child {
         padding-right: 0; } }
+  @media only screen and (max-width: 40em) {
+    header .contain-to-grid .top-bar .masthead-sections li {
+      padding-right: 0.1rem; }
+      header .contain-to-grid .top-bar .masthead-sections li:last-child {
+        padding-right: 0; } }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
@@ -2842,6 +2859,8 @@ header .contain-to-grid .top-bar {
       padding-right: 0; }
     header .contain-to-grid .top-bar .top-bar-section .logo a {
       line-height: 42px; }
+    header .contain-to-grid .top-bar .top-bar-section .burger-wrapper-no-fries {
+      width: 44px; }
   @media only screen and (min-width: 78.063em) {
     header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
       padding: 0 14px !important; }
@@ -2863,6 +2882,12 @@ header .contain-to-grid .top-bar {
       border-top: 1px solid #333333; } }
   header .contain-to-grid .top-bar .has-form {
     background: #231f20; }
+  @media only screen and (max-width: 40em) {
+    header .contain-to-grid .top-bar .homepage-nav-holder {
+      padding-left: 0;
+      padding-right: 0; }
+      header .contain-to-grid .top-bar .homepage-nav-holder li a {
+        font-size: 0.8rem; } }
 header .contain-to-grid .cst-row {
   margin: 0 auto; }
 

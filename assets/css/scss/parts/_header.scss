@@ -200,9 +200,17 @@ header {
 						}
 					}
 				}
+				@media #{$small-only} {
+					li {
+						padding-right: 0.1rem;
+						&:last-child {
+							padding-right:0;
+						}
+					}
+				}
 			}
-		.top-bar-section {
-			background: $light_grey;
+			.top-bar-section {
+				background: $light_grey;
 				#menu-homepage-left, #menu-homepage {
 					.menu-item {
 						&.obit-external {
@@ -225,13 +233,13 @@ header {
 						display: none;
 					}
 				}
-				.has-dropdown>a:after {
+				.has-dropdown > a:after {
 					content: "";
 					display: block;
 					width: 0;
 					height: 0;
 					border: inset 5px;
-					border-color: rgba(0,0,0,0.7) transparent transparent transparent;
+					border-color: rgba(0, 0, 0, 0.7) transparent transparent transparent;
 					border-top-style: solid;
 					margin-top: -8px;
 					top: 22.5px;
@@ -242,25 +250,28 @@ header {
 						list-style-type: none;
 						background: $cst_black;
 						@media #{$small-only} {
-							margin-left:1rem;
+							margin-left: 1rem;
 						}
 					}
 					li,
 					li:not(.has-form) > a, a:not(.button) {
 						background: $cst_black;
-						line-height:44px;
+						line-height: 44px;
 						color: $white;
 					}
 					.homepage-nav-holder {
-						padding-left:0;
-						padding-right:0;
+						padding-left: 0;
+						padding-right: 0;
 					}
 				}
-			.logo {
-				a {
-					line-height:42px;
+				.logo {
+					a {
+						line-height: 42px;
+					}
 				}
-			}
+				.burger-wrapper-no-fries {
+					width: 44px;
+				}
 			}
 			@media only screen and (min-width: 78.063em) {
 				.top-bar-section li:not(.has-form) a:not(.button) {
@@ -288,6 +299,17 @@ header {
 			}
 			.has-form {
 				background: $cst_black;
+			}
+			@media #{$small-only} {
+				.homepage-nav-holder {
+					padding-left: 0;
+					padding-right: 0;
+					li {
+						a {
+							font-size: 0.8rem;
+						}
+					}
+				}
 			}
 		}
 		.cst-row {
