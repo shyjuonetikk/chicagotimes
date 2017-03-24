@@ -26,17 +26,29 @@
 					</li>
 				<?php } else { ?>
 				<li class="name hide-for-large-up">
-					<div class="medium-2 small-3 columns logo-container">
+					<div class="medium-2 small-6 columns logo-container">
 						<div class="small-logo">
 							<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
 								<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 							</a>
 						</div>
 					</div>
-					<div class="medium-8 large-9 small-7 columns nav-container">
+					<div class="medium-8 large-9 small-7 show-for-medium-up columns nav-container">
 						<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 					</div>
+					<div class="search show-for-small-only small-offset-11">
+						<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+							<div class="row collapse search-input-wrapper">
+								<div class="large-1 small-1 columns search-icon">
+									<a href="#" data-reveal-id="search-container">
+										<i class="fa fa-search"></i>
+									</a>
+								</div>
+							</div>
+						</form>
+					</div>
 				</li>
+
 				<?php } ?>
 			</ul>
 			<section class="top-bar-section">
