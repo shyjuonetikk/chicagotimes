@@ -96,10 +96,6 @@ class CST {
 		add_image_size( 'newspaper', 297, 287, true );
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
-
-		if ( 'chicago.suntimes.com' !== $this->dfp_handler->get_parent_dfp_inventory() ) {
-			wpcom_vip_load_plugin( 'inform-video-match', 'plugins', '1.7.3' );
-		}
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
@@ -205,7 +201,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-columnists-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-newspaper-cover-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-breaking-news-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ndn-video-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-stng-wire-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-social-follow-us-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-category-headlines-widget.php';
@@ -226,6 +221,8 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
 
+		// Vendor plugins
+		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
 		// API Endpoints
 		require_once dirname( __FILE__ ) . '/inc/class-cst-api-endpoints.php';
 		// AMP
@@ -246,10 +243,7 @@ class CST {
 		}
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
-		if ( ! defined( 'WP_CLI' ) ) {
-			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
-			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '3.0' );
-		}
+
 		// Options are loaded on Bitly::__construct
 		add_filter( 'pre_option_bitly_settings', function() {
 			return array(
@@ -279,7 +273,7 @@ class CST {
 		 * Add Workflow tools admin menu links
 		 */
 		add_action( 'admin_bar_menu', function( $wp_admin_bar ) {
-			$wp_admin_bar->remove_menu('ab-new-post');
+			$wp_admin_bar->remove_menu( 'ab-new-post' );
 
 			if ( ! is_admin() && is_tax() && current_user_can( 'edit_others_posts' ) && ! $wp_admin_bar->get_node( 'edit' ) ) {
 
@@ -288,7 +282,8 @@ class CST {
 					'id'        => 'edit',
 					'title'     => sprintf( esc_html__( 'Edit %s', 'chicagosuntimes' ), get_taxonomy( $term->taxonomy )->labels->singular_name ),
 					'href'      => get_edit_term_link( $term->term_id, $term->taxonomy, 'post' ),
-					) );
+					)
+				);
 			}
 			$workflow_args = array(
 				'id' => 'cst-workflow',
@@ -322,41 +317,48 @@ class CST {
 		// API Endpoint registration here for the moment as it needs to be late enough
 		// for the core rest_api functions to have already been registered
 		add_action( 'rest_api_init', function () {
-			register_rest_route( 'cst/v1', '/section/(?P<slug>[a-zA-Z-0-9]+)/(?P<count>\d+)', array(
-				'methods' => 'GET',
-				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_handler' ),
-				'args' => array(
-					'slug' => array(
-						'validate_callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_validate' ),
-						'required' => true,
+			register_rest_route( 'cst/v1', '/section/(?P<slug>[a-zA-Z-0-9]+)/(?P<count>\d+)',
+				array(
+					'methods'  => 'GET',
+					'callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_handler' ),
+					'args'     => array(
+						'slug'  => array(
+							'validate_callback' => array( CST_API_Endpoints::get_instance(), 'cst_section_validate' ),
+							'required'          => true,
+						),
+						'count' => array(
+							'validate_callback' => 'absint',
+						),
 					),
-					'count' => array(
-						'validate_callback' => 'absint'
+				)
+			);
+			register_rest_route( 'cst/v1', '/cst_article/(?P<id>\d+)',
+				array(
+					'methods'  => 'GET',
+					'callback' => array( CST_API_Endpoints::get_instance(), 'cst_article_handler' ),
+					'args'     => array(
+						'id' => array(
+							'validate_callback' => 'absint',
+						),
 					),
-				),
-			) );
-			register_rest_route( 'cst/v1', '/cst_article/(?P<id>\d+)', array(
-				'methods' => 'GET',
-				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_article_handler' ),
-				'args' => array(
-					'id' => array(
-						'validate_callback' => 'absint'
+				)
+			);
+			register_rest_route( 'cst/v1', '/media/(?P<id>\d+)',
+				array(
+					'methods'  => 'GET',
+					'callback' => array( CST_API_Endpoints::get_instance(), 'cst_media_handler' ),
+					'args'     => array(
+						'id' => array(
+							'validate_callback' => 'absint',
+						),
 					),
-				),
-			) );
-			register_rest_route( 'cst/v1', '/media/(?P<id>\d+)', array(
-				'methods' => 'GET',
-				'callback' => array( CST_API_Endpoints::get_instance(), 'cst_media_handler' ),
-				'args' => array(
-					'id' => array(
-						'validate_callback' => 'absint'
-					),
-				),
-			) );
+				)
+			);
 		} );
 
 		remove_all_actions( 'do_feed_rss2' );
 		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
+		add_action( 'rss2_ns', [ $this, 'cst_custom_feed_ns' ], 10, 1 );
 		add_action( 'do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1 );
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
@@ -460,6 +462,7 @@ class CST {
 			}
 			if ( WP_DEBUG ) {
 				$classes[] = 'vip-local';
+				$classes[] = 'vagrant-local';
 			}
 			return $classes;
 		});
@@ -486,13 +489,13 @@ class CST {
 		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
 			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
 			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
+			add_filter( 'instant_articles_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
+			add_filter( 'instant_articles_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
+			add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
+			add_filter( 'instant_articles_post_types', function ( $types ) {
+				return array( 'cst_article', 'cst_gallery' );
+			} );
 		}
-		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
-		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
-		add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
-		add_filter( 'instant_articles_post_types', function ( $types ) {
-			return array( 'cst_article', 'cst_gallery' );
-		} );
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
@@ -553,7 +556,7 @@ class CST {
 	/**
 	 * Loop through article authors and return and array of
 	 * formatted array of users and related user properties.
-	 * @param $authors
+	 * @param $incoming_authors
 	 * @param $_post_id
 	 *
 	 * @return mixed
@@ -754,7 +757,7 @@ class CST {
 			'id'          => 'obitswire',
 			'name'        => esc_html__( 'ObitsWire', 'chicagosuntimes' ),
 		) );
-        
+
 		register_sidebar( array(
 			'id'          => 'undermorefrom',
 			'name'        => esc_html__( 'UnderMoreFrom', 'chicagosuntimes' ),
@@ -791,7 +794,6 @@ class CST {
 		register_widget( 'CST_Columnists_Content_Widget' );
 		register_widget( 'CST_Newspaper_Cover_Widget' );
 		register_widget( 'CST_Breaking_News_Widget' );
-		register_widget( 'CST_Inform_Video_Widget' );
 		register_widget( 'CST_Gracenote_Sports_Widget' );
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
@@ -834,28 +836,28 @@ class CST {
 
 		register_nav_menus(
 			array(
-				'homepage-menu'     	=> esc_html__( 'Homepage', 'chicagosuntimes' ),
-				'homepage-footer-menu'  => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
-				'news-menu'         	=> esc_html__( 'News', 'chicagosuntimes' ),
-				'news-trending'     	=> esc_html__( 'News Trending', 'chicagosuntimes' ),
-				'sports-menu'       	=> esc_html__( 'Sports', 'chicagosuntimes' ),
-				'sports-trending'   	=> esc_html__( 'Sports Trending', 'chicagosuntimes' ),
-				'politics-menu'     	=> esc_html__( 'Politics', 'chicagosuntimes' ),
-				'politics-trending' 	=> esc_html__( 'Politics Trending', 'chicagosuntimes' ),
-				'entertainment-menu'    => esc_html__( 'Entertainment', 'chicagosuntimes' ),
-				'entertainment-trending'=> esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
-				'lifestyles-menu'      	=> esc_html__( 'Lifestyles', 'chicagosuntimes' ),
-				'lifestyles-trending'   => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
-				'opinion-menu'       	=> esc_html__( 'Opinion', 'chicagosuntimes' ),
-				'opinion-trending'   	=> esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
-				'columnists-menu'       => esc_html__( 'Columnists', 'chicagosuntimes' ),
-				'columnists-trending'   => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
-				'autos-menu'            => esc_html__( 'Autos', 'chicagosuntimes' ),
-				'autos-trending'        => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
-				'page-footer-1'         => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
-				'page-footer-2'         => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
-				'page-footer-3'         => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
-				'election-page'         => esc_html__( 'Election Page', 'chicagosuntimes' ),
+				'homepage-menu'          => esc_html__( 'Homepage', 'chicagosuntimes' ),
+				'homepage-footer-menu'   => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
+				'news-menu'              => esc_html__( 'News', 'chicagosuntimes' ),
+				'news-trending'          => esc_html__( 'News Trending', 'chicagosuntimes' ),
+				'sports-menu'            => esc_html__( 'Sports', 'chicagosuntimes' ),
+				'sports-trending'        => esc_html__( 'Sports Trending', 'chicagosuntimes' ),
+				'politics-menu'          => esc_html__( 'Politics', 'chicagosuntimes' ),
+				'politics-trending'      => esc_html__( 'Politics Trending', 'chicagosuntimes' ),
+				'entertainment-menu'     => esc_html__( 'Entertainment', 'chicagosuntimes' ),
+				'entertainment-trending' => esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
+				'lifestyles-menu'        => esc_html__( 'Lifestyles', 'chicagosuntimes' ),
+				'lifestyles-trending'    => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
+				'opinion-menu'           => esc_html__( 'Opinion', 'chicagosuntimes' ),
+				'opinion-trending'       => esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
+				'columnists-menu'        => esc_html__( 'Columnists', 'chicagosuntimes' ),
+				'columnists-trending'    => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
+				'autos-menu'             => esc_html__( 'Autos', 'chicagosuntimes' ),
+				'autos-trending'         => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
+				'page-footer-1'          => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
+				'page-footer-2'          => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
+				'page-footer-3'          => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
+				'election-page'          => esc_html__( 'Election Page', 'chicagosuntimes' ),
 			)
 		);
 
@@ -872,288 +874,305 @@ class CST {
 
 		// We aren't using the default post type
 		// Unsetting causes errors, so hiding is better.
-		$wp_post_types[ 'post' ]->public = false;
-		$wp_post_types[ 'post' ]->show_ui = false;
-		$wp_post_types[ 'post' ]->show_in_menu = false;
-		$wp_post_types[ 'post' ]->show_in_admin_bar = false;
-		$wp_post_types[ 'post' ]->show_in_nav_menus = false;
+		$wp_post_types['post']->public = false;
+		$wp_post_types['post']->show_ui = false;
+		$wp_post_types['post']->show_in_menu = false;
+		$wp_post_types['post']->show_in_admin_bar = false;
+		$wp_post_types['post']->show_in_nav_menus = false;
 
 		$this->post_types[] = 'cst_article';
-		register_post_type( 'cst_article', array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'menu_position'     => 6,
-			'show_ui'           => true,
-			'supports'          => array(
-				'title',
-				'editor',
-				'author',
-				'thumbnail',
-				'excerpt',
-				'bitly',
-				'revisions',
-			),
-			'has_archive'       => 'articles',
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'cst_article',
+		register_post_type( 'cst_article',
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'show_in_rest'      => true,
+				'menu_position'     => 6,
+				'show_ui'           => true,
+				'supports'          => array(
+					'title',
+					'editor',
+					'author',
+					'thumbnail',
+					'excerpt',
+					'bitly',
+					'revisions',
 				),
-			'labels'            => array(
-				'name'                => esc_html__( 'Articles', 'chicagosuntimes' ),
-				'singular_name'       => esc_html__( 'Article', 'chicagosuntimes' ),
-				'all_items'           => esc_html__( 'Articles', 'chicagosuntimes' ),
-				'new_item'            => esc_html__( 'New Article', 'chicagosuntimes' ),
-				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-				'add_new_item'        => esc_html__( 'Add New Article', 'chicagosuntimes' ),
-				'edit_item'           => esc_html__( 'Edit Article', 'chicagosuntimes' ),
-				'view_item'           => esc_html__( 'View Article', 'chicagosuntimes' ),
-				'search_items'        => esc_html__( 'Search Articles', 'chicagosuntimes' ),
-				'not_found'           => esc_html__( 'No Articles found', 'chicagosuntimes' ),
-				'not_found_in_trash'  => esc_html__( 'No Articles found in trash', 'chicagosuntimes' ),
-				'parent_item_colon'   => esc_html__( 'Parent Article', 'chicagosuntimes' ),
-				'menu_name'           => esc_html__( 'Articles', 'chicagosuntimes' ),
-			),
-		) );
+				'has_archive'       => 'articles',
+				'query_var'         => true,
+				'rewrite'           => array(
+					'slug' => 'cst_article',
+				),
+				'labels'            => array(
+					'name'               => esc_html__( 'Articles', 'chicagosuntimes' ),
+					'singular_name'      => esc_html__( 'Article', 'chicagosuntimes' ),
+					'all_items'          => esc_html__( 'Articles', 'chicagosuntimes' ),
+					'new_item'           => esc_html__( 'New Article', 'chicagosuntimes' ),
+					'add_new'            => esc_html__( 'Add New', 'chicagosuntimes' ),
+					'add_new_item'       => esc_html__( 'Add New Article', 'chicagosuntimes' ),
+					'edit_item'          => esc_html__( 'Edit Article', 'chicagosuntimes' ),
+					'view_item'          => esc_html__( 'View Article', 'chicagosuntimes' ),
+					'search_items'       => esc_html__( 'Search Articles', 'chicagosuntimes' ),
+					'not_found'          => esc_html__( 'No Articles found', 'chicagosuntimes' ),
+					'not_found_in_trash' => esc_html__( 'No Articles found in trash', 'chicagosuntimes' ),
+					'parent_item_colon'  => esc_html__( 'Parent Article', 'chicagosuntimes' ),
+					'menu_name'          => esc_html__( 'Articles', 'chicagosuntimes' ),
+				),
+			)
+		);
 
 		$this->post_types[] = 'cst_link';
-		register_post_type( 'cst_link', array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'menu_position'     => 7,
-			'menu_icon'         => 'dashicons-admin-links',
-			'show_ui'           => true,
-			'supports'          => array(
-				'title',
-				'author',
-				'thumbnail',
-				'excerpt',				
-				'bitly',
-			),
-			'has_archive'       => 'links',
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'cst_link',
+		register_post_type( 'cst_link',
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'menu_position'     => 7,
+				'menu_icon'         => 'dashicons-admin-links',
+				'show_ui'           => true,
+				'supports'          => array(
+					'title',
+					'author',
+					'thumbnail',
+					'excerpt',
+					'bitly',
 				),
-			'labels'            => array(
-				'name'                => esc_html__( 'Links', 'chicagosuntimes' ),
-				'singular_name'       => esc_html__( 'Link', 'chicagosuntimes' ),
-				'all_items'           => esc_html__( 'Links', 'chicagosuntimes' ),
-				'new_item'            => esc_html__( 'New Link', 'chicagosuntimes' ),
-				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-				'add_new_item'        => esc_html__( 'Add New Link', 'chicagosuntimes' ),
-				'edit_item'           => esc_html__( 'Edit Link', 'chicagosuntimes' ),
-				'view_item'           => esc_html__( 'View Link', 'chicagosuntimes' ),
-				'search_items'        => esc_html__( 'Search Links', 'chicagosuntimes' ),
-				'not_found'           => esc_html__( 'No Links found', 'chicagosuntimes' ),
-				'not_found_in_trash'  => esc_html__( 'No Links found in trash', 'chicagosuntimes' ),
-				'parent_item_colon'   => esc_html__( 'Parent Link', 'chicagosuntimes' ),
-				'menu_name'           => esc_html__( 'Links', 'chicagosuntimes' ),
-			),
-		) );
+				'has_archive'       => 'links',
+				'query_var'         => true,
+				'rewrite'           => array(
+					'slug' => 'cst_link',
+				),
+				'labels'            => array(
+					'name'               => esc_html__( 'Links', 'chicagosuntimes' ),
+					'singular_name'      => esc_html__( 'Link', 'chicagosuntimes' ),
+					'all_items'          => esc_html__( 'Links', 'chicagosuntimes' ),
+					'new_item'           => esc_html__( 'New Link', 'chicagosuntimes' ),
+					'add_new'            => esc_html__( 'Add New', 'chicagosuntimes' ),
+					'add_new_item'       => esc_html__( 'Add New Link', 'chicagosuntimes' ),
+					'edit_item'          => esc_html__( 'Edit Link', 'chicagosuntimes' ),
+					'view_item'          => esc_html__( 'View Link', 'chicagosuntimes' ),
+					'search_items'       => esc_html__( 'Search Links', 'chicagosuntimes' ),
+					'not_found'          => esc_html__( 'No Links found', 'chicagosuntimes' ),
+					'not_found_in_trash' => esc_html__( 'No Links found in trash', 'chicagosuntimes' ),
+					'parent_item_colon'  => esc_html__( 'Parent Link', 'chicagosuntimes' ),
+					'menu_name'          => esc_html__( 'Links', 'chicagosuntimes' ),
+				),
+			)
+		);
 
 		$this->post_types[] = 'cst_embed';
-		register_post_type( 'cst_embed', array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'menu_position'     => 8,
-			'menu_icon'         => 'dashicons-twitter',
-			'show_ui'           => true,
-			'supports'          => array(
-				'author',
-				'bitly',
-			),
-			'has_archive'       => 'embeds',
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'cst_embed',
-			),
-			'labels'            => array(
-				'name'                => esc_html__( 'Embeds', 'chicagosuntimes' ),
-				'singular_name'       => esc_html__( 'Embed', 'chicagosuntimes' ),
-				'all_items'           => esc_html__( 'Embeds', 'chicagosuntimes' ),
-				'new_item'            => esc_html__( 'New Embed', 'chicagosuntimes' ),
-				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-				'add_new_item'        => esc_html__( 'Add New Embed', 'chicagosuntimes' ),
-				'edit_item'           => esc_html__( 'Edit Embed', 'chicagosuntimes' ),
-				'view_item'           => esc_html__( 'View Embed', 'chicagosuntimes' ),
-				'search_items'        => esc_html__( 'Search Embeds', 'chicagosuntimes' ),
-				'not_found'           => esc_html__( 'No Embeds found', 'chicagosuntimes' ),
-				'not_found_in_trash'  => esc_html__( 'No Embeds found in trash', 'chicagosuntimes' ),
-				'parent_item_colon'   => esc_html__( 'Parent Embed', 'chicagosuntimes' ),
-				'menu_name'           => esc_html__( 'Embeds', 'chicagosuntimes' ),
-			),
-		) );
+		register_post_type( 'cst_embed',
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'menu_position'     => 8,
+				'menu_icon'         => 'dashicons-twitter',
+				'show_ui'           => true,
+				'supports'          => array(
+					'author',
+					'bitly',
+				),
+				'has_archive'       => 'embeds',
+				'query_var'         => true,
+				'rewrite'           => array(
+					'slug' => 'cst_embed',
+				),
+				'labels'            => array(
+					'name'               => esc_html__( 'Embeds', 'chicagosuntimes' ),
+					'singular_name'      => esc_html__( 'Embed', 'chicagosuntimes' ),
+					'all_items'          => esc_html__( 'Embeds', 'chicagosuntimes' ),
+					'new_item'           => esc_html__( 'New Embed', 'chicagosuntimes' ),
+					'add_new'            => esc_html__( 'Add New', 'chicagosuntimes' ),
+					'add_new_item'       => esc_html__( 'Add New Embed', 'chicagosuntimes' ),
+					'edit_item'          => esc_html__( 'Edit Embed', 'chicagosuntimes' ),
+					'view_item'          => esc_html__( 'View Embed', 'chicagosuntimes' ),
+					'search_items'       => esc_html__( 'Search Embeds', 'chicagosuntimes' ),
+					'not_found'          => esc_html__( 'No Embeds found', 'chicagosuntimes' ),
+					'not_found_in_trash' => esc_html__( 'No Embeds found in trash', 'chicagosuntimes' ),
+					'parent_item_colon'  => esc_html__( 'Parent Embed', 'chicagosuntimes' ),
+					'menu_name'          => esc_html__( 'Embeds', 'chicagosuntimes' ),
+				),
+			)
+		);
 
 		$this->post_types[] = 'cst_gallery';
-		register_post_type( 'cst_gallery', array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'menu_position'     => 9,
-			'menu_icon'         => 'dashicons-format-gallery',
-			'show_ui'           => true,
-			'supports'          => array(
-				'title',
-				'editor',
-				'author',
-				'thumbnail',
-				'excerpt',
-				'bitly',
-			),
-			'has_archive'       => 'galleries',
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'cst_gallery',
+		register_post_type( 'cst_gallery',
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'show_in_rest'      => true,
+				'menu_position'     => 9,
+				'menu_icon'         => 'dashicons-format-gallery',
+				'show_ui'           => true,
+				'supports'          => array(
+					'title',
+					'editor',
+					'author',
+					'thumbnail',
+					'excerpt',
+					'bitly',
 				),
-			'labels'            => array(
-				'name'                => esc_html__( 'Galleries', 'chicagosuntimes' ),
-				'singular_name'       => esc_html__( 'Gallery', 'chicagosuntimes' ),
-				'all_items'           => esc_html__( 'Galleries', 'chicagosuntimes' ),
-				'new_item'            => esc_html__( 'New Gallery', 'chicagosuntimes' ),
-				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-				'add_new_item'        => esc_html__( 'Add New Gallery', 'chicagosuntimes' ),
-				'edit_item'           => esc_html__( 'Edit Gallery', 'chicagosuntimes' ),
-				'view_item'           => esc_html__( 'View Gallery', 'chicagosuntimes' ),
-				'search_items'        => esc_html__( 'Search Galleries', 'chicagosuntimes' ),
-				'not_found'           => esc_html__( 'No Galleries found', 'chicagosuntimes' ),
-				'not_found_in_trash'  => esc_html__( 'No Galleries found in trash', 'chicagosuntimes' ),
-				'parent_item_colon'   => esc_html__( 'Parent Gallery', 'chicagosuntimes' ),
-				'menu_name'           => esc_html__( 'Galleries', 'chicagosuntimes' ),
-			),
-		) );
+				'has_archive'       => 'galleries',
+				'query_var'         => true,
+				'rewrite'           => array(
+					'slug' => 'cst_gallery',
+				),
+				'labels'            => array(
+					'name'               => esc_html__( 'Galleries', 'chicagosuntimes' ),
+					'singular_name'      => esc_html__( 'Gallery', 'chicagosuntimes' ),
+					'all_items'          => esc_html__( 'Galleries', 'chicagosuntimes' ),
+					'new_item'           => esc_html__( 'New Gallery', 'chicagosuntimes' ),
+					'add_new'            => esc_html__( 'Add New', 'chicagosuntimes' ),
+					'add_new_item'       => esc_html__( 'Add New Gallery', 'chicagosuntimes' ),
+					'edit_item'          => esc_html__( 'Edit Gallery', 'chicagosuntimes' ),
+					'view_item'          => esc_html__( 'View Gallery', 'chicagosuntimes' ),
+					'search_items'       => esc_html__( 'Search Galleries', 'chicagosuntimes' ),
+					'not_found'          => esc_html__( 'No Galleries found', 'chicagosuntimes' ),
+					'not_found_in_trash' => esc_html__( 'No Galleries found in trash', 'chicagosuntimes' ),
+					'parent_item_colon'  => esc_html__( 'Parent Gallery', 'chicagosuntimes' ),
+					'menu_name'          => esc_html__( 'Galleries', 'chicagosuntimes' ),
+				),
+			)
+		);
 
 		$this->post_types[] = 'cst_liveblog';
-		register_post_type( 'cst_liveblog', array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'menu_position'     => 11,
-			'menu_icon'         => 'dashicons-format-status',
-			'show_ui'           => true,
-			'supports'          => array(
-				'title',
-				'editor',
-				'author',
-				'bitly',
-			),
-			'has_archive'       => 'liveblogs',
-			'rewrite'           => array(
-				'slug'          => 'cst_liveblog',
+		register_post_type( 'cst_liveblog',
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'menu_position'     => 11,
+				'menu_icon'         => 'dashicons-format-status',
+				'show_ui'           => true,
+				'supports'          => array(
+					'title',
+					'editor',
+					'author',
+					'bitly',
+				),
+				'has_archive'       => 'liveblogs',
+				'rewrite'           => array(
+					'slug' => 'cst_liveblog',
 				),
 
-			'query_var'         => true,
-			'labels'            => array(
-				'name'                => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
-				'singular_name'       => esc_html__( 'Liveblog', 'chicagosuntimes' ),
-				'all_items'           => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
-				'new_item'            => esc_html__( 'New Liveblog', 'chicagosuntimes' ),
-				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-				'add_new_item'        => esc_html__( 'Add New Liveblog', 'chicagosuntimes' ),
-				'edit_item'           => esc_html__( 'Edit Liveblog', 'chicagosuntimes' ),
-				'view_item'           => esc_html__( 'View Liveblog', 'chicagosuntimes' ),
-				'search_items'        => esc_html__( 'Search Liveblogs', 'chicagosuntimes' ),
-				'not_found'           => esc_html__( 'No Liveblogs found', 'chicagosuntimes' ),
-				'not_found_in_trash'  => esc_html__( 'No Liveblogs found in trash', 'chicagosuntimes' ),
-				'parent_item_colon'   => esc_html__( 'Parent Liveblog', 'chicagosuntimes' ),
-				'menu_name'           => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
-			),
-		) );
+				'query_var' => true,
+				'labels'    => array(
+					'name'               => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
+					'singular_name'      => esc_html__( 'Liveblog', 'chicagosuntimes' ),
+					'all_items'          => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
+					'new_item'           => esc_html__( 'New Liveblog', 'chicagosuntimes' ),
+					'add_new'            => esc_html__( 'Add New', 'chicagosuntimes' ),
+					'add_new_item'       => esc_html__( 'Add New Liveblog', 'chicagosuntimes' ),
+					'edit_item'          => esc_html__( 'Edit Liveblog', 'chicagosuntimes' ),
+					'view_item'          => esc_html__( 'View Liveblog', 'chicagosuntimes' ),
+					'search_items'       => esc_html__( 'Search Liveblogs', 'chicagosuntimes' ),
+					'not_found'          => esc_html__( 'No Liveblogs found', 'chicagosuntimes' ),
+					'not_found_in_trash' => esc_html__( 'No Liveblogs found in trash', 'chicagosuntimes' ),
+					'parent_item_colon'  => esc_html__( 'Parent Liveblog', 'chicagosuntimes' ),
+					'menu_name'          => esc_html__( 'Liveblogs', 'chicagosuntimes' ),
+				),
+			)
+		);
 
 		$this->post_types[] = 'cst_video';
-		register_post_type( 'cst_video', array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'menu_position'     => 11,
-			'menu_icon'         => 'dashicons-media-video',
-			'show_ui'           => true,
-			'supports'          => array(
-				'title',
-				'author',
-				'thumbnail',
-				'bitly',
-			),
-			'has_archive'       => 'video',
-			'rewrite'           => array(
-				'slug'          => 'cst_video',
+		register_post_type( 'cst_video',
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'menu_position'     => 11,
+				'menu_icon'         => 'dashicons-media-video',
+				'show_ui'           => true,
+				'supports'          => array(
+					'title',
+					'author',
+					'thumbnail',
+					'bitly',
+				),
+				'has_archive'       => 'video',
+				'rewrite'           => array(
+					'slug' => 'cst_video',
 				),
 
-			'query_var'         => true,
-			'labels'            => array(
-				'name'                => esc_html__( 'Videos', 'chicagosuntimes' ),
-				'singular_name'       => esc_html__( 'Video', 'chicagosuntimes' ),
-				'all_items'           => esc_html__( 'Videos', 'chicagosuntimes' ),
-				'new_item'            => esc_html__( 'New Video', 'chicagosuntimes' ),
-				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-				'add_new_item'        => esc_html__( 'Add New Video', 'chicagosuntimes' ),
-				'edit_item'           => esc_html__( 'Edit Video', 'chicagosuntimes' ),
-				'view_item'           => esc_html__( 'View Video', 'chicagosuntimes' ),
-				'search_items'        => esc_html__( 'Search Videos', 'chicagosuntimes' ),
-				'not_found'           => esc_html__( 'No Videos found', 'chicagosuntimes' ),
-				'not_found_in_trash'  => esc_html__( 'No Videos found in trash', 'chicagosuntimes' ),
-				'parent_item_colon'   => esc_html__( 'Parent Videos', 'chicagosuntimes' ),
-				'menu_name'           => esc_html__( 'Videos', 'chicagosuntimes' ),
-			),
-		) );
+				'query_var' => true,
+				'labels'    => array(
+					'name'               => esc_html__( 'Videos', 'chicagosuntimes' ),
+					'singular_name'      => esc_html__( 'Video', 'chicagosuntimes' ),
+					'all_items'          => esc_html__( 'Videos', 'chicagosuntimes' ),
+					'new_item'           => esc_html__( 'New Video', 'chicagosuntimes' ),
+					'add_new'            => esc_html__( 'Add New', 'chicagosuntimes' ),
+					'add_new_item'       => esc_html__( 'Add New Video', 'chicagosuntimes' ),
+					'edit_item'          => esc_html__( 'Edit Video', 'chicagosuntimes' ),
+					'view_item'          => esc_html__( 'View Video', 'chicagosuntimes' ),
+					'search_items'       => esc_html__( 'Search Videos', 'chicagosuntimes' ),
+					'not_found'          => esc_html__( 'No Videos found', 'chicagosuntimes' ),
+					'not_found_in_trash' => esc_html__( 'No Videos found in trash', 'chicagosuntimes' ),
+					'parent_item_colon'  => esc_html__( 'Parent Videos', 'chicagosuntimes' ),
+					'menu_name'          => esc_html__( 'Videos', 'chicagosuntimes' ),
+				),
+			)
+		);
 
 		$this->post_types[] = 'cst_feature';
-		register_post_type( 'cst_feature', array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'publicly_queryable' => true,
-			'show_in_nav_menus' => true,
-			'menu_position'     => 6,
-			'show_ui'           => true,
-			'supports'          => array(
-				'title',
-				'editor',
-				'author',
-				'thumbnail',
-				'excerpt',
-				'bitly',
-				'revisions',
-			),
-			'has_archive'       => 'features',
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'cst_feature',
-				'feeds'			=> false,
-			),
-			'labels'            => array(
-				'name'                => esc_html__( 'Features', 'chicagosuntimes' ),
-				'singular_name'       => esc_html__( 'Feature', 'chicagosuntimes' ),
-				'all_items'           => esc_html__( 'Features', 'chicagosuntimes' ),
-				'new_item'            => esc_html__( 'New Feature', 'chicagosuntimes' ),
-				'add_new'             => esc_html__( 'Add New', 'chicagosuntimes' ),
-				'add_new_item'        => esc_html__( 'Add New Feature', 'chicagosuntimes' ),
-				'edit_item'           => esc_html__( 'Edit Feature', 'chicagosuntimes' ),
-				'view_item'           => esc_html__( 'View Feature', 'chicagosuntimes' ),
-				'search_items'        => esc_html__( 'Search Features', 'chicagosuntimes' ),
-				'not_found'           => esc_html__( 'No Features found', 'chicagosuntimes' ),
-				'not_found_in_trash'  => esc_html__( 'No Features found in trash', 'chicagosuntimes' ),
-				'parent_item_colon'   => esc_html__( 'Parent Feature', 'chicagosuntimes' ),
-				'menu_name'           => esc_html__( 'Features', 'chicagosuntimes' ),
-			),
-		) );
+		register_post_type( 'cst_feature',
+			array(
+				'hierarchical'       => false,
+				'public'             => true,
+				'publicly_queryable' => true,
+				'show_in_nav_menus'  => true,
+				'show_in_rest'       => true,
+				'menu_position'      => 6,
+				'show_ui'            => true,
+				'supports'           => array(
+					'title',
+					'editor',
+					'author',
+					'thumbnail',
+					'excerpt',
+					'bitly',
+					'revisions',
+				),
+				'has_archive'        => 'features',
+				'query_var'          => true,
+				'rewrite'            => array(
+					'slug'  => 'cst_feature',
+					'feeds' => false,
+				),
+				'labels'             => array(
+					'name'               => esc_html__( 'Features', 'chicagosuntimes' ),
+					'singular_name'      => esc_html__( 'Feature', 'chicagosuntimes' ),
+					'all_items'          => esc_html__( 'Features', 'chicagosuntimes' ),
+					'new_item'           => esc_html__( 'New Feature', 'chicagosuntimes' ),
+					'add_new'            => esc_html__( 'Add New', 'chicagosuntimes' ),
+					'add_new_item'       => esc_html__( 'Add New Feature', 'chicagosuntimes' ),
+					'edit_item'          => esc_html__( 'Edit Feature', 'chicagosuntimes' ),
+					'view_item'          => esc_html__( 'View Feature', 'chicagosuntimes' ),
+					'search_items'       => esc_html__( 'Search Features', 'chicagosuntimes' ),
+					'not_found'          => esc_html__( 'No Features found', 'chicagosuntimes' ),
+					'not_found_in_trash' => esc_html__( 'No Features found in trash', 'chicagosuntimes' ),
+					'parent_item_colon'  => esc_html__( 'Parent Feature', 'chicagosuntimes' ),
+					'menu_name'          => esc_html__( 'Features', 'chicagosuntimes' ),
+				),
+			)
+		);
 
-		foreach( $this->get_post_types() as $post_type ) {
+		foreach ( $this->get_post_types() as $post_type ) {
 			// We have custom rewrite rules below
 			add_filter( "{$post_type}_rewrite_rules", '__return_empty_array' );
 		}
 
 		if ( ! current_user_can( 'adops' ) ) {
 			// Register a subset of post types with Zoninator
-			foreach( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
+			foreach ( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
 				// Register video post type with Zoninator
-				add_post_type_support( $post_type, $GLOBALS[ 'zoninator' ]->zone_taxonomy );
-				register_taxonomy_for_object_type( $GLOBALS[ 'zoninator' ]->zone_taxonomy, $post_type);
+				add_post_type_support( $post_type, $GLOBALS['zoninator']->zone_taxonomy );
+				register_taxonomy_for_object_type( $GLOBALS['zoninator']->zone_taxonomy, $post_type );
 			}
 
 			// Clear Zoninator supported post types cache
-			unset( $GLOBALS[ 'zoninator' ]->post_types );
+			unset( $GLOBALS['zoninator']->post_types );
 		}
 
 	}
@@ -1166,14 +1185,13 @@ class CST {
 	 * Replaces things like "Post updated" with "Article updated" etc
 	 *
 	 */
-	public function cpt_messages( ) {
-
+	public function cpt_messages() {
 
 		$post             = get_post();
 		$post_type        = get_post_type( $post );
 		$post_type_object = get_post_type_object( $post_type );
 
-		$messages[$post_type] = array(
+		$messages[ $post_type ] = array(
 			0  => '', // Unused. Messages start at index 1.
 			1  => __( $post_type_object->labels->singular_name . ' updated.', 'chicagosuntimes' ),
 			2  => __( 'Custom field updated.', 'chicagosuntimes' ),
@@ -1189,7 +1207,7 @@ class CST {
 				// translators: Publish box date format, see http://php.net/date
 				date_i18n( __( 'M j, Y @ G:i', 'chicagosuntimes' ), strtotime( $post->post_date ) )
 			),
-			10 => __( $post_type_object->labels->singular_name . ' draft updated.', 'chicagosuntimes' )
+			10 => __( $post_type_object->labels->singular_name . ' draft updated.', 'chicagosuntimes' ),
 		);
 
 		if ( $post_type_object->publicly_queryable ) {
@@ -1218,131 +1236,140 @@ class CST {
 			'manage_terms'  => 'edit_others_posts',
 			'edit_terms'    => 'edit_others_posts',
 			'delete_terms'  => 'edit_others_posts',
-			'assign_terms'  => 'edit_posts'
+			'assign_terms'  => 'edit_posts',
 			);
 
 		$section_based_post_types = $this->post_types;
 		$unset_feature = array_keys( $section_based_post_types, 'cst_feature' );
 		unset( $section_based_post_types[ $unset_feature[0] ] );
-		register_taxonomy( 'cst_section', $section_based_post_types, array(
-			'hierarchical'      => true,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'section',
+		register_taxonomy( 'cst_section', $section_based_post_types,
+			array(
+				'hierarchical'      => true,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'show_in_rest'      => true,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => array(
+					'slug' => 'section',
 				),
-			'capabilities'      => $term_permissions,
-			'labels'            => array(
-				'name'                       => esc_html__( 'Sections', 'chicagosuntimes' ),
-				'singular_name'              => esc_html( _x( 'Section', 'taxonomy general name', 'chicagosuntimes' ) ),
-				'search_items'               => esc_html__( 'Search Sections', 'chicagosuntimes' ),
-				'popular_items'              => esc_html__( 'Popular Sections', 'chicagosuntimes' ),
-				'all_items'                  => esc_html__( 'All Sections', 'chicagosuntimes' ),
-				'parent_item'                => esc_html__( 'Parent Section', 'chicagosuntimes' ),
-				'parent_item_colon'          => esc_html__( 'Parent Section:', 'chicagosuntimes' ),
-				'edit_item'                  => esc_html__( 'Edit Section', 'chicagosuntimes' ),
-				'update_item'                => esc_html__( 'Update Section', 'chicagosuntimes' ),
-				'add_new_item'               => esc_html__( 'New Section', 'chicagosuntimes' ),
-				'new_item_name'              => esc_html__( 'New Section', 'chicagosuntimes' ),
-				'separate_items_with_commas' => esc_html__( 'Sections separated by comma', 'chicagosuntimes' ),
-				'add_or_remove_items'        => esc_html__( 'Add or remove Sections', 'chicagosuntimes' ),
-				'choose_from_most_used'      => esc_html__( 'Choose from the most used Sections', 'chicagosuntimes' ),
-				'menu_name'                  => esc_html__( 'Sections', 'chicagosuntimes' ),
-			),
-		) );
-
-		register_taxonomy( 'cst_topic', $section_based_post_types, array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'show_ui'           => true,
-			'show_admin_column' => true,
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'topic',
+				'capabilities'      => $term_permissions,
+				'labels'            => array(
+					'name'                       => esc_html__( 'Sections', 'chicagosuntimes' ),
+					'singular_name'              => esc_html( _x( 'Section', 'taxonomy general name', 'chicagosuntimes' ) ),
+					'search_items'               => esc_html__( 'Search Sections', 'chicagosuntimes' ),
+					'popular_items'              => esc_html__( 'Popular Sections', 'chicagosuntimes' ),
+					'all_items'                  => esc_html__( 'All Sections', 'chicagosuntimes' ),
+					'parent_item'                => esc_html__( 'Parent Section', 'chicagosuntimes' ),
+					'parent_item_colon'          => esc_html__( 'Parent Section:', 'chicagosuntimes' ),
+					'edit_item'                  => esc_html__( 'Edit Section', 'chicagosuntimes' ),
+					'update_item'                => esc_html__( 'Update Section', 'chicagosuntimes' ),
+					'add_new_item'               => esc_html__( 'New Section', 'chicagosuntimes' ),
+					'new_item_name'              => esc_html__( 'New Section', 'chicagosuntimes' ),
+					'separate_items_with_commas' => esc_html__( 'Sections separated by comma', 'chicagosuntimes' ),
+					'add_or_remove_items'        => esc_html__( 'Add or remove Sections', 'chicagosuntimes' ),
+					'choose_from_most_used'      => esc_html__( 'Choose from the most used Sections', 'chicagosuntimes' ),
+					'menu_name'                  => esc_html__( 'Sections', 'chicagosuntimes' ),
 				),
-			'capabilities'      => $term_permissions,
-			'labels'            => array(
-				'name'                       => esc_html__( 'Topics', 'chicagosuntimes' ),
-				'singular_name'              => esc_html( _x( 'Topic', 'taxonomy general name', 'chicagosuntimes' ) ),
-				'search_items'               => esc_html__( 'Search Topics', 'chicagosuntimes' ),
-				'popular_items'              => esc_html__( 'Popular Topics', 'chicagosuntimes' ),
-				'all_items'                  => esc_html__( 'All Topics', 'chicagosuntimes' ),
-				'parent_item'                => esc_html__( 'Parent Topic', 'chicagosuntimes' ),
-				'parent_item_colon'          => esc_html__( 'Parent Topic:', 'chicagosuntimes' ),
-				'edit_item'                  => esc_html__( 'Edit Topic', 'chicagosuntimes' ),
-				'update_item'                => esc_html__( 'Update Topic', 'chicagosuntimes' ),
-				'add_new_item'               => esc_html__( 'New Topic', 'chicagosuntimes' ),
-				'new_item_name'              => esc_html__( 'New Topic', 'chicagosuntimes' ),
-				'separate_items_with_commas' => esc_html__( 'Topics separated by comma', 'chicagosuntimes' ),
-				'add_or_remove_items'        => esc_html__( 'Add or remove Topics', 'chicagosuntimes' ),
-				'choose_from_most_used'      => esc_html__( 'Choose from the most used Topics', 'chicagosuntimes' ),
-				'menu_name'                  => esc_html__( 'Topics', 'chicagosuntimes' ),
-			),
-		) );
+			)
+		);
 
-		register_taxonomy( 'cst_location', $section_based_post_types, array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'show_ui'           => true,
-			'show_admin_column' => false,
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'location',
-			),
-			'capabilities'      => $term_permissions,
-			'labels'            => array(
-				'name'                       => esc_html__( 'Locations', 'chicagosuntimes' ),
-				'singular_name'              => esc_html( _x( 'Location', 'taxonomy general name', 'chicagosuntimes' ) ),
-				'search_items'               => esc_html__( 'Search Locations', 'chicagosuntimes' ),
-				'popular_items'              => esc_html__( 'Popular Locations', 'chicagosuntimes' ),
-				'all_items'                  => esc_html__( 'All Locations', 'chicagosuntimes' ),
-				'parent_item'                => esc_html__( 'Parent Location', 'chicagosuntimes' ),
-				'parent_item_colon'          => esc_html__( 'Parent Location:', 'chicagosuntimes' ),
-				'edit_item'                  => esc_html__( 'Edit Location', 'chicagosuntimes' ),
-				'update_item'                => esc_html__( 'Update Location', 'chicagosuntimes' ),
-				'add_new_item'               => esc_html__( 'New Location', 'chicagosuntimes' ),
-				'new_item_name'              => esc_html__( 'New Location', 'chicagosuntimes' ),
-				'separate_items_with_commas' => esc_html__( 'Locations separated by comma', 'chicagosuntimes' ),
-				'add_or_remove_items'        => esc_html__( 'Add or remove Locations', 'chicagosuntimes' ),
-				'choose_from_most_used'      => esc_html__( 'Choose from the most used Locations', 'chicagosuntimes' ),
-				'menu_name'                  => esc_html__( 'Locations', 'chicagosuntimes' ),
-			),
-		) );
-
-		register_taxonomy( 'cst_person', $section_based_post_types, array(
-			'hierarchical'      => false,
-			'public'            => true,
-			'show_in_nav_menus' => true,
-			'show_ui'           => true,
-			'show_admin_column' => false,
-			'query_var'         => true,
-			'rewrite'           => array(
-				'slug'          => 'person',
+		register_taxonomy( 'cst_topic', $section_based_post_types,
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'show_ui'           => true,
+				'show_admin_column' => true,
+				'query_var'         => true,
+				'rewrite'           => array(
+					'slug' => 'topic',
 				),
-			'capabilities'      => $term_permissions,
-			'labels'            => array(
-				'name'                       => esc_html__( 'People', 'chicagosuntimes' ),
-				'singular_name'              => esc_html( _x( 'Person', 'taxonomy general name', 'chicagosuntimes' ) ),
-				'search_items'               => esc_html__( 'Search People', 'chicagosuntimes' ),
-				'popular_items'              => esc_html__( 'Popular People', 'chicagosuntimes' ),
-				'all_items'                  => esc_html__( 'All People', 'chicagosuntimes' ),
-				'parent_item'                => esc_html__( 'Parent Person', 'chicagosuntimes' ),
-				'parent_item_colon'          => esc_html__( 'Parent Person:', 'chicagosuntimes' ),
-				'edit_item'                  => esc_html__( 'Edit Person', 'chicagosuntimes' ),
-				'update_item'                => esc_html__( 'Update Person', 'chicagosuntimes' ),
-				'add_new_item'               => esc_html__( 'New Person', 'chicagosuntimes' ),
-				'new_item_name'              => esc_html__( 'New Person', 'chicagosuntimes' ),
-				'separate_items_with_commas' => esc_html__( 'People separated by comma', 'chicagosuntimes' ),
-				'add_or_remove_items'        => esc_html__( 'Add or remove People', 'chicagosuntimes' ),
-				'choose_from_most_used'      => esc_html__( 'Choose from the most used People', 'chicagosuntimes' ),
-				'menu_name'                  => esc_html__( 'People', 'chicagosuntimes' ),
-			),
-		) );
+				'capabilities'      => $term_permissions,
+				'labels'            => array(
+					'name'                       => esc_html__( 'Topics', 'chicagosuntimes' ),
+					'singular_name'              => esc_html( _x( 'Topic', 'taxonomy general name', 'chicagosuntimes' ) ),
+					'search_items'               => esc_html__( 'Search Topics', 'chicagosuntimes' ),
+					'popular_items'              => esc_html__( 'Popular Topics', 'chicagosuntimes' ),
+					'all_items'                  => esc_html__( 'All Topics', 'chicagosuntimes' ),
+					'parent_item'                => esc_html__( 'Parent Topic', 'chicagosuntimes' ),
+					'parent_item_colon'          => esc_html__( 'Parent Topic:', 'chicagosuntimes' ),
+					'edit_item'                  => esc_html__( 'Edit Topic', 'chicagosuntimes' ),
+					'update_item'                => esc_html__( 'Update Topic', 'chicagosuntimes' ),
+					'add_new_item'               => esc_html__( 'New Topic', 'chicagosuntimes' ),
+					'new_item_name'              => esc_html__( 'New Topic', 'chicagosuntimes' ),
+					'separate_items_with_commas' => esc_html__( 'Topics separated by comma', 'chicagosuntimes' ),
+					'add_or_remove_items'        => esc_html__( 'Add or remove Topics', 'chicagosuntimes' ),
+					'choose_from_most_used'      => esc_html__( 'Choose from the most used Topics', 'chicagosuntimes' ),
+					'menu_name'                  => esc_html__( 'Topics', 'chicagosuntimes' ),
+				),
+			)
+		);
+
+		register_taxonomy( 'cst_location', $section_based_post_types,
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'show_ui'           => true,
+				'show_admin_column' => false,
+				'query_var'         => true,
+				'rewrite'           => array(
+					'slug' => 'location',
+				),
+				'capabilities'      => $term_permissions,
+				'labels'            => array(
+					'name'                       => esc_html__( 'Locations', 'chicagosuntimes' ),
+					'singular_name'              => esc_html( _x( 'Location', 'taxonomy general name', 'chicagosuntimes' ) ),
+					'search_items'               => esc_html__( 'Search Locations', 'chicagosuntimes' ),
+					'popular_items'              => esc_html__( 'Popular Locations', 'chicagosuntimes' ),
+					'all_items'                  => esc_html__( 'All Locations', 'chicagosuntimes' ),
+					'parent_item'                => esc_html__( 'Parent Location', 'chicagosuntimes' ),
+					'parent_item_colon'          => esc_html__( 'Parent Location:', 'chicagosuntimes' ),
+					'edit_item'                  => esc_html__( 'Edit Location', 'chicagosuntimes' ),
+					'update_item'                => esc_html__( 'Update Location', 'chicagosuntimes' ),
+					'add_new_item'               => esc_html__( 'New Location', 'chicagosuntimes' ),
+					'new_item_name'              => esc_html__( 'New Location', 'chicagosuntimes' ),
+					'separate_items_with_commas' => esc_html__( 'Locations separated by comma', 'chicagosuntimes' ),
+					'add_or_remove_items'        => esc_html__( 'Add or remove Locations', 'chicagosuntimes' ),
+					'choose_from_most_used'      => esc_html__( 'Choose from the most used Locations', 'chicagosuntimes' ),
+					'menu_name'                  => esc_html__( 'Locations', 'chicagosuntimes' ),
+				),
+			)
+		);
+
+		register_taxonomy( 'cst_person', $section_based_post_types,
+			array(
+				'hierarchical'      => false,
+				'public'            => true,
+				'show_in_nav_menus' => true,
+				'show_ui'           => true,
+				'show_admin_column' => false,
+				'query_var'         => true,
+				'rewrite'           => array(
+					'slug' => 'person',
+				),
+				'capabilities'      => $term_permissions,
+				'labels'            => array(
+					'name'                       => esc_html__( 'People', 'chicagosuntimes' ),
+					'singular_name'              => esc_html( _x( 'Person', 'taxonomy general name', 'chicagosuntimes' ) ),
+					'search_items'               => esc_html__( 'Search People', 'chicagosuntimes' ),
+					'popular_items'              => esc_html__( 'Popular People', 'chicagosuntimes' ),
+					'all_items'                  => esc_html__( 'All People', 'chicagosuntimes' ),
+					'parent_item'                => esc_html__( 'Parent Person', 'chicagosuntimes' ),
+					'parent_item_colon'          => esc_html__( 'Parent Person:', 'chicagosuntimes' ),
+					'edit_item'                  => esc_html__( 'Edit Person', 'chicagosuntimes' ),
+					'update_item'                => esc_html__( 'Update Person', 'chicagosuntimes' ),
+					'add_new_item'               => esc_html__( 'New Person', 'chicagosuntimes' ),
+					'new_item_name'              => esc_html__( 'New Person', 'chicagosuntimes' ),
+					'separate_items_with_commas' => esc_html__( 'People separated by comma', 'chicagosuntimes' ),
+					'add_or_remove_items'        => esc_html__( 'Add or remove People', 'chicagosuntimes' ),
+					'choose_from_most_used'      => esc_html__( 'Choose from the most used People', 'chicagosuntimes' ),
+					'menu_name'                  => esc_html__( 'People', 'chicagosuntimes' ),
+				),
+			)
+		);
 
 	}
 
@@ -1366,7 +1393,7 @@ class CST {
 
 		// Rewrite rules for our custom post types
 		$post_types = '';
-		foreach( $this->get_post_types() as $ptype ) {
+		foreach ( $this->get_post_types() as $ptype ) {
 			if ( 'cst_feature' !== $ptype ) {
 				$post_types .= '&post_type[]=' . $ptype;
 			}
@@ -1755,6 +1782,15 @@ class CST {
 	        load_template( $rss_template );
 	    else
 	        do_feed_rss2( $for_comments ); // Call default function
+	}
+
+	/**
+	 * Add namespace local development only
+	 */
+	public function cst_custom_feed_ns() {
+		if ( 'http://vagrant.local' === get_bloginfo( 'url' ) ) {
+			echo 'xmlns:media="http://search.yahoo.com/mrss/"' . "\n";
+		}
 	}
 
 	/**

@@ -447,66 +447,67 @@
 		 */
 		headerSlider: function() {
 
-			this.featuredPosts.find('.slider').slick({
-				onInit: $.proxy( function() {
-					this.featuredPosts.find('.slick-slide:not(.slick-cloned)').each( $.proxy( function( index, el ){
-						if ( $(el).hasClass('slick-active') ) {
-							this.featuredPosts.find('.slick-dots li').eq( index ).addClass('slick-active');
-						}
-					}, this ) );
-				}, this ),
-				onBeforeChange: $.proxy( function() {
-					this.featuredPosts.find('.slick-dots').addClass('force-normal-dots');
-				}, this ),
-				onAfterChange: $.proxy( function() {
-					this.featuredPosts.find('.slick-slide:not(.slick-cloned)').each( $.proxy( function( index, el ){
-						if ( $(el).hasClass('slick-active') ) {
-							this.featuredPosts.find('.slick-dots li').eq( index ).addClass('slick-active');
-						}
-					}, this ) );
-					this.featuredPosts.find('.slick-dots').removeClass('force-normal-dots');
-				}, this ),
-				slide: '.slide',
-				slidesToShow: 5,
-				dots: true,
-        customPaging: function(slider, i) {
-          return '<button type="button" data-on="click" data-event-category="slider-dot" data-event-action="dot-navigate">' + (i + 1) + '</button>';
-        },
-				arrows: true,
-				prevArrow: '<a href="#" data-on="click" data-event-category="slider-arrow" data-event-action="navigate-prev"><i class="fa fa-chevron-left header-prev"></i></a>',
-				nextArrow: '<a href="#" data-on="click" data-event-category="slider-arrow" data-event-action="navigate-next"><i class="fa fa-chevron-right header-next"></i></a>',
-				responsive: [
-					// Small desktop
-					{
-						breakpoint: 1300,
-						settings: {
-							slidesToShow: 4
-						}
-					},
-					// Small desktop
-					{
-						breakpoint: 1100,
-						settings: {
-							slidesToShow: 3
-						}
-					},
-					// Mobile
-					{
-						breakpoint: 768,
-						settings: {
-							slidesToShow: 2
-						}
-					},
-					// Mobile
-					{
-						breakpoint: 580,
-						settings: {
-							slidesToShow: 1
-						}
-					}
-				]
-			});
-
+		  if(this.featuredPosts) {
+        this.featuredPosts.find('.slider').slick({
+          onInit: $.proxy(function () {
+            this.featuredPosts.find('.slick-slide:not(.slick-cloned)').each($.proxy(function (index, el) {
+              if ($(el).hasClass('slick-active')) {
+                this.featuredPosts.find('.slick-dots li').eq(index).addClass('slick-active');
+              }
+            }, this));
+          }, this),
+          onBeforeChange: $.proxy(function () {
+            this.featuredPosts.find('.slick-dots').addClass('force-normal-dots');
+          }, this),
+          onAfterChange: $.proxy(function () {
+            this.featuredPosts.find('.slick-slide:not(.slick-cloned)').each($.proxy(function (index, el) {
+              if ($(el).hasClass('slick-active')) {
+                this.featuredPosts.find('.slick-dots li').eq(index).addClass('slick-active');
+              }
+            }, this));
+            this.featuredPosts.find('.slick-dots').removeClass('force-normal-dots');
+          }, this),
+          slide: '.slide',
+          slidesToShow: 5,
+          dots: true,
+          customPaging: function (slider, i) {
+            return '<button type="button" data-on="click" data-event-category="slider-dot" data-event-action="dot-navigate">' + (i + 1) + '</button>';
+          },
+          arrows: true,
+          prevArrow: '<a href="#" data-on="click" data-event-category="slider-arrow" data-event-action="navigate-prev"><i class="fa fa-chevron-left header-prev"></i></a>',
+          nextArrow: '<a href="#" data-on="click" data-event-category="slider-arrow" data-event-action="navigate-next"><i class="fa fa-chevron-right header-next"></i></a>',
+          responsive: [
+            // Small desktop
+            {
+              breakpoint: 1300,
+              settings: {
+                slidesToShow: 4
+              }
+            },
+            // Small desktop
+            {
+              breakpoint: 1100,
+              settings: {
+                slidesToShow: 3
+              }
+            },
+            // Mobile
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 2
+              }
+            },
+            // Mobile
+            {
+              breakpoint: 580,
+              settings: {
+                slidesToShow: 1
+              }
+            }
+          ]
+        });
+      }
 		},
 
 		taboola: function() {

@@ -6,16 +6,17 @@ class Article extends Post {
 
 	protected static $post_type = 'cst_article';
 	private $send_to_news_embeds = array(
-		'cubs'              => 'uqWfqG2Y',
-		'white-sox'         => 'WOOeQ5Jw',
-		'bulls'             => 's3AyJdaz',
-		'bears'             => 'C30fZO7v',
-		'pga-golf'          => '8Owdfvnq',
-		'nascar'            => 'hdUJ4uMz',
-		'ahl-wolves'        => 'dAT6rZV6',
-		'college'           => 'IS3jNqMB',
-		'rio-2016'          => 'BQ3NYJzd',
-		'blackhawks-hockey' => 'idn8h9Kj',
+		'cubs'              => 'xXrmaE8c',
+		'white-sox'         => 'TR8jtM5y',
+		'bulls'             => 'oags2xgZ',
+		'bears'             => 'L9X2Tt4y',
+		'pga-golf'          => 'a7k31LHx',
+		'nascar'            => 'L0muW63f',
+		'ahl-wolves'        => 'udXbWp8Y',
+		'college'           => 'SRHLAr2T',
+		'rio-2016'          => 'fLPoOgHI',
+		'blackhawks-hockey' => 'uy7k8sat',
+		'hockey-blackhawks' => 'uy7k8sat',
 	);
 	/**
 	 * Get the font icon for an article
@@ -38,7 +39,7 @@ class Article extends Post {
 	}
 
 	/**
-	 * Get the featured video embed code for the article
+	 * Get the featured video embed markup for the article
 	 * Return empty string if for some reason array key is outside scope
 	 *
 	 * @return string
@@ -46,13 +47,33 @@ class Article extends Post {
 	public function get_featured_video_embed() {
 		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' ) ) {
 			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
-				$template   = '<p><iframe id="%s" src="%s" %s></iframe></p>';
-				$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 26rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
-				$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $media_type ] );
-				$markup     = sprintf( $template, 's2nIframe-' . $this->send_to_news_embeds[ $media_type ] . '-' . $this->post->ID, $iframe_url, $styles );
+				if ( defined('AMP__VERSION' ) && is_amp_endpoint() ) { // legacy
+					$template   = '<p><span class="s2nlegacy" data-video-id="%4$s"></span><iframe id="%1$s" src="%2$s" %3$s></iframe></p>';
+					$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 26rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
+					$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $media_type ] );
+					$markup     = sprintf( $template, 's2nIframe-' . $this->send_to_news_embeds[ $media_type ] . '-' . $this->post->ID, $iframe_url, $styles, $this->send_to_news_embeds[ $media_type ] );
+				} else {
+					$template = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float" data-type="s2nScript"></script></div></div>';
+					$markup   = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $media_type ] ), esc_attr( $this->post->ID ) );
+				}
 				return $markup;
 			} else {
 				return '';
+			}
+		} else {
+			return '';
+		}
+	}
+	/**
+	 * Get the featured video embed code for the article
+	 * Return empty string if for some reason array key is outside scope
+	 *
+	 * @return string
+	 */
+	public function get_featured_video_script() {
+		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' ) ) {
+			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
+				return $this->send_to_news_embeds[ $media_type ];
 			}
 		} else {
 			return '';

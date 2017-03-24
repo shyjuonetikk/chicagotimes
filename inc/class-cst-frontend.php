@@ -12,18 +12,19 @@ class CST_Frontend {
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
 	private $send_to_news_embeds = array(
-		'cubs'              => 'uqWfqG2Y',
-		'cubs-baseball'     => 'uqWfqG2Y',
-		'white-sox'         => 'WOOeQ5Jw',
-		'bulls'             => 's3AyJdaz',
-		'bears'             => 'C30fZO7v',
-		'bears-football'    => 'C30fZO7v',
-		'pga-golf'          => '8Owdfvnq',
-		'nascar'            => 'hdUJ4uMz',
-		'ahl-wolves'        => 'dAT6rZV6',
-		'colleges'          => 'IS3jNqMB',
-		'olympics-2016'     => 'BQ3NYJzd',
-		'blackhawks-hockey' => 'idn8h9Kj',
+		'cubs'              => 'xXrmaE8c',
+		'cubs-baseball'     => 'xXrmaE8c',
+		'white-sox'         => 'TR8jtM5y',
+		'bulls'             => 'oags2xgZ',
+		'bears'             => 'L9X2Tt4y',
+		'bears-football'    => 'L9X2Tt4y',
+		'pga-golf'          => 'a7k31LHx',
+		'nascar'            => 'L0muW63f',
+		'ahl-wolves'        => 'udXbWp8Y',
+		'colleges'          => 'SRHLAr2T',
+		'olympics-2016'     => 'fLPoOgHI',
+		'blackhawks' 		=> 'uy7k8sat',
+		'blackhawks-hockey' => 'uy7k8sat',
 		'sports'            => 'uDnVEu1d',
 	);
 
@@ -118,6 +119,7 @@ class CST_Frontend {
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
+		add_filter( 'script_loader_tag', [ $this, 'add_data_type_suffix' ], 10, 3 );
 	}
 
 	/**
@@ -206,7 +208,7 @@ class CST_Frontend {
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
-					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() ) {
+					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() || is_author() ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
@@ -350,6 +352,17 @@ class CST_Frontend {
 
 	}
 
+	function add_data_type_suffix( $source, $handle, $tag ) {
+
+		$accepted_scripts = array( 'send-to-news' );
+		foreach ( $accepted_scripts as $accepted_script ) {
+			if ( strstr( $handle, $accepted_script ) ) {
+				$source = str_replace( 'src=', 'data-type="s2nScript" src=', $source );
+			}
+		}
+
+		return $source;
+	}
 	/**
 	 * If a post has multiple bylines, include all of them in the feed item
 	 */
@@ -1337,10 +1350,8 @@ class CST_Frontend {
 	* Inject SendToNews responsive video player into markup.
 	*/
 	function inject_send_to_news_video_player( $slug, $id ) {
-		$template   = '<div class="row video-injection"><div class="columns small-12"><iframe id="%s" src="%s" %s></iframe></div></div>';
-		$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 22.4rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
-		$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', rawurlencode( $this->send_to_news_embeds[ $slug ] ) );
-		$markup     = sprintf( $template, esc_attr( 's2nIframe-' . $this->send_to_news_embeds[ $slug ] . '-' . intval( $id ) ), esc_url( $iframe_url ), wp_kses_post( $styles ) );
+		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left" data-type="s2nScript"></script></div>';
+		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $this->post->ID ) );
 		echo $markup;
 
 	}
@@ -1621,6 +1632,72 @@ ready(fn);
 	}
 
 	/**
+	* Determine if we should append the Public Good Take Action button
+	* @param \CST\Objects\Article $obj
+	* @return mixed
+	*/
+	public function inject_public_good_markup( $obj ) {
+		if ( ! $obj ) {
+			return;
+		}
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return;
+		}
+		// Selected list of content we prefer not to display this button on
+		if ( $this->is_content_partner( $obj ) ) {
+			return;
+		}
+		if ( shortcode_exists( 'takeaction' ) ) {
+			echo do_shortcode( '[takeaction]' );
+		}
+		return;
+	}
+
+		/**
+	 * Determine if content destined for the display is partnership or we have
+	 * an arrangement or not
+	 * @param \CST\Objects\Article $obj
+	 * @return bool
+	 */
+	public function is_content_partner( $obj ) {
+
+		$content_partners = array(
+			'Associated Press',
+			'USA Today',
+			'USA TODAY',
+			'USA TODAY Network',
+			'Georgia Nicols',
+			'Abigail Van Buren',
+		);
+		if ( $byline = $obj->get_byline() ) {
+			if ( array_key_exists( $byline, $content_partners ) ) {
+				return true;
+			} else {
+				foreach ( $content_partners as $content_partner ) {
+					if ( stristr( $byline, $content_partner ) ) {
+						return true;
+					}
+				}
+			}
+		}
+		$authors = get_coauthors();
+		foreach ( $authors as $author ) {
+			if ( array_key_exists( $author->display_name, $content_partners ) ) {
+				return true;
+			} else {
+				foreach ( $content_partners as $content_partner ) {
+					if ( stristr( $author->display_name, $content_partner ) ) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	/**
 	* Inject sponsored content into selected article in the third paragraph
 	* Does not inject into feeds
 	* @param string $article_content
@@ -1740,24 +1817,6 @@ ready(fn);
 			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
 			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
 		);
-	}
-
-	/**
-	* Detect section and if appropriate inject Public Good markup
-	* @param $obj \CST\Objects\Article | \CST\Objects\Post
-	* @return string
-	*/
-	public function inject_public_good_markup( $obj ) {
-
-		if ( $section = $obj->get_primary_parent_section() ) {
-			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
-				return sprintf( '<div class="pgs-container"><a href="%1$s" target="_blank"><img src="%2$s" style="height:50px"></a></div>',
-					esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
-					esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
-				);
-			}
-		}
-
 	}
 
 	/**

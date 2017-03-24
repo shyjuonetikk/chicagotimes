@@ -20,15 +20,15 @@
     for (paraNum = 1; paraNum < 10; paraNum++) {
         paraProto = paragraphs[paraNum];
         paraContent = paraProto.toString();
-        
+
         if (paraContent.indexOf("read-more-wrap") > -1) {
         tripleliftParNum++;
-        }       
-        
+        }
+
         if (paraContent.indexOf("blockquote") > -1) {
         tripleliftParNum++;
         continue;
-        } 
+        }
         paraContent = paraContent.replace(/<[\/]{0,1}(p)[^><]*>/ig,"");
         paraContent = paraContent.replace(/(<([^>]+)>)/ig,"");
         paraContent = paraContent.trim();
@@ -46,13 +46,13 @@
     if (tripleliftParNum > paragraphsCount) {
         tripleliftParNum = paragraphsCount;
       }
-      
+
     if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
         tripleliftContentNode = jQuery(paragraphs[tripleliftParNum]);
         this._insertTripleLiftJS(tripleliftContentNode);
         jQuery(".cst-active-scroll-post").addClass("triplelift-inserted");
       }
-      
+
   },
 
   /* Private methods */
