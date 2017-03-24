@@ -2035,7 +2035,6 @@ class CST {
 		}
 		return $sorted_menu_items;
 	}
-}
 
 	/**
 	 * @param $classes
@@ -2054,6 +2053,7 @@ class CST {
 		}
 		return $classes;
 	}
+}
 
 /**
  * Load the theme

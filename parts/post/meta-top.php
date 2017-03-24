@@ -15,7 +15,7 @@ if ( ! $obj ) {
 			}
 		}
 	}
-
+$developing = isset( $developing ) || false;
 	if ( $developing && is_sticky() && ! is_singular() ) {
 		$classes[] = 'sticky-taxonomy';
 	}

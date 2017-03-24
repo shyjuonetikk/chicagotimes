@@ -2144,6 +2144,7 @@ ready(fn);
 	}
 
 	public function article_dimensions( $obj ) {
+		$attrs = '';
 		$data = array(
 			'post-id'   => $obj->get_id(),
 			'post-uri'  => parse_url( get_permalink( $obj->get_id() ), PHP_URL_PATH ),
