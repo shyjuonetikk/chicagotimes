@@ -1017,10 +1017,17 @@ ul#menu-sun-times-network {
     padding-left: 10px;
     padding-right: 10px;
     padding-bottom: 5px;
-    font-family: 'Open Sans', Arial, sans-serif;
+    font-family: 'Merriweather', Georgia, serif;
     color: #484848;
     font-size: 0.9rem;
+    font-style: italic;
     line-height: 1.25rem; }
+  @media only screen and (max-width:47.398em) {
+    .wire .post .post-excerpt p {
+      display: none; } }
+  @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
+    .wire .post .post-excerpt p {
+      display: none; } }
   .wire .post .post-lead-media {
     position: relative; }
     .wire .post .post-lead-media img {
@@ -1324,7 +1331,7 @@ article.post {
       article.post h1 {
         font-size: 2rem;
         line-height: 2.5rem;
-        margin-bottom: 15px; } }
+        margin-bottom: 9px; } }
   @media only screen and (max-width: 40em) {
     article.post {
       margin-bottom: 10px;
@@ -1817,6 +1824,9 @@ body[class~="archive"] article.index-view .section-title {
       font-size: 1rem;
       line-height: 1.25rem;
       margin-bottom: 0; } }
+  @media only screen and (max-width:47.398em) {
+    body[class~="archive"] article.index-view .section-title h1 {
+      font-weight: 600; } }
 body[class~="archive"] article.index-view .post-meta-bottom {
   clear: both; }
 body[class~="archive"] .dfp-super-leaderboard {

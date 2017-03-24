@@ -103,7 +103,7 @@ article.post {
 		h1 {
 			font-size: 2rem;
 			line-height: 2.5rem;
-			margin-bottom: 15px;
+			margin-bottom: 9px;
 		}
 	}
 
@@ -893,6 +893,11 @@ body[class~="archive"] {
 						font-size: 1rem;
 						line-height: 1.25rem;
 						margin-bottom: 0;
+					}
+				}
+				@media #{$medium-down} {
+					h1 {
+						font-weight:600;
 					}
 				}
 			}

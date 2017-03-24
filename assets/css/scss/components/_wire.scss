@@ -184,10 +184,21 @@
 				padding-left: 10px;
 				padding-right: 10px;
 				padding-bottom: 5px;
-				font-family: $open_sans;
+				font-family: $merriweather;
 				color: $chiwire_grey;
 				font-size: 0.9rem;
+				font-style: italic;
 				line-height: 1.25rem;
+			}
+			@media #{$medium-down} {
+				p {
+					display: none;
+				}
+			}
+			@media #{$xmediumi-only} and (orientation: portrait) {
+				p {
+					display: none;
+				}
 			}
 		}
 
