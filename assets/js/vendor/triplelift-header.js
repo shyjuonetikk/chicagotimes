@@ -16,35 +16,43 @@
       return;
     }
    
-    var triplelifeParNum = 8;
-    for (paraNum = 8; paraNum < 10; paraNum++) {
+    var tripleliftParNum = 8;
+    for (paraNum = 1; paraNum < 10; paraNum++) {
         paraProto = paragraphs[paraNum];
-        if ( undefined !== paraProto ) {
-          paraContent = paraProto.toString();
-          if (paraContent.indexOf("blockquote") > -1) {
-            triplelifeParNum++;
-            continue;
-          }
-          paraContent = paraContent.replace(/<[\/]{0,1}(p)[^><]*>/ig, "");
-          paraContent = paraContent.replace(/(<([^>]+)>)/ig, "");
-          paraContent = paraContent.trim();
-          if (paraContent.length === 0) {
-            triplelifeParNum++;
-          }
+        paraContent = paraProto.toString();
+
+        if (paraContent.indexOf("read-more-wrap") > -1) {
+        tripleliftParNum++;
         }
+
+        if (paraContent.indexOf("blockquote") > -1) {
+        tripleliftParNum++;
+        continue;
+        }
+        paraContent = paraContent.replace(/<[\/]{0,1}(p)[^><]*>/ig,"");
+        paraContent = paraContent.replace(/(<([^>]+)>)/ig,"");
+        paraContent = paraContent.trim();
+        if (paraContent.length === 0) {
+        tripleliftParNum++;
+        }       
     }   
-      
-    if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
-      if (paragraphsCount >= triplelifeParNum) {
-        if (jQuery(paragraphs[triplelifeParNum]).hasClass("wp-caption-text")) {
-          tripleliftContentNode = jQuery(paragraphs[(triplelifeParNum+1)]);
-        } else {
-          tripleliftContentNode = jQuery(paragraphs[triplelifeParNum]);
+
+      if (paragraphsCount >= tripleliftParNum) {
+        if (jQuery(paragraphs[tripleliftParNum]).hasClass("wp-caption-text")) {
+        tripleliftParNum++;
         }
+      }
+
+    if (tripleliftParNum > paragraphsCount) {
+        tripleliftParNum = paragraphsCount;
+      }
+
+    if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
+        tripleliftContentNode = jQuery(paragraphs[tripleliftParNum]);
         this._insertTripleLiftJS(tripleliftContentNode);
         jQuery(".cst-active-scroll-post").addClass("triplelift-inserted");
       }
-    }
+
   },
 
   /* Private methods */

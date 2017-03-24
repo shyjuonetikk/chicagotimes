@@ -66,14 +66,16 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			}
 			if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
 				echo CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) );
+                 
+            if ( is_singular( 'cst_article' ) ) { ?>
+                <div class="medium-11 medium-offset-1">
+                <div class="columns"><hr></div></div>
+            <section class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-11 medium-offset-1 columns ">
+            </section>
+            <?php }                
 				CST()->frontend->inject_headlines_network_markup( $obj );
 			} ?>
 		</article>
-
-		<?php if ( is_singular( 'cst_article' ) ) { ?>
-		<section class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-11 medium-offset-1 columns ">
-		</section>
-		<?php } ?>
 
 		<?php CST()->frontend->content_ad_injection( $paged ); ?>
 
