@@ -141,23 +141,6 @@
     doScrollEvent: function() {
 
       var scrollTop = $(window).scrollTop();
-
-      if( scrollTop >= ( this.header.height() + this.breakingNews.height() ) ) {
-        if( this.dfpWallpaper.hasClass('dfp-wallpaper-normal') ) {
-          this.dfpWallpaper.removeClass('dfp-wallpaper-normal').addClass('dfp-wallpaper-fixed');
-          this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() + 202 );
-        } else {
-          this.dfpWallpaper.addClass('dfp-wallpaper-fixed');
-        }
-      } else if( scrollTop <= ( this.header.height() + this.breakingNews.height() ) ) {
-        if( this.dfpWallpaper.hasClass('dfp-wallpaper-fixed') ) {
-          this.dfpWallpaper.removeClass('dfp-wallpaper-fixed').addClass('dfp-wallpaper-normal');
-          this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
-        } else {
-          this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
-          this.dfpWallpaper.addClass('dfp-wallpaper-normal');
-        }
-      }
       if ( scrollTop > 0 && this.hasClass(document.getElementsByClassName('off-canvas-wrap')[0],'move-right') ) {
         this.topHeight = $(document).scrollTop();
         this.offCanvasList.addClass('fixed-canvas-menu');
