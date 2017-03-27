@@ -1002,7 +1002,7 @@ ul#menu-sun-times-network {
       .wire #section-top #section-share .fa-twitter:hover {
         color: #9a9a9a; }
   .wire .post .post-meta-top {
-    padding-top: 5px;
+    padding-top: 2px;
     padding-left: 10px;
     padding-right: 10px; }
   .wire .post h1 {
@@ -1331,7 +1331,7 @@ article.post {
       article.post h1 {
         font-size: 2rem;
         line-height: 2.5rem;
-        margin-bottom: 9px; } }
+        margin-bottom: 4px; } }
   @media only screen and (max-width: 40em) {
     article.post {
       margin-bottom: 10px;
