@@ -163,7 +163,6 @@ class CST_Frontend {
 		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.2.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
-		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 
 		// Fonts
 		if ( is_post_type_archive( 'cst_feature' ) ) {
