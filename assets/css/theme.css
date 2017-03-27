@@ -577,7 +577,8 @@ body.admin-bar .move-right header#header {
       padding: 4px; }
   .left-off-canvas-menu .off-canvas-menu {
     height: 100%;
-    overflow-y: auto; }
+    overflow-y: auto;
+    width: 100%; }
   .left-off-canvas-menu .fixed-canvas-menu {
     position: absolute;
     width: 100%;
