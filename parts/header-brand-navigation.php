@@ -22,7 +22,26 @@
 				</li>
 				<?php if ( is_front_page() ) { ?>
 					<li class="has-form section-navigation hide-for-large-up">
+						<div class="small-logo columns small-7 show-for-small-only">
+							<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+								<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
+							</a>
+						</div>
 						<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
+						<div class="large-1 small-1 columns end">
+							<span class="subscribe-link show-for-medium-down"><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
+						</div>
+						<div class="search show-for-small-only small-2 small-offset-8">
+							<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+								<div class="row collapse search-input-wrapper">
+									<div class="large-1 small-1 columns search-icon">
+										<a href="#" data-reveal-id="search-container">
+											<i class="fa fa-search"></i>
+										</a>
+									</div>
+								</div>
+							</form>
+						</div>
 					</li>
 				<?php } else { ?>
 				<li class="name hide-for-large-up">
@@ -36,19 +55,25 @@
 					<div class="medium-8 large-9 small-7 show-for-medium-up columns nav-container">
 						<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 					</div>
-					<div class="search show-for-small-only small-offset-11">
-						<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-							<div class="row collapse search-input-wrapper">
-								<div class="large-1 small-1 columns search-icon">
-									<a href="#" data-reveal-id="search-container">
-										<i class="fa fa-search"></i>
-									</a>
-								</div>
+					<div class="show-for-small-only small-offset-7">
+						<div class="row collapse subscribe-input-wrapper">
+							<div class="large-1 small-6 columns">
+								<span class="subscribe-link show-for-small-only"><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
 							</div>
-						</form>
+							<div class="search show-for-small-only small-2 small-offset-9">
+								<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+									<div class="row collapse search-input-wrapper">
+										<div class="large-1 small-1 columns search-icon">
+											<a href="#" data-reveal-id="search-container">
+												<i class="fa fa-search"></i>
+											</a>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
 					</div>
 				</li>
-
 				<?php } ?>
 			</ul>
 			<section class="top-bar-section">

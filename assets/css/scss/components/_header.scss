@@ -244,38 +244,6 @@ header#header {
 		height: 40px;
 	};
 }
-.burger-wrapper-no-fries {
-	width: 44px;
-	padding:0;
-	.burger-bar {
-		float: left;
-		color: $white;
-		display: block;
-		border: 1px solid $social_grey;
-		margin: 4px 0 0 4px;
-		background: $cst_black;
-		padding: 0 6px !important;
-		line-height: 28px;
-		width: 44px;
-		z-index: 100000;
-		position: relative;
-		.fa {
-			padding-left: 5px;
-			padding-right: 5px;
-			font-size: 26px;
-			line-height: 32px;
-		}
-		span {
-			position: relative;
-			vertical-align: text-top;
-			padding-right: 10px;
-			line-height: 12px;
-		}
-	}
-	@media #{$small-only} {
-		padding:0;
-	}
-}
 .spacer {
 	height: 135px;
 }
@@ -805,6 +773,7 @@ body.single {
 		padding:0 6px;
 		margin-top:7px;
 		display:block;
+		max-width:73px;
 		color: $light_grey;
 		a, a:visited, a:focus, a:hover {
 			color: $light_grey;

@@ -1658,8 +1658,8 @@ class CST_Frontend {
 	public function masthead_navigation( $page_type ) {
 		$page_types = array(
 			'homepage' => array(
-					'container_class' => 'masthead-sections',
-					'items_wrap'      => '<div class="homepage-nav-holder columns small-10 large-12"><ul id="%1$s" class="homepage">%3$s</ul></div>',
+					'container_class' => 'masthead-sections columns small-9 large-12',
+					'items_wrap'      => '<div class="homepage-nav-holder columns small-11 large-12"><ul id="%1$s" class="homepage">%3$s</ul></div>',
 					'location'        => 'homepage-masthead',
 			),
 			'section-front' => array(
@@ -1675,7 +1675,7 @@ class CST_Frontend {
 		);
 		if ( array_key_exists( $page_type, $page_types ) ) {
 			$masthead_nav_markup = wp_cache_get( 'cst_' . $page_type, 'default' );
-			if ( false === $masthead_nav_markup ) {
+			if ( false === $masthead_nav_markup || WP_DEBUG ) {
 				$masthead_nav_markup = wp_nav_menu( array(
 					'menu'            => $page_type,
 					'theme_location'  => $page_types[ $page_type ]['location'],

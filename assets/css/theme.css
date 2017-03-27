@@ -506,35 +506,6 @@ header#header {
     .responsive-logo-wrapper {
       height: 40px; } }
 
-.burger-wrapper-no-fries {
-  width: 44px;
-  padding: 0; }
-  .burger-wrapper-no-fries .burger-bar {
-    float: left;
-    color: white;
-    display: block;
-    border: 1px solid #9a9a9a;
-    margin: 4px 0 0 4px;
-    background: #231f20;
-    padding: 0 6px !important;
-    line-height: 28px;
-    width: 44px;
-    z-index: 100000;
-    position: relative; }
-    .burger-wrapper-no-fries .burger-bar .fa {
-      padding-left: 5px;
-      padding-right: 5px;
-      font-size: 26px;
-      line-height: 32px; }
-    .burger-wrapper-no-fries .burger-bar span {
-      position: relative;
-      vertical-align: text-top;
-      padding-right: 10px;
-      line-height: 12px; }
-  @media only screen and (max-width: 40em) {
-    .burger-wrapper-no-fries {
-      padding: 0; } }
-
 .spacer {
   height: 135px; }
 
@@ -890,6 +861,7 @@ ul#menu-sun-times-network {
   padding: 0 6px;
   margin-top: 7px;
   display: block;
+  max-width: 73px;
   color: #f8f8f8; }
   .masthead .subscribe-link a, .masthead .subscribe-link a:visited, .masthead .subscribe-link a:focus, .masthead .subscribe-link a:hover {
     color: #f8f8f8;
@@ -2831,6 +2803,41 @@ header .contain-to-grid .top-bar {
       padding-right: 0.1rem; }
       header .contain-to-grid .top-bar .masthead-sections li:last-child {
         padding-right: 0; } }
+  header .contain-to-grid .top-bar .burger-wrapper-no-fries {
+    width: 44px;
+    padding: 0;
+    margin-left: -14px;
+    margin-right: 10px; }
+    header .contain-to-grid .top-bar .burger-wrapper-no-fries .burger-bar {
+      float: left;
+      color: white;
+      display: block;
+      border: 1px solid #9a9a9a;
+      margin: 4px 0 0 4px;
+      background: #231f20;
+      padding: 0 6px !important;
+      line-height: 28px;
+      width: 44px;
+      z-index: 100000;
+      position: relative; }
+      header .contain-to-grid .top-bar .burger-wrapper-no-fries .burger-bar .fa {
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 26px;
+        line-height: 32px; }
+      header .contain-to-grid .top-bar .burger-wrapper-no-fries .burger-bar span {
+        position: relative;
+        vertical-align: text-top;
+        padding-right: 10px;
+        line-height: 12px; }
+    @media only screen and (max-width:64em) {
+      header .contain-to-grid .top-bar .burger-wrapper-no-fries {
+        padding: 0;
+        margin-left: 0; } }
+    @media only screen and (min-width:64.063em) {
+      header .contain-to-grid .top-bar .burger-wrapper-no-fries {
+        padding: 0;
+        margin-left: 0; } }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
@@ -2872,9 +2879,6 @@ header .contain-to-grid .top-bar {
       padding-right: 0; }
     header .contain-to-grid .top-bar .top-bar-section .logo a {
       line-height: 42px; }
-    header .contain-to-grid .top-bar .top-bar-section .burger-wrapper-no-fries {
-      width: 44px;
-      padding: 0; }
   @media only screen and (min-width: 78.063em) {
     header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
       padding: 0 14px !important; }
@@ -2902,6 +2906,9 @@ header .contain-to-grid .top-bar {
       padding-right: 0; }
       header .contain-to-grid .top-bar .homepage-nav-holder li a {
         font-size: 0.8rem; } }
+  header .contain-to-grid .top-bar .subscribe-link {
+    width: 74px;
+    max-width: 100px; }
 header .contain-to-grid .cst-row {
   margin: 0 auto; }
 
