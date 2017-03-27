@@ -108,11 +108,12 @@ var CSTAds;
 		triggerUnitRefresh: function( unit ) {
 
 			if ( 'undefined' !== typeof CSTAdTags[unit] ) {
-				googletag.cmd.push( function() {
-					var unitInstance = CSTAdTags[unit];
-					googletag.pubads().refresh([unitInstance]);
-				});
-
+        if ( undefined !== CSTAdTags[unit].doNotRefresh && !CSTAdTags[unit].doNotRefresh ) {
+          googletag.cmd.push(function () {
+            var unitInstance = CSTAdTags[unit];
+            googletag.pubads().refresh([unitInstance]);
+          });
+        }
 				console.info( 'Refreshed ' .concat(unit) );
       }
 
@@ -136,9 +137,7 @@ var CSTAds;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function (ad_slot) {
           if (ad_slot.match(/rr-cube-[0-9]{1,3}$/)) {
-            if ( !CSTAdTags[ad_slot].doNotRefresh ) {
               CSTAds.triggerUnitRefresh(ad_slot)
-            }
           }
         })
         CSTAds.refreshing = false;
@@ -147,7 +146,12 @@ var CSTAds;
     handleGptVisibility: function(event) {
 		  var slotId = event.slot.getSlotElementId();
       console.log('Slot visibility changed for: ' + slotId + ' to ' + event.inViewPercentage );
-      0 === event.inViewPercentage ? CSTAdTags[slotId].doNotRefresh = true :  CSTAdTags[slotId].doNotRefresh = false;
+      event.inViewPercentage <= 15 ? CSTAdTags[slotId].doNotRefresh = true :  CSTAdTags[slotId].doNotRefresh = false;
+    },
+    handleGptImpressionViewability: function (event) {
+      var slotId = event.slot.getSlotElementId();
+      console.log('Slots ' + slotId + ' available for viewable impressions.');
+      CSTAdTags[slotId].doNotRefresh = false;
     }
 	};
 
