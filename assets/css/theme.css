@@ -2686,6 +2686,8 @@ section#subscribe {
     .weather .weather-link:hover, .weather .weather-link:visited {
       color: white; }
     .weather .weather-link .degrees {
+      width: 60px;
+      float: left;
       color: #ffe000; }
       .weather .weather-link .degrees i {
         color: #ffe000; }
@@ -2734,8 +2736,7 @@ section#subscribe {
 .cst-navigation-container {
   margin: 10px auto 0;
   text-align: center;
-  clear: both;
-  height: 40px; }
+  clear: both; }
   .cst-navigation-container ul {
     height: 26px;
     word-wrap: break-word;
@@ -2768,6 +2769,10 @@ section#subscribe {
 
 header .contain-to-grid .top-bar {
   background: #231f20; }
+  header .contain-to-grid .top-bar .small-logo {
+    margin-top: 7px;
+    margin-left: 0;
+    padding-left: 0; }
   header .contain-to-grid .top-bar .masthead-sections {
     padding-left: 0;
     margin-left: 0; }
@@ -2825,6 +2830,8 @@ header .contain-to-grid .top-bar {
       header .contain-to-grid .top-bar .burger-wrapper-no-fries {
         padding: 0;
         margin-left: 0; } }
+  header .contain-to-grid .top-bar .weather-wrapper {
+    padding: 0; }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
@@ -2886,7 +2893,9 @@ header .contain-to-grid .top-bar {
       border-radius: 2px;
       border-top: 1px solid #333333; } }
   header .contain-to-grid .top-bar .has-form {
-    background: #231f20; }
+    background: #231f20;
+    float: left;
+    padding: 0; }
   @media only screen and (max-width:64em) {
     header .contain-to-grid .top-bar .homepage-nav-holder {
       padding-left: 0;

@@ -1658,7 +1658,7 @@ class CST_Frontend {
 	public function masthead_navigation( $page_type ) {
 		$page_types = array(
 			'homepage' => array(
-					'container_class' => 'masthead-sections columns small-9 large-12 show-for-medium-up',
+					'container_class' => 'masthead-sections columns small-8 large-12 show-for-medium-up show-for-landscape',
 					'items_wrap'      => '<div class="homepage-nav-holder columns small-11 large-12"><ul id="%1$s" class="homepage">%3$s</ul></div>',
 					'location'        => 'homepage-masthead',
 			),
