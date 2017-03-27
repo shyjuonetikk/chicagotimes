@@ -142,14 +142,13 @@
 
       var scrollTop = $(window).scrollTop();
       if ( scrollTop > 0 && this.hasClass(document.getElementsByClassName('off-canvas-wrap')[0],'move-right') ) {
-        this.topHeight = $(document).scrollTop();
         this.offCanvasList.addClass('fixed-canvas-menu');
 
         // Specific for IE browser
         if ( $.browser.msie ) {
-          this.offCanvasList.css("top", this.primaryNavigation.height() + this.topHeight + 'px');
+          this.offCanvasList.css("top", this.primaryNavigation.height() + scrollTop + 'px');
         } else {
-          this.offCanvasList.css("top", this.topHeight + 'px');
+          this.offCanvasList.css("top", scrollTop + 'px');
         }
 
       } else {
