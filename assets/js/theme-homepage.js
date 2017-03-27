@@ -9,7 +9,6 @@
 
       this.cacheElements();
       this.bindEvents();
-      this.dfpWallpaper.css( 'top', this.header.height() + this.breakingNews.height() );
 
     },
 
@@ -35,7 +34,6 @@
       this.breakingSectionClose = $('.close-breaking-section');
       this.bearsCube = $('.bears-cube-story');
       this.bearsCubeClose = $('.close-bears-cube');
-      this.dfpWallpaper = $('#div-gpt-wallpaper');
       this.header = $('header');
       this.dfpSBB = $('#div-gpt-sbb-1');
       this.interstitial = $('#div-gpt-interstitial');
