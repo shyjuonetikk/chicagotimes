@@ -1610,7 +1610,7 @@ class CST_Frontend {
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
 				// Nav menu $conditional_nav->slug.'-menu' exists but is unassigned what to do?
 				if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
-					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-containerconditional' ) ;
+					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' ) ;
 			} else {
 				echo wp_kses_post( $this->get_sections_nav() );
 					return;
@@ -1658,7 +1658,7 @@ class CST_Frontend {
 	public function masthead_navigation( $page_type ) {
 		$page_types = array(
 			'homepage' => array(
-					'container_class' => 'masthead-sections columns small-9 large-12',
+					'container_class' => 'masthead-sections columns small-9 large-12 show-for-medium-up',
 					'items_wrap'      => '<div class="homepage-nav-holder columns small-11 large-12"><ul id="%1$s" class="homepage">%3$s</ul></div>',
 					'location'        => 'homepage-masthead',
 			),

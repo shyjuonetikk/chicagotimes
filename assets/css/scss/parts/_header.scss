@@ -180,6 +180,8 @@ header {
 			background: $cst_black;
 
 			.masthead-sections {
+				padding-left:0;
+				margin-left: 0;
 				ul {
 					list-style-type: none;
 					background: $cst_black;
@@ -336,7 +338,7 @@ header {
 			.has-form {
 				background: $cst_black;
 			}
-			@media #{$small-only} {
+			@media #{$xmedium-down} {
 				.homepage-nav-holder {
 					padding-left: 0;
 					padding-right: 0;
@@ -350,6 +352,33 @@ header {
 			.subscribe-link {
 				width:74px;
 				max-width:100px;
+			}
+			.title-area {
+				.masthead-sections {
+					padding-left: 0;
+					ul {
+						margin-left:0.1rem;
+					}
+				}
+				.logo-container {
+					margin-top: 7px;
+					padding-right: 0px;
+					padding-left: 3px;
+				}
+				@media #{$small-only} {
+					.logo-container{
+						padding-left:10px;
+					}
+				}
+				.nav-container {
+					padding:0;
+					@media #{$medium-only} and (orientation:landscape) {
+						width: 63%;
+					}
+					@media #{$xmedium-only} and (orientation:portrait) {
+						width: 66.36667%;
+					}
+				}
 			}
 		}
 		.cst-row {
