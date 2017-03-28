@@ -66,7 +66,7 @@ class CST_DFP_Handler {
 	 *
 	 * Create a dynamic generic markup unit
 	 */
-	public function dynamic_unit( $index, $type = '', $class = '', $mapping = '', $targeting_name = 'atf leaderboard' ) {
+	public function dynamic_unit( $index, $type = '', $class = '', $mapping = '', $targeting_name = 'atf leaderboard', $default_size = '300,250' ) {
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-placement';
 		}
@@ -84,7 +84,7 @@ class CST_DFP_Handler {
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="%4$s"></div>
 <script>
 googletag.cmd.push(function() {
-	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [728, 90], \'%1$s\')
+	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [%5$s], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
 	.setTargeting("pos", "%4$s");
@@ -95,7 +95,8 @@ googletag.cmd.push(function() {
 			esc_attr( $type . '-' . intval( $index ) ),
 			esc_attr( $class ),
 			esc_attr( $mapping ),
-			esc_attr( $targeting_name )
+			esc_attr( $targeting_name ),
+			esc_attr( $default_size )
 		);
 	}
 	/**
