@@ -66,7 +66,7 @@
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</div>
 						<?php } else { ?>
-							<div class="columns small-12 medium-10 large-2 small-logo show-for-medium-down">
+							<div class="columns small-12 medium-10 large-2 small-logo show-for-large-down">
 								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>

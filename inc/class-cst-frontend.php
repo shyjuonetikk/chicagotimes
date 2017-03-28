@@ -160,7 +160,7 @@ class CST_Frontend {
 	 */
 	public function action_wp_enqueue_scripts() {
 		// Foundation
-		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.2.3' );
+		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.5.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
 
@@ -1604,31 +1604,38 @@ class CST_Frontend {
 	*/
 	public function generate_off_canvas_menu() {
 		if ( is_front_page() ) {
-			$chosen_parameters = array( 'theme_location' => 'homepage-menu', 'depth' => 1, 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container homepage' );
+			$chosen_parameters = array(
+					'theme_location' => 'homepage-menu',
+					'depth' => 2,
+					'fallback_cb' => false,
+					'container_class' => 'cst-off-canvas-navigation-container homepage',
+					'walker' => new GC_walker_nav_menu(),
+					'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+					 );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
 				// Nav menu $conditional_nav->slug.'-menu' exists but is unassigned what to do?
 				if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
-					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' ) ;
+					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional', 'walker' => new GC_walker_nav_menu() ) ;
 			} else {
 				echo wp_kses_post( $this->get_sections_nav() );
 					return;
 				}
 			} else {
-				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undefined-slug' ) ;
+				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undefined-slug', 'walker' => new GC_walker_nav_menu() ) ;
 			}
 		} else {
-		$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined' );
+		$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined', 'walker' => new GC_walker_nav_menu() );
 		}
-		$cache_key = md5( $chosen_parameters['container_class'] );
-		$navigation    = wp_cache_get( $cache_key, 'default' );
-		if ( false === $navigation ) {
+		$cache_key = $chosen_parameters['theme_location'];
+		$navigation_markup    = wp_cache_get( $cache_key, 'cst' );
+		if ( false === $navigation_markup || WP_DEBUG ) {
 			$chosen_parameters['echo'] = false;
-			$navigation = wp_nav_menu( $chosen_parameters );
-			wp_cache_set( $cache_key, $navigation, 'default', 1 * WEEK_IN_SECONDS );
+			$navigation_markup = wp_nav_menu( $chosen_parameters );
+			wp_cache_set( $cache_key, $navigation_markup, 'cst', 1 * WEEK_IN_SECONDS );
 		}
-		echo wp_kses_post( $navigation );
+		echo wp_kses_post( $navigation_markup );
 	}
 	/**
 	* http://wordpressvip.zendesk.com/hc/requests/56671

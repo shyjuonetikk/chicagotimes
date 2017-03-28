@@ -1287,6 +1287,10 @@ class CST_Admin {
 		wp_cache_delete( 'cst_homepage', 'default' );
 		wp_cache_delete( 'cst_section-front', 'default' );
 		wp_cache_delete( 'section_nav_cache_key', 'default' );
+		$menus = get_registered_nav_menus();
+		foreach ( $menus as $location => $description ) {
+			wpcom_vip_cache_delete( $location, 'cst' );
+		}
 	}
 
 	/**

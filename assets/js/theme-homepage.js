@@ -114,11 +114,11 @@
           this.responsiveIframes();
         }, this ), 30 );
       }, this ) );
-      $(document)
-        .on('open.fndtn.offcanvas', '[data-offcanvas]', CST_Homepage.handleNavigation)
-        .on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
-          document.getElementsByTagName('body')[0].style.overflow='auto';
-        });
+      // $(document)
+      //   .on('open.fndtn.offcanvas', '[data-offcanvas]', CST_Homepage.handleNavigation)
+      //   .on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
+      //     document.getElementsByTagName('body')[0].style.overflow='auto';
+      //   });
     },
     /**
      * Make some iframes responsive
@@ -189,7 +189,8 @@
         equalize_on_stack: true
       },
       offcanvas: {
-        open_method: "move"
+        open_method: "move",
+        close_on_click: false
       },
       reveal: {
         close_on_background_click: true

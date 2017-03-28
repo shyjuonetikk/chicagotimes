@@ -159,7 +159,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
-//		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -2030,7 +2030,7 @@ class CST {
 				// set the key of the parent
 				$last_top = $key;
 			} else {
-				$sorted_menu_items[ $last_top ]->classes['dropdown'] = 'has-dropdown';
+				$sorted_menu_items[ $last_top ]->classes['dropdown'] = 'has-dropdown has-submenu';
 			}
 		}
 		return $sorted_menu_items;
