@@ -32,23 +32,50 @@
 			<ul class="left">
 				<li class="has-form">
 					<div class="row-collapse search">
-					<div class="columns small-1 ">
-						<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
-							<div class="row collapse search-input-wrapper">
-								<div class="large-1 small-1 columns search-icon">
-									<a href="#" data-reveal-id="search-container">
-										<i class="fa fa-search"></i>
-									</a>
+						<div class="columns small-1 ">
+							<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+								<div class="row collapse search-input-wrapper">
+									<div class="large-1 small-1 columns search-icon">
+										<a href="#" data-reveal-id="search-container">
+											<i class="fa fa-search"></i>
+										</a>
+									</div>
 								</div>
-							</div>
-						</form>
-					</div>
+							</form>
+						</div>
 					</div>
 				</li>
-				<li class="has-form columns small-1 burger-wrapper-no-fries">
-					<a href="#1" class="left-off-canvas-toggle burger-bar">
-						<i class="fa fa-bars"></i>
-					</a>
+				<li class="has-form">
+					<div class="row-collapse">
+						<div class="columns small-1 burger-wrapper-no-fries">
+							<a href="#1" class="left-off-canvas-toggle burger-bar">
+								<i class="fa fa-bars"></i>
+							</a>
+						</div>
+					</div>
+				</li>
+				<li class="has-form">
+					<div class="row-collapse">
+						<?php if ( is_front_page() ) { ?>
+							<div class="columns small-12 show-for-small-only small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
+								</a>
+							</div>
+							<div class="columns small-12 show-for-large-up">
+								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
+							</div>
+						<?php } else { ?>
+							<div class="columns small-2 small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
+								</a>
+							</div>
+							<div class="columns small-10 show-for-large-up">
+								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
+							</div>
+						<?php } ?>
+					</div>
 				</li>
 			</ul>
 		</section>

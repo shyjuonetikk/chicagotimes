@@ -160,7 +160,6 @@
 	}
 
 	.dfp-cube {
-		padding: 0;
 		margin-bottom: 5px;
 	}
 
@@ -272,15 +271,6 @@
 				    max-width: 100%;
 				    margin: 0 auto;
 				    height: 138px;
-
-		    		.small-logo {
-		    			@media (min-width: 1250px) {
-		    				display: none;
-		    			}
-		    			@media (max-width: 1249px) {
-		    				display: block;
-		    			}
-		    		}
 
 		    		ul li>a {
 		    			font-family: $homepage_font;

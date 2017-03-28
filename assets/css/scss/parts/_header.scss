@@ -180,9 +180,11 @@ header {
 		.top-bar {
 			background: $cst_black;
 			.small-logo {
-				margin-top: 7px;
-				margin-left: 0;
+				margin: 7px 0 0 0;
 				padding-left: 0;
+				a {
+					padding: 6px 0 0 0;
+				}
 			}
 			.masthead-sections {
 				padding-left:0;
@@ -359,10 +361,6 @@ header {
 					}
 				}
 			}
-			.subscribe-link {
-				width:74px;
-				max-width:100px;
-			}
 			.title-area {
 				.masthead-sections {
 					padding-left: 0;
@@ -405,15 +403,6 @@ header {
 			.top-bar {
 				max-width: 100%;
 				margin: 0 auto;
-
-				.small-logo {
-					@media (min-width: 1250px) {
-						display: none;
-					}
-					@media (max-width: 1249px) {
-						display: block;
-					}
-				}
 
 				ul li>a {
 					font-family: $homepage_font;
