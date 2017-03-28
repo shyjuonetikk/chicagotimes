@@ -1,5 +1,5 @@
 <?php $weather = CST()->frontend->get_weather(); ?>
-<header id="header" class="masthead hide-header">
+<header id="header" class="masthead">
 	<div class="contain-to-grid">
 		<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
 			<ul class="title-area">
@@ -66,7 +66,7 @@
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</div>
 						<?php } else { ?>
-							<div class="columns small-12 medium-2 small-logo">
+							<div class="columns small-12 medium-10 large-2 small-logo show-for-medium-down">
 								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>

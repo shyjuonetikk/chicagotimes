@@ -613,6 +613,13 @@ body.admin-bar .move-right header#header {
   #headlines-slider .slider {
     background-color: #f8f8f8;
     margin-bottom: 0; }
+    #headlines-slider .slider button {
+      border: none;
+      background-color: transparent;
+      position: initial;
+      padding-bottom: 0;
+      padding-top: 0;
+      margin-bottom: 0; }
     #headlines-slider .slider .header-prev.fa, #headlines-slider .slider .header-next.fa {
       position: absolute;
       display: block;
@@ -620,16 +627,16 @@ body.admin-bar .move-right header#header {
       width: 30px;
       cursor: pointer;
       background: transparent;
-      bottom: 18px;
+      bottom: 30px;
       padding: 0;
       border: none;
       outline: none;
-      color: #231f20;
+      color: #888888;
       font-size: 1.4rem; }
     #headlines-slider .slider .header-prev.fa {
-      left: 10px; }
+      left: 0; }
     #headlines-slider .slider .header-next.fa {
-      right: -5px; }
+      right: -2px; }
     #headlines-slider .slider .slick-dots li button:before {
       font-size: 8px;
       color: #9a9a9a;
@@ -695,7 +702,7 @@ body.admin-bar .move-right header#header {
           color: #231f20; }
     #headlines-slider .slider .slick-dots {
       margin-left: 0;
-      bottom: -36px; }
+      bottom: -18px; }
       #headlines-slider .slider .slick-dots li {
         height: 21px; }
   #headlines-slider.slider-fixed {

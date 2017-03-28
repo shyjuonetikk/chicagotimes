@@ -400,7 +400,14 @@ body.admin-bar {
 	.slider {
 		background-color: $light_grey;
 		margin-bottom: 0;
-
+		button {
+			border: none;
+			background-color: transparent;
+			position: initial;
+			padding-bottom: 0;
+			padding-top: 0;
+			margin-bottom: 0;
+		}
 		.header-prev.fa,
 		.header-next.fa {
 			position: absolute;
@@ -409,20 +416,20 @@ body.admin-bar {
 			width: 30px;
 			cursor: pointer;
 			background: transparent;
-			bottom: 18px;
+			bottom: 30px;
 			padding: 0;
 			border: none;
 			outline: none;
-			color: $cst_black;
+			color: #888;
 			font-size: 1.4rem;
 		}
 
 		.header-prev.fa {
-			left: 10px;
+			left: 0;
 		}
 
 		.header-next.fa {
-			right: -5px;
+			right: -2px;
 		}
 
 		.slick-dots li button:before {
@@ -512,7 +519,7 @@ body.admin-bar {
 
 		.slick-dots {
 			margin-left: 0;
-			bottom: -36px;
+			bottom: -18px;
 
 			li {
 				height: 21px;
