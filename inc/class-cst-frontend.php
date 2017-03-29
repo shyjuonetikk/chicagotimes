@@ -2173,9 +2173,11 @@ ready(fn);
 	* @return bool|\CST\Objects\Article
 	*/
 	public function should_we_inject_headlinesnetwork( $obj ) {
-		$primary_section = $obj->get_primary_parent_section();
-		if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
-			return $primary_section->slug;
+		if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
+			$primary_section = $obj->get_primary_parent_section();
+			if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
+				return $primary_section->slug;
+			}
 		}
 		return false;
 	}
