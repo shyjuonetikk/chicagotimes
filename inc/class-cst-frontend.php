@@ -1649,7 +1649,7 @@ class CST_Frontend {
 	*/
 	function action_maybe_render_sliding_billboard() {
 
-		if ( ! is_404() && ! is_singular() ) :
+		if ( is_front_page() || is_tax() ) :
 			echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
 			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
 	    endif;
