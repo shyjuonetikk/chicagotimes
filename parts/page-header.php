@@ -37,19 +37,23 @@ if( is_single() ) {
 <?php if ( ! is_author() ) {
 	get_template_part( 'parts/dfp/dfp-interstitial' );
 } ?>
-	<div class="inner-wrap">
+	<div class="inner-wrap">    
+        
 	<?php 
 	if ( is_home() || is_front_page() || is_tax() ) {
 		get_template_part( 'parts/dfp/dfp-mobile-leaderboard' );
 		echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
 	}
 	?>
+<!-- testing A9 -->
+<div id="div-gpt-test-below-super-leaderboard-2"></div>
+<!-- -->     
 <header id="header">
 
 	<?php if ( ! is_404() ) { ?>
 	<section id="headlines-slider">
 		<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
-	</section>
+	</section> 
 	<section id="primary-navigation" class="primary-normal">
 		<?php $weather = CST()->frontend->get_weather(); ?>
 		<?php if ( ! empty( $weather ) ) : ?>
@@ -139,7 +143,9 @@ if ( is_singular() ) {
 ?>
 
 <?php do_action( 'header_sliding_billboard' ); ?>
-
+<!-- testing A9 -->
+<div id="div-gpt-test-below-slider-billboard-2"></div>
+<!-- --> 
 <?php if ( ! is_single() ) : ?>
 	<?php if ( is_tax() ){
 		$section_obj = get_queried_object();
