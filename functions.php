@@ -1513,7 +1513,7 @@ class CST {
 
 	public function filter_rest_api_post_types( $allowed_post_types ) {
 
-		$allowed_post_types[] = 'cst_article';
+		$allowed_post_types[] = array( 'cst_article', 'cst_feature' );
 
 		return $allowed_post_types;
 	}
