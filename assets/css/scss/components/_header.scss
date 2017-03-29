@@ -285,6 +285,7 @@ body.admin-bar {
 
 .left-off-canvas-menu {
     background-color: $cst_black;
+	overflow: visible;
 	ul {
 		margin-left:0;
 		clear: both;
@@ -373,7 +374,6 @@ body.admin-bar {
 				}
 			}
             li {
-				border-top:1px solid #ff9900;
 				&.has-dropdown {
 					> a {
 						&:after {
@@ -386,7 +386,8 @@ body.admin-bar {
 				.dropdown {
 					-webkit-backface-visibility: hidden;
 					-webkit-overflow-scrolling: touch;
-					background: #333333;
+					border-bottom: 2px solid $grey;
+					background: $cst_black;
 					bottom: 0;
 					box-sizing: content-box;
 					margin: 0;
@@ -395,7 +396,7 @@ body.admin-bar {
 					position: absolute;
 					top: 45px;
 					width: 15.625rem;
-					height: 18.75rem;
+					height: 100%;
 					z-index: 1002;
 					-webkit-transform: translate3d(-100%, 0, 0);
 					-moz-transform: translate3d(-100%, 0, 0);
@@ -422,18 +423,18 @@ body.admin-bar {
 						-webkit-backface-visibility: hidden;
 					}
 					.back > a {
-						background: #444;
+						background: $cst_black;
 						border-bottom: none;
-						border-top: 1px solid #5e5e5e;
-						color: #999999;
+						border-top: 1px solid $line_grey;
+						color: $social_grey;
 						font-weight: bold;
 						padding: 0.3rem 0.9375rem;
 						text-transform: uppercase;
 						margin: 0;
 						&:hover {
-							background: #303030;
+							background: $menu_black;
 							border-bottom: none;
-							border-top: 1px solid #5e5e5e;
+							border-top: 1px solid $line_grey;
 						}
 						&:before {
 							content: "\AB";
