@@ -34,4 +34,4 @@
 
 	</section>
 
-<?php get_footer( 'features' );
+<?php get_footer();
