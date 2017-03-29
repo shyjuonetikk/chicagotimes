@@ -4616,6 +4616,83 @@ body.post-gallery-lightbox-active {
 .homepage-content .elections-2016 .ap-data {
   min-height: 14.1rem; }
 
+#section-top {
+  padding: 15px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  background-color: #3e3e3e; }
+  #section-top h2 {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+    font-size: 2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: white;
+    margin: 0;
+    text-shadow: 3px 3px #3e3e3e; }
+    #section-top h2 .fa {
+      width: 25px; }
+  @media only screen and (max-width: 40em) {
+    #section-top h2 {
+      font-size: 1.25rem; } }
+  #section-top .author-bio p {
+    color: #9a9a9a;
+    margin-bottom: 0px; }
+  #section-top #section-description {
+    margin-top: 0.75rem;
+    color: #9a9a9a; }
+    #section-top #section-description p {
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+      font-weight: 600; }
+    @media only screen and (max-width: 40em) {
+      #section-top #section-description {
+        margin-top: 0; }
+        #section-top #section-description p {
+          font-size: 0.875rem; } }
+  #section-top.author {
+    background: #231f20; }
+    #section-top.author h1 {
+      font-size: 2rem;
+      line-height: 2.5rem;
+      font-family: 'Open Sans', Arial, sans-serif;
+      font-weight: 800; }
+    #section-top.author h4 {
+      font-size: 1.3rem;
+      line-height: 1.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #9a9a9a;
+      margin: 0px; }
+    #section-top.author .author-content {
+      font-family: 'Merriweather', Georgia, serif; }
+    #section-top.author .fa {
+      color: #9a9a9a; }
+    #section-top.author span.author-twitter a, #section-top.author span.author-email a {
+      color: #9a9a9a;
+      padding-right: 10px; }
+    #section-top.author .avatar {
+      width: 80px;
+      height: 80px;
+      -webkit-border-radius: 40px;
+      -moz-border-radius: 40px;
+      -ms-border-radius: 40px;
+      -o-border-radius: 40px;
+      border-radius: 40px; }
+  #section-top #section-share {
+    color: white;
+    height: auto; }
+    #section-top #section-share .fa {
+      font-size: 1.5rem;
+      margin-right: 15px;
+      margin-top: 15px;
+      color: white; }
+    #section-top #section-share .fa-facebook:hover {
+      color: #9a9a9a; }
+    #section-top #section-share .fa-twitter:hover {
+      color: #9a9a9a; }
+
 /**
  * Colors
  */
