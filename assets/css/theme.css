@@ -168,26 +168,21 @@ h1, h2, h3, h4, h5, h6 {
 body.error404 {
   background-color: #f8f8f8;
   height: inherit; }
-  body.error404 .row {
-    width: 100%;
-    max-width: none; }
   body.error404 h1 {
     font-weight: 700; }
   body.error404 p {
     padding-top: 20px; }
-  body.error404 .search-wrap {
-    margin-top: 20px; }
-    body.error404 .search-wrap #search-input {
-      font-size: 1.25rem;
-      border: 2px ridge;
-      padding: 5px 29px 5px 5px;
-      width: 250px; }
-    body.error404 .search-wrap #search-button {
-      font-size: 1.5rem;
-      color: #333333;
-      margin-left: 10px; }
-    body.error404 .search-wrap #search-button:hover {
-      color: #7d7e7e; }
+  body.error404 .search-wrap #search-input {
+    font-size: 1.25rem;
+    border: 2px ridge;
+    padding: 5px 29px 5px 5px;
+    width: 250px; }
+  body.error404 .search-wrap #search-button {
+    font-size: 1.5rem;
+    color: #333333;
+    margin-left: 10px; }
+  body.error404 .search-wrap #search-button:hover {
+    color: #7d7e7e; }
   body.error404 .left-off-canvas-menu {
     overflow-y: inherit; }
   body.error404 .exit-off-canvas {
@@ -3125,7 +3120,7 @@ header .contain-to-grid .cst-row {
       background: #59adeb; }
 
 footer {
-  background: #282828; }
+  background-color: #231f20; }
   footer .back-to-top a {
     color: white; }
   footer .back-to-top p {

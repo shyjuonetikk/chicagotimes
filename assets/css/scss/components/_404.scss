@@ -2,11 +2,6 @@ body.error404 {
 	background-color: $light_grey;
   height: inherit;
 
-  .row {
-    width:100%;
-    max-width:none;
-  }
-
   h1 {
     font-weight: 700;
   }
@@ -16,7 +11,6 @@ body.error404 {
   }
 
   .search-wrap {
-    margin-top: 20px;
 
     #search-input {
       font-size: 1.25rem;

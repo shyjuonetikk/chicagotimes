@@ -1,4 +1,4 @@
-<?php if ( is_front_page() || is_page() ) { ?>
+<?php if ( is_front_page() || is_page() || is_404() ) { ?>
 <footer>
 	<div class="footerlead">
 		<div class="row">
