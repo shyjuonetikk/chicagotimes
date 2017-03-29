@@ -93,8 +93,11 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 	</div>
 	</div>
 	<div class="row footer-lower">
-		<div class="small-12 columns">
+		<div class="small-10 columns">
 			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', date( 'Y' ) ); ?> Chicago Sun-Times</p>
+		</div>
+		<div class="small-2 columns">
+			<?php echo vip_powered_wpcom(6) ?>
 		</div>
 	</div>
 </footer>
