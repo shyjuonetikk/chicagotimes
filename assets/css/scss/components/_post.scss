@@ -103,7 +103,7 @@ article.post {
 		h1 {
 			font-size: 2rem;
 			line-height: 2.5rem;
-			margin-bottom: 15px;
+			margin-bottom: 4px;
 		}
 	}
 
@@ -297,8 +297,9 @@ article.post {
 		overflow: hidden;
 	}
 	.cst-recommendations {
+		float:left;
 		hr {
-			margin: 0.3rem;
+			margin: 0.3rem 0;
 		}
 		h3 {
 			text-transform: uppercase;
@@ -375,6 +376,9 @@ article.post {
 		border: 1px solid $cst_black;
 		float:left;
 		width: 100%;
+	}
+	.pgs-dpg-btn {
+		width: 212px;
 	}
 }
 
@@ -878,7 +882,7 @@ body[class~="archive"] {
 			.section-title {
 				float:left;
 				h1 {
-					font-size: 1.5rem;
+					font-size: 1.4rem;
 					line-height:1.9rem;
 				}
 				@media #{$xmediumi-down} {
@@ -886,9 +890,14 @@ body[class~="archive"] {
 						padding-top:0;
 					}
 					h1 {
-						font-size: 1rem;
-						line-height: 1.25rem;
+						font-size: 0.9rem;
+						line-height: 1.15rem;
 						margin-bottom: 0;
+					}
+				}
+				@media #{$medium-down} {
+					h1 {
+						font-weight:600;
 					}
 				}
 			}

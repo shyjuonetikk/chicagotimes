@@ -1,35 +1,38 @@
+<?php $weather = CST()->frontend->get_weather(); ?>
 <header id="header" class="masthead">
 	<div class="contain-to-grid">
 		<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
 			<ul class="title-area">
-				<li class="has-form hide-for-large-up">
-					<a href="#0" class="left-off-canvas-toggle burger-bar">
-						<i class="fa fa-bars"></i>
-					</a>
-				</li>
-				<?php if ( is_front_page() ) { ?>
-					<li class="has-form section-navigation hide-for-large-up">
-						<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
-					</li>
-				<?php } else { ?>
-				<li class="name hide-for-large-up">
-					<div class="medium-2 small-3 columns logo-container">
-						<div class="small-logo">
-							<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
-								<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
-							</a>
+			</ul>
+		<section class="top-bar-section">
+			<ul class="right">
+				<li class="has-form">
+					<div class="row collapse">
+						<div class="large-2 small-9 columns hide-for-small">
+						<?php $weather = CST()->frontend->get_weather(); ?>
+						<?php if ( ! empty( $weather ) ) { ?>
+							<div class="weather">
+								<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+	<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
+		<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+								</a>
+							</div>
+						<?php } ?>
 						</div>
 					</div>
-					<div class="medium-8 small-7 columns nav-container">
-						<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
+				</li>
+				<li class="has-form">
+					<div class="row collapse">
+						<div class="large-2 small-2 columns">
+							<span class="subscribe-link "><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
+						</div>
 					</div>
 				</li>
-				<?php } ?>
 			</ul>
-			<section class="top-bar-section">
-				<ul class="left">
-					<li class="has-form">
-						<div class="search">
+			<ul class="left">
+				<li class="has-form">
+					<div class="row-collapse search">
+						<div class="columns small-1 ">
 							<form class="search-wrap" autocomplete="off" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 								<div class="row collapse search-input-wrapper">
 									<div class="large-1 small-1 columns search-icon">
@@ -40,58 +43,45 @@
 								</div>
 							</form>
 						</div>
-					</li>
-					<li class="has-form">
-						<a href="#0" class="left-off-canvas-toggle burger-bar">
-							<i class="fa fa-bars"></i>
-						</a>
-					</li>
-					<?php if ( is_front_page() ) {?>
-					<li class="has-form">
-						<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
-					</li>
-					<?php } else { ?>
-						<li class="has-form">
-							<div class="row">
-								<div class="small-12 small-centered columns">
-									<div class="logo">
-										<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
-											<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="38" width="200">
-										</a>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li class="has-form">
-							<div class="row">
-								<div class="small-12 columns">
-									<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
-								</div>
-							</div>
-						</li>
-					<?php } ?>
-				</ul>
-
-				<ul class="right">
-					<li class="has-form">
-						<?php $weather = CST()->frontend->get_weather(); ?>
-						<?php if ( ! empty( $weather ) ) { ?>
-							<div class="weather">
-								<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
-<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
-	<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+					</div>
+				</li>
+				<li class="has-form">
+					<div class="row-collapse">
+						<div class="columns small-1 burger-wrapper-no-fries">
+							<a href="#1" class="left-off-canvas-toggle burger-bar">
+								<i class="fa fa-bars"></i>
+							</a>
+						</div>
+					</div>
+				</li>
+				<li class="has-form">
+					<div class="row-collapse">
+						<?php if ( is_front_page() ) { ?>
+							<div class="columns small-12 show-for-small-only small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
 							</div>
+							<div class="columns small-12 show-for-large-up">
+								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
+							</div>
+						<?php } else { ?>
+							<div class="columns small-12 medium-10 large-2 small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
+								</a>
+							</div>
+							<div class="columns small-10 show-for-large-up">
+								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
+							</div>
 						<?php } ?>
-					</li>
-					<li class="has-form">
-						<span class="subscribe-link"><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
-					</li>
-				</ul>
-			</section>
+					</div>
+				</li>
+			</ul>
+		</section>
 		</nav>
 	</div>
-	<?php if ( is_singular() ) { ?>
+	<?php if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) { ?>
 		<section id="headlines-slider">
 			<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
 		</section>

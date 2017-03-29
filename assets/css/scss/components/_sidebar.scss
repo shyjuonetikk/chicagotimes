@@ -36,7 +36,7 @@
 		background-color: $light_grey;
 		z-index:1;
 		border-left:1px solid $social_grey;
-
+		margin-top:30px;
 		.widget_cst_ad_widget {
 			list-style-type: none;
 			margin-bottom: 20px;
@@ -194,6 +194,7 @@
 	.sidebar-scroll-container {
 		position: absolute;
 		padding: 0 8px;
+		max-width:315px;
 	}
 }
 

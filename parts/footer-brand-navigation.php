@@ -1,4 +1,4 @@
-<?php if ( is_front_page() || is_page() ) { ?>
+<?php if ( is_front_page() || is_page() || is_404() || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' ) ) { ?>
 <footer>
 	<div class="footerlead">
 		<div class="row">
@@ -93,14 +93,17 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 	</div>
 	</div>
 	<div class="row footer-lower">
-		<div class="small-12 columns">
+		<div class="small-10 columns">
 			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', date( 'Y' ) ); ?> Chicago Sun-Times</p>
+		</div>
+		<div class="small-2 columns">
+			<?php echo vip_powered_wpcom(6) ?>
 		</div>
 	</div>
 </footer>
 <?php } ?>
-<div id="subscribe-modal" class="reveal-modal xlarge" data-reveal aria-labelledby="Subscribe to Chicago Sun-Times" aria-hidden="true" role="dialog">
-	<iframe src="http://wssp.suntimes.com/subscribe/" frameborder="0" class="cst-responsive" width="100%" height="700" allowfullscreen></iframe>
+<div id="subscribe-modal" class="reveal-modal full" data-reveal aria-labelledby="Subscribe to Chicago Sun-Times" aria-hidden="true" role="dialog">
+	<iframe src="http://wssp.suntimes.com/subscribe/" frameborder="0" width="100%" height="1000" allowfullscreen></iframe>
 	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 <?php

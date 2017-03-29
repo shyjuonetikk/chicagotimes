@@ -1,4 +1,4 @@
-<?php if ( ! is_404() ) {
+<?php if ( is_front_page() || is_tax() || is_singular( 'cst_article' ) || is_author() ) {
 	echo CST()->dfp_handler->interstitial();
 } ?>
 
@@ -19,15 +19,13 @@ if ( is_home() || is_front_page() || is_tax() ) {
 
 <?php do_action( 'header_sliding_billboard' ); ?>
 
-<?php if ( ! is_single() ) : ?>
-	<?php if ( is_tax() ) {
-		$section_obj = get_queried_object();
-		$section_slug = CST()->frontend->determine_section_slug( $section_obj );
-} ?>
-	<?php if ( isset( $section_slug ) ) : ?>
-		<?php do_action( 'cst_section_front_upper_heading' );  ?>
-		<?php $action_slug = str_replace( '-', '_', get_queried_object()->slug ); ?>
-		<?php do_action( 'cst_section_head_comscore', $section_slug, $action_slug ); ?>
-		<?php do_action( "cst_section_head_{$action_slug}" ); ?>
-	<?php endif; ?>
-<?php endif; ?>
+<?php if ( is_tax() ) {
+	$section_obj = get_queried_object();
+	$section_slug = CST()->frontend->determine_section_slug( $section_obj );
+	if ( isset( $section_slug ) ) :
+		do_action( 'cst_section_front_upper_heading' );
+		$action_slug = str_replace( '-', '_', get_queried_object()->slug );
+		do_action( 'cst_section_head_comscore', $section_slug, $action_slug );
+		do_action( "cst_section_head_{$action_slug}" );
+	endif;
+}

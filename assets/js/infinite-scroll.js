@@ -110,7 +110,7 @@
           var active_post_position = active_post.position().top;
           jQuery(".sidebar-scroll-container").css("top", active_post_position + "px");
         }
-				if ( uri == CSTInfiniteScroll.activeURI ) {
+				if ( uri === CSTInfiniteScroll.activeURI ) {
 					return;
 				}
 				CSTInfiniteScroll.activeURI = uri;
@@ -234,6 +234,32 @@
       window.infiniteScroll.scroller.determineURL = CSTInfiniteScroll.determineURL;
       CSTInfiniteScroll.originalUpdateURL = window.infiniteScroll.scroller.updateURL;
       window.infiniteScroll.scroller.updateURL = CSTInfiniteScroll.updateURL;
+    },
+    vendor_taboola: function(uri,post_id) {
+      window.page_counter++;
+      var taboola_container = jQuery('.taboola-container-' + post_id);
+      if ( ! taboola_container.children().length ) {
+        window._taboola = window._taboola || [];
+        _taboola.push({mode:'thumbnails-c', container: CSTData.taboola_container_id + window.page_counter, placement: 'Below Article Thumbnails', target_type: 'mix'});
+        _taboola.push({article:'auto', url:uri});
+        var taboola_container_id = CSTData.taboola_container_id + window.page_counter;
+        var taboolaDiv = document.createElement("div");
+        taboolaDiv.id = taboola_container_id;
+        taboola_container.append( taboolaDiv );
+      }
+      if( window.page_counter == 1 ) {
+        window._taboola = window._taboola || [];
+        _taboola.push({
+          mode:'thumbnails-c',
+          container: taboola_container_id,
+          placement: 'Below Article Thumbnails',
+          target_type: 'mix'
+        });
+        _taboola.push({
+          article:'auto',
+          url:''
+        });
+      }
     }
 	};
 

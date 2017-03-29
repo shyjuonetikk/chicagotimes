@@ -160,7 +160,6 @@
 	}
 
 	.dfp-cube {
-		padding: 0;
 		margin-bottom: 5px;
 	}
 
@@ -203,7 +202,6 @@
 			text-align: center;
 		}
 	}
-
 	.dfp-mobile-leaderboard {
 		@media (max-width: 568px) {
 			padding-left: 0;
@@ -254,6 +252,14 @@
 				margin: 0 auto;
 			}
 		}
+		.top-bar-section {
+			.has-dropdown {
+				> a::after {
+					top: 14.5px;
+					margin-top:0;
+				}
+			}
+		}
 	}
 	@media only screen and (min-width: 78.063em) { 
 
@@ -265,15 +271,6 @@
 				    max-width: 100%;
 				    margin: 0 auto;
 				    height: 138px;
-
-		    		.small-logo {
-		    			@media (min-width: 1250px) {
-		    				display: none;
-		    			}
-		    			@media (max-width: 1249px) {
-		    				display: block;
-		    			}
-		    		}
 
 		    		ul li>a {
 		    			font-family: $homepage_font;
@@ -551,23 +548,31 @@
 					padding: 0px 20px 0px 20px;
 					font-family: $homepage_font;
 					font-weight: 700;
-					@media (min-width: 569px) {
-						font-size: 34px;
-						line-height: 34px;
-					}
-					@media (min-width: 480px) and (max-width: 568px) {
-						font-size: 26px;
-						line-height: 26px;
-					}
 					@media (max-width: 479px) {
 						font-size: 18px;
 						line-height: 20px;
 					}
+					@media #{$medium-only} {
+						line-height: 1.2rem;
+						font-size: 1rem;
+					}
+					@media #{$xmedium-only} {
+						font-size: 1.5rem;
+						line-height: 1.7rem;
+					}
+					@media #{$xmedium-only} and (orientation: landscape) {
+						padding: 5px;
+					}
+					@media #{$large-up} {
+						font-size: 1.9rem;
+						line-height: 2rem;
+					}
+
 					color: $light_grey;
 				}
 
 				p {
-					padding: 0px 20px 0px 20px;
+					padding: 0 20px;
 					color: $white;
 					margin-bottom: 5px;
 					line-height: 18px;
@@ -579,6 +584,9 @@
 						font-size: 12px;
 					}
 					margin-left: 20px;
+					@media #{$xmedium-only} and (orientation: landscape) {
+						margin-left:5px;
+					}
 					font-family: $homepage_font;
 					color: $white;
 				}
@@ -629,7 +637,9 @@
 					width: 100%;
 					height: auto;
 				}
-
+				@media #{$medium-only} {
+					height:199px;
+				}
 				.article-title {
 					position: absolute;
 					bottom: 0;
@@ -639,7 +649,9 @@
    					background: rgba(0, 0, 0, 0.7); 
    					transition: background 0.5s ease;
    					width: 100%;
-
+					@media #{$medium-only} {
+						padding: 0 5px 5px 5px;
+					}
 					h3 {
 						@media (min-width: 569px) {
 							font-size: 16px;
@@ -647,12 +659,34 @@
 						@media (max-width: 568px) {
 							font-size: 20px;
 						}
+						@media #{$medium-only} {
+							font-size: 0.8rem;
+							line-height:1rem;
+						}
+						@media #{$medium-only} and (orientation: landscape) {
+							font-size: 1.2rem;
+							line-height:1.5rem;
+						}
+						@media #{$xmedium-only} {
+							font-size: 1.5rem;
+							line-height: 1.7rem;
+						}
+						@media #{$xmedium-only} and (orientation: landscape) {
+							font-size: 1rem;
+							line-height:1.3rem;
+						}
+						@media #{$large-up} {
+							font-size: 1.7rem;
+							line-height: 1.9rem;
+						}
 						line-height: 18px;
 						font-family: $homepage_font;
 						color: $light_grey;
 						font-weight: 700;
 					}
-
+					@media #{$xmedium-only} and (orientation: landscape) {
+						padding: 5px;
+					}
 					p {
 						color: $white;
 						font-size: 12px;
@@ -995,6 +1029,7 @@
 	position: relative;
 	height: auto;
 	float:left;
+	margin-bottom: 10px;
 
 	img {
 		position: relative;
@@ -1063,7 +1098,8 @@
 
 .widget_cst_featured_content_widget, .widget_cst_columnists_content_widget {
 	list-style-type: none;
-
+	margin-bottom: 10px;
+	float:left;
 /*	@media (min-width: 1025px) {
 		margin: 20px 0 20px 0;
 		padding: 10px 0 10px 0;

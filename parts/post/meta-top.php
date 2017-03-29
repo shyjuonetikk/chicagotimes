@@ -15,7 +15,7 @@ if ( ! $obj ) {
 			}
 		}
 	}
-
+$developing = isset( $developing ) || false;
 	if ( $developing && is_sticky() && ! is_singular() ) {
 		$classes[] = 'sticky-taxonomy';
 	}
@@ -45,7 +45,7 @@ echo sprintf(
 <?php endif; // End VIP Hotfix ?>
 <?php } ?>
 	<?php if ( ! is_sticky() ) : ?>
-	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_post_date() ); ?></span>
+	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_localized_pub_mod_date() ); ?></span>
 <?php endif; ?>
 </div>
 <?php

@@ -15,7 +15,7 @@ class GC_walker_nav_menu extends Walker_Nav_Menu {
 		$indent = ( $depth > 0 ? str_repeat( "\t", $depth ) : '' ); // code indent
 
 		// build html
-		$output .= "\n" . $indent . '<ul class="dropdown">' . "\n";
+		$output .= "\n" . $indent . '<ul class="dropdown left-submenu"><li class="back"><a href="#">Back</a></li>' . "\n";
 
 	}
 

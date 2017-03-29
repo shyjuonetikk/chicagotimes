@@ -77,7 +77,6 @@ if ( is_singular() && ! is_404() ) {
 ?>
 
 <?php wp_head(); ?>
-<?php get_template_part( 'parts/analytics/adblocker' ); ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -85,7 +84,7 @@ if ( is_singular() && ! is_404() ) {
 <div id="ie8-user" style="display:none;"></div>
 
 <?php
-if ( is_front_page() || is_404() || is_page( 'yieldmo-homepage' ) || is_page_template( 'page-monster.php' ) ) {
+if ( is_front_page() || is_page( 'yieldmo-homepage' ) || is_page_template( 'page-monster.php' ) ) {
 	get_template_part( 'parts/homepage/header' );
 } else {
 	get_template_part( 'parts/page-header' );

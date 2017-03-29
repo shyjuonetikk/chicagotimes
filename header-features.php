@@ -58,5 +58,5 @@
 <div id="ie8-user" style="display:none;"></div>
 
 <?php
-	get_template_part( 'parts/features-header' );
-?>
+	get_template_part( 'parts/page-header' );
+

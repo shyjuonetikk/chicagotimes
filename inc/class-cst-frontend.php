@@ -12,18 +12,19 @@ class CST_Frontend {
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
 	private $send_to_news_embeds = array(
-		'cubs'              => 'uqWfqG2Y',
-		'cubs-baseball'     => 'uqWfqG2Y',
-		'white-sox'         => 'WOOeQ5Jw',
-		'bulls'             => 's3AyJdaz',
-		'bears'             => 'C30fZO7v',
-		'bears-football'    => 'C30fZO7v',
-		'pga-golf'          => '8Owdfvnq',
-		'nascar'            => 'hdUJ4uMz',
-		'ahl-wolves'        => 'dAT6rZV6',
-		'colleges'          => 'IS3jNqMB',
-		'olympics-2016'     => 'BQ3NYJzd',
-		'blackhawks-hockey' => 'idn8h9Kj',
+		'cubs'              => 'xXrmaE8c',
+		'cubs-baseball'     => 'xXrmaE8c',
+		'white-sox'         => 'TR8jtM5y',
+		'bulls'             => 'oags2xgZ',
+		'bears'             => 'L9X2Tt4y',
+		'bears-football'    => 'L9X2Tt4y',
+		'pga-golf'          => 'a7k31LHx',
+		'nascar'            => 'L0muW63f',
+		'ahl-wolves'        => 'udXbWp8Y',
+		'colleges'          => 'SRHLAr2T',
+		'olympics-2016'     => 'fLPoOgHI',
+		'blackhawks' 		=> 'uy7k8sat',
+		'blackhawks-hockey' => 'uy7k8sat',
 		'sports'            => 'uDnVEu1d',
 	);
 
@@ -159,10 +160,9 @@ class CST_Frontend {
 	 */
 	public function action_wp_enqueue_scripts() {
 		// Foundation
-		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.2.3' );
+		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.5.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
-		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 
 		// Fonts
 		if ( is_post_type_archive( 'cst_feature' ) ) {
@@ -205,7 +205,7 @@ class CST_Frontend {
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
-					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() ) {
+					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() || is_author() ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
@@ -225,9 +225,6 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-						if ( ! $obj->get_sponsored_content() ) {
-							wp_enqueue_script( 'cst-triplelift', get_template_directory_uri(). '/assets/js/vendor/cst_triplelift.js', array(), false, true );
-						}
 						if ( $this->should_we_inject_headlinesnetwork( $obj ) ) {
 							wp_enqueue_script( 'aggrego-headlinesnetwork', get_template_directory_uri(). '/assets/js/vendor/aggrego-headlinesnetwork.js', array(), false, true );
 							wp_localize_script( 'aggrego-headlinesnetwork', 'vendor_hn', $this->headlines_network_slugs );
@@ -238,14 +235,13 @@ class CST_Frontend {
 				}
 
 				if ( is_singular( 'cst_article', 'cst_gallery' ) && ! is_admin() ) {
-					wp_enqueue_script( 'google-survey', get_template_directory_uri() . '/assets/js/vendor/google-survey.js' );
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 				}
 
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
 				}
-				if ( ( is_tax() || is_singular( 'cst_article', 'cst_gallery' ) ) && ! is_admin() ) {
+				if ( ( is_author() || is_tax() || is_singular( 'cst_article', 'cst_gallery' ) ) || is_front_page() && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 				}
 				if ( is_tax() ) {
@@ -260,6 +256,7 @@ class CST_Frontend {
 		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
 			'disqus_shortname' => CST_DISQUS_SHORTNAME,
+			'taboola_container_id' => 'taboola-below-article-thumbnails-',
 		) );
 		wp_localize_script( 'chicagosuntimes-homepage', 'CSTData', array(
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
@@ -1027,12 +1024,13 @@ class CST_Frontend {
 			}
 		}
 		?>
-		<div class="cst-recommendations">
-			<div class="columns">
+		<div class="cst-recommendations columns">
+			<div>
 			<hr>
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
 		</div>
+			<div class="row">
 		<?php foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$top_item = [];
@@ -1054,20 +1052,21 @@ class CST_Frontend {
 			$temporary_title       = explode( '|', $item->title );
 			$article_curated_title = $temporary_title[0];
 			?>
-			<div class="cst-recommended-content columns medium-6 small-12">
-				<div class="cst-article">
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
-					<div class="cst-recommended-image -amp-layout-size-defined">
-						<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+				<div class="cst-recommended-content columns medium-6 small-12">
+					<div class="cst-article">
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
+						<div class="cst-recommended-image -amp-layout-size-defined">
+							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+						</div>
+						</a>
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
+							<span><?php echo esc_html( $article_curated_title ); ?></span>
+						</a>
+						<?php echo wp_kses_post( $sponsored_markup ); ?>
 					</div>
-					</a>
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
-						<span><?php echo esc_html( $article_curated_title ); ?></span>
-					</a>
-					<?php echo wp_kses_post( $sponsored_markup ); ?>
 				</div>
-			</div>
 		<?php } ?>
+			</div>
 		</div>
 <?php
 
@@ -1326,10 +1325,8 @@ class CST_Frontend {
 	* Inject SendToNews responsive video player into markup.
 	*/
 	function inject_send_to_news_video_player( $slug, $id ) {
-		$template   = '<div class="row video-injection"><div class="columns small-12"><iframe id="%s" src="%s" %s></iframe></div></div>';
-		$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 22.4rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
-		$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', rawurlencode( $this->send_to_news_embeds[ $slug ] ) );
-		$markup     = sprintf( $template, esc_attr( 's2nIframe-' . $this->send_to_news_embeds[ $slug ] . '-' . intval( $id ) ), esc_url( $iframe_url ), wp_kses_post( $styles ) );
+		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left" data-type="s2nScript"></script></div>';
+		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $this->post->ID ) );
 		echo $markup;
 
 	}
@@ -1466,7 +1463,7 @@ class CST_Frontend {
 				'depth'           => 1,
 				'container_class' => 'cst-navigation-container columns section-itn',
 				'items_wrap'      => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news (AKA Trending):</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
-				'walker'          => new GC_walker_nav_menu(),
+//				'walker'          => new GC_walker_nav_menu(),
 				)
 			);
 		?>
@@ -1514,7 +1511,7 @@ class CST_Frontend {
 				'depth' => 1,
 				'container_class' => 'cst-navigation-container columns section-subnav',
 				'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor ' . $section_obj->slug . '"><ul id="%1$s" class="' . $theme_location . '-' .$section_obj->slug . '">' . $section_parent_link . '%3$s</ul></div></div>',
-				'walker' => new GC_walker_nav_menu(),
+//				'walker' => new GC_walker_nav_menu(),
 				)
 			);
 		} else {
@@ -1607,31 +1604,38 @@ class CST_Frontend {
 	*/
 	public function generate_off_canvas_menu() {
 		if ( is_front_page() ) {
-			$chosen_parameters = array( 'theme_location' => 'homepage-menu', 'depth' => 1, 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container homepage', );
+			$chosen_parameters = array(
+					'theme_location' => 'homepage-menu',
+					'depth' => 2,
+					'fallback_cb' => false,
+					'container_class' => 'cst-off-canvas-navigation-container homepage',
+					'walker' => new GC_walker_nav_menu(),
+					'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+					 );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
 				// Nav menu $conditional_nav->slug.'-menu' exists but is unassigned what to do?
 				if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
-					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional' );
-				} else {
-					echo wp_kses_post( $this->get_sections_nav() );
+					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional', 'walker' => new GC_walker_nav_menu() ) ;
+			} else {
+				echo wp_kses_post( $this->get_sections_nav() );
 					return;
 				}
 			} else {
-				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undefined-slug' );
+				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undefined-slug', 'walker' => new GC_walker_nav_menu() ) ;
 			}
 		} else {
-			$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined' );
+		$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined', 'walker' => new GC_walker_nav_menu() );
 		}
-		$cache_key = md5( $chosen_parameters['container_class'] );
-		$navigation    = wp_cache_get( $cache_key, 'default' );
-		if ( false === $navigation ) {
+		$cache_key = $chosen_parameters['theme_location'];
+		$navigation_markup    = wp_cache_get( $cache_key, 'cst' );
+		if ( false === $navigation_markup || WP_DEBUG ) {
 			$chosen_parameters['echo'] = false;
-			$navigation = wp_nav_menu( $chosen_parameters );
-			wp_cache_set( $cache_key, $navigation, 'default', 1 * WEEK_IN_SECONDS );
+			$navigation_markup = wp_nav_menu( $chosen_parameters );
+			wp_cache_set( $cache_key, $navigation_markup, 'cst', 1 * WEEK_IN_SECONDS );
 		}
-		echo wp_kses_post( $navigation );
+		echo wp_kses_post( $navigation_markup );
 	}
 	/**
 	* http://wordpressvip.zendesk.com/hc/requests/56671
@@ -1645,7 +1649,7 @@ class CST_Frontend {
 	*/
 	function action_maybe_render_sliding_billboard() {
 
-		if ( ! is_404() && ! is_singular() ) :
+		if ( is_front_page() || is_tax() ) :
 			echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
 			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
 	    endif;
@@ -1661,25 +1665,27 @@ class CST_Frontend {
 	public function masthead_navigation( $page_type ) {
 		$page_types = array(
 			'homepage' => array(
-					'container_class' => 'masthead-sections',
-					'items_wrap'      => '<div class="homepage-nav-holder"><ul id="%1$s" class="homepage">%3$s</ul></div>',
+					'container_class' => 'masthead-sections columns small-12 show-for-medium-up show-for-landscape',
+					'items_wrap'      => '<div class="homepage-nav-holder columns"><ul id="%1$s" class="homepage">%3$s</ul></div>',
 					'location'        => 'homepage-masthead',
 			),
 			'section-front' => array(
 					'container_class' => 'cst-navigation-container',
 					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
+					'location'        => 'homepage-masthead',
 			),
 			'homepage-itn' => array(
 					'container_class' => 'cst-navigation-container columns',
 					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="homepage-itn">%3$s</ul></div></div>',
+					'location'        => 'homepage-itn',
 			),
 		);
 		if ( array_key_exists( $page_type, $page_types ) ) {
 			$masthead_nav_markup = wp_cache_get( 'cst_' . $page_type, 'default' );
-			if ( false === $masthead_nav_markup ) {
+			if ( false === $masthead_nav_markup || WP_DEBUG ) {
 				$masthead_nav_markup = wp_nav_menu( array(
 					'menu'            => $page_type,
-					'theme_location'  => 'homepage-masthead',
+					'theme_location'  => $page_types[ $page_type ]['location'],
 					'echo'            => false,
 					'fallback_cb'     => false,
 					'depth'           => 1,
@@ -1699,7 +1705,7 @@ class CST_Frontend {
 		if ( ! is_404() ) {
 			CST()->dfp_handler->ad_header_settings();
 		}
-	}
+		}
 
 	/**
 	*
@@ -1747,6 +1753,72 @@ ready(fn);
 		}
 	}
 
+	/**
+	* Determine if we should append the Public Good Take Action button
+	* @param \CST\Objects\Article $obj
+	* @return mixed
+	*/
+	public function inject_public_good_markup( $obj ) {
+		if ( ! $obj ) {
+			return;
+		}
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return;
+		}
+		// Selected list of content we prefer not to display this button on
+		if ( $this->is_content_partner( $obj ) ) {
+			return;
+		}
+		if ( shortcode_exists( 'takeaction' ) ) {
+			echo do_shortcode( '[takeaction]' );
+		}
+		return;
+	}
+
+		/**
+	 * Determine if content destined for the display is partnership or we have
+	 * an arrangement or not
+	 * @param \CST\Objects\Article $obj
+	 * @return bool
+	 */
+	public function is_content_partner( $obj ) {
+
+		$content_partners = array(
+			'Associated Press',
+			'USA Today',
+			'USA TODAY',
+			'USA TODAY Network',
+			'Georgia Nicols',
+			'Abigail Van Buren',
+		);
+		if ( $byline = $obj->get_byline() ) {
+			if ( array_key_exists( $byline, $content_partners ) ) {
+				return true;
+			} else {
+				foreach ( $content_partners as $content_partner ) {
+					if ( stristr( $byline, $content_partner ) ) {
+						return true;
+					}
+				}
+			}
+		}
+		$authors = get_coauthors();
+		foreach ( $authors as $author ) {
+			if ( array_key_exists( $author->display_name, $content_partners ) ) {
+				return true;
+			} else {
+				foreach ( $content_partners as $content_partner ) {
+					if ( stristr( $author->display_name, $content_partner ) ) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
 	/**
 	* Inject sponsored content into selected article in the third paragraph
 	* Does not inject into feeds
@@ -1818,13 +1890,18 @@ ready(fn);
 		}
 		global $wp_query;
 		//  break up for ads other than triple lift
-		$article_array = explode( '</p>', $article_content );
+//		$article_array = explode( '</p>', $article_content );
+//		$num_paragraphs = count( $article_array ) - 1;
+
+        // try method from hss
+        $article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$num_paragraphs = count( $article_array ) - 1;
+
 
 		$postnum = $wp_query->query_vars['paged'];
 		// flipp recommends no more than 5 circulars per page
 		if ( $postnum < 5 ) {
-			$flip_ad_paragraph = 3;
+			$flip_ad_paragraph = 5;
 			$div_id_suffix = 10635 + $postnum;
 			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
 
@@ -1862,24 +1939,6 @@ ready(fn);
 			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
 			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
 		);
-	}
-
-	/**
-	* Detect section and if appropriate inject Public Good markup
-	* @param $obj \CST\Objects\Article | \CST\Objects\Post
-	* @return string
-	*/
-	public function inject_public_good_markup( $obj ) {
-
-		if ( $section = $obj->get_primary_parent_section() ) {
-			if ( in_array( $section->slug, self::$pgs_section_slugs, true ) ) {
-				return sprintf( '<div class="pgs-container"><a href="%1$s" target="_blank"><img src="%2$s" style="height:50px"></a></div>',
-					esc_url( 'https://assets.pgs.io/button/v2/takeaction.html?partner_id=chicago-sun-times' ),
-					esc_url( 'https://pgmapi.pgs.io/getpgmimage/getpgmbtn?partner_id=chicago-sun-times' )
-				);
-			}
-		}
-
 	}
 
 	/**
@@ -2091,6 +2150,7 @@ ready(fn);
 	}
 
 	public function article_dimensions( $obj ) {
+		$attrs = '';
 		$data = array(
 			'post-id'   => $obj->get_id(),
 			'post-uri'  => parse_url( get_permalink( $obj->get_id() ), PHP_URL_PATH ),
@@ -2113,9 +2173,11 @@ ready(fn);
 	* @return bool|\CST\Objects\Article
 	*/
 	public function should_we_inject_headlinesnetwork( $obj ) {
-		$primary_section = $obj->get_primary_parent_section();
-		if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
-			return $primary_section->slug;
+		if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
+			$primary_section = $obj->get_primary_parent_section();
+			if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
+				return $primary_section->slug;
+			}
 		}
 		return false;
 	}
@@ -2142,6 +2204,6 @@ ready(fn);
 	* @return string
 	*/
 	public function generate_in_article_headlinesnetwork_markup( $obj ) {
-		echo sprintf( '<h4 class="agg-sponsored columns small-12">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn columns small-12 end"></div>', esc_attr( $obj->get_id() ) );
+		echo sprintf( '<div class="columns small-12"><h4 class="agg-sponsored">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn small-12 end"></div></div>', esc_attr( $obj->get_id() ) );
 	}
 }
