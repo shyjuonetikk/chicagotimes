@@ -175,8 +175,7 @@ body.error404 {
   body.error404 .search-wrap #search-input {
     font-size: 1.25rem;
     border: 2px ridge;
-    padding: 5px 29px 5px 5px;
-    width: 250px; }
+    padding: 5px 29px 5px 5px; }
   body.error404 .search-wrap #search-button {
     font-size: 1.5rem;
     color: #333333;
@@ -973,7 +972,7 @@ ul#menu-sun-times-network {
 .masthead .subscribe-link {
   border: 1px white solid;
   padding: 0 4px;
-  margin: 7px 10px 0 0;
+  margin: 9px 10px 0 0;
   display: block;
   width: 67px;
   color: #f8f8f8; }
