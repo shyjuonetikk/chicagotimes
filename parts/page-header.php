@@ -144,7 +144,7 @@ if ( is_singular() ) {
 
 <?php do_action( 'header_sliding_billboard' ); ?>
 <!-- testing A9 -->
-<div id="div-gpt-test-below-slider-billboard-2"></div>
+<div id="div-gpt-test-below-slider-billboard"></div>
 <!-- --> 
 <?php if ( ! is_single() ) : ?>
 	<?php if ( is_tax() ){
