@@ -99,6 +99,7 @@ class CST_Ad_Vendor_Handler {
 						$this->localize_vendor( $registered_vendor, $vendor_name, 'footer' );
 					}
 				}
+				unset( $path );
 			}
 		}
 	}
