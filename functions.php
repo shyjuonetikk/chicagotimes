@@ -185,6 +185,7 @@ class CST {
 
 		// Widgets
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-a9-section-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-flipp-article-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-flipp-home-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-ad-flipp-section-widget.php';
@@ -778,6 +779,7 @@ class CST {
 
 		// Register our custom widgets
 		register_widget( 'CST_Ad_Widget' );
+ 		register_widget( 'CST_Ad_A9_Section_Widget' );
 		register_widget( 'CST_Ad_Flipp_Article_Widget' );
 		register_widget( 'CST_Ad_Flipp_Home_Widget' );
 		register_widget( 'CST_Ad_Flipp_Section_Widget' );

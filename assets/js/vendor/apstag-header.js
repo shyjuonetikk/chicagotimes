@@ -5,14 +5,32 @@
      adServer: 'googletag'
  });
  apstag.fetchBids({
-     slots: [{
+     slots: [
+         
+     {
+         slotID: 'div-gpt-test-below-super-leaderboard-2',
+         sizes: [[728 ,90]]
+     },
+     {
+         slotID: 'div-gpt-test-below-slider-billboard',
+         sizes: [[728 ,90]]
+     },
+         
+         {
+         slotID: 'div-gpt-test-a9-right-rail',
+         sizes: [[300, 600]]
+     },
+  /*       
+         {
          slotID: 'div-gpt-ad-1475102693815-0',
          sizes: [[300, 250], [300, 600]]
      },
      {
          slotID: 'div-gpt-ad-1475185990716-0',
          sizes: [[728 ,90]]
-     }], 
+     }
+    */ 
+                  ], 
      timeout: 2e3
  }, function(bids) {
      // Your callback method, in this example it triggers the first DFP request for googletag's disableInitialLoad integration after bids have been set
