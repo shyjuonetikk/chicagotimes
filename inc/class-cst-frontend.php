@@ -119,6 +119,7 @@ class CST_Frontend {
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
+		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 	}
 
 	/**
@@ -1556,22 +1557,43 @@ class CST_Frontend {
 	*/
 	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
 		// Special sports nav handling here
-		if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent ) ) ) {
-			$sections = get_terms( array(
-				'taxonomy'         => 'cst_section',
-				'hide_empty'       => true,
-				'include_children' => false,
-				'parent'           => $parent,
-				)
-			);
-			$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
-			$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
-			$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
-			foreach ( $sections as $section ) {
-				$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( wpcom_vip_get_term_link( $section->term_id ) ), $section->name );
+		if ( $current_obj = $this->get_current_object() ) {
+			if ( 'sports' === $current_obj->slug ) {
+				$conditional_nav = $this->get_conditional_nav();
+				if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
+					if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
+						$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
+						$chosen_parameters = array(
+								'theme_location' => 'homepage-menu',
+								'fallback_cb' => false,
+								'container_class' => $container,
+								'walker' => new GC_walker_nav_menu(),
+								'submenu' => 'Sports',
+								'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
+								'echo' => false,
+						);
+						$section_navigation = wp_nav_menu( $chosen_parameters );
+					}
+				}
+			} else {
+				if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent ) ) ) {
+					$sections = get_terms( array(
+						'taxonomy'         => 'cst_section',
+						'hide_empty'       => true,
+						'include_children' => false,
+						'parent'           => $parent,
+						)
+					);
+					$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
+					$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
+					$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
+					foreach ( $sections as $section ) {
+						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( wpcom_vip_get_term_link( $section->term_id ) ), $section->name );
+					}
+					$section_navigation .= '</ul></div></div></div>';
+					wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, '', 1 * WEEK_IN_SECONDS );
+				}
 			}
-			$section_navigation .= '</ul></div></div></div>';
-			wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, '', 1 * WEEK_IN_SECONDS );
 		}
 
 		return $section_navigation;
@@ -1896,6 +1918,44 @@ ready(fn);
 		return $article_content;
 	}
 
+	/**
+	* @param $items
+	* @param $args
+	*
+	* Source: http://wordpress.stackexchange.com/questions/2802/display-a-portion-branch-of-the-menu-tree-using-wp-nav-menu
+	* @return mixed
+	*/
+	public function submenu_limit( $items, $args ) {
+
+		if ( empty( $args->submenu ) ) {
+			return $items;
+		}
+
+		$ids       = wp_filter_object_list( $items, array( 'title' => $args->submenu ), 'and', 'ID' );
+		$parent_id = array_pop( $ids );
+		$children  = $this->submenu_get_children_ids( $parent_id, $items );
+
+		foreach ( $items as $key => $item ) {
+
+			if ( ! in_array( $item->ID, $children ) ) {
+				unset( $items[$key] );
+			}
+		}
+
+		return $items;
+	}
+
+	public function submenu_get_children_ids( $id, $items ) {
+
+		$ids = wp_filter_object_list( $items, array( 'menu_item_parent' => $id ), 'and', 'ID' );
+
+		foreach ( $ids as $id ) {
+
+			$ids = array_merge( $ids, $this->submenu_get_children_ids( $id, $items ) );
+		}
+
+		return $ids;
+	}
 	public function inject_newsletter_signup( $newsletter ) {
 
 		$newsletter_codes = array(
