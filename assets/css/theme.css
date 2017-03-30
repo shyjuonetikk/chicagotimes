@@ -1340,7 +1340,6 @@ body.search {
 .section-meta .section-name, .section-meta .section-feed {
   float: left; }
 .section-meta .section-feed .icon {
-  float: right;
   margin-top: 15px; }
 
 @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {

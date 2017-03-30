@@ -1462,20 +1462,20 @@ class CST_Frontend {
 				'fallback_cb'     => false,
 				'depth'           => 1,
 				'container_class' => 'cst-navigation-container columns section-itn',
-				'items_wrap'      => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news (AKA Trending):</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
+				'items_wrap'      => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news :</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
 //				'walker'          => new GC_walker_nav_menu(),
 				)
 			);
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
 	<div class="<?php echo esc_attr( $name_width ); ?> section-meta">
-		<div class="small-1 section-feed">
-			<div class="icon">
-				<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
-			</div>
-		</div>
 		<div class="small-11 section-name columns">
-			<a href="#0" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+			<div class="section-feed">
+				<div class="icon">
+					<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
+				</div>
+			</div>
+		<a href="#0" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 		</div>
 	</div>
 	<?php echo $sponsor_markup; ?>
@@ -1490,33 +1490,8 @@ class CST_Frontend {
 	* If a child sub nav display a link to the parent section before the sub nav
 	*/
 	public function determine_and_display_section_subnav( $section_obj ) {
-		$action_slug = str_replace( '-', '_', $section_obj->slug );
-		$section_parent_link = '';
-		if ( has_nav_menu( "{$action_slug}-menu" ) ) {
-			$theme_location = "{$action_slug}-menu";
-		} else {
-			$theme_location = false;
-			if ( 0 !== $section_obj->parent ) {
-				$parent_term = get_term_by( 'id', $section_obj->parent, 'cst_section' );
-				$action_slug = $parent_term->slug;
-				$theme_location = "{$action_slug}-trending";
-				$term_link = wpcom_vip_get_term_link( $parent_term->term_id, 'cst_section' );
-				$section_parent_link = sprintf( '<li class="menu-item menu-item-type-taxonomy menu-item-object-cst_section"><a href="%1$s">%2$s</a></li>', $term_link, $parent_term->name );
-			}
-		}
-		if ( $theme_location && has_nav_menu( $theme_location ) ) {
-			wp_nav_menu( array(
-				'theme_location' => $theme_location,
-				'fallback_cb' => false,
-				'depth' => 1,
-				'container_class' => 'cst-navigation-container columns section-subnav',
-				'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor ' . $section_obj->slug . '"><ul id="%1$s" class="' . $theme_location . '-' .$section_obj->slug . '">' . $section_parent_link . '%3$s</ul></div></div>',
-//				'walker' => new GC_walker_nav_menu(),
-				)
-			);
-		} else {
-			echo '<div class="cst-navigation-container columns section-subnav"><div class="nav-holder"><div class="nav-descriptor '.$section_obj->slug.'"><ul id="" class="">No menu assigned for '.$theme_location.' use Chartbeat perhaps?</ul></div></div></div>';
-		}
+		$parent = $section_obj->term_id;
+		echo wp_kses_post( $this->get_sections_nav_markup( $parent, false ) );
 	}
 	/**
 	* @return bool|object
@@ -1575,26 +1550,30 @@ class CST_Frontend {
 	/**
 	* Create a section navigation list for use in the off canvas menu
 	* Primarily for backup purposes
+	* @param int $parent
+	* @param bool $off_canvas
 	* @return bool|mixed
 	*/
-	public function get_sections_nav() {
-		$section_navigation = '';
-		if ( false === ( $sections = wp_cache_get( 'section_nav_cache_key' ) ) ) {
+	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
+		// Special sports nav handling here
+		if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent ) ) ) {
 			$sections = get_terms( array(
 				'taxonomy'         => 'cst_section',
 				'hide_empty'       => true,
 				'include_children' => false,
-				'parent'           => 0,
+				'parent'           => $parent,
 				)
 			);
-			wp_cache_set( 'section_nav_cache_key', $sections, '', 1 * WEEK_IN_SECONDS );
+			$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
+			$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
+			$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
+			foreach ( $sections as $section ) {
+				$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( wpcom_vip_get_term_link( $section->term_id ) ), $section->name );
+			}
+			$section_navigation .= '</ul></div></div></div>';
+			wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, '', 1 * WEEK_IN_SECONDS );
 		}
-		$section_navigation = '<div class="cst-off-canvas-navigation-container section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
-		$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
-		foreach ( $sections as $section ) {
-			$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s">%2$s</a></li>', wpcom_vip_get_term_link( $section->term_id ), $section->name );
-		}
-		$section_navigation .= '</ul></div></div></div>';
+
 		return $section_navigation;
 
 	}
@@ -1619,7 +1598,7 @@ class CST_Frontend {
 				if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
 					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional', 'walker' => new GC_walker_nav_menu() ) ;
 			} else {
-				echo wp_kses_post( $this->get_sections_nav() );
+				echo wp_kses_post( $this->get_sections_nav_markup() );
 					return;
 				}
 			} else {
