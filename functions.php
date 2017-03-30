@@ -1959,6 +1959,14 @@ class CST {
 			'logic' => array( 'is_singular' ),
 			)
 		);
+
+        $this->ad_vendor_handler->register_vendor( 'apstag2', array(
+			'header' => 'apstag-header.js',
+			'footer' => false,
+			'container' => false,
+			'logic' => array( 'is_tax' ),
+			)
+		);
         
 		$this->ad_vendor_handler->register_vendor( 'taboola', array(
 			'header' => 'taboola-header.js',
