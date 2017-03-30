@@ -458,8 +458,11 @@ var dfp = {
         .setTargeting("pos","gallery 1");
     }
     googletag.pubads().enableSingleRequest();
-    googletag.pubads().addEventListener('slotVisibilityChanged', CSTAds.handleGptVisibility);
-    googletag.pubads().addEventListener('impressionViewable', CSTAds.handleGptImpressionViewability);
+    window.CSTAds = window.CSTAds || false;
+    if (window.CSTAds) {
+      googletag.pubads().addEventListener('slotVisibilityChanged', CSTAds.handleGptVisibility);
+      googletag.pubads().addEventListener('impressionViewable', CSTAds.handleGptImpressionViewability);
+	}
     googletag.enableServices();
 });
 </script>

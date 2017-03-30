@@ -241,7 +241,7 @@ class CST_Frontend {
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
 				}
-				if ( ( is_author() || is_tax() || is_singular( 'cst_article', 'cst_gallery' ) ) || is_front_page() && ! is_admin() ) {
+				if ( ( is_author() || is_tax() || is_singular( 'cst_article', 'cst_gallery' ) )  && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 				}
 				if ( is_tax() ) {
