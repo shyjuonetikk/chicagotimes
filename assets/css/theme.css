@@ -275,6 +275,7 @@ body.error404 {
         margin-left: -2.1rem; } }
 .dfp.dfp-sbb {
   overflow: hidden;
+  text-align: center;
   background-color: #f8f8f8;
   position: relative;
   margin-bottom: 10px;
