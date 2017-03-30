@@ -1892,7 +1892,8 @@ body[class~="archive"] article.index-view .section-front {
 body[class~="archive"] article.index-view .post-lead-media {
   float: left; }
 body[class~="archive"] article.index-view .section-image {
-  position: relative; }
+  position: relative;
+  float: left; }
 body[class~="archive"] article.index-view .section-sponsor-banner {
   position: absolute;
   z-index: 10;

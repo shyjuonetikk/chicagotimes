@@ -1,5 +1,6 @@
 article.post {
 	background-color: $white;
+	float:none;
 
 	h1 {
 		font-family: $open_sans;
@@ -47,7 +48,6 @@ article.post {
 		}
 	}
 
-	float: none;
 	.read-more-hidden {
 		display: none;
 	}
@@ -872,6 +872,7 @@ body[class~="archive"] {
 			}
 			.section-image {
 				position: relative;
+				float:left;
 			}
 			.section-sponsor-banner {
 				position: absolute;

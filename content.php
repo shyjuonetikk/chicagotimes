@@ -43,7 +43,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			if ( $sponsored ) { ?>
 				</div>
 			<?php }
-			if ( is_tax() || is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
+			if ( is_tax() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_author() ) {
 				echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			}
 			if ( is_singular( array( 'cst_article' ) ) ) {
