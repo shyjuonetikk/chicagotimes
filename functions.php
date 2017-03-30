@@ -1947,6 +1947,7 @@ class CST {
 		return 'post/wire-featured-image-feature';
 	}
 
+    
 	/**
 	 * Centralized function to register Vendor scripts
 	 */
