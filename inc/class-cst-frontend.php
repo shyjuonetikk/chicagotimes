@@ -1455,9 +1455,10 @@ class CST_Frontend {
 	* @param $sponsor_markup
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
-			$section_obj = get_queried_object();
-					// TODO cache me
-					// Call Chartbeat
+		$section_obj = get_queried_object();
+		// TODO cache me
+		// Call Chartbeat
+		if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent ) ) ) {
 			wp_nav_menu( array(
 				'theme_location'  => $section_obj->slug . '-trending',
 				'fallback_cb'     => false,
@@ -1467,6 +1468,7 @@ class CST_Frontend {
 //				'walker'          => new GC_walker_nav_menu(),
 				)
 			);
+		}
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
 	<div class="<?php echo esc_attr( $name_width ); ?> section-meta">
@@ -1482,7 +1484,7 @@ class CST_Frontend {
 	<?php echo $sponsor_markup; ?>
 </section>
 <?php
-	$this->determine_and_display_section_subnav( $section_obj );
+		$this->determine_and_display_section_subnav( $section_obj );
 	}
 
 	/**
@@ -1572,11 +1574,14 @@ class CST_Frontend {
 								'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
 								'echo' => false,
 						);
-						$section_navigation = wp_nav_menu( $chosen_parameters );
+						if ( false === ( $section_navigation = wp_cache_get( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst' ) ) ) {
+							$section_navigation = wp_nav_menu( $chosen_parameters );
+							wp_cache_set( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst', 1 * WEEK_IN_SECONDS );
+						}
 					}
 				}
 			} else {
-				if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent ) ) ) {
+				if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent, 'cst' ) ) ) {
 					$sections = get_terms( array(
 						'taxonomy'         => 'cst_section',
 						'hide_empty'       => true,
@@ -1591,7 +1596,7 @@ class CST_Frontend {
 						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( wpcom_vip_get_term_link( $section->term_id ) ), $section->name );
 					}
 					$section_navigation .= '</ul></div></div></div>';
-					wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, '', 1 * WEEK_IN_SECONDS );
+					wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, 'cst', 1 * WEEK_IN_SECONDS );
 				}
 			}
 		}
@@ -1661,7 +1666,6 @@ class CST_Frontend {
  	*
  	* @param string $page_type
  	*
- 	* @TODO caching
  	*/
 	public function masthead_navigation( $page_type ) {
 		$page_types = array(
@@ -1945,6 +1949,14 @@ ready(fn);
 		return $items;
 	}
 
+	/**
+	* @param $id
+	* @param $items
+	*
+	* @return array
+	*
+	* Source: http://wordpress.stackexchange.com/questions/2802/display-a-portion-branch-of-the-menu-tree-using-wp-nav-menu
+	*/
 	public function submenu_get_children_ids( $id, $items ) {
 
 		$ids = wp_filter_object_list( $items, array( 'menu_item_parent' => $id ), 'and', 'ID' );
