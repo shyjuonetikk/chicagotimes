@@ -336,6 +336,17 @@ class CST_Frontend {
 
 	}
 
+	function add_data_type_suffix( $source, $handle, $tag ) {
+
+		$accepted_scripts = array( 'send-to-news' );
+		foreach ( $accepted_scripts as $accepted_script ) {
+			if ( strstr( $handle, $accepted_script ) ) {
+				$source = str_replace( 'src=', 'data-type="s2nScript" src=', $source );
+			}
+		}
+
+		return $source;
+	}
 	/**
 	 * If a post has multiple bylines, include all of them in the feed item
 	 */

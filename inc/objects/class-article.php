@@ -16,6 +16,7 @@ class Article extends Post {
 		'college'           => 'SRHLAr2T',
 		'rio-2016'          => 'fLPoOgHI',
 		'blackhawks-hockey' => 'uy7k8sat',
+		'hockey-blackhawks' => 'uy7k8sat',
 	);
 	/**
 	 * Get the font icon for an article
@@ -58,6 +59,21 @@ class Article extends Post {
 				return $markup;
 			} else {
 				return '';
+			}
+		} else {
+			return '';
+		}
+	}
+	/**
+	 * Get the featured video embed code for the article
+	 * Return empty string if for some reason array key is outside scope
+	 *
+	 * @return string
+	 */
+	public function get_featured_video_script() {
+		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' ) ) {
+			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
+				return $this->send_to_news_embeds[ $media_type ];
 			}
 		} else {
 			return '';
