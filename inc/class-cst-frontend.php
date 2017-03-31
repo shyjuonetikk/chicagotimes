@@ -259,10 +259,6 @@ class CST_Frontend {
 			'disqus_shortname' => CST_DISQUS_SHORTNAME,
 			'taboola_container_id' => 'taboola-below-article-thumbnails-',
 		) );
-		wp_localize_script( 'chicagosuntimes-homepage', 'CSTData', array(
-			'home_url'         => esc_url_raw( home_url( '/' ) ),
-			'disqus_shortname' => CST_DISQUS_SHORTNAME,
-		) );
 
 	}
 

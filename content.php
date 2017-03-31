@@ -46,17 +46,13 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 			if ( is_tax() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_author() ) {
 				echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
 			}
-			if ( is_singular( array( 'cst_article' ) ) ) {
-				echo CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) );
-				CST()->frontend->inject_headlines_network_markup( $obj );
+			if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
+				echo CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ); ?>
+				<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
+				</div>
+				<?php CST()->frontend->inject_headlines_network_markup( $obj );
 			} ?>
 		</article>
-
-		<?php if ( is_singular( 'cst_article', 'cst_gallery' ) ) { ?>
-		<div class="taboola-container small-12 columns">
-		<?php get_template_part( 'parts/taboola/taboola-container' ); ?>
-		</div>
-		<?php } ?>
 
 		<?php CST()->frontend->content_ad_injection( $paged ); ?>
 
