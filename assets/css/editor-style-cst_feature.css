@@ -216,15 +216,18 @@ h1, h2, h3, h4, h5, h6 {
     .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 1.5rem;
       line-height: 1.8rem; } }
-.cst_feature-template-default article.post h2, .single-cst_feature article.post h2 {
+.cst_feature-template-default article.post h2, .cst_feature-template-default article.post h3, .single-cst_feature article.post h2, .single-cst_feature article.post h3 {
   border-top: 1px solid #cdcdcd;
   border-bottom: 1px solid #cdcdcd;
   text-transform: uppercase;
-  font-size: 3rem;
   color: #cccccc;
   text-align: center;
   font-family: 'Open Sans', Arial, sans-serif;
   clear: both; }
+.cst_feature-template-default article.post h2, .single-cst_feature article.post h2 {
+  font-size: 3rem; }
+.cst_feature-template-default article.post h3, .single-cst_feature article.post h3 {
+  font-size: 2.62rem; }
 .cst_feature-template-default article.post .post-meta-byline, .single-cst_feature article.post .post-meta-byline {
   text-align: center; }
 .cst_feature-template-default article.post .post-meta-author, .single-cst_feature article.post .post-meta-author {
