@@ -510,7 +510,7 @@ class CST {
 		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
-
+		add_filter( 'ads/use_gumgum', 'filter_use_gumgum' );
 	}
 
 	/**
@@ -2003,7 +2003,7 @@ class CST {
 				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
 				'footer-remote' => true,
 				'container' => false,
-				'logic' => array( 'is_singular' ),
+				'logic' => array( 'ads/use_gumgum' ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
@@ -2069,3 +2069,12 @@ function GC_force_published_status_front_end( $query ){
 	}
 }
 add_action( 'pre_get_posts', 'GC_force_published_status_front_end' );
+
+/**
+ * @return bool
+ *
+ * Ad Vendor filter for GumGum
+ */
+function filter_use_gumgum() {
+	return is_singular( array( 'cst_article', 'cst_gallery' ) );
+}

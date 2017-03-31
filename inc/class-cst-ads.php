@@ -84,7 +84,11 @@ class CST_Ad_Vendor_Handler {
 							}
 						}
 					} else {
-						$permission_to_enqueue = is_callable( $display_logic_function ) && call_user_func( $display_logic_function );
+						if ( has_filter( $display_logic_function ) ) {
+							$permission_to_enqueue = apply_filters( $display_logic_function, $permission_to_enqueue );
+						} else {
+							$permission_to_enqueue = is_callable( $display_logic_function ) && call_user_func( $display_logic_function );
+						}
 					}
 				}
 				if ( $permission_to_enqueue ) {
