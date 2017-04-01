@@ -19,6 +19,10 @@ class CST {
 		'dev' => '2C63F38287CF46AC',
 	);
 
+	public $dfp_kses = array(
+		'script' => array( 'class' ) ,
+		'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {

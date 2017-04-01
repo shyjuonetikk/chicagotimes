@@ -33,10 +33,14 @@
 				</div>
 				<hr class="before-ad">
 				<div class="large-6 medium-6 small-12 columns dfp-cube cube-left">
-					<?php echo CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' ); ?>
+					<?php echo wp_kses( CST()->dfp_handler->unit( 2, 'div-gpt-rr-cube', 'dfp dfp-cube' ),
+						CST()->dfp_kses
+					); ?>
 				</div>
 				<div class="large-6 medium-6 small-12 columns dfp-cube cube-right">
-					<?php echo CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' ); ?>
+					<?php echo wp_kses( CST()->dfp_handler->unit( 3, 'div-gpt-rr-cube', 'dfp dfp-cube' ),
+						CST()->dfp_kses
+					); ?>
 				</div>
 				<hr class="after-ad">
 				<div class="secondary-well-bottom">

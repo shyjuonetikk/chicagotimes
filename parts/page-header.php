@@ -1,5 +1,7 @@
 <?php if ( is_front_page() || is_tax() || is_singular( 'cst_article' ) || is_author() ) {
-	echo CST()->dfp_handler->interstitial();
+	echo wp_kses( CST()->dfp_handler->interstitial(),
+		CST()->dfp_kses
+	);
 } ?>
 
 <?php if ( ! is_page_template( 'page-monster.php' ) ) {
@@ -13,7 +15,9 @@
 	<?php
 }
 if ( is_home() || is_front_page() || is_tax() ) {
-	echo CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' );
+	echo wp_kses( CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+		CST()->dfp_kses
+	);
 }
 ?>
 

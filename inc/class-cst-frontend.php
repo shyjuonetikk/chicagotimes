@@ -1663,8 +1663,12 @@ class CST_Frontend {
 	function action_maybe_render_sliding_billboard() {
 
 		if ( is_front_page() || is_tax() ) :
-			echo wp_kses_post( CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' ) );
-			echo wp_kses_post( CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ) );
+			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' ),
+			CST()->dfp_kses
+		);
+			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ),
+			CST()->dfp_kses
+		);
 	    endif;
 	}
 

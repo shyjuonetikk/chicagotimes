@@ -7,7 +7,9 @@ endif;
 <div class="homepage-content">
 	<div class="row">
 		<div class="large-12 content-wrapper">
-			<?php echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ); ?>
+			<?php echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ),
+				CST()->dfp_kses
+			); ?>
 			<div class="large-12 columns dfp-mobile-leaderboard show-for-small-only">
 				<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
 			</div>
@@ -21,7 +23,9 @@ endif;
 	?>
 </div>
 <div class="large-12 dfp-atf-leaderboard">
-	<?php echo CST()->dfp_handler->unit( 3, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
+	<?php echo wp_kses( CST()->dfp_handler->unit( 3, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+		CST()->dfp_kses
+	); ?>
 </div>
 	<div class="small-12 content-wrapper f">
 		<?php
@@ -44,7 +48,9 @@ endif;
 	</div>
 	<div>
 		<div class="large-12 dfp-atf-leaderboard">
-			<?php echo CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ); ?>
+			<?php echo wp_kses( CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+				CST()->dfp_kses
+			); ?>
 		</div>
 	</div>
 	<div class="row">

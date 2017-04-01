@@ -8,7 +8,9 @@
 	<div class="row">
 		<?php if ( is_singular() ) { ?>
 			<div class="article-upper-ad-unit">
-				<?php echo CST()->dfp_handler->unit( 1, 'div-gpt-atf-leaderboard', 'dfp dfp-leaderboard dfp-centered article-upper-ad-unit' ); ?>
+				<?php echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-atf-leaderboard', 'dfp dfp-leaderboard dfp-centered article-upper-ad-unit' ),
+					CST()->dfp_kses
+				); ?>
 			</div>
 		<?php } ?>
 
