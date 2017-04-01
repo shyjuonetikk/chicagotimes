@@ -329,10 +329,10 @@ class CST_Frontend {
 
 		$tags = array_merge( array( 'description' => $meta_description ), $facebook_tags, $twitter_tags );
 		foreach ( $tags as $name => $value ) {
-			echo '<meta property="' . esc_attr( $name ) . '" content="' . esc_attr( $value ) . '" />' . PHP_EOL;
+			echo '<meta property="' . esc_attr( $name ) . '" content="' . esc_attr( $value ) . '" />' . esc_attr( PHP_EOL );
 		}
 
-		echo '<meta name="description" content="' . esc_attr( $meta_description ) . '" />' . PHP_EOL;
+		echo '<meta name="description" content="' . esc_attr( $meta_description ) . '" />' . esc_attr( PHP_EOL );
 
 	}
 
@@ -954,7 +954,7 @@ class CST_Frontend {
 						$featured_image_id = $obj->get_featured_image_id();
 						if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
 							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
-							<?php echo $attachment->get_html( 'homepage-columns' ); ?>
+							<?php echo wp_kses_post( $attachment->get_html( 'homepage-columns' ) ); ?>
 							</a>
 							<?php
 						}
@@ -978,7 +978,7 @@ class CST_Frontend {
 			$cached_content = ob_get_clean();
 			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
-		echo $cached_content;
+		echo wp_kses_post( $cached_content );
 	}
 
 	/**
@@ -993,26 +993,26 @@ class CST_Frontend {
 			$items = new \WP_Query( $content_query );
 			ob_start();
 			if ( $items->have_posts() ) { ?>
-			<div class="large-10 medium-offset-1 post-recommendations">
-				<h3>Previously from Dear Abby</h3>
-			<?php
-			while ( $items->have_posts() ) {
-				$items->the_post();
-				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-			?>
-				<div class="columns large-3 medium-6 small-12 recommended-post">
-					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
-						<?php echo esc_html( $obj->get_title() ); ?>
-					</a>
+				<div class="large-10 medium-offset-1 post-recommendations">
+					<h3>Previously from Dear Abby</h3>
+				<?php
+				while ( $items->have_posts() ) {
+					$items->the_post();
+					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+					?>
+					<div class="columns large-3 medium-6 small-12 recommended-post">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
+							<?php echo esc_html( $obj->get_title() ); ?>
+						</a>
+					</div>
+				<?php } ?>
 				</div>
-			<?php } ?>
-			</div>
 			<?php
 			}
 			$cached_content = ob_get_clean();
 			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
-		echo $cached_content;
+		echo wp_kses_post( $cached_content );
 	}
 
 	/**
@@ -1335,7 +1335,7 @@ class CST_Frontend {
 	function inject_send_to_news_video_player( $slug, $id ) {
 		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left" data-type="s2nScript"></script></div>';
 		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $this->post->ID ) );
-		echo $markup;
+		echo wp_kses_post( $markup );
 
 	}
 	/**
@@ -1449,7 +1449,7 @@ class CST_Frontend {
 			}
 		}
 		if ( '' !== $section_id ) {
-			echo $sponsor_markup;
+			echo wp_kses_post( $sponsor_markup );
 		} else {
 			$this->display_section_front_title( $class, $name_width, $sponsor_markup );
 		}
@@ -1488,7 +1488,7 @@ class CST_Frontend {
 		<a href="#0" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 		</div>
 	</div>
-	<?php echo $sponsor_markup; ?>
+	<?php echo wp_kses_post( $sponsor_markup ); ?>
 </section>
 <?php
 		$this->determine_and_display_section_subnav( $section_obj );
@@ -1663,8 +1663,8 @@ class CST_Frontend {
 	function action_maybe_render_sliding_billboard() {
 
 		if ( is_front_page() || is_tax() ) :
-			echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
-			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
+			echo wp_kses_post( CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' ) );
+			echo wp_kses_post( CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ) );
 	    endif;
 	}
 
@@ -1993,10 +1993,10 @@ ready(fn);
 	</div>
 </div>
 ';
-		echo sprintf( $template,
+		echo wp_kses_post( sprintf( $template,
 			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
 			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
-		);
+		) );
 	}
 
 	/**
@@ -2140,7 +2140,7 @@ ready(fn);
 				esc_attr( $mapping ),
 					esc_attr( $targeting )
 			);
-			echo sprintf( $ad_template, $ad_unit_definition );
+			echo wp_kses_post( sprintf( $ad_template, $ad_unit_definition ) );
 		}
 		?>
 <?php
