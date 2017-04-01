@@ -82,7 +82,7 @@ class CST_DFP_Handler {
 		return sprintf(
 			'
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="%4$s"></div>
-<script>
+<script class="dfp">
 googletag.cmd.push(function() {
 	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [%5$s], \'%1$s\')
 	.defineSizeMapping(%3$s)

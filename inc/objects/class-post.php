@@ -121,7 +121,7 @@ abstract class Post {
 	 * Echo the title for the post
 	 */
 	public function the_title() {
-		echo apply_filters( 'the_title', $this->get_title() );
+		echo wp_kses_post( apply_filters( 'the_title', $this->get_title() ) );
 	}
 
 	/**
@@ -194,7 +194,7 @@ abstract class Post {
 	 * Echo the excerpt for the post
 	 */
 	public function the_excerpt() {
-		echo apply_filters( 'the_excerpt', $this->get_excerpt() );
+		echo wp_kses_post( apply_filters( 'the_excerpt', $this->get_excerpt() ) );
 	}
 
 	/**
@@ -219,7 +219,7 @@ abstract class Post {
 	 * Echo the content for the post
 	 */
 	public function the_content() {
-		echo apply_filters( 'the_content', $this->get_field( 'post_content' ) );
+		echo wp_kses_post( apply_filters( 'the_content', $this->get_field( 'post_content' ) ) );
 	}
 
 	/**
@@ -290,7 +290,7 @@ abstract class Post {
 	 *
 	 */
 	public function the_permalink() {
-		echo apply_filters( 'the_permalink', $this->get_permalink() );
+		echo esc_url( apply_filters( 'the_permalink', $this->get_permalink() ) );
 	}
 
 	/**

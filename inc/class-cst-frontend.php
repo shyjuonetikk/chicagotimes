@@ -2140,7 +2140,15 @@ ready(fn);
 				esc_attr( $mapping ),
 				esc_attr( $targeting )
 			);
-			echo sprintf( $ad_template, $ad_unit_definition );
+			echo sprintf(
+				wp_kses( $ad_template, array( 'div' => array( 'class' ) ) ),
+				wp_kses( $ad_unit_definition,
+					array(
+						'script' => array( 'class' ) ,
+						'div' => array( 'id' => array() , 'class' => array() , 'data-visual-index' => array() , 'data-target' => array() )
+					)
+				)
+			);
 		}
 		?>
 <?php
