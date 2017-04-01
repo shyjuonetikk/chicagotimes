@@ -2138,9 +2138,9 @@ ready(fn);
 				esc_attr( $placement ),
 				esc_attr( 'dfp-placement' ),
 				esc_attr( $mapping ),
-					esc_attr( $targeting )
+				esc_attr( $targeting )
 			);
-			echo wp_kses_post( sprintf( $ad_template, $ad_unit_definition ) );
+			echo sprintf( $ad_template, $ad_unit_definition );
 		}
 		?>
 <?php
