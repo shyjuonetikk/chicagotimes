@@ -2145,7 +2145,7 @@ ready(fn);
 				wp_kses( $ad_unit_definition,
 					array(
 						'script' => array( 'class' ) ,
-						'div' => array( 'id' => array() , 'class' => array() , 'data-visual-index' => array() , 'data-target' => array() )
+						'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
 					)
 				)
 			);
