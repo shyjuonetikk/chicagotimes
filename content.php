@@ -39,7 +39,7 @@ if ( $sponsored ) {
 			<?php endif; ?>
 
 			<?php
-			echo wp_kses_post( CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) ) );
+			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
 if ( $sponsored ) { ?>
 	</div>
 	<?php }
