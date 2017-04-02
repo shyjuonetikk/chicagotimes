@@ -2232,7 +2232,7 @@ ready(fn);
 		}
 
 		foreach ( $data as $key => $val ) {
-			$attrs .= ' data-cst-' . sanitize_key( $key ) . '="' . esc_attr( $val ) . '"';
+			$attrs .= ' data-cst-' . sanitize_key( $key ) . '="' . $val . '"';
 		}
 		return $attrs;
 	}

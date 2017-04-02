@@ -14,17 +14,17 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 		<?php endif; ?>
 
 		<?php
-		if ( is_singular() ) {
-			$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
-			$attrs = CST()->frontend->article_dimensions( $obj );
-		} else {
-			$classes = array( 'index-view' );
-		}
-		if ( $sponsored ) {
-			$classes[] = 'sponsored-content';
-		}
+	if ( is_singular() ) {
+		$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
+		$attrs = CST()->frontend->article_dimensions( $obj );
+	} else {
+		$classes = array( 'index-view' );
+	}
+if ( $sponsored ) {
+	$classes[] = 'sponsored-content';
+}
 		?>
-		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo $attrs; ?>>
+		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
 			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
@@ -32,26 +32,26 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 
 				<?php if ( 'cst_embed' !== $obj->get_post_type() || 'twitter' !== $obj->get_embed_type() ) : ?>
 					<div class="post-meta post-meta-social show-for-medium-up">
-						<?php echo CST()->get_template_part( 'post/social-share', array( 'obj' => $obj ) ); ?>
+						<?php echo wp_kses_post( CST()->get_template_part( 'post/social-share', array( 'obj' => $obj ) ) ); ?>
 					</div>
 				<?php endif; ?>
 
 			<?php endif; ?>
 
 			<?php
-			echo CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) );
-			if ( $sponsored ) { ?>
-				</div>
-			<?php }
-			if ( is_tax() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_author() ) {
-				echo CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) );
-			}
-			if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
-				echo CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ); ?>
-				<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
-				</div>
-				<?php CST()->frontend->inject_headlines_network_markup( $obj );
-			} ?>
+			echo wp_kses_post( CST()->get_template_part( 'content-' . str_replace( 'cst_', '', get_post_type() ), array( 'obj' => $obj, 'is_main_query' => true ) ) );
+if ( $sponsored ) { ?>
+	</div>
+	<?php }
+if ( is_tax() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_author() ) {
+	echo wp_kses_post( CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) ) );
+}
+if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
+	echo wp_kses_post( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ) ); ?>
+	<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
+	</div>
+	<?php CST()->frontend->inject_headlines_network_markup( $obj );
+} ?>
 		</article>
 
 		<?php CST()->frontend->content_ad_injection( $paged ); ?>

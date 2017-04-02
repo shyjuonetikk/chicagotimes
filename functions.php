@@ -1605,7 +1605,7 @@ class CST {
 		if ( is_404() || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
-		echo $this->get_template_part( 'post/gallery-backdrop' );
+		echo wp_kses_post( $this->get_template_part( 'post/gallery-backdrop' ) );
 	}
 
 	/**
