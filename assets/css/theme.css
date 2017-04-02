@@ -577,7 +577,7 @@ body.admin-bar .move-right header#header {
     padding: 0.3rem; }
   .left-off-canvas-menu .off-canvas-list {
     margin-top: 44px; }
-    .left-off-canvas-menu .off-canvas-list ul.dropdown {
+    .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container ul.dropdown {
       left: 0;
       top: auto;
       background: #231f20;
@@ -587,14 +587,14 @@ body.admin-bar .move-right header#header {
       overflow: hidden;
       height: auto;
       margin: 0 0 16px; }
-      .left-off-canvas-menu .off-canvas-list ul.dropdown > li {
+      .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container ul.dropdown > li {
         background: #231f20;
         font-size: 0.8rem; }
-    .left-off-canvas-menu .off-canvas-list li.has-dropdown > a:after {
+    .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li.has-dropdown > a:after {
       content: "\BB";
       margin-left: 0.5rem;
       display: inline; }
-    .left-off-canvas-menu .off-canvas-list li .dropdown {
+    .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown {
       -webkit-backface-visibility: hidden;
       -webkit-overflow-scrolling: touch;
       border-bottom: 2px solid #cccccc;
@@ -620,15 +620,15 @@ body.admin-bar .move-right header#header {
       -ms-transition: -ms-transform 500ms ease;
       -o-transition: -o-transform 500ms ease;
       transition: transform 500ms ease; }
-      .left-off-canvas-menu .off-canvas-list li .dropdown.move-right, .left-off-canvas-menu .off-canvas-list li .dropdown.offcanvas-overlap-right, .left-off-canvas-menu .off-canvas-list li .dropdown.offcanvas-overlap {
+      .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown.move-right, .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown.offcanvas-overlap-right, .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown.offcanvas-overlap {
         -webkit-transform: translate3d(0%, 0, 0);
         -moz-transform: translate3d(0%, 0, 0);
         -ms-transform: translate(0%, 0);
         -o-transform: translate3d(0%, 0, 0);
         transform: translate3d(0%, 0, 0); }
-      .left-off-canvas-menu .off-canvas-list li .dropdown * {
+      .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown * {
         -webkit-backface-visibility: hidden; }
-      .left-off-canvas-menu .off-canvas-list li .dropdown .back > a {
+      .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown .back > a {
         background: #231f20;
         border-bottom: none;
         border-top: 1px solid #cdcdcd;
@@ -637,22 +637,22 @@ body.admin-bar .move-right header#header {
         padding: 0.3rem 0.9375rem;
         text-transform: uppercase;
         margin: 0; }
-        .left-off-canvas-menu .off-canvas-list li .dropdown .back > a:hover {
+        .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown .back > a:hover {
           background: #333333;
           border-bottom: none;
           border-top: 1px solid #cdcdcd; }
-        .left-off-canvas-menu .off-canvas-list li .dropdown .back > a:before {
+        .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown .back > a:before {
           content: "\AB";
           margin-right: 0.5rem;
           display: inline; }
-    .left-off-canvas-menu .off-canvas-list li a {
+    .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li a {
       border-bottom: 1px solid #9a9a9a;
       padding: 0.5rem 0.666rem;
       display: block;
       transition: background 300ms ease; }
-      .left-off-canvas-menu .off-canvas-list li a:hover {
+      .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li a:hover {
         color: #ffe000; }
-      .left-off-canvas-menu .off-canvas-list li a:active {
+      .left-off-canvas-menu .off-canvas-list > .cst-off-canvas-navigation-container li a:active {
         background: #888888; }
     .left-off-canvas-menu .off-canvas-list .left-submenu.move-right > .inner-wrap {
       -webkit-transform: translate3d(15.625rem, 0, 0);
