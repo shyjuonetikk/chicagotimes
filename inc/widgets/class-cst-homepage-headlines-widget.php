@@ -162,7 +162,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			}
 			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
 			?>
-				<p class="ui-state-default" id=i<?php echo $count; ?>>
+				<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
 					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
 						<?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?>
 					</label>
