@@ -1463,19 +1463,6 @@ class CST_Frontend {
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
 		$section_obj = get_queried_object();
-		// TODO cache me
-		// Call Chartbeat
-		if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent ) ) ) {
-			wp_nav_menu( array(
-				'theme_location'  => $section_obj->slug . '-trending',
-				'fallback_cb'     => false,
-				'depth'           => 1,
-				'container_class' => 'cst-navigation-container columns section-itn',
-				'items_wrap'      => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news :</li></ul><ul id="%1$s" class="">%3$s</ul></div></div>',
-//				'walker'          => new GC_walker_nav_menu(),
-				)
-			);
-		}
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
 	<div class="<?php echo esc_attr( $name_width ); ?> section-meta">
