@@ -169,7 +169,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				}
 				$dashed_array_member = preg_replace( '/_/', '-', $array_member );
 				?>
-				<p class="ui-state-default" id=i<?php echo $count; ?>>
+				<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
 					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
 					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>"
 						   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;"/>
