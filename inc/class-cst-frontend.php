@@ -904,7 +904,6 @@ class CST_Frontend {
 				$maxitems = $headlines->get_item_quantity( $max_display );
 				$items    = $headlines->get_items( 0, $maxitems );
 				wp_cache_set( $cache_key, $items, 'default', 15 * MINUTE_IN_SECONDS );
-				$test = strlen( serialize( $items ) );
 				return $items;
 			else :
 				return; //todo: VIP note: cache when the feed is not found.
@@ -942,9 +941,9 @@ class CST_Frontend {
 	 */
 	public function cst_homepage_content_block( $content_query, $nativo_slug = null ) {
 
-		$cache_key = md5( serialize( $content_query ) );
+		$cache_key = md5( json_encode( $content_query ) );
 		$cached_content = wp_cache_get( $cache_key );
-		if ( false === $cached_content ) {
+		if ( false === $cached_content || WP_DEBUG ) {
 			$items = new \WP_Query( $content_query );
 			ob_start();
 			if ( $items->have_posts() ) {
@@ -989,7 +988,7 @@ class CST_Frontend {
 	 */
 	public function cst_dear_abby_recommendation_block( $content_query ) {
 
-		$cache_key = md5( serialize( $content_query ) );
+		$cache_key = md5( json_encode( $content_query ) );
 		$cached_content = wp_cache_get( $cache_key );
 		if ( false === $cached_content ) {
 			$items = new \WP_Query( $content_query );
