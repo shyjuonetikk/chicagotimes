@@ -8,4 +8,4 @@
 	<?php else : ?>
 		<?php echo $obj->get_latest_entry_content(); ?>
 	<?php endif; ?>
-<?php endif; ?>
+<?php endif;

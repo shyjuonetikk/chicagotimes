@@ -164,7 +164,9 @@ class CST_Frontend {
 		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.5.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
-
+		if ( ! is_404() ) {
+			wp_enqueue_script( 'morpheus', esc_url( 'http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js' ) );
+		}
 		// Fonts
 		if ( is_post_type_archive( 'cst_feature' ) ) {
 			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Open+Sans:400,400i,700,700i&amp;subset=latin' );
@@ -1091,7 +1093,7 @@ class CST_Frontend {
 		$featured_image_url = false;
 		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
 		$response = wpcom_vip_file_get_contents( $remote_url );
-		if ( ! is_wp_error( $response ) && ! false == $response ) {
+		if ( ! is_wp_error( $response ) && ! ( false === $response ) ) {
 			$pages = json_decode( $response );
 			if ( '' !== $pages->featured_image ) {
 				$featured_image_url = $pages->featured_image . '?w=80&h=80&crop=1';
@@ -1587,7 +1589,10 @@ class CST_Frontend {
 					$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
 					$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
 					foreach ( $sections as $section ) {
-						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( wpcom_vip_get_term_link( $section->term_id ) ), $section->name );
+						$section_link_url = wpcom_vip_get_term_link( $section->term_id );
+						if ( ! is_wp_error( $section_link_url ) ) {
+							$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $section_link_url ), $section->name );
+						}
 					}
 					$section_navigation .= '</ul></div></div></div>';
 					wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, 'cst', 1 * WEEK_IN_SECONDS );
@@ -1939,7 +1944,7 @@ ready(fn);
 
 		foreach ( $items as $key => $item ) {
 
-			if ( ! in_array( $item->ID, $children ) ) {
+			if ( ! in_array( $item->ID, $children, true ) ) {
 				unset( $items[$key] );
 			}
 		}
@@ -2152,9 +2157,9 @@ ready(fn);
 	 */
 	public function determine_section_slug( $section_obj ) {
 		if ( 'cst_section' === $section_obj->taxonomy ) {
-			if ( $section_obj->parent != 0 ) {
+			if ( 0 !== $section_obj->parent ) {
 				$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-				if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+				if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections, true ) ) {
 					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
 					$section_slug = $child_terms->slug;
 				} else {
@@ -2210,7 +2215,7 @@ ready(fn);
 		$attrs = '';
 		$data = array(
 			'post-id'   => $obj->get_id(),
-			'post-uri'  => parse_url( get_permalink( $obj->get_id() ), PHP_URL_PATH ),
+			'post-uri'  => wp_parse_url( get_permalink( $obj->get_id() ), PHP_URL_PATH ),
 			'wp-title'  => wp_title( '|', false, 'right' ),
 			);
 

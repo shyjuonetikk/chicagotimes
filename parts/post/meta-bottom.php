@@ -94,4 +94,5 @@ if ( ! is_singular() ) {
 		</div>
 		<hr class="end-of-post-line">
 	</div>
-<?php endif; ?>
+<?php endif;
+

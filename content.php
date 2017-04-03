@@ -47,7 +47,7 @@ if ( is_tax() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_auth
 	echo wp_kses_post( CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) ) );
 }
 if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
-	echo wp_kses_post( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ) ); ?>
+	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); ?>
 	<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
 	</div>
 	<?php CST()->frontend->inject_headlines_network_markup( $obj );
@@ -59,4 +59,4 @@ if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
 		<?php if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) : ?>
 		</div>
 	<?php endif; ?>
-<?php endif; ?>
+<?php endif;

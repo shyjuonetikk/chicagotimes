@@ -14,7 +14,7 @@
 			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
 	</div>
 	<div class="small-12 medium-2 columns">
-		<?php echo CST()->get_template_part( 'social-links' ); ?>
+		<?php echo wp_kses_post( CST()->get_template_part( 'social-links' ) ); ?>
 	</div>
 	<div class="small-12 columns separate-me">
 		<div class="row">
@@ -94,7 +94,7 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 	</div>
 	<div class="row footer-lower">
 		<div class="small-10 columns">
-			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', date( 'Y' ) ); ?> Chicago Sun-Times</p>
+			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', esc_attr( date( 'Y' ) ) ); ?> Chicago Sun-Times</p>
 		</div>
 		<div class="small-2 columns">
 			<?php echo vip_powered_wpcom(6) ?>

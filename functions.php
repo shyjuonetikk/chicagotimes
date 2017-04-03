@@ -23,6 +23,49 @@ class CST {
 		'script' => array( 'class' ) ,
 		'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
 	);
+	public $slider_kses = array(
+		'h3' => array(),
+		'h4' => array(),
+		'img' => array(
+			'src' => array(),
+			'alt' => array(),
+		),
+		'div' => array(
+			'id' => array(),
+			'style' => array(),
+			'class' => array(),
+		),
+		'a' => array(
+			'href' => array(),
+			'data-on' => array(),
+			'data-event-action' => array(),
+			'data-event-category' => array(),
+		),
+	);
+	public $recommendation_kses = array(
+		'h3' => array(),
+		'h4' => array(),
+		'hr' => array(),
+		'img' => array(
+			'src' => array(),
+			'alt' => array(),
+			'class' => array(),
+		),
+		'div' => array(
+			'id' => array(),
+			'style' => array(),
+			'class' => array(),
+		),
+		'span' => array(),
+		'a' => array(
+			'href' => array(),
+			'title' => array(),
+			'class' => array(),
+			'data-on' => array(),
+			'data-event-action' => array(),
+			'data-event-category' => array(),
+		),
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -228,7 +271,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-cb-trending-widget.php';
 
 		// Vendor plugins
 		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
@@ -825,7 +867,6 @@ class CST {
 		register_widget( 'CST_TCX_Widget' );
 		register_widget( 'CST_Bears_Cube_Widget' );
 		register_widget( 'CST_Drive_Chicago_Widget' );
-		register_widget( 'CST_CB_Trending_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
@@ -1811,7 +1852,7 @@ class CST {
 	 * Load customized AP configured feed.
 	 */
 	function cst_rss_AP_atom() {
-		load_template( TEMPLATEPATH . '/feeds/feed-AP-atom.php' );
+		load_template( get_template_directory() . '/feeds/feed-AP-atom.php' );
 	}
 
 	/**
