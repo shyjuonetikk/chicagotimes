@@ -15,46 +15,40 @@
     if (!paragraphsCount) {
       return;
     }
-   
-    var triplelifeParNum = 8;
+
+    var tripleliftParNum = 8;
     for (paraNum = 8; paraNum < 10; paraNum++) {
-        paraProto = paragraphs[paraNum];
-      if ( undefined !== paraProto ) {
+      paraProto = paragraphs[paraNum];
+      if (undefined !== paraProto) {
         paraContent = paraProto.toString();
 
         if (paraContent.indexOf("read-more-wrap") > -1) {
-        tripleliftParNum++;
+          tripleliftParNum++;
         }
-
         if (paraContent.indexOf("blockquote") > -1) {
-          triplelifeParNum++;
+          tripleliftParNum++;
           continue;
-        }
-        paraContent = paraContent.replace(/<[\/]{0,1}(p)[^><]*>/ig, "");
-        paraContent = paraContent.replace(/(<([^>]+)>)/ig, "");
-        tripleliftParNum++;
-        continue;
         }
         paraContent = paraContent.replace(/<[\/]{0,1}(p)[^><]*>/ig,"");
         paraContent = paraContent.replace(/(<([^>]+)>)/ig,"");
         paraContent = paraContent.trim();
         if (paraContent.length === 0) {
-          triplelifeParNum++;
+          tripleliftParNum++;
+          continue;
         }
       }
-
 
       if (paragraphsCount >= tripleliftParNum) {
         if (jQuery(paragraphs[tripleliftParNum]).hasClass("wp-caption-text")) {
-        tripleliftParNum++;
+          tripleliftParNum++;
         }
       }
 
-    if (tripleliftParNum > paragraphsCount) {
+      if (tripleliftParNum > paragraphsCount) {
         tripleliftParNum = paragraphsCount;
       }
 
-    if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
+      if (!jQuery(".cst-active-scroll-post").hasClass("triplelift-inserted")) {
         tripleliftContentNode = jQuery(paragraphs[tripleliftParNum]);
         this._insertTripleLiftJS(tripleliftContentNode);
         jQuery(".cst-active-scroll-post").addClass("triplelift-inserted");
