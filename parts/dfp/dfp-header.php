@@ -125,4 +125,4 @@
 
 <?php } else { ?>
     <?php get_template_part( 'parts/dfp/dfp-yieldmo' ); ?>
-<?php } ?>
+<?php }

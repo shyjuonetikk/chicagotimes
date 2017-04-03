@@ -47,4 +47,3 @@ global $dfp_grandchild;
 		}
 		get_template_part( 'parts/dfp/dfp-header' ); 
 	endif;
-?>
