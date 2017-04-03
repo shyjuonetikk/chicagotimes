@@ -1093,7 +1093,7 @@ class CST_Frontend {
 		$featured_image_url = false;
 		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
 		$response = wpcom_vip_file_get_contents( $remote_url );
-		if ( ! is_wp_error( $response ) && ! false === $response ) {
+		if ( ! is_wp_error( $response ) && ! ( false === $response ) ) {
 			$pages = json_decode( $response );
 			if ( '' !== $pages->featured_image ) {
 				$featured_image_url = $pages->featured_image . '?w=80&h=80&crop=1';

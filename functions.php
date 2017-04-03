@@ -42,6 +42,30 @@ class CST {
 			'data-event-category' => array(),
 		),
 	);
+	public $recommendation_kses = array(
+		'h3' => array(),
+		'h4' => array(),
+		'hr' => array(),
+		'img' => array(
+			'src' => array(),
+			'alt' => array(),
+			'class' => array(),
+		),
+		'div' => array(
+			'id' => array(),
+			'style' => array(),
+			'class' => array(),
+		),
+		'span' => array(),
+		'a' => array(
+			'href' => array(),
+			'title' => array(),
+			'class' => array(),
+			'data-on' => array(),
+			'data-event-action' => array(),
+			'data-event-category' => array(),
+		),
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
