@@ -55,4 +55,4 @@ if ( $section = $obj->get_primary_section() ) {
 			<?php CST()->frontend->sponsor_header( $section->term_id ); ?>
 		</div>
 	<?php } ?>
-<?php } ?>
+<?php }
