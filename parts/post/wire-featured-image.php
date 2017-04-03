@@ -4,7 +4,7 @@
 	<h4 class="sponsored-notification">SPONSORED</h4>
 </div>
 <?php } ?>
-<div class="post-lead-media <?php if ( $obj->get_post_type() != 'cst_article' ) { echo 'hover-state'; } ?>">
+<div class="post-lead-media <?php if ( 'cst_article' !== $obj->get_post_type() ) { echo 'hover-state'; } ?>">
 	<a href="<?php $obj->the_permalink(); ?>" <?php if ( 'cst_link' === $obj->get_post_type() ) { echo 'target="_blank"'; } ?>>
 		<?php echo $obj->get_featured_image_html( $image_size ); ?>
 		<i class="fa fa-<?php echo esc_attr( $obj->get_font_icon() ); ?>"></i>

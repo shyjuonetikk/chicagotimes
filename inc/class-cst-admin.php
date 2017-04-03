@@ -1288,7 +1288,7 @@ class CST_Admin {
 		wp_cache_delete( 'cst_section-front', 'default' );
 		wp_cache_delete( 'section_nav_cache_key', 'default' );
 		$menus = get_registered_nav_menus();
-		foreach ( $menus as $location => $description ) {
+		foreach ( $menus as $location ) {
 			wpcom_vip_cache_delete( $location, 'cst' );
 		}
 	}
