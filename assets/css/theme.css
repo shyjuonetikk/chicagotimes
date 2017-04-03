@@ -1918,6 +1918,9 @@ body[class~="archive"] article.index-view .post-meta-bottom {
   clear: both; }
 body[class~="archive"] .dfp-super-leaderboard {
   margin-top: 0; }
+body[class~="archive"] .dfp-placement {
+  margin-bottom: 10px;
+  text-align: center; }
 body[class~="archive"] .cst-navigation-container {
   margin-top: 5px;
   z-index: 5; }
