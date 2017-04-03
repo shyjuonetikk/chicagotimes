@@ -60,7 +60,7 @@
 		<?php if ( dynamic_sidebar( 'homepage_sidebar_three' ) ) {
 		} ?>
 		<div class="large-12 medium-6 small-12 columns dfp-cube">
-			<?php echo CST()->dfp_handler->dynamic_unit( 7, 'div-gpt-rr-cube', 'dfp dfp-cube', 'hp_cube_mapping', 'rr cube 7' ); ?>
+			<?php echo wp_kses( CST()->dfp_handler->unit( 7, 'div-gpt-rr-cube', 'dfp dfp-cube', 'hp_cube_mapping', 'rr cube 7' ), CST()->dfp_kses ); ?>
 		</div>
 	</div>
 </div>

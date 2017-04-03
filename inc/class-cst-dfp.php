@@ -482,7 +482,7 @@ var dfp = {
 			case 'https://suntimesmediapreprod.wordpress.com':
 			case 'http://vip.local':
 			case 'http://vagrant.local':
-				$parent_inventory = 'chicago.suntimes.com.test';
+				$parent_inventory = 'chicago.suntimes.com';
 				break;
 			case 'http://chicago.suntimes.com':
 			case 'https://suntimesmedia.wordpress.com':
