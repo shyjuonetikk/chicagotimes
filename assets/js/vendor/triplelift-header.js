@@ -29,8 +29,8 @@
           tripleliftParNum++;
           continue;
         }
-        paraContent = paraContent.replace(/<[\/]{0,1}(p)[^><]*>/ig,"");
-        paraContent = paraContent.replace(/(<([^>]+)>)/ig,"");
+        paraContent = paraContent.replace(/<[\/]{0,1}(p)[^><]*>/ig, "");
+        paraContent = paraContent.replace(/(<([^>]+)>)/ig, "");
         paraContent = paraContent.trim();
         if (paraContent.length === 0) {
           tripleliftParNum++;
@@ -53,6 +53,7 @@
         this._insertTripleLiftJS(tripleliftContentNode);
         jQuery(".cst-active-scroll-post").addClass("triplelift-inserted");
       }
+    }
   },
 
   /* Private methods */
