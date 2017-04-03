@@ -27,4 +27,4 @@
   <div id="map"></div>  
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkPQ9BLBwW_xCk4Wrh55UjZvyVqPc_5FU&libraries=places&callback=initAutocomplete" async defer></script>
   </section>
-<?php get_footer(); ?>
+<?php get_footer();

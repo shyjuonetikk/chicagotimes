@@ -11,4 +11,3 @@
                 );
         CST()->frontend->cst_dear_abby_recommendation_block( $query );
     endif;
-?>

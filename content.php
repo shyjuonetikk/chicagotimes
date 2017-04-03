@@ -59,4 +59,4 @@ if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
 		<?php if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) : ?>
 		</div>
 	<?php endif; ?>
-<?php endif; ?>
+<?php endif;

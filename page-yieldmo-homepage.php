@@ -46,4 +46,5 @@
             </div>
         <?php get_template_part( 'parts/homepage/footer' ); ?>
 </div>
-<?php get_footer(); ?>
+<?php get_footer();
+

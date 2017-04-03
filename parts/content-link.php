@@ -14,4 +14,5 @@
 		echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) );
 } ?>
 
-<?php } ?>
+<?php }
+

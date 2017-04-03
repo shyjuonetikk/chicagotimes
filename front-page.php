@@ -60,4 +60,4 @@ endif;
 	</div>
 </div>
 <?php get_template_part( 'parts/homepage/footer' ); ?>
-<?php get_footer(); ?>
+<?php get_footer();

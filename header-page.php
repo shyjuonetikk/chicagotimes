@@ -40,4 +40,4 @@
 <?php do_action( 'body_start' ); ?>
 <div id="ie8-user" style="display:none;"></div>
 <div class="page_wrapper">
-<?php get_template_part( 'parts/header-brand-navigation' ); ?>
+<?php get_template_part( 'parts/header-brand-navigation' );
