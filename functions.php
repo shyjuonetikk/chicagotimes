@@ -19,6 +19,10 @@ class CST {
 		'dev' => '2C63F38287CF46AC',
 	);
 
+	public $dfp_kses = array(
+		'script' => array( 'class' ) ,
+		'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -58,7 +62,7 @@ class CST {
 		$this->cst_feeds = CST_Feeds::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
-
+		add_theme_support( 'customize-selective-refresh-widgets' );
 		add_theme_support( 'infinite-scroll', array(
 			'container' => 'main',
 			'footer'    => false,
@@ -79,12 +83,13 @@ class CST {
 
 		add_image_size( 'chiwire-article', 570, 260, true );
 		add_image_size( 'chiwire-small-square', 80, 80, true );
+		add_image_size( 'chiwire-slider-square', 60, 60, true );
 		add_image_size( 'chiwire-featured-content-widget', 295, 165, true );
 		add_image_size( 'chiwire-header-large', 640, 480, true );
 		add_image_size( 'chiwire-header-medium', 425, 320, true );
 		add_image_size( 'chiwire-header-small', 320, 240, true );
-		add_image_size( 'cst-article-featured', 670, 9999, false );
-		add_image_size( 'cst-feature-gallery-lead', 1024, 768, false );
+		add_image_size( 'cst-article-featured', 763, 9999, false );
+		add_image_size( 'cst-feature-hero', 1200, 1600, false );
 		add_image_size( 'cst-gallery-desktop-vertical', 1200, 1600, true );
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
@@ -96,6 +101,7 @@ class CST {
 		add_image_size( 'newspaper', 297, 287, true );
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
+
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
@@ -157,6 +163,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -221,6 +228,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-cb-trending-widget.php';
 
 		// Vendor plugins
 		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
@@ -244,7 +252,10 @@ class CST {
 		}
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
-
+		if ( ! defined( 'WP_CLI' ) ) {
+			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
+			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '3.0' );
+		}
 		// Options are loaded on Bitly::__construct
 		add_filter( 'pre_option_bitly_settings', function() {
 			return array(
@@ -468,6 +479,7 @@ class CST {
 			return $classes;
 		});
 
+		add_filter( 'wp_nav_menu_objects', [ $this, 'cst_menu_set_dropdown' ], 10, 2 );
 		/**
 		 * Filter to whitelist chicago.suntimes.com as suggested in VIP ticket
 		 * https://wordpressvip.zendesk.com/hc/en-us/requests/50256
@@ -500,6 +512,7 @@ class CST {
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
+		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
 		add_filter( 'ads/use_gumgum', 'filter_use_gumgum' );
@@ -812,6 +825,7 @@ class CST {
 		register_widget( 'CST_TCX_Widget' );
 		register_widget( 'CST_Bears_Cube_Widget' );
 		register_widget( 'CST_Drive_Chicago_Widget' );
+		register_widget( 'CST_CB_Trending_Widget' );
 
 		// Unregister common Widgets we [probably] won't be using
 		unregister_widget( 'WP_Widget_Pages' );
@@ -859,7 +873,10 @@ class CST {
 				'page-footer-1'          => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
 				'page-footer-2'          => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
 				'page-footer-3'          => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
+				'page-footer-4'          => esc_html__( 'Page Footer 4', 'chicagosuntimes' ),
 				'election-page'          => esc_html__( 'Election Page', 'chicagosuntimes' ),
+				'homepage-masthead'      => esc_html__( 'Homepage Masthead', 'chicagosuntimes' ),
+				'homepage-itn'      => esc_html__( 'Homepage In The News', 'chicagosuntimes' ),
 			)
 		);
 
@@ -1502,7 +1519,7 @@ class CST {
 
 	public function filter_rest_api_post_types( $allowed_post_types ) {
 
-		$allowed_post_types[] = 'cst_article';
+		$allowed_post_types[] = array( 'cst_article', 'cst_feature' );
 
 		return $allowed_post_types;
 	}
@@ -1588,7 +1605,7 @@ class CST {
 		if ( is_404() || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
-		echo $this->get_template_part( 'post/gallery-backdrop' );
+		echo wp_kses_post( $this->get_template_part( 'post/gallery-backdrop' ) );
 	}
 
 	/**
@@ -1720,32 +1737,27 @@ class CST {
 		$featured_image_id = $obj->get_featured_image_id();
 		$output = '';
 		$image_type = 'cst-article-featured';
-		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) :
+		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
 			if ( doing_filter( 'the_content' ) ) {
 				$class = 'post-lead-media end';
 			} else {
-				if ( is_singular( 'cst_feature' ) ) {
-					$class = 'post-lead-media columns small-12 end';
-				} else {
-					$class = 'post-lead-media columns medium-11 medium-offset-1 end';
-				}
+				$class = 'post-lead-media columns small-12 end';
 			}
 			$output .= '<div class="' . esc_attr( $class ) . '">';
-		if ( is_singular( 'cst_feature' ) ) {
-			$image_type = 'cst-feature-hero';
-			$hero_sig = $obj->get_hero_sig();
-			$hero_title = $obj->get_hero_title();
-			$featured_image_id = $obj->get_featured_image_id();
-			$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
-		} else {
-			$output .= $attachment->get_html( $image_type );
-		}
-
-			if ( $caption = $attachment->get_caption() ) :
+			if ( is_singular( 'cst_feature' ) ) {
+				$image_type = 'cst-feature-hero';
+				$hero_sig = $obj->get_hero_sig();
+				$hero_title = $obj->get_hero_title();
+				$featured_image_id = $obj->get_featured_image_id();
+				$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
+			} else {
+				$output .= $attachment->get_html( $image_type );
+			}
+			if ( $caption = $attachment->get_caption() ) {
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
-			endif;
+			}
 			$output .= '</div>';
-		endif;
+		}
 
 		if ( doing_filter( 'the_content' ) ) {
 			return $output;
@@ -1875,7 +1887,7 @@ class CST {
 	function navigation_link_tracking( $atts, $item, $args ) {
 
 		$atts['data-on'] = 'click';
-		$atts['data-event-category'] = 'navigation - ' . $args->menu->name;
+		$atts['data-event-category'] = 'navigation - ' . $args->theme_location;
 		$atts['data-event-action'] = 'navigate';
 		return $atts;
 	}
@@ -2009,6 +2021,44 @@ class CST {
 		);
 
 	}
+
+	/**
+	 * Set parent class with supported Foundation class to indicate presence of a dropdown
+	 * @param $sorted_menu_items
+	 *
+	 * @return mixed
+	 */
+	function cst_menu_set_dropdown( $sorted_menu_items ) {
+		$last_top = 0;
+		foreach ( $sorted_menu_items as $key => $obj ) {
+			// it is a top lv item?
+			if ( 0 == $obj->menu_item_parent ) {
+				// set the key of the parent
+				$last_top = $key;
+			} else {
+				$sorted_menu_items[ $last_top ]->classes['dropdown'] = 'has-dropdown has-submenu';
+			}
+		}
+		return $sorted_menu_items;
+	}
+
+	/**
+	 * @param $classes
+	 * @param $item
+	 * @param $args
+	 * @param $depth
+	 *
+	 * @return array
+	 *
+	 * Add Foundation class to masthead navigation to work with top bar
+	 */
+	function masthead_nav_classes( $classes, $item, $args, $depth ) {
+
+		if ( 'masthead-sections' === $args->container_class ) {
+			$classes[] .= 'left';
+		}
+		return $classes;
+	}
 }
 
 /**
@@ -2018,41 +2068,6 @@ function CST() {
 	return CST::get_instance();
 }
 add_action( 'after_setup_theme', 'CST' );
-
-class GC_walker_nav_menu extends Walker_Nav_Menu {
-
-	// add classes to ul sub-menus
-	public function start_lvl(&$output, $depth = 0, $args = array() ) {
-		
-		// depth dependent classes
-		$indent = ( $depth > 0 ? str_repeat( "\t", $depth ) : '' ); // code indent
-
-		// build html
-		$output .= "\n" . $indent . '<ul class="dropdown">' . "\n";
-
-	}
-
-}
-
-if ( ! function_exists( 'GC_menu_set_dropdown' ) ) :
-
-	function GC_menu_set_dropdown($sorted_menu_items, $args) {
-		$last_top = 0;
-	  	foreach ( $sorted_menu_items as $key => $obj) {
-	    	// it is a top lv item?
-	    	if ( 0 == $obj->menu_item_parent ) {
-	      	// set the key of the parent
-	      		$last_top = $key;
-	    	} else {
-	      		$sorted_menu_items[$last_top]->classes['dropdown'] = 'has-dropdown';
-	    	}
-	  	}
-	  return $sorted_menu_items;
-
-	}
-
-endif;
-add_filter( 'wp_nav_menu_objects', 'GC_menu_set_dropdown', 10, 2 );
 
 function GC_force_published_status_front_end( $query ){
 	if ( ( is_category() || is_home() ) && $query->is_main_query() ){

@@ -1,7 +1,7 @@
 <?php
 
 if ( ! $obj ) {
-    return;
+	return;
 }
 
 $classes = 'post-meta-bottom post-meta';
@@ -9,7 +9,7 @@ if ( 'cst_feature' === $obj->get_post_type() ) {
 	$classes .= ' cst_feature-meta-bottom';
 }
 if ( is_singular() ) {
-	$classes .= ' columns medium-9 medium-offset-1 end';
+	$classes .= ' columns small-12 end';
 }
 if ( ! is_singular() ) {
 	$classes .= ' show-for-medium-up';
@@ -84,20 +84,15 @@ if ( ! is_singular() ) {
 	<div style="clear:both;"></div>
 </div>
 <?php if ( is_singular() && ! is_preview() && ! in_array( $obj->get_post_type(), array( 'cst_liveblog', 'cst_embed' ) ) ) : ?>
-	<div class="columns medium-11 medium-offset-1 end">
+	<div class="columns small-12 end">
 		<?php echo CST()->frontend->inject_public_good_markup( $obj ); ?>
-		<div id="addthis-<?php the_id(); ?>" class="addthis_toolbox addthis_default_style addthis_32x32_style" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" addthis:title="<?php echo esc_attr( $obj->get_twitter_share_text() ); ?>">
-			<a class="addthis_button_facebook" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" addthis:title="<?php echo esc_attr( $obj->get_title() ); ?>"></a>
-			<a class="addthis_button_twitter" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" addthis:title="<?php echo esc_attr( $obj->get_twitter_share_text() ); ?>"></a>
-			<a class="addthis_button_email" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" addthis:title="<?php echo esc_attr( $obj->get_title() ); ?>"></a>
+		<div id="addthis-<?php the_id(); ?>" class="addthis_toolbox addthis_default_style addthis_32x32_style"  addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" addthis:title="<?php echo esc_attr( $obj->get_twitter_share_text() ); ?>">
+			<a class="addthis_button_facebook" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" data-on="click" data-event-category="add-this" data-event-action="-facebook" addthis:title="<?php echo esc_attr( $obj->get_title() ); ?>"></a>
+			<a class="addthis_button_twitter" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" data-on="click" data-event-category="add-this" data-event-action="twitter" addthis:title="<?php echo esc_attr( $obj->get_twitter_share_text() ); ?>"></a>
+			<a class="addthis_button_email" addthis:url="<?php echo esc_url( $obj->get_share_link() ); ?>" data-on="click" data-event-category="add-this" data-event-action="email" addthis:title="<?php echo esc_attr( $obj->get_title() ); ?>"></a>
 			<a class="addthis_button_compact"></a>
 		</div>
 		<hr class="end-of-post-line">
 	</div>
 <?php endif; ?>
-<div class="post-meta post-meta-top mobile-bottom hide-for-medium-up">
-<?php if ( ! is_singular() ) : ?>
-	<i class="post-type fa fa-<?php echo esc_attr( $obj->get_font_icon() ); ?>"></i>
-	<span class="post-relative-date"><?php echo human_time_diff( $obj->get_post_date_gmt() ); ?></span>
-<?php endif; ?>
-</div>
+

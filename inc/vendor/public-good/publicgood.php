@@ -31,7 +31,9 @@ class Public_Good_Class {
 	}
 
 	function action_wp_enqueue_scripts() {
-		wp_enqueue_script( 'takeactionjs', 'https://assets.pgs.io/button/v2/dpg.js', array(), '', true );
+		if ( is_singular( 'cst_article' ) ) {
+			wp_enqueue_script( 'takeactionjs', 'https://assets.pgs.io/button/v2/dpg.js', array(), '', true );
+		}
 	}
 
 	public function btn_short_code( $atts ) {

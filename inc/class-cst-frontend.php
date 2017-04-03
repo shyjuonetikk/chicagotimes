@@ -119,7 +119,7 @@ class CST_Frontend {
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
-		add_filter( 'script_loader_tag', [ $this, 'add_data_type_suffix' ], 10, 3 );
+		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 	}
 
 	/**
@@ -161,16 +161,15 @@ class CST_Frontend {
 	 */
 	public function action_wp_enqueue_scripts() {
 		// Foundation
-		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.2.3' );
+		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.5.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
-		wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 
 		// Fonts
 		if ( is_post_type_archive( 'cst_feature' ) ) {
 			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Open+Sans:400,400i,700,700i&amp;subset=latin' );
 		} else {
-			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Open+Sans:300,400,400i,600,600i,700,700i,800,800i|Raleway&amp;subset=latin' );
+			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Libre+Franklin:400,400i,600,600i,700,700i&amp;subset=latin' );
 		}
 		if ( is_page_template( 'page-flipp.php' ) ) {
 			wp_enqueue_script( 'cst_ad_flipp_page', 'http://circulars.chicago.suntimes.com/distribution_services/iframe.js' );
@@ -188,8 +187,7 @@ class CST_Frontend {
 				wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 			}
 
-			$this->action_load_section_styling();
-
+			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 			// If we are on a 404 page don't try and load scripts/css that we won't be using.
 			if ( ! is_404() && ! is_page() ) {
 				// The theme
@@ -202,7 +200,7 @@ class CST_Frontend {
 						wp_enqueue_script( 'chicagosuntimes', get_template_directory_uri() . '/assets/js/theme.js', array( 'jquery-effects-slide' ) );
 					}
 				}
-				if ( ! is_front_page() || ! is_page() ) {
+				if ( is_singular() || is_tax() ) {
 					if ( is_singular( array( 'cst_feature', 'cst_article', 'cst_gallery' ) ) ) {
 						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 					}
@@ -212,11 +210,6 @@ class CST_Frontend {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
-						wp_localize_script( 'chicagosuntimes', 'CSTData', array(
-							'home_url'                           => esc_url_raw( home_url() ),
-							'disqus_shortname'                   => CST_DISQUS_SHORTNAME,
-							'taboola_container_id' => 'taboola-below-article-thumbnails-',
-						) );
 						if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) ) {
 							wp_enqueue_script( 'cst-gallery', get_template_directory_uri() . '/assets/js/gallery.js', array( 'slick' ) );
 						}
@@ -249,17 +242,23 @@ class CST_Frontend {
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
 				}
-				if ( ( is_tax() || is_singular( 'cst_article', 'cst_gallery' ) ) && ! is_admin() ) {
+				if ( ( is_author() || is_tax() || is_singular( 'cst_article', 'cst_gallery' ) )  && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
+				}
+				if ( is_tax() ) {
 					wp_enqueue_script( 'cst-sticky', get_template_directory_uri() . '/assets/js/vendor/sticky-kit.min.js', array( 'jquery' ) );
 				}
 			} else {
 				wp_enqueue_script( 'chicagosuntimes-404page', get_template_directory_uri() . '/assets/js/404.js' );
 			}
-
 			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
 
 		}
+		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
+			'home_url'         => esc_url_raw( home_url( '/' ) ),
+			'disqus_shortname' => CST_DISQUS_SHORTNAME,
+			'taboola_container_id' => 'taboola-below-article-thumbnails-',
+		) );
 
 	}
 
@@ -272,22 +271,7 @@ class CST_Frontend {
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 		} elseif ( is_tax() ) {
 			$section_obj = get_queried_object();
-			if ( 'cst_section' === $section_obj->taxonomy ) {
-				if ( 0 !== $section_obj->parent ) {
-					$parent_terms = get_term( $section_obj->parent, 'cst_section' );
-					if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
-						$child_terms = get_term( $parent_terms->parent, 'cst_section' );
-						$section_slug = $child_terms->slug;
-					} else {
-						$section_slug = $parent_terms->slug;
-					}
-				} else {
-					$section_slug = $section_obj->slug;
-				}
-			} else {
-				$section_slug = 'news';
-			}
-
+			$section_slug = $this->determine_section_slug( $section_obj );
 			switch ( $section_slug ) {
 				case 'sports':
 					wp_enqueue_style( 'chicagosuntimes-sports', get_template_directory_uri() . '/assets/css/sports-theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -345,10 +329,10 @@ class CST_Frontend {
 
 		$tags = array_merge( array( 'description' => $meta_description ), $facebook_tags, $twitter_tags );
 		foreach ( $tags as $name => $value ) {
-			echo '<meta property="' . esc_attr( $name ) . '" content="' . esc_attr( $value ) . '" />' . PHP_EOL;
+			echo '<meta property="' . esc_attr( $name ) . '" content="' . esc_attr( $value ) . '" />' . esc_attr( PHP_EOL );
 		}
 
-		echo '<meta name="description" content="' . esc_attr( $meta_description ) . '" />' . PHP_EOL;
+		echo '<meta name="description" content="' . esc_attr( $meta_description ) . '" />' . esc_attr( PHP_EOL );
 
 	}
 
@@ -967,22 +951,19 @@ class CST_Frontend {
 					$items->the_post();
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 					if ( $count == $content_query['posts_per_page'] ) {
-						if ( 'image' == $obj->get_featured_media_type() ) {
-							$featured_image_id = $obj->get_featured_image_id();
-							if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
-								<?php echo $attachment->get_html( 'homepage-columns' ); ?>
-								</a>
-								<?php
-							}
+						$featured_image_id = $obj->get_featured_image_id();
+						if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
+							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
+							<?php echo wp_kses_post( $attachment->get_html( 'homepage-columns' ) ); ?>
+							</a>
+							<?php
 						}
-						?>
-			<?php if ( null !== $nativo_slug ) { ?>
-				<ul id="<?php echo esc_html( $nativo_slug ); ?>">
-			<?php } else { ?>
-				<ul>
-			<?php } ?>
-					<?php }
+						if ( null !== $nativo_slug ) { ?>
+							<ul id="<?php echo esc_html( $nativo_slug ); ?>">
+						<?php } else { ?>
+							<ul>
+						<?php }
+					}
 					$count--;
 					?>
 					<li>
@@ -990,14 +971,14 @@ class CST_Frontend {
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</li>
-				<?php } ?>
-				</ul>
-				<?php
-			}
+			<?php }
+			} ?>
+			</ul>
+			<?php
 			$cached_content = ob_get_clean();
 			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
-		echo $cached_content;
+		echo wp_kses_post( $cached_content );
 	}
 
 	/**
@@ -1012,26 +993,26 @@ class CST_Frontend {
 			$items = new \WP_Query( $content_query );
 			ob_start();
 			if ( $items->have_posts() ) { ?>
-			<div class="large-10 medium-offset-1 post-recommendations">
-				<h3>Previously from Dear Abby</h3>
-			<?php
-			while ( $items->have_posts() ) {
-				$items->the_post();
-				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-			?>
-				<div class="columns large-3 medium-6 small-12 recommended-post">
-					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
-						<?php echo esc_html( $obj->get_title() ); ?>
-					</a>
+				<div class="large-10 medium-offset-1 post-recommendations">
+					<h3>Previously from Dear Abby</h3>
+				<?php
+				while ( $items->have_posts() ) {
+					$items->the_post();
+					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+					?>
+					<div class="columns large-3 medium-6 small-12 recommended-post">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
+							<?php echo esc_html( $obj->get_title() ); ?>
+						</a>
+					</div>
+				<?php } ?>
 				</div>
-			<?php } ?>
-			</div>
 			<?php
 			}
 			$cached_content = ob_get_clean();
 			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
-		echo $cached_content;
+		echo wp_kses_post( $cached_content );
 	}
 
 	/**
@@ -1051,12 +1032,13 @@ class CST_Frontend {
 			}
 		}
 		?>
-		<div class="medium-11 medium-offset-1 cst-recommendations">
-			<div class="columns">
+		<div class="cst-recommendations columns">
+			<div>
 			<hr>
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
 		</div>
+			<div class="row">
 		<?php foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$top_item = [];
@@ -1078,20 +1060,21 @@ class CST_Frontend {
 			$temporary_title       = explode( '|', $item->title );
 			$article_curated_title = $temporary_title[0];
 			?>
-			<div class="cst-recommended-content columns medium-6 small-12">
-				<div class="cst-article">
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
-					<div class="cst-recommended-image -amp-layout-size-defined">
-						<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+				<div class="cst-recommended-content columns medium-6 small-12">
+					<div class="cst-article">
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
+						<div class="cst-recommended-image -amp-layout-size-defined">
+							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
+						</div>
+						</a>
+						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
+							<span><?php echo esc_html( $article_curated_title ); ?></span>
+						</a>
+						<?php echo wp_kses_post( $sponsored_markup ); ?>
 					</div>
-					</a>
-					<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
-						<span><?php echo esc_html( $article_curated_title ); ?></span>
-					</a>
-					<?php echo wp_kses_post( $sponsored_markup ); ?>
 				</div>
-			</div>
 		<?php } ?>
+			</div>
 		</div>
 <?php
 
@@ -1108,10 +1091,10 @@ class CST_Frontend {
 		$featured_image_url = false;
 		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
 		$response = wpcom_vip_file_get_contents( $remote_url );
-		if ( ! is_wp_error( $response ) ) {
+		if ( ! is_wp_error( $response ) && ! false == $response ) {
 			$pages = json_decode( $response );
 			if ( '' !== $pages->featured_image ) {
-				$featured_image_url = $pages->featured_image . '?w=100';
+				$featured_image_url = $pages->featured_image . '?w=80&h=80&crop=1';
 			} else {
 				return $featured_image_url;
 			}
@@ -1351,8 +1334,8 @@ class CST_Frontend {
 	*/
 	function inject_send_to_news_video_player( $slug, $id ) {
 		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left" data-type="s2nScript"></script></div>';
-		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $this->post->ID ) );
-		echo $markup;
+		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $id ) );
+		echo wp_kses_post( $markup );
 
 	}
 	/**
@@ -1432,12 +1415,12 @@ class CST_Frontend {
 		// Handle sponsor image and link
 		if ( '' === $section_id ) {
 			$term_metadata = fm_get_term_meta( get_queried_object_id(), 'cst_section', 'sponsor', true );
-			$class = 'row grey-background wire upper-heading';
+			$class = 'grey-background wire upper-heading';
 		} else {
 			$term_metadata = fm_get_term_meta( (int) $section_id , 'cst_section', 'sponsor', true );
 			$class = 'upper-heading';
 		}
-		$name_width = 'columns small-12'; // DIV size if no sponsor image
+		$name_width = 'small-12'; // DIV size if no sponsor image
 		$sponsor_markup = '';
 		if ( ! empty( $term_metadata ) ) {
 			$start_date = $term_metadata['start_date'];
@@ -1462,11 +1445,11 @@ class CST_Frontend {
 					);
 				}
 				// DIV size if there is a sponsor image
-				$name_width = 'columns medium-5 small-12';
+				$name_width = 'medium-5 small-12';
 			}
 		}
 		if ( '' !== $section_id ) {
-			echo $sponsor_markup;
+			echo wp_kses_post( $sponsor_markup );
 		} else {
 			$this->display_section_front_title( $class, $name_width, $sponsor_markup );
 		}
@@ -1479,40 +1462,34 @@ class CST_Frontend {
 	* @param $sponsor_markup
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
+		$section_obj = get_queried_object();
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
-	<div class="<?php echo esc_attr( $name_width ); ?>">
-		<a href="" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+	<div class="<?php echo esc_attr( $name_width ); ?> section-meta">
+		<div class="small-11 section-name columns">
+			<div class="section-feed">
+				<div class="icon">
+					<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
+				</div>
+			</div>
+		<a href="#0" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+		</div>
 	</div>
-	<?php echo $sponsor_markup; ?>
+	<?php echo wp_kses_post( $sponsor_markup ); ?>
 </section>
-		<?php
-	}
-	/**
-	* http://wordpressvip.zendesk.com/hc/requests/56671
-	*/
-	function cst_remove_extra_twitter_js() {
-		wp_deregister_script( 'twitter-widgets' );
+<?php
+		$this->determine_and_display_section_subnav( $section_obj );
 	}
 
 	/**
-	* Determine whether to display the sliding billboard markup
+	* @param $section_obj
+	* Determine and display a sb navigation on section fronts
+	* If a child sub nav display a link to the parent section before the sub nav
 	*/
-	function action_maybe_render_sliding_billboard() {
-
-		if ( ! is_404() && ! is_singular() ) :
-	        echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
-			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
-	    endif;
+	public function determine_and_display_section_subnav( $section_obj ) {
+		$parent = $section_obj->term_id;
+		echo wp_kses_post( $this->get_sections_nav_markup( $parent, false ) );
 	}
-
-	/**
-	*  Inject dfp ad settings, variables into header before gpt script call
-	*/
-	public function setup_dfp_header_ad_settings() {
-		CST()->dfp_handler->ad_header_settings();
-	}
-
 	/**
 	* @return bool|object
 	*
@@ -1567,24 +1544,172 @@ class CST_Frontend {
 		}
 		return $conditional_nav;
 	}
+	/**
+	* Create a section navigation list for use in the off canvas menu
+	* Primarily for backup purposes
+	* @param int $parent
+	* @param bool $off_canvas
+	* @return bool|mixed
+	*/
+	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
+		// Special sports nav handling here
+		if ( $current_obj = $this->get_current_object() ) {
+			if ( 'sports' === $current_obj->slug ) {
+				$conditional_nav = $this->get_conditional_nav();
+				if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
+					if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
+						$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
+						$chosen_parameters = array(
+								'theme_location' => 'homepage-menu',
+								'fallback_cb' => false,
+								'container_class' => $container,
+								'walker' => new GC_walker_nav_menu(),
+								'submenu' => 'Sports',
+								'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
+								'echo' => false,
+						);
+						if ( false === ( $section_navigation = wp_cache_get( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst' ) ) ) {
+							$section_navigation = wp_nav_menu( $chosen_parameters );
+							wp_cache_set( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst', 1 * WEEK_IN_SECONDS );
+						}
+					}
+				}
+			} else {
+				if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent, 'cst' ) ) ) {
+					$sections = get_terms( array(
+						'taxonomy'         => 'cst_section',
+						'hide_empty'       => true,
+						'include_children' => false,
+						'parent'           => $parent,
+						)
+					);
+					$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
+					$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
+					$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
+					foreach ( $sections as $section ) {
+						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( wpcom_vip_get_term_link( $section->term_id ) ), $section->name );
+					}
+					$section_navigation .= '</ul></div></div></div>';
+					wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, 'cst', 1 * WEEK_IN_SECONDS );
+				}
+			}
+		}
 
+		return $section_navigation;
+
+	}
 	/**
 	* Generate off canvas menu items
+	* Generate a conditional and a sectional
 	*/
 	public function generate_off_canvas_menu() {
 		if ( is_front_page() ) {
-			wp_nav_menu( array( 'theme_location' => 'homepage-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+			$chosen_parameters = array(
+					'theme_location' => 'homepage-menu',
+					'depth' => 2,
+					'fallback_cb' => false,
+					'container_class' => 'cst-off-canvas-navigation-container homepage',
+					'walker' => new GC_walker_nav_menu(),
+					'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+					 );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
 			if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
-				wp_nav_menu( array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+				// Nav menu $conditional_nav->slug.'-menu' exists but is unassigned what to do?
+				if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
+					$chosen_parameters = array( 'theme_location' => $conditional_nav->slug.'-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container conditional', 'walker' => new GC_walker_nav_menu() ) ;
 			} else {
-				wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+				echo wp_kses_post( $this->get_sections_nav_markup() );
+					return;
+				}
+			} else {
+				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undefined-slug', 'walker' => new GC_walker_nav_menu() ) ;
 			}
 		} else {
-			wp_nav_menu( array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container' ) );
+		$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined', 'walker' => new GC_walker_nav_menu() );
+		}
+		$cache_key = $chosen_parameters['theme_location'];
+		$navigation_markup    = wp_cache_get( $cache_key, 'cst' );
+		if ( false === $navigation_markup || WP_DEBUG ) {
+			$chosen_parameters['echo'] = false;
+			$navigation_markup = wp_nav_menu( $chosen_parameters );
+			wp_cache_set( $cache_key, $navigation_markup, 'cst', 1 * WEEK_IN_SECONDS );
+		}
+		echo wp_kses_post( $navigation_markup );
+	}
+	/**
+	* http://wordpressvip.zendesk.com/hc/requests/56671
+	*/
+	function cst_remove_extra_twitter_js() {
+		wp_deregister_script( 'twitter-widgets' );
+	}
+
+	/**
+	* Determine whether to display the sliding billboard markup
+	*/
+	function action_maybe_render_sliding_billboard() {
+
+		if ( is_front_page() || is_tax() ) :
+			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' ),
+			CST()->dfp_kses
+		);
+			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ),
+			CST()->dfp_kses
+		);
+	    endif;
+	}
+
+	/**
+	* Display masthead navigation if needed
+ 	*
+ 	* @param string $page_type
+ 	*
+ 	*/
+	public function masthead_navigation( $page_type ) {
+		$page_types = array(
+			'homepage' => array(
+					'container_class' => 'masthead-sections columns small-12 show-for-medium-up show-for-landscape',
+					'items_wrap'      => '<div class="homepage-nav-holder columns"><ul id="%1$s" class="homepage">%3$s</ul></div>',
+					'location'        => 'homepage-masthead',
+			),
+			'section-front' => array(
+					'container_class' => 'cst-navigation-container',
+					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
+					'location'        => 'homepage-masthead',
+			),
+			'homepage-itn' => array(
+					'container_class' => 'cst-navigation-container columns',
+					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="homepage-itn">%3$s</ul></div></div>',
+					'location'        => 'homepage-itn',
+			),
+		);
+		if ( array_key_exists( $page_type, $page_types ) ) {
+			$masthead_nav_markup = wp_cache_get( 'cst_' . $page_type, 'default' );
+			if ( false === $masthead_nav_markup || WP_DEBUG ) {
+				$masthead_nav_markup = wp_nav_menu( array(
+					'menu'            => $page_type,
+					'theme_location'  => $page_types[ $page_type ]['location'],
+					'echo'            => false,
+					'fallback_cb'     => false,
+					'depth'           => 1,
+					'container_class' => $page_types[ $page_type ]['container_class'],
+					'items_wrap'      => $page_types[ $page_type ]['items_wrap'],
+					)
+				);
+				wp_cache_set( 'cst_' . $page_type, $masthead_nav_markup, 'default', 1 * DAY_IN_SECONDS );
+			}
+			echo wp_kses_post( $masthead_nav_markup );
 		}
 	}
+	/**
+	*  Inject dfp ad settings, variables into header before gpt script call
+	*/
+	public function setup_dfp_header_ad_settings() {
+		if ( ! is_404() ) {
+			CST()->dfp_handler->ad_header_settings();
+		}
+		}
+
 	/**
 	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
@@ -1770,11 +1895,11 @@ ready(fn);
 		//  break up for ads other than triple lift
 //		$article_array = explode( '</p>', $article_content );
 //		$num_paragraphs = count( $article_array ) - 1;
-        
+
         // try method from hss
-        $article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);           
-		$num_paragraphs = count( $article_array ) - 1;  
-        
+        $article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$num_paragraphs = count( $article_array ) - 1;
+
 
 		$postnum = $wp_query->query_vars['paged'];
 		// flipp recommends no more than 5 circulars per page
@@ -1795,6 +1920,52 @@ ready(fn);
 		return $article_content;
 	}
 
+	/**
+	* @param $items
+	* @param $args
+	*
+	* Source: http://wordpress.stackexchange.com/questions/2802/display-a-portion-branch-of-the-menu-tree-using-wp-nav-menu
+	* @return mixed
+	*/
+	public function submenu_limit( $items, $args ) {
+
+		if ( empty( $args->submenu ) ) {
+			return $items;
+		}
+
+		$ids       = wp_filter_object_list( $items, array( 'title' => $args->submenu ), 'and', 'ID' );
+		$parent_id = array_pop( $ids );
+		$children  = $this->submenu_get_children_ids( $parent_id, $items );
+
+		foreach ( $items as $key => $item ) {
+
+			if ( ! in_array( $item->ID, $children ) ) {
+				unset( $items[$key] );
+			}
+		}
+
+		return $items;
+	}
+
+	/**
+	* @param $id
+	* @param $items
+	*
+	* @return array
+	*
+	* Source: http://wordpress.stackexchange.com/questions/2802/display-a-portion-branch-of-the-menu-tree-using-wp-nav-menu
+	*/
+	public function submenu_get_children_ids( $id, $items ) {
+
+		$ids = wp_filter_object_list( $items, array( 'menu_item_parent' => $id ), 'and', 'ID' );
+
+		foreach ( $ids as $id ) {
+
+			$ids = array_merge( $ids, $this->submenu_get_children_ids( $id, $items ) );
+		}
+
+		return $ids;
+	}
 	public function inject_newsletter_signup( $newsletter ) {
 
 		$newsletter_codes = array(
@@ -1806,17 +1977,17 @@ ready(fn);
 <div class="large-7 medium-8 small-12 columns newsletter-box">
 	<div class="newsletter-sign-up">
 		<h3>Sign-Up for our %1$s Newsletter&nbsp;
-			<a href="https://r1.surveysandforms.com/%2$s" target="_blank" class="button tiny info">
+			<a href="https://r1.surveysandforms.com/%2$s" data-on="click" data-event-category="newsletter" data-event-action="subscribe to %1$s" target="_blank" class="button tiny info">
 				<i class="fa fa-envelope"></i> Sign-Up
 			</a>
 		</h3>
 	</div>
 </div>
 ';
-		echo sprintf( $template,
+		echo wp_kses_post( sprintf( $template,
 			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
 			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
-		);
+		) );
 	}
 
 	/**
@@ -1846,7 +2017,29 @@ ready(fn);
 	}
 
 	/**
-	* @param $obj
+	* @param $obj \CST\Objects\Article | \CST\Objects\Post
+	*
+	* @return bool
+	*
+	* Determine whether to include the Triplelift ad element.
+	*/
+	public function include_triple_lift( $obj ) {
+		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
+
+		if ( $article_section_slugs ) {
+			if ( array_intersect( CST_Frontend::$triple_lift_section_slugs, $article_section_slugs ) ) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+
+	}
+	/**
+	* @param $obj \CST\Objects\Article | \CST\Objects\Post
+	*
 	* Determine and inject markup related to Chatter subject(s)
 	*/
 	public function inject_chatter_parameters( $obj ) {
@@ -1906,27 +2099,75 @@ ready(fn);
 		if ( is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
-?>
-<section class="ad-container">
-		<?php
 		global $wp_query;
+		$ad_template = '<div class="ad-container">%s</div>';
+		$inject_ad_markup = false;
 		if ( is_singular() ) {
-			echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-a', 'dfp-placement', 'article_lead_unit_mapping', ( ! $paged ) ? 'atf leaderboard 2' : 'atf leaderboard 3' );
+			$placement = 'div-gpt-placement-a';
+			$mapping = 'article_lead_unit_mapping';
+			$targeting = ( ! $paged ) ? 'atf leaderboard 2' : 'atf leaderboard 3';
+			$inject_ad_markup = true;
 		} else {
-			if ( 0 === $wp_query->current_post && 0 === $paged ) {
-				echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 2' );
+			$placement = 'div-gpt-placement-s';
+			$mapping = 'sf_inline_mapping';
+			$sf_first_ad = ( 0 === $wp_query->current_post && 0 === $paged );
+			if ( $sf_first_ad ) {
+				$targeting = 'rr cube 2';
+				$inject_ad_markup = true;
 			} else {
 				$every_two = $wp_query->current_post % 2;
-				if ( ( ! $every_two ) ) {
-					echo CST()->dfp_handler->dynamic_unit( get_the_ID(), 'div-gpt-placement-s', 'dfp-placement', 'sf_inline_mapping', 'rr cube 3' );
+				$sf_second_ad = ! $every_two;
+				if ( $sf_second_ad ) {
+					$targeting = 'rr cube 3';
+					$inject_ad_markup = true;
 				}
 			}
 		}
+		if ( $inject_ad_markup ) {
+			$ad_unit_definition = CST()->dfp_handler->dynamic_unit(
+				get_the_ID(),
+				esc_attr( $placement ),
+				esc_attr( 'dfp-placement' ),
+				esc_attr( $mapping ),
+				esc_attr( $targeting )
+			);
+			echo sprintf(
+				wp_kses( $ad_template, array( 'div' => array( 'class' ) ) ),
+				wp_kses( $ad_unit_definition,
+					array(
+						'script' => array( 'class' ) ,
+						'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
+					)
+				)
+			);
+		}
 		?>
-</section>
 <?php
 	}
 
+	/**
+	 * @param $section_obj
+	 *
+	 * @return string
+	 */
+	public function determine_section_slug( $section_obj ) {
+		if ( 'cst_section' === $section_obj->taxonomy ) {
+			if ( $section_obj->parent != 0 ) {
+				$parent_terms = get_term( $section_obj->parent, 'cst_section' );
+				if ( ! in_array( $parent_terms->slug, CST_Frontend::$post_sections ) ) {
+					$child_terms = get_term( $parent_terms->parent, 'cst_section' );
+					$section_slug = $child_terms->slug;
+				} else {
+					$section_slug = $parent_terms->slug;
+				}
+			} else {
+				$section_slug = $section_obj->slug;
+			}
+		} else {
+			$section_slug = 'news';
+		}
+		return $section_slug;
+	}
 	/**
 	* Include Distroscale on Production homepage and all pages on Pre-Production
 	*/
@@ -1965,15 +2206,35 @@ ready(fn);
 		}
 	}
 
+	public function article_dimensions( $obj ) {
+		$attrs = '';
+		$data = array(
+			'post-id'   => $obj->get_id(),
+			'post-uri'  => parse_url( get_permalink( $obj->get_id() ), PHP_URL_PATH ),
+			'wp-title'  => wp_title( '|', false, 'right' ),
+			);
+
+		for ( $i = 1;  $i <= 5;  $i++) {
+			$data[ 'ga-dimension-' . $i ] = $obj->get_ga_dimension( $i );
+		}
+
+		foreach ( $data as $key => $val ) {
+			$attrs .= ' data-cst-' . sanitize_key( $key ) . '="' . $val . '"';
+		}
+		return $attrs;
+	}
+
 	/**
 	* @param $obj \CST\Objects\Article
 	*
 	* @return bool|\CST\Objects\Article
 	*/
 	public function should_we_inject_headlinesnetwork( $obj ) {
-		$primary_section = $obj->get_primary_parent_section();
-		if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
-			return $primary_section->slug;
+		if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
+			$primary_section = $obj->get_primary_parent_section();
+			if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
+				return $primary_section->slug;
+			}
 		}
 		return false;
 	}
@@ -2000,6 +2261,6 @@ ready(fn);
 	* @return string
 	*/
 	public function generate_in_article_headlinesnetwork_markup( $obj ) {
-		echo sprintf( '<h4 class="agg-sponsored columns medium-11 medium-offset-1">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn columns medium-11 medium-offset-1 end"></div>', esc_attr( $obj->get_id() ) );
+		echo sprintf( '<div class="columns small-12"><h4 class="agg-sponsored">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn small-12 end"></div></div>', esc_attr( $obj->get_id() ) );
 	}
 }

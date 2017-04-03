@@ -1,4 +1,4 @@
-<div class="post-meta post-meta-byline columns medium-11 medium-offset-1 end">
+<div class="post-meta post-meta-byline columns small-12 large-12 end">
 	<div class="row">
 
 		<div class="large-5 medium-4 small-12 columns author-meta-box">
@@ -6,7 +6,7 @@
 			$byline = $obj->get_byline();
 			if ( ! $byline ) {
 				foreach ( $obj->get_authors() as $i => $author ) : ?>
-					<div class="post-meta-author"><a href="<?php echo esc_url( $author->get_permalink() ); ?>"><?php echo esc_html( $author->get_display_name() ); ?></a></div>
+					<div class="post-meta-author"><a href="<?php echo esc_url( $author->get_permalink() ); ?>" data-on="click" data-event-category="author-byline" data-event-action="view author"><?php echo esc_html( $author->get_display_name() ); ?></a></div>
 					<?php
 					if ( 'guest-author' === $author->get_type() ) {
 						$twitter_username = $author->get_guest_twitter_username();

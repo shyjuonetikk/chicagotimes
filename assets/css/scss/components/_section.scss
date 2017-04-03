@@ -1,9 +1,37 @@
+
 #main {
 	.video-injection {
-		margin-bottom:0;
-		margin-top:30px;
+		margin-bottom: 10px;
 	}
 }
 .upper-heading {
 	margin-bottom: 30px;
+}
+.section-meta {
+	.section-name,
+	.section-feed {
+		float: left;
+	}
+	.section-feed {
+		.icon {
+			margin-top: 15px;
+		}
+	}
+}
+@media #{$medium-only} and (orientation: landscape ) {
+	section {
+		.right-rail {
+			padding-left: 0;
+			padding-right: 0.4rem;
+		}
+	}
+}
+@media #{$xmediumi-only} and (orientation: portrait ) {
+	section {
+		.right-rail {
+			padding-left: 0;
+			padding-right: 0.9375rem;
+			width: 40%;
+		}
+	}
 }

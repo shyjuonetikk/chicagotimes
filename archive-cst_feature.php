@@ -1,5 +1,5 @@
 <?php get_header( 'features' ); ?>
-	<section class="row grey-background">
+	<section class="row sf-head">
 		<div id="main" class="wire columns large-12">
 			<div id="fixed-back-to-top" class="hide-back-to-top">
 				<a id="back-to-top" href="#">
@@ -20,4 +20,4 @@
 			<?php endif; ?>
 		</div>
 	</section>
-<?php get_footer( 'features' );
+<?php get_footer();

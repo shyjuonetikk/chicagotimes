@@ -29,7 +29,7 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 					foreach ( $stng_items as $stng_item ) {
 						?>
 						<li>
-							<strong><?php echo human_time_diff( strtotime( $stng_item->get_date( 'j F Y g:i a' ) ) ); ?></strong>
+							<strong><?php echo esc_html( human_time_diff( strtotime( $stng_item->get_date( 'j F Y g:i a' ) ) ) ); ?></strong>
 							<a href="<?php echo esc_url( $stng_item->get_permalink() ); ?>"
 							   title="<?php printf( __( 'Posted %s', 'cst-homepage' ), $stng_item->get_date( 'j F Y | g:i a' ) ); ?>"
 							   data-on="click" data-event-category="content" data-event-action="navigate-hp-stng-wire">
@@ -47,8 +47,7 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 	}
 
 	public function form( $instance ) {
-
-		$feed_url = $instance['cst_stng_wire_feed_url'];
+		isset( $instance['cst_stng_wire_feed_url'] ) ? $feed_url = $instance['cst_stng_wire_feed_url'] : $feed_url = '';
 		?>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'cst_stng_wire_feed_url' ) ); ?>"><?php esc_html_e( 'Feed URL:', 'chicagosuntimes' ); ?></label>
 		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'cst_stng_wire_feed_url' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_stng_wire_feed_url' ) ); ?>" type="text"

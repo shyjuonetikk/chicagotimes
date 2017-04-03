@@ -1,6 +1,6 @@
 <?php if ( ! empty( $is_main_query ) ) { ?>
 	<?php if ( is_singular() ) { ?>
-	<div class="columns medium-11 medium-offset-1 end">
+	<div class="columns small-11 medium-10 end">
 		<h1><?php $obj->the_title(); ?></h1>
 	</div>
 	<div class="post-meta post-meta-social show-for-small-only">
@@ -10,5 +10,5 @@
 	<h1><a href="<?php $obj->the_permalink(); ?>" data-on="click" data-event-category="sf-list" data-event-action="click-title"><?php $obj->the_title(); ?></a></h1>
 	<?php } ?>
 <?php } else { ?>
-	<h3><a href="<?php $obj->the_permalink(); ?>"><?php $obj->the_title(); ?></a></h3>
+	<h3><a href="<?php $obj->the_permalink(); ?>" data-on="click" data-event-category="sf-list" data-event-action="click-sf-title"><?php $obj->the_title(); ?></a></h3>
 <?php } ?>

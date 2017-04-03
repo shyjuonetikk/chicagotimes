@@ -23,7 +23,7 @@ abstract class Post {
 	/**
 	 * Get the proper object based on its post ID
 	 *
-	 * @param int
+	 * @param $post_id
 	 *
 	 * @return Article|Gallery|Attachment|Link|Video|Embed|bool
 	 */
@@ -74,6 +74,7 @@ abstract class Post {
 	 * @param string $post_type
 	 * @return string
 	 */
+
 	public function get_post_type_name( $post_type ) {
 
 		if ( empty( $post_type ) ) {
@@ -120,7 +121,7 @@ abstract class Post {
 	 * Echo the title for the post
 	 */
 	public function the_title() {
-		echo apply_filters( 'the_title', $this->get_title() );
+		echo wp_kses_post( apply_filters( 'the_title', $this->get_title() ) );
 	}
 
 	/**
@@ -181,19 +182,19 @@ abstract class Post {
 	/**
 	 * Get the excerpt for the post
 	 *
-	 * @return string
+	 * @return mixed
 	 */
 	public function get_excerpt() {
 		if ( $excerpt = $this->get_field( 'post_excerpt' ) ) {
 			return $excerpt;
-		} 
+		}
 	}
 
 	/**
 	 * Echo the excerpt for the post
 	 */
 	public function the_excerpt() {
-		echo apply_filters( 'the_excerpt', $this->get_excerpt() );
+		echo wp_kses_post( apply_filters( 'the_excerpt', $this->get_excerpt() ) );
 	}
 
 	/**
@@ -218,7 +219,7 @@ abstract class Post {
 	 * Echo the content for the post
 	 */
 	public function the_content() {
-		echo apply_filters( 'the_content', $this->get_field( 'post_content' ) );
+		echo wp_kses_post( apply_filters( 'the_content', $this->get_field( 'post_content' ) ) );
 	}
 
 	/**
@@ -243,11 +244,11 @@ abstract class Post {
 	public function get_authors() {
 
 		$authors = get_coauthors( $this->get_id() );
-		foreach( $authors as $key => &$author ) {
-			if ( $author->type == 'guest-author' ) {
-				if ( class_exists( 'Guest_Author' ) ){
+		foreach ( $authors as $key => &$author ) {
+			if ( 'guest-author' == $author->type ) {
+				if ( class_exists( 'Guest_Author' ) ) {
 					$author = new Guest_Author( $author );
-				}else{
+				} else {
 					$author = new User( $author );
 				}
 			} else {
@@ -287,16 +288,17 @@ abstract class Post {
 	/**
 	 * Get the permalink for the post
 	 *
-	 * @return string
 	 */
 	public function the_permalink() {
-		echo apply_filters( 'the_permalink', $this->get_permalink() );
+		echo esc_url( apply_filters( 'the_permalink', $this->get_permalink() ) );
 	}
 
 	/**
 	 * Get the post date for the post
 	 *
-	 * @return mixed
+	 * @param string $format
+	 *
+	 * @return false|string
 	 */
 	public function get_post_date( $format = 'U' ) {
 		return date( $format, strtotime( $this->get_field( 'post_date' ) ) );
@@ -313,8 +315,9 @@ abstract class Post {
 
 	/**
 	 * Get the post date gmt for the post
+	 * @param string $format
 	 *
-	 * @return mixed
+	 * @return false|string
 	 */
 	public function get_post_date_gmt( $format = 'U' ) {
 		return date( $format, strtotime( $this->get_field( 'post_date_gmt' ) ) );
@@ -367,7 +370,9 @@ abstract class Post {
 	/**
 	 * Get the post modified GMT for the post
 	 *
-	 * @return mixed
+	 * @param string $format
+	 *
+	 * @return false|string
 	 */
 	public function get_post_modified_gmt( $format = 'U' ) {
 		return date( $format, strtotime( $this->get_field( 'post_modified_gmt' ) ) );
@@ -423,6 +428,7 @@ abstract class Post {
 
 	/**
 	 * Get the HTML for the featured image html
+	 * @param string $size
 	 *
 	 * @return string
 	 */
@@ -464,13 +470,13 @@ abstract class Post {
 	/**
 	 * Get the section slugs of the post
 	 *
-	 * @return array
+	 * @return array|bool
 	 */
 	public function get_section_slugs() {
 		$sections = $this->get_taxonomy_terms( 'cst_section' );
 		$slugs = array();
-		if( $sections ) {
-			foreach( $sections as $section ) {
+		if ( $sections ) {
+			foreach ( $sections as $section ) {
 				array_push( $slugs, $section->slug );
 			}
 			return $slugs;
@@ -489,7 +495,7 @@ abstract class Post {
 		if ( $sections = $this->get_sections() ) {
 
 			while ( $section = array_shift( $sections ) ) {
-				if( $section->parent == 0 ) {
+				if ( 0 == $section->parent ) {
 					return $section;
 				} else {
 					$section = $this->get_grandchild_parent_section();
@@ -505,7 +511,7 @@ abstract class Post {
 
 	public function get_child_parent_section() {
 		$sections = $this->get_taxonomy_terms( 'cst_section' );
-		if( ! $sections ) :
+		if ( ! $sections ) :
 			return;
 		endif;
 
@@ -515,18 +521,21 @@ abstract class Post {
 
 	}
 
+	/**
+	 * @return array|null|void|\WP_Error|\WP_Term
+	 */
 	public function get_grandchild_parent_section() {
 		$sections = $this->get_taxonomy_terms( 'cst_section' );
-		if( ! $sections ) :
+		if ( ! $sections ) :
 			return;
 		endif;
 
 		$primary_child = array_shift( $sections );
 		$parent_details = get_term( $primary_child->parent, 'cst_section' );
-		if( $parent_details->parent != 0 ) {
+		if ( 0 != $parent_details->parent ) {
 			$parent_details = get_term( $parent_details->parent, 'cst_section' );
 		}
-		
+
 		return $parent_details;
 
 	}
@@ -534,18 +543,18 @@ abstract class Post {
 	/**
 	 * Get the child sections of the post
 	 *
-	 * @return array
+	 * @return bool|mixed|array
 	 */
 	public function get_child_section() {
 		$sections = $this->get_taxonomy_terms( 'cst_section' );
 		$children = array();
-		foreach( $sections as $section ) {
-			if( $section->parent != 0 ) {
+		foreach ( $sections as $section ) {
+			if ( 0 != $section->parent ) {
 				array_push( $children, $section->slug );
 			}
 		}
 
-		if( count( $children ) > 0 ) {
+		if ( count( $children ) > 0 ) {
 			return array_shift( $children );
 		} else {
 			return false;
@@ -965,7 +974,7 @@ abstract class Post {
 		switch ( $dimension ) {
 			case 1:
 				$author_names = array();
-				foreach( $this->get_authors() as $author ) {
+				foreach ( $this->get_authors() as $author ) {
 					$author_names[] = $author->get_display_name();
 				};
 				$val = implode( ',', $author_names );
@@ -1024,8 +1033,6 @@ abstract class Post {
 	}
 
 	/**
-	 * @param $obj
-	 *
 	 * @return string
 	 */
 	public function get_twitter_share_url() {
@@ -1045,13 +1052,15 @@ abstract class Post {
 	 * @return string
 	 */
 	public function get_print_slug() {
-	
+
 		return $this->get_fm_field( 'cst_distribution', 'print', 'print_slug' );
-	
+
 	}
 
 	/**
 	 * Create a new instance
+	 *
+	 * @param $args array of parameters for Post creation
 	 *
 	 * @return Post|false
 	 */
@@ -1131,7 +1140,7 @@ abstract class Post {
 		$parent = array_shift( $fields );
 
 		$meta = $this->get_meta( $parent );
-		foreach( $fields as $key ) {
+		foreach ( $fields as $key ) {
 			if ( isset( $meta[ $key ] ) ) {
 				$meta = $meta[ $key ];
 			} else {
@@ -1164,6 +1173,8 @@ abstract class Post {
 	 *
 	 * @param string $taxonomy
 	 * @param array $terms Array of term names or term objects
+	 *
+	 * @return bool
 	 */
 	protected function set_taxonomy_terms( $taxonomy, $terms ) {
 
@@ -1178,7 +1189,7 @@ abstract class Post {
 		}
 
 		// Terms need to exist in order to use wp_set_object_terms(), sadly
-		foreach( $terms as $term ) {
+		foreach ( $terms as $term ) {
 			if ( ! get_term_by( 'name', $term, $taxonomy ) ) {
 				wp_insert_term( $term, $taxonomy );
 			}

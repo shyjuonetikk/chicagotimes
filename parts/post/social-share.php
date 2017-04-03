@@ -1,5 +1,5 @@
 <?php if ( ! $obj ) {
-    return;
+	return;
 }
 
 if ( ! is_singular() ) : ?>
