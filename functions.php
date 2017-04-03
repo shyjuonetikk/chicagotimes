@@ -1852,7 +1852,7 @@ class CST {
 	 * Load customized AP configured feed.
 	 */
 	function cst_rss_AP_atom() {
-		load_template( TEMPLATEPATH . '/feeds/feed-AP-atom.php' );
+		load_template( get_template_directory() . '/feeds/feed-AP-atom.php' );
 	}
 
 	/**
