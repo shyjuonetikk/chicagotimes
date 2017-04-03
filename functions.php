@@ -23,6 +23,25 @@ class CST {
 		'script' => array( 'class' ) ,
 		'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
 	);
+	public $slider_kses = array(
+		'h3' => array(),
+		'h4' => array(),
+		'img' => array(
+			'src' => array(),
+			'alt' => array(),
+		),
+		'div' => array(
+			'id' => array(),
+			'style' => array(),
+			'class' => array(),
+		),
+		'a' => array(
+			'href' => array(),
+			'data-on' => array(),
+			'data-event-action' => array(),
+			'data-event-category' => array(),
+		),
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -1962,22 +1981,6 @@ class CST {
 	 */
 	public function register_ad_vendors() {
 
-		$this->ad_vendor_handler->register_vendor( 'apstag', array(
-			'header' => 'apstag-header.js',
-			'footer' => false,
-			'container' => false,
-			'logic' => array( 'is_singular' ),
-			)
-		);
-
-        $this->ad_vendor_handler->register_vendor( 'apstag2', array(
-			'header' => 'apstag-header.js',
-			'footer' => false,
-			'container' => false,
-			'logic' => array( 'is_tax' ),
-			)
-		);
-        
 		$this->ad_vendor_handler->register_vendor( 'taboola', array(
 			'header' => 'taboola-header.js',
 			'footer' => false,

@@ -94,7 +94,7 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 	</div>
 	<div class="row footer-lower">
 		<div class="small-10 columns">
-			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', date( 'Y' ) ); ?> Chicago Sun-Times</p>
+			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', esc_attr( date( 'Y' ) ) ); ?> Chicago Sun-Times</p>
 		</div>
 		<div class="small-2 columns">
 			<?php echo vip_powered_wpcom(6) ?>
