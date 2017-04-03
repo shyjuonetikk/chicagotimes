@@ -2300,7 +2300,7 @@ section#subscribe {
     margin-top: 30px; }
     .sidebar#post-sidebar .widget_cst_ad_widget {
       list-style-type: none;
-      margin-bottom: 20px; }
+      margin-bottom: 10px; }
     .sidebar#post-sidebar .widget_cst_ad_widget:nth-child(1) {
       margin-top: 0 !important; }
     .sidebar#post-sidebar.sidebar-fixed {
