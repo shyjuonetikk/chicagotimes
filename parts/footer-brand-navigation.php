@@ -14,7 +14,7 @@
 			<a id="suntimes-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-logo"><img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="39" width="200"></a>
 	</div>
 	<div class="small-12 medium-2 columns">
-		<?php echo CST()->get_template_part( 'social-links' ); ?>
+		<?php echo wp_kses_post( CST()->get_template_part( 'social-links' ) ); ?>
 	</div>
 	<div class="small-12 columns separate-me">
 		<div class="row">
