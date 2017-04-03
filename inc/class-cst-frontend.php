@@ -1587,7 +1587,10 @@ class CST_Frontend {
 					$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
 					$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
 					foreach ( $sections as $section ) {
-						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( wpcom_vip_get_term_link( $section->term_id ) ), $section->name );
+						$section_link_url = wpcom_vip_get_term_link( $section->term_id );
+						if ( ! is_wp_error( $section_link_url ) ) {
+							$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $section_link_url ), $section->name );
+						}
 					}
 					$section_navigation .= '</ul></div></div></div>';
 					wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, 'cst', 1 * WEEK_IN_SECONDS );
