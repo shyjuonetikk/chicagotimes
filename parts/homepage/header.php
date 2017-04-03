@@ -1,5 +1,4 @@
-
-	<?php if ( ! is_page_template( 'page-monster.php' ) ) {
+<?php if ( ! is_page_template( 'page-monster.php' ) ) {
 		get_template_part( 'parts/dfp/homepage/dfp-interstitial' );
 	} ?>
 	<!-- top logos -->
