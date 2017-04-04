@@ -2911,7 +2911,9 @@ header .contain-to-grid .top-bar {
       padding: 6px 0 0 0; }
   header .contain-to-grid .top-bar .masthead-sections {
     padding-left: 0;
-    margin-left: 0; }
+    margin-left: 0;
+    overflow: hidden;
+    height: 45px; }
     header .contain-to-grid .top-bar .masthead-sections ul {
       list-style-type: none;
       background: #231f20; }
