@@ -1335,9 +1335,9 @@ class CST_Frontend {
 	* Inject SendToNews responsive video player into markup.
 	*/
 	function inject_send_to_news_video_player( $slug, $id ) {
-		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left" data-type="s2nScript"></script></div>';
+		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="'. esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div>';
 		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $id ) );
-		echo wp_kses( $markup, CST()->sendtonews_kses );
+		echo $markup;
 
 	}
 	/**

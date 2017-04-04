@@ -19,7 +19,7 @@
 		<?php } elseif ( 'video' === $media_type ) { ?>
 			<div class="post-lead-media post-content columns small-12 end">
 				<?php
-				echo wp_kses( $obj->get_featured_video_embed(), CST()->sendtonews_kses );
+					$obj->featured_video_embed();
 				?>
 			</div>
 		<?php } ?>
