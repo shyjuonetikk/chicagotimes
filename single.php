@@ -3,7 +3,7 @@
 
 	<?php get_sidebar( 'left' ); ?>
 
-	<section id="post-body columns">
+	<section id="post-body" class="columns">
 
 	<div class="row">
 		<?php if ( is_singular() ) { ?>
