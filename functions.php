@@ -2075,18 +2075,21 @@ class CST {
 	/**
 	 * Set parent class with supported Foundation class to indicate presence of a dropdown
 	 * @param $sorted_menu_items
-	 *
+	 * @param $args
 	 * @return mixed
 	 */
-	function cst_menu_set_dropdown( $sorted_menu_items ) {
-		$last_top = 0;
-		foreach ( $sorted_menu_items as $key => $obj ) {
-			// it is a top lv item?
-			if ( 0 == $obj->menu_item_parent ) {
-				// set the key of the parent
-				$last_top = $key;
-			} else {
-				$sorted_menu_items[ $last_top ]->classes['dropdown'] = 'has-dropdown has-submenu';
+	function cst_menu_set_dropdown( $sorted_menu_items, $args ) {
+		// No dropdowns for Masthead navigation
+		if ( 'homepage-masthead' !== $args->theme_location ) {
+			$last_top = 0;
+			foreach ( $sorted_menu_items as $key => $obj ) {
+				// it is a top lv item?
+				if ( 0 == $obj->menu_item_parent ) {
+					// set the key of the parent
+					$last_top = $key;
+				} else {
+					$sorted_menu_items[ $last_top ]->classes['dropdown'] = 'has-dropdown has-submenu';
+				}
 			}
 		}
 		return $sorted_menu_items;
