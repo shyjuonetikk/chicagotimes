@@ -1691,7 +1691,6 @@ class CST_Frontend {
 			$masthead_nav_markup = wp_cache_get( 'cst_' . $page_type, 'default' );
 			if ( false === $masthead_nav_markup || WP_DEBUG ) {
 				$masthead_nav_markup = wp_nav_menu( array(
-					'menu'            => $page_type,
 					'theme_location'  => $page_types[ $page_type ]['location'],
 					'echo'            => false,
 					'fallback_cb'     => false,
@@ -1703,6 +1702,8 @@ class CST_Frontend {
 				wp_cache_set( 'cst_' . $page_type, $masthead_nav_markup, 'default', 1 * DAY_IN_SECONDS );
 			}
 			echo wp_kses_post( $masthead_nav_markup );
+		} else {
+			// Fallback
 		}
 	}
 	/**
