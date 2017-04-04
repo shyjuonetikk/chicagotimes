@@ -66,6 +66,15 @@ class CST {
 			'data-event-category' => array(),
 		),
 	);
+	public $sendtonews_kses = array(
+		'iframe' => array(
+			'id' => array(), 'class' => array(), 'src' => array(), 'style' => array(), 'allowfullscreen' => array(), 'frameborder' => array(), 'scrolling' => array(), 'marginheight' => array(), 'marginwidth' => array(), 'width' => array(), 'height' => array()
+		),
+		'span' => array( 'class' => array() ),
+		'div' => array( 'class' => array(), 'data-type' => array() ),
+		'p' => array(),
+		'script' => array( 'class' => array(), 'type' => array(), 'src' => array(), 'data-type' => array() ),
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
