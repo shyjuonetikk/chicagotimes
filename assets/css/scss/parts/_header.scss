@@ -189,6 +189,8 @@ header {
 			.masthead-sections {
 				padding-left:0;
 				margin-left: 0;
+				overflow: hidden;
+				height: 45px;
 				ul {
 					list-style-type: none;
 					background: $cst_black;
