@@ -136,15 +136,17 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 							<?php if ( $sponsored ) { ?>
 						<div class="sponsored-notification">SPONSORED</div>
 						<?php } ?>
-							<?php if ( $obj->get_featured_image_url() ) : ?>
+							<?php if ( $obj->get_featured_image_url() ) { ?>
 								<div class="slide-image-container">
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-image">
-									<div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url( 'chiwire-header-medium' ) ); ?>')">
-										<div class="gradient-overlay"></div>
-									</div>
-								</a>
-							<?php endif; ?>
-							</div>
+									<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-image">
+										<div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url( 'chiwire-header-medium' ) ); ?>')">
+											<div class="gradient-overlay"></div>
+										</div>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="slide-image-container"></div>
+							<?php } ?>
 							<div class="slide-text">
 								<?php if ( $section = $obj->get_primary_section() ) : ?>
 									<h4><?php echo esc_html( $section->name ); ?></h4>
