@@ -903,6 +903,8 @@ class CST {
 		register_nav_menus(
 			array(
 				'homepage-menu'          => esc_html__( 'Homepage', 'chicagosuntimes' ),
+				'homepage-masthead'      => esc_html__( 'Homepage Masthead', 'chicagosuntimes' ),
+ 				'homepage-itn'           => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
 				'homepage-footer-menu'   => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
 				'news-menu'              => esc_html__( 'News', 'chicagosuntimes' ),
 				'news-trending'          => esc_html__( 'News Trending', 'chicagosuntimes' ),
@@ -925,8 +927,6 @@ class CST {
 				'page-footer-3'          => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
 				'page-footer-4'          => esc_html__( 'Page Footer 4', 'chicagosuntimes' ),
 				'election-page'          => esc_html__( 'Election Page', 'chicagosuntimes' ),
-				'homepage-masthead'      => esc_html__( 'Homepage Masthead', 'chicagosuntimes' ),
-				'homepage-itn'      => esc_html__( 'Homepage In The News', 'chicagosuntimes' ),
 			)
 		);
 

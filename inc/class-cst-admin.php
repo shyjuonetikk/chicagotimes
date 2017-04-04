@@ -1275,7 +1275,7 @@ class CST_Admin {
 	 * See functions.php -> amp_nav_markup()
 	 */
 	public function amp_nav_invalidate_cache() {
-		wp_cache_delete( 'cst_amp_nav_json', 'default' );
+		wpcom_vip_cache_delete( 'cst_amp_nav_json', 'default' );
 	}
 	/**
 	 * Upon navigation/menu update this function is called by wp_update_nav_item action
@@ -1284,9 +1284,10 @@ class CST_Admin {
 	 * See class-cst-frontend.php -> get_sections_nav()
 	 */
 	public function section_nav_invalidate() {
-		wp_cache_delete( 'cst_homepage', 'default' );
-		wp_cache_delete( 'cst_section-front', 'default' );
-		wp_cache_delete( 'section_nav_cache_key', 'default' );
+		wpcom_vip_cache_delete( 'cst_homepage', 'default' );
+		wpcom_vip_cache_delete( 'cst_section-front', 'default' );
+		wpcom_vip_cache_delete( 'cst_homepage-itn', 'default' );
+		wpcom_vip_cache_delete( 'section_nav_cache_key', 'default' );
 		$menus = get_registered_nav_menus();
 		foreach ( $menus as $location ) {
 			wpcom_vip_cache_delete( $location, 'cst' );
