@@ -3007,6 +3007,7 @@ header .contain-to-grid .top-bar {
       line-height: 44px;
       color: white; }
     header .contain-to-grid .top-bar .top-bar-section .masthead-sections .homepage-nav-holder {
+      max-width: 62.5rem;
       padding-left: 0;
       padding-right: 0; }
     header .contain-to-grid .top-bar .top-bar-section .logo a {
