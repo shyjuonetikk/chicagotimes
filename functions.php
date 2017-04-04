@@ -42,6 +42,34 @@ class CST {
 			'data-event-category' => array(),
 		),
 	);
+	public $gallery_kses = array(
+		'img' => array(
+			'src' => array(),
+			'alt' => array(),
+			'class' => array(),
+		),
+		'div' => array(
+			'id' => array(),
+			'style' => array(),
+			'class' => array(),
+			'data-image-desktop-src' => array(),
+			'data-image-mobile-src' => array(),
+			'data-image-caption' => array(),
+			'data-slide-url' => array(),
+			'data-gallery-title' => array(),
+		),
+		'i' => array(
+			'class' => array(),
+		),
+		'a' => array(
+			'id' => array(),
+			'class' => array(),
+			'href' => array(),
+			'data-on' => array(),
+			'data-event-action' => array(),
+			'data-event-category' => array(),
+		),
+	);
 	public $recommendation_kses = array(
 		'h3' => array(),
 		'h4' => array(),
@@ -567,6 +595,9 @@ class CST {
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
 		add_filter( 'ads/use_gumgum', 'filter_use_gumgum' );
+		add_filter( 'safe_style_css', function( $styles ) {
+			$styles[] = 'display';
+		} );
 	}
 
 	/**
@@ -1655,7 +1686,7 @@ class CST {
 		if ( is_404() || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
-		echo wp_kses_post( $this->get_template_part( 'post/gallery-backdrop' ) );
+		echo wp_kses( $this->get_template_part( 'post/gallery-backdrop' ), $this->gallery_kses );
 	}
 
 	/**
