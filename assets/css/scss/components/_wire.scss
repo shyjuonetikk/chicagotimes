@@ -512,7 +512,8 @@
 
 }
 @media #{$xmediumi-only} and (orientation: portrait) {
+	body:not(.post-type-archive-cst_feature)
 	.wire {
-	width: 59.9%;
+		width: 56.9%;
 	}
 }

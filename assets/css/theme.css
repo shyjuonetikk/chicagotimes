@@ -1280,8 +1280,8 @@ ul#menu-sun-times-network {
       margin-left: 0px; } }
 
 @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
-  .wire {
-    width: 59.9%; } }
+  body:not(.post-type-archive-cst_feature) .wire {
+    width: 56.9%; } }
 
 body.search {
   background: white; }
@@ -1352,7 +1352,7 @@ body.search {
   section .right-rail {
     padding-left: 0;
     padding-right: 0.9375rem;
-    width: 40%; } }
+    width: 41.1%; } }
 
 article.post {
   background-color: white;
@@ -1948,6 +1948,8 @@ body[class~="archive"] .masthead .cst-navigation-container .logo-container, body
 body[class~="archive"] .masthead .cst-navigation-container .nav-container, body[class~="single"] .masthead .cst-navigation-container .nav-container {
   padding: 0;
   overflow: hidden; }
+body[class~="archive"] .masthead .masthead-sections, body[class~="single"] .masthead .masthead-sections {
+  max-width: 54.1rem; }
 @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
   body[class~="archive"] .masthead #main, body[class~="single"] .masthead #main {
     padding-right: 0; }
