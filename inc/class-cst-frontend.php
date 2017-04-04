@@ -1271,7 +1271,8 @@ class CST_Frontend {
 ?>
 	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-<?php echo esc_attr( $tracking_location_name ); ?>" >
 		<?php
-		if ( $featured_image_id = $obj->get_featured_image_id() ) {
+		$featured_image_id = $obj->get_featured_image_id();
+		if ( $featured_image_id ) {
 			if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
 				echo wp_kses_post( $attachment->get_html( $image_size ) );
 			}

@@ -101,7 +101,12 @@ class CST {
 		'span' => array( 'class' => array() ),
 		'div' => array( 'class' => array(), 'data-type' => array() ),
 		'p' => array(),
-		'script' => array( 'class' => array(), 'type' => array(), 'src' => array(), 'data-type' => array() ),
+		'script' => array(
+			'class' => array(),
+			'type' => array(),
+			'src' => array(),
+			'data-type' => array(),
+		),
 	);
 	public static function get_instance() {
 
