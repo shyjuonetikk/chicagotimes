@@ -2264,7 +2264,10 @@ section#subscribe {
     margin-top: 30px; }
     .sidebar#post-sidebar .widget_cst_ad_widget {
       list-style-type: none;
-      margin-bottom: 10px; }
+      margin-bottom: 10px;
+      text-align: center; }
+    .sidebar#post-sidebar .widget_cst_chartbeat_currently_viewing {
+      max-width: 300px; }
     .sidebar#post-sidebar .widget_cst_ad_widget:nth-child(1) {
       margin-top: 0 !important; }
     .sidebar#post-sidebar.sidebar-fixed {
@@ -3944,8 +3947,8 @@ body.post-gallery-lightbox-active {
               line-height: 1.3rem; } }
           @media only screen and (min-width:64.063em) {
             .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
-              font-size: 1.7rem;
-              line-height: 1.9rem; } }
+              font-size: 1rem;
+              line-height: 1.4rem; } }
         @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
           .homepage_wrapper section#main-well .left-main-well .article-container .article-title {
             padding: 5px; } }
