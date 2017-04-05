@@ -1,9 +1,3 @@
-<?php if ( is_front_page() || is_tax() || is_singular( 'cst_article' ) || is_author() ) {
-	echo wp_kses( CST()->dfp_handler->interstitial(),
-		CST()->dfp_kses
-	);
-} ?>
-
 <?php if ( ! is_page_template( 'page-monster.php' ) ) {
 	get_template_part( 'parts/header-brand-navigation' );
 } ?>
