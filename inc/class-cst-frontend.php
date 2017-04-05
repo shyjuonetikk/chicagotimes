@@ -120,6 +120,7 @@ class CST_Frontend {
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
+		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 	}
 
 	/**
@@ -1556,10 +1557,11 @@ class CST_Frontend {
 	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
 		// Special sports nav handling here
 		if ( $current_obj = $this->get_current_object() ) {
-			if ( 'sports' === $current_obj->slug ) {
-				$conditional_nav = $this->get_conditional_nav();
-				if ( array_key_exists( $conditional_nav->slug.'-menu', get_registered_nav_menus() ) ) {
-					if ( has_nav_menu( $conditional_nav->slug.'-menu' ) ) {
+			$object_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
+			if ( 'sports' === $current_obj->slug || 'sports' === $object_parent->slug ) {
+				$conditional_nav = 'sports';
+				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
+					if ( has_nav_menu( $conditional_nav.'-menu' ) ) {
 						$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
 						$chosen_parameters = array(
 								'theme_location' => 'homepage-menu',
@@ -1567,6 +1569,7 @@ class CST_Frontend {
 								'container_class' => $container,
 								'walker' => new GC_walker_nav_menu(),
 								'submenu' => 'Sports',
+								'removeitem' => $current_obj->name,
 								'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
 								'echo' => false,
 						);
@@ -1930,6 +1933,7 @@ ready(fn);
 	* @param $items
 	* @param $args
 	*
+	* Using one nav as a master, based on location in the site, remove dropdowns before display
 	* Source: http://wordpress.stackexchange.com/questions/2802/display-a-portion-branch-of-the-menu-tree-using-wp-nav-menu
 	* @return mixed
 	*/
@@ -1950,6 +1954,30 @@ ready(fn);
 			}
 		}
 
+		return $items;
+	}
+
+	/**
+	* @param $items
+	* @param $args
+	*
+	* On GrandChild navs try and remove the section currently being displayed
+	* Source: http://wordpress.stackexchange.com/questions/2802/display-a-portion-branch-of-the-menu-tree-using-wp-nav-menu
+	* @return mixed
+	*/
+	public function remove_current_nav_item( $items, $args ) {
+
+		if ( empty( $args->removeitem ) ) {
+			return $items;
+		}
+
+		$ids = wp_filter_object_list( $items, array( 'title' => $args->removeitem ), 'AND', 'ID' );
+		foreach ( $items as $key => $item ) {
+			if ( $ids[$key] === $item->ID ) {
+				unset( $items[$key] );
+				break;
+			}
+		}
 		return $items;
 	}
 
