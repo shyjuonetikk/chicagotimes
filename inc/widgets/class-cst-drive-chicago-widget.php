@@ -52,11 +52,9 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 			<div class="large-12 medium-6 small-6 columns">
 				<?php
 		if ( 'search-widget' === $instance['chicago_drive_widget'] ) {
-			echo wp_kses( sprintf( $template,
-				$url
-			), array(
-				'iframe' => array(
-					'src' => array(), 'frameborder' => array(), 'scrolling' => array(), 'marginheight' => array(), 'marginwidth' => array(), 'width' => array(), 'height' => array() ) ) );
+			echo sprintf( $template,
+				esc_url( $url )
+			);
 		} else {
 			echo ( sprintf( $template,
 				esc_url( $url ),
