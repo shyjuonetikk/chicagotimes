@@ -58,7 +58,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 				'iframe' => array(
 					'src' => array(), 'frameborder' => array(), 'scrolling' => array(), 'marginheight' => array(), 'marginwidth' => array(), 'width' => array(), 'height' => array() ) ) );
 		} else {
-			echo wp_kses_post( sprintf( $template,
+			echo ( sprintf( $template,
 				esc_url( $url ),
 				esc_url( $asset ),
 				esc_attr( 'Drive Chicago' )
