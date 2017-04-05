@@ -38,7 +38,7 @@
       this.dfpSBB = $('#div-gpt-sbb-1');
       this.searchButton = $('#search-button');
       this.searchInput = $('#search-input');
-      this.offCanvasList = $('.off-canvas-menu');
+      this.offCanvasMenu = $('.left-off-canvas-menu');
 
     },
 
@@ -105,11 +105,11 @@
           this.responsiveIframes();
         }, this ), 30 );
       }, this ) );
-      // $(document)
-      //   .on('open.fndtn.offcanvas', '[data-offcanvas]', CST_Homepage.handleNavigation)
-      //   .on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
-      //     document.getElementsByTagName('body')[0].style.overflow='auto';
-      //   });
+      $(document)
+        .on('open.fndtn.offcanvas', '[data-offcanvas]', CST_Homepage.handleNavigation)
+        .on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
+          document.getElementsByTagName('body')[0].style.overflow='auto';
+        });
     },
     /**
      * Make some iframes responsive
@@ -137,13 +137,13 @@
 
         // Specific for IE browser
         if ( $.browser.msie ) {
-          this.offCanvasList.css("top", this.primaryNavigation.height() + scrollTop + 'px');
+          this.offCanvasMenu.css("top", this.primaryNavigation.height() + scrollTop + 'px');
         } else {
-          this.offCanvasList.css("top", scrollTop + 'px');
+          this.offCanvasMenu.css("top", scrollTop + 'px');
         }
 
       } else {
-        this.offCanvasList.removeClass("fixed-canvas-menu");
+        this.offCanvasMenu.removeClass("fixed-canvas-menu");
       }
 
 
@@ -154,10 +154,10 @@
         if ( scrollTop > 0 && ! CST_Homepage.hasClass(document.getElementsByClassName('off-canvas-wrap')[0],'move-right') ) {
           // Specific for IE browser
           if ( $.browser.msie ) {
-            this.offCanvasList.css("top", this.primaryNavigation.height() + scrollTop + 'px');
+            this.offCanvasMenu.css("top", this.primaryNavigation.height() + scrollTop + 'px');
           } else {
-            CST_Homepage.offCanvasList.css("top", scrollTop + 'px');
-            CST_Homepage.offCanvasList.css("position", 'absolute');
+            CST_Homepage.offCanvasMenu.css("top", scrollTop + 'px');
+            CST_Homepage.offCanvasMenu.css("position", 'absolute');
           }
         }
     },

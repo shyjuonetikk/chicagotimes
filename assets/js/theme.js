@@ -45,7 +45,7 @@
             this.primaryNavigation = $('#primary-navigation');
             this.postSidebar = $('.article-sidebar');
             this.postBody = $('#post-body');
-            this.offCanvasList = $('.off-canvas-menu');
+            this.offCanvasList = $('.left-off-canvas-menu');
             this.leftOffCanvasList = $('.left-off-canvas-menu');
             this.searchButton = $('#search-button');
             this.searchInput = $('#search-input');
@@ -185,10 +185,10 @@
         if ( scrollTop > 0 && ! CST.hasClass(document.getElementsByClassName('off-canvas-wrap')[0],'move-right') ) {
           // Specific for IE browser
           if ( $.browser.msie ) {
-            CST.offCanvasList.css("top", CST.header.height() + scrollTop + 'px');
+            CST.leftOffCanvasList.css("top", scrollTop + 'px');
           } else {
-            CST.offCanvasList.css("top", CST.header.height() + scrollTop + 'px');
-            CST.offCanvasList.css("position", 'absolute');
+            CST.leftOffCanvasList.css("top", scrollTop + 'px');
+            CST.leftOffCanvasList.css("position", 'absolute');
           }
         }
       },
