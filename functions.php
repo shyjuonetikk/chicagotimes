@@ -940,7 +940,7 @@ class CST {
 			array(
 				'homepage-menu'          => esc_html__( 'Homepage', 'chicagosuntimes' ),
 				'homepage-masthead'      => esc_html__( 'Homepage Masthead', 'chicagosuntimes' ),
- 				'homepage-itn'           => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
+				'homepage-itn'           => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
 				'homepage-footer-menu'   => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
 				'news-menu'              => esc_html__( 'News', 'chicagosuntimes' ),
 				'news-trending'          => esc_html__( 'News Trending', 'chicagosuntimes' ),
