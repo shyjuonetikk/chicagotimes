@@ -141,7 +141,7 @@
                 }
 
             } else {
-                this.offCanvasList.removeClass("fixed-canvas-menu");
+                this.leftOffCanvasList.removeClass("fixed-canvas-menu");
             }
 
             if ( scrollTop > this.dfpSBB.height() ) {

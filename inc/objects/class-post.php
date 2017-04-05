@@ -1204,6 +1204,9 @@ abstract class Post {
 	 * @return array | bool
 	 */
 	public function get_sponsored_content() {
+		if ( is_singular( 'cst_feature' ) ) {
+			return false;
+		}
 		if ( $sponsor_array = $this->get_fm_field( 'cst_production', 'sponsored_content' ) ) {
 			if ( $this->is_sponsored_content_active( $sponsor_array ) ) {
 				return $sponsor_array;

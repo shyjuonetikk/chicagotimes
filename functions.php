@@ -599,7 +599,7 @@ class CST {
 		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
-		add_filter( 'ads/use_gumgum', 'filter_use_gumgum' );
+		add_filter( 'ads/limit_ads_on_features', 'filter_limit_ads_on_features' );
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
@@ -1961,7 +1961,7 @@ class CST {
 	public function jetpack_infinite_support() {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular() || is_tax() || is_archive() );
+			( is_singular( 'cst_article', 'cst_feature' ) || is_tax() || is_archive() );
 	}
 
 	/**
@@ -2054,7 +2054,7 @@ class CST {
 			'header' => 'taboola-header.js',
 			'footer' => false,
 			'container' => false,
-			'logic' => array( 'is_singular' ),
+			'logic' => apply_filters( 'ads/limit_ads_on_features' ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
@@ -2068,7 +2068,7 @@ class CST {
 				'header' => 'adsupply-popunder-header.js',
 				'footer' => false,
 				'container' => false,
-				'logic' => array( 'is_singular' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'adblocker', array(
@@ -2079,7 +2079,7 @@ class CST {
 					'argument' => 'bm_website_code',
 					'value' => 'chicago.suntimes.com.test' === $this->dfp_handler->get_parent_dfp_inventory() ? $this->pagefair_ids['dev'] : $this->pagefair_ids['prod'],
 				),
-				'logic' => array( 'is_singular' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'nativo', array(
@@ -2087,7 +2087,7 @@ class CST {
 				'header-remote' => true,
 				'footer' => false,
 				'container' => false,
-				'logic' => array( 'is_singular' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
@@ -2095,14 +2095,21 @@ class CST {
 				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
 				'footer-remote' => true,
 				'container' => false,
-				'logic' => array( 'ads/use_gumgum' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
 				'header' => false,
 				'footer' => 'google-survey-footer.js',
 				'container' => false,
-				'logic' => array( 'is_singular' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+			)
+		);
+		$this->ad_vendor_handler->register_vendor( 'morpheus', array(
+				'header' => false,
+				'footer' => 'http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js',
+				'container' => false,
+				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
 			)
 		);
 
@@ -2168,8 +2175,8 @@ add_action( 'pre_get_posts', 'GC_force_published_status_front_end' );
 /**
  * @return bool
  *
- * Ad Vendor filter for GumGum
+ * Ad Vendor filter to limit injection on features content
  */
-function filter_use_gumgum() {
-	return is_singular( array( 'cst_article', 'cst_gallery' ) );
+function filter_limit_ads_on_features() {
+	return is_singular( array( 'cst_article', 'cst_gallery' ) && ! is_404() );
 }
