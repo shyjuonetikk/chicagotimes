@@ -1654,7 +1654,7 @@ class CST_Frontend {
 	*/
 	function action_maybe_render_sliding_billboard() {
 
-		if ( is_front_page() || is_tax() ) :
+		if ( is_front_page() ) :
 			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' ),
 			CST()->dfp_kses
 		);

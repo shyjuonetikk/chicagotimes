@@ -278,8 +278,8 @@ var dfp = {
 	  .addSize([768, 1024], [ [320, 50] ] ) //tablet
 	  .build();
     super_leaderboard_mapping = googletag.sizeMapping().
-    addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
-    addSize([992, 0], [ [728, 90], [970, 90] ] ). //desktop
+    addSize([1200, 800], [ [970, 250], [970,90], [728,90] ] ). //tablet
+    addSize([992, 0], [ [970, 250], [728, 90], [970, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [300, 50], [320, 50]). //phone
