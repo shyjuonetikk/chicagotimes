@@ -2141,18 +2141,20 @@ ready(fn);
 			$targeting = ( ! $paged ) ? 'atf leaderboard 2' : 'atf leaderboard 3';
 			$inject_ad_markup = true;
 		} else {
-			$placement = 'div-gpt-placement-s';
-			$mapping = 'sf_inline_mapping';
-			$sf_first_ad = ( 0 === $wp_query->current_post && 0 === $paged );
-			if ( $sf_first_ad ) {
-				$targeting = 'rr cube 2';
-				$inject_ad_markup = true;
-			} else {
-				$every_two = $wp_query->current_post % 2;
-				$sf_second_ad = ! $every_two;
-				if ( $sf_second_ad ) {
-					$targeting = 'rr cube 3';
+			if ( $wp_query->current_post > 1 ) {
+				$placement = 'div-gpt-placement-s';
+				$mapping = 'sf_inline_mapping';
+				$sf_first_ad = ( 2 === $wp_query->current_post && 0 === $paged );
+				if ( $sf_first_ad ) {
+					$targeting = 'rr cube 2';
 					$inject_ad_markup = true;
+				} else {
+					$every_two = $wp_query->current_post % 2;
+					$sf_second_ad = ! $every_two;
+					if ( $sf_second_ad ) {
+						$targeting = 'rr cube 3';
+						$inject_ad_markup = true;
+					}
 				}
 			}
 		}
