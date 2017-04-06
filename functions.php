@@ -2050,7 +2050,12 @@ class CST {
 	 * Centralized function to register Vendor scripts
 	 */
 	public function register_ad_vendors() {
-
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return;
+		}
+		if ( is_admin() ) {
+			return;
+		}
 		$this->ad_vendor_handler->register_vendor( 'taboola', array(
 			'header' => 'taboola-header.js',
 			'footer' => false,
