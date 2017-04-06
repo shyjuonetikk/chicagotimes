@@ -3992,7 +3992,8 @@ body.post-gallery-lightbox-active {
     float: none;
     overflow: hidden;
     margin-bottom: 16px;
-    background: white; }
+    background: white;
+    max-height: 112px; }
     .homepage_wrapper section#more-stories-wells .more-story:first-child {
       border-top: none;
       padding-top: 0; }
