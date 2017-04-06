@@ -1952,7 +1952,12 @@ class CST {
 	 * Centralized function to register Vendor scripts
 	 */
 	public function register_ad_vendors() {
-
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return;
+		}
+		if ( is_admin() ) {
+			return;
+		}
 		$this->ad_vendor_handler->register_vendor( 'taboola', array(
 			'header' => 'taboola-header.js',
 			'footer' => false,
@@ -1998,7 +2003,7 @@ class CST {
 				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
 				'footer-remote' => true,
 				'container' => false,
-				'logic' => array( 'ads/use_gumgum' ),
+				'logic' => array( 'ads/use_gumgum', false ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
