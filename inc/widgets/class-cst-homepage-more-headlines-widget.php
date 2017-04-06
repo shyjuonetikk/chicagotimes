@@ -13,6 +13,12 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		'cst_homepage_more_headlines_two',
 		'cst_homepage_more_headlines_three',
 		'cst_homepage_more_headlines_four',
+		'cst_homepage_more_headlines_five',
+		'cst_homepage_more_headlines_six',
+		'cst_homepage_more_headlines_seven',
+		'cst_homepage_more_headlines_eight',
+		'cst_homepage_more_headlines_nine',
+		'cst_homepage_more_headlines_ten',
 	);
 
 	private $titles = array(
@@ -20,6 +26,12 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		'Headline Two',
 		'Headline Three',
 		'Headline Four',
+		'Headline Five',
+		'Headline Six',
+		'Headline Seven',
+		'Headline Eight',
+		'Headline Nine',
+		'Headline Ten',
 	);
 
 	private $cache_key_stub;

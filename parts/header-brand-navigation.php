@@ -91,6 +91,8 @@
 	<main class="inner-wrap">
 <?php if ( is_front_page() ) { ?>
 		<div class="responsive-logo-wrapper row">
+			<div class="columns">
+
 	<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
 			<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left"></div>
 			<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right"></div>
@@ -104,6 +106,7 @@
 			</div>
 		</div>
 	<?php CST()->frontend->masthead_navigation( 'homepage-itn' ); ?>
+			</div>
 </div>
 <?php } ?>
 <?php get_template_part( 'parts/off-canvas-menu' );

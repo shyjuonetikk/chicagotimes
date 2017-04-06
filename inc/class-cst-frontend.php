@@ -1683,7 +1683,7 @@ class CST_Frontend {
 					'location'        => 'homepage-masthead',
 			),
 			'homepage-itn' => array(
-					'container_class' => 'cst-navigation-container columns',
+					'container_class' => 'cst-navigation-container',
 					'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul><li>In the news:</li></ul><ul id="%1$s" class="homepage-itn">%3$s</ul></div></div>',
 					'location'        => 'homepage-itn',
 			),
@@ -1970,7 +1970,7 @@ ready(fn);
 
 		$ids = wp_filter_object_list( $items, array( 'title' => $args->removeitem ), 'AND', 'ID' );
 		foreach ( $items as $key => $item ) {
-			if ( $ids[$key] === $item->ID ) {
+			if ( isset( $item->ID ) &&  isset( $ids[$key] ) && $ids[$key] === $item->ID ) {
 				unset( $items[$key] );
 				break;
 			}

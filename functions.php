@@ -182,7 +182,7 @@ class CST {
 		add_image_size( 'twitter-card', 400, 400, true );
 		add_image_size( 'facebook-open-graph', 1200, 630, true );
 		add_image_size( 'secondary-wells', 290, 190, true );
-		add_image_size( 'homepage-columns', 228, 134, true );
+		add_image_size( 'homepage-columns', 200, 200, true );
 		add_image_size( 'newspaper', 297, 287, true );
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
@@ -2055,7 +2055,7 @@ class CST {
 			'header' => 'taboola-header.js',
 			'footer' => false,
 			'container' => false,
-			'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+			'logic' => apply_filters( 'ads/limit_ads_on_features', false ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
@@ -2069,7 +2069,7 @@ class CST {
 				'header' => 'adsupply-popunder-header.js',
 				'footer' => false,
 				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features', false ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'adblocker', array(
@@ -2080,7 +2080,7 @@ class CST {
 					'argument' => 'bm_website_code',
 					'value' => 'chicago.suntimes.com.test' === $this->dfp_handler->get_parent_dfp_inventory() ? $this->pagefair_ids['dev'] : $this->pagefair_ids['prod'],
 				),
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features', false ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'nativo', array(
@@ -2088,7 +2088,7 @@ class CST {
 				'header-remote' => true,
 				'footer' => false,
 				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features', false ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
@@ -2096,14 +2096,14 @@ class CST {
 				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
 				'footer-remote' => true,
 				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features', false ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
 				'header' => false,
 				'footer' => 'google-survey-footer.js',
 				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => apply_filters( 'ads/limit_ads_on_features', false ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'morpheus', array(
@@ -2111,7 +2111,7 @@ class CST {
 				'footer' => 'http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js',
 				'footer-remote' => true,
 				'container' => false,
-				'logic' => apply_filters( 'ads/filter_load_morpheus' ),
+				'logic' => apply_filters( 'ads/filter_load_morpheus', false ),
 			)
 		);
 

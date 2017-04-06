@@ -27,16 +27,19 @@ endif;
 		CST()->dfp_kses
 	); ?>
 </div>
-	<div class="small-12 content-wrapper f">
+<div class="row">
+	<div class="small-12 content-wrapper featured-story columns">
 		<?php
 		if ( is_active_sidebar( 'homepage_featured_story' ) ) :
 			dynamic_sidebar( 'homepage_featured_story' );
 		endif;
 		?>
 	</div>
-	<hr class="before">
-	<h2 class="section-title"><span><?php esc_html_e( 'More From', 'chicagosuntimes' ); ?></span></h2>
-	<hr/>
+	<div class="columns">
+		<hr class="before">
+		<h2 class="section-title"><span><?php esc_html_e( 'More From', 'chicagosuntimes' ); ?></span></h2>
+		<hr/>
+	</div>
 </div>
 <!-- circular flipp -->
 	<div class="row">
