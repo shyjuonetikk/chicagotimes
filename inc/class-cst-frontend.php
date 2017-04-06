@@ -89,8 +89,6 @@ class CST_Frontend {
 			}
 		}, 9 );
 
-		add_action( 'cst_section_head', array( $this, 'action_cst_section_head_video' ) );
-
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
@@ -1316,15 +1314,19 @@ class CST_Frontend {
 		<?php
 	}
 	/**
-	 * Function called from section_head action in parts/page-header.php
 	 * Checks if we have a video player for embedding purposes for a section front
+	 * Counter is the article number / placement position within the section front.
+	 * @param $counter int
 	 */
-	function action_cst_section_head_video() {
-		if ( is_tax() ) {
-			if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
-				$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+	function cst_section_front_video( $counter ) {
+		if ( 3 === $counter ) {
+			if ( is_tax() ) {
+				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
+					$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+				}
 			}
 		}
+
 	}
 
 	/**
