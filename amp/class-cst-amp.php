@@ -155,7 +155,7 @@ class CST_AMP {
 	 */
 	function amp_add_sanitizers( $sanitizer_classes, $post ) {
 		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-cst-ad-sanitizer.php' );
-		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-amp-sendtonews-sanitizer.php' );
+//		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-amp-sendtonews-sanitizer.php' );
 		$sanitizer_classes['CST_AMP_Send_To_News_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`
 		$sanitizer_classes['CST_AMP_Ad_Injection_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`
 		return $sanitizer_classes;
@@ -168,11 +168,13 @@ class CST_AMP {
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-social-share-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-sidebar-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-banner-embed.php' );
+		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-amp-sendtonews-embed.php' );
 		$embed_handler_classes['CST_AMP_Gallery_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Related_Posts_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Public_Good_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Social_Share_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Sidebar_Embed'] = array();
+		$embed_handler_classes['CST_AMP_Banner_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Banner_Embed'] = array();
 		return $embed_handler_classes;
 	}
