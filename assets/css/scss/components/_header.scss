@@ -285,21 +285,20 @@ body.admin-bar {
 
 .left-off-canvas-menu {
     background-color: $cst_black;
-	overflow: visible;
+	overflow: auto;
+	list-style-type:none;
 	ul {
 		margin-left:0;
 		clear: both;
 	}
 
-
-		list-style-type:none;
-		label {
-			background: #111;
-			font-size: 16px;
-			text-transform: uppercase;
-			border-bottom: 4px #777 ridge;
-			padding: 4px;
-		}
+	label {
+		background: #111;
+		font-size: 16px;
+		text-transform: uppercase;
+		border-bottom: 4px #777 ridge;
+		padding: 4px;
+	}
 
 
 	.off-canvas-menu {
