@@ -6,152 +6,6 @@
 	@media #{$xmedium-down} {
 		margin-top: 40px;
 	}
-	.news-cat:hover {
-		background: rgb(210, 45, 66) !important; /* The Fallback */
-		background: rgba(210, 45, 66, 0.9) !important;
-	}
-
-	.news-title {
-		background: $anchor-highlight;
-	}
-
-	.news-border:after, .news-menu {
-		border-color: $anchor-highlight !important;
-	}
-
-	.news-menu:hover a:not(.button):hover {
-	    background: $anchor-highlight;
-	}
-
-	.news-triangle:after {
-		border-color: $anchor-highlight transparent transparent transparent !important;
-	}
-
-	.sports-cat:hover {
-		background: rgb(52, 72, 94) !important; /* The Fallback */
-		background: rgba(52, 72, 94, 0.9) !important;
-	}
-
-	.sports-border:after, .sports-menu {
-		border-color: $sports_blue !important;
-	}
-
-	.sports-menu:hover a:not(.button):hover {
-	    background: $sports_blue;
-	}
-
-	.sports-triangle:after {
-		border-color: $sports_blue transparent transparent transparent !important;
-	}
-
-	.sports-title {
-		background: $sports_blue;
-	}
-
-	.politics-cat:hover {
-		background: rgb(41, 170, 226); /* The Fallback */
-		background: rgba(41, 170, 226, 0.9) !important;
-	}
-
-	.politics-border:after, .politics-menu {
-		border-color: $politics_blue !important;
-	}
-
-	.politics-menu:hover a:not(.button):hover {
-	    background: $politics_blue;
-	}
-
-	.politics-triangle:after {
-		border-color: $politics_blue transparent transparent transparent !important;
-	}
-
-	.politics-title {
-		background: $politics_blue;
-	}
-
-	.entertainment-cat:hover {
-		background: rgb(0, 174, 4) !important; /* The Fallback */
-		background: rgba(0, 174, 4, 0.9) !important;
-	}
-
-	.entertainment-border:after, .entertainment-menu {
-		border-color: $entertainment_green !important;
-	}
-
-	.entertainment-menu:hover a:not(.button):hover {
-	    background: $entertainment_green;
-	}
-
-	.entertainment-triangle:after {
-		border-color: $entertainment_green transparent transparent transparent !important;
-	}
-
-	.entertainment-title {
-		background: $entertainment_green;
-	}
-
-	.lifestyles-cat:hover {
-		background: rgb(135, 58, 250) !important; /* The Fallback */
-		background: rgba(135, 58, 250, 0.9) !important;
-	}
-
-	.lifestyles-border:after, .lifestyles-menu {
-		border-color: $lifestyles_purple !important;
-	}
-
-	.lifestyles-menu:hover a:not(.button):hover {
-	    background: $lifestyles_purple;
-	}
-
-	.lifestyles-triangle:after {
-		border-color: $lifestyles_purple transparent transparent transparent !important;
-	}
-
-	.lifestyles-title {
-		background: $lifestyles_purple;
-	}
-
-	.opinion-cat:hover {
-		background: rgb(189, 189, 189) !important; /* The Fallback */
-		background: rgba(189, 189, 189, 0.9) !important;
-	}
-
-	.opinion-border:after, .opinion-menu {
-		border-color: $opinion_grey !important;
-	}
-
-	.opinion-menu:hover a:not(.button):hover {
-	    background: $opinion_grey;
-	}
-
-	.opinion-triangle:after {
-		border-color: $opinion_grey transparent transparent transparent !important;
-	}
-
-	.opinion-title {
-		background: $opinion_grey;
-	}
-
-	.columnists-cat:hover {
-		background: rgb(213, 195, 95) !important; /* The Fallback */
-		background: rgba(213, 195, 95, 0.9) !important;
-	}
-
-	.columnists-border:after, .columnists-menu {
-		border-color: $columnists_yellow !important;
-	}
-
-	.columnists-menu:hover a:not(.button):hover {
-	    background: $columnists_yellow;
-	}
-
-	.columnists-triangle:after {
-		border-color: $columnists_yellow transparent transparent transparent !important;
-	}
-
-	.columnists-title {
-		background: $columnists_yellow;
-	}
 
 	.dfp-atf-leaderboard, .dfp-btf-leaderboard {
 		img {
@@ -161,6 +15,7 @@
 
 	.dfp-cube {
 		margin-bottom: 5px;
+		max-width:300px;
 	}
 
 	.cube-left > .dfp-cube {
@@ -469,6 +324,9 @@
 		overflow: hidden;
 		height: auto;
 		clear: both;
+		.featured-story {
+			margin-bottom: 10px;
+		}
 	}
 
 	h2.section-title {
@@ -800,19 +658,22 @@
 			}
 		}
 	}
-
+.homepage-more-wells {
+	hr {
+		margin-top:0;
+	}
+}
 	section#more-stories-wells {
 
-		img {
-			max-height: 134px;
-		}
 		
 		a {
 			h3 {
+				font-family: $homepage_font;
 				margin: 0;
 				padding: 0;
-				line-height: 28px;
-				font-weight: 700;
+				font-size: 1.1rem;
+				line-height:1.3rem;
+				font-weight: 600;
 				@media #{$small-only} {
 					line-height:1.2rem;
 					font-size: 1rem;
@@ -820,29 +681,10 @@
 			}
 		}
 
-		a:hover {
-			h3 {
-				color: $light_black;
-			}
-
-			img {
-				opacity: .875;
-			}
-		}
-
-		a:hover ~ p {
-			display: block;
-		}
-
-		p {
-			margin-top: 15px;
-			line-height: 18px;
-			display: none;
-		}
-
 		span {
-			font-size: 14px;
-
+			font-size: 0.8rem;
+			line-height:1.05rem;
+			font-family: $homepage_font;
 			a {
 				font-size: 14px;
 				text-transform: uppercase;
@@ -854,42 +696,35 @@
 		.article-image {
 			position: relative;
 			display: block;
-			margin-bottom: 10px;
-			padding-left:15px;
 			@media #{$small-only} {
 				padding-right:0;
 				margin-bottom:0;
 			}
 		}
 
-		.article-image:hover:after {
-	        content:'';
-	        width: 50%;
-	        height: 0;
-	        border-style: solid;
-			border-width: 10px 0 0 0;
-	        position:absolute;
-	        left:15px;
-	        top:0;
-		}
-
 		.article-headline {
 			font-size: 0.9rem;
-		}
-		@media (min-width: 1200px) {
-			.columns {
-				padding-left: 0.9375rem;
-    			padding-right: 0.9375rem;
+			line-height:1.3rem;
+			padding-left:0;
+			.more-excerpt {
+				p {
+					margin-bottom: 0;
+					padding-right: 10px;
+					padding-bottom: 5px;
+					font-family: $merriweather;
+					color: $chiwire_grey;
+					font-size: 0.8rem;
+					font-style: italic;
+					line-height: 1.05rem;
+				}
 			}
 		}
 		.more-story {
-			padding-top: 10px;
 			box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 			float: none;
 			overflow: hidden;
-			max-height:134px;
-			margin: 16px 0;
-			background: #f5f5f5;
+			margin-bottom: 16px;
+			background: #fff;
 			&:first-child {
 				border-top:none;
 				padding-top:0;

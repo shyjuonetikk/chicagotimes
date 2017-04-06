@@ -63,7 +63,4 @@
 		</div>
 	</div>
 </div>
-<?php echo wp_kses( CST()->dfp_handler->unit( 2, 'div-gpt-billboard', 'dfp dfp-centered dfp-billboard' ),
-	CST()->dfp_kses
-);
 

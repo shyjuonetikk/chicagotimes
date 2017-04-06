@@ -1,4 +1,6 @@
 <?php global $homepage_more_well_posts; ?>
+<div class="row">
+	<div class="columns small-12 medium-8 homepage-more-wells">
 <hr class="before">
 <h2 class="section-title"><span><?php esc_html_e( 'More Top Stories', 'chicagosuntimes' ); ?></span></h2>
 <hr>
@@ -12,7 +14,6 @@
 				<?php
 				$obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_post->ID );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-					$primary_section = $obj->get_primary_parent_section();
 					if ( $byline = $obj->get_byline() ) {
 						$author = $byline;
 					} else {
@@ -21,8 +22,7 @@
 						$author      = $author_data->get_display_name();
 					}
 					?>
-					<div
-						class="large-4 medium-4 small-5 columns article-image <?php esc_attr_e( strtolower( $primary_section->name ), 'chicagosuntimes' ); ?>-triangle">
+					<div class="large-4 medium-4 small-5 columns article-image">
 						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-more-wells">
 							<?php
 							if ( $featured_image_id = $obj->get_featured_image_id() ) {
@@ -37,7 +37,7 @@
 						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-more-wells">
 							<h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
 						</a>
-						<?php esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?>
+						<div class="more-excerpt"><?php esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?></div>
 						<span
 							class="author">By <?php echo esc_html( $author ); ?></span>
 					</div>
@@ -63,4 +63,5 @@
 			<?php echo wp_kses( CST()->dfp_handler->unit( 7, 'div-gpt-rr-cube', 'dfp dfp-cube', 'hp_cube_mapping', 'rr cube 7' ), CST()->dfp_kses ); ?>
 		</div>
 	</div>
+</div>
 </div>

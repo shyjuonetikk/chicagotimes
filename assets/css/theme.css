@@ -488,7 +488,7 @@ body.admin-bar .move-right header#header {
 
 .left-off-canvas-menu {
   background-color: #231f20;
-  overflow: visible;
+  overflow: auto;
   list-style-type: none; }
   .left-off-canvas-menu ul {
     margin-left: 0;
@@ -3515,94 +3515,11 @@ body.post-gallery-lightbox-active {
   @media only screen and (max-width:64em) {
     .homepage_wrapper {
       margin-top: 40px; } }
-  .homepage_wrapper .news-cat:hover {
-    background: #d22d42 !important;
-    /* The Fallback */
-    background: rgba(210, 45, 66, 0.9) !important; }
-  .homepage_wrapper .news-title {
-    background: #7d7e7e; }
-  .homepage_wrapper .news-border:after, .homepage_wrapper .news-menu {
-    border-color: #7d7e7e !important; }
-  .homepage_wrapper .news-menu:hover a:not(.button):hover {
-    background: #7d7e7e; }
-  .homepage_wrapper .news-triangle:after {
-    border-color: #7d7e7e transparent transparent transparent !important; }
-  .homepage_wrapper .sports-cat:hover {
-    background: #34485e !important;
-    /* The Fallback */
-    background: rgba(52, 72, 94, 0.9) !important; }
-  .homepage_wrapper .sports-border:after, .homepage_wrapper .sports-menu {
-    border-color: #34485e !important; }
-  .homepage_wrapper .sports-menu:hover a:not(.button):hover {
-    background: #34485e; }
-  .homepage_wrapper .sports-triangle:after {
-    border-color: #34485e transparent transparent transparent !important; }
-  .homepage_wrapper .sports-title {
-    background: #34485e; }
-  .homepage_wrapper .politics-cat:hover {
-    background: #29aae2;
-    /* The Fallback */
-    background: rgba(41, 170, 226, 0.9) !important; }
-  .homepage_wrapper .politics-border:after, .homepage_wrapper .politics-menu {
-    border-color: #29aae2 !important; }
-  .homepage_wrapper .politics-menu:hover a:not(.button):hover {
-    background: #29aae2; }
-  .homepage_wrapper .politics-triangle:after {
-    border-color: #29aae2 transparent transparent transparent !important; }
-  .homepage_wrapper .politics-title {
-    background: #29aae2; }
-  .homepage_wrapper .entertainment-cat:hover {
-    background: #00ae04 !important;
-    /* The Fallback */
-    background: rgba(0, 174, 4, 0.9) !important; }
-  .homepage_wrapper .entertainment-border:after, .homepage_wrapper .entertainment-menu {
-    border-color: #00ae04 !important; }
-  .homepage_wrapper .entertainment-menu:hover a:not(.button):hover {
-    background: #00ae04; }
-  .homepage_wrapper .entertainment-triangle:after {
-    border-color: #00ae04 transparent transparent transparent !important; }
-  .homepage_wrapper .entertainment-title {
-    background: #00ae04; }
-  .homepage_wrapper .lifestyles-cat:hover {
-    background: #873afa !important;
-    /* The Fallback */
-    background: rgba(135, 58, 250, 0.9) !important; }
-  .homepage_wrapper .lifestyles-border:after, .homepage_wrapper .lifestyles-menu {
-    border-color: #873afa !important; }
-  .homepage_wrapper .lifestyles-menu:hover a:not(.button):hover {
-    background: #873afa; }
-  .homepage_wrapper .lifestyles-triangle:after {
-    border-color: #873afa transparent transparent transparent !important; }
-  .homepage_wrapper .lifestyles-title {
-    background: #873afa; }
-  .homepage_wrapper .opinion-cat:hover {
-    background: #bdbdbd !important;
-    /* The Fallback */
-    background: rgba(189, 189, 189, 0.9) !important; }
-  .homepage_wrapper .opinion-border:after, .homepage_wrapper .opinion-menu {
-    border-color: #bdbdbd !important; }
-  .homepage_wrapper .opinion-menu:hover a:not(.button):hover {
-    background: #bdbdbd; }
-  .homepage_wrapper .opinion-triangle:after {
-    border-color: #bdbdbd transparent transparent transparent !important; }
-  .homepage_wrapper .opinion-title {
-    background: #bdbdbd; }
-  .homepage_wrapper .columnists-cat:hover {
-    background: #d5c35f !important;
-    /* The Fallback */
-    background: rgba(213, 195, 95, 0.9) !important; }
-  .homepage_wrapper .columnists-border:after, .homepage_wrapper .columnists-menu {
-    border-color: #d5c35f !important; }
-  .homepage_wrapper .columnists-menu:hover a:not(.button):hover {
-    background: #d5c35f; }
-  .homepage_wrapper .columnists-triangle:after {
-    border-color: #d5c35f transparent transparent transparent !important; }
-  .homepage_wrapper .columnists-title {
-    background: #d5c35f; }
   .homepage_wrapper .dfp-atf-leaderboard img, .homepage_wrapper .dfp-btf-leaderboard img {
     width: 728px; }
   .homepage_wrapper .dfp-cube {
-    margin-bottom: 5px; }
+    margin-bottom: 5px;
+    max-width: 300px; }
   .homepage_wrapper .cube-left > .dfp-cube {
     float: left; }
   .homepage_wrapper .cube-right > .dfp-cube {
@@ -3772,6 +3689,8 @@ body.post-gallery-lightbox-active {
     overflow: hidden;
     height: auto;
     clear: both; }
+    .homepage_wrapper .content-wrapper .featured-story {
+      margin-bottom: 10px; }
   .homepage_wrapper h2.section-title {
     background-color: #3e3e3e;
     height: 10px;
@@ -4026,29 +3945,23 @@ body.post-gallery-lightbox-active {
         background: rgba(0, 0, 0, 0.5); }
         .homepage_wrapper section#secondary-wells .article-container a:hover .article-title p {
           display: block; }
-  .homepage_wrapper section#more-stories-wells img {
-    max-height: 134px; }
+  .homepage_wrapper .homepage-more-wells hr {
+    margin-top: 0; }
   .homepage_wrapper section#more-stories-wells a h3 {
+    font-family: 'Libre Franklin', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    line-height: 28px;
-    font-weight: 700; }
+    font-size: 1.1rem;
+    line-height: 1.3rem;
+    font-weight: 600; }
     @media only screen and (max-width: 40em) {
       .homepage_wrapper section#more-stories-wells a h3 {
         line-height: 1.2rem;
         font-size: 1rem; } }
-  .homepage_wrapper section#more-stories-wells a:hover h3 {
-    color: #3e3e3e; }
-  .homepage_wrapper section#more-stories-wells a:hover img {
-    opacity: 0.875; }
-  .homepage_wrapper section#more-stories-wells a:hover ~ p {
-    display: block; }
-  .homepage_wrapper section#more-stories-wells p {
-    margin-top: 15px;
-    line-height: 18px;
-    display: none; }
   .homepage_wrapper section#more-stories-wells span {
-    font-size: 14px; }
+    font-size: 0.8rem;
+    line-height: 1.05rem;
+    font-family: 'Libre Franklin', Arial, sans-serif; }
     .homepage_wrapper section#more-stories-wells span a {
       font-size: 14px;
       text-transform: uppercase;
@@ -4056,36 +3969,30 @@ body.post-gallery-lightbox-active {
       text-decoration: none; }
   .homepage_wrapper section#more-stories-wells .article-image {
     position: relative;
-    display: block;
-    margin-bottom: 10px;
-    padding-left: 15px; }
+    display: block; }
     @media only screen and (max-width: 40em) {
       .homepage_wrapper section#more-stories-wells .article-image {
         padding-right: 0;
         margin-bottom: 0; } }
-  .homepage_wrapper section#more-stories-wells .article-image:hover:after {
-    content: '';
-    width: 50%;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 0 0 0;
-    position: absolute;
-    left: 15px;
-    top: 0; }
   .homepage_wrapper section#more-stories-wells .article-headline {
-    font-size: 0.9rem; }
-  @media (min-width: 1200px) {
-    .homepage_wrapper section#more-stories-wells .columns {
-      padding-left: 0.9375rem;
-      padding-right: 0.9375rem; } }
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+    padding-left: 0; }
+    .homepage_wrapper section#more-stories-wells .article-headline .more-excerpt p {
+      margin-bottom: 0;
+      padding-right: 10px;
+      padding-bottom: 5px;
+      font-family: 'Merriweather', Georgia, serif;
+      color: #484848;
+      font-size: 0.8rem;
+      font-style: italic;
+      line-height: 1.05rem; }
   .homepage_wrapper section#more-stories-wells .more-story {
-    padding-top: 10px;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     float: none;
     overflow: hidden;
-    max-height: 134px;
-    margin: 16px 0;
-    background: whitesmoke; }
+    margin-bottom: 16px;
+    background: white; }
     .homepage_wrapper section#more-stories-wells .more-story:first-child {
       border-top: none;
       padding-top: 0; }
