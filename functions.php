@@ -2070,6 +2070,13 @@ class CST {
 			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'flipp', array(
+			'header' => false,
+			'footer' => 'flipp-footer.js',
+			'container' => false,
+			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
+			)
+		);
 		$this->ad_vendor_handler->register_vendor( 'adsupply', array(
 				'header' => 'adsupply-popunder-header.js',
 				'footer' => false,
