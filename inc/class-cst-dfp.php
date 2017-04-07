@@ -362,11 +362,6 @@ var dfp = {
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
       .defineSizeMapping(sf_inline_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
-      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
-        .defineSizeMapping(billboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 2 970x250")
-        .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
@@ -398,13 +393,8 @@ var dfp = {
       googletag.defineSlot(adUnitPath, [320, 50], 'div-gpt-mobile-leaderboard')
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
-        .defineSizeMapping(billboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 970x250")
-        .setCollapseEmptyDiv(true, true);
     }
-    if (dfp.section || dfp.author) {
+    if (dfp.author) {
       googletag.defineSlot(adUnitPath, [ [728, 90] ], 'div-gpt-super-leaderboard-2')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
