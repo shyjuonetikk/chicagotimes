@@ -7,9 +7,6 @@ endif;
 <div class="homepage-content">
 	<div class="row">
 		<div class="large-12 content-wrapper">
-			<?php echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ),
-				CST()->dfp_kses
-			); ?>
 			<div class="large-12 columns dfp-mobile-leaderboard show-for-small-only">
 				<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
 			</div>

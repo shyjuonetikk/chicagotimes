@@ -13,11 +13,7 @@ if ( is_home() || is_front_page() || is_tax() ) {
 		CST()->dfp_kses
 	);
 }
-?>
-
-<?php do_action( 'header_sliding_billboard' ); ?>
-
-<?php if ( is_tax() ) {
+if ( is_tax() ) {
 	$section_obj = get_queried_object();
 	$section_slug = CST()->frontend->determine_section_slug( $section_obj );
 	if ( isset( $section_slug ) ) :

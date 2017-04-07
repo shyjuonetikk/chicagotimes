@@ -90,7 +90,6 @@ class CST_Frontend {
 		}, 9 );
 
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
-		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
@@ -1485,7 +1484,7 @@ class CST_Frontend {
 
 	/**
 	* @param $section_obj
-	* Determine and display a sb navigation on section fronts
+	* Determine and display a sub navigation on section fronts
 	* If a child sub nav display a link to the parent section before the sub nav
 	*/
 	public function determine_and_display_section_subnav( $section_obj ) {
@@ -1649,21 +1648,6 @@ class CST_Frontend {
 	*/
 	function cst_remove_extra_twitter_js() {
 		wp_deregister_script( 'twitter-widgets' );
-	}
-
-	/**
-	* Determine whether to display the sliding billboard markup
-	*/
-	function action_maybe_render_sliding_billboard() {
-
-		if ( is_front_page() ) :
-			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' ),
-			CST()->dfp_kses
-		);
-			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ),
-			CST()->dfp_kses
-		);
-	    endif;
 	}
 
 	/**

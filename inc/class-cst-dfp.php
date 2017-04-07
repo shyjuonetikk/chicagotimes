@@ -279,7 +279,7 @@ var dfp = {
 	  .build();
     super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970, 250], [970,90], [728,90] ] ). //tablet
-    addSize([992, 0], [ [970, 250], [728, 90], [970, 90] ] ). //desktop
+    addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [300, 50], [320, 50]). //phone
@@ -395,8 +395,6 @@ var dfp = {
           .setCollapseEmptyDiv(true, true);
     }
     if (dfp.front_page || dfp.section || dfp.author) {
-      googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
-        .addService(googletag.pubads()).setTargeting("pos", "sbb");
       googletag.defineSlot(adUnitPath, [320, 50], 'div-gpt-mobile-leaderboard')
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
