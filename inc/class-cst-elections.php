@@ -418,19 +418,19 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 	 * Homepage section
 	 */
 	public function election_shortcode() {
+		if ( is_active_sidebar( 'election_2016_headlines' ) ) {
 		?>
 		<div class="row">
 			<div class="large-12 elections-container">
 				<div class="elections-2016">
 					<?php
-					if ( is_active_sidebar( 'election_2016_headlines' ) ) {
 						dynamic_sidebar( 'election_2016_headlines' );
-					}
 					?>
 				</div>
 			</div>
 		</div>
 		<?php
+		}
 	}
 }
 

@@ -9,15 +9,11 @@
 	<?php
 }
 if ( is_home() || is_front_page() || is_tax() ) {
-	echo wp_kses( CST()->dfp_handler->unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+	echo wp_kses( CST()->dfp_handler->dynamic_unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered', 'super_leaderboard_mapping', 'Super leaderboard 2 970x90' ),
 		CST()->dfp_kses
 	);
 }
-?>
-
-<?php do_action( 'header_sliding_billboard' ); ?>
-
-<?php if ( is_tax() ) {
+if ( is_tax() ) {
 	$section_obj = get_queried_object();
 	$section_slug = CST()->frontend->determine_section_slug( $section_obj );
 	if ( isset( $section_slug ) ) :

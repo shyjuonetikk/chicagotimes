@@ -26,10 +26,13 @@
 
 			<?php if ( have_posts() ) : ?>
 				<?php do_action( 'cst_section_head' ); ?>
+				<?php $video_position_counter = 1; ?>
 				<?php while ( have_posts() ) : the_post(); ?>
-
 					<?php get_template_part( 'content' ); ?>
-
+					<?php
+						$video_position_counter++;
+						CST()->frontend->cst_section_front_video( $video_position_counter );
+					?>
 				<?php endwhile; ?>
 
 			<?php endif; ?>

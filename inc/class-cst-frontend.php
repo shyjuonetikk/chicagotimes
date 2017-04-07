@@ -89,10 +89,7 @@ class CST_Frontend {
 			}
 		}, 9 );
 
-		add_action( 'cst_section_head', array( $this, 'action_cst_section_head_video' ) );
-
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
-		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
@@ -1316,15 +1313,19 @@ class CST_Frontend {
 		<?php
 	}
 	/**
-	 * Function called from section_head action in parts/page-header.php
 	 * Checks if we have a video player for embedding purposes for a section front
+	 * Counter is the article number / placement position within the section front.
+	 * @param $counter int
 	 */
-	function action_cst_section_head_video() {
-		if ( is_tax() ) {
-			if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
-				$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+	function cst_section_front_video( $counter ) {
+		if ( 3 === $counter ) {
+			if ( is_tax() ) {
+				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
+					$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+				}
 			}
 		}
+
 	}
 
 	/**
@@ -1472,7 +1473,7 @@ class CST_Frontend {
 					<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
 				</div>
 			</div>
-		<a href="#0" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+		<a href="#" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
 		</div>
 	</div>
 	<?php echo wp_kses_post( $sponsor_markup ); ?>
@@ -1483,7 +1484,7 @@ class CST_Frontend {
 
 	/**
 	* @param $section_obj
-	* Determine and display a sb navigation on section fronts
+	* Determine and display a sub navigation on section fronts
 	* If a child sub nav display a link to the parent section before the sub nav
 	*/
 	public function determine_and_display_section_subnav( $section_obj ) {
@@ -1647,21 +1648,6 @@ class CST_Frontend {
 	*/
 	function cst_remove_extra_twitter_js() {
 		wp_deregister_script( 'twitter-widgets' );
-	}
-
-	/**
-	* Determine whether to display the sliding billboard markup
-	*/
-	function action_maybe_render_sliding_billboard() {
-
-		if ( is_front_page() ) :
-			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' ),
-			CST()->dfp_kses
-		);
-			echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' ),
-			CST()->dfp_kses
-		);
-	    endif;
 	}
 
 	/**
@@ -2139,18 +2125,20 @@ ready(fn);
 			$targeting = ( ! $paged ) ? 'atf leaderboard 2' : 'atf leaderboard 3';
 			$inject_ad_markup = true;
 		} else {
-			$placement = 'div-gpt-placement-s';
-			$mapping = 'sf_inline_mapping';
-			$sf_first_ad = ( 0 === $wp_query->current_post && 0 === $paged );
-			if ( $sf_first_ad ) {
-				$targeting = 'rr cube 2';
-				$inject_ad_markup = true;
-			} else {
-				$every_two = $wp_query->current_post % 2;
-				$sf_second_ad = ! $every_two;
-				if ( $sf_second_ad ) {
-					$targeting = 'rr cube 3';
+			if ( $wp_query->current_post > 1 ) {
+				$placement = 'div-gpt-placement-s';
+				$mapping = 'sf_inline_mapping';
+				$sf_first_ad = ( 2 === $wp_query->current_post && 0 === $paged );
+				if ( $sf_first_ad ) {
+					$targeting = 'rr cube 2';
 					$inject_ad_markup = true;
+				} else {
+					$every_two = $wp_query->current_post % 2;
+					$sf_second_ad = ! $every_two;
+					if ( $sf_second_ad ) {
+						$targeting = 'rr cube 3';
+						$inject_ad_markup = true;
+					}
 				}
 			}
 		}

@@ -279,7 +279,7 @@ var dfp = {
 	  .build();
     super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970, 250], [970,90], [728,90] ] ). //tablet
-    addSize([992, 0], [ [970, 250], [728, 90], [970, 90] ] ). //desktop
+    addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [300, 50], [320, 50]). //phone
@@ -362,11 +362,6 @@ var dfp = {
     googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
       .defineSizeMapping(sf_inline_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
-      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
-        .defineSizeMapping(billboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 2 970x250")
-        .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
@@ -395,18 +390,11 @@ var dfp = {
           .setCollapseEmptyDiv(true, true);
     }
     if (dfp.front_page || dfp.section || dfp.author) {
-      googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
-        .addService(googletag.pubads()).setTargeting("pos", "sbb");
       googletag.defineSlot(adUnitPath, [320, 50], 'div-gpt-mobile-leaderboard')
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
-        .defineSizeMapping(billboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 970x250")
-        .setCollapseEmptyDiv(true, true);
     }
-    if (dfp.section || dfp.author) {
+    if (dfp.author) {
       googletag.defineSlot(adUnitPath, [ [728, 90] ], 'div-gpt-super-leaderboard-2')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
