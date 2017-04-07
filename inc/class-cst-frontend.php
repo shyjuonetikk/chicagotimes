@@ -1490,7 +1490,6 @@ class CST_Frontend {
 
 		if ( ! is_404() && ! is_singular() ) :
 	        echo CST()->dfp_handler->unit( 1, 'div-gpt-billboard', 'dfp dfp-billboard dfp-centered' );
-			echo CST()->dfp_handler->unit( 1, 'div-gpt-sbb', 'dfp dfp-sbb dfp-centered' );
 	    endif;
 	}
 
