@@ -1553,10 +1553,12 @@ class CST_Frontend {
 	* @return bool|mixed
 	*/
 	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
-		// Special sports nav handling here
+		$section_navigation = '';
 		if ( $current_obj = $this->get_current_object() ) {
-			$object_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
-			if ( 'sports' === $current_obj->slug || 'sports' === $object_parent->slug ) {
+			$sports_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
+			// Special sports nav handling here
+			if ( 'sports' === $current_obj->slug
+			 || $sports_parent->term_id === $current_obj->parent ) {
 				$conditional_nav = 'sports';
 				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
 					if ( has_nav_menu( $conditional_nav.'-menu' ) ) {
@@ -1578,21 +1580,33 @@ class CST_Frontend {
 					}
 				}
 			} else {
-				if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent, 'cst' ) ) ) {
+				if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent, 'cst' ) )  || WP_DEBUG ) {
+					// Generate dynamic section based navigation links
 					$sections = get_terms( array(
 						'taxonomy'         => 'cst_section',
 						'hide_empty'       => true,
 						'include_children' => false,
-						'parent'           => $parent,
+						'parent'           => 0 === $current_obj->parent ? $parent : $current_obj->parent,
 						)
 					);
 					$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
 					$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
 					$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
 					foreach ( $sections as $section ) {
-						$section_link_url = wpcom_vip_get_term_link( $section->term_id );
-						if ( ! is_wp_error( $section_link_url ) ) {
-							$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $section_link_url ), $section->name );
+						if ( $section->term_id !== $current_obj->term_id ) {
+							$section_link_url = wpcom_vip_get_term_link( $section->term_id );
+							if ( ! is_wp_error( $section_link_url ) ) {
+								$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $section_link_url ), $section->name );
+							}
+						}
+					}
+					// Add parent link as appropriate
+					$parent_link_id = ( 0 === $current_obj->parent ) ? $parent : $current_obj->parent;
+					if ( $parent != $parent_link_id ) {
+						$link_to_parent = wpcom_vip_get_term_link( $parent_link_id );
+						if ( ! is_wp_error( $link_to_parent ) ) {
+							$nav_parent = wpcom_vip_get_term_by( 'id', $parent_link_id, 'cst_section' );
+							$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $link_to_parent ), $nav_parent->name );
 						}
 					}
 					$section_navigation .= '</ul></div></div></div>';
