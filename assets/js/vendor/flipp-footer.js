@@ -16,7 +16,7 @@
       return;
     }
 
-    var FlippParNum = 5, paraNum;
+    var FlippParNum = 5, paraNum,paraProto,paraContent;
     for (paraNum = 5; paraNum < 10; paraNum++) {
       paraProto = paragraphs[paraNum];
       if (undefined !== paraProto) {
