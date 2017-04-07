@@ -1556,7 +1556,9 @@ class CST_Frontend {
 		// Special sports nav handling here
 		if ( $current_obj = $this->get_current_object() ) {
 			$object_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
-			if ( 'sports' === $current_obj->slug || 'sports' === $object_parent->slug ) {
+			if ( 'sports' === $current_obj->slug
+			|| $object_parent->term_id === $current_obj->parent
+			&& 'sports' === $object_parent->slug ) {
 				$conditional_nav = 'sports';
 				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
 					if ( has_nav_menu( $conditional_nav.'-menu' ) ) {
