@@ -2064,22 +2064,15 @@ class CST {
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
-			'header' => 'triplelift-header.js',
+			'header' => false,
 			'footer' => 'triplelift-footer.js',
 			'container' => false,
 			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
 			)
 		);
-		$this->ad_vendor_handler->register_vendor( 'flipp', array(
-			'header' => false,
-			'footer' => 'flipp-footer.js',
-			'container' => false,
-			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
-			)
-		);
 		$this->ad_vendor_handler->register_vendor( 'adsupply', array(
-				'header' => 'adsupply-popunder-header.js',
-				'footer' => false,
+				'header' => false,
+				'footer' => 'adsupply-popunder-header.js',
 				'container' => false,
 				'logic' => apply_filters( 'ads/limit_ads_on_features', false ),
 			)
@@ -2096,9 +2089,9 @@ class CST {
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'nativo', array(
-				'header' => '//s.ntv.io/serve/load.js',
-				'header-remote' => true,
-				'footer' => false,
+				'header' => false,
+				'footer-remote' => true,
+				'footer' => '//s.ntv.io/serve/load.js',
 				'container' => false,
 				'logic' => apply_filters( 'ads/limit_ads_on_features', false ),
 			)

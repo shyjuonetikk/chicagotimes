@@ -219,7 +219,7 @@ abstract class Post {
 	 * Echo the content for the post
 	 */
 	public function the_content() {
-		echo wp_kses_post( apply_filters( 'the_content', $this->get_field( 'post_content' ) ) );
+		echo apply_filters( 'the_content', $this->get_field( 'post_content' ) );
 	}
 
 	/**
