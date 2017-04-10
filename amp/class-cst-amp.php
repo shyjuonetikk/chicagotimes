@@ -134,7 +134,7 @@ class CST_AMP {
 		} elseif ( 'gallery' === $media_type && $gallery = $obj->get_featured_gallery() ) { ?>
 			<?php $image_content .= do_shortcode( '[cst-content id="' . $gallery->get_id() . '"]' );
 		} elseif ( 'video' === $media_type ) { ?>
-			<?php $image_content .= '<p>' . $obj->get_featured_video_embed() . '</p>'; ?>
+			<?php $image_content .= '<p>' . $obj->featured_video_embed() . '</p>'; ?>
 		<?php }
 		$content = '
 <div class="post-lead-media">' .
@@ -155,8 +155,6 @@ class CST_AMP {
 	 */
 	function amp_add_sanitizers( $sanitizer_classes, $post ) {
 		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-cst-ad-sanitizer.php' );
-		require_once( get_stylesheet_directory() . '/amp/amp-tools/classes/class-amp-sendtonews-sanitizer.php' );
-		$sanitizer_classes['CST_AMP_Send_To_News_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`
 		$sanitizer_classes['CST_AMP_Ad_Injection_Sanitizer'] = array(); // the array can be used to pass args to your sanitizer and accessed within the class via `$this->args`
 		return $sanitizer_classes;
 	}

@@ -12,7 +12,7 @@
 			</div>
 		<?php elseif ( 'video' === $media_type ) : ?>
 			<div class="post-lead-media post-content columns medium-11 medium-offset-1 end">
-				<?php echo $obj->get_featured_video_embed(); ?>
+				<?php $obj->featured_video_embed(); ?>
 			</div>
 		<?php endif; ?>
 		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
