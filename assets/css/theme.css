@@ -673,6 +673,8 @@ body.admin-bar .move-right header#header {
 
 .single .off-canvas-list {
   margin-top: 135px; }
+  .single .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown {
+    top: 135px; }
 
 #fixed-back-to-top {
   margin-left: -75px;

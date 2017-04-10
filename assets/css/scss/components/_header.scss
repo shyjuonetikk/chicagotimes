@@ -529,6 +529,13 @@ body.admin-bar {
 .single{
 	.off-canvas-list {
 		margin-top: 135px;
+		> .cst-off-canvas-navigation-container {
+			li {
+				.dropdown {
+					top: 135px;
+				}
+			}
+		}
 	}
 }
 #fixed-back-to-top {
