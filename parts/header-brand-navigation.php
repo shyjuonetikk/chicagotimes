@@ -24,7 +24,7 @@
 				<li class="has-form">
 					<div class="row collapse">
 						<div class="large-2 small-2 columns">
-							<span class="subscribe-link "><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
+							<button data-reveal-id="subscribe-modal" class="subscribe-link">Subscribe</button>
 						</div>
 					</div>
 				</li>
@@ -58,6 +58,11 @@
 					<div class="row-collapse">
 						<?php if ( is_front_page() ) { ?>
 							<div class="columns small-12 show-for-small-only small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
+								</a>
+							</div>
+							<div class="columns small-12 show-for-small-device-landscape small-logo">
 								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>

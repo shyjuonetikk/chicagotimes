@@ -247,7 +247,11 @@ header#header {
 .spacer {
 	height: 135px;
 }
-
+body.page {
+	.spacer {
+		height: auto;
+	}
+}
 body.admin-bar {
 	header#header {
 		top: 32px;
@@ -925,11 +929,14 @@ body.single {
 		}
 	}
 	.subscribe-link {
-		border: 1px $white solid;
-		padding:0 4px;
-		margin:9px 10px 0 0;
-		display:block;
-		width:67px;
+		background-color: transparent;
+		font-size: 0.675rem;
+		border: 1px white solid;
+		padding: 6px 5px 6px 4px;
+		top: 0;
+		margin: 10px 7px 0 0;
+		display: block;
+		width: 62px;
 		color: $light_grey;
 		a, a:visited, a:focus, a:hover {
 			color: $light_grey;

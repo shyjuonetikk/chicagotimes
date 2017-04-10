@@ -165,6 +165,13 @@ h1, h2, h3, h4, h5, h6 {
 /* 1921px */
 @media only screen and (max-width:90em) { }
 
+.show-for-small-device-landscape {
+  display: none; }
+
+@media only screen and (max-width:63.94em) and (orientation: landscape) {
+  .show-for-small-device-landscape {
+    display: block; } }
+
 body.error404 {
   background-color: #f8f8f8;
   height: inherit; }
@@ -465,6 +472,9 @@ header#header {
 
 .spacer {
   height: 135px; }
+
+body.page .spacer {
+  height: auto; }
 
 body.admin-bar header#header {
   top: 32px; }
@@ -935,11 +945,14 @@ ul#menu-sun-times-network {
     padding: 0 17px;
     display: inline-block; } }
 .masthead .subscribe-link {
+  background-color: transparent;
+  font-size: 0.675rem;
   border: 1px white solid;
-  padding: 0 4px;
-  margin: 9px 10px 0 0;
+  padding: 6px 5px 6px 4px;
+  top: 0;
+  margin: 10px 7px 0 0;
   display: block;
-  width: 67px;
+  width: 62px;
   color: #f8f8f8; }
   .masthead .subscribe-link a, .masthead .subscribe-link a:visited, .masthead .subscribe-link a:focus, .masthead .subscribe-link a:hover {
     color: #f8f8f8;
@@ -3763,6 +3776,10 @@ body.post-gallery-lightbox-active {
           .homepage_wrapper section#main-well .main-article-container .article-title h3 {
             line-height: 1.2rem;
             font-size: 1rem; } }
+        @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+          .homepage_wrapper section#main-well .main-article-container .article-title h3 {
+            line-height: 1rem;
+            font-size: 0.7rem; } }
         @media only screen and (min-width:48em) and (max-width:64em) {
           .homepage_wrapper section#main-well .main-article-container .article-title h3 {
             font-size: 1.5rem;
@@ -3856,8 +3873,8 @@ body.post-gallery-lightbox-active {
               line-height: 1rem; } }
           @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
             .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
-              font-size: 1.2rem;
-              line-height: 1.5rem; } }
+              font-size: 0.8rem;
+              line-height: 1.1rem; } }
           @media only screen and (min-width:48em) and (max-width:64em) {
             .homepage_wrapper section#main-well .left-main-well .article-container .article-title h3 {
               font-size: 1.5rem;
@@ -3989,6 +4006,12 @@ body.post-gallery-lightbox-active {
       font-size: 0.8rem;
       font-style: italic;
       line-height: 1.05rem; }
+  @media only screen and (max-width: 40em) {
+    .homepage_wrapper section#more-stories-wells .article-headline {
+      padding-left: 5px; }
+    .homepage_wrapper section#more-stories-wells .more-excerpt {
+      display: none;
+      visibility: hidden; } }
   .homepage_wrapper section#more-stories-wells .more-story {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     float: none;
@@ -4743,6 +4766,13 @@ h1, h2, h3, h4, h5, h6 {
 /* 1441px, 1920px */
 /* 1921px */
 @media only screen and (max-width:90em) { }
+
+.show-for-small-device-landscape {
+  display: none; }
+
+@media only screen and (max-width:63.94em) and (orientation: landscape) {
+  .show-for-small-device-landscape {
+    display: block; } }
 
 .cst_feature-template-default header#header section#primary-navigation, .post-type-archive-cst_feature header#header section#primary-navigation, .single-cst_feature header#header section#primary-navigation {
   height: 46px; }
