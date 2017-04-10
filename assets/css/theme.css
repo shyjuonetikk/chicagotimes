@@ -3722,6 +3722,10 @@ body.post-gallery-lightbox-active {
       padding: 0 20px;
       font-style: italic;
       text-shadow: 1px 2px #333333; }
+    @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
+      .homepage_wrapper h2.section-title {
+        font-size: 1.6rem;
+        line-height: 0.3rem; } }
   .homepage_wrapper h3.section-title {
     height: 10px;
     text-align: center;
@@ -4093,6 +4097,11 @@ body.post-gallery-lightbox-active {
       text-align: center;
       display: block;
       width: 100%; }
+  .homepage_wrapper .homepage-sidebar li {
+    list-style: none; }
+    .homepage_wrapper .homepage-sidebar li.widget > div.columns {
+      padding-left: 0;
+      padding-right: 0; }
   .homepage_wrapper .widget_cst_featured_content_widget:nth-of-type(1) {
     margin-top: 5px;
     padding: 0; }

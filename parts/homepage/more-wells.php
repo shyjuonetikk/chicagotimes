@@ -1,6 +1,6 @@
 <?php global $homepage_more_well_posts; ?>
 <div class="row">
-	<div class="columns small-12 medium-8 homepage-more-wells">
+	<div class="columns small-12 medium-7 large-8 homepage-more-wells">
 <hr class="before">
 <h2 class="section-title"><span><?php esc_html_e( 'More Top Stories', 'chicagosuntimes' ); ?></span></h2>
 <hr>
@@ -37,7 +37,7 @@
 						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-more-wells">
 							<h3><?php esc_html_e( $obj->the_title(), 'chicagosuntimes' ); ?></h3>
 						</a>
-						<div class="more-excerpt"><?php esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?></div>
+						<div class="more-excerpt show-for-large-up"><?php esc_html_e( $obj->the_excerpt(), 'chicagosuntimes' ); ?></div>
 						<span
 							class="author">By <?php echo esc_html( $author ); ?></span>
 					</div>
@@ -53,15 +53,13 @@
 	</section>
 <?php } ?>
 </div>
-<div class="large-4 columns homepage-sidebar">
-	<div class="row">
+<div class="large-4 medium-5 columns homepage-sidebar">
 		<?php if ( dynamic_sidebar( 'homepage_sidebar_two' ) ) {
 		} ?>
 		<?php if ( dynamic_sidebar( 'homepage_sidebar_three' ) ) {
 		} ?>
-		<div class="large-12 medium-6 small-12 columns dfp-cube">
+		<div class="large-12 small-12 dfp-cube">
 			<?php echo wp_kses( CST()->dfp_handler->unit( 7, 'div-gpt-rr-cube', 'dfp dfp-cube', 'hp_cube_mapping', 'rr cube 7' ), CST()->dfp_kses ); ?>
 		</div>
-	</div>
 </div>
 </div>

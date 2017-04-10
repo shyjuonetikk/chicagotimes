@@ -283,6 +283,7 @@ var dfp = {
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [300, 50], [320, 50]). //phone
+    addSize([414, 0], [300, 50], [320, 50]). //phone
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
@@ -312,6 +313,7 @@ var dfp = {
 	  .addSize([1025, 0], [[300, 600], [300, 250]]) //desktop
 	  .addSize([768,1024], [[300, 600], [300, 250]]) //desktop no sidebar
 	  .addSize([768, 0], [[300, 600], [300, 250]]) //desktop
+	  .addSize([732, 0], [[300, 250]]) //mobile device
 	  .addSize([640, 480], [300, 50], [320, 50]) //phone
 	  .addSize([375, 667], [300, 50], [320, 50]) //phone
 	  .build();
