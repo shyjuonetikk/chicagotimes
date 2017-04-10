@@ -1202,27 +1202,30 @@ class CST_Frontend {
 
 	public function cst_tracking_pixels() {
 
-    $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );       
-    $post_sections  = $obj->get_section_slugs();
-            
-    if( $post_sections ) {
-        if( in_array( 'blackhawks', $post_sections ) ) {
-                ?>
-                <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/6655a88f1aa976a9';new Image().src = ssaUrl;</script>
-                <?php           
+    $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+    
+    if ( is_single() ) {      
+        $post_sections  = $obj->get_section_slugs();
+
+        if( $post_sections ) {
+            if( in_array( 'blackhawks', $post_sections ) ) {
+                    ?>
+                    <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/6655a88f1aa976a9';new Image().src = ssaUrl;</script>
+                    <?php           
+                }
+            if( in_array( 'cubs', $post_sections ) ) {
+                    ?>
+                    <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/f73b65fe8a643ce0';new Image().src = ssaUrl;</script>
+                    <?php           
+                }  
+            if( in_array( 'white-sox', $post_sections ) ) {
+                    ?>
+                    <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/ea36f07c77f599cb';new Image().src = ssaUrl;</script>
+                    <?php           
+                }              
             }
-        if( in_array( 'cubs-baseball', $post_sections ) ) {
-                ?>
-                <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/f73b65fe8a643ce0';new Image().src = ssaUrl;</script>
-                <?php           
-            }  
-        if( in_array( 'white-sox', $post_sections ) ) {
-                ?>
-                <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/ea36f07c77f599cb';new Image().src = ssaUrl;</script>
-                <?php           
-            }              
         }
-   
+            
     $section_front = get_queried_object()->slug;
         
    if ( $section_front ) {     
@@ -1233,7 +1236,7 @@ class CST_Frontend {
                 <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/6655a88f1aa976a9';new Image().src = ssaUrl;</script>
                 <?php
 			    break;
-			case 'cubs-baseball':
+			case 'cubs':
                 ?>
                 <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/f73b65fe8a643ce0';new Image().src = ssaUrl;</script>
                 <?php
