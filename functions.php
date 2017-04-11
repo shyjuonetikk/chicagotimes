@@ -945,6 +945,7 @@ class CST {
 				'homepage-footer-menu'   => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
 				'news-menu'              => esc_html__( 'News', 'chicagosuntimes' ),
 				'news-trending'          => esc_html__( 'News Trending', 'chicagosuntimes' ),
+				'sports-subnav-menu'     => esc_html__( 'Sports SubNav', 'chicagosuntimes' ),
 				'sports-menu'            => esc_html__( 'Sports', 'chicagosuntimes' ),
 				'sports-trending'        => esc_html__( 'Sports Trending', 'chicagosuntimes' ),
 				'politics-menu'          => esc_html__( 'Politics', 'chicagosuntimes' ),

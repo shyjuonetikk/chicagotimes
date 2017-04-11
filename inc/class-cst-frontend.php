@@ -1463,6 +1463,10 @@ class CST_Frontend {
 	*/
 	public function display_section_front_title( $class, $name_width, $sponsor_markup ) {
 		$section_obj = get_queried_object();
+		$section_link = wpcom_vip_get_term_link( $section_obj->term_id , 'cst_section' );
+		if ( is_wp_error( $section_link ) ) {
+			$section_link = '#';
+		}
 		?>
 <section class="<?php echo esc_attr( $class ); ?>">
 	<div class="<?php echo esc_attr( $name_width ); ?> section-meta">
@@ -1472,7 +1476,7 @@ class CST_Frontend {
 					<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
 				</div>
 			</div>
-		<a href="<?php echo esc_url( wpcom_vip_get_term_link( $section_obj->term_id , 'cst_section' ) ); ?>" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', $section_obj->name ) ); ?></a>
+		<a href="<?php echo esc_url( $section_link ); ?>" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', $section_obj->name ) ); ?></a>
 		</div>
 	</div>
 	<?php echo wp_kses_post( $sponsor_markup ); ?>
@@ -1555,20 +1559,19 @@ class CST_Frontend {
 		$section_navigation = '';
 		if ( $current_obj = $this->get_current_object() ) {
 			$sports_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
+			$child_parent = wpcom_vip_get_term_by( 'id', $current_obj->parent, 'cst_section' );
 			// Special sports nav handling here
 			if ( 'sports' === $current_obj->slug
+			 || $sports_parent->term_id === $child_parent->parent
 			 || $sports_parent->term_id === $current_obj->parent ) {
-				$conditional_nav = 'sports';
+				$conditional_nav = 'sports-subnav';
 				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
-					if ( has_nav_menu( $conditional_nav.'-menu' ) ) {
 						$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
 						$chosen_parameters = array(
-								'theme_location' => 'homepage-menu',
+								'theme_location' => $conditional_nav.'-menu',
 								'fallback_cb' => false,
 								'container_class' => $container,
 								'walker' => new GC_walker_nav_menu(),
-								'submenu' => 'Sports',
-								'removeitem' => $current_obj->name,
 								'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
 								'echo' => false,
 						);
@@ -1576,9 +1579,7 @@ class CST_Frontend {
 							$section_navigation = wp_nav_menu( $chosen_parameters );
 							wp_cache_set( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst', 1 * WEEK_IN_SECONDS );
 						}
-					} else {
-						$section_navigation = $this->generate_section_subnav( $parent, $current_obj, $off_canvas );
-					}
+
 				} else {
 					$section_navigation = $this->generate_section_subnav( $parent, $current_obj, $off_canvas );
 				}
