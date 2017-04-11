@@ -310,12 +310,12 @@ var dfp = {
 	  .build();
     hp_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
-	  .addSize([1025, 0], [[300, 600], [300, 250]]) //desktop
-	  .addSize([768,1024], [[300, 600], [300, 250]]) //desktop no sidebar
-	  .addSize([768, 0], [[300, 600], [300, 250]]) //desktop
+	  .addSize([1025, 0], [[300, 600]]) //desktop
+	  .addSize([768,1024], [[300, 600]]) //desktop no sidebar
+	  .addSize([768, 0], [[300, 600]]) //desktop
 	  .addSize([732, 0], [[300, 250]]) //mobile device
-	  .addSize([640, 480], [300, 50], [320, 50]) //phone
-	  .addSize([375, 667], [300, 50], [320, 50]) //phone
+	  .addSize([640, 480], [[320, 50], [300, 50]]) //phone
+	  .addSize([375, 667], [[320, 50], [300, 50]]) //phone
 	  .build();
     gallery_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
@@ -355,15 +355,9 @@ var dfp = {
       .addSize([0, 0], [320, 50]) //other
       .build();
     if (dfp.front_page) {
-    googletag.defineSlot(adUnitPath, [[300, 600], [300, 250]], 'div-gpt-rr-cube-1')
+    googletag.defineSlot(adUnitPath, [[300, 600]], 'div-gpt-rr-cube-1')
 	  .defineSizeMapping(hp_cube_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
-    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
-      .defineSizeMapping(sf_inline_mapping)
-      .addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
-    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
-      .defineSizeMapping(sf_inline_mapping)
-      .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
