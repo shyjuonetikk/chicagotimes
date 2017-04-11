@@ -138,7 +138,6 @@
 
         window.CSTAds && CSTAds.refreshAllArticleAds();
         window.CSTTripleLift && CSTTripleLift.inject()
-        window.CSTFlipp && CSTFlipp.inject()
 				CSTAnalytics.triggerPageview();
 				
 			} else {
