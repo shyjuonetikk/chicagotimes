@@ -1609,13 +1609,13 @@ class CST_Frontend {
 				)
 			);
 			$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
-			$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
+			$section_navigation = '<div class="' . esc_attr( $container ) . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
 			$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
 			foreach ( $sections as $section ) {
 				if ( $section->term_id !== $current_obj->term_id ) {
 					$section_link_url = wpcom_vip_get_term_link( $section->term_id );
 					if ( ! is_wp_error( $section_link_url ) ) {
-						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $section_link_url ), $section->name );
+						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $section_link_url ), esc_html( $section->name ) );
 					}
 				}
 			}
@@ -1625,7 +1625,9 @@ class CST_Frontend {
 				$link_to_parent = wpcom_vip_get_term_link( $parent_link_id );
 				if ( ! is_wp_error( $link_to_parent ) ) {
 					$nav_parent = wpcom_vip_get_term_by( 'id', $parent_link_id, 'cst_section' );
-					$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $link_to_parent ), $nav_parent->name );
+					if ( false !== $nav_parent ) {
+						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $link_to_parent ), esc_html( $nav_parent->name ) );
+					}
 				}
 			}
 			$section_navigation .= '</ul></div></div></div>';
