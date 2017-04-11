@@ -301,10 +301,10 @@ body.error404 {
 @media (max-width: 320px) {
   .single .post-row {
     padding-left: 10px !important; }
-  .single .ad-container {
+  .single .cst-ad-container {
     width: 300px;
     text-align: left !important; }
-    .single .ad-container .dfp-cube {
+    .single .cst-ad-container .dfp-cube {
       margin: 0 !important;
       margin-bottom: 5px !important; } }
 
@@ -968,13 +968,13 @@ ul#menu-sun-times-network {
 .wire {
   position: relative;
   z-index: 2; }
-  .wire .ad-container {
+  .wire .cst-ad-container {
     position: relative;
     display: block;
     text-align: center;
     clear: both;
     margin-bottom: 10px; }
-    .wire .ad-container .dfp-cube {
+    .wire .cst-ad-container .dfp-cube {
       display: inline-block;
       margin: 5px; }
   .wire .taxonomy-image {
@@ -1309,7 +1309,8 @@ body.search {
 
 #main .video-injection {
   margin-bottom: 10px;
-  float: left; }
+  clear: both;
+  position: relative; }
 
 .upper-heading {
   margin-bottom: 30px; }
@@ -1624,13 +1625,13 @@ body[class^="cst_article-"] article.post .sponsored-notification {
 @media only screen and (max-width: 40em) {
   .single .taboola-container {
     max-width: 100%; } }
-.single .ad-container {
+.single .cst-ad-container {
   position: relative;
   display: block;
   text-align: center;
   clear: both;
   margin-bottom: 10px; }
-  .single .ad-container .dfp-cube {
+  .single .cst-ad-container .dfp-cube {
     display: inline-block;
     margin: 5px; }
 .single #post-body {

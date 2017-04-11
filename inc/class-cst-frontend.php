@@ -2083,7 +2083,7 @@ ready(fn);
 			return;
 		}
 		global $wp_query;
-		$ad_template = '<div class="ad-container">%s</div>';
+		$ad_template = '<div class="cst-ad-container">%s</div>';
 		$inject_ad_markup = false;
 		if ( is_singular() ) {
 			$placement = 'div-gpt-placement-a';
@@ -2117,13 +2117,8 @@ ready(fn);
 				esc_attr( $targeting )
 			);
 			echo sprintf(
-				wp_kses( $ad_template, array( 'div' => array( 'class' ) ) ),
-				wp_kses( $ad_unit_definition,
-					array(
-						'script' => array( 'class' ) ,
-						'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
-					)
-				)
+				wp_kses( $ad_template, array( 'div' => array( 'class' => array() ) ) ),
+				wp_kses( $ad_unit_definition, CST()->dfp_kses )
 			);
 		}
 		?>
