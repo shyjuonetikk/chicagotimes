@@ -378,10 +378,6 @@
 
 		.post-meta-bottom {
 
-			@media #{$medium-up} {
-				border-top: rgba(154, 154, 154, 0.5) 1px solid;
-			}
-
 			.post-social {
 				float: left;
 				@media #{$small-only} {

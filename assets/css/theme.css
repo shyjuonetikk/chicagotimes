@@ -1189,9 +1189,6 @@ ul#menu-sun-times-network {
   @media only screen and (max-width: 40em) {
     .wire .post .liveblog-entry {
       display: none; } }
-  @media only screen and (min-width:40.063em) {
-    .wire .post .post-meta-bottom {
-      border-top: rgba(154, 154, 154, 0.5) 1px solid; } }
   .wire .post .post-meta-bottom .post-social {
     float: left; }
     @media only screen and (max-width: 40em) {
@@ -1862,7 +1859,8 @@ article[id^="post-"] h4.agg-sponsored {
     color: #7d7e7e; }
 
 body[class~="archive"] article.post {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  float: left; }
   body[class~="archive"] article.post .sponsored-notification {
     margin-top: -2px; }
 body[class~="archive"] article.index-view .section-front {
@@ -3500,24 +3498,26 @@ body.post-gallery-lightbox-active {
       .post .post-meta-social .fa {
         font-size: 1rem;
         padding: 7px; } }
-.post .post-meta-bottom .fa.post-taxonomy {
-  color: #9a9a9a;
-  padding-right: 4px; }
-.post .post-meta-bottom .post-meta-taxonomy-terms {
-  color: #9a9a9a;
-  text-transform: uppercase;
-  font-family: 'Open Sans', Arial, sans-serif;
-  font-weight: 700;
-  line-height: 1.4rem; }
-  .post .post-meta-bottom .post-meta-taxonomy-terms a {
+.post .post-meta-bottom {
+  background-color: #9a9a9a; }
+  .post .post-meta-bottom .fa.post-taxonomy {
     color: #9a9a9a;
-    white-space: nowrap; }
-    body.single .post .post-meta-bottom .post-meta-taxonomy-terms a {
-      padding-right: 14px; }
-  .post .post-meta-bottom .post-meta-taxonomy-terms a:hover {
+    padding-right: 4px; }
+  .post .post-meta-bottom .post-meta-taxonomy-terms {
+    color: #9a9a9a;
+    text-transform: uppercase;
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-weight: 700;
+    line-height: 1.4rem; }
+    .post .post-meta-bottom .post-meta-taxonomy-terms a {
+      color: #9a9a9a;
+      white-space: nowrap; }
+      body.single .post .post-meta-bottom .post-meta-taxonomy-terms a {
+        padding-right: 14px; }
+    .post .post-meta-bottom .post-meta-taxonomy-terms a:hover {
+      color: #7d7e7e; }
+  .post .post-meta-bottom .post-meta-taxonomy-terms:hover a:hover .fa {
     color: #7d7e7e; }
-.post .post-meta-bottom .post-meta-taxonomy-terms:hover a:hover .fa {
-  color: #7d7e7e; }
 
 .homepage_wrapper {
   width: 100%;
