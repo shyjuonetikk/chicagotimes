@@ -2474,6 +2474,13 @@ section#subscribe {
       margin-bottom: 0; }
     .widgets li.widget.widget_cst_ad_widget, .widgets li.widget.widget_cst_drive_chicago, .widgets li.widget.widget_image {
       background-color: transparent; }
+    .widgets li.widget h3 {
+      font-size: 0.8rem;
+      color: #ffe000;
+      background-color: #231f20;
+      text-transform: uppercase;
+      padding: 5px;
+      margin-bottom: 5px; }
   .widgets ul.widget-recent-posts, .widgets ul.widget-chartbeat-currently-viewing {
     background-color: #f8f8f8;
     margin-left: 0 !important;

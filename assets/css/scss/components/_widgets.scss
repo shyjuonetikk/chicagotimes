@@ -32,6 +32,14 @@
 		&.widget_image {
 			background-color: transparent;
 		}
+		h3 {
+			font-size: 0.8rem;
+			color: $cst_yellow;
+			background-color: $cst_black;
+			text-transform: uppercase;
+			padding: 5px;
+			margin-bottom: 5px;
+		}
 	}
 
 	ul.widget-recent-posts, ul.widget-chartbeat-currently-viewing {
