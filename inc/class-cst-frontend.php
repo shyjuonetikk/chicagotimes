@@ -1562,8 +1562,8 @@ class CST_Frontend {
 			$child_parent = wpcom_vip_get_term_by( 'id', $current_obj->parent, 'cst_section' );
 			// Special sports nav handling here
 			if ( 'sports' === $current_obj->slug
-			 || $sports_parent->term_id === $child_parent->parent
-			 || $sports_parent->term_id === $current_obj->parent ) {
+			|| $sports_parent->term_id === $current_obj->parent
+			|| ( false !== $child_parent ? $child_parent->parent : $current_obj->parent ) ) {
 				$conditional_nav = 'sports-subnav';
 				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
 						$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
