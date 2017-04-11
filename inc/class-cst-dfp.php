@@ -87,7 +87,8 @@ googletag.cmd.push(function() {
 	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [%5$s], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
-	.setTargeting("pos", "%4$s");
+	.setTargeting("pos", "%4$s")
+	.setCollapseEmptyDiv(true, true);
 	googletag.display("%1$s");
 	});
 </script>
