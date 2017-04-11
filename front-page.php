@@ -1,9 +1,4 @@
 <?php get_header(); ?>
-<?php
-if ( is_active_sidebar( 'homepage_breaking_news' ) ) :
-	dynamic_sidebar( 'homepage_breaking_news' );
-endif;
-?>
 <div class="homepage-content">
 	<div class="row">
 		<div class="large-12 content-wrapper">

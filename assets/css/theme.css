@@ -245,7 +245,8 @@ body.error404 {
   z-index: 2;
   margin: 10px auto 10px auto;
   max-width: 1000px;
-  text-align: center; }
+  text-align: center;
+  clear: both; }
 .dfp.dfp-billboard {
   text-align: center;
   position: relative;
@@ -3621,6 +3622,8 @@ body.post-gallery-lightbox-active {
               display: block; } }
   .homepage_wrapper .top-bar-section {
     z-index: 3; }
+  .homepage_wrapper .widget {
+    list-style-type: none; }
   .homepage_wrapper .breaking-news-story, .homepage_wrapper .breaking-section-story {
     background: #7d7e7e; }
   .homepage_wrapper .bears-cube-story h3.title a:hover {
@@ -3635,44 +3638,49 @@ body.post-gallery-lightbox-active {
     padding: 4px; }
   .homepage_wrapper .breaking-news-story, .homepage_wrapper .bears-cube-story, .homepage_wrapper .breaking-section-story {
     width: 100%;
-    padding: 2px 0 1px 10px;
-    border-bottom: 2px solid #282828;
-    border-top: 5px solid #282828;
+    padding: 0 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border-bottom: 5px solid #231f20;
+    border-top: 5px solid #231f20;
     position: relative;
-    z-index: 1; }
-    .homepage_wrapper .breaking-news-story h3.title, .homepage_wrapper .bears-cube-story h3.title, .homepage_wrapper .breaking-section-story h3.title {
-      font-weight: 700;
-      font-size: 18px;
-      margin-bottom: 0;
+    z-index: 1;
+    float: left;
+    font-family: 'Libre Franklin', Arial, sans-serif; }
+    .homepage_wrapper .breaking-news-story .title, .homepage_wrapper .bears-cube-story .title, .homepage_wrapper .breaking-section-story .title {
+      font-size: 1.2rem;
+      margin-bottom: 0.1rem;
       margin-top: 0; }
-      .homepage_wrapper .breaking-news-story h3.title .breaking-news-link, .homepage_wrapper .bears-cube-story h3.title .breaking-news-link, .homepage_wrapper .breaking-section-story h3.title .breaking-news-link {
-        font-weight: bold;
-        font-size: 18px;
-        text-shadow: 2px 1px #282828;
+      .homepage_wrapper .breaking-news-story .title .breaking-news-link, .homepage_wrapper .bears-cube-story .title .breaking-news-link, .homepage_wrapper .breaking-section-story .title .breaking-news-link {
+        font-size: 1rem;
         background: transparent;
-        text-transform: none; }
-    .homepage_wrapper .breaking-news-story h3 a, .homepage_wrapper .bears-cube-story h3 a, .homepage_wrapper .breaking-section-story h3 a {
-      color: #f8f8f8;
-      text-shadow: 2px 1px #282828; }
-    .homepage_wrapper .breaking-news-story h3 span, .homepage_wrapper .bears-cube-story h3 span, .homepage_wrapper .breaking-section-story h3 span {
+        text-transform: none;
+        display: inline-block;
+        line-height: 2.2rem; }
+    .homepage_wrapper .breaking-news-story a, .homepage_wrapper .breaking-news-story button, .homepage_wrapper .bears-cube-story a, .homepage_wrapper .bears-cube-story button, .homepage_wrapper .breaking-section-story a, .homepage_wrapper .breaking-section-story button {
+      font-family: 'Libre Franklin', Arial, sans-serif;
+      color: white; }
+    .homepage_wrapper .breaking-news-story span, .homepage_wrapper .bears-cube-story span, .homepage_wrapper .breaking-section-story span {
       color: white;
       text-transform: uppercase; }
-      .homepage_wrapper .breaking-news-story h3 span .fa, .homepage_wrapper .bears-cube-story h3 span .fa, .homepage_wrapper .breaking-section-story h3 span .fa {
-        color: #f8f8f8;
-        text-shadow: 1px 1px #3e3e3e;
+      .homepage_wrapper .breaking-news-story span .fa, .homepage_wrapper .bears-cube-story span .fa, .homepage_wrapper .breaking-section-story span .fa {
+        color: white;
         cursor: pointer;
         font-size: 22px; }
-      .homepage_wrapper .breaking-news-story h3 span .fa:hover, .homepage_wrapper .bears-cube-story h3 span .fa:hover, .homepage_wrapper .breaking-section-story h3 span .fa:hover {
-        opacity: 0.75; }
-    .homepage_wrapper .breaking-news-story h3 .button, .homepage_wrapper .bears-cube-story h3 .button, .homepage_wrapper .breaking-section-story h3 .button {
-      background: #cd606e;
-      border-radius: 5px;
-      margin-bottom: 0px;
+    @media only screen and (max-width:64em) {
+      .homepage_wrapper .breaking-news-story h3.title, .homepage_wrapper .bears-cube-story h3.title, .homepage_wrapper .breaking-section-story h3.title {
+        font-size: 1rem; }
+      .homepage_wrapper .breaking-news-story .breaking-news-link, .homepage_wrapper .bears-cube-story .breaking-news-link, .homepage_wrapper .breaking-section-story .breaking-news-link {
+        font-size: 0.9rem;
+        line-height: 1rem; } }
+    .homepage_wrapper .breaking-news-story .breaking-news-button, .homepage_wrapper .bears-cube-story .breaking-news-button, .homepage_wrapper .breaking-section-story .breaking-news-button {
+      border-radius: 0;
+      margin-bottom: 0.2rem;
       text-transform: uppercase;
-      text-shadow: 1px 1px #282828;
-      font-weight: 700; }
-    .homepage_wrapper .breaking-news-story h3 .button:hover, .homepage_wrapper .bears-cube-story h3 .button:hover, .homepage_wrapper .breaking-section-story h3 .button:hover {
-      opacity: 0.75; }
+      background-color: #231f20;
+      border: 1px solid white;
+      padding: 0.35rem;
+      color: #ffe000; }
   .homepage_wrapper .homepage-content {
     margin: 0 auto; }
   @media (min-width: 1200px) and (max-width: 1275px) {
