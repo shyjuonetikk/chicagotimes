@@ -93,7 +93,7 @@ class CST_Ad_Vendor_Handler {
 						}
 					}
 				} else {
-					$permission_to_enqueue = $registered_vendor['logic'];
+					$permission_to_enqueue = apply_filters( $registered_vendor['logic'], false );
 				}
 				if ( $permission_to_enqueue ) {
 					if ( $registered_vendor['header'] ) {

@@ -52,11 +52,6 @@
 <?php } ?>
 <meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
-<?php if ( ! is_404() ) { ?>
-	<?php get_template_part( 'parts/vendors/nativo-content-header' ); ?>
-<?php } ?>
-
-
 <?php
 if ( is_search() || is_404() ) {
 	get_template_part( 'parts/dfp/dfp-search' );
