@@ -1472,7 +1472,7 @@ class CST_Frontend {
 					<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
 				</div>
 			</div>
-		<a href="#" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', get_queried_object()->name ) ); ?></a>
+		<a href="<?php echo esc_url( wpcom_vip_get_term_link( $section_obj->term_id , 'cst_section' ) ); ?>" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', $section_obj->name ) ); ?></a>
 		</div>
 	</div>
 	<?php echo wp_kses_post( $sponsor_markup ); ?>
@@ -1576,53 +1576,69 @@ class CST_Frontend {
 							$section_navigation = wp_nav_menu( $chosen_parameters );
 							wp_cache_set( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst', 1 * WEEK_IN_SECONDS );
 						}
+					} else {
+						$section_navigation = $this->generate_section_subnav( $parent, $current_obj, $off_canvas );
 					}
+				} else {
+					$section_navigation = $this->generate_section_subnav( $parent, $current_obj, $off_canvas );
 				}
 			} else {
-				if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent, 'cst' ) )  || WP_DEBUG ) {
-					// Generate dynamic section based navigation links
-					$sections = get_terms( array(
-						'taxonomy'         => 'cst_section',
-						'hide_empty'       => true,
-						'include_children' => false,
-						'parent'           => 0 === $current_obj->parent ? $parent : $current_obj->parent,
-						)
-					);
-					$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
-					$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
-					$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
-					foreach ( $sections as $section ) {
-						if ( $section->term_id !== $current_obj->term_id ) {
-							$section_link_url = wpcom_vip_get_term_link( $section->term_id );
-							if ( ! is_wp_error( $section_link_url ) ) {
-								$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $section_link_url ), $section->name );
-							}
-						}
-					}
-					// Add parent link as appropriate
-					$parent_link_id = ( 0 === $current_obj->parent ) ? $parent : $current_obj->parent;
-					if ( $parent != $parent_link_id ) {
-						$link_to_parent = wpcom_vip_get_term_link( $parent_link_id );
-						if ( ! is_wp_error( $link_to_parent ) ) {
-							$nav_parent = wpcom_vip_get_term_by( 'id', $parent_link_id, 'cst_section' );
-							$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $link_to_parent ), $nav_parent->name );
-						}
-					}
-					$section_navigation .= '</ul></div></div></div>';
-					wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, 'cst', 1 * WEEK_IN_SECONDS );
-				}
+				$section_navigation = $this->generate_section_subnav( $parent, $current_obj, $off_canvas );
 			}
 		}
 
 		return $section_navigation;
 
 	}
+
+	/**
+	* @param $parent
+	* @param $current_obj
+	* @param $off_canvas
+	* return $string
+	* Subnav below section title above section content - typically child section links
+	*/
+	public function generate_section_subnav( $parent, $current_obj, $off_canvas ) {
+		if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent, 'cst' ) )  || WP_DEBUG ) {
+			// Generate dynamic section based navigation links
+			$sections = get_terms( array(
+				'taxonomy'         => 'cst_section',
+				'hide_empty'       => false,
+				'include_children' => false,
+				'parent'           => 0 === $current_obj->parent ? $parent : $current_obj->parent,
+				)
+			);
+			$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
+			$section_navigation = '<div class="' . $container . ' section-backup"><div class="nav-holder"><div class="nav-descriptor sections-nav">';
+			$section_navigation .= '<ul id="menu-section-subnav" class="menu">';
+			foreach ( $sections as $section ) {
+				if ( $section->term_id !== $current_obj->term_id ) {
+					$section_link_url = wpcom_vip_get_term_link( $section->term_id );
+					if ( ! is_wp_error( $section_link_url ) ) {
+						$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $section_link_url ), $section->name );
+					}
+				}
+			}
+			// Add parent link as appropriate
+			$parent_link_id = ( 0 === $current_obj->parent ) ? $parent : $current_obj->parent;
+			if ( $parent != $parent_link_id ) {
+				$link_to_parent = wpcom_vip_get_term_link( $parent_link_id );
+				if ( ! is_wp_error( $link_to_parent ) ) {
+					$nav_parent = wpcom_vip_get_term_by( 'id', $parent_link_id, 'cst_section' );
+					$section_navigation .= sprintf( '<li class="section-nav-item"><a href="%1$s" data-on="click" data-event-category="navigation - %2$s-section-subnav" data-event-action="navigate">%2$s</a></li>', esc_url( $link_to_parent ), $nav_parent->name );
+				}
+			}
+			$section_navigation .= '</ul></div></div></div>';
+			wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, 'cst', 1 * WEEK_IN_SECONDS );
+		}
+		return $section_navigation;
+	}
 	/**
 	* Generate off canvas menu items
 	* Generate a conditional and a sectional
 	*/
 	public function generate_off_canvas_menu() {
-		if ( is_front_page() || is_singular() ) {
+		if ( is_front_page() || is_singular() || is_tax() ) {
 			$chosen_parameters = array(
 					'theme_location' => 'homepage-menu',
 					'depth' => 2,
@@ -1645,7 +1661,7 @@ class CST_Frontend {
 				$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undefined-slug', 'walker' => new GC_walker_nav_menu() ) ;
 			}
 		} else {
-		$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined', 'walker' => new GC_walker_nav_menu() );
+			$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined', 'walker' => new GC_walker_nav_menu() );
 		}
 		$cache_key = $chosen_parameters['theme_location'];
 		$navigation_markup    = wp_cache_get( $cache_key, 'cst' );
