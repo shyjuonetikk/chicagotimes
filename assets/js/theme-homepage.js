@@ -75,17 +75,6 @@
         $('#dfp-sbb-top').show();
         $('#dfp-sbb-bottom').hide();
       });
-      this.breakingNewsButton.on("click", $.proxy( function(e) {
-        $('#breaking-news-alert-modal').foundation('reveal', 'open', {
-          url: 'https://r1.surveysandforms.com/062jcp97-8a19pw1c',
-          success: function(data) {
-            console.log(data)
-          },
-          error: function(error) {
-            console.log(error)
-          }
-        });
-      }));
       this.searchButton.on( "click", $.proxy( function (e) {
 
         e.preventDefault();

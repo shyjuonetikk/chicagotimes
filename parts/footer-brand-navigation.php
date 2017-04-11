@@ -109,8 +109,6 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 <?php
 // Inject newsletter modal customized to the section being displayed
 ?>
-<div id="breaking-news-alert-modal" class="reveal-modal" data-reveal aria-labelledby="Container for Breaking News subscribe content" aria-hidden="true" role="dialog">
-</div>
 <div id="search-container" class="reveal-modal large" data-reveal aria-labelledby="searchContainer" aria-hidden="true" role="dialog">
 	<a class="close-reveal-modal">&#215;</a>
 	<div class="row">
