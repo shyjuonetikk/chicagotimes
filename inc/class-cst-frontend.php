@@ -91,6 +91,7 @@ class CST_Frontend {
 
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
+		add_action( 'wp_enqueue_scripts', [ $this, 'cst_tracking_pixels' ] );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
@@ -1185,6 +1186,50 @@ class CST_Frontend {
 		return $positions;
 	}
 
+	/**
+	 * Tracking_Pixels_Handler
+	 *
+	 * add script based on what the section front or what section the story belongs to
+	*/
+
+	public function cst_tracking_pixels() {
+
+		if ( is_single() || is_tax() ) {
+			$found = false;
+			$trackers = array(
+				'blackhawks' => '6655a88f1aa976a9',
+				'blackhawks-hockey' => '6655a88f1aa976a9',
+				'cubs' => 'f73b65fe8a643ce0',
+				'cubs-baseball' => 'f73b65fe8a643ce0',
+				'white-sox' => 'ea36f07c77f599cb',
+			);
+			if ( is_single() ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+				$post_sections  = $obj->get_section_slugs();
+				while ( $post_sections ) {
+					$section_name = array_pop( $post_sections );
+					if ( isset( $trackers[$section_name] ) ) {
+						$section_id = $trackers[$section_name];
+						$found = true;
+						break;
+					}
+				}
+			}
+			if ( is_tax() ) {
+				$section_name = get_queried_object()->slug;
+				if ( isset( $trackers[$section_name] ) ) {
+					$section_id = $trackers[$section_name];
+					$found = true;
+				}
+			}
+			if ( $found ) {
+				wp_enqueue_script( 'centro', esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/centro-track.js' ), array(), null, true );
+				wp_localize_script( 'centro', 'Centro', array(
+					'id'         => $section_id,
+				) );
+			}
+		}
+	}
 	/**
 	 * @return string
 	 *
