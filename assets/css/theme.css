@@ -1648,6 +1648,12 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   .single #post-body .dfp-wire-cube {
     padding-top: 30px;
     clear: left; }
+  @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+    .single #post-body #main.medium-7 {
+      width: 100%; }
+    .single #post-body #post-sidebar.medium-5 {
+      display: none;
+      visibility: hidden; } }
   @media (max-width: 1024px) {
     .single #post-body {
       float: none; } }
@@ -2255,7 +2261,8 @@ section#subscribe {
     bottom: 0px;
     width: 303.32812px; }
   .sidebar#post-sidebar-left {
-    padding: 10px 0 0 0; }
+    padding: 10px 0 0 0;
+    max-width: 160px; }
     @media (max-width: 1300px) {
       .sidebar#post-sidebar-left {
         display: none !important; } }
