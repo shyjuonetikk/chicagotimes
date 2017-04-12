@@ -2117,7 +2117,7 @@ class CST {
 				'footer' => 'http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js',
 				'footer-remote' => true,
 				'container' => false,
-				'logic' => 'ads/filter_load_morpheus',
+				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
 
@@ -2186,7 +2186,7 @@ add_action( 'pre_get_posts', 'GC_force_published_status_front_end' );
  * Ad Vendor filter to limit injection on features content
  */
 function filter_limit_ads_on_features() {
-	return is_singular( array( 'cst_article', 'cst_gallery' ) && ! is_404() );
+	return is_singular( array( 'cst_article', 'cst_gallery' ) ) && ! is_404();
 }
 /**
  * @return bool
