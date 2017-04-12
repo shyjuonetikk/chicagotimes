@@ -1648,9 +1648,6 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   .single #post-body .dfp-wire-cube {
     padding-top: 30px;
     clear: left; }
-  @media (min-width: 1300px) {
-    .single #post-body {
-      float: none; } }
   @media (max-width: 1024px) {
     .single #post-body {
       float: none; } }
@@ -2261,15 +2258,7 @@ section#subscribe {
     bottom: 0px;
     width: 303.32812px; }
   .sidebar#post-sidebar-left {
-    background-color: #f8f8f8;
-    padding: 10px 0 0 0;
-    width: 160px;
-    top: 0;
-    left: 0;
-    position: absolute;
-    bottom: 0;
-    z-index: 1;
-    border-right: 1px solid #9a9a9a; }
+    padding: 10px 0 0 0; }
     @media (max-width: 1300px) {
       .sidebar#post-sidebar-left {
         display: none !important; } }
