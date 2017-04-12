@@ -1651,9 +1651,6 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   @media (max-width: 1024px) {
     .single #post-body {
       float: none; } }
-  @media only screen and (max-width: 40em) {
-    .single #post-body {
-      margin-top: 132px; } }
   @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
     .single #post-body #main {
       padding-left: 0.9375rem; }

@@ -499,9 +499,6 @@ body[class^="cst_article-"] {
 		@media (max-width: 1024px){
 			float:none;
 		}
-		@media #{$small-only} {
-			margin-top:132px;
-		}
 		@media #{$xmedium-only} and (orientation: landscape) {
 			#main{
 				padding-left: 0.9375rem;
