@@ -219,12 +219,7 @@ abstract class Post {
 	 * Echo the content for the post
 	 */
 	public function the_content() {
-		global $wp_embed;
-		remove_filter ( 'the_content', array ( $GLOBALS['wp_embed'], 'autoembed' ), 8 );
-		$content = wp_kses_post( apply_filters( 'the_content', $this->get_field( 'post_content' ) ) );
-		$content = $wp_embed->autoembed( $content );
-		add_filter( 'the_content', array( array ( $GLOBALS['wp_embed'], 'autoembed' ), 8 ) );
-		echo $content;
+		echo apply_filters( 'the_content', wp_kses_post( $this->get_field( 'post_content' ) ) );
 	}
 
 	/**
