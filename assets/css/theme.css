@@ -1661,12 +1661,16 @@ body[class^="cst_article-"] article.post .sponsored-notification {
     .single #post-body #main {
       padding-left: 0.9375rem; }
       .single #post-body #main.medium-7 {
-        width: 68.33%; } }
+        width: 66.33%; }
+    .single #post-body #post-sidebar.medium-5 {
+      width: 33.66%; } }
   @media only screen and (min-device-width: 1024px) and (max-device-width: 1366px) and (orientation: portrait) {
     .single #post-body #main {
       padding-left: 0.9375rem; }
       .single #post-body #main.medium-7 {
-        width: 68.33%; } }
+        width: 66.33%; }
+    .single #post-body #post-sidebar.medium-5 {
+      width: 33.66%; } }
   @media only screen and (max-width: 40em) {
     .single #post-body .cst-recommendations > .row {
       margin-left: -0.9375rem; } }
