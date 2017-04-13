@@ -34,4 +34,4 @@
 			$section = $parent_section->slug;
 		} 
 	} ?>
-<?php endif; ?>
+<?php endif;

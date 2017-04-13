@@ -46,7 +46,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 			$template = $this->iframe_template;
 			$url = $asset;
 		}
-		echo $args['before_widget'];
+		echo wp_kses_post( $args['before_widget'] );
 		?>
 		<div class="row">
 			<div class="large-12 medium-6 small-6 columns">
@@ -56,17 +56,17 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 				esc_url( $url )
 			);
 		} else {
-			echo sprintf( $template,
+			echo ( sprintf( $template,
 				esc_url( $url ),
 				esc_url( $asset ),
 				esc_attr( 'Drive Chicago' )
-			);
+			) );
 		}
 				?>
 			</div>
 		</div>
 		<?php
-		echo $args['after_widget'];
+		echo wp_kses_post( $args['after_widget'] );
 
 	}
 

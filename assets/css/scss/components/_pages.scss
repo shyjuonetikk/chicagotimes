@@ -74,7 +74,7 @@ section#subscribe {
     .just-in-alerts {
       line-height:1rem;
       h3 {
-        color:$red;
+        color:$anchor-highlight;
         text-transform:uppercase;
         font-weight:700;
         font-size:.9rem;
@@ -325,7 +325,7 @@ section#subscribe {
     }
 
     li:first-child {
-      color:$red;
+      color:$anchor-highlight;
       border:none;
       text-transform:uppercase;
       padding:0px;

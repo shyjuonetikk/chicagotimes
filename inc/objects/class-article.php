@@ -16,6 +16,7 @@ class Article extends Post {
 		'college'           => 'SRHLAr2T',
 		'rio-2016'          => 'fLPoOgHI',
 		'blackhawks-hockey' => 'uy7k8sat',
+		'hockey-blackhawks' => 'uy7k8sat',
 	);
 	/**
 	 * Get the font icon for an article
@@ -38,7 +39,7 @@ class Article extends Post {
 	}
 
 	/**
-	 * Get the featured video embed markup for the article
+	 * Display featured video embed markup for the article
 	 * Return empty string if for some reason array key is outside scope
 	 *
 	 * @return string

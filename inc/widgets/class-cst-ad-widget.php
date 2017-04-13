@@ -37,9 +37,11 @@ class CST_Ad_Widget extends WP_Widget {
 		$targeting_name = $this->ad_units[ $instance['ad_unit'] ];
 		$widget_number = explode( '-', $this->id );
 		$ad_unit_index = (int) $widget_number[1] + 100;
-		echo $args['before_widget'];
-		echo CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', is_singular() ? 'article_cube_mapping' : 'sf_mapping', $targeting_name );
-		echo $args['after_widget'];
+		echo wp_kses_post( $args['before_widget'] );
+		echo wp_kses( CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', is_singular() ? 'article_cube_mapping' : 'sf_mapping', $targeting_name ),
+			CST()->dfp_kses
+		);
+		echo wp_kses_post( $args['after_widget'] );
 
 		if ( 'dfp-polar' === $instance['ad_unit'] ) {
 			wp_enqueue_script( 'cst-polar-ads', get_template_directory_uri() . '/assets/js/polar.js', array( 'jquery' ) );

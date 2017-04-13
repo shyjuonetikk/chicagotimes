@@ -13,7 +13,7 @@
 			position: absolute;
 			top: 15px;
 			left: 15px;
-			background-color: $red;
+			background-color: $anchor-highlight;
 			color: $white;
 			padding: 8px;
 			font-size: 0.8rem;
@@ -76,7 +76,7 @@ body.post-gallery-lightbox-active {
 
 	#cst-close-gallery-button:hover {
 		.fa {
-			color: $red;
+			color: $anchor-highlight;
 		}
 	}
 

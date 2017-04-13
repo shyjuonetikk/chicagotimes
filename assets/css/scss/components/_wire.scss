@@ -2,20 +2,16 @@
 	position: relative;
 	z-index: 2;
 	
-	.ad-container {
+	.cst-ad-container {
 		position: relative;
 		display: block;
 		text-align: center;
 		clear: both;
-		
+		margin-bottom: 10px;
 		.dfp-cube {
 			display: inline-block;
 			margin: 5px;
 		}
-	}
-	
-	@media #{$small-only} {
-		margin-top: 30px;
 	}
 
 	.taxonomy-image {
@@ -33,7 +29,6 @@
 		text-transform: uppercase;
 		display: inline-block;
 		margin-top: 10px;
-		text-shadow: -1px 0px $light_black;
 	}
 
 	a.section-front-sponsor {
@@ -103,7 +98,6 @@
 				line-height: 2.5rem;
 				font-family: $open_sans;
 				font-weight: 800;
-				margin-bottom: 15px;
 			}
 
 			h4 {
@@ -166,14 +160,14 @@
 	.post {
 
 		.post-meta-top {
-			padding-top: 15px;
-			padding-left: 15px;
-			padding-right: 15px;
+			padding-top: 2px;
+			padding-left: 10px;
+			padding-right: 10px;
 		}
 
 		h1 {
-			margin-left: 15px;
-			margin-right: 15px;
+			margin-left: 10px;
+			margin-right: 10px;
 		}
 
 		h1 a {
@@ -186,16 +180,25 @@
 
 		.post-excerpt {
 			p {
-				margin-top: -10px;
-				margin-bottom: 0px;
-				padding-left: 15px;
-				padding-right: 15px;
-				padding-bottom: 15px;
-				font-family: $open_sans;
+				margin-bottom: 0;
+				padding-left: 10px;
+				padding-right: 10px;
+				padding-bottom: 5px;
+				font-family: $merriweather;
 				color: $chiwire_grey;
-				font-weight: 600;
 				font-size: 0.9rem;
+				font-style: italic;
 				line-height: 1.25rem;
+			}
+			@media #{$medium-down} {
+				p {
+					display: none;
+				}
+			}
+			@media #{$xmediumi-only} and (orientation: portrait) {
+				p {
+					display: none;
+				}
 			}
 		}
 
@@ -221,7 +224,7 @@
 		}
 
 		.hover-state:hover, h1:hover + .hover-state {
-			background: $red;
+			background: $anchor-highlight;
 			.fa {
 				display:block;
 				position:absolute;
@@ -251,7 +254,7 @@
 				}
 
 				a:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 
 			}
@@ -266,7 +269,7 @@
 				}
 
 				a:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 
 				p {
@@ -294,7 +297,7 @@
 				font-size: 1rem;
 
 				.fa {
-					color: $red;
+					color: $anchor-highlight;
 
 					@media #{$small-only} {
 						display: none;
@@ -306,7 +309,7 @@
 					font-weight: 700;
 
 					@media #{$small-only} {
-						color: $red;
+						color: $anchor-highlight;
 						text-transform: uppercase;
 						font-weight: 700;
 						font-size: 0.75rem;
@@ -315,7 +318,7 @@
 				}
 
 				a:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 
 
@@ -375,10 +378,6 @@
 
 		.post-meta-bottom {
 
-			@media #{$medium-up} {
-				border-top: rgba(154, 154, 154, 0.5) 1px solid;
-			}
-
 			.post-social {
 				float: left;
 				@media #{$small-only} {
@@ -413,7 +412,7 @@
 			}
 
 			.fa-reply:hover, .fa-retweet:hover, .fa-star:hover {
-				background: $red;
+				background: $anchor-highlight;
 			}
 
 		}
@@ -428,11 +427,6 @@
 
 		}
 
-		@media #{$small-only} {
-			.top-date{
-				display: none;
-			}
-		}
 	}
 
 	.cst-embed-twitter {
@@ -446,7 +440,7 @@
 					}
 
 					.tweet-username {
-						color: $red;
+						color: $anchor-highlight;
 						text-transform: uppercase;
 						font-weight: 700;
 						font-size: 0.75rem;
@@ -512,4 +506,10 @@
 		}
 	}
 
+}
+@media #{$xmediumi-only} and (orientation: portrait) {
+	body:not(.post-type-archive-cst_feature)
+	.wire {
+		width: 56.9%;
+	}
 }

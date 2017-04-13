@@ -71,7 +71,7 @@ var CSTAds;
     adTimer: 0,
     isSection: false,
     isSingular: false,
-
+    content_body: false,
 		scrollUnits: [
 			'div-gpt-rr-cube-2',
 			'div-gpt-rr-cube-3',
@@ -87,11 +87,11 @@ var CSTAds;
 		 * Initialize basic ads JavaScript
 		 */
 		init: function() {
-      $content_body = $('body');
-      if ( $content_body.hasClass('tax-cst_section') ) {
+      CSTAds.content_body = $('body');
+      if ( CSTAds.content_body.hasClass('tax-cst_section') ) {
         CSTAds.isSection = true;
       }
-      if ( $content_body.hasClass('single') ) {
+      if ( CSTAds.content_body.hasClass('single') ) {
         CSTAds.isSingular = true;
       }
       this.clearAndResetAdRefreshInterval();
@@ -99,7 +99,7 @@ var CSTAds;
 		},
 
     clearAndResetAdRefreshInterval: function() {
-      CSTAds.AdTimer = setInterval( CSTAds.refreshArticleCubeAds , 30000 );
+      CSTAds.AdTimer = setInterval( CSTAds.refreshArticleCubeAds , 60000 );
     },
 
 		/**
@@ -108,17 +108,18 @@ var CSTAds;
 		triggerUnitRefresh: function( unit ) {
 
 			if ( 'undefined' !== typeof CSTAdTags[unit] ) {
-				googletag.cmd.push( function() {
-					var unitInstance = CSTAdTags[unit];
-					googletag.pubads().refresh([unitInstance]);
-				});
-
-				console.info( 'Refreshed ' .concat(unit) );
+        if ( undefined !== CSTAdTags[unit].doNotRefresh && !CSTAdTags[unit].doNotRefresh ) {
+          googletag.cmd.push(function () {
+            var unitInstance = CSTAdTags[unit];
+            googletag.pubads().refresh([unitInstance]);
+          });
+          console.info( 'Refreshed ' .concat(unit) );
+        }
       }
 
 		},
     refreshAllArticleAds: function() {
-      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! $("body").hasClass( "post-gallery-lightbox-active" ) ) {
+      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! CSTAds.content_body.hasClass( "post-gallery-lightbox-active" ) ) {
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function(ad_slot) {
@@ -130,19 +131,28 @@ var CSTAds;
 
     },
     refreshArticleCubeAds: function() {
-      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! $("body").hasClass( "post-gallery-lightbox-active" ) ) {
+      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! CSTAds.content_body.hasClass( "post-gallery-lightbox-active" ) ) {
         console.info('Interval expired. Refreshing Cube Ads');
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function (ad_slot) {
           if (ad_slot.match(/rr-cube-[0-9]{1,3}$/)) {
-            CSTAds.triggerUnitRefresh(ad_slot)
+              CSTAds.triggerUnitRefresh(ad_slot)
           }
         })
         CSTAds.refreshing = false;
       }
+    },
+    handleGptVisibility: function(event) {
+		  var slotId = event.slot.getSlotElementId();
+      console.log('Slot visibility changed for: ' + slotId + ' to ' + event.inViewPercentage );
+      event.inViewPercentage <= 15 ? CSTAdTags[slotId].doNotRefresh = true :  CSTAdTags[slotId].doNotRefresh = false;
+    },
+    handleGptImpressionViewability: function (event) {
+      var slotId = event.slot.getSlotElementId();
+      console.log('Slots ' + slotId + ' available for viewable impressions.');
+      CSTAdTags[slotId].doNotRefresh = false;
     }
-
 	};
 
 	/**

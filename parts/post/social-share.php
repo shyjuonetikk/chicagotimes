@@ -1,5 +1,5 @@
 <?php if ( ! $obj ) {
-    return;
+	return;
 }
 
 if ( ! is_singular() ) : ?>
@@ -26,4 +26,4 @@ if ( ! is_singular() ) : ?>
 
 <?php if ( ! is_singular() ) : ?>
 	</div>
-<?php endif; ?>
+<?php endif;

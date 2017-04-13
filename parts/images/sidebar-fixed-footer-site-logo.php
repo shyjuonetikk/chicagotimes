@@ -40,4 +40,4 @@
 	<a href="<?php echo esc_url( wpcom_vip_get_term_link( 'sports', 'cst_section' ) ); ?>"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/sports-logo.svg" /></a>
 <?php elseif ( 'news' == $section ) : ?>
 	<a href="<?php echo esc_url( wpcom_vip_get_term_link( 'news', 'cst_section' ) ); ?>"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/newsfeed-color.svg" /></a>
-<?php endif; ?>
+<?php endif;

@@ -15,7 +15,7 @@ class CST_Twitter_Feed_Widget extends WP_Widget {
 	}
 
 	public function get_cache_key( $args ) {
-		return 'cst-twitter-widget-tweets-' . md5( serialize( $args ) );
+		return 'cst-twitter-widget-tweets-' . md5( json_encode( $args ) );
 	}
 
 	public function widget( $args, $instance ) {
@@ -30,7 +30,7 @@ class CST_Twitter_Feed_Widget extends WP_Widget {
 			return;
 		}
 
-		echo $args['before_widget'];
+		echo wp_kses_post( $args['before_widget'] );
 
 		?>
 
@@ -71,7 +71,7 @@ class CST_Twitter_Feed_Widget extends WP_Widget {
 
 		<?php
 
-		echo $args['after_widget'];
+		echo wp_kses_post( $args['after_widget'] );
 
 		wp_enqueue_script( 'cst-twitter-widget', get_template_directory_uri() . '/assets/js/twitter-widget.js', array( 'jquery', 'slick' ) );
 	}

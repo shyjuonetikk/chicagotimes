@@ -9,20 +9,20 @@ if ( ! $obj ) {
 	if ( is_singular() ) {
 		if ( $section = $obj->get_primary_section() ) {
 			if ( CST()->frontend->do_sponsor_header( $section->term_id ) ) {
-				$classes[] = 'columns medium-4 medium-offset-1';
+				$classes[] = 'columns medium-4';
 			} else {
-				$classes[] = 'columns medium-11 medium-offset-1 end';
+				$classes[] = 'columns small-11 medium-8 end';
 			}
 		}
 	}
-
-	if ( is_sticky() && ! is_singular() ) {
+$developing = isset( $developing ) || false;
+	if ( $developing && is_sticky() && ! is_singular() ) {
 		$classes[] = 'sticky-taxonomy';
 	}
 ?>
 <div class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
-<?php if ( $section = $obj->get_primary_section() ) : ?>
-<?php if ( is_sticky() && ! is_singular() ) : ?>
+<?php if ( $section = $obj->get_primary_section() ) { ?>
+<?php if ( $developing && is_sticky() && ! is_singular() ) : ?>
 	<span class="developing">
 		<span class="triangle-top-right"></span>
 		<span class="developing-text">developing</span>
@@ -31,18 +31,19 @@ if ( ! $obj ) {
 <?php endif; ?>
 <?php
 // VIP: Stopping fatal errors "Call to undefined method CST\Objects\Gallery::get_preferred_section()"
-if ( is_callable( array( $obj, 'get_preferred_section' ) ) ) :
+if ( ! $developing && is_callable( array( $obj, 'get_preferred_section' ) ) ) :
 ?>
 <?php $preferred_section = $obj->get_preferred_section( $section );
-echo sprintf('<span class="post-section-taxonomy">
-	<a href="%1$s">%2$s</a>
+echo sprintf(
+	'<span class="post-section-taxonomy">
+	<a href="%1$s" data-on="click" data-event-category="article" data-event-action="navigate to %2$s section-front">%2$s</a>
 </span>',
 	esc_url( $preferred_section['term_link'] ),
 	esc_html( $preferred_section['term_name'] )
 );
 ?>
 <?php endif; // End VIP Hotfix ?>
-<?php endif; ?>
+<?php } ?>
 	<?php if ( ! is_sticky() ) : ?>
 	<span class="post-relative-date top-date"><?php echo date( 'm/d/Y, h:ia', $obj->get_localized_pub_mod_date() ); ?></span>
 <?php endif; ?>
@@ -53,9 +54,5 @@ if ( $section = $obj->get_primary_section() ) {
 		<div class="medium-7 end" style="float: right;">
 			<?php CST()->frontend->sponsor_header( $section->term_id ); ?>
 		</div>
-	<?php } elseif ( $obj->get_sponsored_content() ) { ?>
-	<div class="medium-7 end" style="float: right;">
-		<h4 class="sponsored-notification">SPONSORED CONTENT</h4>
-	</div>
 	<?php } ?>
-<?php } ?>
+<?php }

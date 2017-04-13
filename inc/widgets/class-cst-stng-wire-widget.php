@@ -19,8 +19,9 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 		if ( empty( $feed_url ) ) {
 			$feed_url = 'http://www.suntimeswire.com/feed';
 		}
+		echo wp_kses_post( $args['before_widget'] );
 		?>
-		<div class="large-12 medium-6 small-12 columns widget_cst_stng_wire_widget">
+		<div class="large-12 small-12 columns widget_cst_stng_wire_widget">
 			<h2 class="widgettitle"><?php esc_html_e( 'Wire Updates', 'chicagosuntimes' ); ?></h2>
 			<ul class="widget-stng-wire-posts">
 				<?php
@@ -29,7 +30,7 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 					foreach ( $stng_items as $stng_item ) {
 						?>
 						<li>
-							<strong><?php echo human_time_diff( strtotime( $stng_item->get_date( 'j F Y g:i a' ) ) ); ?></strong>
+							<strong><?php echo esc_html( human_time_diff( strtotime( $stng_item->get_date( 'j F Y g:i a' ) ) ) ); ?></strong>
 							<a href="<?php echo esc_url( $stng_item->get_permalink() ); ?>"
 							   title="<?php printf( __( 'Posted %s', 'cst-homepage' ), $stng_item->get_date( 'j F Y | g:i a' ) ); ?>"
 							   data-on="click" data-event-category="content" data-event-action="navigate-hp-stng-wire">
@@ -44,11 +45,11 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 			</ul>
 		</div>
 		<?php
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 	public function form( $instance ) {
-
-		$feed_url = $instance['cst_stng_wire_feed_url'];
+		isset( $instance['cst_stng_wire_feed_url'] ) ? $feed_url = $instance['cst_stng_wire_feed_url'] : $feed_url = '';
 		?>
 		<label for="<?php echo esc_attr( $this->get_field_id( 'cst_stng_wire_feed_url' ) ); ?>"><?php esc_html_e( 'Feed URL:', 'chicagosuntimes' ); ?></label>
 		<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'cst_stng_wire_feed_url' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_stng_wire_feed_url' ) ); ?>" type="text"

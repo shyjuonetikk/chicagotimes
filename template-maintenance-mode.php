@@ -6,4 +6,4 @@
 	<i>Please check back with us shortly...</i>
 	<a href="http://www.suntimesmediaholdings.com"><p class="text-center" style="margin-top: 15px; color: #b3b3b3">Copyright 2014 Sun-Times Media, LLC</p></a>
 </div>
-<?php wp_footer(); ?>
+<?php wp_footer();

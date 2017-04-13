@@ -14,8 +14,8 @@
 				width: 0;
 				border-top: 8px solid $black;
 				border-left: 9px solid transparent;
-				right: 23px;
-				top: 21px;
+				right: 19px;
+				top: 16px;
 			}
 
 			.developing-text {
@@ -24,9 +24,9 @@
 				font-weight: 700;
 				color: $white;
 				background: $social_grey;
-				padding: 4px;
-				right: 32px;
-				bottom: 8px;
+				padding: 5px;
+				right: 28px;
+				bottom: 14px;
 			}
 
 			.right-ribbon {
@@ -34,13 +34,64 @@
 				position: relative;
 				height: 0;
 				width: 0;
-				border-top: 12px solid $social_grey;
-				border-right: 12px solid transparent;
+				border-top: 14px solid $social_grey;
+				border-right: 13px solid transparent;
 				border-bottom: 13px solid $social_grey;
-				right: 36px;
+				right: 31px;
+				top:-5px;
 			}
 
-			
+			@media #{$small-only} {
+				.developing-text {
+					font-weight:600;
+					font-size: 0.6rem;
+					bottom: 13px;
+				}
+				.triangle-top-right {
+					top: 16px;
+				}
+				.right-ribbon {
+					border-top: 11px solid $social_grey;
+					border-bottom: 12px solid $social_grey;
+				}
+			}
+			@media #{$medium-only} and (orientation:landscape) {
+				.developing-text {
+					font-weight:600;
+					font-size: 0.6rem;
+					bottom: 13px;
+				}
+				.triangle-top-right {
+					top: 16px;
+				}
+				.right-ribbon {
+					border-top: 11px solid $social_grey;
+					border-bottom: 12px solid $social_grey;
+				}
+			}
+			@media #{$xmedium-only} {
+				.developing-text {
+					bottom: 14px;
+				}
+				.triangle-top-right {
+					top: 16px;
+				}
+				.right-ribbon {
+					right: 32px;
+				}
+			}
+			@media #{$large-only} {
+				.developing-text {
+					bottom: 15px;
+				}
+				.triangle-top-right {
+					top: 15px;
+				}
+				.right-ribbon {
+					right: 32px;
+					top: -6px;
+				}
+			}
 		}
 
 		.post-section-taxonomy,
@@ -48,7 +99,7 @@
 			position: relative;
 
 			a {
-				color: $red;
+				color: $anchor-highlight;
 				text-transform: uppercase;
 				font-weight: 700;
 			}
@@ -61,6 +112,8 @@
 		}
 
 		&.sticky-taxonomy {
+			position: absolute;
+			z-index: 10;
 			.post-section-taxonomy,
 			.post-embed-source {
 				bottom: 8px;
@@ -75,18 +128,12 @@
 	.post-meta-byline {
 		margin-bottom: 10px;
 
-		.author-meta-box {
-			padding-left: 0;
-		}
 		@media only screen and (min-width:1025px) {
 			.author-meta-box {
 				padding-left: 0.9375rem;
 			}
 		}
 
-		.newsletter-box {
-			padding-left:0;
-		}
 		.post-meta-author {
 			font-family: $open_sans;
 			font-weight: 700;
@@ -108,7 +155,7 @@
 				color: $social_grey;
 
 				&:hover {
-					color: $red;
+					color: $anchor-highlight;
 				}
 			}
 
@@ -120,7 +167,7 @@
 			}
 
 			.fa:hover {
-				color: $red;
+				color: $anchor-highlight;
 			}
 		}
 
@@ -153,26 +200,32 @@
 	.post-meta-social {
 		position: absolute;
 		top: 30px;
-		left: 0;
-		
+		right: 0;
 		.fa {
 			font-size: 1rem;
-			padding-top: 10px;
-			padding-bottom: 10px;
-			padding-left: 14px;
-			padding-right: 14px;
+			padding: 10px 14px;
 		}
-
 		a {
-			display: block;
+			display: inline-block;
 			height: 40px;
 			width: 40px;
 		}
 
+		@media #{$xmedium-only} and (orientation: portrait) {
+			top: -40px;
+			a {
+				height:30px;
+				width:30px;
+			}
+			.fa {
+				font-size: 1rem;
+				padding: 7px;
+			}
+		}
 	}
 
 	.post-meta-bottom {
-
+	background-color: $social_grey;
 		.fa {
 
 			&.post-taxonomy {
@@ -199,14 +252,14 @@
 			}
 
 			a:hover {
-				color: $red;
+				color: $anchor-highlight;
 			}
 
 		}
 
 		.post-meta-taxonomy-terms:hover {
 			a:hover .fa {
-				color: $red;
+				color: $anchor-highlight;
 			}
 		}
 

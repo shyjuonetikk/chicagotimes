@@ -19,4 +19,3 @@ if( $obj ) {
     $feed_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=' . $chartbeat_slug . '&sort_by=returning&now_on=1&limit=4&metrics=post_id';
     CST()->frontend->cst_post_recommendation_block( $feed_url, $section_name );
 }
-?>

@@ -20,12 +20,6 @@ class CST_Infinite_Scroll {
 	 */
 	private function setup_actions() {
 
-		add_action( 'init', function(){
-			add_rewrite_rule( '^infinite-sidebar/?([\d-]+)?/?$', 'index.php?infinite-sidebar=1&infinite-sidebar-date=$matches[1]', 'top' );
-		});
-
-		add_action( 'template_redirect', array( $this, 'handle_infinite_sidebar' ) );
-
 		add_action( 'wp_enqueue_scripts', array( $this, 'action_wp_enqueue_scripts' ) );
 
 		add_action( 'template_redirect', array( $this, 'bypass_is_last_batch_in_footer' ), 9, 0 );
@@ -38,11 +32,6 @@ class CST_Infinite_Scroll {
 	 */
 	private function setup_filters() {
 
-		add_filter( 'query_vars', function( $query_vars ) {
-			$query_vars[] = 'infinite-sidebar';
-			$query_vars[] = 'infinite-sidebar-date';
-			return $query_vars;
-		});
 
 		add_filter( 'infinite_scroll_archive_supported', function( $val ){
 			if ( is_singular() ) {
@@ -61,6 +50,7 @@ class CST_Infinite_Scroll {
 
 		add_filter( 'infinite_scroll_js_settings', function( $settings ) {
 			$settings['google_analytics'] = false;
+			$settings['offset'] = 251;
 			return $settings;
 		});
 
@@ -152,7 +142,6 @@ class CST_Infinite_Scroll {
 		}
 		wp_enqueue_script( 'cst-infinite-scroll', get_template_directory_uri() . '/assets/js/infinite-scroll.js', array( 'chicagosuntimes', 'the-neverending-homepage', 'cst-ga-custom-actions' ), false, true );
 		wp_localize_script( 'cst-infinite-scroll', 'CSTInfiniteScrollData', array(
-			'infiniteSidebarEndpoint' => esc_url_raw( home_url( 'infinite-sidebar/' ) ),
 			'readMoreLabel'           => esc_html__( 'Read More', 'chicagosuntimes' ),
 		) );
 		$post_sections = array_map( 'strtolower', CST_Frontend::$post_sections );
@@ -160,51 +149,6 @@ class CST_Infinite_Scroll {
 		wp_localize_script( 'cst-infinite-scroll', 'CSTYieldMoData', array(
 			'SECTIONS_FOR_YIELD_MO' => $post_sections,
 		) );
-	}
-
-	/**
-	 * Handle a request for more infinite sidebar
-	 */
-	public function handle_infinite_sidebar() {
-		global $wp_query;
-
-		if ( ! get_query_var( 'infinite-sidebar' ) ) {
-			return;
-		}
-
-		$latest_args = array(
-			'posts_per_page'       => 25,
-			'post_type'            => CST()->get_post_types(),
-			'tax_query'            => array(
-					array(
-						'taxonomy'  => 'cst_section',
-						'field'     => 'slug',
-						'terms'     => get_query_var( 'cst_section' ),
-					),
-				),
-			);
-		if ( get_query_var( 'infinite-sidebar-date' ) ) {
-			$last_post_date = get_query_var( 'infinite-sidebar-date' );
-			$parts = explode( '-', $last_post_date );
-			$last_post_date = implode( '-', array_slice( $parts, 0, 3 ) ) . ' ' . implode( ':', array_slice( $parts, 3, 3 ) );
-			$latest_args['date_query'] = array(
-				'before'           => date( 'Y-m-d H:i:s', strtotime( $last_post_date ) ),
-				);
-		}
-
-		$latest_query = new WP_Query( $latest_args );
-		$wp_query->is_singular = true; // Fake single context
-
-		$response = '';
-		if ( $latest_query->have_posts() ) :
-			while ( $latest_query->have_posts() ) : $latest_query->the_post();
-				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-				$response .= CST()->get_template_part( 'sidebar/post', array( 'obj' => $obj ) );
-			endwhile;
-		endif;
-		echo $response;
-		exit;
-
 	}
 
 	/**

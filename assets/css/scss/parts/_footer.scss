@@ -1,4 +1,5 @@
 footer {
+	background-color: $cst_black;
 	.back-to-top {
 		a {
 			color: #fff;
@@ -25,13 +26,13 @@ footer {
 	.copyright {
 		color: #fff;
 	}
-	background: $black;
 	hr {
 		color: #fff;
 	}
 	ul {
 		display: inline-block;
 		line-height: 1;
+		margin: 0.7rem 0 0.7rem;
 		li {
 			color: #fff;
 			list-style: none;
@@ -42,6 +43,9 @@ footer {
 			&:hover{
 				color: #fff;
 				text-transform: uppercase;
+			}
+			&:last-child {
+				margin-bottom: 0;
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 #social-links {
 	position:absolute;
-	right:70px;
-	top:10px;
+	right:80px;
+	top:1px;
 	color:$white;
 	text-transform:uppercase;
 	font-family: $open_sans;
@@ -13,15 +13,15 @@
 
 		li {
 			display: inline-block;
-			margin: 4px 5px;
-			width: 25px;
-			height: 25px;
-			border-radius: 5px;
+			margin: 5px 0;
+			width: 2.1rem;
+			height: 2.1rem;
 			text-align: center;
+			padding:4px;
 
 			a {
 				.fa {
-					font-size: 1rem;
+					font-size: 1.7rem;
 				}
 				.fa-facebook {
 					color: $white;

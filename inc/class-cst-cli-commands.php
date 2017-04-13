@@ -138,6 +138,7 @@ class Suntimesmedia_Command extends  WPCOM_VIP_CLI_Command {
 					// Use remainder of legacy url as slug to search for content.
 					$the_slug          = $matches[1];
 					$slug_args['name'] = $the_slug;
+					$slug_args['suppress_filters'] = false;
 					// Let's get the post by slug given it's likely not to have changed
 
 					$my_posts          = get_posts( $slug_args );
