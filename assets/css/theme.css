@@ -2817,17 +2817,19 @@ section#subscribe {
       .weather .weather-link .degrees i {
         color: #ffe000; }
 
-.responsive-logo-wrapper {
-  margin-top: 50px; }
-  .responsive-logo-wrapper .utility .search .search-wrap ul {
-    margin-left: 0; }
-  .responsive-logo-wrapper .utility .search .search-input-wrapper .search-icon {
-    margin: 0;
-    font-size: 1.7rem;
-    line-height: 1rem; }
-  .responsive-logo-wrapper .large-logo {
-    max-width: 300px;
-    margin: 0 auto; }
+.responsive-logo-wrapper .utility .search .search-wrap ul {
+  margin-left: 0; }
+.responsive-logo-wrapper .utility .search .search-input-wrapper .search-icon {
+  margin: 0;
+  font-size: 1.7rem;
+  line-height: 1rem; }
+.responsive-logo-wrapper .large-logo {
+  max-width: 300px;
+  margin: 0 auto; }
+
+@media only screen and (min-width:48em) {
+  .responsive-logo-wrapper {
+    margin-top: 50px; } }
 
 @media only screen and (min-width:48em) {
   .logo-wrapper.large-logo {
@@ -3537,9 +3539,6 @@ body.post-gallery-lightbox-active {
   /* CONTENT */
   /* SIDEBAR */
   /* FOOTER */ }
-  @media only screen and (max-width:64em) {
-    .homepage_wrapper {
-      margin-top: 40px; } }
   .homepage_wrapper .dfp-atf-leaderboard img, .homepage_wrapper .dfp-btf-leaderboard img {
     width: 728px; }
   .homepage_wrapper .dfp-cube {

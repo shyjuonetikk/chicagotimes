@@ -3,10 +3,6 @@
 	margin: auto 0;
 	background-color: $site_background;
 
-	@media #{$xmedium-down} {
-		margin-top: 40px;
-	}
-
 	.dfp-atf-leaderboard, .dfp-btf-leaderboard {
 		img {
 			width: 728px;
