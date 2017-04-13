@@ -77,7 +77,6 @@
 	}
 }
 .responsive-logo-wrapper {
-	margin-top:50px;
 	.utility {
 		.search {
 			.search-wrap {
@@ -97,6 +96,11 @@
 	.large-logo {
 		max-width: 300px;
 		margin: 0 auto;
+	}
+}
+@media #{$xmedium-up} {
+	.responsive-logo-wrapper {
+		margin-top: 50px;
 	}
 }
 .logo-wrapper.large-logo {
