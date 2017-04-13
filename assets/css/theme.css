@@ -4378,6 +4378,9 @@ body.post-gallery-lightbox-active {
   .page_wrapper .page-content {
     background: white; }
 
+.page section .page-content {
+  margin-top: 45px; }
+
 .elections-container {
   margin: 0; }
 
