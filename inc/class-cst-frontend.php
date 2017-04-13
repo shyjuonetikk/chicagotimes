@@ -892,13 +892,13 @@ class CST_Frontend {
 	public function cst_homepage_fetch_feed( $feed_url, $max_display ) {
 
 		$cache_key = md5( $feed_url . (int) $max_display );
-		$cached_feed = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		$cached_feed = wpcom_vip_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
 		if ( ( false === $cached_feed ) || WP_DEBUG ) {
 			$headlines = fetch_feed( $feed_url );
 			if ( ! is_wp_error( $headlines ) ) :
 				$maxitems = $headlines->get_item_quantity( $max_display );
 				$items    = $headlines->get_items( 0, $maxitems );
-				wp_cache_set( $cache_key, $items, 'default', 15 * MINUTE_IN_SECONDS );
+				wpcom_vip_cache_set( $cache_key, $items, 'default', 15 * MINUTE_IN_SECONDS );
 				return $items;
 			else :
 				return; //todo: VIP note: cache when the feed is not found.
@@ -937,7 +937,7 @@ class CST_Frontend {
 	public function cst_homepage_content_block( $content_query, $nativo_slug = null ) {
 
 		$cache_key = md5( json_encode( $content_query ) );
-		$cached_content = wp_cache_get( $cache_key );
+		$cached_content = wpcom_vip_cache_get( $cache_key );
 		if ( false === $cached_content || WP_DEBUG ) {
 			$items = new \WP_Query( $content_query );
 			ob_start();
@@ -972,7 +972,7 @@ class CST_Frontend {
 			</ul>
 			<?php
 			$cached_content = ob_get_clean();
-			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
+			wpcom_vip_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
 		echo wp_kses_post( $cached_content );
 	}
@@ -984,7 +984,7 @@ class CST_Frontend {
 	public function cst_dear_abby_recommendation_block( $content_query ) {
 
 		$cache_key = md5( json_encode( $content_query ) );
-		$cached_content = wp_cache_get( $cache_key );
+		$cached_content = wpcom_vip_cache_get( $cache_key );
 		if ( false === $cached_content ) {
 			$items = new \WP_Query( $content_query );
 			ob_start();
@@ -1006,7 +1006,7 @@ class CST_Frontend {
 			<?php
 			}
 			$cached_content = ob_get_clean();
-			wp_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
+			wpcom_vip_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
 		echo wp_kses_post( $cached_content );
 	}
@@ -1019,12 +1019,12 @@ class CST_Frontend {
 	public function cst_post_recommendation_block( $feed_url, $section_name ) {
 
 		$cache_key = md5( $feed_url );
-		$result = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		$result = wpcom_vip_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
 		if ( false === $result ) {
 			$response = wpcom_vip_file_get_contents( $feed_url );
 			if ( ! is_wp_error( $response ) ) {
 				$result = json_decode( $response );
-				wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+				wpcom_vip_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
 			}
 		}
 		?>
@@ -1620,9 +1620,9 @@ class CST_Frontend {
 								'items_wrap' => '<div class="nav-holder"><div class="nav-descriptor"><ul id="%1$s" class="section-front">%3$s</ul></div></div>',
 								'echo' => false,
 						);
-						if ( false === ( $section_navigation = wp_cache_get( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst' ) ) ) {
+						if ( false === ( $section_navigation = wpcom_vip_cache_get( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst' ) ) ) {
 							$section_navigation = wp_nav_menu( $chosen_parameters );
-							wp_cache_set( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst', 1 * WEEK_IN_SECONDS );
+							wpcom_vip_cache_set( 'section_sub_nav_cache_key' . '_' . $current_obj->slug, 'cst', 1 * WEEK_IN_SECONDS );
 						}
 
 				} else {
@@ -1645,7 +1645,7 @@ class CST_Frontend {
 	* Subnav below section title above section content - typically child section links
 	*/
 	public function generate_section_subnav( $parent, $current_obj, $off_canvas ) {
-		if ( false === ( $section_navigation = wp_cache_get( 'section_nav_cache_key' . '_' . $parent, 'cst' ) )  || WP_DEBUG ) {
+		if ( false === ( $section_navigation = wpcom_vip_cache_get( 'section_nav_cache_key' . '_' . $parent, 'cst' ) )  || WP_DEBUG ) {
 			// Generate dynamic section based navigation links
 			$sections = get_terms( array(
 				'taxonomy'         => 'cst_section',
@@ -1677,7 +1677,7 @@ class CST_Frontend {
 				}
 			}
 			$section_navigation .= '</ul></div></div></div>';
-			wp_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, 'cst', 1 * WEEK_IN_SECONDS );
+			wpcom_vip_cache_set( 'section_nav_cache_key' . '_' . $parent, $section_navigation, 'cst', 1 * WEEK_IN_SECONDS );
 		}
 		return $section_navigation;
 	}
@@ -1712,11 +1712,11 @@ class CST_Frontend {
 			$chosen_parameters = array( 'theme_location' => 'news-menu', 'fallback_cb' => false, 'container_class' => 'cst-off-canvas-navigation-container undetermined', 'walker' => new GC_walker_nav_menu() );
 		}
 		$cache_key = $chosen_parameters['theme_location'];
-		$navigation_markup    = wp_cache_get( $cache_key, 'cst' );
+		$navigation_markup    = wpcom_vip_cache_get( $cache_key, 'cst' );
 		if ( false === $navigation_markup || WP_DEBUG ) {
 			$chosen_parameters['echo'] = false;
 			$navigation_markup = wp_nav_menu( $chosen_parameters );
-			wp_cache_set( $cache_key, $navigation_markup, 'cst', 1 * WEEK_IN_SECONDS );
+			wpcom_vip_cache_set( $cache_key, $navigation_markup, 'cst', 1 * WEEK_IN_SECONDS );
 		}
 		echo wp_kses_post( $navigation_markup );
 	}
@@ -1752,7 +1752,7 @@ class CST_Frontend {
 			),
 		);
 		if ( array_key_exists( $page_type, $page_types ) ) {
-			$masthead_nav_markup = wp_cache_get( 'cst_' . $page_type, 'default' );
+			$masthead_nav_markup = wpcom_vip_cache_get( 'cst_' . $page_type, 'default' );
 			if ( false === $masthead_nav_markup || WP_DEBUG ) {
 				$masthead_nav_markup = wp_nav_menu( array(
 					'theme_location'  => $page_types[ $page_type ]['location'],
@@ -1763,7 +1763,7 @@ class CST_Frontend {
 					'items_wrap'      => $page_types[ $page_type ]['items_wrap'],
 					)
 				);
-				wp_cache_set( 'cst_' . $page_type, $masthead_nav_markup, 'default', 1 * DAY_IN_SECONDS );
+				wpcom_vip_cache_set( 'cst_' . $page_type, $masthead_nav_markup, 'default', 1 * DAY_IN_SECONDS );
 			}
 			echo wp_kses_post( $masthead_nav_markup );
 		} else {

@@ -31,12 +31,12 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 
 		$chart_beat_url = $this->get_chartbeat_url();
 		$cache_key = md5( $chart_beat_url );
-		$result    = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		$result    = wpcom_vip_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
 		if ( false === $result ) {
 			$response = wpcom_vip_file_get_contents( $chart_beat_url );
 			if ( ! is_wp_error( $response ) ) {
 				$result = json_decode( $response );
-				wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+				wpcom_vip_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
 			}
 		}
 		if ( ! empty( $result->pages ) ) {

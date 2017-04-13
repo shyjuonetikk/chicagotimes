@@ -108,7 +108,7 @@ class CST_Twitter_Feed_Widget extends WP_Widget {
 		}
 
 		$cache_key = $this->get_cache_key( $instance );
-		$tweets = wp_cache_get( $cache_key );
+		$tweets = wpcom_vip_cache_get( $cache_key );
 		if ( false === $tweets ) {
 
 			$cb = new \WP_Codebird;
@@ -121,7 +121,7 @@ class CST_Twitter_Feed_Widget extends WP_Widget {
 			);
 
 			$tweets = (array) $cb->statuses_userTimeline( $cb_params );
-			wp_cache_set( $cache_key, $tweets, '', MINUTE_IN_SECONDS * 5 );
+			wpcom_vip_cache_set( $cache_key, $tweets, '', MINUTE_IN_SECONDS * 5 );
 		}
 
 		return $tweets;

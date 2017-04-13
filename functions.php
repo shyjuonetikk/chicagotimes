@@ -1937,7 +1937,7 @@ class CST {
 	 *
 	 */
 	public function amp_nav_markup() {
-		$result = wp_cache_get( 'cst_amp_nav_json', 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		$result = wpcom_vip_cache_get( 'cst_amp_nav_json', 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
 		if ( false === $result || WP_DEBUG ) {
 			$navigation_markup = wp_nav_menu( array(
 					'theme_location' => 'homepage-menu',
@@ -1949,7 +1949,7 @@ class CST {
 					'items_wrap'     => '<ul class="section-menu">%3$s</ul>',
 				)
 			);
-			wp_cache_set( 'cst_amp_nav_json', $navigation_markup, 'default', 1 * DAY_IN_SECONDS );
+			wpcom_vip_cache_set( 'cst_amp_nav_json', $navigation_markup, 'default', 1 * DAY_IN_SECONDS );
 		} else {
 			$navigation_markup = $result;
 		}
