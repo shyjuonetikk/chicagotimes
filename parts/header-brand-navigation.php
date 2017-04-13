@@ -24,7 +24,7 @@
 				<li class="has-form">
 					<div class="row collapse">
 						<div class="large-2 small-2 columns">
-							<button data-reveal-id="subscribe-modal" class="subscribe-link">Subscribe</button>
+							<a href="/subscribe" class="subscribe-link">Subscribe</a>
 						</div>
 					</div>
 				</li>
