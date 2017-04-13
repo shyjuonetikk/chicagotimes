@@ -48,6 +48,9 @@ hr {
 a {
   color: #7d7e7e; }
 
+article .post-content a {
+  color: #008cba; }
+
 h2.subscribe-product {
   text-transform: uppercase;
   font-weight: 700; }
@@ -1354,7 +1357,8 @@ article.post {
   article.post .read-more-wrap {
     text-align: center; }
     article.post .read-more-wrap a.button.read-more {
-      background-color: #7d7e7e; }
+      background-color: #7d7e7e;
+      color: white; }
   article.post .read-more-hidden {
     display: none; }
   article.post .post-comments {
@@ -4672,6 +4676,9 @@ hr {
 
 a {
   color: #7d7e7e; }
+
+article .post-content a {
+  color: #008cba; }
 
 h2.subscribe-product {
   text-transform: uppercase;

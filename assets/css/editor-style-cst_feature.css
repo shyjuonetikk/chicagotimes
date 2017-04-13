@@ -48,6 +48,9 @@ hr {
 a {
   color: #7d7e7e; }
 
+article .post-content a {
+  color: #008cba; }
+
 h2.subscribe-product {
   text-transform: uppercase;
   font-weight: 700; }

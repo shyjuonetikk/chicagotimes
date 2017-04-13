@@ -47,7 +47,13 @@ hr {
 a {
 	color: $anchor-highlight;
 }
-
+article {
+	.post-content {
+		a {
+			color: $content_anchor-highlight;
+		}
+	}
+}
 h2.subscribe-product {
 	text-transform: uppercase;
 	font-weight: 700;
