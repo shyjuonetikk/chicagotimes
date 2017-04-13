@@ -94,10 +94,7 @@ class CST_Frontend {
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'header_sliding_billboard', array( $this, 'action_maybe_render_sliding_billboard' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
-        
-        // add tracking_pixel
-		add_action( 'closing_body', [ $this, 'cst_tracking_pixels' ] );        
-        
+
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
@@ -1193,65 +1190,6 @@ class CST_Frontend {
 		return $positions;
 	}
 
-
-/**
- * Tracking_Pixels_Handler
- * 
- * add script based on what the section front or what section the first story belongs to
-*/
-
-	public function cst_tracking_pixels() {
-
-    $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
-    
-    if ( is_single() ) {      
-        $post_sections  = $obj->get_section_slugs();
-
-        if( $post_sections ) {
-            if( in_array( 'blackhawks', $post_sections ) ) {
-                    ?>
-                    <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/6655a88f1aa976a9';new Image().src = ssaUrl;</script>
-                    <?php           
-                }
-            if( in_array( 'cubs', $post_sections ) ) {
-                    ?>
-                    <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/f73b65fe8a643ce0';new Image().src = ssaUrl;</script>
-                    <?php           
-                }  
-            if( in_array( 'white-sox', $post_sections ) ) {
-                    ?>
-                    <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/ea36f07c77f599cb';new Image().src = ssaUrl;</script>
-                    <?php           
-                }              
-            }
-        }
-            
-    $section_front = get_queried_object()->slug;
-        
-   if ( $section_front ) {     
-
-		switch ( $section_front ) {
-			case 'blackhawks':
-                ?>
-                <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/6655a88f1aa976a9';new Image().src = ssaUrl;</script>
-                <?php
-			    break;
-			case 'cubs':
-                ?>
-                <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/f73b65fe8a643ce0';new Image().src = ssaUrl;</script>
-                <?php
-			    break;
-			case 'white-sox':
-                ?>
-                <script type="text/javascript">var ssaUrl = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'centro.pixel.ad/iap/ea36f07c77f599cb';new Image().src = ssaUrl;</script>
-                <?php
-			    break;
-            }
-        }    
-	}
-        
-    
-    
 	/**
 	 * @return string
 	 *
