@@ -182,7 +182,7 @@ class CST {
 		add_image_size( 'twitter-card', 400, 400, true );
 		add_image_size( 'facebook-open-graph', 1200, 630, true );
 		add_image_size( 'secondary-wells', 290, 190, true );
-		add_image_size( 'homepage-columns', 200, 200, true );
+		add_image_size( 'homepage-columns', 200, 200, false );
 		add_image_size( 'newspaper', 297, 287, true );
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
