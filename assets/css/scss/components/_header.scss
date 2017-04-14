@@ -530,13 +530,16 @@ body.admin-bar {
 	.move-left .exit-off-canvas:hover {
 		background: rgba(255, 255, 255, 0.05); }
 }
-.single{
-	.off-canvas-list {
-		margin-top: 135px;
-		> .cst-off-canvas-navigation-container {
-			li {
-				.dropdown {
-					top: 135px;
+.single {
+	&.cst_gallery,
+	&.cst_article {
+		.off-canvas-list {
+			margin-top: 135px;
+			> .cst-off-canvas-navigation-container {
+				li {
+					.dropdown {
+						top: 135px;
+					}
 				}
 			}
 		}

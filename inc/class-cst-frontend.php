@@ -1716,7 +1716,7 @@ class CST_Frontend {
 	* Generate a conditional and a sectional
 	*/
 	public function generate_off_canvas_menu() {
-		if ( is_front_page() || is_singular() || is_tax() ) {
+		if ( is_front_page() || is_singular() || is_tax() || is_post_type_archive() ) {
 			$chosen_parameters = array(
 					'theme_location' => 'homepage-menu',
 					'depth' => 2,
