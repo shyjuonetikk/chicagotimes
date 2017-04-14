@@ -100,7 +100,7 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
 					$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
 				}
-				$image_url                            = $this->get_featured_image( $top_item[0] );
+				$image_url                            = CST()->frontend->get_remote_featured_image( $top_item[0] );
 				if ( ! $image_url ) {
 					$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
 				}
@@ -118,8 +118,8 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 						array(
 							'class'  => 'cst-recommended-image',
 							'src'    => esc_url( $image_url ),
-							'width'  => 100,
-							'height' => 65,
+							'width'  => 80,
+							'height' => 80,
 						)
 					)
 				);
@@ -152,28 +152,6 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 		}
 
 		return $content . $recommended_article_block;
-	}
-
-	/**
-	 * @param $post_id
-	 *
-	 * @return bool|string
-	 *
-	 * Use WordPress(.com) REST API to retrieve featured image url
-	 */
-	private function get_featured_image( $post_id ) {
-		$featured_image_url = false;
-		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
-		$response = wpcom_vip_file_get_contents( $remote_url );
-		if ( ! is_wp_error( $response ) ) {
-			$pages = json_decode( $response );
-			if ( '' !== $pages->featured_image ) {
-				$featured_image_url = $pages->featured_image . '?w=100';
-			} else {
-				return $featured_image_url;
-			}
-		}
-		return $featured_image_url;
 	}
 
 }

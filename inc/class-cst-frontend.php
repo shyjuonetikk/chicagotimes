@@ -1042,7 +1042,9 @@ class CST_Frontend {
 				$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
 			}
 			if ( isset( $top_item[0] ) ) {
-				$image_url = $this->get_remote_featured_image( $top_item[0] );
+				if ( ! $image_url = $this->get_remote_featured_image( $top_item[0] ) ) {
+					$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
+				}
 			} else {
 				$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
 			}
@@ -1081,22 +1083,45 @@ class CST_Frontend {
 	 *
 	 * @return bool|string
 	 *
-	 * Use WordPress(.com) REST API to retrieve featured image url
+	 * Use CST REST API to retrieve featured image url
 	 */
-	private function get_remote_featured_image( $post_id ) {
+	function get_remote_featured_image( $post_id ) {
 		$featured_image_url = false;
-		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
+		$remote_url = sprintf( 'http://chicago.suntimes.com/wp-json/cst/v1/cst_article/%d', $post_id );
 		$response = wpcom_vip_file_get_contents( $remote_url );
 		if ( ! is_wp_error( $response ) && ! ( false === $response ) ) {
-			$pages = json_decode( $response );
-			if ( '' !== $pages->featured_image ) {
-				$featured_image_url = $pages->featured_image . '?w=80&h=80&crop=1';
+			$article = json_decode( $response );
+			if ( '' !== $article->featured_media && absint( $article->featured_media )) {
+				$featured_image_url = $this->get_remote_featured_image_url( $article->featured_media );
 			} else {
 				return $featured_image_url;
 			}
 		}
 		return $featured_image_url;
 	}
+
+		/**
+	 * @param $post_id
+	 *
+	 * @return bool|string
+	 *
+	 * Use CST REST API to retrieve featured image url
+	 */
+	private function get_remote_featured_image_url( $post_id ) {
+		$featured_image_url = false;
+		$remote_url = sprintf( 'http://chicago.suntimes.com/wp-json/cst/v1/media/%d', $post_id );
+		$response = wpcom_vip_file_get_contents( $remote_url );
+		if ( ! is_wp_error( $response ) && ! ( false === $response ) ) {
+			$media_item = json_decode( $response );
+			if ( '' !== $media_item->guid ) {
+				$featured_image_url = $media_item->guid . '?w=80&h=80&crop=1';
+			} else {
+				return $featured_image_url;
+			}
+		}
+		return $featured_image_url;
+	}
+
 
 	/**
 	 * @param $slug
