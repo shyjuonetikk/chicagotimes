@@ -1096,37 +1096,16 @@ class CST_Frontend {
 		$response = wpcom_vip_file_get_contents( $remote_url );
 		if ( ! is_wp_error( $response ) && ! ( false === $response ) ) {
 			$article = json_decode( $response );
-			if ( '' !== $article->featured_media && absint( $article->featured_media )) {
-				$featured_image_url = $this->get_remote_featured_image_url( $article->featured_media );
+			if ( '' !== $article->featured_media && absint( $article->featured_media ) ) {
+				if ( $obj = \CST\Objects\Post::get_by_post_id( $article->featured_media ) ) {
+					$featured_image_url = $obj->get_featured_image_url( 'chiwire-small-square' );
+				}
 			} else {
 				return $featured_image_url;
 			}
 		}
 		return $featured_image_url;
 	}
-
-		/**
-	 * @param $post_id
-	 *
-	 * @return bool|string
-	 *
-	 * Use CST REST API to retrieve featured image url
-	 */
-	private function get_remote_featured_image_url( $post_id ) {
-		$featured_image_url = false;
-		$remote_url = sprintf( 'http://chicago.suntimes.com/wp-json/cst/v1/media/%d', $post_id );
-		$response = wpcom_vip_file_get_contents( $remote_url );
-		if ( ! is_wp_error( $response ) && ! ( false === $response ) ) {
-			$media_item = json_decode( $response );
-			if ( '' !== $media_item->guid ) {
-				$featured_image_url = $media_item->guid . '?w=80&h=80&crop=1';
-			} else {
-				return $featured_image_url;
-			}
-		}
-		return $featured_image_url;
-	}
-
 
 	/**
 	 * @param $slug
