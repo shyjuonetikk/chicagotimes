@@ -531,8 +531,8 @@ body.admin-bar {
 		background: rgba(255, 255, 255, 0.05); }
 }
 .single {
-	&.cst_gallery,
-	&.cst_article {
+	&.single-cst_gallery,
+	&.single-cst_article {
 		.off-canvas-list {
 			margin-top: 135px;
 			> .cst-off-canvas-navigation-container {

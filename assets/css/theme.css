@@ -685,9 +685,9 @@ body.admin-bar .move-right header#header {
   .move-left .exit-off-canvas:hover {
     background: rgba(255, 255, 255, 0.05); } }
 
-.single.cst_gallery .off-canvas-list, .single.cst_article .off-canvas-list {
+.single.single-cst_gallery .off-canvas-list, .single.single-cst_article .off-canvas-list {
   margin-top: 135px; }
-  .single.cst_gallery .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown, .single.cst_article .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown {
+  .single.single-cst_gallery .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown, .single.single-cst_article .off-canvas-list > .cst-off-canvas-navigation-container li .dropdown {
     top: 135px; }
 
 #fixed-back-to-top {
