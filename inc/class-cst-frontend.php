@@ -177,7 +177,12 @@ class CST_Frontend {
 			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts' ) );
 			wp_enqueue_script( 'cst-custom-js', get_template_directory_uri() . '/assets/js/theme-custom-page.js' );
-
+		} elseif ( is_page_template( 'page-paper-finder.php') ) {
+			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
+			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts' ) );
+			wp_enqueue_script( 'google-paper-finder', esc_url( 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDkPQ9BLBwW_xCk4Wrh55UjZvyVqPc_5FU&libraries=places&callback=initAutocomplete' ), array( 'paper-finder' ), null, true );
+			wp_enqueue_script( 'paper-finder', get_template_directory_uri() . '/assets/js/paper-finder.js', array(), null, true );
+			wp_enqueue_script( 'cst-custom-js', get_template_directory_uri() . '/assets/js/theme-custom-page.js' );
 		} else {
 			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 			if ( ! is_post_type_archive( 'cst_feature' ) && ! is_singular( 'cst_feature' ) ) {

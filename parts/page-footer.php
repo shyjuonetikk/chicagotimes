@@ -2,4 +2,4 @@
 	<a class="exit-off-canvas"></a>
 	</div>
 	</main>
-</div><!--homepage_wrapper-->
+</div><!--page_wrapper-->
