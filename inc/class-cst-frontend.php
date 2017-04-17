@@ -1034,46 +1034,50 @@ class CST_Frontend {
 		}
 		?>
 		<div class="cst-recommendations columns">
-			<div>
 			<hr>
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
-		</div>
 			<div class="row">
 		<?php foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
-			$top_item = [];
+			$image_url = false;
+			$image_markup = '';
 			if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
 				$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
-			}
-			if ( isset( $top_item[0] ) ) {
-				$image_url = $this->get_remote_featured_image( $top_item[0] );
-			} else {
-				$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
-			}
-			$obj = \CST\Objects\Post::get_by_post_id( $top_item[0] );
-			$sponsored_markup = '';
-			if ( $obj ) {
-				if ( $obj->get_sponsored_content() ) {
-					$sponsored_markup = '<div class="sponsored-notification"></div>';
+				if ( isset( $top_item[0] ) ) {
+					$image_url = $this->get_remote_featured_image( $top_item[0] );
+					$obj = \CST\Objects\Post::get_by_post_id( $top_item[0] );
+					$sponsored_markup = '';
+					if ( $obj ) {
+						if ( $obj->get_sponsored_content() ) {
+							$sponsored_markup = '<div class="sponsored-notification"></div>';
+						}
+					}
 				}
 			}
 			$temporary_title       = explode( '|', $item->title );
 			$article_curated_title = $temporary_title[0];
+			if ( $image_url ) {
+				$image_markup = sprintf( $image_markup, '<img class="-amp-fill-content -amp-replaced-content" src="%1$s" width="80" height="80" >', esc_url( $image_url ) );
+			} else {
+				$image_markup = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewbox="-4 -4 40 40">
+<path d="M28 8v-4h-28v22c0 1.105 0.895 2 2 2h27c1.657 0 3-1.343 3-3v-17h-4zM26 26h-24v-20h24v20zM4 10h20v2h-20zM16 14h8v2h-8zM16 18h8v2h-8zM16 22h6v2h-6zM4 14h10v10h-10z"></path>
+</svg>';
+			}
 			?>
 				<div class="cst-recommended-content columns medium-6 small-12">
 					<div class="cst-article">
+					<div class="cst-recommended-image -amp-layout-size-defined">
 						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
-						<div class="cst-recommended-image -amp-layout-size-defined">
-							<img class="-amp-fill-content -amp-replaced-content" src="<?php echo esc_url( $image_url ); ?>" width="100" height="65" >
-						</div>
+								<?php echo wp_kses( $image_markup, CST()->recommendation_kses ); ?>
 						</a>
+					</div>
 						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
 							<span><?php echo esc_html( $article_curated_title ); ?></span>
 						</a>
 						<?php echo wp_kses_post( $sponsored_markup ); ?>
-					</div>
 				</div>
+			</div>
 		<?php } ?>
 			</div>
 		</div>
@@ -1086,16 +1090,18 @@ class CST_Frontend {
 	 *
 	 * @return bool|string
 	 *
-	 * Use WordPress(.com) REST API to retrieve featured image url
+	 * Use CST REST API to retrieve featured image url
 	 */
-	private function get_remote_featured_image( $post_id ) {
+	function get_remote_featured_image( $post_id ) {
 		$featured_image_url = false;
-		$remote_url = sprintf( 'https://public-api.wordpress.com/rest/v1.1/sites/suntimesmedia.wordpress.com/posts/%d?post_type=cst_article', $post_id );
+		$remote_url = sprintf( 'http://chicago.suntimes.com/wp-json/cst/v1/cst_article/%d', $post_id );
 		$response = wpcom_vip_file_get_contents( $remote_url );
 		if ( ! is_wp_error( $response ) && ! ( false === $response ) ) {
-			$pages = json_decode( $response );
-			if ( '' !== $pages->featured_image ) {
-				$featured_image_url = $pages->featured_image . '?w=80&h=80&crop=1';
+			$article = json_decode( $response );
+			if ( '' !== $article->featured_media && absint( $article->featured_media ) ) {
+				if ( $obj = \CST\Objects\Post::get_by_post_id( $article->featured_media ) ) {
+					$featured_image_url = $obj->get_featured_image_url( 'chiwire-small-square' );
+				}
 			} else {
 				return $featured_image_url;
 			}
