@@ -2123,15 +2123,6 @@ class CST {
 				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
-		$this->ad_vendor_handler->register_vendor( 'morpheus', array(
-				'header' => false,
-				'footer' => 'http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js',
-				'footer-remote' => true,
-				'container' => false,
-				'logic' => 'ads/limit_ads_on_features',
-			)
-		);
-
 	}
 
 	/**
