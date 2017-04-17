@@ -1055,8 +1055,9 @@ class CST_Frontend {
 					}
 				}
 			}
-			$temporary_title       = explode( '|', $item->title );
-			$article_curated_title = $temporary_title[0];
+			$temporary_title       = strtok( $item->title, '|' );
+			$temporary_title       = strtok( $temporary_title, '–' );
+			$article_curated_title = trim( $temporary_title );
 			if ( $image_url ) {
 				$image_markup = sprintf( $image_markup, '<img class="-amp-fill-content -amp-replaced-content" src="%1$s" width="80" height="80" >', esc_url( $image_url ) );
 			} else {
@@ -1090,23 +1091,18 @@ class CST_Frontend {
 	 *
 	 * @return bool|string
 	 *
-	 * Use CST REST API to retrieve featured image url
 	 */
 	function get_remote_featured_image( $post_id ) {
-		$featured_image_url = false;
-		$remote_url = sprintf( 'http://chicago.suntimes.com/wp-json/cst/v1/cst_article/%d', $post_id );
-		$response = wpcom_vip_file_get_contents( $remote_url );
-		if ( ! is_wp_error( $response ) && ! ( false === $response ) ) {
-			$article = json_decode( $response );
-			if ( '' !== $article->featured_media && absint( $article->featured_media ) ) {
-				if ( $obj = \CST\Objects\Post::get_by_post_id( $article->featured_media ) ) {
-					$featured_image_url = $obj->get_featured_image_url( 'chiwire-small-square' );
-				}
-			} else {
-				return $featured_image_url;
+		$article = \CST\Objects\Post::get_by_post_id( (int) $post_id );
+		if ( $article ) {
+			$attachment_id = $article->get_featured_image_id();
+			$featured_image_url = wp_get_attachment_image_src( $attachment_id, 'chiwire-small-square' );
+			if ( ! $featured_image_url ) {
+				return false;
 			}
+			return $featured_image_url[0];
 		}
-		return $featured_image_url;
+		return false;
 	}
 
 	/**
@@ -1612,15 +1608,21 @@ class CST_Frontend {
 	* @return bool|mixed
 	*/
 	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
-		$section_navigation = '';
+		$custom_subnavigation = array(
+			'sports' => array(),
+			'opinion' => array(),
+		);
 		if ( $current_obj = $this->get_current_object() ) {
+			foreach ( $custom_subnavigation as $item => $value) {
+				$custom_subnavigation[$item] = wpcom_vip_get_term_by( 'slug', $item, 'cst_section' );
+			}
 			$sports_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
 			$child_parent = wpcom_vip_get_term_by( 'id', $current_obj->parent, 'cst_section' );
-			// Special sports nav handling here
-			if ( 'sports' === $current_obj->slug
-			|| $sports_parent->term_id === $current_obj->parent
+			// Custom nav handling here
+			if ( isset( $custom_subnavigation[$current_obj->slug] )
+			|| $custom_subnavigation[$current_obj->slug]->term_id === $current_obj->parent
 			|| ( false !== $child_parent ? $child_parent->parent : $current_obj->parent ) ) {
-				$conditional_nav = 'sports-subnav';
+				$conditional_nav = $current_obj->slug . '-subnav';
 				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
 						$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
 						$chosen_parameters = array(
