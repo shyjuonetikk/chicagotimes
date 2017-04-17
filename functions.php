@@ -78,6 +78,8 @@ class CST {
 			'src' => array(),
 			'alt' => array(),
 			'class' => array(),
+			'width' => array(),
+			'height' => array(),
 		),
 		'svg' => array(
 			'version' => array(),
