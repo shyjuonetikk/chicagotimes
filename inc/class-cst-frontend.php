@@ -1612,15 +1612,23 @@ class CST_Frontend {
 	* @return bool|mixed
 	*/
 	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
+		$custom_subnavigation = array(
+			'sports' => array(),
+			'opinion' => array(),
+		);
 		$section_navigation = '';
 		if ( $current_obj = $this->get_current_object() ) {
+			foreach ( $custom_subnavigation as $item => $value) {
+				$custom_subnavigation[$item] = wpcom_vip_get_term_by( 'slug', $item, 'cst_section' );
+			}
 			$sports_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
 			$child_parent = wpcom_vip_get_term_by( 'id', $current_obj->parent, 'cst_section' );
-			// Special sports nav handling here
-			if ( 'sports' === $current_obj->slug
-			|| $sports_parent->term_id === $current_obj->parent
+			// Custom nav handling here
+			if ( isset( $custom_subnavigation[$current_obj->slug] )
+			|| $custom_subnavigation[$current_obj->slug]->term_id === $current_obj->parent
 			|| ( false !== $child_parent ? $child_parent->parent : $current_obj->parent ) ) {
-				$conditional_nav = 'sports-subnav';
+				$potential_nav_slug = $current_obj->slug;
+				$conditional_nav = $potential_nav_slug . '-subnav';
 				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
 						$container = $off_canvas ? 'cst-off-canvas-navigation-container' : 'cst-navigation-container columns';
 						$chosen_parameters = array(

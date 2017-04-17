@@ -965,6 +965,7 @@ class CST {
 				'lifestyles-menu'        => esc_html__( 'Lifestyles', 'chicagosuntimes' ),
 				'lifestyles-trending'    => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
 				'opinion-menu'           => esc_html__( 'Opinion', 'chicagosuntimes' ),
+				'opinion-subnav-menu'    => esc_html__( 'Opinion SubNav', 'chicagosuntimes' ),
 				'opinion-trending'       => esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
 				'columnists-menu'        => esc_html__( 'Columnists', 'chicagosuntimes' ),
 				'columnists-trending'    => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
