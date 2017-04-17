@@ -1069,7 +1069,7 @@ class CST_Frontend {
 					<div class="cst-article">
 					<div class="cst-recommended-image -amp-layout-size-defined">
 						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-image">
-								<?php echo $image_markup; ?>
+								<?php echo wp_kses( $image_markup, CST()->recommendation_kses ); ?>
 						</a>
 					</div>
 						<a href="<?php echo esc_url( $item->path ); ?>" title="<?php echo esc_html( $article_curated_title ); ?>" class="cst-rec-anchor" data-on="click" data-event-category="previous-from" data-event-action="click-text">
