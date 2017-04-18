@@ -27,7 +27,7 @@
 							<?php
 							if ( $featured_image_id = $obj->get_featured_image_id() ) {
 								if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
-									echo $attachment->get_html( 'homepage-columns' );
+									echo $attachment->get_html( 'more-wells' );
 								}
 							}
 							?>
