@@ -1059,7 +1059,7 @@ class CST_Frontend {
 			$temporary_title       = strtok( $temporary_title, '–' );
 			$article_curated_title = trim( $temporary_title );
 			if ( $image_url ) {
-				$image_markup = sprintf( $image_markup, '<img class="-amp-fill-content -amp-replaced-content" src="%1$s" width="80" height="80" >', esc_url( $image_url ) );
+				$image_markup = sprintf( '<img class="-amp-fill-content -amp-replaced-content" src="%1$s" width="80" height="80" >', esc_url( $image_url ) );
 			} else {
 				$image_markup = '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="80" height="80" viewbox="-4 -4 40 40">
 <path d="M28 8v-4h-28v22c0 1.105 0.895 2 2 2h27c1.657 0 3-1.343 3-3v-17h-4zM26 26h-24v-20h24v20zM4 10h20v2h-20zM16 14h8v2h-8zM16 18h8v2h-8zM16 22h6v2h-6zM4 14h10v10h-10z"></path>
@@ -1096,11 +1096,11 @@ class CST_Frontend {
 		$article = \CST\Objects\Post::get_by_post_id( (int) $post_id );
 		if ( $article ) {
 			$attachment_id = $article->get_featured_image_id();
-			$featured_image_url = wp_get_attachment_image_src( $attachment_id, 'chiwire-small-square' );
+			$featured_image_url = wp_get_attachment_image_url( $attachment_id, 'chiwire-small-square' );
 			if ( ! $featured_image_url ) {
 				return false;
 			}
-			return $featured_image_url[0];
+			return $featured_image_url;
 		}
 		return false;
 	}
