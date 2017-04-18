@@ -44,6 +44,7 @@
 			echo esc_attr( date( 'Y' ) ); ?> Associated Press. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</p>
 		<?php } ?>
 		</div>
+		<?php echo wp_kses_post( CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) ) ); ?>
 	<?php } else { ?>
 		<div class="section-front small-12">
 		<?php
