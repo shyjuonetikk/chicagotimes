@@ -359,6 +359,10 @@ var dfp = {
     googletag.defineSlot(adUnitPath, [[300, 600]], 'div-gpt-rr-cube-1')
 	  .defineSizeMapping(hp_cube_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
+      googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
+        .addService(googletag.pubads())
+        .setTargeting("pos", "sbb")
+        .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())

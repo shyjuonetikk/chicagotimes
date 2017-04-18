@@ -68,4 +68,4 @@
 		CST()->dfp_kses
 	); ?>
 </div>
-
+<?php echo wp_kses( CST()->dfp_handler->sbb( 2 ), CST()->dfp_kses );
