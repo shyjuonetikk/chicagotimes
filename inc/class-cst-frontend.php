@@ -1706,7 +1706,7 @@ class CST_Frontend {
 					'fallback_cb' => false,
 					'container_class' => 'cst-off-canvas-navigation-container homepage',
 					'walker' => new GC_walker_nav_menu(),
-					'items_wrap' => '<ul id="%1$s" class="">%3$s</ul>',
+					'items_wrap' => '<ul id="%1$s-oc" class="">%3$s</ul>',
 					 );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
