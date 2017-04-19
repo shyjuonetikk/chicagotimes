@@ -3,14 +3,12 @@
    * Template Name: Arkadium Template
    */
 ?>
-<?php get_header( 'page' ); ?>
+<?php get_header( 'arkadium' ); ?>
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 <section>
 	<div class="row page-content">
-		<div class="small-12 columns">
-			<div id="partnercontent">
-				<ark:GameBodyContainer />
-			</div>
+		<div id="partnercontent">
+			<ark:GameBodyContainer />
 		</div>
 	</div>
 </section>

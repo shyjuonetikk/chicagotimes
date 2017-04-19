@@ -24,7 +24,7 @@
 				<li class="has-form">
 					<div class="row collapse">
 						<div class="large-2 small-2 columns">
-							<a href="/subscribe" class="subscribe-link">Subscribe</a>
+							<a href="<?php echo esc_url( home_url( '/' ) ); ?>subscribe" class="subscribe-link">Subscribe</a>
 						</div>
 					</div>
 				</li>

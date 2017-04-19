@@ -682,6 +682,9 @@ class CST_Frontend {
 	}
 
 	public function get_weather() {
+		if ( is_page_template( 'page-arkadium.php' ) ) {
+			return;
+		}
 		$response = wpcom_vip_file_get_contents( 'http://apidev.accuweather.com/currentconditions/v1/348308.json?language=en&apikey=' . CST_ACCUWEATHER_API_KEY );
 		$data = json_decode( $response );
 		if ( ! $data ) {
