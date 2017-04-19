@@ -118,6 +118,7 @@ class CST_Frontend {
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
+		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
 	}
 
 	/**
@@ -2025,6 +2026,38 @@ ready(fn);
 		}
 
 		return $ids;
+	}
+	/**
+	* See also functions.php - perhaps consolidate kses through this function
+	* and make all kses function calls wp_kses_post
+	* @param $allowed_html
+	*
+	* @return array
+	*/
+	public function filter_wp_kses_allowed_custom_attributes( $allowed_html ) {
+		$cst_custom_element_attributes = array(
+			'div' => array_merge( $allowed_html['div'], array(
+				'addthis:url' => true,
+				'addthis:title' => true,
+				'data-pgs-partner-id' => true,
+				'data-pgs-keywords' => true,
+				'data-pgs-target-id' => true,
+				'data-pgs-location' => true,
+				'data-pgs-variant' => true,
+				'data-pgs-target-type' => true,
+			)),
+			'a' => array_merge( $allowed_html['a'], array(
+				'data-event-category' => true,
+				'data-event-action' => true,
+				'data-event-on' => true,
+				'addthis:url' => true,
+				'addthis:title' => true,
+			) ),
+			'span' => array_merge( $allowed_html['span'], array(
+				'class' => true,
+			) )
+		);
+		return array_merge( $allowed_html, $cst_custom_element_attributes );
 	}
 	public function inject_newsletter_signup( $newsletter ) {
 
