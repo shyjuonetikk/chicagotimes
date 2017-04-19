@@ -2094,8 +2094,8 @@ class CST {
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'adsupply', array(
-				'header' => false,
-				'footer' => 'adsupply-popunder-header.js',
+				'header' => 'adsupply-popunder-header.js',
+				'footer' => false,
 				'container' => false,
 				'logic' => 'ads/limit_ads_on_features',
 			)
