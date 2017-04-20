@@ -617,6 +617,7 @@ class CST {
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
 		add_filter( 'ads/limit_ads_on_features', 'filter_limit_ads_on_features', 1000 );
+		add_filter( 'ads/filter_include_nativo_on_homepage', 'filter_include_nativo_on_homepage', 1000 );
 		add_filter( 'ads/filter_load_morpheus', 'filter_load_morpheus' );
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
@@ -2120,7 +2121,7 @@ class CST {
 				'footer-remote' => true,
 				'footer' => '//s.ntv.io/serve/load.js',
 				'container' => false,
-				'logic' => 'ads/limit_ads_on_features',
+				'logic' => 'ads/filter_include_nativo_on_homepage',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
@@ -2196,6 +2197,14 @@ add_action( 'pre_get_posts', 'GC_force_published_status_front_end' );
  */
 function filter_limit_ads_on_features() {
 	return is_singular( array( 'cst_article', 'cst_gallery' ) ) && ! is_404();
+}
+/**
+ * @return bool
+ *
+ * Ad Vendor filter to inject Nativo
+ */
+function filter_include_nativo_on_homepage() {
+	return is_front_page() || is_singular( array( 'cst_article', 'cst_gallery' ) ) && ! is_404();
 }
 /**
  * @return bool
