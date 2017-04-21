@@ -2064,7 +2064,6 @@ if ( ! function_exists( 'GC_menu_set_dropdown' ) ) :
 	    	}
 	  	}
 	  return $sorted_menu_items;
-
 	}
 
 endif;
