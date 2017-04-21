@@ -391,7 +391,7 @@ var dfp = {
           .setCollapseEmptyDiv(true, true);
     }
     if (dfp.front_page || dfp.section || dfp.author) {
-      googletag.defineSlot(adUnitPath, [[320, 50],[300, 250],[300,600]], 'div-gpt-mobile-leaderboard')
+      googletag.defineSlot(adUnitPath, [320, 50], 'div-gpt-mobile-leaderboard')
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
     }
