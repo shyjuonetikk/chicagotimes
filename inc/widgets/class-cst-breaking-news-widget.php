@@ -106,11 +106,11 @@ class CST_Breaking_News_Widget extends WP_Widget {
         }
 
         ?>
-            <p>
+            <p class="ui-state-default">
                 <label for="<?php echo esc_attr( $this->get_field_id( 'cst_breaking_news_story_id' ) ); ?>">
                     <?php esc_html_e( 'Breaking News Content', 'chicagosuntimes' ); ?>:
                 </label>
-                <input class="cst-breaking-news-story-id" id="<?php echo esc_attr( $this->get_field_id( 'cst_breaking_news_story_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_breaking_news_story_id' ) ); ?>" value="<?php echo esc_attr( $breaking_news_story_id ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" />
+                <input class="cst-breaking-news-story-id" id="<?php echo esc_attr( $this->get_field_id( 'cst_breaking_news_story_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_breaking_news_story_id' ) ); ?>" value="<?php echo esc_attr( $breaking_news_story_id ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;"/>
             </p>
         <?php
     
