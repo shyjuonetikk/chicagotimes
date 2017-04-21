@@ -8,7 +8,7 @@ addSize([500, 500], [300, 250]).
 addSize([0,0], []).
 */
 build();
-googletag.defineSlot('/61924087/slot1', [[300, 250], [728, 90]], 'div-gpt-ad-test-a9-0').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());    
+googletag.defineSlot('/61924087/slot1', [[300, 250], [728, 90]], 'div-gpt-ad-test-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());    
 googletag.pubads().disableInitialLoad(); 
 googletag.pubads().enableSingleRequest(); 
 googletag.enableServices();
@@ -22,7 +22,7 @@ pubID: '3443', adServer: 'googletag', bidTimeout: 2e3
 });
 // request the bids for the four googletag slots
 apstag.fetchBids({ slots: [{
-slotID: 'div-gpt-ad-test-a9-0',
+slotID: 'div-gpt-ad-test-a9',
 sizes: [[300, 250]] },
 ]
 }, function(bids) {
