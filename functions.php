@@ -2232,23 +2232,3 @@ function filter_include_nativo_on_homepage() {
 function filter_load_morpheus() {
 	return ! is_404();
 }
-// Async load allows adding async='async' to scripts to be enqueued
-function add_async_scripts($url)
-{
-    if ( strpos( $url, '#asyncload') === false )
-        return $url;
-    else if ( is_admin() )
-        return str_replace( '#asyncload', '', $url );
-    else
-	return str_replace( '#asyncload', '', $url )."' async='async";
-    }
-add_filter( 'clean_url', 'add_async_scripts', 11, 1 );
-
-// Register script for Amazon/A9
-function register_amazona9() {
-
-	wp_register_script( 'amazona9_handler', '//https://www.googletagservices.com/tag/js/gpt.js#asyncload', false, false, false );
-	wp_enqueue_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload' , false, false, false );
-
-}
-add_action( 'wp_enqueue_scripts', 'register_amazona9' );
