@@ -7,12 +7,15 @@
 /**
 * Custom padding, spacing for homepage
 */
+/**
+* Sizes and other variables
+ */
 html, body {
   margin: 0;
   padding: 0; }
 
 body, .grey-background {
-  background-color: #f0f0f0;
+  background-color: #f8f8f8;
   font-family: 'Open Sans', Arial, sans-serif;
   color: #282828;
   height: auto;
@@ -43,7 +46,10 @@ hr {
   clear: right; }
 
 a {
-  color: #d22d42; }
+  color: #7d7e7e; }
+
+article .post-content a {
+  color: #008cba; }
 
 h2.subscribe-product {
   text-transform: uppercase;
@@ -51,8 +57,6 @@ h2.subscribe-product {
 
 footer {
   position: relative; }
-  footer .columns:first-child {
-    padding-left: 0; }
   footer .copyright {
     font-size: 0.7rem; }
   footer #menu-homepage-footer ul {
@@ -82,7 +86,7 @@ footer {
     color: #e0e0e0; }
 
 .news_bg {
-  background: #d22d42; }
+  background: #7d7e7e; }
   .news_bg h3.title a:hover {
     color: #e4828f; }
 
@@ -156,6 +160,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 0, 640px */
 /* 641px, 767px */
 /* 768px, 1024px */
+/* 768px, 1023px */
 /* 1025px, 1440px */
 /* 1200px (approx 75em), 1300px (approx 81.250em), 1366px (approx 85.250em)  */
 /* 1300px */
@@ -163,17 +168,24 @@ h1, h2, h3, h4, h5, h6 {
 /* 1921px */
 @media only screen and (max-width:90em) { }
 
+.show-for-small-device-landscape {
+  display: none; }
+
+@media only screen and (max-width:63.94em) and (orientation: landscape) {
+  .show-for-small-device-landscape {
+    display: block; } }
+
 .cst_feature-template-default header#header section#primary-navigation, .post-type-archive-cst_feature header#header section#primary-navigation, .single-cst_feature header#header section#primary-navigation {
-  height: 60px; }
-  .cst_feature-template-default header#header section#primary-navigation #logo-wrap, .post-type-archive-cst_feature header#header section#primary-navigation #logo-wrap, .single-cst_feature header#header section#primary-navigation #logo-wrap {
-    height: 60px; }
-  .cst_feature-template-default header#header section#primary-navigation #suntimes-logo img, .post-type-archive-cst_feature header#header section#primary-navigation #suntimes-logo img, .single-cst_feature header#header section#primary-navigation #suntimes-logo img {
-    width: 263px; }
+  height: 46px; }
   .cst_feature-template-default header#header section#primary-navigation #burger-bar, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar, .single-cst_feature header#header section#primary-navigation #burger-bar {
-    background-color: #231f20; }
+    background-color: #231f20;
+    color: white;
+    float: left; }
     .cst_feature-template-default header#header section#primary-navigation #burger-bar .fa, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar .fa, .single-cst_feature header#header section#primary-navigation #burger-bar .fa {
       font-size: 40px;
-      line-height: 60px; }
+      line-height: 45px; }
+.cst_feature-template-default #post-body, .post-type-archive-cst_feature #post-body, .single-cst_feature #post-body {
+  float: none; }
 .cst_feature-template-default footer .columns:first-child, .post-type-archive-cst_feature footer .columns:first-child, .single-cst_feature footer .columns:first-child {
   padding-left: 0.9375rem; }
 .cst_feature-template-default footer .footer-navigation, .post-type-archive-cst_feature footer .footer-navigation, .single-cst_feature footer .footer-navigation {
@@ -216,19 +228,24 @@ h1, h2, h3, h4, h5, h6 {
     .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 1.5rem;
       line-height: 1.8rem; } }
-.cst_feature-template-default article.post h2, .single-cst_feature article.post h2 {
+.cst_feature-template-default article.post h2, .cst_feature-template-default article.post h3, .single-cst_feature article.post h2, .single-cst_feature article.post h3 {
   border-top: 1px solid #cdcdcd;
   border-bottom: 1px solid #cdcdcd;
   text-transform: uppercase;
-  font-size: 3rem;
   color: #cccccc;
   text-align: center;
   font-family: 'Open Sans', Arial, sans-serif;
   clear: both; }
+.cst_feature-template-default article.post h2, .single-cst_feature article.post h2 {
+  font-size: 3rem; }
+.cst_feature-template-default article.post h3, .single-cst_feature article.post h3 {
+  font-size: 2.62rem; }
 .cst_feature-template-default article.post .post-meta-byline, .single-cst_feature article.post .post-meta-byline {
   text-align: center; }
 .cst_feature-template-default article.post .post-meta-author, .single-cst_feature article.post .post-meta-author {
   line-height: 1.6rem; }
+.cst_feature-template-default .spacer, .single-cst_feature .spacer {
+  height: 65px; }
 .cst_feature-template-default .feature-social-container, .single-cst_feature .feature-social-container {
   float: right;
   padding-right: 1.975rem;

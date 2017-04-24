@@ -65,7 +65,7 @@ blockquote p:last-child {margin-bottom: 0;}
 .cst-recommended-content {clear: both;}
 .cst-recommended-image {float: left;width: 100%;height: auto;margin-right: 10px;padding: 0;}
 .cst-recommended-image img {max-width: 100%;height: auto;display: inline-block;vertical-align: middle;}
-.cst-article {box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);float: none;overflow: hidden;height: 65px;margin: 16px 0;border-radius: 2px;background: #f5f5f5;}
+.cst-article {box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);float: none;overflow: hidden;height: 80px;margin: 16px 0;border-radius: 2px;background: #f5f5f5;}
 a.cst-rec-anchor {text-decoration: none;color: #000;}
 .cst-rec-anchor > span {font-size: 0.85rem;font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen-Sans", "Ubuntu", "Cantarell", "Helvetica Neue", sans-serif;font-weight: 400;vertical-align: top;width: 100%;display: block;line-height:1.3rem;}
 amp-carousel {height:480px;}

@@ -34,9 +34,10 @@ class CST_Gracenote_Sports_Widget extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
-		echo $args['before_widget'];
+		echo wp_kses_post( $args['before_widget'] );
 		?>
 			<div class="small-12">
+				<h3>Sports Scores</h3>
 				<?php
 				$inform_markup = sprintf( $this->format,
 					esc_attr( $this->gracenote_sports_options[ $instance['gracenote_sports_options'] ]['order'] )
@@ -45,7 +46,7 @@ class CST_Gracenote_Sports_Widget extends WP_Widget {
 				?>
 			</div>
 		<?php
-		echo $args['after_widget'];
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 	public function form( $instance ) {

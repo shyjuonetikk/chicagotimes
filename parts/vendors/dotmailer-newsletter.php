@@ -66,4 +66,4 @@
 <p>
      <span><?php esc_html_e( $newsletter_text ); ?></span>: <a href="<?php echo esc_url( $newsletter_link ); ?>" target="_blank" class="button expand tiny info"><i class="fa fa-envelope"></i> Sign-Up</a>
 </p>
-<?php } ?>
+<?php }

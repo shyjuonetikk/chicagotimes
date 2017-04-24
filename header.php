@@ -48,19 +48,18 @@
 	node.parentNode.insertBefore(gads, node);
 })();
 </script>
-<?php do_action( 'cst_dfp_ad_settings' ); ?>
+<?php if ( ! is_404() ) { ?>
+	<?php do_action( 'cst_dfp_ad_settings' ); ?>
+<?php } ?>
 <meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
-
 <?php
-if ( is_search() ) {
+if ( is_search() || is_404() ) {
 	get_template_part( 'parts/dfp/dfp-search' );
 } else {
 	CST()->dfp_handler->generate_header_definitions();
 }
-?>
-
-<?php wp_head(); ?>
+wp_head(); ?>
 </head>
 
 <body <?php body_class(); ?>>
@@ -68,9 +67,9 @@ if ( is_search() ) {
 <div id="ie8-user" style="display:none;"></div>
 
 <?php
-if ( is_front_page() || is_404() || is_page( 'yieldmo-homepage' ) || is_page_template( 'page-monster.php' ) ) {
+if ( is_front_page() || is_page( 'yieldmo-homepage' ) || is_page_template( 'page-monster.php' ) ) {
 	get_template_part( 'parts/homepage/header' );
 } else {
 	get_template_part( 'parts/page-header' );
 }
-?>
+

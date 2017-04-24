@@ -19,6 +19,107 @@ class CST {
 		'dev' => '2C63F38287CF46AC',
 	);
 
+	public $dfp_kses = array(
+		'script' => array( 'class' ) ,
+		'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
+	);
+	public $slider_kses = array(
+		'h3' => array(),
+		'h4' => array(),
+		'img' => array(
+			'src' => array(),
+			'alt' => array(),
+		),
+		'div' => array(
+			'id' => array(),
+			'style' => array(),
+			'class' => array(),
+		),
+		'a' => array(
+			'href' => array(),
+			'data-on' => array(),
+			'data-event-action' => array(),
+			'data-event-category' => array(),
+		),
+	);
+	public $gallery_kses = array(
+		'img' => array(
+			'src' => array(),
+			'alt' => array(),
+			'class' => array(),
+		),
+		'div' => array(
+			'id' => array(),
+			'style' => array(),
+			'class' => array(),
+			'data-image-desktop-src' => array(),
+			'data-image-mobile-src' => array(),
+			'data-image-caption' => array(),
+			'data-slide-url' => array(),
+			'data-gallery-title' => array(),
+		),
+		'i' => array(
+			'class' => array(),
+		),
+		'a' => array(
+			'id' => array(),
+			'class' => array(),
+			'href' => array(),
+			'data-on' => array(),
+			'data-event-action' => array(),
+			'data-event-category' => array(),
+		),
+	);
+	public $recommendation_kses = array(
+		'h3' => array(),
+		'h4' => array(),
+		'hr' => array(),
+		'img' => array(
+			'src' => array(),
+			'alt' => array(),
+			'class' => array(),
+			'width' => array(),
+			'height' => array(),
+		),
+		'svg' => array(
+			'version' => array(),
+			'width' => array(),
+			'height' => array(),
+			'viewbox' => array(),
+			'xmlns' => array()
+		),
+		'path' => array(
+			'd' => array()
+		),
+		'div' => array(
+			'id' => array(),
+			'style' => array(),
+			'class' => array(),
+		),
+		'span' => array(),
+		'a' => array(
+			'href' => array(),
+			'title' => array(),
+			'class' => array(),
+			'data-on' => array(),
+			'data-event-action' => array(),
+			'data-event-category' => array(),
+		),
+	);
+	public $sendtonews_kses = array(
+		'iframe' => array(
+			'id' => array(), 'class' => array(), 'src' => array(), 'style' => array(), 'allowfullscreen' => array(), 'frameborder' => array(), 'scrolling' => array(), 'marginheight' => array(), 'marginwidth' => array(), 'width' => array(), 'height' => array()
+		),
+		'span' => array( 'class' => array() ),
+		'div' => array( 'class' => array(), 'data-type' => array() ),
+		'p' => array(),
+		'script' => array(
+			'class' => array(),
+			'type' => array(),
+			'src' => array(),
+			'data-type' => array(),
+		),
+	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -58,7 +159,7 @@ class CST {
 		$this->cst_feeds = CST_Feeds::get_instance();
 
 		add_theme_support( 'post-thumbnails' );
-
+		add_theme_support( 'customize-selective-refresh-widgets' );
 		add_theme_support( 'infinite-scroll', array(
 			'container' => 'main',
 			'footer'    => false,
@@ -79,12 +180,13 @@ class CST {
 
 		add_image_size( 'chiwire-article', 570, 260, true );
 		add_image_size( 'chiwire-small-square', 80, 80, true );
+		add_image_size( 'chiwire-slider-square', 60, 60, true );
 		add_image_size( 'chiwire-featured-content-widget', 295, 165, true );
 		add_image_size( 'chiwire-header-large', 640, 480, true );
 		add_image_size( 'chiwire-header-medium', 425, 320, true );
 		add_image_size( 'chiwire-header-small', 320, 240, true );
-		add_image_size( 'cst-article-featured', 670, 9999, false );
-		add_image_size( 'cst-feature-gallery-lead', 1024, 768, false );
+		add_image_size( 'cst-article-featured', 763, 9999, false );
+		add_image_size( 'cst-feature-hero', 1200, 1600, false );
 		add_image_size( 'cst-gallery-desktop-vertical', 1200, 1600, true );
 		add_image_size( 'cst-gallery-desktop-horizontal', 1600, 1200, true );
 		add_image_size( 'cst-gallery-mobile-vertical', 600, 800, true );
@@ -93,9 +195,11 @@ class CST {
 		add_image_size( 'facebook-open-graph', 1200, 630, true );
 		add_image_size( 'secondary-wells', 290, 190, true );
 		add_image_size( 'homepage-columns', 228, 134, true );
+		add_image_size( 'more-wells', 228, 134, array( 'center', 'center' ) );
 		add_image_size( 'newspaper', 297, 287, true );
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
+
 		$this->setup_actions();
 		$this->setup_filters();
 		$this->register_sidebars();
@@ -157,6 +261,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-slack.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -244,7 +349,10 @@ class CST {
 		}
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
-
+		if ( ! defined( 'WP_CLI' ) ) {
+			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
+			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '3.0' );
+		}
 		// Options are loaded on Bitly::__construct
 		add_filter( 'pre_option_bitly_settings', function() {
 			return array(
@@ -253,6 +361,10 @@ class CST {
 				);
 		});
 		wpcom_vip_load_plugin( 'bitly' );
+		if ( wpcom_vip_load_plugin( 'graphiq-search' ) ) {
+			GraphiqSearch::init();
+			add_post_type_support( 'cst_article', 'graphiq-search' );
+		}
 
 	}
 
@@ -468,6 +580,7 @@ class CST {
 			return $classes;
 		});
 
+		add_filter( 'wp_nav_menu_objects', [ $this, 'cst_menu_set_dropdown' ], 10, 2 );
 		/**
 		 * Filter to whitelist chicago.suntimes.com as suggested in VIP ticket
 		 * https://wordpressvip.zendesk.com/hc/en-us/requests/50256
@@ -500,9 +613,15 @@ class CST {
 
 		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
+		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
-
+		add_filter( 'ads/limit_ads_on_features', 'filter_limit_ads_on_features', 1000 );
+		add_filter( 'ads/filter_include_nativo_on_homepage', 'filter_include_nativo_on_homepage', 1000 );
+		add_filter( 'ads/filter_load_morpheus', 'filter_load_morpheus' );
+		add_filter( 'safe_style_css', function( $styles ) {
+			$styles[] = 'display';
+		} );
 	}
 
 	/**
@@ -838,28 +957,34 @@ class CST {
 
 		register_nav_menus(
 			array(
-				'homepage-menu'          => esc_html__( 'Homepage', 'chicagosuntimes' ),
-				'homepage-footer-menu'   => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
-				'news-menu'              => esc_html__( 'News', 'chicagosuntimes' ),
-				'news-trending'          => esc_html__( 'News Trending', 'chicagosuntimes' ),
-				'sports-menu'            => esc_html__( 'Sports', 'chicagosuntimes' ),
-				'sports-trending'        => esc_html__( 'Sports Trending', 'chicagosuntimes' ),
-				'politics-menu'          => esc_html__( 'Politics', 'chicagosuntimes' ),
-				'politics-trending'      => esc_html__( 'Politics Trending', 'chicagosuntimes' ),
-				'entertainment-menu'     => esc_html__( 'Entertainment', 'chicagosuntimes' ),
-				'entertainment-trending' => esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
-				'lifestyles-menu'        => esc_html__( 'Lifestyles', 'chicagosuntimes' ),
-				'lifestyles-trending'    => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
-				'opinion-menu'           => esc_html__( 'Opinion', 'chicagosuntimes' ),
-				'opinion-trending'       => esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
-				'columnists-menu'        => esc_html__( 'Columnists', 'chicagosuntimes' ),
-				'columnists-trending'    => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
-				'autos-menu'             => esc_html__( 'Autos', 'chicagosuntimes' ),
-				'autos-trending'         => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
-				'page-footer-1'          => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
-				'page-footer-2'          => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
-				'page-footer-3'          => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
-				'election-page'          => esc_html__( 'Election Page', 'chicagosuntimes' ),
+				'homepage-menu'              => esc_html__( 'Homepage', 'chicagosuntimes' ),
+				'homepage-masthead'          => esc_html__( 'Homepage Masthead', 'chicagosuntimes' ),
+				'homepage-itn'               => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
+				'homepage-footer-menu'       => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
+				'news-menu'                  => esc_html__( 'News', 'chicagosuntimes' ),
+				'news-trending'              => esc_html__( 'News Trending', 'chicagosuntimes' ),
+				'sports-subnav-menu'         => esc_html__( 'Sports SubNav', 'chicagosuntimes' ),
+				'sports-menu'                => esc_html__( 'Sports', 'chicagosuntimes' ),
+				'sports-trending'            => esc_html__( 'Sports Trending', 'chicagosuntimes' ),
+				'politics-menu'              => esc_html__( 'Politics', 'chicagosuntimes' ),
+				'politics-trending'          => esc_html__( 'Politics Trending', 'chicagosuntimes' ),
+				'entertainment-menu'         => esc_html__( 'Entertainment', 'chicagosuntimes' ),
+				'entertainment-subnav-menu'  => esc_html__( 'Entertainment SubNav', 'chicagosuntimes' ),
+				'entertainment-trending'     => esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
+				'lifestyles-menu'            => esc_html__( 'Lifestyles', 'chicagosuntimes' ),
+				'lifestyles-trending'        => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
+				'opinion-menu'               => esc_html__( 'Opinion', 'chicagosuntimes' ),
+				'opinion-subnav-menu'        => esc_html__( 'Opinion SubNav', 'chicagosuntimes' ),
+				'opinion-trending'           => esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
+				'columnists-menu'            => esc_html__( 'Columnists', 'chicagosuntimes' ),
+				'columnists-trending'        => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
+				'autos-menu'                 => esc_html__( 'Autos', 'chicagosuntimes' ),
+				'autos-trending'             => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
+				'page-footer-1'              => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
+				'page-footer-2'              => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
+				'page-footer-3'              => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
+				'page-footer-4'              => esc_html__( 'Page Footer 4', 'chicagosuntimes' ),
+				'election-page'              => esc_html__( 'Election Page', 'chicagosuntimes' ),
 			)
 		);
 
@@ -1502,7 +1627,7 @@ class CST {
 
 	public function filter_rest_api_post_types( $allowed_post_types ) {
 
-		$allowed_post_types[] = 'cst_article';
+		$allowed_post_types[] = array( 'cst_article', 'cst_feature' );
 
 		return $allowed_post_types;
 	}
@@ -1585,10 +1710,10 @@ class CST {
 	 * Add the gallery backdrop to the footer
 	 */
 	public function action_wp_footer_gallery_backdrop() {
-		if ( is_404() || is_post_type_archive( 'cst_feature' ) ) {
+		if ( is_404() || is_post_type_archive( 'cst_feature' ) || is_page_template( 'page-arkadium.php' ) ) {
 			return;
 		}
-		echo $this->get_template_part( 'post/gallery-backdrop' );
+		echo wp_kses( $this->get_template_part( 'post/gallery-backdrop' ), $this->gallery_kses );
 	}
 
 	/**
@@ -1720,32 +1845,27 @@ class CST {
 		$featured_image_id = $obj->get_featured_image_id();
 		$output = '';
 		$image_type = 'cst-article-featured';
-		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id )  ) :
+		if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) {
 			if ( doing_filter( 'the_content' ) ) {
 				$class = 'post-lead-media end';
 			} else {
-				if ( is_singular( 'cst_feature' ) ) {
-					$class = 'post-lead-media columns small-12 end';
-				} else {
-					$class = 'post-lead-media columns medium-11 medium-offset-1 end';
-				}
+				$class = 'post-lead-media columns small-12 end';
 			}
 			$output .= '<div class="' . esc_attr( $class ) . '">';
-		if ( is_singular( 'cst_feature' ) ) {
-			$image_type = 'cst-feature-hero';
-			$hero_sig = $obj->get_hero_sig();
-			$hero_title = $obj->get_hero_title();
-			$featured_image_id = $obj->get_featured_image_id();
-			$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
-		} else {
-			$output .= $attachment->get_html( $image_type );
-		}
-
-			if ( $caption = $attachment->get_caption() ) :
+			if ( is_singular( 'cst_feature' ) ) {
+				$image_type = 'cst-feature-hero';
+				$hero_sig = $obj->get_hero_sig();
+				$hero_title = $obj->get_hero_title();
+				$featured_image_id = $obj->get_featured_image_id();
+				$output .= $attachment->get_hero_image_html( $featured_image_id, $image_type, $hero_sig, $hero_title );
+			} else {
+				$output .= $attachment->get_html( $image_type );
+			}
+			if ( $caption = $attachment->get_caption() ) {
 				$output .= '<div class="image-caption">' . wpautop( esc_html( $caption ) ) . '</div>';
-			endif;
+			}
 			$output .= '</div>';
-		endif;
+		}
 
 		if ( doing_filter( 'the_content' ) ) {
 			return $output;
@@ -1799,7 +1919,7 @@ class CST {
 	 * Load customized AP configured feed.
 	 */
 	function cst_rss_AP_atom() {
-		load_template( TEMPLATEPATH . '/feeds/feed-AP-atom.php' );
+		load_template( get_template_directory() . '/feeds/feed-AP-atom.php' );
 	}
 
 	/**
@@ -1837,7 +1957,7 @@ class CST {
 	 *
 	 */
 	public function amp_nav_markup() {
-		$result = wp_cache_get( 'cst_amp_nav_json', 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		$result = wpcom_vip_cache_get( 'cst_amp_nav_json', 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
 		if ( false === $result || WP_DEBUG ) {
 			$navigation_markup = wp_nav_menu( array(
 					'theme_location' => 'homepage-menu',
@@ -1849,7 +1969,7 @@ class CST {
 					'items_wrap'     => '<ul class="section-menu">%3$s</ul>',
 				)
 			);
-			wp_cache_set( 'cst_amp_nav_json', $navigation_markup, 'default', 1 * DAY_IN_SECONDS );
+			wpcom_vip_cache_set( 'cst_amp_nav_json', $navigation_markup, 'default', 1 * DAY_IN_SECONDS );
 		} else {
 			$navigation_markup = $result;
 		}
@@ -1863,7 +1983,7 @@ class CST {
 	public function jetpack_infinite_support() {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular() || is_tax() || is_archive() );
+			( is_singular( 'cst_article', 'cst_feature' ) || is_tax() || is_archive() );
 	}
 
 	/**
@@ -1875,7 +1995,7 @@ class CST {
 	function navigation_link_tracking( $atts, $item, $args ) {
 
 		$atts['data-on'] = 'click';
-		$atts['data-event-category'] = 'navigation - ' . $args->menu->name;
+		$atts['data-event-category'] = 'navigation - ' . $args->theme_location;
 		$atts['data-event-action'] = 'navigate';
 		return $atts;
 	}
@@ -1951,32 +2071,29 @@ class CST {
 	 * Centralized function to register Vendor scripts
 	 */
 	public function register_ad_vendors() {
-
-		$this->ad_vendor_handler->register_vendor( 'apstag', array(
-			'header' => 'apstag-header.js',
-			'footer' => false,
-			'container' => false,
-			'logic' => array( 'is_singular' ),
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return;
+		}
+		if ( is_admin() ) {
+			return;
+		}
+		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
+				'header' => 'gum-gum-header.js',
+				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
+				'footer-remote' => true,
+				'container' => false,
+				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
-
-        $this->ad_vendor_handler->register_vendor( 'apstag2', array(
-			'header' => 'apstag-header.js',
-			'footer' => false,
-			'container' => false,
-			'logic' => array( 'is_tax' ),
-			)
-		);
-        
 		$this->ad_vendor_handler->register_vendor( 'taboola', array(
 			'header' => 'taboola-header.js',
 			'footer' => false,
 			'container' => false,
-			'logic' => array( 'is_singular' ),
+			'logic' => 'ads/limit_ads_on_features',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
-			'header' => 'triplelift-header.js',
+			'header' => false,
 			'footer' => 'triplelift-footer.js',
 			'container' => false,
 			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
@@ -1986,7 +2103,7 @@ class CST {
 				'header' => 'adsupply-popunder-header.js',
 				'footer' => false,
 				'container' => false,
-				'logic' => array( 'is_singular' ),
+				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'adblocker', array(
@@ -1997,33 +2114,67 @@ class CST {
 					'argument' => 'bm_website_code',
 					'value' => 'chicago.suntimes.com.test' === $this->dfp_handler->get_parent_dfp_inventory() ? $this->pagefair_ids['dev'] : $this->pagefair_ids['prod'],
 				),
-				'logic' => array( 'is_singular' ),
+				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'nativo', array(
-				'header' => '//s.ntv.io/serve/load.js',
-				'header-remote' => true,
-				'footer' => false,
-				'container' => false,
-				'logic' => array( 'is_singular' ),
-			)
-		);
-		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
-				'header' => 'gum-gum-header.js',
-				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
+				'header' => false,
 				'footer-remote' => true,
+				'footer' => '//s.ntv.io/serve/load.js',
 				'container' => false,
-				'logic' => array( 'is_singular' ),
+				'logic' => 'ads/filter_include_nativo_on_homepage',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
 				'header' => false,
 				'footer' => 'google-survey-footer.js',
 				'container' => false,
-				'logic' => array( 'is_singular' ),
+				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
+	}
 
+/**
+ * Set parent class with supported Foundation class to indicate presence of a dropdown
+ *@param $sorted_menu_items
+* @param $args
+	* @return mixed
+*/
+ function cst_menu_set_dropdown( $sorted_menu_items, $args  ) {
+
+		// No dropdowns for Masthead navigation
+
+if ( 'homepage-masthead' !== $args->theme_location) {
+		$last_top = 0;
+	  	foreach ( $sorted_menu_items as $key => $obj) {
+	    	// it is a top lv item?
+	    	if ( 0 == $obj->menu_item_parent ) {
+	      	// set the key of the parent
+	      		$last_top = $key;
+	    	} else {
+	      		$sorted_menu_items[$last_top]->classes['dropdown'] = 'has-dropdownhas-submenu';
+				}
+	    	}
+	  	}
+	  return $sorted_menu_items;
+}
+
+	/**
+	 * @param $classes
+	 * @param $item
+	 * @param $args
+	 * @param $depth
+	 *
+	 * @return array
+	 *
+	 * Add Foundation class to masthead navigation to work with top bar
+	 */
+	function masthead_nav_classes( $classes, $item, $args, $depth ) {
+
+		if ( 'masthead-sections' === $args->container_class ) {
+			$classes[] .= 'left';
+		}
+		return $classes;
 	}
 }
 
@@ -2035,40 +2186,6 @@ function CST() {
 }
 add_action( 'after_setup_theme', 'CST' );
 
-class GC_walker_nav_menu extends Walker_Nav_Menu {
-
-	// add classes to ul sub-menus
-	public function start_lvl(&$output, $depth = 0, $args = array() ) {
-		
-		// depth dependent classes
-		$indent = ( $depth > 0 ? str_repeat( "\t", $depth ) : '' ); // code indent
-
-		// build html
-		$output .= "\n" . $indent . '<ul class="dropdown">' . "\n";
-
-	}
-
-}
-
-if ( ! function_exists( 'GC_menu_set_dropdown' ) ) :
-
-	function GC_menu_set_dropdown($sorted_menu_items, $args) {
-		$last_top = 0;
-	  	foreach ( $sorted_menu_items as $key => $obj) {
-	    	// it is a top lv item?
-	    	if ( 0 == $obj->menu_item_parent ) {
-	      	// set the key of the parent
-	      		$last_top = $key;
-	    	} else {
-	      		$sorted_menu_items[$last_top]->classes['dropdown'] = 'has-dropdown';
-	    	}
-	  	}
-	  return $sorted_menu_items;
-	}
-
-endif;
-add_filter( 'wp_nav_menu_objects', 'GC_menu_set_dropdown', 10, 2 );
-
 function GC_force_published_status_front_end( $query ){
 	if ( ( is_category() || is_home() ) && $query->is_main_query() ){
 		$query->post_status = 'publish'; //force to only show posts that are published so it can levrage the indexes more efficiently.
@@ -2076,6 +2193,30 @@ function GC_force_published_status_front_end( $query ){
 }
 add_action( 'pre_get_posts', 'GC_force_published_status_front_end' );
 
+/**
+ * @return bool
+ *
+ * Ad Vendor filter to limit injection on features content
+ */
+function filter_limit_ads_on_features() {
+	return is_singular( array( 'cst_article', 'cst_gallery' ) ) && ! is_404();
+}
+/**
+ * @return bool
+ *
+ * Ad Vendor filter to inject Nativo
+ */
+function filter_include_nativo_on_homepage() {
+	return is_front_page() || is_singular( array( 'cst_article', 'cst_gallery' ) ) && ! is_404();
+}
+/**
+ * @return bool
+ *
+ * Ad Vendor filter to limit injection on features content
+ */
+function filter_load_morpheus() {
+	return ! is_404();
+}
 // Async load allows adding async='async' to scripts to be enqueued
 function add_async_scripts($url)
 {
@@ -2084,7 +2225,7 @@ function add_async_scripts($url)
     else if ( is_admin() )
         return str_replace( '#asyncload', '', $url );
     else
-	return str_replace( '#asyncload', '', $url )."' async='async"; 
+	return str_replace( '#asyncload', '', $url )."' async='async";
     }
 add_filter( 'clean_url', 'add_async_scripts', 11, 1 );
 

@@ -1,29 +1,41 @@
-<?php echo CST()->get_template_part( 'post/title', $vars ); ?>
+<?php if ( ! empty( $is_main_query ) ) { ?>
 
-<?php if ( ! empty( $is_main_query ) ) : ?>
-
-	<?php if ( is_singular() ) : ?>
-		<div class="post-lead-media post-content columns medium-11 medium-offset-1 end">
+	<?php if ( is_singular() ) {
+		echo wp_kses_post( CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) ) );
+		echo wp_kses_post( CST()->get_template_part( 'post/title', $vars ) );
+		?>
+		<div class="post-lead-media post-content columns small-12 end">
 			<?php echo do_shortcode( '[cst-content id="' . $obj->get_id() . '"]' ); ?>
 		</div>
-		<?php echo CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ); ?>
-		<?php if ( $obj->get_content() ) : ?>
-		<div class="post-content columns medium-9 medium-offset-1 end">
-			<script>
-				window.SECTIONS_FOR_YIELD_MO = <?php echo wp_json_encode( CST_Frontend::$post_sections ); ?>;
-			</script>
-			<?php $obj->the_content(); ?>
-		</div>
-		<?php endif; ?>
-	<?php else : ?>
-		<?php
-		if ( $obj->get_excerpt() ) :
-			echo CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) );
-		endif;
-		?>
-		<?php if ( $obj->get_featured_image_id() ) {
-			echo CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) );
-		} ?>
-	<?php endif; ?>
+		<?php echo wp_kses_post( CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ) ); ?>
+		<?php if ( $obj->get_content() ) { ?>
+			<div class="post-content columns small-12 end">
+				<script>
+                  window.SECTIONS_FOR_YIELD_MO = <?php echo wp_json_encode( CST_Frontend::$post_sections ); ?>;
+				</script>
+				<?php $obj->the_content(); ?>
+			</div>
+		<?php } ?>
+	<?php } else { ?>
+		<div class="section-front small-12">
 
-<?php endif; ?>
+			<?php
+			if ( $obj->get_featured_image_id() ) { ?>
+				<div class="section-image small-4">
+					<?php echo wp_kses_post( CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) ) ); ?>
+					<?php if ( is_tax() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_author() ) {
+						echo wp_kses_post( CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) ) );
+					}?>
+				</div>
+			<?php } ?>
+			<div class="section-title small-8">
+				<?php echo wp_kses_post( CST()->get_template_part( 'post/meta-top', array( 'obj' => $obj, 'is_main_query' => true ) ) ); ?>
+				<?php echo wp_kses_post( CST()->get_template_part( 'post/title', $vars ) ); ?>
+				<?php if ( $obj->get_excerpt() ) {
+					echo wp_kses_post( CST()->get_template_part( 'post/post-excerpt', array( 'obj' => $obj ) ) );
+				} ?>
+			</div>
+		</div>
+	<?php } ?>
+
+	<?php }

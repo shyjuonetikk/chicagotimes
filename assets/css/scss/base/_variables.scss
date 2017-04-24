@@ -6,16 +6,21 @@ $light_black: #3E3E3E;
 $red: #D22D42;
 $light_red: #CD606E;
 $grey: #CCCCCC;
-$light_grey: #F0F0F0;
+$light_grey: #F8F8F8;
 $social_grey: #9A9A9A;
 $box_grey: #E6E6E6;
 $white: #FFFFFF;
+$text_white: #FFFFFF;
 $twitter_blue: #59ADEB;
 $facebook_blue: #3C5A96;
 $google_red: #D34836;
 $chiwire_grey: #484848;
 $line_grey: #CDCDCD;
 $menu_black: #333333;
+$cst_black: #231f20;
+$cst_yellow: #ffe000;
+$masthead_background: #ffffff;
+$site_background: #f8f8f8;
 $homepage_grey: #DADFE2;
 $homepage_background: #111111;
 $homepage_more_background: #0E1213;
@@ -33,12 +38,13 @@ $image_shadow: #B0ADAD;
 $image_hover: #CB8282;
 $line: #DDDDDD;
 $section_title: #A8A1A1;
-$cst_black: #231f20;
-$cst_yellow: #ffe000;
+$anchor-highlight: $homepage_category_grey;
+$content_anchor-highlight: #008cba;
 /**
  * Fonts
  */
 $open_sans: 'Open Sans', Arial, sans-serif;
+$homepage_font: 'Libre Franklin', Arial, sans-serif;
 $open_sans_condensed: 'Open Sans Condensed', Arial, sans-serif;
 $merriweather: 'Merriweather', Georgia, serif;
 
@@ -48,3 +54,9 @@ $merriweather: 'Merriweather', Georgia, serif;
 $homepage_content_width: 60.7rem;
 $homepage_sidebar: 1.3575rem;
 $homepage_intra_column_padding: 0.3375rem;
+
+/**
+* Sizes and other variables
+ */
+
+$masthead_height: 45px;

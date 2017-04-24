@@ -37,13 +37,16 @@ window.AggregoChatter = {
           var chatter_div = jQuery('#post-'+postContent.data('cst-post-id')).find('.agg-chatter');
           chatter_div.append(aggregoChatterContentNode)
 
+          var title_div = jQuery( '<div />' );
+          title_div.attr( 'class', 'columns' );
           var title = jQuery( '<h4 />' );
-              title.attr( 'class', 'agg-sponsored columns medium-11 medium-offset-1' );
+              title.attr( 'class', 'agg-sponsored' );
               title.text( 'Promoted Stories from ');
               chatter = jQuery( '<span />' );
               chatter.text( domainTag + 'Chatter' );
               jQuery(title).append(chatter);
-              jQuery('.cst-active-scroll-post .agg-collage').before( title );
+              jQuery(title_div).append(title);
+              jQuery('.cst-active-scroll-post .agg-collage').before( title_div );
 
           this._insertAggregoChatterJS(domainTag, anchor_div_id);
           jQuery('.cst-active-scroll-post').addClass('chatter-inserted');
@@ -62,7 +65,7 @@ window.AggregoChatter = {
   _aggregoChatterHTMLTag: function(tag){
 
     aggrego_chatter_div = jQuery('<div />');
-    aggrego_chatter_div.attr( 'class', 'agg-collage ' + tag );
+    aggrego_chatter_div.attr( 'class', 'agg-collage columns ' + tag );
     aggrego_chatter_div.attr( 'id', 'agg-collage-' + tag + "-" + postContent.data('cst-post-id') );
 
     return aggrego_chatter_div;

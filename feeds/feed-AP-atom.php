@@ -27,7 +27,8 @@ do_action( 'rss_tag_pre', 'atom' );
 	<?php
 
 	$args = array(
-		'post_type' => 'cst_article'
+		'post_type' => 'cst_article',
+		'suppress_filters' => false,
 	);
 	query_posts( $args );
 	while ( have_posts() ) : the_post();

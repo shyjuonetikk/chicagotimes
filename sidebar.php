@@ -1,6 +1,6 @@
 <div id="index-sidebar-anchor"></div>
 
-<aside class="sidebar show-for-large-up" id="index-sidebar">
+<aside class="sidebar" id="index-sidebar">
 
 	<ul class="widgets">
 		<?php

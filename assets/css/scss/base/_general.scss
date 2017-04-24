@@ -5,7 +5,7 @@ body {
 }
 
 body, .grey-background {
-	background-color: $light_grey;
+	background-color: $site_background;
 	font-family: $open_sans;
 	color: $black;
 	height: auto;
@@ -45,9 +45,15 @@ hr {
 }
 
 a {
-	color: $red;
+	color: $anchor-highlight;
 }
-
+article {
+	.post-content {
+		a {
+			color: $content_anchor-highlight;
+		}
+	}
+}
 h2.subscribe-product {
 	text-transform: uppercase;
 	font-weight: 700;
@@ -56,10 +62,6 @@ h2.subscribe-product {
 
 footer {
 	position: relative;
-
-	.columns:first-child {
-		padding-left: 0;
-	}
 
 	.copyright {
 		font-size: .7rem;
@@ -113,7 +115,7 @@ footer {
 	}
 }
 .news_bg {
-	background: $red;
+	background: $anchor-highlight;
 
 	h3.title {
 		a:hover {

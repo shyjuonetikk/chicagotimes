@@ -39,12 +39,14 @@ class CST_DFP_Handler {
 		}
 		return sprintf(
 			'
+<div class="row">
 <div id="%1$s" class="%2$s" data-visual-label="%3$s">
 <script>
 	googletag.cmd.push(function() {
 		googletag.display("%4$s");
 	})
 </script>
+</div>
 </div>
 ',
 			esc_attr( $type . '-' . intval( $index ) ),
@@ -64,7 +66,7 @@ class CST_DFP_Handler {
 	 *
 	 * Create a dynamic generic markup unit
 	 */
-	public function dynamic_unit( $index, $type = '', $class = '', $mapping = '', $targeting_name = 'atf leaderboard' ) {
+	public function dynamic_unit( $index, $type = '', $class = '', $mapping = '', $targeting_name = 'atf leaderboard', $default_size = '300,250' ) {
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-placement';
 		}
@@ -80,12 +82,13 @@ class CST_DFP_Handler {
 		return sprintf(
 			'
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="%4$s"></div>
-<script>
+<script class="dfp">
 googletag.cmd.push(function() {
-	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [728, 90], \'%1$s\')
+	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [%5$s], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
-	.setTargeting("pos", "%4$s");
+	.setTargeting("pos", "%4$s")
+	.setCollapseEmptyDiv(true, true);
 	googletag.display("%1$s");
 	});
 </script>
@@ -93,7 +96,8 @@ googletag.cmd.push(function() {
 			esc_attr( $type . '-' . intval( $index ) ),
 			esc_attr( $class ),
 			esc_attr( $mapping ),
-			esc_attr( $targeting_name )
+			esc_attr( $targeting_name ),
+			esc_attr( $default_size )
 		);
 	}
 	/**
@@ -163,33 +167,6 @@ googletag.cmd.push(function() {
 ',
 			esc_attr( 'div-gpt-sbb-pushdown-' . $index ) ,
 			esc_attr( 'dfp dfp-sbb dfp-centered show-for-medium-up' )
-		);
-	}
-
-	/**
-	 * @return string
-	 *
-	 * Create a custom interstitial unit
-	 */
-	public function interstitial( ) {
-
-		if ( ! isset( $index ) ) {
-			$index = 1;
-		}
-
-		return sprintf(
-			'
-<div id="%1$s" class="%2$s">
-	<div id="dfp-interstitial-container">
-		<div class="dfp-interstitial-headerbar">
-			<a id="dfp-interstitial-close"></a>
-		</div>
-		<div id="dfp-interstitial-content"></div>
-	</div>
-</div>
-',
-			esc_attr( 'div-gpt-interstitial' ),
-			esc_attr( 'dfp dfp-centered show-for-medium-up dfp-interstitial' )
 		);
 	}
 
@@ -289,23 +266,25 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping, article_leaderboard_mapping;
+  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
   googletag.cmd.push(function () {
     article_lead_unit_mapping = googletag.sizeMapping()
-      .addSize([992, 0], [728, 90]) //desktop
-      .addSize([0, 0], [320, 50]) //other
-	  .addSize([800, 1200], [ [728,90] ] ) //tablet
-	  .addSize([768, 1024], [ [728,90] ] ) //tablet
+      .addSize([1025, 0], [728, 90]) //desktop
+	  .addSize([800, 1200], [ [320, 50] ] ) //tablet
+	  .addSize([800, 1280], [ [320, 50] ] ) //tablet
+	  .addSize([768, 1024], [ [320, 50] ] ) //tablet
+      .addSize([0, 0], [[320, 50],[300,50]]) //other
 	  .build();
     super_leaderboard_mapping = googletag.sizeMapping().
-    addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
-    addSize([992, 0], [ [728, 90], [970, 90] ] ). //desktop
+    addSize([1200, 800], [ [970, 250], [970,90], [728,90] ] ). //tablet
+    addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [300, 50], [320, 50]). //phone
+    addSize([414, 0], [300, 50], [320, 50]). //phone
     addSize([375, 667], [300, 50], [320, 50]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
@@ -321,6 +300,23 @@ var dfp = {
     article_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
 	  .addSize([1025, 0], [[300, 600], [300, 250]]) //desktop
+	  .build();
+    article_skyscraper_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([1025, 0], [[160,600]]) //desktop
+	  .build();
+    hp_ear_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([992, 0], [[184,90]]) //desktop
+	  .build();
+    hp_cube_mapping = googletag.sizeMapping()
+      .addSize([0, 0], []) //other
+	  .addSize([1025, 0], [[300, 600]]) //desktop
+	  .addSize([768,1024], [[300, 600]]) //desktop no sidebar
+	  .addSize([768, 0], [[300, 600]]) //desktop
+	  .addSize([732, 0], [[300, 250]]) //mobile device
+	  .addSize([640, 480], [[320, 50], [300, 50]]) //phone
+	  .addSize([375, 667], [[320, 50], [300, 50]]) //phone
 	  .build();
     gallery_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
@@ -359,21 +355,13 @@ var dfp = {
       .addSize([375, 0], [[320, 50]]) //phone
       .addSize([0, 0], [320, 50]) //other
       .build();
-    if (!dfp.author) {
-      googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
-        .addService(googletag.pubads()).setTargeting("pos", "1x1");
-    }
     if (dfp.front_page) {
-    googletag.defineSlot(adUnitPath, [[300, 600], [300, 250]], 'div-gpt-rr-cube-1')
+    googletag.defineSlot(adUnitPath, [[300, 600]], 'div-gpt-rr-cube-1')
+	  .defineSizeMapping(hp_cube_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
-    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
-      .addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
-    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
-      .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
-      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
-        .defineSizeMapping(billboard_mapping)
+      googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
         .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 2 970x250")
+        .setTargeting("pos", "sbb")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
         .defineSizeMapping(super_leaderboard_mapping)
@@ -391,29 +379,23 @@ var dfp = {
         .setTargeting("pos", "Super Leaderboard 5")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-rr-cube-7')
+        .defineSizeMapping(gallery_cube_mapping)
         .addService(googletag.pubads()).setTargeting("pos", "rr cube 7");
-      if (window.innerWidth > 1256) {
         googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-left')
+          .defineSizeMapping(hp_ear_mapping)
           .addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Left")
           .setCollapseEmptyDiv(true, true);
         googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-right')
+          .defineSizeMapping(hp_ear_mapping)
           .addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Right")
           .setCollapseEmptyDiv(true, true);
-      }
     }
     if (dfp.front_page || dfp.section || dfp.author) {
-      googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
-        .addService(googletag.pubads()).setTargeting("pos", "sbb");
       googletag.defineSlot(adUnitPath, [320, 50], 'div-gpt-mobile-leaderboard')
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
-        .defineSizeMapping(billboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 970x250")
-        .setCollapseEmptyDiv(true, true);
     }
-    if (dfp.section || dfp.author) {
+    if (dfp.author) {
       googletag.defineSlot(adUnitPath, [ [728, 90] ], 'div-gpt-super-leaderboard-2')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
@@ -427,8 +409,9 @@ var dfp = {
         .addService(googletag.pubads())
         .setTargeting("pos", "atf leaderboard");
       CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot(adUnitPath, [160, 600], 'div-gpt-sky-scraper-1')
-        .addService(googletag.pubads())
-        .setTargeting("pos", "SkyScraper");
+		.defineSizeMapping(article_skyscraper_mapping)
+		.addService(googletag.pubads())
+		.setTargeting("pos", "SkyScraper");
     }
     if(dfp.gallery) {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
@@ -437,6 +420,11 @@ var dfp = {
         .setTargeting("pos","gallery 1");
     }
     googletag.pubads().enableSingleRequest();
+    window.CSTAds = window.CSTAds || false;
+    if (window.CSTAds) {
+      googletag.pubads().addEventListener('slotVisibilityChanged', CSTAds.handleGptVisibility);
+      googletag.pubads().addEventListener('impressionViewable', CSTAds.handleGptImpressionViewability);
+	}
     googletag.enableServices();
 });
 </script>

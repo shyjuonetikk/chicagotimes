@@ -50,6 +50,7 @@ class CST_API_Endpoints {
 			'post_type'   => 'cst_article',
 			'cst_section' => $slug,
 			'posts_per_page' => $count,
+			'suppress_filters' => false,
 		) );
 
 		if ( empty( $content ) ) {

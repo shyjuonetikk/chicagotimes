@@ -136,24 +136,27 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 							<?php if ( $sponsored ) { ?>
 						<div class="sponsored-notification">SPONSORED</div>
 						<?php } ?>
-							<?php if ( $obj->get_featured_image_url() ) : ?>
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-image">
-									<div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url( 'chiwire-header-medium' ) ); ?>')">
-										<div class="gradient-overlay"></div>
-									</div>
-								</a>
-							<?php endif; ?>
-						</div>
-						<div class="slide-text">
-							<?php if ( $section = $obj->get_primary_section() ) : ?>
-								<h4><?php echo esc_html( $section->name ); ?></h4>
-							<?php endif; ?>
-							<h3><a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-text"><?php esc_html( $obj->the_title() ); ?></a></h3>
+							<?php if ( $obj->get_featured_image_url() ) { ?>
+								<div class="slide-image-container">
+									<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-image">
+										<div class="slide-image" style="background-image: url('<?php echo esc_url( $obj->get_featured_image_url( 'chiwire-header-medium' ) ); ?>')">
+											<div class="gradient-overlay"></div>
+										</div>
+									</a>
+								</div>
+							<?php } else { ?>
+								<div class="slide-image-container"></div>
+							<?php } ?>
+							<div class="slide-text">
+								<?php if ( $section = $obj->get_primary_section() ) : ?>
+									<h4><?php echo esc_html( $section->name ); ?></h4>
+								<?php endif; ?>
+								<h3><a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="slider" data-event-action="navigate-slider-text"><?php esc_html( $obj->the_title() ); ?></a></h3>
+							</div>
 						</div>
 					</div>
 				<?php }
 			}
-
 		}
 
 	}
@@ -166,7 +169,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 	 */
 	public function get_headline_posts( $widget_posts ) {
 
-		if ( false === ( $found = wp_cache_get( $this->cache_key_stub . '-' . $this->id ) ) ) {
+		if ( false === ( $found = wpcom_vip_cache_get( $this->cache_key_stub . '-' . $this->id ) ) ) {
 			$use_sticky_option   = is_singular() ? false : true;
 			$widget_posts_query  = array(
 				'post__in'            => $widget_posts,
@@ -177,7 +180,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 			$display_these_posts = new \WP_Query( $widget_posts_query );
 			$display_these_posts->have_posts();
 			$found = $display_these_posts->get_posts();
-			wp_cache_set( $this->cache_key_stub . '-' . $this->id, $found, '', 1 * HOUR_IN_SECONDS );
+			wpcom_vip_cache_set( $this->cache_key_stub . '-' . $this->id, $found, '', 1 * HOUR_IN_SECONDS );
 		}
 
 		return $found;

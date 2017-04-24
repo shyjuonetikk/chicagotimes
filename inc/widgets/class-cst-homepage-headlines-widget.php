@@ -98,7 +98,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
-		
+
 		global $homepage_main_well_posts;
 		$widget_posts = array();
 
@@ -123,7 +123,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 *
 	 */
 	public function get_headline_posts( $widget_posts ) {
-		if ( false === ( $found = wp_cache_get( $this->cache_key_stub ) ) ) {
+		if ( false === ( $found = wpcom_vip_cache_get( $this->cache_key_stub ) ) ) {
 			$widget_posts_query = array(
 				'post__in' => $widget_posts,
 				'post_type' => 'any',
@@ -133,7 +133,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			$display_these_posts = new \WP_Query( $widget_posts_query );
 			$display_these_posts->have_posts();
 			$found = $display_these_posts->get_posts();
-			wp_cache_set( $this->cache_key_stub, $found, '', 1 * HOUR_IN_SECONDS );
+			wpcom_vip_cache_set( $this->cache_key_stub, $found, '', 1 * HOUR_IN_SECONDS );
 		}
 
 		return $found;
@@ -150,7 +150,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 
 		$this->enqueue_scripts();
 		$count = 0;
-		
+
 		foreach ( $this->headlines as $array_member ) {
 			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
 			$obj = get_post( $headline );
@@ -162,7 +162,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			}
 			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
 			?>
-				<p class="ui-state-default" id=i<?php echo $count; ?>>
+				<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
 					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
 						<?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?>
 					</label>

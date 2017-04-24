@@ -74,18 +74,26 @@ class CST_Ad_Vendor_Handler {
 				return new \WP_Error( -1, 'Ad Vendor not found' );
 			}
 			if ( ! empty( $registered_vendor['logic'] ) ) {
-				foreach ( $registered_vendor['logic'] as $func => $display_logic_function ) {
-					$permission_to_enqueue = false;
-					if ( is_array( $display_logic_function ) ) {
-						if ( 'obj' === $display_logic_function[0] ) {
-							$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
-							if ( false !== $obj && $obj->get_post_type() === 'cst_article' ) {
-								$permission_to_enqueue = is_callable( array( $obj, $display_logic_function[1] ) ) && call_user_func( array( $obj, $display_logic_function[1] ) );
+				if ( is_array( $registered_vendor['logic'] ) ) {
+					foreach ( $registered_vendor['logic'] as $func => $display_logic_function ) {
+						$permission_to_enqueue = false;
+						if ( is_array( $display_logic_function ) ) {
+							if ( 'obj' === $display_logic_function[0] ) {
+								$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+								if ( false !== $obj && $obj->get_post_type() === 'cst_article' ) {
+									$permission_to_enqueue = is_callable( array( $obj, $display_logic_function[1] ) ) && call_user_func( array( $obj, $display_logic_function[1] ) );
+								}
+							}
+						} else {
+							if ( has_filter( $display_logic_function ) ) {
+								$permission_to_enqueue = apply_filters( $display_logic_function, $permission_to_enqueue );
+							} else {
+								$permission_to_enqueue = is_callable( $display_logic_function ) && call_user_func( $display_logic_function );
 							}
 						}
-					} else {
-						$permission_to_enqueue = is_callable( $display_logic_function ) && call_user_func( $display_logic_function );
 					}
+				} else {
+					$permission_to_enqueue = apply_filters( $registered_vendor['logic'], false );
 				}
 				if ( $permission_to_enqueue ) {
 					if ( $registered_vendor['header'] ) {
@@ -99,6 +107,7 @@ class CST_Ad_Vendor_Handler {
 						$this->localize_vendor( $registered_vendor, $vendor_name, 'footer' );
 					}
 				}
+				unset( $path );
 			}
 		}
 	}

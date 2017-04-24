@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 	<section class="row grey-background">
-		<div id="main" class="wire columns large-8">
+		<div id="main" class="wire columns medium-8 large-8 small-12">
 			<div id="fixed-back-to-top" class="hide-back-to-top">
 				<a id="back-to-top" href="#">
 					<p><i class="fa fa-arrow-circle-up"></i><?php esc_html_e( 'Back To Top', 'chicagosuntimes' ); ?></p>
@@ -26,17 +26,20 @@
 
 			<?php if ( have_posts() ) : ?>
 				<?php do_action( 'cst_section_head' ); ?>
+				<?php $video_position_counter = 1; ?>
 				<?php while ( have_posts() ) : the_post(); ?>
-
 					<?php get_template_part( 'content' ); ?>
-
+					<?php
+						$video_position_counter++;
+						CST()->frontend->cst_section_front_video( $video_position_counter );
+					?>
 				<?php endwhile; ?>
 
 			<?php endif; ?>
 
 		</div>
 
-		<div class="columns large-4">
+		<div class="right-rail columns medium-4 large-4 show-for-medium-up">
 			<?php get_sidebar(); ?>
 		</div>
 

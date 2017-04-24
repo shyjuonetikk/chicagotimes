@@ -25,4 +25,4 @@
 	<?php } ?>
 <?php } else { ?>
 	<h3><a href="<?php $obj->the_permalink(); ?>"><?php $obj->the_title(); ?></a></h3>
-<?php } ?>
+<?php }

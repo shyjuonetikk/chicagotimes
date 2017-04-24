@@ -9,23 +9,20 @@
 .single-cst_feature {
 	header#header {
 		section#primary-navigation {
-			height: 60px;
-			#logo-wrap {
-				height: 60px;
-			}
-			#suntimes-logo {
-				img {
-					width: 263px;
-				}
-			}
+			height: 46px;
 			#burger-bar {
 				background-color: $cst_black;
+				color: #fff;
+				float: left;
 				.fa {
 					font-size: 40px;
-					line-height: 60px;
+					line-height: 45px;
 				}
 			}
 		}
+	}
+	#post-body {
+		float: none;
 	}
 	footer {
 		.columns:first-child {
@@ -84,18 +81,21 @@
 					}
 				}
 			}
-			h2 {
+			h2,h3 {
 				border-top: 1px solid $line_grey;
 				border-bottom: 1px solid $line_grey;
 				text-transform: uppercase;
-				font-size: 3rem;
 				color: $grey;
 				text-align: center;
 				font-family: $open_sans;
 				clear: both;
 			}
-			h3 {
 
+			h2 {
+				font-size: 3rem;
+			}
+			h3 {
+				font-size: 2.62rem;
 			}
 			.post-meta-byline {
 				text-align: center;
@@ -105,7 +105,9 @@
 			}
 		}
 	}
-
+	.spacer {
+		height: 65px;
+	}
 	.feature-social-container {
 		float: right;
 		padding-right: 1.975rem;
