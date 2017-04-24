@@ -2085,6 +2085,21 @@ class CST {
 				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'apstag', array(
+				'header' => 'apstag-header.js',
+				'footer' => false,
+				'container' => false,
+				'logic' => array( 'is_singular' ),
+			)
+		);
+        $this->ad_vendor_handler->register_vendor( 'apstag2', array(
+			'header' => 'apstag-header.js',
+			'footer' => false,
+			'container' => false,
+			'logic' => array( 'is_tax' ),
+			)
+		);
+
 		$this->ad_vendor_handler->register_vendor( 'taboola', array(
 			'header' => 'taboola-header.js',
 			'footer' => false,
@@ -2134,28 +2149,30 @@ class CST {
 		);
 	}
 
-	/**
-	 * Set parent class with supported Foundation class to indicate presence of a dropdown
-	 * @param $sorted_menu_items
-	 * @param $args
-	 * @return mixed
-	 */
-	function cst_menu_set_dropdown( $sorted_menu_items, $args ) {
+/**
+ * Set parent class with supported Foundation class to indicate presence of a dropdown
+ *@param $sorted_menu_items
+* @param $args
+	* @return mixed
+*/
+ function cst_menu_set_dropdown( $sorted_menu_items, $args  ) {
+
 		// No dropdowns for Masthead navigation
-		if ( 'homepage-masthead' !== $args->theme_location ) {
-			$last_top = 0;
-			foreach ( $sorted_menu_items as $key => $obj ) {
-				// it is a top lv item?
-				if ( 0 == $obj->menu_item_parent ) {
-					// set the key of the parent
-					$last_top = $key;
-				} else {
-					$sorted_menu_items[ $last_top ]->classes['dropdown'] = 'has-dropdown has-submenu';
+
+if ( 'homepage-masthead' !== $args->theme_location) {
+		$last_top = 0;
+	  	foreach ( $sorted_menu_items as $key => $obj) {
+	    	// it is a top lv item?
+	    	if ( 0 == $obj->menu_item_parent ) {
+	      	// set the key of the parent
+	      		$last_top = $key;
+	    	} else {
+	      		$sorted_menu_items[$last_top]->classes['dropdown'] = 'has-dropdownhas-submenu';
 				}
-			}
-		}
-		return $sorted_menu_items;
-	}
+	    	}
+	  	}
+	  return $sorted_menu_items;
+}
 
 	/**
 	 * @param $classes
