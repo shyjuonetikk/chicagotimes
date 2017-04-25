@@ -21,7 +21,7 @@ class CST_Breaking_News_Widget extends WP_Widget {
     */
     public function cst_breaking_news_get_posts() {
 
-        if ( ! wp_verify_nonce( $_GET['nonce'], 'cst-breaking-news-widget' )
+        if ( ! wp_verify_nonce( $_GET['nonce'], 'cst_breaking_news_widget' )
             || ! current_user_can( 'edit_others_posts' ) ) {
             wp_send_json_error();
         }
@@ -61,7 +61,7 @@ class CST_Breaking_News_Widget extends WP_Widget {
         wp_enqueue_script( 'cst-breaking-news-widget', get_template_directory_uri() . '/assets/js/cst-breaking-news-widget.js', array( 'jquery' ) );
         wp_localize_script( 'cst-breaking-news-widget', 'CSTBreakingNewsWidgetData', array(
             'placeholder_text'       => esc_html__( 'Search for content to feature', 'chicagosuntimes' ),
-            'nonce'                  => wp_create_nonce( 'cst-breaking-news-widget' ),
+            'nonce'                  => wp_create_nonce( 'cst_breaking_news_widget' ),
         ) );
         wp_enqueue_style ( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' );
         wp_enqueue_script( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.min.js' );
