@@ -23,7 +23,7 @@
 				</li>
 				<li class="has-form">
 					<div class="row collapse">
-						<div class="large-2 small-2 columns">
+						<div class="large-2 small-2 columns subscribe-container">
 							<a href="/subscribe" class="subscribe-link">Subscribe</a>
 						</div>
 					</div>

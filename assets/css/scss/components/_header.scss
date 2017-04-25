@@ -903,6 +903,19 @@ body.single {
 		}
 	}
 }
+
+@media screen and (orientation: portrait) and (max-width: $iphone_5_width) {
+	.subscribe-container {
+		display: none;
+	}
+	.wire {
+		a {
+			&.section-front {
+				font-size: 1.9rem;
+			}
+		}
+	}
+}
 .masthead {
 	.contain-to-grid {
 		background: $light_grey;
