@@ -1,6 +1,9 @@
-<?php if ( ! is_page_template( 'page-monster.php' ) ) {
-	get_template_part( 'parts/header-brand-navigation' );
-} ?>
+<?php
+echo wp_kses( CST()->dfp_handler->interstitial(),
+	CST()->dfp_kses
+);
+get_template_part( 'parts/header-brand-navigation' );
+?>
 <div class="homepage_wrapper">
 	<div class="hp-bn-wrapper">
 		<?php
