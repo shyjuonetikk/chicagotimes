@@ -175,6 +175,10 @@ h1, h2, h3, h4, h5, h6 {
   .show-for-small-device-landscape {
     display: block; } }
 
+@media only screen and (max-width: 40em) and (orientation: landscape) {
+  .show-for-small-only {
+    display: none !important; } }
+
 .cst_feature-template-default header#header section#primary-navigation, .post-type-archive-cst_feature header#header section#primary-navigation, .single-cst_feature header#header section#primary-navigation {
   height: 46px; }
   .cst_feature-template-default header#header section#primary-navigation #burger-bar, .post-type-archive-cst_feature header#header section#primary-navigation #burger-bar, .single-cst_feature header#header section#primary-navigation #burger-bar {

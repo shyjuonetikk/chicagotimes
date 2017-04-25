@@ -175,6 +175,10 @@ h1, h2, h3, h4, h5, h6 {
   .show-for-small-device-landscape {
     display: block; } }
 
+@media only screen and (max-width: 40em) and (orientation: landscape) {
+  .show-for-small-only {
+    display: none !important; } }
+
 body.error404 {
   background-color: #f8f8f8;
   height: inherit; }
@@ -974,6 +978,12 @@ ul#menu-sun-times-network {
     padding-left: 1px;
     right: 21px; } }
 
+@media screen and (orientation: portrait) and (max-width: 355px) {
+  .subscribe-container {
+    display: none; }
+  .wire a.section-front {
+    font-size: 1.9rem; } }
+
 .masthead .contain-to-grid {
   background: #f8f8f8; }
 .masthead .utility {
@@ -1293,6 +1303,10 @@ ul#menu-sun-times-network {
       display: none; }
     .wire .cst-embed-instagram .instagram-byline {
       margin-left: 0px; } }
+
+@media screen and (orientation: portrait) and (max-width: 355px) {
+  .wire a.section-front {
+    font-size: 1.9rem; } }
 
 @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
   body:not(.post-type-archive-cst_feature) .wire {
@@ -4840,6 +4854,10 @@ h1, h2, h3, h4, h5, h6 {
 @media only screen and (max-width:63.94em) and (orientation: landscape) {
   .show-for-small-device-landscape {
     display: block; } }
+
+@media only screen and (max-width: 40em) and (orientation: landscape) {
+  .show-for-small-only {
+    display: none !important; } }
 
 .cst_feature-template-default header#header section#primary-navigation, .post-type-archive-cst_feature header#header section#primary-navigation, .single-cst_feature header#header section#primary-navigation {
   height: 46px; }
