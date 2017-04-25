@@ -506,6 +506,15 @@
 	}
 
 }
+@media screen and (orientation: portrait) and (max-width: $iphone_5_width) {
+	.wire {
+		a {
+			&.section-front {
+				font-size: 1.9rem;
+			}
+		}
+	}
+}
 @media #{$xmediumi-only} and (orientation: portrait) {
 	body:not(.post-type-archive-cst_feature)
 	.wire {
