@@ -9,7 +9,8 @@ class CST_Breaking_News_Widget extends WP_Widget {
             esc_html__( 'CST Homepage Breaking News', 'chicagosuntimes' ),
             array(
                 'description' => esc_html__( 'Set Breaking News displayed in the header.', 'chicagosuntimes' ),
-            )
+            ),
+			array( 'width' => '400' )
         );
 
         add_action( 'wp_ajax_cst_breaking_news_get_posts', array( $this, 'cst_breaking_news_get_posts' ) );
@@ -110,7 +111,7 @@ class CST_Breaking_News_Widget extends WP_Widget {
                 <label for="<?php echo esc_attr( $this->get_field_id( 'cst_breaking_news_story_id' ) ); ?>">
                     <?php esc_html_e( 'Breaking News Content', 'chicagosuntimes' ); ?>:
                 </label>
-                <input class="cst-breaking-news-story-id" id="<?php echo esc_attr( $this->get_field_id( 'cst_breaking_news_story_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_breaking_news_story_id' ) ); ?>" value="<?php echo esc_attr( $breaking_news_story_id ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;"/>
+                <input class="cst-breaking-news-story-id" id="<?php echo esc_attr( $this->get_field_id( 'cst_breaking_news_story_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_breaking_news_story_id' ) ); ?>" value="<?php echo esc_attr( $breaking_news_story_id ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;" />
             </p>
         <?php
     
