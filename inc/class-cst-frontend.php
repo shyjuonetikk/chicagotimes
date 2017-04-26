@@ -1613,12 +1613,12 @@ class CST_Frontend {
 			'sports' => array(),
 			'opinion' => array(),
 			'entertainment' => array(),
+			'news' => array(),
 		);
 		if ( $current_obj = $this->get_current_object() ) {
 			foreach ( $custom_subnavigation as $item => $value) {
 				$custom_subnavigation[$item] = wpcom_vip_get_term_by( 'slug', $item, 'cst_section' );
 			}
-			$sports_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
 			$child_parent = wpcom_vip_get_term_by( 'id', $current_obj->parent, 'cst_section' );
 			// Custom nav handling here
 			if ( isset( $custom_subnavigation[$current_obj->slug] )
