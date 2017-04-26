@@ -682,7 +682,7 @@ class CST_Frontend {
 	}
 
 	public function get_weather() {
-		if ( is_page_template( 'page-arkadium.php' ) ) {
+		if ( $this->display_minimal_nav() ) {
 			return;
 		}
 		$response = wpcom_vip_file_get_contents( 'http://apidev.accuweather.com/currentconditions/v1/348308.json?language=en&apikey=' . CST_ACCUWEATHER_API_KEY );
@@ -2356,5 +2356,23 @@ ready(fn);
 	*/
 	public function generate_in_article_headlinesnetwork_markup( $obj ) {
 		echo sprintf( '<div class="columns small-12"><h4 class="agg-sponsored">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn small-12 end"></div></div>', esc_attr( $obj->get_id() ) );
+	}
+	/**
+	 * For third party vendor templates just display basic navigational links
+	 * @return bool
+	 */
+	public function display_minimal_nav() {
+		if ( is_singular() ) {
+			$do_not_display = array(
+				'page-arkadium.php' => true,
+				'page-alt-arkadium.php' => true,
+			);
+			$path_portions = explode( '/', get_page_template() );
+			$current = array_pop( $path_portions );
+			if ( isset( $do_not_display[$current] ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

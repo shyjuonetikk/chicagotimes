@@ -1707,7 +1707,7 @@ class CST {
 	 * Add the gallery backdrop to the footer
 	 */
 	public function action_wp_footer_gallery_backdrop() {
-		if ( is_404() || is_post_type_archive( 'cst_feature' ) || is_page_template( 'page-arkadium.php' ) ) {
+		if ( is_404() || is_post_type_archive( 'cst_feature' ) || $this->frontend->display_minimal_nav() ) {
 			return;
 		}
 		echo wp_kses( $this->get_template_part( 'post/gallery-backdrop' ), $this->gallery_kses );
