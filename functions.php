@@ -962,6 +962,7 @@ class CST {
 				'homepage-itn'               => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
 				'homepage-footer-menu'       => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
 				'news-menu'                  => esc_html__( 'News', 'chicagosuntimes' ),
+				'news-subnav-menu'           => esc_html__( 'News SubNav', 'chicagosuntimes' ),
 				'news-trending'              => esc_html__( 'News Trending', 'chicagosuntimes' ),
 				'sports-subnav-menu'         => esc_html__( 'Sports SubNav', 'chicagosuntimes' ),
 				'sports-menu'                => esc_html__( 'Sports', 'chicagosuntimes' ),
