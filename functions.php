@@ -1711,7 +1711,7 @@ class CST {
 	 * Add the gallery backdrop to the footer
 	 */
 	public function action_wp_footer_gallery_backdrop() {
-		if ( is_404() || is_post_type_archive( 'cst_feature' ) || is_page_template( 'page-arkadium.php' ) ) {
+		if ( is_404() || is_post_type_archive( 'cst_feature' ) || $this->frontend->display_minimal_nav() ) {
 			return;
 		}
 		echo wp_kses( $this->get_template_part( 'post/gallery-backdrop' ), $this->gallery_kses );
@@ -2150,30 +2150,28 @@ class CST {
 		);
 	}
 
-/**
- * Set parent class with supported Foundation class to indicate presence of a dropdown
- *@param $sorted_menu_items
-* @param $args
-	* @return mixed
-*/
- function cst_menu_set_dropdown( $sorted_menu_items, $args  ) {
-
+	/**
+	 * Set parent class with supported Foundation class to indicate presence of a dropdown
+	 * @param $sorted_menu_items
+	 * @param $args
+	 * @return mixed
+	 */
+	function cst_menu_set_dropdown( $sorted_menu_items, $args ) {
 		// No dropdowns for Masthead navigation
-
-if ( 'homepage-masthead' !== $args->theme_location) {
-		$last_top = 0;
-	  	foreach ( $sorted_menu_items as $key => $obj) {
-	    	// it is a top lv item?
-	    	if ( 0 == $obj->menu_item_parent ) {
-	      	// set the key of the parent
-	      		$last_top = $key;
-	    	} else {
-	      		$sorted_menu_items[$last_top]->classes['dropdown'] = 'has-dropdownhas-submenu';
+		if ( 'homepage-masthead' !== $args->theme_location ) {
+			$last_top = 0;
+			foreach ( $sorted_menu_items as $key => $obj ) {
+				// it is a top lv item?
+				if ( 0 == $obj->menu_item_parent ) {
+					// set the key of the parent
+					$last_top = $key;
+				} else {
+					$sorted_menu_items[ $last_top ]->classes['dropdown'] = 'has-dropdown has-submenu';
 				}
-	    	}
-	  	}
-	  return $sorted_menu_items;
-}
+			}
+		}
+		return $sorted_menu_items;
+	}
 
 	/**
 	 * @param $classes

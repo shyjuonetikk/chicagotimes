@@ -1,4 +1,3 @@
-<?php $weather = CST()->frontend->get_weather(); ?>
 <header id="header" class="masthead">
 	<div class="contain-to-grid">
 		<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
@@ -24,7 +23,7 @@
 				<li class="has-form">
 					<div class="row collapse">
 						<div class="large-2 small-2 columns subscribe-container">
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>subscribe" class="subscribe-link">Subscribe</a>
+							<a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe</a>
 						</div>
 					</div>
 				</li>
@@ -47,11 +46,13 @@
 				</li>
 				<li class="has-form">
 					<div class="row-collapse">
-						<div class="columns small-1 burger-wrapper-no-fries">
-							<a href="#1" class="left-off-canvas-toggle burger-bar">
-								<i class="fa fa-bars"></i>
-							</a>
-						</div>
+						<?php if ( ! CST()->frontend->display_minimal_nav() ) { ?>
+							<div class="columns small-1 burger-wrapper-no-fries">
+									<a href="#1" class="left-off-canvas-toggle burger-bar">
+											<i class="fa fa-bars"></i>
+									</a>
+							</div>
+						<?php } ?>
 					</div>
 				</li>
 				<li class="has-form">

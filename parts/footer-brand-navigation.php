@@ -104,7 +104,7 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 <?php } ?>
 <?php
 // Inject newsletter modal customized to the section being displayed
-?>
+if ( ! CST()->frontend->display_minimal_nav() ) { ?>
 <div id="search-container" class="reveal-modal large" data-reveal aria-labelledby="search-container" aria-hidden="true" role="dialog">
 	<a class="close-reveal-modal">&#215;</a>
 	<div class="row">
@@ -119,3 +119,4 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 		</form>
 	</div>
 </div>
+<?php }
