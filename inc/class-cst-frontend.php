@@ -186,7 +186,7 @@ class CST_Frontend {
 			wp_enqueue_script( 'cst-custom-js', get_template_directory_uri() . '/assets/js/theme-custom-page.js' );
 		} else {
 			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
-			if ( ! is_post_type_archive( 'cst_feature' ) && ! is_singular( 'cst_feature' ) ) {
+			if ( ! is_post_type_archive( 'cst_feature' ) && ! is_singular( 'cst_feature' ) && ! $this->display_minimal_nav() ) {
 				wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 			}
 
@@ -682,6 +682,9 @@ class CST_Frontend {
 	}
 
 	public function get_weather() {
+		if ( $this->display_minimal_nav() ) {
+			return;
+		}
 		$response = wpcom_vip_file_get_contents( 'http://apidev.accuweather.com/currentconditions/v1/348308.json?language=en&apikey=' . CST_ACCUWEATHER_API_KEY );
 		$data = json_decode( $response );
 		if ( ! $data ) {
@@ -1701,14 +1704,16 @@ class CST_Frontend {
 	* Generate a conditional and a sectional
 	*/
 	public function generate_off_canvas_menu() {
+		if ( $this->display_minimal_nav() ) {
+			return;
+		}
 		if ( is_front_page() || is_singular() || is_tax() || is_post_type_archive() ) {
 			$chosen_parameters = array(
 					'theme_location' => 'homepage-menu',
 					'depth' => 2,
 					'fallback_cb' => false,
-					'container_class' => 'cst-off-canvas-navigation-container homepage',
 					'walker' => new GC_walker_nav_menu(),
-					'items_wrap' => '<ul id="%1$s-oc" class="">%3$s</ul>',
+					'items_wrap' => '<ul id="%1$s-oc" class="cst-off-canvas-navigation-container homepage">%3$s</ul>',
 					 );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
@@ -2353,5 +2358,23 @@ ready(fn);
 	*/
 	public function generate_in_article_headlinesnetwork_markup( $obj ) {
 		echo sprintf( '<div class="columns small-12"><h4 class="agg-sponsored">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn small-12 end"></div></div>', esc_attr( $obj->get_id() ) );
+	}
+	/**
+	 * For third party vendor templates just display basic navigational links
+	 * @return bool
+	 */
+	public function display_minimal_nav() {
+		if ( is_singular() ) {
+			$do_not_display = array(
+				'page-arkadium.php' => true,
+				'page-alt-arkadium.php' => true,
+			);
+			$path_portions = explode( '/', get_page_template() );
+			$current = array_pop( $path_portions );
+			if ( isset( $do_not_display[$current] ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

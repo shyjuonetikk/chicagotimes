@@ -10,7 +10,7 @@
 <!--<![endif]-->
 <head>
 <?php get_template_part( 'parts/analytics/chartbeat-header' ); ?>
-<meta charset="<?php bloginfo( 'charset' ); ?>">
+<meta charset="<?php echo esc_attr( get_bloginfo( 'charset' ) ); ?>">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width">
 <?php if ( is_front_page() ) { ?>
@@ -18,7 +18,7 @@
 <?php } ?>
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
-<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
+<link rel="pingback" href="<?php echo esc_url ( get_bloginfo( 'pingback_url' ) ); ?>">
 <link rel="apple-touch-icon" sizes="57x57" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-72x72.png">
