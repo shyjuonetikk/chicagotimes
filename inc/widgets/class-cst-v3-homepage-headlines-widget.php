@@ -30,7 +30,7 @@ class CST_Homepage_Headlines extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'cst_homepage_headlines_v3',
-			esc_html__( 'CST Homepage Main Headlines', 'chicagosuntimes' ),
+			esc_html__( '!CST Homepage Main Headlines', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays primary editorial content from selected Headlines.', 'chicagosuntimes' ),
 			),
@@ -102,7 +102,8 @@ class CST_Homepage_Headlines extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
-
+		get_template_part( 'parts/homepage/main-wells-v3' );
+		return;
 		global $homepage_main_well_posts;
 		$widget_posts = array();
 

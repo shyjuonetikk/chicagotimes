@@ -4427,6 +4427,8 @@ body.post-gallery-lightbox-active {
     text-align: left;
     font-size: 12px;
     margin-bottom: 0; }
+  .homepage_wrapper .stories h2 {
+    font-size: 1.2rem; }
 
 .banner-link {
   margin-bottom: 10px; }

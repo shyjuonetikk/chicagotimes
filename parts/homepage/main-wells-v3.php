@@ -1,71 +1,39 @@
-<?php global $homepage_main_well_posts; ?>
 <div class="row">
-	<div class="large-12 content-wrapper">
-		<h2 class="mobile-top-news show-for-small-only"><?php esc_html_e( 'Top News', 'chicagosuntimes' ); ?></h2>
-		<div class="large-8 medium-7 small-12 columns main-well-container">
-			<section id="main-well">
+	<div class="columns small-12 medium-8 stories">
+		<div class="row">
+			<div class="columns small-12 medium-4">
+				<img src="http://placehold.it/330x300&amp;text=[Story]">
+				<ul>
+					<li>Bullet point 1</li>
+					<li>Bullet point 2</li>
+					<li>Bullet point 3</li>
+					<li>Bullet point 4</li>
+					<li>Bullet point 5</li>
+				</ul>
+			</div>
+			<div class="columns small-12 medium-8">
 				<div class="row">
-					<?php
-					$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
-					if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-						$primary_section = $obj->get_primary_parent_section();
-						$author          = CST()->frontend->get_article_author( $obj );
-						?>
-						<div class="large-12 medium-12 columns main-article-container">
-							<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-large', 'hp-main-well' ); ?>
-						</div>
-						<?php
-					}
-					?>
-					<div class="large-12 medium-12 columns left-main-well">
-						<?php
-						$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[1]->ID );
-						if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-							$primary_section = $obj->get_primary_parent_section();
-							$author          = CST()->frontend->get_article_author( $obj );
-							?>
-							<div class="large-6 medium-12 columns show-for-portrait">
-								<div class="article-container">
-									<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-main-well' ); ?>
-								</div>
-							</div>
-							<div class="large-6 medium-6 columns show-for-landscape">
-								<div class="article-container">
-									<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-main-well' ); ?>
-								</div>
-							</div>
-							<?php
-						}
-						$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[2]->ID );
-						if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-							$primary_section = $obj->get_primary_parent_section();
-							$author          = CST()->frontend->get_article_author( $obj );
-							?>
-							<div class="large-6 medium-12 columns show-for-portrait">
-								<div class="article-container">
-									<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-main-well' ); ?>
-								</div>
-							</div>
-							<div class="large-6 medium-6 columns show-for-landscape">
-								<div class="article-container">
-									<?php CST()->frontend->well_article_markup( $obj, $author, $primary_section, 'chiwire-header-small', 'hp-main-well' ); ?>
-								</div>
-							</div>
-							<?php
-						}
-						?>
-					</div>
+					<ul class="small-block-grid-4">
+						<li class="columns small-12">
+							<img src="http://placehold.it/80x80&amp;text=[Story]">
+							<h2>Trump unveils tax plan: Three income brackets, top rate lowered</h2>
+						</li>
+						<li class="columns small-12">
+							<img src="http://placehold.it/80x80&amp;text=[Story]">
+							<h2>Jesse Jackson Jr. dismisses divorce case in Chicago</h2>
+						</li>
+						<li class="columns small-12">
+							<img src="http://placehold.it/80x80&amp;text=[Story]">
+							<h2>Brown: Summers' floating of own candidacy could buoy Pritzker</h2>
+						</li>
+						<li class="columns small-12">
+							<img src="http://placehold.it/80x80&amp;text=[Story]">
+							<h2>Rajon Rondo is still out for Game 5 — and shoots down report</h2>
+						</li>
+					</ul>
 				</div>
-			</section>
-		</div>
-		<div class="large-4 medium-5 small-12 columns homepage-sidebar">
-			<?php get_template_part( 'parts/homepage/right-sidebar' ); ?>
+			</div>
 		</div>
 	</div>
+	<div class="columns small-12 medium-4 sidebar"><img src="http://placehold.it/300x600&amp;text=[ad]"></div>
 </div>
-<div class="large-12 dfp-atf-leaderboard">
-	<?php echo wp_kses( CST()->dfp_handler->dynamic_unit( 2, 'div-gpt-billboard', 'dfp dfp-centered dfp-billboard', 'billboard_mapping', 'Billboard 2 970x250', '728,90' ),
-		CST()->dfp_kses
-	); ?>
-</div>
-<?php echo wp_kses( CST()->dfp_handler->sbb( 2 ), CST()->dfp_kses );
