@@ -13,9 +13,6 @@
 <meta charset="<?php echo esc_attr( bloginfo( 'charset' ) ); ?>">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width">
-<?php if ( is_front_page() ) { ?>
-<meta property="fb:pages" content="47864940833" />
-<?php } ?>
 <title><?php wp_title( '', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php echo esc_url( bloginfo( 'pingback_url' ) ); ?>">
