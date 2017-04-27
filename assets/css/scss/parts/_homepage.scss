@@ -1242,22 +1242,43 @@ li.widget_cst_ad_widget {
 				}
 			}
 		}
+		.lead-story {
+			.excerpt {
+				p {
+					font-size: 0.9rem;
+					line-height:1.3;
+					margin-bottom:0.25rem;
+				}
+			}
+			.authors {
+				p {
+					font-size: 0.8rem;
+					line-height:1.3;
+				}
+			}
+		}
 		h2 {
 			font-size:1rem;
 			line-height:1.3rem;
 			margin-top:0;
+			font-weight:600;
 		}
 		.mini-story {
 			box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 			display: inline-block;
 			float: left;
+			.image {
+				margin-right: 0.25rem;
+				padding: 0.65rem;
+				float: left;
+			}
 			img {
 				float: left;
-				&.mini-story-image {
-					margin-right: 0.25rem;
-				}
 			}
 		}
+	}
+	.sidebar {
+		clear: both;
 	}
 }
 .banner-link {

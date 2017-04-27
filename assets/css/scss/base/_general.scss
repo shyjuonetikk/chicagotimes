@@ -6,7 +6,6 @@ body {
 
 body, .grey-background {
 	background-color: $site_background;
-	font-family: $open_sans;
 	color: $black;
 	height: auto;
 	position: relative;
@@ -78,58 +77,6 @@ footer {
 	}
 }
 
-.sports_bg {
-	background: $sports_blue;
-
-	h3.title {
-		a:hover {
-			color: $bears_orange;
-		}
-	}
-}
-.entertainment_bg {
-	background: $entertainment_green;
-
-	h3.title {
-		a:hover {
-			color: #cde2ce;
-		}
-	}
-}
-.politics_bg {
-	background: $politics_blue;
-
-	h3.title {
-		a:hover {
-			color: #90c4da;
-		}
-	}
-}
-.opinion_bg {
-	background: $opinion_grey;
-
-	h3.title {
-		a:hover {
-			color: #e0e0e0;
-		}
-	}
-}
-.news_bg {
-	background: $anchor-highlight;
-
-	h3.title {
-		a:hover {
-			color: #e4828f;
-		}
-	}
-}
-.lifestyles_bg {
-	background: $lifestyles_purple;
-
-	a:hover {
-		color: #dbc3ff;
-	}
-}
 
 #menu-homepage-footer {
 	ul, li {

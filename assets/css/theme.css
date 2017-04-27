@@ -16,7 +16,6 @@ html, body {
 
 body, .grey-background {
   background-color: #f8f8f8;
-  font-family: 'Open Sans', Arial, sans-serif;
   color: #282828;
   height: auto;
   position: relative;
@@ -64,36 +63,6 @@ footer {
   footer #menu-homepage-footer ul, footer #menu-homepage-footer li {
     display: inline;
     font-size: 0.7rem; }
-
-.sports_bg {
-  background: #34485e; }
-  .sports_bg h3.title a:hover {
-    color: #dd4814; }
-
-.entertainment_bg {
-  background: #00ae04; }
-  .entertainment_bg h3.title a:hover {
-    color: #cde2ce; }
-
-.politics_bg {
-  background: #29aae2; }
-  .politics_bg h3.title a:hover {
-    color: #90c4da; }
-
-.opinion_bg {
-  background: #bdbdbd; }
-  .opinion_bg h3.title a:hover {
-    color: #e0e0e0; }
-
-.news_bg {
-  background: #7d7e7e; }
-  .news_bg h3.title a:hover {
-    color: #e4828f; }
-
-.lifestyles_bg {
-  background: #873afa; }
-  .lifestyles_bg a:hover {
-    color: #dbc3ff; }
 
 #menu-homepage-footer ul, #menu-homepage-footer li {
   display: inline; }
@@ -153,9 +122,12 @@ footer {
   width: 345px; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Open Sans', Arial, sans-serif; }
+  font-family: 'Merriweather', Georgia, serif; }
   h1 a, h1 a:hover, h2 a, h2 a:hover, h3 a, h3 a:hover, h4 a, h4 a:hover, h5 a, h5 a:hover, h6 a, h6 a:hover {
     color: #282828; }
+
+p {
+  font-family: 'Libre Franklin', Arial, sans-serif; }
 
 /* 0, 640px */
 /* 641px, 767px */
@@ -4435,18 +4407,30 @@ body.post-gallery-lightbox-active {
       border-bottom: 1px solid #9a9a9a; }
       .homepage_wrapper .stories .lead-related-stories-collection li:last-child {
         border-bottom: none; }
+  .homepage_wrapper .stories .lead-story .excerpt p {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    margin-bottom: 0.25rem; }
+  .homepage_wrapper .stories .lead-story .authors p {
+    font-size: 0.8rem;
+    line-height: 1.3; }
   .homepage_wrapper .stories h2 {
     font-size: 1rem;
     line-height: 1.3rem;
-    margin-top: 0; }
+    margin-top: 0;
+    font-weight: 600; }
   .homepage_wrapper .stories .mini-story {
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     display: inline-block;
     float: left; }
+    .homepage_wrapper .stories .mini-story .image {
+      margin-right: 0.25rem;
+      padding: 0.65rem;
+      float: left; }
     .homepage_wrapper .stories .mini-story img {
       float: left; }
-      .homepage_wrapper .stories .mini-story img.mini-story-image {
-        margin-right: 0.25rem; }
+  .homepage_wrapper .sidebar {
+    clear: both; }
 
 .banner-link {
   margin-bottom: 10px; }
