@@ -1231,8 +1231,32 @@ li.widget_cst_ad_widget {
 		}
 	}
 	.stories {
+		.lead-related-stories-collection {
+			list-style-type: none;
+			margin-left:0;
+			padding-left:0;
+			li {
+				border-bottom: 1px solid $social_grey;
+				&:last-child {
+					border-bottom:none;
+				}
+			}
+		}
 		h2 {
-			font-size:1.2rem;
+			font-size:1rem;
+			line-height:1.3rem;
+			margin-top:0;
+		}
+		.mini-story {
+			box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+			display: inline-block;
+			float: left;
+			img {
+				float: left;
+				&.mini-story-image {
+					margin-right: 0.25rem;
+				}
+			}
 		}
 	}
 }

@@ -46,7 +46,7 @@ hr {
   clear: right; }
 
 a {
-  color: #7d7e7e; }
+  color: #008cba; }
 
 article .post-content a {
   color: #008cba; }
@@ -4427,8 +4427,26 @@ body.post-gallery-lightbox-active {
     text-align: left;
     font-size: 12px;
     margin-bottom: 0; }
+  .homepage_wrapper .stories .lead-related-stories-collection {
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0; }
+    .homepage_wrapper .stories .lead-related-stories-collection li {
+      border-bottom: 1px solid #9a9a9a; }
+      .homepage_wrapper .stories .lead-related-stories-collection li:last-child {
+        border-bottom: none; }
   .homepage_wrapper .stories h2 {
-    font-size: 1.2rem; }
+    font-size: 1rem;
+    line-height: 1.3rem;
+    margin-top: 0; }
+  .homepage_wrapper .stories .mini-story {
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    display: inline-block;
+    float: left; }
+    .homepage_wrapper .stories .mini-story img {
+      float: left; }
+      .homepage_wrapper .stories .mini-story img.mini-story-image {
+        margin-right: 0.25rem; }
 
 .banner-link {
   margin-bottom: 10px; }
