@@ -3,9 +3,11 @@
 		<div class="row">
 			<div class="columns small-12 medium-6 large-4">
 				<span class="lead-story">
-					<img src="http://placehold.it/330x300&amp;text=[Lead Story]">
 					<span class="lead-story-title">
 						<h2>Missing 1-year-old girl found dead in her Joliet home</h2>
+					</span>
+					<span class="lead-story-excerpt">
+						A missing baby girl who vanished Tuesday evening was found dead late Wednesday in a home in “deplorable condition” near southwest suburban Joliet
 					</span>
 				</span>
 				<ul class="lead-related-stories-collection">
