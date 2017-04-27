@@ -55,7 +55,7 @@ do_action( 'rss_tag_pre', 'atom' );
 			<apcm:ContentMetadata>
 				<apcm:ByLine><?php the_author() ?></apcm:ByLine>
 				<apcm:HeadLine><?php the_title_rss() ?></apcm:HeadLine>
-				<apcm:Source City="<?php bloginfo_rss( 'name' ); ?>" Url="<?php echo esc_url( get_bloginfo_rss( "url" ) ); ?>"><?php esc_attr_e( get_bloginfo_rss( 'name' ) ); ?></apcm:Source>
+				<apcm:Source City="<?php esc_attr( get_bloginfo_rss( 'name' ) ); ?>" Url="<?php echo esc_url( get_bloginfo_rss( "url" ) ); ?>"><?php esc_attr_e( get_bloginfo_rss( 'name' ) ); ?></apcm:Source>
 				<?php $content = get_post_field( 'post_content', $post->ID );
 				$word_count    = str_word_count( strip_tags( $content ) ); ?>
 				<apcm:Characteristics MediaType="Text"
