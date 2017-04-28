@@ -1268,6 +1268,12 @@ li.widget_cst_ad_widget {
 					font-size:1.4rem;
 					line-height:1.7rem;
 				}
+				.excerpt {
+					.image {
+						float: right;
+						margin: 0.4rem 0 0.4rem 0.4rem;
+					}
+				}
 				border-bottom: 1px solid $social_grey;
 				float: left;
 				margin-bottom: 0.25rem;
@@ -1279,6 +1285,7 @@ li.widget_cst_ad_widget {
 					h3 {
 						font-weight:600;
 						font-size: 0.8rem;
+						line-height:1.1rem;
 					}
 				}
 			}

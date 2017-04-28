@@ -4429,13 +4429,17 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper .stories-container .stories .lead-story h3 {
         font-size: 1.4rem;
         line-height: 1.7rem; }
+      .homepage_wrapper .stories-container .stories .lead-story .excerpt .image {
+        float: right;
+        margin: 0.4rem 0 0.4rem 0.4rem; }
       .homepage_wrapper .stories-container .stories .lead-story:last-child {
         border-bottom: none; }
       .homepage_wrapper .stories-container .stories .lead-story .related-title {
         list-style-type: square; }
         .homepage_wrapper .stories-container .stories .lead-story .related-title h3 {
           font-weight: 600;
-          font-size: 0.8rem; }
+          font-size: 0.8rem;
+          line-height: 1.1rem; }
     .homepage_wrapper .stories-container .stories .mini-stories {
       border-bottom: 1px solid #9a9a9a;
       margin-bottom: 0.625rem; }
