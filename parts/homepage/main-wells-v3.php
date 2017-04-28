@@ -44,9 +44,9 @@
 				<div class="row lead-mini-story">
 					<div class="columns small-12">
 						<div class="row">
-							<div class="columns small-12 medium-6">
-								<span class="image"><img src="https://suntimesmedia.files.wordpress.com/2017/04/sir_the_baptist-09_68228313.jpg?w=300" alt=""></span></div>
-							<div class="columns small-12 medium-6">
+							<div class="columns small-12 medium-12 large-6">
+								<span class="image"><img src="https://suntimesmedia.files.wordpress.com/2017/04/sir_the_baptist-09_68228313.jpg?w=394" alt=""></span></div>
+							<div class="columns small-12 medium-12 large-6">
 								<h3 class="title">Sir the Baptist: ‘I want to be the first hip-hop chaplain’</h3>
 								<p class="excerpt">Sir the Baptist is aiming to reconnect “the hip-hop world to spirituality” and “spirituality to common sense.” And listen to ‘Face to Faith’ podcast.</p>
 								<p class="authors">By Robert Herguth - 1/2 hour ago</p>
@@ -56,28 +56,28 @@
 				</div>
 				<hr>
 				<div class="row mini-stories" data-equalizer>
-					<div class="columns small-12 medium-6" data-equalizer-watch>
+					<div class="columns small-12 medium-12 large-6" data-equalizer-watch>
 						<span class="image">
 							<img src="https://suntimesmedia.files.wordpress.com/2017/04/673416790_68461575.jpg?w=80">
 						</span>
 						<h3 class="title">Trump unveils tax plan: Three income brackets, top rate lowered</h3>
 						<p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p>
 					</div>
-					<div class="columns small-12 medium-6" data-equalizer-watch>
+					<div class="columns small-12 medium-12 large-6" data-equalizer-watch>
 						<span class="image">
 							<img src="https://suntimesmedia.files.wordpress.com/2017/01/sneedmccarthy012717.jpg?w=80">
 						</span>
 						<h3 class="title">Jesse Jackson Jr. dismisses divorce case in Chicago</h3>
 						<p class="authors">By Clark Kent and Jimmy Olsen - 3 hours ago</p>
 					</div>
-					<div class="columns small-12 medium-6" data-equalizer-watch>
+					<div class="columns small-12 medium-12 large-6" data-equalizer-watch>
 						<span class="image">
 							<img src="https://suntimesmedia.files.wordpress.com/2017/04/summers-042617-5.jpg?w=80">
 						</span>
 						<h3 class="title">Brown: Summers' floating of own candidacy could buoy Pritzker</h3>
 						<p class="authors">By Clark Kent and Jimmy Olsen - 4 hours ago</p>
 					</div>
-					<div class="columns small-12 medium-6" data-equalizer-watch>
+					<div class="columns small-12 medium-12 large-6" data-equalizer-watch>
 						<span class="image">
 							<img src="https://suntimesmedia.files.wordpress.com/2017/04/rondo13.jpg?w=80">
 						</span>

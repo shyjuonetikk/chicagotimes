@@ -986,6 +986,56 @@ class CST_Frontend {
 		echo wp_kses_post( $cached_content );
 	}
 
+		/**
+	 * Fetch and output content from the specified section
+	 * @param $content_query
+	 */
+	public function cst_latest_stories_content_block( $content_query ) {
+
+		$cache_key = md5( json_encode( $content_query ) );
+		$cached_content = wpcom_vip_cache_get( $cache_key );
+		if ( false === $cached_content || WP_DEBUG ) {
+			$items = new \WP_Query( $content_query );
+			ob_start();
+			if ( $items->have_posts() ) {
+				?>
+				<div class="row">
+				<div class="columns small-12">
+				<?php
+				while ( $items->have_posts() ) {
+					$items->the_post();
+					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );?>
+				<div class="latest-story">
+					<div class="columns small-8 title">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+							<?php echo esc_html( $obj->get_title() ); ?>
+						</a>
+					</div>
+					<div class="columns small-4 image">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+							<?php
+								$featured_image_id = $obj->get_featured_image_id();
+								if ( $featured_image_id )  {
+									$image_url = wp_get_attachment_image_url( $featured_image_id, 'chiwire-slider-square' );
+									if ( $image_url ) {
+										$image_markup = sprintf( '<img class="image-right" src="%1$s" width="60" height="60" >', esc_url( $image_url ) );
+									}
+									echo wp_kses_post( $image_markup );
+								}
+							?>
+						</a>
+					</div>
+				</div>
+			<?php } ?>
+				</div>
+				</div>
+			<?php } ?>
+			<?php
+			$cached_content = ob_get_clean();
+			wpcom_vip_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
+		}
+		echo wp_kses_post( $cached_content );
+	}
 	/**
 	 * Fetch and output content from the specified section
 	 * @param $content_query
