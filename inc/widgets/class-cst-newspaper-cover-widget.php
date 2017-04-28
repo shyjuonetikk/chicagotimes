@@ -57,8 +57,9 @@ class CST_Newspaper_Cover_Widget extends WP_Widget {
 			$back_cover     = '';
 			$back_cover_url = '';
 		}
+		echo wp_kses_post( $args['before_widget'] );
 		?>
-		<div class="large-12 medium-6 small-12 columns widget_cst_todays_paper_widget">
+		<div class="large-12 small-12 columns widget_cst_todays_paper_widget">
 			<div><h2 class="widgettitle"><?php echo esc_html( 'Today\'s Cover', 'chicagosuntimes' ); ?></h2></div>
 			<div class="todays-paper-container columns">
 				<div class="row">
@@ -78,6 +79,7 @@ class CST_Newspaper_Cover_Widget extends WP_Widget {
 			</div>
 		</div>
 		<?php
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 	public function form( $instance ) {

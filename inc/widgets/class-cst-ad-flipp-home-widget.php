@@ -16,7 +16,7 @@ class CST_Ad_Flipp_Home_Widget extends WP_Widget {
 
     public function enqueue_scripts() {
 
-        wp_enqueue_script( 'cst_ad_flipp_home', '//api.circularhub.com/10380/2e2e1d92cebdcba9/circularhub_module.js' ); 
+        wp_enqueue_script( 'cst_ad_flipp_home', '//api.circularhub.com/10380/2e2e1d92cebdcba9/circularhub_module.js', array(), null, true );
     }
     
 	/**
@@ -29,8 +29,9 @@ class CST_Ad_Flipp_Home_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 
 		?>
-
-        <div id="circularhub_module_10380" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>
+		<div class="columns small-12">
+			<div id="circularhub_module_10380" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>
+		</div>
 
 		<?php
 

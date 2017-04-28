@@ -1,7 +1,7 @@
 <?php
-  /* 
-   * Template Name: Paper Finder
-   */
+/*
+ * Template Name: Paper Finder
+ */
 ?>
 <?php get_header(); ?>
 

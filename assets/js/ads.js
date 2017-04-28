@@ -99,7 +99,7 @@ var CSTAds;
 		},
 
     clearAndResetAdRefreshInterval: function() {
-      CSTAds.AdTimer = setInterval( CSTAds.refreshArticleCubeAds , 30000 );
+      CSTAds.AdTimer = setInterval( CSTAds.refreshArticleCubeAds , 60000 );
     },
 
 		/**
@@ -113,13 +113,13 @@ var CSTAds;
             var unitInstance = CSTAdTags[unit];
             googletag.pubads().refresh([unitInstance]);
           });
+          console.info( 'Refreshed ' .concat(unit) );
         }
-				console.info( 'Refreshed ' .concat(unit) );
       }
 
 		},
     refreshAllArticleAds: function() {
-      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! $("body").hasClass( "post-gallery-lightbox-active" ) ) {
+      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! CSTAds.content_body.hasClass( "post-gallery-lightbox-active" ) ) {
         CSTAds.refreshing = true;
         var tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function(ad_slot) {

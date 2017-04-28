@@ -89,9 +89,10 @@ class CST_Columnists_Content_Widget extends WP_Widget {
             return;
         }
         $primary_section = $obj->get_primary_parent_section();
+		echo wp_kses_post( $args['before_widget'] );
         ?>
         
-        <div class="large-12 medium-6 small-12 columns widget_cst_columnists_content_widget">
+        <div class="large-12 small-12 columns widget_cst_columnists_content_widget">
             <div class="columnists-title-container"><h2 class="widgettitle"><?php esc_html_e( 'Today\'s Voice', 'chicagosuntimes' ); ?></h2></div>
 	        <div class="columnists-avatar">
             <?php
@@ -137,7 +138,7 @@ class CST_Columnists_Content_Widget extends WP_Widget {
             </div>
         </div>
         <?php
-
+		echo wp_kses_post( $args['after_widget'] );
     }
 
     public function form( $instance ) {

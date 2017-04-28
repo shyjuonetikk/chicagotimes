@@ -45,6 +45,7 @@ article.post {
 
 		a.button.read-more {
 			background-color: $anchor-highlight;
+			color: #fff;
 		}
 	}
 
@@ -328,7 +329,7 @@ article.post {
 		.cst-recommended-image {
 			float: left;
 			width: 80px;
-			height: 65px;
+			height: 80px;
 			margin-right: 10px;
 			padding: 0;
 			display: inline-block;
@@ -337,7 +338,7 @@ article.post {
 		.cst-recommended-image img {
 			max-width: 100%;
 			width:80px;
-			height: 65px;
+			height: 80px;
 			display: inline-block;
 			vertical-align: middle;
 		}
@@ -345,7 +346,7 @@ article.post {
 			box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
 			float: none;
 			overflow: hidden;
-			height: 65px;
+			height: 80px;
 			margin: 10px 0;
 			border-radius: 2px;
 			background: #f5f5f5;
@@ -461,7 +462,7 @@ body[class^="cst_article-"] {
 		}
 	}
 
-	.ad-container {
+	.cst-ad-container {
 		position: relative;
 		display: block;
 		text-align: center;
@@ -495,20 +496,32 @@ body[class^="cst_article-"] {
 			padding-top: 30px;
 			clear: left;
 		}
-		@media (min-width: 1300px){
-			float:none;
+		@media #{$medium-only} and (orientation: landscape) {
+			#main {
+				&.medium-7 {
+					width: 100%;
+				}
+			}
+			#post-sidebar {
+				&.medium-5 {
+					display: none;
+					visibility: hidden;
+				}
+			}
 		}
 		@media (max-width: 1024px){
 			float:none;
-		}
-		@media #{$small-only} {
-			margin-top:132px;
 		}
 		@media #{$xmedium-only} and (orientation: landscape) {
 			#main{
 				padding-left: 0.9375rem;
 				&.medium-7 {
-					width: 68.33%;
+					width: 66.33%;
+				}
+			}
+			#post-sidebar {
+				&.medium-5 {
+					width: 33.66%;
 				}
 			}
 		}
@@ -516,7 +529,12 @@ body[class^="cst_article-"] {
 			#main{
 				padding-left: 0.9375rem;
 				&.medium-7 {
-					width: 68.33%;
+					width: 66.33%;
+				}
+			}
+			#post-sidebar {
+				&.medium-5 {
+					width: 33.66%;
 				}
 			}
 		}
@@ -859,6 +877,7 @@ body[class~="archive"] {
 	article {
 		&.post {
 			box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+			float: left;
 			.sponsored-notification {
 				margin-top: -2px;
 			}

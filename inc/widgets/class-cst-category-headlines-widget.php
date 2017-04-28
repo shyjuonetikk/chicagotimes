@@ -169,7 +169,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 	 */
 	public function get_headline_posts( $widget_posts ) {
 
-		if ( false === ( $found = wp_cache_get( $this->cache_key_stub . '-' . $this->id ) ) ) {
+		if ( false === ( $found = wpcom_vip_cache_get( $this->cache_key_stub . '-' . $this->id ) ) ) {
 			$use_sticky_option   = is_singular() ? false : true;
 			$widget_posts_query  = array(
 				'post__in'            => $widget_posts,
@@ -180,7 +180,7 @@ class CST_Category_Headlines_Widget extends WP_Widget {
 			$display_these_posts = new \WP_Query( $widget_posts_query );
 			$display_these_posts->have_posts();
 			$found = $display_these_posts->get_posts();
-			wp_cache_set( $this->cache_key_stub . '-' . $this->id, $found, '', 1 * HOUR_IN_SECONDS );
+			wpcom_vip_cache_set( $this->cache_key_stub . '-' . $this->id, $found, '', 1 * HOUR_IN_SECONDS );
 		}
 
 		return $found;

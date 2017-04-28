@@ -102,14 +102,10 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 	</div>
 </footer>
 <?php } ?>
-<div id="subscribe-modal" class="reveal-modal full" data-reveal aria-labelledby="Subscribe to Chicago Sun-Times" aria-hidden="true" role="dialog">
-	<iframe src="http://wssp.suntimes.com/subscribe/" frameborder="0" width="100%" height="1000" allowfullscreen></iframe>
-	<a class="close-reveal-modal" aria-label="Close">&#215;</a>
-</div>
 <?php
 // Inject newsletter modal customized to the section being displayed
-?>
-<div id="search-container" class="reveal-modal large" data-reveal aria-labelledby="searchContainer" aria-hidden="true" role="dialog">
+if ( ! CST()->frontend->display_minimal_nav() ) { ?>
+<div id="search-container" class="reveal-modal large" data-reveal aria-labelledby="search-container" aria-hidden="true" role="dialog">
 	<a class="close-reveal-modal">&#215;</a>
 	<div class="row">
 		<div class="small-4 small-centered columns">
@@ -123,3 +119,4 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 		</form>
 	</div>
 </div>
+<?php }

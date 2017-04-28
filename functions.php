@@ -78,6 +78,18 @@ class CST {
 			'src' => array(),
 			'alt' => array(),
 			'class' => array(),
+			'width' => array(),
+			'height' => array(),
+		),
+		'svg' => array(
+			'version' => array(),
+			'width' => array(),
+			'height' => array(),
+			'viewbox' => array(),
+			'xmlns' => array()
+		),
+		'path' => array(
+			'd' => array()
 		),
 		'div' => array(
 			'id' => array(),
@@ -183,6 +195,7 @@ class CST {
 		add_image_size( 'facebook-open-graph', 1200, 630, true );
 		add_image_size( 'secondary-wells', 290, 190, true );
 		add_image_size( 'homepage-columns', 228, 134, true );
+		add_image_size( 'more-wells', 228, 134, array( 'center', 'center' ) );
 		add_image_size( 'newspaper', 297, 287, true );
 
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true ) );
@@ -599,7 +612,9 @@ class CST {
 		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
-		add_filter( 'ads/limit_ads_on_features', 'filter_limit_ads_on_features' );
+		add_filter( 'ads/limit_ads_on_features', 'filter_limit_ads_on_features', 1000 );
+		add_filter( 'ads/filter_include_nativo_on_certain_pages', 'filter_include_nativo_on_certain_pages', 1000 );
+		add_filter( 'ads/filter_load_morpheus', 'filter_load_morpheus' );
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
@@ -938,31 +953,35 @@ class CST {
 
 		register_nav_menus(
 			array(
-				'homepage-menu'          => esc_html__( 'Homepage', 'chicagosuntimes' ),
-				'homepage-masthead'      => esc_html__( 'Homepage Masthead', 'chicagosuntimes' ),
-				'homepage-itn'           => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
-				'homepage-footer-menu'   => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
-				'news-menu'              => esc_html__( 'News', 'chicagosuntimes' ),
-				'news-trending'          => esc_html__( 'News Trending', 'chicagosuntimes' ),
-				'sports-menu'            => esc_html__( 'Sports', 'chicagosuntimes' ),
-				'sports-trending'        => esc_html__( 'Sports Trending', 'chicagosuntimes' ),
-				'politics-menu'          => esc_html__( 'Politics', 'chicagosuntimes' ),
-				'politics-trending'      => esc_html__( 'Politics Trending', 'chicagosuntimes' ),
-				'entertainment-menu'     => esc_html__( 'Entertainment', 'chicagosuntimes' ),
-				'entertainment-trending' => esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
-				'lifestyles-menu'        => esc_html__( 'Lifestyles', 'chicagosuntimes' ),
-				'lifestyles-trending'    => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
-				'opinion-menu'           => esc_html__( 'Opinion', 'chicagosuntimes' ),
-				'opinion-trending'       => esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
-				'columnists-menu'        => esc_html__( 'Columnists', 'chicagosuntimes' ),
-				'columnists-trending'    => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
-				'autos-menu'             => esc_html__( 'Autos', 'chicagosuntimes' ),
-				'autos-trending'         => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
-				'page-footer-1'          => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
-				'page-footer-2'          => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
-				'page-footer-3'          => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
-				'page-footer-4'          => esc_html__( 'Page Footer 4', 'chicagosuntimes' ),
-				'election-page'          => esc_html__( 'Election Page', 'chicagosuntimes' ),
+				'homepage-menu'              => esc_html__( 'Homepage', 'chicagosuntimes' ),
+				'homepage-masthead'          => esc_html__( 'Homepage Masthead', 'chicagosuntimes' ),
+				'homepage-itn'               => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
+				'homepage-footer-menu'       => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
+				'news-menu'                  => esc_html__( 'News', 'chicagosuntimes' ),
+				'news-subnav-menu'           => esc_html__( 'News SubNav', 'chicagosuntimes' ),
+				'news-trending'              => esc_html__( 'News Trending', 'chicagosuntimes' ),
+				'sports-subnav-menu'         => esc_html__( 'Sports SubNav', 'chicagosuntimes' ),
+				'sports-menu'                => esc_html__( 'Sports', 'chicagosuntimes' ),
+				'sports-trending'            => esc_html__( 'Sports Trending', 'chicagosuntimes' ),
+				'politics-menu'              => esc_html__( 'Politics', 'chicagosuntimes' ),
+				'politics-trending'          => esc_html__( 'Politics Trending', 'chicagosuntimes' ),
+				'entertainment-menu'         => esc_html__( 'Entertainment', 'chicagosuntimes' ),
+				'entertainment-subnav-menu'  => esc_html__( 'Entertainment SubNav', 'chicagosuntimes' ),
+				'entertainment-trending'     => esc_html__( 'Entertainment Trending', 'chicagosuntimes' ),
+				'lifestyles-menu'            => esc_html__( 'Lifestyles', 'chicagosuntimes' ),
+				'lifestyles-trending'        => esc_html__( 'Lifestyles Trending', 'chicagosuntimes' ),
+				'opinion-menu'               => esc_html__( 'Opinion', 'chicagosuntimes' ),
+				'opinion-subnav-menu'        => esc_html__( 'Opinion SubNav', 'chicagosuntimes' ),
+				'opinion-trending'           => esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
+				'columnists-menu'            => esc_html__( 'Columnists', 'chicagosuntimes' ),
+				'columnists-trending'        => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
+				'autos-menu'                 => esc_html__( 'Autos', 'chicagosuntimes' ),
+				'autos-trending'             => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
+				'page-footer-1'              => esc_html__( 'Page Footer 1', 'chicagosuntimes' ),
+				'page-footer-2'              => esc_html__( 'Page Footer 2', 'chicagosuntimes' ),
+				'page-footer-3'              => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
+				'page-footer-4'              => esc_html__( 'Page Footer 4', 'chicagosuntimes' ),
+				'election-page'              => esc_html__( 'Election Page', 'chicagosuntimes' ),
 			)
 		);
 
@@ -1688,7 +1707,7 @@ class CST {
 	 * Add the gallery backdrop to the footer
 	 */
 	public function action_wp_footer_gallery_backdrop() {
-		if ( is_404() || is_post_type_archive( 'cst_feature' ) ) {
+		if ( is_404() || is_post_type_archive( 'cst_feature' ) || $this->frontend->display_minimal_nav() ) {
 			return;
 		}
 		echo wp_kses( $this->get_template_part( 'post/gallery-backdrop' ), $this->gallery_kses );
@@ -1935,7 +1954,7 @@ class CST {
 	 *
 	 */
 	public function amp_nav_markup() {
-		$result = wp_cache_get( 'cst_amp_nav_json', 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		$result = wpcom_vip_cache_get( 'cst_amp_nav_json', 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
 		if ( false === $result || WP_DEBUG ) {
 			$navigation_markup = wp_nav_menu( array(
 					'theme_location' => 'homepage-menu',
@@ -1947,7 +1966,7 @@ class CST {
 					'items_wrap'     => '<ul class="section-menu">%3$s</ul>',
 				)
 			);
-			wp_cache_set( 'cst_amp_nav_json', $navigation_markup, 'default', 1 * DAY_IN_SECONDS );
+			wpcom_vip_cache_set( 'cst_amp_nav_json', $navigation_markup, 'default', 1 * DAY_IN_SECONDS );
 		} else {
 			$navigation_markup = $result;
 		}
@@ -2049,16 +2068,29 @@ class CST {
 	 * Centralized function to register Vendor scripts
 	 */
 	public function register_ad_vendors() {
-
+		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			return;
+		}
+		if ( is_admin() ) {
+			return;
+		}
+		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
+				'header' => 'gum-gum-header.js',
+				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
+				'footer-remote' => true,
+				'container' => false,
+				'logic' => 'ads/limit_ads_on_features',
+			)
+		);
 		$this->ad_vendor_handler->register_vendor( 'taboola', array(
 			'header' => 'taboola-header.js',
 			'footer' => false,
 			'container' => false,
-			'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+			'logic' => 'ads/limit_ads_on_features',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
-			'header' => 'triplelift-header.js',
+			'header' => false,
 			'footer' => 'triplelift-footer.js',
 			'container' => false,
 			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
@@ -2068,7 +2100,7 @@ class CST {
 				'header' => 'adsupply-popunder-header.js',
 				'footer' => false,
 				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'adblocker', array(
@@ -2079,40 +2111,24 @@ class CST {
 					'argument' => 'bm_website_code',
 					'value' => 'chicago.suntimes.com.test' === $this->dfp_handler->get_parent_dfp_inventory() ? $this->pagefair_ids['dev'] : $this->pagefair_ids['prod'],
 				),
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'nativo', array(
-				'header' => '//s.ntv.io/serve/load.js',
-				'header-remote' => true,
-				'footer' => false,
-				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
-			)
-		);
-		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
-				'header' => 'gum-gum-header.js',
-				'footer' => '//g2.gumgum.com/javascripts/ggv2.js',
+				'header' => false,
 				'footer-remote' => true,
+				'footer' => '//s.ntv.io/serve/load.js',
 				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => 'ads/filter_include_nativo_on_certain_pages',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
 				'header' => false,
 				'footer' => 'google-survey-footer.js',
 				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
+				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
-		$this->ad_vendor_handler->register_vendor( 'morpheus', array(
-				'header' => false,
-				'footer' => 'http://mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js',
-				'container' => false,
-				'logic' => apply_filters( 'ads/limit_ads_on_features' ),
-			)
-		);
-
 	}
 
 	/**
@@ -2178,5 +2194,21 @@ add_action( 'pre_get_posts', 'GC_force_published_status_front_end' );
  * Ad Vendor filter to limit injection on features content
  */
 function filter_limit_ads_on_features() {
-	return is_singular( array( 'cst_article', 'cst_gallery' ) && ! is_404() );
+	return is_singular( array( 'cst_article', 'cst_gallery' ) ) && ! is_404();
+}
+/**
+ * @return bool
+ *
+ * Ad Vendor filter to inject Nativo
+ */
+function filter_include_nativo_on_certain_pages() {
+	return is_front_page() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_page_template( 'page-sponsored.php') && ! is_404();
+}
+/**
+ * @return bool
+ *
+ * Ad Vendor filter to limit injection on features content
+ */
+function filter_load_morpheus() {
+	return ! is_404();
 }

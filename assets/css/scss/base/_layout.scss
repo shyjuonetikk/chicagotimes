@@ -6,3 +6,16 @@
 		}
 	}
 }
+.show-for-small-device-landscape {
+	display: none;
+}
+@media #{$xmediumi-down} and (orientation: landscape) {
+	.show-for-small-device-landscape {
+		display: block;
+	}
+}
+@media #{$small-only} and (orientation: landscape) {
+	.show-for-small-only {
+		display: none !important;
+	}
+}

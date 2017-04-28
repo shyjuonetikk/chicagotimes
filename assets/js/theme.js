@@ -20,10 +20,13 @@
             }
 
 			this.responsiveIframes();
-			if ( this.body.hasClass("single") ) {this.headerSlider();
-			this.rescaleHeadlinesImages();
-			this.positionAndSizePostSidebar();
-            }if ( this.trendingNav.length ) {
+			if ( this.body.hasClass("single") ) {
+        this.headerSlider();
+        this.rescaleHeadlinesImages();
+        this.positionAndSizePostSidebar();
+        window.CSTTripleLift && CSTTripleLift.inject();
+      }
+      if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
 			}
 

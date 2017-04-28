@@ -1,4 +1,3 @@
-<?php $weather = CST()->frontend->get_weather(); ?>
 <header id="header" class="masthead">
 	<div class="contain-to-grid">
 		<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
@@ -23,8 +22,8 @@
 				</li>
 				<li class="has-form">
 					<div class="row collapse">
-						<div class="large-2 small-2 columns">
-							<span class="subscribe-link "><a href="#" data-reveal-id="subscribe-modal">Subscribe</a></span>
+						<div class="large-2 small-2 columns subscribe-container">
+							<a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe</a>
 						</div>
 					</div>
 				</li>
@@ -47,17 +46,24 @@
 				</li>
 				<li class="has-form">
 					<div class="row-collapse">
-						<div class="columns small-1 burger-wrapper-no-fries">
-							<a href="#1" class="left-off-canvas-toggle burger-bar">
-								<i class="fa fa-bars"></i>
-							</a>
-						</div>
+						<?php if ( ! CST()->frontend->display_minimal_nav() ) { ?>
+							<div class="columns small-1 burger-wrapper-no-fries">
+									<a href="#1" class="left-off-canvas-toggle burger-bar">
+											<i class="fa fa-bars"></i>
+									</a>
+							</div>
+						<?php } ?>
 					</div>
 				</li>
 				<li class="has-form">
 					<div class="row-collapse">
 						<?php if ( is_front_page() ) { ?>
 							<div class="columns small-12 show-for-small-only small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
+								</a>
+							</div>
+							<div class="columns small-12 show-for-small-device-landscape small-logo">
 								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
@@ -91,6 +97,8 @@
 	<main class="inner-wrap">
 <?php if ( is_front_page() ) { ?>
 		<div class="responsive-logo-wrapper row">
+			<div class="columns">
+
 	<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
 			<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left"></div>
 			<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right"></div>
@@ -104,6 +112,7 @@
 			</div>
 		</div>
 	<?php CST()->frontend->masthead_navigation( 'homepage-itn' ); ?>
+			</div>
 </div>
 <?php } ?>
 <?php get_template_part( 'parts/off-canvas-menu' );

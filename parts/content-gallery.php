@@ -23,6 +23,9 @@
 			if ( $obj->get_featured_image_id() ) { ?>
 				<div class="section-image small-4">
 					<?php echo wp_kses_post( CST()->get_template_part( 'post/wire-featured-image', array( 'obj' => $obj ) ) ); ?>
+					<?php if ( is_tax() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_author() ) {
+						echo wp_kses_post( CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) ) );
+					}?>
 				</div>
 			<?php } ?>
 			<div class="section-title small-8">

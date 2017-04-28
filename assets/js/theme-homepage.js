@@ -28,6 +28,8 @@
         this.scrollToolbarHeight += this.wpAdminBar.outerHeight();
       }
 
+      this.breakingNewsButton = $('.breaking-news-button');
+      this.breakingNewsModal = $('#breaking-news-alert-modal');
       this.breakingNews = $('.breaking-news-story');
       this.breakingSection = $('.breaking-section-story');
       this.breakingNewsClose = $('.close-breaking-news');
@@ -36,6 +38,9 @@
       this.bearsCubeClose = $('.close-bears-cube');
       this.header = $('header');
       this.dfpSBB = $('#div-gpt-sbb-1');
+      this.interstitial = $('#div-gpt-interstitial');
+      this.interstitialContainer = $('#dfp-interstitial-container');
+      this.closeInterstitial = $('#dfp-interstitial-close');
       this.searchButton = $('#search-button');
       this.searchInput = $('#search-input');
       this.offCanvasMenu = $('.left-off-canvas-menu');
@@ -73,7 +78,11 @@
         $('#dfp-sbb-top').show();
         $('#dfp-sbb-bottom').hide();
       });
-
+      this.closeInterstitial.on( "click", $.proxy( function (e) {
+        e.preventDefault();
+        this.interstitial.css('display', 'none');
+        this.interstitialContainer.css('display', 'none');
+      }, this ) );
       this.searchButton.on( "click", $.proxy( function (e) {
 
         e.preventDefault();

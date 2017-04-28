@@ -23,12 +23,12 @@ class CST_Chartbeat_Currently_Viewing_Widget extends WP_Widget {
 		$feed_url  = 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=chicago%20news,%20sports,%20entertainment,%20lifestyles,%20columnists,%20politics,features&all_platforms=1&types=1&limit=10
 ';
 		$cache_key = md5( $feed_url );
-		$result    = wp_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
+		$result    = wpcom_vip_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
 		if ( false === $result ) {
 			$response = wpcom_vip_file_get_contents( $feed_url );
 			if ( ! is_wp_error( $response ) ) {
 				$result = json_decode( $response );
-				wp_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
+				wpcom_vip_cache_set( $cache_key, $result, 'default', 5 * MINUTE_IN_SECONDS );
 			}
 		}
 		?>

@@ -87,7 +87,8 @@ googletag.cmd.push(function() {
 	CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [%5$s], \'%1$s\')
 	.defineSizeMapping(%3$s)
 	.addService(googletag.pubads())
-	.setTargeting("pos", "%4$s");
+	.setTargeting("pos", "%4$s")
+	.setCollapseEmptyDiv(true, true);
 	googletag.display("%1$s");
 	});
 </script>
@@ -170,6 +171,29 @@ googletag.cmd.push(function() {
 	}
 
 	/**
+	* @return string
+	*
+	* Create a custom interstitial unit
+	*/
+	public function interstitial() {
+
+		return sprintf(
+			'
+<div id="%1$s" class="%2$s">
+	<div id="dfp-interstitial-container">
+		<div class="dfp-interstitial-headerbar">
+			<a id="dfp-interstitial-close"></a>
+		</div>
+		<div id="dfp-interstitial-content"></div>
+	</div>
+</div>
+',
+			esc_attr( 'div-gpt-interstitial' ),
+			esc_attr( 'dfp dfp-centered show-for-medium-up dfp-interstitial' )
+
+			);
+	}
+ 	/**
 	 * Determine content location and inject the settings for DFP
 	 * into the markup
 	 *
@@ -271,20 +295,21 @@ var dfp = {
   var CSTAdTags = {};
   googletag.cmd.push(function () {
     article_lead_unit_mapping = googletag.sizeMapping()
-      .addSize([992, 0], [728, 90]) //desktop
-      .addSize([0, 0], [320, 50]) //other
+      .addSize([1025, 0], [728, 90]) //desktop
 	  .addSize([800, 1200], [ [320, 50] ] ) //tablet
 	  .addSize([800, 1280], [ [320, 50] ] ) //tablet
 	  .addSize([768, 1024], [ [320, 50] ] ) //tablet
+      .addSize([0, 0], [[320, 50],[300,50]]) //other
 	  .build();
     super_leaderboard_mapping = googletag.sizeMapping().
-    addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
-    addSize([992, 0], [ [728, 90], [970, 90] ] ). //desktop
+    addSize([1200, 800], [ [970, 250], [970,90], [728,90] ] ). //tablet
+    addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
-    addSize([640, 480], [300, 50], [320, 50]). //phone
-    addSize([375, 667], [300, 50], [320, 50]). //phone
-    addSize([0, 0], [300, 50], [320, 50]). //other
+    addSize([640, 480], [[320, 50], [300, 50]]). //phone
+    addSize([414, 0], [[320, 50], [300, 50]]). //phone
+    addSize([375, 667], [[320, 50], [300, 50]]). //phone
+    addSize([0, 0], [[320, 50], [300, 50]]). //other
     build();
     billboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //tablet
@@ -309,11 +334,12 @@ var dfp = {
 	  .build();
     hp_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
-	  .addSize([1025, 0], [[300, 600], [300, 250]]) //desktop
-	  .addSize([768,1024], [[728, 90]]) //desktop no sidebar
-	  .addSize([768, 0], [[728, 90]]) //desktop
-	  .addSize([640, 480], [300, 50], [320, 50]) //phone
-	  .addSize([375, 667], [300, 50], [320, 50]) //phone
+	  .addSize([1025, 0], [[300, 600]]) //desktop
+	  .addSize([768,1024], [[300, 600]]) //desktop no sidebar
+	  .addSize([768, 0], [[300, 600]]) //desktop
+	  .addSize([732, 0], [[300, 250]]) //mobile device
+	  .addSize([640, 480], [[320, 50], [300, 50]]) //phone
+	  .addSize([375, 667], [[320, 50], [300, 50]]) //phone
 	  .build();
     gallery_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
@@ -353,19 +379,14 @@ var dfp = {
       .addSize([0, 0], [320, 50]) //other
       .build();
     if (dfp.front_page) {
-    googletag.defineSlot(adUnitPath, [[300, 600], [300, 250]], 'div-gpt-rr-cube-1')
+      googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
+      .addService(googletag.pubads()).setTargeting("pos", "1x1");
+    googletag.defineSlot(adUnitPath, [[300, 600]], 'div-gpt-rr-cube-1')
 	  .defineSizeMapping(hp_cube_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
-    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-2')
-      .defineSizeMapping(sf_inline_mapping)
-      .addService(googletag.pubads()).setTargeting("pos", "rr cube 2");
-    googletag.defineSlot(adUnitPath, [[300, 250]], 'div-gpt-rr-cube-3')
-      .defineSizeMapping(sf_inline_mapping)
-      .addService(googletag.pubads()).setTargeting("pos", "rr cube 3");
-      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-2')
-        .defineSizeMapping(billboard_mapping)
+      googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
         .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 2 970x250")
+        .setTargeting("pos", "sbb")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
         .defineSizeMapping(super_leaderboard_mapping)
@@ -383,7 +404,7 @@ var dfp = {
         .setTargeting("pos", "Super Leaderboard 5")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-rr-cube-7')
-        .defineSizeMapping(hp_cube_mapping)
+        .defineSizeMapping(gallery_cube_mapping)
         .addService(googletag.pubads()).setTargeting("pos", "rr cube 7");
         googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-left')
           .defineSizeMapping(hp_ear_mapping)
@@ -395,18 +416,11 @@ var dfp = {
           .setCollapseEmptyDiv(true, true);
     }
     if (dfp.front_page || dfp.section || dfp.author) {
-      googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
-        .addService(googletag.pubads()).setTargeting("pos", "sbb");
       googletag.defineSlot(adUnitPath, [320, 50], 'div-gpt-mobile-leaderboard')
         .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[970, 250], [970, 90], [970, 415], [728, 90]], 'div-gpt-billboard-1')
-        .defineSizeMapping(billboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Billboard 970x250")
-        .setCollapseEmptyDiv(true, true);
     }
-    if (dfp.section || dfp.author) {
+    if (dfp.author) {
       googletag.defineSlot(adUnitPath, [ [728, 90] ], 'div-gpt-super-leaderboard-2')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
@@ -455,7 +469,7 @@ var dfp = {
 			case 'https://suntimesmediapreprod.wordpress.com':
 			case 'http://vip.local':
 			case 'http://vagrant.local':
-				$parent_inventory = 'chicago.suntimes.com';
+				$parent_inventory = 'chicago.suntimes.com.test';
 				break;
 			case 'http://chicago.suntimes.com':
 			case 'https://suntimesmedia.wordpress.com':

@@ -83,7 +83,7 @@ class CST_Admin {
 		});
 		add_action( 'fm_term_cst_section', array( $this, 'section_sponsorship_fields' ) );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'amp_nav_invalidate_cache' ) );
-		add_action( 'wp_update_nav_menu_item', array( $this, 'section_nav_invalidate' ) );
+		add_action( 'wp_update_nav_menu_item', array( $this, 'section_nav_invalidate' ), 10, 3 );
 		add_action( 'post_submitbox_misc_actions', array( $this, 'trigger_notification_button' ) );
 	}
 
@@ -1281,16 +1281,30 @@ class CST_Admin {
 	 * Upon navigation/menu update this function is called by wp_update_nav_item action
 	 * to clear the nav cache used by section fronts
 	 *
+	 * @param $menu_id
+	 * @param $menu_item_id
+	 * @param $args
+	 *
 	 * See class-cst-frontend.php -> get_sections_nav()
 	 */
-	public function section_nav_invalidate() {
+	public function section_nav_invalidate( $menu_id, $menu_item_id, $args ) {
 		wpcom_vip_cache_delete( 'cst_homepage', 'default' );
 		wpcom_vip_cache_delete( 'cst_section-front', 'default' );
 		wpcom_vip_cache_delete( 'cst_homepage-itn', 'default' );
 		wpcom_vip_cache_delete( 'section_nav_cache_key', 'default' );
+		$sections_ids = get_terms( array(
+				'taxonomy' => 'cst_section',
+				'fields' => 'ids',
+				'cache_domain' => 'cst',
+				'update_term_meta_cache' => true,
+			)
+		);
+		foreach ( $sections_ids as $sections_id ) {
+			wpcom_vip_cache_delete( 'section_nav_cache_key' . '_' . $sections_id, 'cst' );
+		}
 		$menus = get_registered_nav_menus();
-		foreach ( $menus as $location ) {
-			wpcom_vip_cache_delete( $location, 'cst' );
+		foreach ( $menus as $key => $location ) {
+			wpcom_vip_cache_delete( $key, 'cst' );
 		}
 	}
 

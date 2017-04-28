@@ -126,7 +126,7 @@ class CST_Homepage_Secondary_Headlines_Widget extends WP_Widget {
 	 */
 	public function get_headline_posts( $widget_posts ) {
 
-		if ( false === ( $found = wp_cache_get( $this->cache_key_stub ) ) ) {
+		if ( false === ( $found = wpcom_vip_cache_get( $this->cache_key_stub ) ) ) {
 			$widget_posts_query  = array(
 				'post__in'            => $widget_posts,
 				'post_type'           => array( 'cst_article', 'cst_embed', 'cst_link', 'cst_gallery', 'cst_feature' ),
@@ -136,7 +136,7 @@ class CST_Homepage_Secondary_Headlines_Widget extends WP_Widget {
 			$display_these_posts = new \WP_Query( $widget_posts_query );
 			$display_these_posts->have_posts();
 			$found = $display_these_posts->get_posts();
-			wp_cache_set( $this->cache_key_stub, $found, '', 1 * HOUR_IN_SECONDS );
+			wpcom_vip_cache_set( $this->cache_key_stub, $found, '', 1 * HOUR_IN_SECONDS );
 		}
 
 		return $found;

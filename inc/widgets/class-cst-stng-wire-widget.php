@@ -19,8 +19,9 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 		if ( empty( $feed_url ) ) {
 			$feed_url = 'http://www.suntimeswire.com/feed';
 		}
+		echo wp_kses_post( $args['before_widget'] );
 		?>
-		<div class="large-12 medium-6 small-12 columns widget_cst_stng_wire_widget">
+		<div class="large-12 small-12 columns widget_cst_stng_wire_widget">
 			<h2 class="widgettitle"><?php esc_html_e( 'Wire Updates', 'chicagosuntimes' ); ?></h2>
 			<ul class="widget-stng-wire-posts">
 				<?php
@@ -44,6 +45,7 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 			</ul>
 		</div>
 		<?php
+		echo wp_kses_post( $args['after_widget'] );
 	}
 
 	public function form( $instance ) {
