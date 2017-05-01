@@ -6,9 +6,11 @@
 					<h3 class="title">Missing 1-year-old girl found dead in her Joliet home</h3>
 					<div class="columns small-12 medium-6 large-12">
 						<div class="row">
-						<span class="image">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/04/semajcrosbyyellowhouse.jpg?w=394">
-						</span>
+							<div class="show-for-portrait show-for-touch">
+								<span class="image">
+									<img src="https://suntimesmedia.files.wordpress.com/2017/04/semajcrosbyyellowhouse.jpg?w=394">
+								</span>
+							</div>
 							<div class="show-for-portrait show-for-xlarge-up">
 								<div class="small-12">
 										<h3>Related News.</h3>
@@ -21,7 +23,7 @@
 						</div>
 						</div>
 					</div>
-					<div class="columns small-12 medium-5 medium-offset-1 large-12">
+					<div class="columns small-12 medium-5 medium-offset-1 large-12 large-offset-0">
 						<div class="row">
 							<p class="excerpt">
 							<span class="image show-for-large-up show-for-touch">
@@ -33,16 +35,6 @@
 							<ul class="related-title">
 								<li><a href="#"><h3>Analysis: When did Trump declare the wall will be built?</h3></a></li>
 							</ul>
-						</div>
-						<div class="show-for-xlarge-up">
-							<div class="small-12">
-								<h3>More about:</h3>
-								<ul class="related-news">
-									<li>Weekend Killings</li>
-									<li>CPS budgets</li>
-									<li>Rauner pulls funding</li>
-								</ul>
-								</div>
 						</div>
 					</div>
 				</div>
@@ -213,7 +205,7 @@
 		</div>
 	</div>
 	<div class="columns small-12 medium-4 large-3 sidebar">
-		<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad]"></div>
+		<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad-will-be-responsive]"></div>
 		<div class="stories-container hide-for-large-up">
 			<div class="other-stories">
 				<h2>Also in the Chicago Sun-Times</h2>
@@ -226,7 +218,7 @@
 				</ul>
 			</div>
 		</div>
-		<div><img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad]"></div>
+		<div><img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
 		<div class="section-column-wells more-stories-container">
 			<?php $section_slug = 'opinion'; ?>
 			<h3 class="more-sub-head">
@@ -309,6 +301,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="show-for-large-up show-for-portrait"><img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad]"></div>
+		<div class="show-for-large-up show-for-portrait"><img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
 	</div>
 </div>

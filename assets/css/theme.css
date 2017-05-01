@@ -3642,7 +3642,6 @@ body.post-gallery-lightbox-active {
       position: relative;
       width: 100%; }
     .stories-container .stories .more-stories-container .section-list .latest-story {
-      border-top: 1px solid #eeeeee;
       font-size: 0.8rem;
       line-height: 1rem;
       padding: 0.4rem 0 0 0;
