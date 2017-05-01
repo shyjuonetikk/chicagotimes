@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="large-12 content-wrapper">
 				<div class="large-12 columns dfp-mobile-leaderboard show-for-small-only">
-					<?php get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); ?>
+					<?php if ( ! WP_DEBUG ) { get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); } ?>
 				</div>
 			</div>
 		</div>
@@ -19,13 +19,6 @@
 			); ?>
 		</div>
 		<div class="row">
-			<div class="small-12 content-wrapper featured-story columns">
-				<?php
-				if ( is_active_sidebar( 'homepage_featured_story' ) ) :
-					dynamic_sidebar( 'homepage_featured_story' );
-				endif;
-				?>
-			</div>
 			<div class="columns">
 				<hr class="before">
 				<h2 class="section-title"><span><?php esc_html_e( 'More From', 'chicagosuntimes' ); ?></span></h2>

@@ -4,19 +4,47 @@
 			<div class="columns small-12 large-4">
 				<div class="lead-story">
 					<h3 class="title">Missing 1-year-old girl found dead in her Joliet home</h3>
-					<span class="image show-for-landscape hidden-for-large-only show-for-xlarge-up">
-						<img src="https://suntimesmedia.files.wordpress.com/2017/04/semajcrosbyyellowhouse.jpg?w=394">
-					</span>
-					<p class="excerpt">
-						<span class="image show-for-large-up show-for-touch">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/04/semajcrosbyyellowhouse.jpg?w=80" alt="">
+					<div class="columns small-12 medium-6 large-12">
+						<div class="row">
+						<span class="image">
+							<img src="https://suntimesmedia.files.wordpress.com/2017/04/semajcrosbyyellowhouse.jpg?w=394">
 						</span>
-						A missing baby girl who vanished Tuesday evening was found dead late Wednesday in a home in “deplorable condition” near southwest suburban Joliet
-					</p>
-					<p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p>
-					<ul class="related-title">
-						<li><a href="#"><h3>Analysis: When did Trump declare the wall will be built?</h3></a></li>
-					</ul>
+							<div class="show-for-portrait show-for-xlarge-up">
+								<div class="small-12">
+										<h3>Related News.</h3>
+									<ul class="related-title">
+										<li>Weekend Killings</li>
+										<li>CPS budgets</li>
+										<li>Rauner pulls funding</li>
+									</ul>
+							</div>
+						</div>
+						</div>
+					</div>
+					<div class="columns small-12 medium-5 medium-offset-1 large-12">
+						<div class="row">
+							<p class="excerpt">
+							<span class="image show-for-large-up show-for-touch">
+								<img src="https://suntimesmedia.files.wordpress.com/2017/04/semajcrosbyyellowhouse.jpg?w=80" alt="">
+							</span>
+							A missing baby girl who vanished Tuesday evening was found dead late Wednesday in a home in “deplorable condition” near southwest suburban Joliet
+							</p>
+							<p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p>
+							<ul class="related-title">
+								<li><a href="#"><h3>Analysis: When did Trump declare the wall will be built?</h3></a></li>
+							</ul>
+						</div>
+						<div class="show-for-xlarge-up">
+							<div class="small-12">
+								<h3>More about:</h3>
+								<ul class="related-news">
+									<li>Weekend Killings</li>
+									<li>CPS budgets</li>
+									<li>Rauner pulls funding</li>
+								</ul>
+								</div>
+						</div>
+					</div>
 				</div>
 				<div class="lead-story">
 						<h3 class="title">Sandi Jackson to Jesse Jr.: List all sex partners—names and dates</h3>
@@ -44,10 +72,16 @@
 				<div class="row lead-mini-story">
 					<div class="columns small-12">
 						<div class="row">
-							<div class="columns small-12 medium-12 large-6">
-								<span class="image"><img src="https://suntimesmedia.files.wordpress.com/2017/04/sir_the_baptist-09_68228313.jpg?w=394" alt=""></span></div>
-							<div class="columns small-12 medium-12 large-6">
-								<h3 class="title">Sir the Baptist: ‘I want to be the first hip-hop chaplain’</h3>
+							<div class="columns small-12 medium-6 large-6">
+								<span class="image"><img src="https://suntimesmedia.files.wordpress.com/2017/04/sir_the_baptist-09_68228313.jpg?w=394" alt=""></span>
+								<div class="hide-for-landscape">
+									<h3 class="alt-title">Sir the Baptist: ‘I want to be the first hip-hop chaplain’</h3>
+								</div>
+							</div>
+							<div class="columns small-12 medium-6 large-6 show-for-landscape">
+								<h3 class="alt-title">Sir the Baptist: ‘I want to be the first hip-hop chaplain’</h3>
+							</div>
+							<div class="columns small-12 medium-6 large-6">
 								<p class="excerpt">Sir the Baptist is aiming to reconnect “the hip-hop world to spirituality” and “spirituality to common sense.” And listen to ‘Face to Faith’ podcast.</p>
 								<p class="authors">By Robert Herguth - 1/2 hour ago</p>
 							</div>
@@ -122,17 +156,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="more-stories-container">
+		<div class="row more-stories-container">
 			<div class="columns small-12">
 				<div class="row">
 					<div class="columns small-12 medium-6 large-4">
 						<h3 class="more-sub-head">Latest Stories</h3>
-						<div class="section-column-wells">
+						<div class="row section-column-wells">
 							<div class="section-list">
 								<?php $query = array(
 									'post_type'           => array( 'cst_article' ),
 									'ignore_sticky_posts' => true,
-									'posts_per_page'      => 10,
+									'posts_per_page'      => 8,
 									'post_status'         => 'publish',
 									'cst_section'         => esc_attr( $section_slug ),
 									'orderby'             => 'modified',
@@ -159,7 +193,7 @@
 									<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
 									   data-event-action="navigate-hp-features-column-title">
 										More Features</a></h3>
-								<div class="section-column-wells">
+								<div class="row section-column-wells">
 									<div class="section-list">
 										<?php $query = array(
 											'post_type'           => array( 'cst_feature' ),
@@ -177,74 +211,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="more-stories-container">
-			<div class="columns small-12">
-				<div class="section-column-wells">
-					<h3 class="more-sub-head">
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
-						   data-event-action="navigate-hp-features-column-title">
-							Entertainment</a></h3>
-					<div class="row mini-stories" data-equalizer>
-						<div class="columns small-12 medium-3 large-6" data-equalizer-watch>
-							<div class="row">
-								<div class="columns small-4 medium-6 large-4">
-								<span class="image">
-									<img src="https://suntimesmedia.files.wordpress.com/2017/05/ap17119567042154.jpg?w=80">
-								</span>
-								</div>
-								<div class="columns small-8 medium-6 large-8">
-									<h3 class="title">Fyre Fest fiasco: Bahamas party lives, dies on social media</h3>
-								</div>
-								<div class="columns small-12"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
-							</div>
-						</div>
-						<div class="columns small-12 medium-3 large-6" data-equalizer-watch>
-							<div class="row">
-								<div class="columns small-4 medium-6 large-4">
-							<span class="image">
-								<img src="https://suntimesmedia.files.wordpress.com/2017/05/seacrest-2.jpg?w=80">
-							</span>
-								</div>
-								<div class="columns small-8 medium-6 large-8">
-									<h3 class="title">Ryan Seacrest is Kelly Ripa’s new host on ‘Live’</h3>
-								</div>
-								<div class="columns small-12"><p class="authors">By Clark Kent and Jimmy Olsen - 3 hours ago</p></div>
-							</div>
-						</div>
-						<div class="columns small-12 medium-3 large-6" data-equalizer-watch>
-							<div class="row">
-								<div class="columns small-4 medium-6 large-4">
-						<span class="image">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/04/richard-e-grant_-lisa-ohare_my-fair-lady_lyr170427_623_c-todd-rosenberg.jpg?w=80">
-						</span>
-								</div>
-								<div class="columns small-8 medium-6 large-8">
-									<h3 class="title">At Lyric, disjointed ‘My Fair Lady’ gets lost on opera stage</h3>
-								</div>
-								<div class="columns small-12"><p class="authors">By Clark Kent and Jimmy Olsen - 4 hours ago</p></div>
-							</div>
-						</div>
-						<div class="columns small-12 medium-3 large-6" data-equalizer-watch>
-							<div class="row">
-								<div class="columns small-4 medium-6 large-4">
-						<span class="image">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/04/cso170427_010_pianist-radu-lupu-performs-beethovens-piano-concerto-no-5-with-riccardo-muti-and-the-cso_cred_todd-rosenberg-photography-1.jpg?w=80">
-						</span>
-								</div>
-								<div class="columns small-8 medium-6 large-8">
-									<h3 class="title">Radu Lupu and CSO pair in rapturous ‘Emperor Concerto’</h3>
-								</div>
-								<div class="columns small-12"><p class="authors">By Clark Kent and Jimmy Olsen - 1 day ago</p></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<div class="columns small-12 medium-4 large-3 sidebar">
 		<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad]"></div>
-		<hr>
 		<div class="stories-container hide-for-large-up">
 			<div class="other-stories">
 				<h2>Also in the Chicago Sun-Times</h2>
@@ -257,9 +226,8 @@
 				</ul>
 			</div>
 		</div>
-		<img src="http://placehold.it/300x250&amp;text=[ad]">
-		<hr>
-		<div class="section-column-wells">
+		<div><img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad]"></div>
+		<div class="section-column-wells more-stories-container">
 			<?php $section_slug = 'opinion'; ?>
 			<h3 class="more-sub-head">
 				<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
@@ -277,6 +245,70 @@
 				CST()->frontend->cst_latest_stories_content_block( $query ); ?>
 			</div>
 		</div>
+		<div class="more-stories-container">
+			<div class="columns small-12">
+				<div class="row section-column-wells">
+					<h3 class="more-sub-head">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
+						   data-event-action="navigate-hp-features-column-title">
+							Entertainment</a></h3>
+					<div class="row mini-stories" data-equalizer>
+						<div class="columns small-12 " data-equalizer-watch>
+							<div class="row">
+								<div class="columns small-4 ">
+								<span class="image">
+									<img src="https://suntimesmedia.files.wordpress.com/2017/05/ap17119567042154.jpg?w=80">
+								</span>
+								</div>
+								<div class="columns small-8 ">
+									<h3 class="title">Fyre Fest fiasco: Bahamas party lives, dies on social media</h3>
+								</div>
+								<div class="columns small-12 show-for-xlarge-up"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
+							</div>
+						</div>
+						<div class="columns small-12 " data-equalizer-watch>
+							<div class="row">
+								<div class="columns small-4 ">
+							<span class="image">
+								<img src="https://suntimesmedia.files.wordpress.com/2017/05/seacrest-2.jpg?w=80">
+							</span>
+								</div>
+								<div class="columns small-8 ">
+									<h3 class="title">Ryan Seacrest is Kelly Ripa’s new host on ‘Live’</h3>
+								</div>
+								<div class="columns small-12 show-for-xlarge-up"><p class="authors">By Clark Kent and Jimmy Olsen - 3 hours ago</p></div>
+							</div>
+						</div>
+						<div class="columns small-12 " data-equalizer-watch>
+							<div class="row">
+								<div class="columns small-4 ">
+						<span class="image">
+							<img src="https://suntimesmedia.files.wordpress.com/2017/04/richard-e-grant_-lisa-ohare_my-fair-lady_lyr170427_623_c-todd-rosenberg.jpg?w=80">
+						</span>
+								</div>
+								<div class="columns small-8 ">
+									<h3 class="title">At Lyric, disjointed ‘My Fair Lady’ gets lost on opera stage</h3>
+								</div>
+								<div class="columns small-12 show-for-xlarge-up"><p class="authors">By Clark Kent and Jimmy Olsen - 4 hours ago</p></div>
+							</div>
+						</div>
+						<div class="columns small-12" data-equalizer-watch>
+							<div class="row">
+								<div class="columns small-4">
+						<span class="image">
+							<img src="https://suntimesmedia.files.wordpress.com/2017/04/cso170427_010_pianist-radu-lupu-performs-beethovens-piano-concerto-no-5-with-riccardo-muti-and-the-cso_cred_todd-rosenberg-photography-1.jpg?w=80">
+						</span>
+								</div>
+								<div class="columns small-8 ">
+									<h3 class="title">Radu Lupu and CSO pair in rapturous ‘Emperor Concerto’</h3>
+								</div>
+								<div class="columns small-12 show-for-xlarge-up"><p class="authors">By Clark Kent and Jimmy Olsen - 1 day ago</p></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="show-for-large-up show-for-portrait"><img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad]"></div>
 	</div>
-	<hr>
 </div>
