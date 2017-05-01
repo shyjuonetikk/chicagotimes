@@ -55,7 +55,7 @@
 					</div>
 				</div>
 				<hr>
-				<div class="row mini-stories" data-equalizer>
+				<div class="row mini-stories" data-equalizer data-equalizer-mq="large-up">
 					<div class="columns small-12 medium-6 large-6" data-equalizer-watch>
 						<div class="row single-mini-story">
 							<div class="columns small-3 medium-4 large-4">
@@ -66,7 +66,7 @@
 							<div class="columns small-9 medium-8 large-8">
 								<h3 class="title">Trump unveils tax plan: Three income brackets, top rate lowered</h3>
 							</div>
-							<div class="columns small-12 hide-for-medium-only"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
+							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
 						</div>
 					</div>
 					<div class="columns small-12 medium-6 large-6" data-equalizer-watch>
@@ -79,7 +79,7 @@
 						<div class="columns small-9 medium-8 large-8">
 							<h3 class="title">Jesse Jackson Jr. dismisses divorce case in Chicago</h3>
 						</div>
-							<div class="columns small-12 hide-for-medium-only"><p class="authors">By Clark Kent and Jimmy Olsen - 3 hours ago</p></div>
+							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 3 hours ago</p></div>
 						</div>
 					</div>
 					<div class="columns small-12 medium-6 large-6" data-equalizer-watch>
@@ -92,7 +92,7 @@
 						<div class="columns small-9 medium-8 large-8">
 							<h3 class="title">Brown: Summers' floating of own candidacy could buoy Pritzker</h3>
 						</div>
-							<div class="columns small-12 hide-for-medium-only"><p class="authors">By Clark Kent and Jimmy Olsen - 4 hours ago</p></div>
+							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 4 hours ago</p></div>
 						</div>
 					</div>
 					<div class="columns small-12 medium-6 large-6" data-equalizer-watch>
@@ -105,10 +105,11 @@
 						<div class="columns small-9 medium-8 large-8">
 							<h3 class="title">Rajon Rondo is still out for Game 5 — and shoots down report</h3>
 						</div>
-							<div class="columns small-12 hide-for-medium-only"><p class="authors">By Clark Kent and Jimmy Olsen - 1 day ago</p></div>
+							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 1 day ago</p></div>
 						</div>
 					</div>
 				</div>
+				<hr>
 				<div class="other-stories show-for-large-up">
 					<h2>Also in the Chicago Sun-Times</h2>
 					<ul class="list">
@@ -124,6 +125,7 @@
 	</div>
 	<div class="columns small-12 medium-4 large-3 sidebar">
 		<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad]"></div>
+		<hr>
 		<div class="stories-container hide-for-large-up">
 			<div class="other-stories">
 				<h2>Also in the Chicago Sun-Times</h2>

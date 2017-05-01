@@ -1231,7 +1231,6 @@ li.widget_cst_ad_widget {
 		}
 	}
 	.stories-container {
-		border-top: 1px solid $social_grey;
 		padding-top: 10px;
 		.stories {
 			h3 {
@@ -1288,7 +1287,6 @@ li.widget_cst_ad_widget {
 				}
 			}
 			.mini-stories {
-				border-bottom: 1px solid $social_grey;
 				margin-bottom: 0.625rem;
 				h3 {
 					font-size: 0.9rem;
@@ -1311,6 +1309,9 @@ li.widget_cst_ad_widget {
 					.authors {
 						margin-left: 0.625rem;
 					}
+				}
+				.single-mini-story {
+					margin-bottom: 0.5rem;
 				}
 			}
 		}

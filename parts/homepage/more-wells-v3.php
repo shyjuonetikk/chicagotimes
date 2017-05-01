@@ -60,52 +60,52 @@
 						<div class="row mini-stories" data-equalizer>
 							<div class="columns small-12 medium-12 large-6" data-equalizer-watch>
 								<div class="row">
-									<div class="columns small-12 medium-4 large-4">
+									<div class="columns small-4 medium-4 large-4">
 								<span class="image">
-									<img src="https://suntimesmedia.files.wordpress.com/2017/04/673416790_68461575.jpg?w=80">
+									<img src="https://suntimesmedia.files.wordpress.com/2017/05/ap17119567042154.jpg?w=80">
 								</span>
 									</div>
-									<div class="columns small-12 medium-8 large-8">
-										<h3 class="title">Trump unveils tax plan: Three income brackets, top rate lowered</h3>
+									<div class="columns small-8 medium-8 large-8">
+										<h3 class="title">Fyre Fest fiasco: Bahamas party lives, dies on social media</h3>
 									</div>
 									<div class="columns small-12"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
 								</div>
 							</div>
 							<div class="columns small-12 medium-12 large-6" data-equalizer-watch>
 								<div class="row">
-									<div class="columns small-12 medium-4 large-4">
+									<div class="columns small-4 medium-4 large-4">
 							<span class="image">
-								<img src="https://suntimesmedia.files.wordpress.com/2017/01/sneedmccarthy012717.jpg?w=80">
+								<img src="https://suntimesmedia.files.wordpress.com/2017/05/seacrest-2.jpg?w=80">
 							</span>
 									</div>
-									<div class="columns small-12 medium-8 large-8">
-										<h3 class="title">Jesse Jackson Jr. dismisses divorce case in Chicago</h3>
+									<div class="columns small-8 medium-8 large-8">
+										<h3 class="title">Ryan Seacrest is Kelly Ripa’s new host on ‘Live’</h3>
 									</div>
 									<div class="columns small-12"><p class="authors">By Clark Kent and Jimmy Olsen - 3 hours ago</p></div>
 								</div>
 							</div>
 							<div class="columns small-12 medium-12 large-6" data-equalizer-watch>
 								<div class="row">
-									<div class="columns small-12 medium-4 large-4">
+									<div class="columns small-4 medium-4 large-4">
 						<span class="image">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/04/summers-042617-5.jpg?w=80">
+							<img src="https://suntimesmedia.files.wordpress.com/2017/04/richard-e-grant_-lisa-ohare_my-fair-lady_lyr170427_623_c-todd-rosenberg.jpg?w=80">
 						</span>
 									</div>
-									<div class="columns small-12 medium-8 large-8">
-										<h3 class="title">Brown: Summers' floating of own candidacy could buoy Pritzker</h3>
+									<div class="columns small-8 medium-8 large-8">
+										<h3 class="title">At Lyric, disjointed ‘My Fair Lady’ gets lost on opera stage</h3>
 									</div>
 									<div class="columns small-12"><p class="authors">By Clark Kent and Jimmy Olsen - 4 hours ago</p></div>
 								</div>
 							</div>
 							<div class="columns small-12 medium-12 large-6" data-equalizer-watch>
 								<div class="row">
-									<div class="columns small-12 medium-4 large-4">
+									<div class="columns small-4 medium-4 large-4">
 						<span class="image">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/04/rondo13.jpg?w=80">
+							<img src="https://suntimesmedia.files.wordpress.com/2017/04/cso170427_010_pianist-radu-lupu-performs-beethovens-piano-concerto-no-5-with-riccardo-muti-and-the-cso_cred_todd-rosenberg-photography-1.jpg?w=80">
 						</span>
 									</div>
-									<div class="columns small-12 medium-8 large-8">
-										<h3 class="title">Rajon Rondo is still out for Game 5 — and shoots down report</h3>
+									<div class="columns small-8 medium-8 large-8">
+										<h3 class="title">Radu Lupu and CSO pair in rapturous ‘Emperor Concerto’</h3>
 									</div>
 									<div class="columns small-12"><p class="authors">By Clark Kent and Jimmy Olsen - 1 day ago</p></div>
 								</div>

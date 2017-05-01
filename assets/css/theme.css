@@ -4400,7 +4400,6 @@ body.post-gallery-lightbox-active {
     font-size: 12px;
     margin-bottom: 0; }
   .homepage_wrapper .stories-container {
-    border-top: 1px solid #9a9a9a;
     padding-top: 10px; }
     .homepage_wrapper .stories-container .stories h3 {
       font-size: 1.3rem;
@@ -4441,7 +4440,6 @@ body.post-gallery-lightbox-active {
           font-size: 0.8rem;
           line-height: 1.1rem; }
     .homepage_wrapper .stories-container .stories .mini-stories {
-      border-bottom: 1px solid #9a9a9a;
       margin-bottom: 0.625rem; }
       .homepage_wrapper .stories-container .stories .mini-stories h3 {
         font-size: 0.9rem;
@@ -4458,6 +4456,8 @@ body.post-gallery-lightbox-active {
           float: left; }
         .homepage_wrapper .stories-container .stories .mini-stories .mini-story .authors {
           margin-left: 0.625rem; }
+      .homepage_wrapper .stories-container .stories .mini-stories .single-mini-story {
+        margin-bottom: 0.5rem; }
     .homepage_wrapper .stories-container .sidebar .cst-ad-container {
       float: none;
       max-width: 320px;
