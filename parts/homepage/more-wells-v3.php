@@ -50,7 +50,6 @@
 					</div>
 				</div>
 			</div>
-			<hr>
 			<div class="columns small-12">
 				<div class="row">
 					<div class="section-column-wells">
