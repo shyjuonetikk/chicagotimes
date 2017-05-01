@@ -1617,6 +1617,7 @@ class CST_Frontend {
 			'opinion' => array(),
 			'entertainment' => array(),
 			'news' => array(),
+			'columnists' => array(),
 		);
 		if ( $current_obj = $this->get_current_object() ) {
 			foreach ( $custom_subnavigation as $item => $value) {
