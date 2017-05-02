@@ -3558,6 +3558,19 @@ body.post-gallery-lightbox-active {
   .post .post-meta-bottom .post-meta-taxonomy-terms:hover a:hover .fa {
     color: #7d7e7e; }
 
+.homepage-content .cst-ad-container {
+  max-width: 970px; }
+.homepage-content .newsletter-box {
+  width: 100%;
+  background: white;
+  margin-bottom: 5px;
+  padding: 5px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  float: none;
+  overflow: hidden; }
+  .homepage-content .newsletter-box .button.tiny {
+    margin-bottom: 0; }
+
 .stories-container {
   padding-top: 10px; }
   .stories-container .stories h3 {

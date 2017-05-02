@@ -1,6 +1,11 @@
 <?php get_header(); ?>
 	<div class="homepage-content">
 		<div class="row">
+			<div class="columns small-12">
+				<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
+			</div>
+		</div>
+		<div class="row">
 			<div class="large-12 content-wrapper">
 				<div class="large-12 columns dfp-mobile-leaderboard show-for-small-only">
 					<?php if ( ! WP_DEBUG ) { get_template_part( 'parts/dfp/homepage/dfp-mobile-leaderboard' ); } ?>

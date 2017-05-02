@@ -309,6 +309,7 @@
 										</div>
 									</div>
 								</div>
+								<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
 							</div>
 						</div>
 					</div>
