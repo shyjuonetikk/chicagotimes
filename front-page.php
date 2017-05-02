@@ -18,13 +18,6 @@
 				CST()->dfp_kses
 			); ?>
 		</div>
-		<div class="row">
-			<div class="columns">
-				<hr class="before">
-				<h2 class="section-title"><span><?php esc_html_e( 'More From', 'chicagosuntimes' ); ?></span></h2>
-				<hr/>
-			</div>
-		</div>
 		<!-- circular flipp -->
 		<div class="row">
 			<?php

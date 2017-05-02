@@ -167,7 +167,7 @@ class CST_Frontend {
 		if ( is_post_type_archive( 'cst_feature' ) ) {
 			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Open+Sans:400,400i,700,700i&amp;subset=latin' );
 		} else {
-			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i|Libre+Franklin:400,400i,600,600i,700,700i&amp;subset=latin' );
+			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,400i,600,600i,700,700i|Merriweather:300,300i,400,400i,700,700i,900,900i&amp;subset=latin' );
 		}
 		if ( is_page_template( 'page-flipp.php' ) ) {
 			wp_enqueue_script( 'cst_ad_flipp_page', 'http://circulars.chicago.suntimes.com/distribution_services/iframe.js' );
@@ -986,12 +986,23 @@ class CST_Frontend {
 		echo wp_kses_post( $cached_content );
 	}
 
-		/**
+	/**
 	 * Fetch and output content from the specified section
+	 * Multi functional content layer outer
 	 * @param $content_query
 	 */
-	public function cst_latest_stories_content_block( $content_query ) {
+	public function cst_latest_stories_content_block( $content_query, $orientation = 'columns' ) {
 
+		$classes = array(
+			'columns' => array(
+				'title' => 'columns small-9 medium-8 title',
+				'image' => 'columns small-3 medium-4 image',
+			),
+			'rows' => array(
+				'title' => 'columns small-9 medium-8 large-6 title',
+				'image' => 'columns small-3 medium-4 large-6 image',
+			),
+		);
 		$cache_key = md5( json_encode( $content_query ) );
 		$cached_content = wpcom_vip_cache_get( $cache_key );
 		if ( false === $cached_content || WP_DEBUG ) {
@@ -1006,13 +1017,13 @@ class CST_Frontend {
 					$items->the_post();
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );?>
 				<div class="latest-story">
-					<div class="columns small-8 title">
+					<div class="<?php echo esc_attr( $classes[$orientation]['title'] ); ?>">
 						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</div>
-					<div class="columns small-4 image">
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+					<div class="<?php echo esc_attr( $classes[$orientation]['image'] ); ?>">
+						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" class="image-right" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 							<?php
 								$featured_image_id = $obj->get_featured_image_id();
 								if ( $featured_image_id )  {
