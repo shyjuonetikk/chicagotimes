@@ -246,6 +246,7 @@
 								</div>
 							</div>
 						</div>
+						<hr>
 						<div class="show-for-large-up">
 							<div class="columns small-12">
 								<div class="row section-column-wells">
@@ -329,7 +330,9 @@
 				</ul>
 			</div>
 		</div>
+		<hr>
 		<div><img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
+		<hr>
 		<div class="row more-stories-container">
 			<div class="columns small-12">
 			<?php $section_slug = 'opinion'; ?>
@@ -416,6 +419,8 @@
 				</div>
 			</div>
 		</div>
+		<hr>
 		<div class="show-for-medium-up"><img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
+		<div class="show-for-medium-up"><?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?></div>
 	</div>
 </div>

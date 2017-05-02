@@ -281,7 +281,56 @@
 			clear: both;
 		}
 	}
+	.widget-chartbeat-currently-viewing {
+		background-color: $light_grey;
+		margin-left: 0 !important;
+		font-size: 12px;
+		font-weight: 700;
 
+		li {
+			background: white;
+			margin-bottom: 5px;
+			padding: 5px;
+			box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+			float: none;
+			overflow: hidden;
+
+			> a {
+				display: block;
+			}
+
+			a {
+				color: $black;
+			}
+		}
+
+		li:hover a, li:hover span, li:hover {
+			background: $light_grey;
+			color: $black;
+		}
+
+		.section {
+			color: $anchor-highlight;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+
+		.title {
+			a {
+				color: $black;
+				font-weight: 700;
+			}
+		}
+
+		.time {
+			color: $social_grey;
+		}
+	}
+	.widgettitle {
+		font-size: 1rem;
+		font-weight:600;
+		text-transform: uppercase;
+	}
 @media #{$xmedium-only} and (orientation: portrait) {
 	.stories-container {
 		.stories {
