@@ -115,7 +115,7 @@ class CST_Frontend {
 		add_filter( 'nav_menu_link_attributes', array( $this, 'filter_nav_menu_link_attributes' ), 10, 3 );
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
-		add_filter( 'the_content', [ $this, 'inject_flipp' ], 100 );
+		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
