@@ -437,6 +437,9 @@ var dfp = {
 		.defineSizeMapping(article_skyscraper_mapping)
 		.addService(googletag.pubads())
 		.setTargeting("pos", "SkyScraper");
+      googletag.defineSlot(dfp.adunitpath, [300, 250], 'div-gpt-ad-test-a9')
+        .defineSizeMapping(article_cube_mapping)
+        .addService(googletag.pubads());
     }
     if(dfp.gallery) {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
@@ -444,6 +447,7 @@ var dfp = {
 		.defineSizeMapping(gallery_cube_mapping)
         .setTargeting("pos","gallery 1");
     }
+    googletag.pubads().disableInitialLoad();
     googletag.pubads().enableSingleRequest();
     window.CSTAds = window.CSTAds || false;
     if (window.CSTAds) {
@@ -452,6 +456,27 @@ var dfp = {
 	}
     googletag.enableServices();
 });
+  !function(a9,a,p,s,t,A,g){if(a[a9])return;function q(c,r){a[a9]._Q.push([c,r])}a[a9]={init:function(){q("i",arguments)},fetchBids:function()
+  {q("f",arguments)},setDisplayBids:function(){},_Q:[]};A=p.createElement(s);A.async=!0;A.src=t;g=p.getElementsByTagName(s)[0];g.parentNode.insertBefore( A,g)}("apstag",window,document,"script","//c.amazon-adsystem.com/aax2/apstag.js");
+  // initialize apstag and have apstag set bids on the googletag slots when they are returned to the page
+  apstag.init({
+    pubID: '3443', adServer: 'googletag', bidTimeout: 2e3
+  });
+  // request the bids for the four googletag slots
+  apstag.fetchBids({
+    slots: [{
+      slotID: 'div-gpt-ad-test-a9',
+      sizes: [[300, 250]]
+    },
+    ]
+  }, function (bids) {
+// trigger the first request to DFP
+    googletag.cmd.push(function () {
+      apstag.setDisplayBids();
+      googletag.pubads().refresh();
+    });
+  });
+
 </script>
 <?php
 	}
