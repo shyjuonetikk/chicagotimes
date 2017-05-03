@@ -1902,7 +1902,10 @@ ready(fn);
 			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
 
 			if ( $num_paragraphs >= $flip_ad_paragraph ) {
-				$article_content = str_replace( $article_array[ $num_paragraphs ], ( $flipp_ad . $article_array[ $num_paragraphs ] ), $article_content );
+				$last_item = array_pop( $article_array );
+				array_push( $article_array, $flipp_ad );
+				array_push( $article_array, $last_item );
+				$article_content = implode( $article_array );
 			} else {
 				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], ( $article_array[ $num_paragraphs - 1 ] . $flipp_ad ), $article_content );
 			}
