@@ -1891,24 +1891,16 @@ ready(fn);
 			return $article_content;
 		}
 		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
-		$num_paragraphs = count( $article_array ) - 1;
 		$postnum = get_query_var( 'paged' );
 		// flipp recommends no more than 5 circulars per page
 		if ( $postnum < 5 ) {
-			$flip_ad_paragraph = 5;
 			$div_id_suffix = 10635 + $postnum;
 			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
-
 			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
-
-			if ( $num_paragraphs >= $flip_ad_paragraph ) {
-				$last_item = array_pop( $article_array );
-				array_push( $article_array, $flipp_ad );
-				array_push( $article_array, $last_item );
-				$article_content = implode( $article_array );
-			} else {
-				$article_content = str_replace( $article_array[ $num_paragraphs - 1 ], ( $article_array[ $num_paragraphs - 1 ] . $flipp_ad ), $article_content );
-			}
+			$last_item = array_pop( $article_array );
+			array_push( $article_array, $flipp_ad );
+			array_push( $article_array, $last_item );
+			$article_content = implode( $article_array );
 		}
 		return $article_content;
  	}
