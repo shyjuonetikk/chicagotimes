@@ -613,7 +613,7 @@ class CST {
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
 		add_filter( 'image_size_names_choose', [ $this, 'cst_custom_image_sizes' ] );
 		add_filter( 'ads/limit_ads_on_features', 'filter_limit_ads_on_features', 1000 );
-		add_filter( 'ads/filter_include_nativo_on_homepage', 'filter_include_nativo_on_homepage', 1000 );
+		add_filter( 'ads/filter_include_nativo_on_certain_pages', 'filter_include_nativo_on_certain_pages', 1000 );
 		add_filter( 'ads/filter_load_morpheus', 'filter_load_morpheus' );
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
@@ -958,6 +958,7 @@ class CST {
 				'homepage-itn'               => esc_html__( 'Homepage Trending', 'chicagosuntimes' ),
 				'homepage-footer-menu'       => esc_html__( 'Homepage Footer', 'chicagosuntimes' ),
 				'news-menu'                  => esc_html__( 'News', 'chicagosuntimes' ),
+				'news-subnav-menu'           => esc_html__( 'News SubNav', 'chicagosuntimes' ),
 				'news-trending'              => esc_html__( 'News Trending', 'chicagosuntimes' ),
 				'sports-subnav-menu'         => esc_html__( 'Sports SubNav', 'chicagosuntimes' ),
 				'sports-menu'                => esc_html__( 'Sports', 'chicagosuntimes' ),
@@ -973,6 +974,7 @@ class CST {
 				'opinion-subnav-menu'        => esc_html__( 'Opinion SubNav', 'chicagosuntimes' ),
 				'opinion-trending'           => esc_html__( 'Opinion Trending', 'chicagosuntimes' ),
 				'columnists-menu'            => esc_html__( 'Columnists', 'chicagosuntimes' ),
+				'columnists-subnav-menu'     => esc_html__( 'Columnists SubNav', 'chicagosuntimes' ),
 				'columnists-trending'        => esc_html__( 'Columnists Trending', 'chicagosuntimes' ),
 				'autos-menu'                 => esc_html__( 'Autos', 'chicagosuntimes' ),
 				'autos-trending'             => esc_html__( 'Autos Trending', 'chicagosuntimes' ),
@@ -1706,7 +1708,7 @@ class CST {
 	 * Add the gallery backdrop to the footer
 	 */
 	public function action_wp_footer_gallery_backdrop() {
-		if ( is_404() || is_post_type_archive( 'cst_feature' ) ) {
+		if ( is_404() || is_post_type_archive( 'cst_feature' ) || $this->frontend->display_minimal_nav() ) {
 			return;
 		}
 		echo wp_kses( $this->get_template_part( 'post/gallery-backdrop' ), $this->gallery_kses );
@@ -2118,7 +2120,7 @@ class CST {
 				'footer-remote' => true,
 				'footer' => '//s.ntv.io/serve/load.js',
 				'container' => false,
-				'logic' => 'ads/filter_include_nativo_on_homepage',
+				'logic' => 'ads/filter_include_nativo_on_certain_pages',
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'google-survey', array(
@@ -2200,8 +2202,8 @@ function filter_limit_ads_on_features() {
  *
  * Ad Vendor filter to inject Nativo
  */
-function filter_include_nativo_on_homepage() {
-	return is_front_page() || is_singular( array( 'cst_article', 'cst_gallery' ) ) && ! is_404();
+function filter_include_nativo_on_certain_pages() {
+	return is_front_page() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_page_template( 'page-sponsored.php') && ! is_404();
 }
 /**
  * @return bool

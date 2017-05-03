@@ -116,6 +116,7 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
@@ -186,7 +187,7 @@ class CST_Frontend {
 			wp_enqueue_script( 'cst-custom-js', get_template_directory_uri() . '/assets/js/theme-custom-page.js' );
 		} else {
 			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
-			if ( ! is_post_type_archive( 'cst_feature' ) && ! is_singular( 'cst_feature' ) ) {
+			if ( ! is_post_type_archive( 'cst_feature' ) && ! is_singular( 'cst_feature' ) && ! $this->display_minimal_nav() ) {
 				wp_enqueue_style( 'cst-weathericons', get_template_directory_uri() . '/assets/css/vendor/weather/css/weather-icons.css' );
 			}
 
@@ -682,6 +683,9 @@ class CST_Frontend {
 	}
 
 	public function get_weather() {
+		if ( $this->display_minimal_nav() ) {
+			return;
+		}
 		$response = wpcom_vip_file_get_contents( 'http://apidev.accuweather.com/currentconditions/v1/348308.json?language=en&apikey=' . CST_ACCUWEATHER_API_KEY );
 		$data = json_decode( $response );
 		if ( ! $data ) {
@@ -1613,12 +1617,13 @@ class CST_Frontend {
 			'sports' => array(),
 			'opinion' => array(),
 			'entertainment' => array(),
+			'news' => array(),
+			'columnists' => array(),
 		);
 		if ( $current_obj = $this->get_current_object() ) {
 			foreach ( $custom_subnavigation as $item => $value) {
 				$custom_subnavigation[$item] = wpcom_vip_get_term_by( 'slug', $item, 'cst_section' );
 			}
-			$sports_parent = wpcom_vip_get_term_by( 'slug', 'sports', 'cst_section' );
 			$child_parent = wpcom_vip_get_term_by( 'id', $current_obj->parent, 'cst_section' );
 			// Custom nav handling here
 			if ( isset( $custom_subnavigation[$current_obj->slug] )
@@ -1701,14 +1706,16 @@ class CST_Frontend {
 	* Generate a conditional and a sectional
 	*/
 	public function generate_off_canvas_menu() {
+		if ( $this->display_minimal_nav() ) {
+			return;
+		}
 		if ( is_front_page() || is_singular() || is_tax() || is_post_type_archive() ) {
 			$chosen_parameters = array(
 					'theme_location' => 'homepage-menu',
 					'depth' => 2,
 					'fallback_cb' => false,
-					'container_class' => 'cst-off-canvas-navigation-container homepage',
 					'walker' => new GC_walker_nav_menu(),
-					'items_wrap' => '<ul id="%1$s-oc" class="">%3$s</ul>',
+					'items_wrap' => '<ul id="%1$s-oc" class="cst-off-canvas-navigation-container homepage">%3$s</ul>',
 					 );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
@@ -1865,6 +1872,38 @@ ready(fn);
 		return;
 	}
 
+		/**
+	* Determine paragraph position exists and whether to inject Flipp into content
+	* Check if this content is sponsored and abort as appropriate.
+	*
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_flipp( $article_content ) {
+		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
+			return $article_content;
+		}
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return $article_content;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return $article_content;
+		}
+		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$postnum = get_query_var( 'paged' );
+		// flipp recommends no more than 5 circulars per page
+		if ( $postnum < 5 ) {
+			$div_id_suffix = 10635 + $postnum;
+			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
+			$last_item = array_pop( $article_array );
+			array_push( $article_array, $flipp_ad );
+			array_push( $article_array, $last_item );
+			$article_content = implode( $article_array );
+		}
+		return $article_content;
+ 	}
 		/**
 	 * Determine if content destined for the display is partnership or we have
 	 * an arrangement or not
@@ -2353,5 +2392,23 @@ ready(fn);
 	*/
 	public function generate_in_article_headlinesnetwork_markup( $obj ) {
 		echo sprintf( '<div class="columns small-12"><h4 class="agg-sponsored">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn small-12 end"></div></div>', esc_attr( $obj->get_id() ) );
+	}
+	/**
+	 * For third party vendor templates just display basic navigational links
+	 * @return bool
+	 */
+	public function display_minimal_nav() {
+		if ( is_singular() ) {
+			$do_not_display = array(
+				'page-arkadium.php' => true,
+				'page-alt-arkadium.php' => true,
+			);
+			$path_portions = explode( '/', get_page_template() );
+			$current = array_pop( $path_portions );
+			if ( isset( $do_not_display[$current] ) ) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

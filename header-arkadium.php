@@ -11,8 +11,8 @@
 <head>
 	<?php get_template_part( 'parts/analytics/chartbeat-header' ); ?>
 	<meta charset="<?php echo esc_attr( get_bloginfo( 'charset' ) ); ?>">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<meta name="viewport" content="width=device-width">
 	<title><?php wp_title( '|', true, 'right' ); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
@@ -34,11 +34,10 @@
 	<meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
 	<meta name="apple-itunes-app" content="app-id=930568136">
 	<?php get_template_part( 'parts/analytics/google' ); ?>
-	<?php wp_head(); ?>
+	<?php do_action( 'wp_enqueue_scripts' ); ?>
 </head>
 
 <body <?php body_class(); ?>>
 <?php do_action( 'body_start' ); ?>
 <div id="ie8-user" style="display:none;"></div>
-<div class="page_wrapper">
 <?php get_template_part( 'parts/header-brand-navigation' );
