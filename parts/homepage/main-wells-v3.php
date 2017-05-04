@@ -13,20 +13,20 @@
 							</div>
 							<div class="show-for-portrait show-for-xlarge-up">
 								<div class="small-12">
-										<h3>Related News.</h3>
+									<h3>Related News.</h3>
 									<ul class="related-title">
 										<li>Weekend Killings</li>
 										<li>CPS budgets</li>
 										<li>Rauner pulls funding</li>
 									</ul>
+								</div>
 							</div>
-						</div>
 						</div>
 					</div>
 					<div class="columns small-12 medium-5 medium-offset-1 large-12 large-offset-0">
 						<div class="row">
 							<p class="excerpt">
-							A missing baby girl who vanished Tuesday evening was found dead late Wednesday in a home in “deplorable condition” near southwest suburban Joliet. “We do need the community’s help on this,” Will County sheriff’s office Deputy Chief Richard Ackerman said at a press conference Wednesday afternoon.
+								A missing baby girl who vanished Tuesday evening was found dead late Wednesday in a home in “deplorable condition” near southwest suburban Joliet. “We do need the community’s help on this,” Will County sheriff’s office Deputy Chief Richard Ackerman said at a press conference Wednesday afternoon.
 							</p>
 							<p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p>
 							<ul class="related-title">
@@ -36,13 +36,13 @@
 					</div>
 				</div>
 				<div class="lead-story">
-						<h3 class="title">Sandi Jackson to Jesse Jr.: List all sex partners—names and dates</h3>
+					<h3 class="title">Sandi Jackson to Jesse Jr.: List all sex partners—names and dates</h3>
 					<span class="image show-for-landscape hidden-for-medium-up show-for-xlarge-up">
 						<img src="https://suntimesmedia.files.wordpress.com/2017/04/jackson_resignation_30508923-e1493239957893.jpg?w=394">
 					</span>
-						<p class="excerpt">Sandi Jackson to Jesse Jr.: List all sex partners—names and dates
-						</p>
-						<p class="authors">By Tina Sfondeles - 1 hour ago</p>
+					<p class="excerpt">Sandi Jackson to Jesse Jr.: List all sex partners—names and dates
+					</p>
+					<p class="authors">By Tina Sfondeles - 1 hour ago</p>
 				</div>
 				<div class="lead-story">
 					<h3 class="title">9-year sentence for Rockford-area doctor Charles Dehaan</h3>
@@ -92,38 +92,38 @@
 							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
 						</div>
 						<div class="row single-mini-story">
-						<div class="columns small-3 medium-4 large-4">
+							<div class="columns small-3 medium-4 large-4">
 							<span class="image">
 								<img src="https://suntimesmedia.files.wordpress.com/2017/01/sneedmccarthy012717.jpg?w=80">
 							</span>
-						</div>
-						<div class="columns small-9 medium-8 large-8">
-							<h3 class="title">Jesse Jackson Jr. dismisses divorce case in Chicago</h3>
-						</div>
+							</div>
+							<div class="columns small-9 medium-8 large-8">
+								<h3 class="title">Jesse Jackson Jr. dismisses divorce case in Chicago</h3>
+							</div>
 							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 3 hours ago</p></div>
 						</div>
 					</div>
 					<div class="columns small-12 medium-6 large-6">
 						<div class="row single-mini-story">
-						<div class="columns small-3 medium-4 large-4">
+							<div class="columns small-3 medium-4 large-4">
 						<span class="image">
 							<img src="https://suntimesmedia.files.wordpress.com/2017/04/summers-042617-5.jpg?w=80">
 						</span>
-						</div>
-						<div class="columns small-9 medium-8 large-8">
-							<h3 class="title">Brown: Summers' floating of own candidacy could buoy Pritzker</h3>
-						</div>
+							</div>
+							<div class="columns small-9 medium-8 large-8">
+								<h3 class="title">Brown: Summers' floating of own candidacy could buoy Pritzker</h3>
+							</div>
 							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 4 hours ago</p></div>
 						</div>
 						<div class="row single-mini-story">
-						<div class="columns small-3 medium-4 large-4">
+							<div class="columns small-3 medium-4 large-4">
 						<span class="image">
 							<img src="https://suntimesmedia.files.wordpress.com/2017/04/rondo13.jpg?w=80">
 						</span>
-						</div>
-						<div class="columns small-9 medium-8 large-8">
-							<h3 class="title">Rajon Rondo is still out for Game 5 — and shoots down report</h3>
-						</div>
+							</div>
+							<div class="columns small-9 medium-8 large-8">
+								<h3 class="title">Rajon Rondo is still out for Game 5 — and shoots down report</h3>
+							</div>
 							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 1 day ago</p></div>
 						</div>
 					</div>
@@ -313,12 +313,12 @@
 							</div>
 						</div>
 					</div>
-					</div>
+				</div>
 			</div>
 		</div>
 		<div class="hide-for-large-up"><?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?></div>
 	</div>
-	<div class="columns small-12 medium-4 large-3 sidebar">
+	<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar">
 		<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad-will-be-responsive]"></div>
 		<div class="stories-container hide-for-large-up">
 			<div class="other-stories">
@@ -335,26 +335,46 @@
 		<hr>
 		<div><img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
 		<hr>
-		<div class="row more-stories-container">
-			<div class="columns small-12">
-			<?php $section_slug = 'opinion'; ?>
-			<h3 class="more-sub-head">
-				<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
-				   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title">
-					<?php esc_html_e( ucfirst( $section_slug ), 'chicagosuntimes' ); ?></a></h3>
-			<div class="row section-column-wells latest-stories">
-				<div class="section-list">
-					<?php $query = array(
-						'post_type'           => array( 'cst_article' ),
-						'ignore_sticky_posts' => true,
-						'posts_per_page'      => 5,
-						'post_status'         => 'publish',
-						'cst_section'         => esc_attr( $section_slug ),
-						'orderby'             => 'modified',
-					);
-					CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+		<div id="cst_newspaper_covers-2" class="widget widget_cst_newspaper_covers row more-stories-container">
+			<div class="large-12 small-12 columns widget_cst_todays_paper_widget">
+				<div><h3 class="more-sub-head">Today's Cover</h3></div>
+				<div class="todays-paper-container">
+					<div class="todays-paper-front large-12 medium-6 small-12">
+						<a href="">
+							<img src="https://suntimesmedia.files.wordpress.com/2017/05/news1.png?w=297&amp;h=287&amp;crop=1" scale="0">
+						</a>
+					</div>
+					<div class="todays-paper-back large-12 medium-6 small-12">
+						<div class="todays-paper-links">
+							<a href="http://chicago.suntimes.com/subscribe/" target="_blank" class="button tiny radius">Subscribe</a>
+							<a href="http://eedition.suntimes.com/epaper/viewer.aspx" target="_blank" class="button secondary tiny radius">E-Paper</a>
+						</div>
+						<img src="https://suntimesmedia.files.wordpress.com/2017/05/sports1.png?w=297&amp;h=287&amp;crop=1" scale="0">
+					</div>
 				</div>
 			</div>
+		</div>
+		<hr>
+		<div class="row more-stories-container">
+			<div class="columns small-12">
+				<?php $section_slug = 'opinion'; ?>
+				<h3 class="more-sub-head">
+					<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
+					   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title">
+						<?php esc_html_e( ucfirst( $section_slug ), 'chicagosuntimes' ); ?></a></h3>
+				<div class="row section-column-wells latest-stories">
+					<div class="section-list">
+						<?php $query = array(
+							'post_type'           => array( 'cst_article' ),
+							'ignore_sticky_posts' => true,
+							'posts_per_page'      => 5,
+							'post_status'         => 'publish',
+							'cst_section'         => esc_attr( $section_slug ),
+							'orderby'             => 'modified',
+						);
+						CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="more-stories-container hide-for-landscape">
@@ -423,6 +443,6 @@
 		</div>
 		<hr>
 		<div class="show-for-medium-up"><img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
-		<div class="show-for-large-up"><?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?></div>
+		<div class="show-for-large-up"><?php // the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?></div>
 	</div>
 </div>
