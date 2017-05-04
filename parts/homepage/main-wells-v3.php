@@ -333,7 +333,7 @@
 			</div>
 		</div>
 		<hr>
-		<div><img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
+		<div class="cst-ad-container"><img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
 		<hr>
 		<div id="cst_newspaper_covers-2" class="widget widget_cst_newspaper_covers row more-stories-container">
 			<div class="large-12 small-12 columns widget_cst_todays_paper_widget">
