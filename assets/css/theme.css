@@ -3753,9 +3753,12 @@ body.post-gallery-lightbox-active {
   font-weight: 600; }
 .homepage_wrapper .other-stories .list {
   margin-left: 0;
-  padding-left: 0; }
+  padding-left: 0;
+  line-height: 1.3rem; }
   .homepage_wrapper .other-stories .list li {
-    list-style-type: none; }
+    list-style-type: none;
+    margin-bottom: 0.35rem;
+    border-bottom: 1px solid #9a9a9a; }
     .homepage_wrapper .other-stories .list li .section-name {
       text-transform: uppercase;
       font-weight: 600; }

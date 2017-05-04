@@ -280,8 +280,11 @@
 		.list {
 			margin-left: 0;
 			padding-left: 0;
+			line-height:1.3rem;
 			li {
 				list-style-type: none;
+				margin-bottom: 0.35rem;
+				border-bottom: 1px solid $social_grey;
 				.section-name {
 					text-transform: uppercase;
 					font-weight: 600;

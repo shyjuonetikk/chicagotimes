@@ -1,3 +1,4 @@
+<?php $ua_info = new Jetpack_User_Agent_Info(); ?>
 <div class="row stories-container">
 	<div class="columns small-12 medium-8 large-9 stories">
 		<div class="row" data-equalizer-mq="large-up">
@@ -320,22 +321,25 @@
 	</div>
 	<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar">
 		<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad-will-be-responsive]"></div>
-		<div class="stories-container hide-for-large-up">
+		<div class="more-stories-container hide-for-large-up">
+			<hr>
 			<div class="other-stories">
 				<h2>Also in the Chicago Sun-Times</h2>
 				<ul class="list">
-					<li><span class="section-name"><a href="#" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">Mentally ill woman gets 22 years for killing husband with poison</a></li>
-					<li><span class="section-name"><a href="#" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">9 charged with Crystal Lake fight that led to stabbing</a></li>
-					<li><span class="section-name"><a href="#" class="section-link">Chicago Sports</a></span> <a href="#" class=" magic-link-size">Anthony Swarzak gettung career back on track with White Sox</a></li>
-					<li><span class="section-name"><a href="#" class="section-link">Entertainment</a></span> <a href="#" class=" magic-link-size">Dear Abby: My friend bullies other kids at school</a></li>
-					<li><span class="section-name"><a href="#" class="section-link">Chicago Politics</a></span> <a href="#" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
+					<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago News</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Mentally ill woman gets 22 years for killing husband with poison</a></li>
+					<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago News</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">9 charged with Crystal Lake fight that led to stabbing</a></li>
+					<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago Sports</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Anthony Swarzak gettung career back on track with White Sox</a></li>
+					<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Entertainment</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Dear Abby: My friend bullies other kids at school</a></li>
+					<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago Politics</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
 				</ul>
 			</div>
 		</div>
 		<hr>
-		<div class="cst-ad-container"><img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
-		<hr>
+		<div class="cst-ad-container">
+			<img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]">
+		</div>
 		<div id="cst_newspaper_covers-2" class="widget widget_cst_newspaper_covers row more-stories-container">
+			<hr>
 			<div class="large-12 small-12 columns widget_cst_todays_paper_widget">
 				<div><h3 class="more-sub-head">Today's Cover</h3></div>
 				<div class="todays-paper-container">
