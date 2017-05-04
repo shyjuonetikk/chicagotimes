@@ -156,9 +156,9 @@
 	a {
 		font-size: 1rem;
 		line-height:1rem;
+		color:$cst_black;
 	}
 	.nav-holder {
-		max-width: 62.5rem;
 		border-top: 4px solid $cst_black;
 	}
 	.nav-descriptor {
@@ -186,6 +186,17 @@ header {
 			.small-logo {
 				margin: 7px 0 0 0;
 				padding-left: 0;
+				overflow-y: hidden;
+				opacity:0;
+				-webkit-transition: opacity 0.7s ease-in;
+				-moz-transition: opacity 0.7s ease-in;
+				-ms-transition: opacity 0.7s ease-in;
+				-o-transition: opacity 0.7s ease-in;
+				transition: opacity 0.7s ease-in;
+
+				&.appear {
+					opacity: 1;
+				}
 				a {
 					padding: 6px 0 0 0;
 				}
@@ -317,9 +328,11 @@ header {
 						color: $white;
 					}
 					.homepage-nav-holder {
-						max-width: 62.5rem;
 						padding-left: 0;
 						padding-right: 0;
+						> a {
+							color: $cst_black;
+						}
 					}
 				}
 				.logo {
