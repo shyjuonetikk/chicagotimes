@@ -101,6 +101,7 @@
 @media #{$xmedium-up} {
 	.responsive-logo-wrapper {
 		margin-top: 50px;
+		max-width: 80rem;
 	}
 }
 .logo-wrapper.large-logo {
@@ -157,12 +158,14 @@
 		font-size: 1rem;
 		line-height:1rem;
 		color:$cst_black;
+		font-family: $article_content;
 	}
 	.nav-holder {
 		border-top: 4px solid $cst_black;
 	}
 	.nav-descriptor {
 		float: left;
+		font-family:$homepage_font;
 		display: inline-block;
 		height: auto;
 		padding: 0;

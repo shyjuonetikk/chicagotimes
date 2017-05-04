@@ -127,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
     color: #282828; }
 
 p, li {
-  font-family: 'Libre Franklin', Arial, sans-serif; }
+  font-family: 'Merriweather', Georgia, serif; }
 
 /* 0, 640px */
 /* 641px, 767px */
@@ -407,7 +407,8 @@ header#header {
     header#header section#primary-navigation a#newsfeed-logo {
       display: none;
       text-transform: uppercase;
-      margin: 3px 42px 0; }
+      margin: 3px 42px 0;
+      color: #7d7e7e; }
       header#header section#primary-navigation a#newsfeed-logo img {
         width: 204px; }
         @media only screen and (max-width: 40em) {
@@ -916,6 +917,7 @@ ul#menu-sun-times-network {
   display: block;
   font-size: 30px;
   font-weight: 700;
+  color: #7d7e7e;
   margin-top: 3px; }
   #newsfeed-logo img {
     width: 272px;
@@ -2857,7 +2859,8 @@ section#subscribe {
 
 @media only screen and (min-width:48em) {
   .responsive-logo-wrapper {
-    margin-top: 50px; } }
+    margin-top: 50px;
+    max-width: 80rem; } }
 
 @media only screen and (min-width:48em) {
   .logo-wrapper.large-logo {
@@ -2905,11 +2908,13 @@ section#subscribe {
   .cst-navigation-container a {
     font-size: 1rem;
     line-height: 1rem;
-    color: #231f20; }
+    color: #231f20;
+    font-family: 'Libre Franklin', Arial, sans-serif; }
   .cst-navigation-container .nav-holder {
     border-top: 4px solid #231f20; }
   .cst-navigation-container .nav-descriptor {
     float: left;
+    font-family: 'Libre Franklin', Arial, sans-serif;
     display: inline-block;
     height: auto;
     padding: 0;
@@ -3587,7 +3592,8 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .stories-container .stories p, .homepage_wrapper .stories-container .stories li {
     font-size: 0.9rem;
     line-height: 1.3;
-    margin-bottom: 0.25rem; }
+    margin-bottom: 0.25rem;
+    font-family: 'Libre Franklin', Arial, sans-serif; }
   .homepage_wrapper .stories-container .stories .authors {
     font-size: 0.8rem;
     line-height: 1.3; }

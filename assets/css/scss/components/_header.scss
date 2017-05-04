@@ -109,6 +109,7 @@ header#header {
 			display: none;
 			text-transform: uppercase;
 			margin: 3px 42px 0;
+			color:$anchor-highlight;
 			img {
 				width: 204px;
 				@media #{$small-only} {
@@ -843,6 +844,7 @@ ul#menu-sun-times-network {
 	display: block;
 	font-size: 30px;
 	font-weight: 700;
+	color: $anchor-highlight;
 	img {
 		width: 272px;
 		height: 34px;
