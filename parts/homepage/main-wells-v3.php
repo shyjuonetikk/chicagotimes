@@ -335,6 +335,29 @@
 			</div>
 		</div>
 		<hr>
+		<div class="row more-stories-container">
+			<div class="columns small-12">
+				<?php $section_slug = 'opinion'; ?>
+				<h3 class="more-sub-head">
+					<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
+					   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title">
+						<?php esc_html_e( ucfirst( $section_slug ), 'chicagosuntimes' ); ?></a></h3>
+				<div class="row section-column-wells latest-stories">
+					<div class="section-list">
+						<?php $query = array(
+							'post_type'           => array( 'cst_article' ),
+							'ignore_sticky_posts' => true,
+							'posts_per_page'      => 5,
+							'post_status'         => 'publish',
+							'cst_section'         => esc_attr( $section_slug ),
+							'orderby'             => 'modified',
+						);
+						CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
 		<div class="cst-ad-container">
 			<img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]">
 		</div>
@@ -359,28 +382,6 @@
 			</div>
 		</div>
 		<hr>
-		<div class="row more-stories-container">
-			<div class="columns small-12">
-				<?php $section_slug = 'opinion'; ?>
-				<h3 class="more-sub-head">
-					<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
-					   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title">
-						<?php esc_html_e( ucfirst( $section_slug ), 'chicagosuntimes' ); ?></a></h3>
-				<div class="row section-column-wells latest-stories">
-					<div class="section-list">
-						<?php $query = array(
-							'post_type'           => array( 'cst_article' ),
-							'ignore_sticky_posts' => true,
-							'posts_per_page'      => 5,
-							'post_status'         => 'publish',
-							'cst_section'         => esc_attr( $section_slug ),
-							'orderby'             => 'modified',
-						);
-						CST()->frontend->cst_latest_stories_content_block( $query ); ?>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="more-stories-container hide-for-landscape">
 			<div class="columns small-12">
 				<div class="row section-column-wells">
