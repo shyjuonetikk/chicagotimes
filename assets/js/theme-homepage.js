@@ -154,12 +154,6 @@
       } else {
         this.offCanvasMenu.removeClass("fixed-canvas-menu");
       }
-      if ( scrollTop > 100 ) {
-        this.smallLogo.addClass('appear');
-      } else {
-        this.smallLogo.removeClass('appear');
-      }
-
 
     },
     handleNavigation: function() {

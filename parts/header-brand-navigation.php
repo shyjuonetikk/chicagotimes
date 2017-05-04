@@ -63,7 +63,7 @@
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
 							</div>
-							<div class="columns small-12 small-logo">
+							<div class="columns small-12 show-for-small-device-landscape small-logo">
 								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>

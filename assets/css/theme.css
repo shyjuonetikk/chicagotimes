@@ -2927,13 +2927,7 @@ header .contain-to-grid .top-bar {
   header .contain-to-grid .top-bar .small-logo {
     margin: 7px 0 0 0;
     padding-left: 0;
-    overflow-y: hidden;
-    opacity: 0;
-    -webkit-transition: opacity 0.7s ease-in;
-    -moz-transition: opacity 0.7s ease-in;
-    -ms-transition: opacity 0.7s ease-in;
-    -o-transition: opacity 0.7s ease-in;
-    transition: opacity 0.7s ease-in; }
+    overflow-y: hidden; }
     header .contain-to-grid .top-bar .small-logo.appear {
       opacity: 1; }
     header .contain-to-grid .top-bar .small-logo a {
@@ -3669,7 +3663,9 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper .stories-container .stories .more-stories-container .section-list .latest-story .image-right {
         float: right;
         margin: 0 0 0 0.4rem; }
-      .homepage_wrapper .stories-container .stories .more-stories-container .section-list .latest-story a {
+      .homepage_wrapper .stories-container .stories .more-stories-container .section-list .latest-story .title a {
+        color: #231f20; }
+      .homepage_wrapper .stories-container .stories .more-stories-container .section-list .latest-story > a {
         color: #231f20;
         display: inline-block;
         font-weight: 600; }
@@ -3711,9 +3707,12 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper .stories-container .sidebar .more-stories-container .section-list .latest-story .image-right {
         float: right;
         margin: 0 0 0 0.4rem; }
-      .homepage_wrapper .stories-container .sidebar .more-stories-container .section-list .latest-story a {
+      .homepage_wrapper .stories-container .sidebar .more-stories-container .section-list .latest-story .title a {
+        color: #231f20; }
+      .homepage_wrapper .stories-container .sidebar .more-stories-container .section-list .latest-story > a {
         color: #231f20;
-        display: inline-block; }
+        display: inline-block;
+        font-weight: 600; }
   .homepage_wrapper .stories-container .sidebar .more-stories-container .featured-story h3 {
     font-size: 1.2rem;
     line-height: 1.5rem; }
@@ -3735,7 +3734,9 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper .stories-container .sidebar .section-list .latest-story .image-right {
         float: right;
         margin: 0 0 0 0.4rem; }
-      .homepage_wrapper .stories-container .sidebar .section-list .latest-story a {
+      .homepage_wrapper .stories-container .sidebar .section-list .latest-story .title a {
+        color: #231f20; }
+      .homepage_wrapper .stories-container .sidebar .section-list .latest-story > a {
         color: #231f20;
         display: inline-block;
         font-size: 0.8rem;
@@ -3757,6 +3758,8 @@ body.post-gallery-lightbox-active {
         float: left; }
       .homepage_wrapper .stories-container .sidebar .mini-stories .mini-story .authors {
         margin-left: 0.625rem; }
+.homepage_wrapper .latest-stories a {
+  color: #231f20; }
 .homepage_wrapper .other-stories h2 {
   font-size: 1.1rem;
   line-height: 1.3rem;
