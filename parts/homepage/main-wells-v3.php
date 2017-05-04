@@ -140,7 +140,9 @@
 						<li><span class="section-name"><a href="#" class="section-link">Chicago Politics</a></span> <a href="#" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
 					</ul>
 					<hr>
-					<h2>Chicago Sports News</h2>
+					<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+					<hr>
+					<h2><a href="<?php echo esc_url( '/' ); ?>">Chicago Sports</a></h2>
 					<div class="row mini-stories">
 						<div class="columns small-12 medium-6 large-6">
 							<div class="row single-mini-story">
@@ -310,7 +312,6 @@
 										</div>
 									</div>
 								</div>
-								<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
 							</div>
 						</div>
 					</div>
