@@ -20,7 +20,7 @@
       this.body = $('body');
       this.primaryNavigation = $('#fixed-nav-wrapper');
       this.topBarSection = $('.top-bar-section');
-      this.topLogos = $('#top-logos');
+      this.smallLogo = $('.small-logo');
           this.wpAdminBar = $('#wpadminbar');
 
       this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
@@ -153,6 +153,11 @@
 
       } else {
         this.offCanvasMenu.removeClass("fixed-canvas-menu");
+      }
+      if ( scrollTop > 100 ) {
+        this.smallLogo.addClass('appear');
+      } else {
+        this.smallLogo.removeClass('appear');
       }
 
 

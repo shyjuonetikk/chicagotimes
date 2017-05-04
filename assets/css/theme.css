@@ -2904,9 +2904,9 @@ section#subscribe {
       background: transparent; }
   .cst-navigation-container a {
     font-size: 1rem;
-    line-height: 1rem; }
+    line-height: 1rem;
+    color: #231f20; }
   .cst-navigation-container .nav-holder {
-    max-width: 62.5rem;
     border-top: 4px solid #231f20; }
   .cst-navigation-container .nav-descriptor {
     float: left;
@@ -2926,7 +2926,16 @@ header .contain-to-grid .top-bar {
   background: #231f20; }
   header .contain-to-grid .top-bar .small-logo {
     margin: 7px 0 0 0;
-    padding-left: 0; }
+    padding-left: 0;
+    overflow-y: hidden;
+    opacity: 0;
+    -webkit-transition: opacity 0.7s ease-in;
+    -moz-transition: opacity 0.7s ease-in;
+    -ms-transition: opacity 0.7s ease-in;
+    -o-transition: opacity 0.7s ease-in;
+    transition: opacity 0.7s ease-in; }
+    header .contain-to-grid .top-bar .small-logo.appear {
+      opacity: 1; }
     header .contain-to-grid .top-bar .small-logo a {
       padding: 6px 0 0 0; }
   header .contain-to-grid .top-bar .masthead-sections {
@@ -3027,9 +3036,10 @@ header .contain-to-grid .top-bar {
       line-height: 44px;
       color: white; }
     header .contain-to-grid .top-bar .top-bar-section .masthead-sections .homepage-nav-holder {
-      max-width: 62.5rem;
       padding-left: 0;
       padding-right: 0; }
+      header .contain-to-grid .top-bar .top-bar-section .masthead-sections .homepage-nav-holder > a {
+        color: #231f20; }
     header .contain-to-grid .top-bar .top-bar-section .logo a {
       line-height: 42px; }
   @media only screen and (min-width: 78.063em) {
