@@ -105,8 +105,8 @@
 					<hr>
 				</div>
 			</div>
-			<div class="small-12 columns">
-				<h3><a href="<?php echo esc_url( '/' ); ?>">Chicago Sports</a></h3>
+			<div class="small-12 columns more-stories-container">
+				<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Chicago Sports</a></h3>
 				<?php
 				$query = array(
 					'post_type'           => array( 'cst_article' ),
@@ -143,7 +143,7 @@
 					<div class="columns small-12 medium-6 large-8">
 						<div class="small-12 columns">
 							<div class="row">
-								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Features</h3>
+								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Feature stories</h3>
 								<div class="featured-story">
 									<a href="http://chicago.suntimes.com/feature/50-years-after-chicago-areas-most-devastating-tornadoes/" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
 										<img src="https://suntimesmedia.files.wordpress.com/2017/04/tornado-041617-01_68208979.jpg?w=700" alt="article promo image" class="featured-story-hero">
@@ -172,8 +172,8 @@
 						</div>
 					</div>
 					<div class="show-for-large-up">
-						<div class="small-12 columns">
-							<h3><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
+						<div class="small-12 columns more-stories-container">
+							<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
 							<?php
 							$query = array(
 								'post_type'           => array( 'cst_article' ),
