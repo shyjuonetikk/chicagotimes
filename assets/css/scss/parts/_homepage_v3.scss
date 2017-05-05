@@ -57,8 +57,10 @@
 			}
 			.lead-story {
 				h3 {
-					font-size: 1.4rem;
-					line-height: 1.7rem;
+					&.hero-title {
+						font-size: 1.7rem;
+						line-height:1.9rem;
+					}
 				}
 				.excerpt {
 					.image {
@@ -105,9 +107,9 @@
 					.authors {
 						margin-left: 0.625rem;
 					}
-					.byline {
-						margin-top:0.5rem;
-					}
+				}
+				.byline {
+					margin-top:0.5rem;
 				}
 			}
 			.more-stories-container {
@@ -293,6 +295,9 @@
 					.authors {
 						margin-left: 0.625rem;
 					}
+				}
+				.byline {
+					margin-top:0.5rem;
 				}
 
 			}

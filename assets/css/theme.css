@@ -2938,7 +2938,8 @@ header .contain-to-grid .top-bar {
     padding-left: 0;
     margin-left: 0;
     overflow: hidden;
-    height: 45px; }
+    height: 45px;
+    max-width: 67rem; }
     header .contain-to-grid .top-bar .masthead-sections ul {
       list-style-type: none;
       background: #231f20; }
@@ -3610,9 +3611,9 @@ body.post-gallery-lightbox-active {
     float: left;
     padding-bottom: 1rem;
     margin-bottom: 0.25rem; }
-    .homepage_wrapper .stories-container .stories .lead-story h3 {
-      font-size: 1.4rem;
-      line-height: 1.7rem; }
+    .homepage_wrapper .stories-container .stories .lead-story h3.hero-title {
+      font-size: 1.7rem;
+      line-height: 1.9rem; }
     .homepage_wrapper .stories-container .stories .lead-story .excerpt .image {
       float: right;
       margin: 0.4rem 0 0.4rem 0.4rem; }
@@ -3641,6 +3642,8 @@ body.post-gallery-lightbox-active {
         float: left; }
       .homepage_wrapper .stories-container .stories .mini-stories .mini-story .authors {
         margin-left: 0.625rem; }
+    .homepage_wrapper .stories-container .stories .mini-stories .byline {
+      margin-top: 0.5rem; }
   .homepage_wrapper .stories-container .stories .more-stories-container h3 {
     font-size: 0.9rem;
     line-height: 1.2rem; }
@@ -3766,6 +3769,8 @@ body.post-gallery-lightbox-active {
         float: left; }
       .homepage_wrapper .stories-container .sidebar .mini-stories .mini-story .authors {
         margin-left: 0.625rem; }
+    .homepage_wrapper .stories-container .sidebar .mini-stories .byline {
+      margin-top: 0.5rem; }
 .homepage_wrapper .latest-stories a {
   color: #231f20; }
 .homepage_wrapper .other-stories h2 {
