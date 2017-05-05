@@ -33,29 +33,21 @@ class CST_Newspaper_Cover_Widget extends WP_Widget {
 		$front_cover = $instance['cst_newspaper_front_cover'];
 		if ( ! empty( $front_cover ) ) {
 			$front_cover_id      = $this->cst_get_image_id( $front_cover );
-			$get_front_cover_url = wp_get_attachment_image_src( $front_cover_id, 'newspaper' );
-			if ( ! empty( $get_front_cover_url ) ) {
-				$front_cover_url = $get_front_cover_url[0];
-			} else {
-				$front_cover_url = '';
+			if ( $front_cover_id ) {
+				if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $front_cover_id ) ) {
+					$front_image_element_markup = wp_get_attachment_image( $front_cover_id, 'newspaper', false, $args );
+				}
 			}
-		} else {
-			$front_cover     = '';
-			$front_cover_url = '';
 		}
 
 		$back_cover = $instance['cst_newspaper_back_cover'];
 		if ( ! empty( $back_cover ) ) {
 			$back_cover_id      = $this->cst_get_image_id( $back_cover );
-			$get_back_cover_url = wp_get_attachment_image_src( $back_cover_id, 'newspaper' );
-			if ( $get_back_cover_url ) {
-				$back_cover_url = $get_back_cover_url[0];
-			} else {
-				$back_cover_url = '';
+			if ( $back_cover_id ) {
+				if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $back_cover_id ) ) {
+					$back_image_element_markup = wp_get_attachment_image( $back_cover_id, 'newspaper', false, $args );
+				}
 			}
-		} else {
-			$back_cover     = '';
-			$back_cover_url = '';
 		}
 		echo wp_kses_post( $args['before_widget'] );
 		?>
@@ -65,15 +57,15 @@ class CST_Newspaper_Cover_Widget extends WP_Widget {
 				<div class="row">
 					<div class="todays-paper-front large-12 medium-6 small-12">
 						<a href="">
-							<img src="<?php echo esc_url( $front_cover_url ); ?>"/>
+							<?php echo wp_kses_post( $front_image_element_markup ); ?>
 						</a>
 					</div>
 					<div class="todays-paper-back large-12 medium-6 small-12">
 						<div class="todays-paper-links">
-							<a href="http://wssp.suntimes.com/subscribe/" target="_blank" class="button tiny radius"><?php esc_html_e( 'Subscribe', 'chicagosuntimes' ); ?></a>
-							<a href="http://eedition.suntimes.com/epaper/viewer.aspx" target="_blank" class="button secondary tiny radius"><?php esc_html_e( 'E-Paper', 'chicagosuntimes' ); ?></a>
+							<a href="http://chicago.suntimes.com/subscribe/" target="_blank" class="button tiny radius" data-on="click" data-event-category="newspaper-cover" data-event-action="click-subscribe"><?php esc_html_e( 'Subscribe', 'chicagosuntimes' ); ?></a>
+							<a href="http://eedition.suntimes.com/epaper/viewer.aspx" target="_blank" class="button secondary tiny radius" data-on="click" data-event-category="newspaper-cover" data-event-action="click-view-epaper"><?php esc_html_e( 'E-Paper', 'chicagosuntimes' ); ?></a>
 						</div>
-						<img src="<?php echo esc_url( $back_cover_url ); ?>"/>
+						<?php echo wp_kses_post( $back_image_element_markup ); ?>
 					</div>
 				</div>
 			</div>
