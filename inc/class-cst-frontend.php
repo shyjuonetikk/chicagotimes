@@ -1030,8 +1030,8 @@ class CST_Frontend {
 									$image_url = wp_get_attachment_image_url( $featured_image_id, 'chiwire-slider-square' );
 									if ( $image_url ) {
 										$image_markup = sprintf( '<img class="image-right" src="%1$s" width="60" height="60" >', esc_url( $image_url ) );
+										echo wp_kses_post( $image_markup );
 									}
-									echo wp_kses_post( $image_markup );
 								}
 							?>
 						</a>
@@ -1042,6 +1042,48 @@ class CST_Frontend {
 				</div>
 			<?php } ?>
 			<?php
+			$cached_content = ob_get_clean();
+			wpcom_vip_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
+		}
+		echo wp_kses_post( $cached_content );
+	}
+
+	public function cst_mini_stories_content_block( $content_query ) {
+
+		$cache_key = md5( json_encode( $content_query ) );
+		$cached_content = wpcom_vip_cache_get( $cache_key );
+		if ( false === $cached_content || WP_DEBUG ) {
+			$items = new \WP_Query( $content_query );
+			ob_start();
+			if ( $items->have_posts() ) { ?>
+			<div class="row mini-stories" data-equalizer>
+					<?php while ( $items->have_posts() ) {
+					$items->the_post();
+					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );?>
+					<div class="single-mini-story small-12 medium-6" data-equalizer-watch>
+						<div class="columns small-3 medium-4 large-4">
+							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+							<?php
+								$featured_image_id = $obj->get_featured_image_id();
+								if ( $featured_image_id )  {
+									$image_url = wp_get_attachment_image_url( $featured_image_id, 'chiwire-small-square' );
+									if ( $image_url ) {
+										$image_markup = sprintf( '<img class="image-right" src="%1$s" width="80" >', esc_url( $image_url ) );
+										echo wp_kses_post( $image_markup );
+									}
+								}
+							?>
+							</a>
+						</div>
+						<div class="columns small-9 medium-8 large-8">
+							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+								<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+							</a>
+						</div>
+					</div>
+			<?php } ?>
+			</div>
+			<?php }
 			$cached_content = ob_get_clean();
 			wpcom_vip_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
@@ -2113,6 +2155,8 @@ ready(fn);
 				'data-pgs-location' => true,
 				'data-pgs-variant' => true,
 				'data-pgs-target-type' => true,
+				'data-equalizer' => true,
+				'data-equalizer-watch' => true,
 			)),
 			'a' => array_merge( $allowed_html['a'], array(
 				'data-event-category' => true,

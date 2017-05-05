@@ -218,37 +218,36 @@
 						</div>
 					</div>
 					<div class="columns small-12 medium-6 large-8">
-						<div class="small-12 large-8 columns">
+						<div class="small-12 columns">
 							<div class="row">
 								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Features</h3>
 								<div class="featured-story">
 									<a href="http://chicago.suntimes.com/feature/50-years-after-chicago-areas-most-devastating-tornadoes/" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
-										<img src="https://suntimesmedia.files.wordpress.com/2017/04/tornado-041617-01_68208979.jpg?w=394" alt="article promo image">
+										<img src="https://suntimesmedia.files.wordpress.com/2017/04/tornado-041617-01_68208979.jpg?w=700" alt="article promo image" class="featured-story-hero">
 										<h3>Survivors' stories 50 years after Chicago area's deadliest tornadoes hit Oak Lawn, other towns</h3>
 									</a>
 								</div>
 							</div>
-						</div>
-						<div class="columns small-12 large-4">
 							<div class="row">
 								<h3 class="more-sub-head">
 									<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
 									   data-event-action="navigate-hp-features-column-title">
 										More Features</a></h3>
-								<div class="row section-column-wells">
-									<div class="section-list">
-										<?php $query = array(
-											'post_type'           => array( 'cst_feature' ),
-											'ignore_sticky_posts' => true,
-											'posts_per_page'      => 5,
-											'post_status'         => 'publish',
-											'orderby'             => 'modified',
-										);
-										CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+								<div class="columns small-12">
+									<div class="row">
+											<?php $query = array(
+												'post_type'           => array( 'cst_feature' ),
+												'ignore_sticky_posts' => true,
+												'posts_per_page'      => 4,
+												'post_status'         => 'publish',
+												'orderby'             => 'modified',
+											);
+											CST()->frontend->cst_mini_stories_content_block( $query ); ?>
 									</div>
 								</div>
 							</div>
 						</div>
+
 						<hr>
 						<div class="show-for-large-up">
 							<div class="columns small-12">
