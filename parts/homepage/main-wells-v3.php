@@ -102,10 +102,10 @@
 					</ul>
 					<hr>
 					<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
-					<hr>
 				</div>
 			</div>
 			<div class="small-12 columns more-stories-container">
+				<hr>
 				<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Chicago Sports</a></h3>
 				<?php
 				$query = array(
@@ -172,6 +172,7 @@
 						</div>
 					</div>
 					<div class="show-for-large-up">
+						<hr>
 						<div class="small-12 columns more-stories-container">
 							<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
 							<?php
@@ -219,7 +220,7 @@
 						<?php $query = array(
 							'post_type'           => array( 'cst_article' ),
 							'ignore_sticky_posts' => true,
-							'posts_per_page'      => 5,
+							'posts_per_page'      => 7,
 							'post_status'         => 'publish',
 							'cst_section'         => esc_attr( $section_slug ),
 							'orderby'             => 'modified',
