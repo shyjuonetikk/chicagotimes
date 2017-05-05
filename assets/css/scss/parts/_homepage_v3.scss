@@ -24,10 +24,10 @@
 		padding-top: 10px;
 		.stories {
 			h3 {
-				font-size: 1.3rem;
-				line-height: 1.6rem;
+				font-size: 1.1rem;
+				line-height: 1.4rem;
 				margin-top: 0;
-				font-weight: 600;
+				font-weight: 700;
 				&.alt-title {
 					font-size: 0.9rem;
 					line-height: 1.1rem;
@@ -58,8 +58,9 @@
 			.lead-story {
 				h3 {
 					&.hero-title {
-						font-size: 1.7rem;
-						line-height:1.9rem;
+						font-size: 1.9rem;
+						line-height: 2rem;
+						font-weight:700;
 					}
 				}
 				.excerpt {

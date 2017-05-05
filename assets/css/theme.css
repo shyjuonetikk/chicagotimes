@@ -3583,10 +3583,10 @@ body.post-gallery-lightbox-active {
 .homepage_wrapper .stories-container {
   padding-top: 10px; }
   .homepage_wrapper .stories-container .stories h3 {
-    font-size: 1.3rem;
-    line-height: 1.6rem;
+    font-size: 1.1rem;
+    line-height: 1.4rem;
     margin-top: 0;
-    font-weight: 600; }
+    font-weight: 700; }
     .homepage_wrapper .stories-container .stories h3.alt-title {
       font-size: 0.9rem;
       line-height: 1.1rem; }
@@ -3612,8 +3612,9 @@ body.post-gallery-lightbox-active {
     padding-bottom: 1rem;
     margin-bottom: 0.25rem; }
     .homepage_wrapper .stories-container .stories .lead-story h3.hero-title {
-      font-size: 1.7rem;
-      line-height: 1.9rem; }
+      font-size: 1.9rem;
+      line-height: 2rem;
+      font-weight: 700; }
     .homepage_wrapper .stories-container .stories .lead-story .excerpt .image {
       float: right;
       margin: 0.4rem 0 0.4rem 0.4rem; }
