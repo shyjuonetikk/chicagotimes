@@ -1080,6 +1080,7 @@ class CST_Frontend {
 								<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 							</a>
 						</div>
+						<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
 					</div>
 			<?php } ?>
 			</div>

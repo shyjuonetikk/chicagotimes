@@ -79,56 +79,16 @@
 					</div>
 				</div>
 				<hr>
-				<div class="row mini-stories">
-					<div class="columns small-12 medium-6 large-6">
-						<div class="row single-mini-story">
-							<div class="columns small-3 medium-4 large-4">
-								<span class="image">
-									<img src="https://suntimesmedia.files.wordpress.com/2017/04/673416790_68461575.jpg?w=80">
-								</span>
-							</div>
-							<div class="columns small-9 medium-8 large-8">
-								<h3 class="title">Trump unveils tax plan: Three income brackets, top rate lowered</h3>
-							</div>
-							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
-						</div>
-						<div class="row single-mini-story">
-							<div class="columns small-3 medium-4 large-4">
-							<span class="image">
-								<img src="https://suntimesmedia.files.wordpress.com/2017/01/sneedmccarthy012717.jpg?w=80">
-							</span>
-							</div>
-							<div class="columns small-9 medium-8 large-8">
-								<h3 class="title">Jesse Jackson Jr. dismisses divorce case in Chicago</h3>
-							</div>
-							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 3 hours ago</p></div>
-						</div>
-					</div>
-					<div class="columns small-12 medium-6 large-6">
-						<div class="row single-mini-story">
-							<div class="columns small-3 medium-4 large-4">
-						<span class="image">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/04/summers-042617-5.jpg?w=80">
-						</span>
-							</div>
-							<div class="columns small-9 medium-8 large-8">
-								<h3 class="title">Brown: Summers' floating of own candidacy could buoy Pritzker</h3>
-							</div>
-							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 4 hours ago</p></div>
-						</div>
-						<div class="row single-mini-story">
-							<div class="columns small-3 medium-4 large-4">
-						<span class="image">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/04/rondo13.jpg?w=80">
-						</span>
-							</div>
-							<div class="columns small-9 medium-8 large-8">
-								<h3 class="title">Rajon Rondo is still out for Game 5 — and shoots down report</h3>
-							</div>
-							<div class="columns small-12 hide-for-medium-down"><p class="authors">By Clark Kent and Jimmy Olsen - 1 day ago</p></div>
-						</div>
-					</div>
-				</div>
+				<?php
+				$query = array(
+					'post_type'           => array( 'cst_article' ),
+					'ignore_sticky_posts' => true,
+					'posts_per_page'      => 4,
+					'post_status'         => 'publish',
+					'cst_section'         => 'news',
+					'orderby'             => 'modified',
+				);
+				CST()->frontend->cst_mini_stories_content_block( $query ); ?>
 				<hr>
 				<div class="other-stories show-for-large-up">
 					<h2>Also in the Chicago Sun-Times</h2>
