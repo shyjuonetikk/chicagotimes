@@ -116,6 +116,7 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
@@ -1975,6 +1976,38 @@ ready(fn);
 		return;
 	}
 
+		/**
+	* Determine paragraph position exists and whether to inject Flipp into content
+	* Check if this content is sponsored and abort as appropriate.
+	*
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_flipp( $article_content ) {
+		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
+			return $article_content;
+		}
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return $article_content;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return $article_content;
+		}
+		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
+		$postnum = get_query_var( 'paged' );
+		// flipp recommends no more than 5 circulars per page
+		if ( $postnum < 5 ) {
+			$div_id_suffix = 10635 + $postnum;
+			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
+			$last_item = array_pop( $article_array );
+			array_push( $article_array, $flipp_ad );
+			array_push( $article_array, $last_item );
+			$article_content = implode( $article_array );
+		}
+		return $article_content;
+ 	}
 		/**
 	 * Determine if content destined for the display is partnership or we have
 	 * an arrangement or not

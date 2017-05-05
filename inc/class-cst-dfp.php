@@ -316,8 +316,8 @@ var dfp = {
     addSize([992, 0], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
-    addSize([640, 480], [300, 50], [320, 50]). //phone
-    addSize([375, 667], [300, 50], [320, 50]). //phone
+    addSize([640, 480], [[300, 50], [320, 50]]). //phone
+    addSize([375, 667], [[300, 50], [320, 50]]). //phone
     addSize([0, 0], [300, 50], [320, 50]). //other
     build();
     article_cube_mapping = googletag.sizeMapping()
@@ -353,16 +353,16 @@ var dfp = {
     addSize([992, 0], [ [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
-    addSize([640, 480], [300, 50], [320, 50]). //phone
-    addSize([375, 667], [300, 50], [320, 50]). //phone
-    addSize([0, 0], [300, 50], [320, 50]). //other
+    addSize([640, 480], [[300, 50], [320, 50]]). //phone
+    addSize([375, 667], [[300, 50], [320, 50]]). //phone
+    addSize([0, 0], [[300, 50], [320, 50]]). //other
     build();
     article_leaderboard_mapping = googletag.sizeMapping().
     addSize([992, 0], [ [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
-    addSize([640, 480], [320, 50], [300, 50]). //phone
-    addSize([375, 667], [320, 50], [300, 50]). //phone
+    addSize([640, 480], [[320, 50], [300, 50]]). //phone
+    addSize([375, 667], [[320, 50], [300, 50]]). //phone
     addSize([0, 0], [320, 50], [300, 50]). //other
     build();
     sf_mapping = googletag.sizeMapping()
@@ -379,8 +379,6 @@ var dfp = {
       .addSize([0, 0], [320, 50]) //other
       .build();
     if (dfp.front_page) {
-      googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
-      .addService(googletag.pubads()).setTargeting("pos", "1x1");
     googletag.defineSlot(adUnitPath, [[300, 600]], 'div-gpt-rr-cube-1')
 	  .defineSizeMapping(hp_cube_mapping)
       .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
@@ -438,6 +436,10 @@ var dfp = {
 		.addService(googletag.pubads())
 		.setTargeting("pos", "SkyScraper");
     }
+    if ( dfp.front_page || dfp.article || dfp.section || dfp.author ) {
+      googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
+        .addService(googletag.pubads()).setTargeting("pos", "1x1");
+	}
     if(dfp.gallery) {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
         .addService(googletag.pubads())
