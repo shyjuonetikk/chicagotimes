@@ -233,26 +233,6 @@
 		<div class="cst-ad-container">
 			<img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]">
 		</div>
-		<div id="cst_newspaper_covers-2" class="widget widget_cst_newspaper_covers row more-stories-container">
-			<hr>
-			<div class="large-12 small-12 columns widget_cst_todays_paper_widget">
-				<div><h3 class="more-sub-head">Today's Cover</h3></div>
-				<div class="todays-paper-container">
-					<div class="todays-paper-front large-12 medium-6 small-12">
-						<a href="">
-							<img src="https://suntimesmedia.files.wordpress.com/2017/05/news1.png?w=297&amp;h=287&amp;crop=1" scale="0">
-						</a>
-					</div>
-					<div class="todays-paper-back large-12 medium-6 small-12">
-						<div class="todays-paper-links">
-							<a href="http://chicago.suntimes.com/subscribe/" target="_blank" class="button tiny radius">Subscribe</a>
-							<a href="http://eedition.suntimes.com/epaper/viewer.aspx" target="_blank" class="button secondary tiny radius">E-Paper</a>
-						</div>
-						<img src="https://suntimesmedia.files.wordpress.com/2017/05/sports1.png?w=297&amp;h=287&amp;crop=1" scale="0">
-					</div>
-				</div>
-			</div>
-		</div>
 		<hr>
 		<div class="more-stories-container hide-for-landscape">
 			<div class="small-12 columns">
