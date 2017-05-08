@@ -1362,7 +1362,7 @@ class CST_Frontend {
 	 */
 	public function action_head_early_elements() {
 
-		?>
+?>
 <!-- Chartbeat header -->
 <script type='text/javascript'>var _sf_startpt=(new Date()).getTime()</script>
 <!-- End Chartbeat header -->
@@ -1373,16 +1373,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-5VPTL3X');</script>
 <!-- End Google Tag Manager -->
-		<?
+<?
 	}
+	/**
+	* Matching GTM script
+	*/
 	public function action_body_start() {
 
-		?>
+?>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VPTL3X"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-		<?
+<?
 	}
 
 	/**
