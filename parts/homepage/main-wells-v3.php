@@ -90,8 +90,8 @@
 					'orderby'             => 'modified',
 				);
 				CST()->frontend->cst_mini_stories_content_block( $query ); ?>
-				<hr>
 				<div class="other-stories show-for-large-up">
+				<hr>
 					<h2>Also in the Chicago Sun-Times</h2>
 					<ul class="list">
 						<li><span class="section-name"><a href="#" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">Mentally ill woman gets 22 years for killing husband with poison</a></li>
@@ -171,7 +171,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="show-for-large-up">
+					<div class="show-for-large-up hide-for-portrait">
 						<div class="small-12 columns more-stories-container">
 							<hr>
 							<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
@@ -207,9 +207,9 @@
 				</ul>
 			</div>
 		</div>
-		<hr>
 		<div class="row more-stories-container">
 			<div class="columns small-12">
+			<hr>
 				<?php $section_slug = 'opinion'; ?>
 				<h3 class="more-sub-head">
 					<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
@@ -230,13 +230,13 @@
 				</div>
 			</div>
 		</div>
-		<hr>
 		<div class="cst-ad-container">
+			<hr>
 			<img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]">
 		</div>
-		<hr>
 		<div class="row more-stories-container hide-for-landscape">
 			<div class="small-12 columns">
+				<hr>
 				<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
 				<?php
 				$query = array(
@@ -249,12 +249,14 @@
 				);
 				CST()->frontend->cst_mini_stories_content_block( $query ); ?>
 			</div>
-			<hr>
 		</div>
 		<div>
-			<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?>
 			<hr>
+			<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?>
 		</div>
-		<div class="show-for-medium-up"><img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
+		<div class="show-for-medium-up">
+			<hr>
+			<img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]">
+		</div>
 	</div>
 </div>

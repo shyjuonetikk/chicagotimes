@@ -2067,7 +2067,7 @@ section#subscribe {
     section#subscribe .just-in-wrapper .traffic-alerts {
       text-align: right;
       color: #282828;
-      border-right: 1px solid #eeeeee;
+      border-right: 1px solid #dedede;
       line-height: 1rem; }
       section#subscribe .just-in-wrapper .traffic-alerts .traffic-icon {
         max-height: 35px;
@@ -2089,7 +2089,7 @@ section#subscribe {
     section#subscribe .just-in-wrapper .weather-alerts {
       color: #282828;
       text-align: right;
-      border-right: 1px solid #eeeeee;
+      border-right: 1px solid #dedede;
       line-height: 1rem; }
       section#subscribe .just-in-wrapper .weather-alerts .wi {
         font-size: 2rem; }
@@ -2163,7 +2163,7 @@ section#subscribe {
       color: #282828; }
     section#subscribe .headlines .lead {
       margin-bottom: 10px;
-      border-bottom: 1px solid #eeeeee; }
+      border-bottom: 1px solid #dedede; }
       section#subscribe .headlines .lead h2 {
         font-size: 1.5rem;
         font-weight: 700;
@@ -2179,13 +2179,13 @@ section#subscribe {
       font-weight: 700;
       line-height: 1.1rem;
       margin-bottom: 10px;
-      border-bottom: 1px solid #eeeeee;
+      border-bottom: 1px solid #dedede;
       padding-bottom: 10px; }
     section#subscribe .headlines .secondary:last-child {
       border-bottom: none; }
   section#subscribe .top-cube {
     padding: 20px;
-    border-left: 1px solid #eeeeee; }
+    border-left: 1px solid #dedede; }
   section#subscribe .trending {
     margin-top: 15px; }
     section#subscribe .trending ul {
@@ -2210,7 +2210,7 @@ section#subscribe {
       min-width: 200px;
       max-width: 250px;
       font-weight: 700;
-      border-right: 1px solid #eeeeee;
+      border-right: 1px solid #dedede;
       padding: 0 15px;
       vertical-align: top;
       font-family: 'Open Sans', Arial, sans-serif;
@@ -3583,6 +3583,10 @@ body.post-gallery-lightbox-active {
   overflow: hidden; }
   .homepage_wrapper .homepage-content .newsletter-box .button.tiny {
     margin-bottom: 0; }
+.homepage_wrapper .homepage-content .homepage-sidebar .cst-ad-container {
+  text-align: right;
+  max-width: 320px;
+  margin: 0 auto; }
 .homepage_wrapper .stories-container {
   padding-top: 10px; }
   .homepage_wrapper .stories-container .stories p, .homepage_wrapper .stories-container .stories li {
@@ -3598,11 +3602,11 @@ body.post-gallery-lightbox-active {
     margin-left: 0;
     padding-left: 0; }
     .homepage_wrapper .stories-container .stories .lead-related-stories-collection li {
-      border-bottom: 1px solid #9a9a9a; }
+      border-bottom: 1px solid #dedede; }
       .homepage_wrapper .stories-container .stories .lead-related-stories-collection li:last-child {
         border-bottom: none; }
   .homepage_wrapper .stories-container .stories .lead-story {
-    border-bottom: 1px solid #9a9a9a;
+    border-bottom: 1px solid #dedede;
     float: left;
     padding-bottom: 1rem;
     margin-bottom: 0.25rem; }
@@ -3632,11 +3636,11 @@ body.post-gallery-lightbox-active {
     font-size: 1rem;
     font-family: 'Libre Franklin', Arial, sans-serif;
     font-weight: 400;
-    background-color: #231f20;
-    color: #ffe000;
+    background-color: #dedede;
+    color: #231f20;
     padding: 0.25rem; }
     .homepage_wrapper .stories-container .more-stories-container .more-sub-head a {
-      color: #ffe000; }
+      color: #231f20; }
   .homepage_wrapper .stories-container .more-stories-container .stories-list {
     float: left; }
     .homepage_wrapper .stories-container .more-stories-container .stories-list h3 {
@@ -3692,10 +3696,6 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .stories-container h3.alt-title {
       font-size: 0.9rem;
       line-height: 1.1rem; }
-  .homepage_wrapper .stories-container .sidebar .cst-ad-container {
-    float: none;
-    max-width: 320px;
-    margin: 0 auto; }
 .homepage_wrapper .latest-stories a {
   color: #231f20; }
 .homepage_wrapper .other-stories h2 {
@@ -3709,7 +3709,9 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .other-stories .list li {
     list-style-type: none;
     margin-bottom: 0.35rem;
-    border-bottom: 1px solid #9a9a9a; }
+    border-bottom: 1px solid #dedede; }
+    .homepage_wrapper .other-stories .list li:last-child {
+      border-bottom: none; }
     .homepage_wrapper .other-stories .list li .section-name {
       text-transform: uppercase;
       font-weight: 600; }
@@ -3719,7 +3721,7 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .sidebar {
     clear: both; } }
 .homepage_wrapper .widget-chartbeat-currently-viewing {
-  background-color: #f8f8f8;
+  background-color: #dedede;
   margin-left: 0 !important;
   font-size: 12px;
   font-weight: 700; }
@@ -3735,7 +3737,7 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .widget-chartbeat-currently-viewing li a {
       color: #282828; }
   .homepage_wrapper .widget-chartbeat-currently-viewing li:hover a, .homepage_wrapper .widget-chartbeat-currently-viewing li:hover span, .homepage_wrapper .widget-chartbeat-currently-viewing li:hover {
-    background: #f8f8f8;
+    background: #dedede;
     color: #282828; }
   .homepage_wrapper .widget-chartbeat-currently-viewing .section {
     color: #7d7e7e;
@@ -3750,8 +3752,8 @@ body.post-gallery-lightbox-active {
   font-size: 1rem;
   font-weight: 400;
   text-transform: uppercase;
-  background-color: #231f20;
-  color: #ffe000;
+  background-color: #dedede;
+  color: #231f20;
   padding: 0.25rem; }
 @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
   .homepage_wrapper .stories-container .stories {
@@ -3809,11 +3811,11 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .widget_cst_todays_paper_widget:hover .todays-paper-back {
     display: block; }
 .homepage_wrapper section#section-column-wells .section-list {
-  background-color: #f8f8f8;
+  background-color: white;
   border: 1px solid #cccccc;
   margin-bottom: 20px; }
   .homepage_wrapper section#section-column-wells .section-list h3 {
-    font-size: 16px;
+    font-size: 1rem;
     text-transform: uppercase;
     font-weight: 700;
     padding: 0 0 2px 10px;
@@ -3826,7 +3828,7 @@ body.post-gallery-lightbox-active {
     height: 0;
     left: 0;
     top: 25px;
-    border-bottom: 7px solid; }
+    border-bottom: 7px solid #231f20; }
   .homepage_wrapper section#section-column-wells .section-list img {
     width: 100%; }
   .homepage_wrapper section#section-column-wells .section-list ul {
@@ -3834,7 +3836,7 @@ body.post-gallery-lightbox-active {
     margin-left: 0;
     margin-bottom: 0; }
     .homepage_wrapper section#section-column-wells .section-list ul li {
-      border-bottom: 1px solid #eeeeee;
+      border-bottom: 1px solid #dedede;
       font-size: 14px;
       line-height: 16px;
       padding: 10px;
