@@ -126,8 +126,8 @@
 				<div class="row">
 					<div class="columns small-12 medium-6 large-4">
 						<h3 class="more-sub-head">Latest Stories</h3>
-						<div class="row section-column-wells latest-stories">
-							<div class="section-list">
+						<div class="row">
+							<div class="stories-list">
 								<?php $query = array(
 									'post_type'           => array( 'cst_article' ),
 									'ignore_sticky_posts' => true,
@@ -165,15 +165,15 @@
 												'post_status'         => 'publish',
 												'orderby'             => 'modified',
 											);
-											CST()->frontend->cst_mini_stories_content_block( $query ); ?>
+											CST()->frontend->cst_mini_stories_content_block( $query, 'medium-12' ); ?>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="show-for-large-up">
-						<hr>
 						<div class="small-12 columns more-stories-container">
+							<hr>
 							<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
 							<?php
 							$query = array(
@@ -215,8 +215,8 @@
 					<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
 					   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title">
 						<?php esc_html_e( ucfirst( $section_slug ), 'chicagosuntimes' ); ?></a></h3>
-				<div class="row section-column-wells latest-stories">
-					<div class="section-list">
+				<div class="row">
+					<div class="stories-list">
 						<?php $query = array(
 							'post_type'           => array( 'cst_article' ),
 							'ignore_sticky_posts' => true,
@@ -235,9 +235,9 @@
 			<img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]">
 		</div>
 		<hr>
-		<div class="more-stories-container hide-for-landscape">
+		<div class="row more-stories-container hide-for-landscape">
 			<div class="small-12 columns">
-				<h3><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
+				<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
 				<?php
 				$query = array(
 					'post_type'           => array( 'cst_article' ),
@@ -249,12 +249,12 @@
 				);
 				CST()->frontend->cst_mini_stories_content_block( $query ); ?>
 			</div>
+			<hr>
 		</div>
-		<hr>
-		<div class="show-for-large-up"><?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?></div>
+		<div>
+			<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?>
+			<hr>
+		</div>
 		<div class="show-for-medium-up"><img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]"></div>
-	</div>
-	<div class="small-12 columns">
-		<div class="hide-for-large-up"><?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?></div>
 	</div>
 </div>

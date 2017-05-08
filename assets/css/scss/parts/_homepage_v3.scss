@@ -23,16 +23,6 @@
 	.stories-container {
 		padding-top: 10px;
 		.stories {
-			h3 {
-				font-size: 1.1rem;
-				line-height: 1.4rem;
-				margin-top: 0;
-				font-weight: 700;
-				&.alt-title {
-					font-size: 0.9rem;
-					line-height: 1.1rem;
-				}
-			}
 			p,
 			li {
 				font-size: 0.9rem;
@@ -85,169 +75,29 @@
 					}
 				}
 			}
-			.mini-stories {
-				margin-bottom: 0.625rem;
-				h3 {
-					font-size: 0.9rem;
-					line-height: 1.2rem;
-				}
-				.mini-story {
-					box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
-					display: inline-block;
-					float: left;
-					padding-top: 0.625rem;
-					.image {
-						margin-right: 0.25rem;
-						padding: 0 0.625rem;
-					}
-					img,
-					.image,
-					.authors {
-						float: left;
-					}
-					.authors {
-						margin-left: 0.625rem;
-					}
-				}
-				.byline {
-					margin-top:0.5rem;
-				}
-			}
-			.more-stories-container {
-				h3 {
-					font-size: 0.9rem;
-					line-height: 1.2rem;
-				}
-				.authors {
-					font-size: 0.8rem;
-					line-height: 1.3;
-				}
-				.more-sub-head {
-					text-transform: uppercase;
-					font-size: 1rem;
-					font-family: $homepage_font;
-					font-weight: 400;
-					background-color: $cst_black;
-					color: $cst_yellow;
-					padding: 0.5rem 0.25rem;
-					a {
-						color: $cst_yellow;
-					}
-				}
-				.section-list {
-					float: left;
-
-					h3 {
-						font-size: 1rem;
-						text-transform: uppercase;
-						font-weight: 600;
-						padding: 0 0 2px 10px;
-						position: relative;
-						width: 100%;
-						color: $cst_black;
-					}
-
-					.latest-story {
-						font-size: 0.8rem;
-						line-height: 1rem;
-						padding: 0.4rem 0 0 0;
-						clear: both;
-						.image-right {
-							float: right;
-							margin: 0 0 0 0.4rem;
-						}
-						.title {
-							a {
-								color: $cst_black;
-							}
-						}
-						> a {
-							color: $cst_black;
-							display: inline-block;
-							font-weight: 600;
-						}
-					}
-				}
-				.featured-story {
-					h3 {
-						font-size: 1.2rem;
-						line-height: 1.5rem;
-					}
-					.featured-story-hero {
-						width: 100%;
-					}
-				}
-				hr {
-					margin: 0.25rem 0;
-				}
-			}
 		}
-		.sidebar {
-			.cst-ad-container {
-				float: none;
-				max-width: 320px;
-				margin: 0 auto;
+		.more-stories-container {
+			h3 {
+				font-size: 0.9rem;
+				line-height: 1.2rem;
 			}
-			.more-stories-container {
-				h3 {
-					font-size: 0.9rem;
-					line-height: 1.2rem;
-				}
-				.authors {
-					font-size: 0.8rem;
-					line-height: 1.3;
-				}
-				.more-sub-head {
-					text-transform: uppercase;
-					font-size: 1rem;
-					font-family: $homepage_font;
-					font-weight: 600;
-				}
-				.section-list {
-					float: left;
-
-					h3 {
-						font-size: 1rem;
-						text-transform: uppercase;
-						font-weight: 600;
-						padding: 0 0 2px 10px;
-						position: relative;
-						width: 100%;
-					}
-
-					.latest-story {
-						border-top: 1px solid $homepage_border_grey;
-						font-size: 0.8rem;
-						line-height: 1rem;
-						padding: 0.4rem 0 0 0;
-						clear: both;
-						.image-right {
-							float: right;
-							margin: 0 0 0 0.4rem;
-						}
-						.title {
-							a {
-								color: $cst_black;
-							}
-						}
-						> a {
-							color: $cst_black;
-							display: inline-block;
-							font-weight:600;
-						}
-					}
-				}
-				.featured-story {
-					h3 {
-						font-size: 1.2rem;
-						line-height: 1.5rem;
-					}
-				}
-				hr {
-					margin: 0.25rem 0;
+			.authors {
+				font-size: 0.8rem;
+				line-height: 1.3;
+			}
+			.more-sub-head {
+				text-transform: uppercase;
+				font-size: 1rem;
+				font-family: $homepage_font;
+				font-weight: 400;
+				background-color: $cst_black;
+				color: $cst_yellow;
+				padding: 0.25rem;
+				a {
+					color: $cst_yellow;
 				}
 			}
-			.section-list {
+			.stories-list {
 				float: left;
 
 				h3 {
@@ -257,10 +107,12 @@
 					padding: 0 0 2px 10px;
 					position: relative;
 					width: 100%;
+					color: $cst_black;
 				}
 
 				.latest-story {
-					border-top: 1px solid $homepage_border_grey;
+					font-size: 0.8rem;
+					line-height: 1rem;
 					padding: 0.4rem 0 0 0;
 					clear: both;
 					.image-right {
@@ -270,44 +122,66 @@
 					.title {
 						a {
 							color: $cst_black;
+							font-weight:600;
+							font-size: 0.9rem;
+							line-height: 1rem;
 						}
-					}
-					> a {
-						color: $cst_black;
-						display: inline-block;
-						font-size: 0.8rem;
-						line-height: 1rem;
 					}
 				}
 			}
-			.mini-stories {
-				margin-bottom: 0.625rem;
+			.featured-story {
 				h3 {
-					font-size: 1rem;
-					line-height: 1.2rem;
+					font-size: 1.2rem;
+					line-height: 1.5rem;
 				}
-				.mini-story {
-					box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
-					display: inline-block;
+				.featured-story-hero {
+					width: 100%;
+				}
+			}
+		}
+		.mini-stories {
+			margin-bottom: 0.625rem;
+			h3 {
+				font-size: 0.9rem;
+				line-height: 1.2rem;
+			}
+			.mini-story {
+				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+				display: inline-block;
+				float: left;
+				padding-top: 0.625rem;
+				.image {
+					margin-right: 0.25rem;
+					padding: 0 0.625rem;
+				}
+				img,
+				.image,
+				.authors {
 					float: left;
-					padding-top: 0.625rem;
-					.image {
-						margin-right: 0.25rem;
-						padding: 0 0.625rem;
-					}
-					img,
-					.image,
-					.authors {
-						float: left;
-					}
-					.authors {
-						margin-left: 0.625rem;
-					}
 				}
-				.byline {
-					margin-top:0.5rem;
+				.authors {
+					margin-left: 0.625rem;
 				}
-
+			}
+			.byline {
+				margin-top:0.5rem;
+			}
+		}
+		h3 {
+			font-size: 1.1rem;
+			line-height: 1.4rem;
+			margin-top: 0;
+			font-weight: 700;
+			&.alt-title {
+				font-size: 0.9rem;
+				line-height: 1.1rem;
+			}
+		}
+		.sidebar {
+			.cst-ad-container {
+				float: none;
+				max-width: 320px;
+				margin: 0 auto;
 			}
 		}
 	}
@@ -396,7 +270,7 @@
 		text-transform: uppercase;
 		background-color: $cst_black;
 		color: $cst_yellow;
-		padding: 0.5rem 0.25rem;
+		padding: 0.25rem;
 	}
 	@media #{$xmedium-only} and (orientation: portrait) {
 		.stories-container {

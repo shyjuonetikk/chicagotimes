@@ -1049,7 +1049,7 @@ class CST_Frontend {
 		echo wp_kses_post( $cached_content );
 	}
 
-	public function cst_mini_stories_content_block( $content_query ) {
+	public function cst_mini_stories_content_block( $content_query, $class_modifier = 'medium-6' ) {
 
 		$cache_key = md5( json_encode( $content_query ) );
 		$cached_content = wpcom_vip_cache_get( $cache_key );
@@ -1061,7 +1061,7 @@ class CST_Frontend {
 					<?php while ( $items->have_posts() ) {
 					$items->the_post();
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );?>
-					<div class="single-mini-story small-12 medium-6 large-6" data-equalizer-watch>
+					<div class="single-mini-story small-12 <?php echo esc_attr( $class_modifier ); ?> large-6" data-equalizer-watch>
 						<div class="columns small-3 medium-4 large-4">
 							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 							<?php

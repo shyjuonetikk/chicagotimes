@@ -36,7 +36,7 @@
       this.breakingSectionClose = $('.close-breaking-section');
       this.bearsCube = $('.bears-cube-story');
       this.bearsCubeClose = $('.close-bears-cube');
-      this.header = $('header');
+      this.header = $('#header');
       this.dfpSBB = $('#div-gpt-sbb-1');
       this.interstitial = $('#div-gpt-interstitial');
       this.interstitialContainer = $('#dfp-interstitial-container');
