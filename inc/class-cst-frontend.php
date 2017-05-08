@@ -1049,9 +1049,15 @@ class CST_Frontend {
 		echo wp_kses_post( $cached_content );
 	}
 
-	public function cst_mini_stories_content_block( $content_query, $class_modifier = 'medium-6' ) {
+	/**
+	* A 2 x 2 block of content, each have image with title and anchored
+	* Optionally a 5th piece of content on left of 2 x 2 block of content
+	* @param $content_query
+	*/
+	public function cst_mini_stories_content_block( $content_query ) {
 
 		$cache_key = md5( json_encode( $content_query ) );
+		$close_me = false;
 		$cached_content = wpcom_vip_cache_get( $cache_key );
 		if ( false === $cached_content || WP_DEBUG ) {
 			$items = new \WP_Query( $content_query );
@@ -1060,29 +1066,20 @@ class CST_Frontend {
 			<div class="row mini-stories" data-equalizer>
 					<?php while ( $items->have_posts() ) {
 					$items->the_post();
-					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );?>
-					<div class="single-mini-story small-12 <?php echo esc_attr( $class_modifier ); ?> large-6" data-equalizer-watch>
-						<div class="columns small-3 medium-4 large-4">
-							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-							<?php
-								$featured_image_id = $obj->get_featured_image_id();
-								if ( $featured_image_id )  {
-									$image_url = wp_get_attachment_image_url( $featured_image_id, 'chiwire-small-square' );
-									if ( $image_url ) {
-										$image_markup = sprintf( '<img class="image-right" src="%1$s" width="80" >', esc_url( $image_url ) );
-										echo wp_kses_post( $image_markup );
-									}
-								}
-							?>
-							</a>
-						</div>
-						<div class="columns small-9 medium-8 large-8">
-							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-								<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
-							</a>
-						</div>
-						<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
-					</div>
+					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+					if ( 0 === $items->current_post && ( 0 !== $items->post_count%2 ) ) {
+						// First item and odd total
+						?>
+<div class="single-mini-story small-12 medium-4">
+	<?php $this->single_mini_story( $obj, 'alternate' ); $close_me = true; ?>
+</div><!-- First one -->
+<div class="single-mini-story small-12 medium-8">
+					<?php } else {
+						$this->single_mini_story( $obj, 'regular' );
+					} ?>
+				<?php if ( $close_me && ( $items->post_count - 1 ) === $items->current_post ) { ?>
+				</div><!-- right four -->
+				<?php } ?>
 			<?php } ?>
 			</div>
 			<?php }
@@ -1090,6 +1087,52 @@ class CST_Frontend {
 			wpcom_vip_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
 		}
 		echo wp_kses_post( $cached_content );
+	}
+
+	/**
+	* A mini story content block as part of 2 x 2 or 1 + 2 x 2 (5)
+	* @param $obj
+	* @param $layout_type
+	*/
+	public function single_mini_story( $obj, $layout_type) {
+		$layout['alternate'] = array (
+			'wrapper_class' => '',
+			'image_class' => 'small-12',
+			'image_size' => 'secondary-wells',
+			'title_class' => 'small-12',
+			'watch' => '',
+		);
+		$layout['regular'] = array (
+			'wrapper_class' => 'medium-6',
+			'image_class' => 'small-3 medium-4 large-4',
+			'image_size' => 'chiwire-small-square',
+			'title_class' => 'small-9 medium-8 large-8',
+			'watch' => 'data-equalizer-watch',
+		);
+		?>
+<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo esc_attr( $layout[$layout_type]['watch']); ?>>
+	<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
+		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+		<?php
+			$featured_image_id = $obj->get_featured_image_id();
+			if ( $featured_image_id )  {
+				$attachment = wp_get_attachment_metadata( $featured_image_id );
+				if ( $attachment ) {
+					$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], $attachment['image_meta']['caption'], 'right', $layout[$layout_type]['image_size']);
+					echo wp_kses_post( $image_markup );
+				}
+			}
+		?>
+		</a>
+	</div>
+	<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?>">
+		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+		</a>
+	</div>
+	<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
+</div>
+		<?php
 	}
 	/**
 	 * Fetch and output content from the specified section

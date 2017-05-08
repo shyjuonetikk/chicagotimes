@@ -111,7 +111,7 @@
 				$query = array(
 					'post_type'           => array( 'cst_article' ),
 					'ignore_sticky_posts' => true,
-					'posts_per_page'      => 4,
+					'posts_per_page'      => 5,
 					'post_status'         => 'publish',
 					'cst_section'         => 'sports',
 					'orderby'             => 'modified',
@@ -165,7 +165,7 @@
 												'post_status'         => 'publish',
 												'orderby'             => 'modified',
 											);
-											CST()->frontend->cst_mini_stories_content_block( $query, 'medium-12' ); ?>
+											CST()->frontend->cst_mini_stories_content_block( $query ); ?>
 									</div>
 								</div>
 							</div>
@@ -179,7 +179,7 @@
 							$query = array(
 								'post_type'           => array( 'cst_article' ),
 								'ignore_sticky_posts' => true,
-								'posts_per_page'      => 4,
+								'posts_per_page'      => 5,
 								'post_status'         => 'publish',
 								'cst_section'         => 'entertainment',
 								'orderby'             => 'modified',
