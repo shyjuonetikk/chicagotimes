@@ -9,7 +9,7 @@
 <html <?php language_attributes(); ?>>
 <!--<![endif]-->
 <head>
-	<?php do_action( 'head_early_scripts' ); ?>
+<?php do_action( 'head_early_elements' ); ?>
 <meta charset="<?php echo esc_attr( get_bloginfo( 'charset' ) ); ?>">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
 <meta name="viewport" content="width=device-width">

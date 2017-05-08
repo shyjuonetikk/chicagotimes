@@ -98,7 +98,7 @@ class CST_Frontend {
 		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
 		add_action( 'wp_head', array( $this, 'action_cst_openx_header_bidding_script' ) );
 		add_action( 'wp_head', [ $this, 'action_distroscale_injection' ] );
-		add_action( 'head_early_scripts', [ $this, 'action_head_early_elements' ] );
+		add_action( 'head_early_elements', [ $this, 'action_head_early_elements' ] );
 		add_action( 'body_start', [ $this, 'action_body_start' ] );
 	}
 
