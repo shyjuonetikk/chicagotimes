@@ -157,7 +157,7 @@
 	a {
 		font-size: 1rem;
 		line-height:1rem;
-		color:$cst_black;
+		color:$anchor-highlight;
 		font-family: $article_content;
 	}
 	.nav-holder {
@@ -190,6 +190,7 @@ header {
 				margin: 7px 0 0 0;
 				padding-left: 0;
 				overflow-y: hidden;
+				padding-right:0;
 				&.appear {
 					opacity: 1;
 				}
@@ -202,7 +203,7 @@ header {
 				margin-left: 0;
 				overflow: hidden;
 				height: 45px;
-				max-width: 67rem;
+				max-width: 54.1rem;
 				ul {
 					list-style-type: none;
 					background: $cst_black;

@@ -94,11 +94,11 @@
 				<hr>
 					<h2>Also in the Chicago Sun-Times</h2>
 					<ul class="list">
-						<li><span class="section-name"><a href="#" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">Mentally ill woman gets 22 years for killing husband with poison</a></li>
-						<li><span class="section-name"><a href="#" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">9 charged with Crystal Lake fight that led to stabbing</a></li>
-						<li><span class="section-name"><a href="#" class="section-link">Chicago Sports</a></span> <a href="#" class=" magic-link-size">Anthony Swarzak gettung career back on track with White Sox</a></li>
-						<li><span class="section-name"><a href="#" class="section-link">Entertainment</a></span> <a href="#" class=" magic-link-size">Dear Abby: My friend bullies other kids at school</a></li>
-						<li><span class="section-name"><a href="#" class="section-link">Chicago Politics</a></span> <a href="#" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/news/' ); ?>" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">Mentally ill woman gets 22 years for killing husband with poison</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/news/' ); ?>" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">9 charged with Crystal Lake fight that led to stabbing</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/sports/' ); ?>" class="section-link">Chicago Sports</a></span> <a href="#" class=" magic-link-size">Anthony Swarzak gettung career back on track with White Sox</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/entertainment/' ); ?>" class="section-link">Entertainment</a></span> <a href="#" class=" magic-link-size">Dear Abby: My friend bullies other kids at school</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/politics/' ); ?>" class="section-link">Chicago Politics</a></span> <a href="#" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
 					</ul>
 					<hr>
 					<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
