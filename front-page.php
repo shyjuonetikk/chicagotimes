@@ -25,6 +25,9 @@
 		</div>
 		<!-- circular flipp -->
 		<div class="row">
+			<div class="columns">
+				<hr>
+			</div>
 			<?php
 			if ( is_active_sidebar( 'undermorefrom' ) ) :
 				dynamic_sidebar( 'undermorefrom' );
@@ -40,6 +43,7 @@
 		</div>
 		<div class="row">
 			<div class="large-12 columns content-wrapper cw">
+			<hr>
 				<?php get_template_part( 'parts/homepage/column-wells' ); ?>
 			</div>
 		</div>

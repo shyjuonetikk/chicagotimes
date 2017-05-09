@@ -3585,10 +3585,13 @@ body.post-gallery-lightbox-active {
   overflow: hidden; }
   .homepage_wrapper .homepage-content .newsletter-box .button.tiny {
     margin-bottom: 0; }
-.homepage_wrapper .homepage-content .homepage-sidebar .cst-ad-container {
-  text-align: right;
-  max-width: 320px;
-  margin: 0 auto; }
+.homepage_wrapper .homepage-content .homepage-sidebar {
+  padding-left: 0.6rem;
+  padding-right: 0.6rem; }
+  .homepage_wrapper .homepage-content .homepage-sidebar .cst-ad-container {
+    text-align: right;
+    max-width: 320px;
+    margin: 0 auto; }
 .homepage_wrapper .stories-container {
   padding-top: 10px; }
   .homepage_wrapper .stories-container .stories p, .homepage_wrapper .stories-container .stories li {
@@ -3750,13 +3753,40 @@ body.post-gallery-lightbox-active {
     font-weight: 700; }
   .homepage_wrapper .widget-chartbeat-currently-viewing .time {
     color: #9a9a9a; }
-.homepage_wrapper .widgettitle {
+.homepage_wrapper .widgets .widget .widgettitle {
   font-size: 1rem;
   font-weight: 400;
   text-transform: uppercase;
   background-color: #dedede;
   color: #231f20;
   padding: 0.25rem; }
+.homepage_wrapper .widgets .widget ul {
+  list-style-type: none;
+  margin-left: 0;
+  margin-top: 10px; }
+  @media (max-width: 736px) {
+    .homepage_wrapper .widgets .widget ul {
+      margin-bottom: 0;
+      padding-bottom: 0; } }
+  .homepage_wrapper .widgets .widget ul.constrain {
+    overflow: auto;
+    max-height: 300px; }
+  .homepage_wrapper .widgets .widget ul li {
+    border-top: 1px solid #9a9a9a;
+    padding: 5px; }
+    @media (min-width: 1026px) {
+      .homepage_wrapper .widgets .widget ul li {
+        font-size: 12px; } }
+    @media (min-width: 737px) and (max-width: 1025px) {
+      .homepage_wrapper .widgets .widget ul li {
+        font-size: 18px; } }
+    @media (max-width: 736px) {
+      .homepage_wrapper .widgets .widget ul li {
+        font-size: 16px; } }
+    .homepage_wrapper .widgets .widget ul li a:hover {
+      color: #cdcdcd; }
+  .homepage_wrapper .widgets .widget ul li:hover {
+    background: white; }
 @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
   .homepage_wrapper .stories-container .stories {
     width: 57%; }

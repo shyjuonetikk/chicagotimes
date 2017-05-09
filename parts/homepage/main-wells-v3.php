@@ -192,7 +192,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar">
+	<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 		<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad-will-be-responsive]"></div>
 		<div class="more-stories-container hide-for-large-up">
 			<hr>
@@ -252,11 +252,17 @@
 		</div>
 		<div>
 			<hr>
-			<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' )?>
+			<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' ); ?>
 		</div>
 		<div class="show-for-medium-up">
 			<hr>
 			<img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]">
+		</div>
+		<div class="show-for-medium-up">
+			<hr>
+			<div class="row">
+				<?php the_widget( 'CST_STNG_Wire_Widget' ); ?>
+			</div>
 		</div>
 	</div>
 </div>

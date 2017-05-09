@@ -23,7 +23,7 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 		?>
 		<div class="large-12 small-12 columns widget_cst_stng_wire_widget">
 			<h2 class="widgettitle"><?php esc_html_e( 'Wire Updates', 'chicagosuntimes' ); ?></h2>
-			<ul class="widget-stng-wire-posts">
+			<ul class="widget-stng-wire-posts<?php if ( is_front_page() ) { echo esc_attr( ' constrain' ); } ?>">
 				<?php
 				$stng_items = CST()->frontend->cst_homepage_fetch_feed( $feed_url, 10 );
 				if ( count( $stng_items ) > 0 ) :
