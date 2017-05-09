@@ -100,8 +100,10 @@
 			<div class="columns">
 
 	<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
+				<?php if ( get_query_var( 'showads', false ) ) { ?>
 			<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left"></div>
 			<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right"></div>
+					<?php } ?>
 	<?php } ?>
 		<div class="logo-wrapper large-logo">
 			<div class="logo">

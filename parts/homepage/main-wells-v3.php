@@ -93,13 +93,8 @@
 				<div class="other-stories show-for-large-up">
 				<hr>
 					<h2>Trending the Chicago Sun-Times</h2>
-					<ul class="cb-list">
-						<li class="cb-articles"><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/news/' ); ?>" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">Mentally ill woman gets 22 years for killing husband with poison</a></li>
-						<li class="cb-articles"><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/news/' ); ?>" class="section-link">Chicago News</a></span> <a href="#" class=" magic-link-size">9 charged with Crystal Lake fight that led to stabbing</a></li>
-						<li class="cb-articles"><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/sports/' ); ?>" class="section-link">Chicago Sports</a></span> <a href="#" class=" magic-link-size">Anthony Swarzak gettung career back on track with White Sox</a></li>
-						<li class="cb-articles"><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/entertainment/' ); ?>" class="section-link">Entertainment</a></span> <a href="#" class=" magic-link-size">Dear Abby: My friend bullies other kids at school</a></li>
-						<li class="cb-articles"><span class="section-name"><a href="<?php echo esc_url( get_home_url( '/' ) . '/blog/section/politics/' ); ?>" class="section-link">Chicago Politics</a></span> <a href="#" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
-					</ul>
+					<div id="root"></div>
+					<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.7ab4a033.js"></script>
 					<hr>
 					<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
 				</div>
@@ -119,7 +114,9 @@
 				CST()->frontend->cst_mini_stories_content_block( $query ); ?>
 			</div>
 		</div>
-		<div class="cst-ad-container"><img src="http://placehold.it/970x90/a0a0d0/130100&amp;text=[ad-will-be-responsive]"></div>
+		<?php if ( get_query_var( 'showads', false ) ) { ?>
+			<div class="cst-ad-container"><img src="http://placehold.it/970x90/a0a0d0/130100&amp;text=[ad-will-be-responsive]"></div>
+		<?php } ?>
 		<hr>
 		<div class="row more-stories-container">
 			<div class="columns small-12">
@@ -193,7 +190,9 @@
 		</div>
 	</div>
 	<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
+		<?php if ( get_query_var( 'showads', false ) ) { ?>
 		<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad-will-be-responsive]"></div>
+		<?php } ?>
 		<div class="more-stories-container hide-for-large-up">
 			<hr>
 			<div class="other-stories">
@@ -230,10 +229,12 @@
 				</div>
 			</div>
 		</div>
+		<?php if ( get_query_var( 'showads', false ) ) { ?>
 		<div class="cst-ad-container">
 			<hr>
 			<img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]">
 		</div>
+		<?php } ?>
 		<div class="row more-stories-container hide-for-landscape">
 			<div class="small-12 columns">
 				<hr>
@@ -256,7 +257,9 @@
 		</div>
 		<div class="show-for-medium-up">
 			<hr>
+			<?php if ( get_query_var( 'showads', false ) ) { ?>
 			<img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]">
+			<?php } ?>
 		</div>
 		<div class="show-for-medium-up">
 			<hr>
