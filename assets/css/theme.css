@@ -3707,6 +3707,21 @@ body.post-gallery-lightbox-active {
   font-size: 1.1rem;
   line-height: 1.3rem;
   font-weight: 600; }
+.homepage_wrapper .other-stories .cb-list {
+  margin-left: 0.1rem;
+  padding: 0; }
+.homepage_wrapper .other-stories .cb-articles {
+  list-style-type: none;
+  padding: 5px;
+  text-align: left;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  border: 1px solid #231f20;
+  margin-bottom: 0.5rem; }
+.homepage_wrapper .other-stories .section-name {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-right: 0.5rem; }
 .homepage_wrapper .other-stories .list {
   margin-left: 0;
   padding-left: 0;
