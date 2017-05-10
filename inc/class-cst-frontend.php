@@ -98,6 +98,8 @@ class CST_Frontend {
 		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
 		add_action( 'wp_head', array( $this, 'action_cst_openx_header_bidding_script' ) );
 		add_action( 'wp_head', [ $this, 'action_distroscale_injection' ] );
+		add_action( 'head_early_elements', [ $this, 'action_head_early_elements' ] );
+		add_action( 'body_start', [ $this, 'action_body_start' ] );
 	}
 
 	/**
@@ -1353,6 +1355,37 @@ class CST_Frontend {
 			$author = $author_data->get_display_name();
 		}
 		return $author;
+	}
+
+	/**
+	 * End of head tag for Google Tag Manager as per GTM implementation
+	 */
+	public function action_head_early_elements() {
+
+?>
+<!-- Chartbeat header -->
+<script type='text/javascript'>var _sf_startpt=(new Date()).getTime()</script>
+<!-- End Chartbeat header -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5VPTL3X');</script>
+<!-- End Google Tag Manager -->
+<?
+	}
+	/**
+	* Matching GTM script
+	*/
+	public function action_body_start() {
+
+?>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5VPTL3X"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<?
 	}
 
 	/**
