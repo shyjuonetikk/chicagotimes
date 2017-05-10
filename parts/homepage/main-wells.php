@@ -63,4 +63,4 @@
 		</div>
 	</div>
 </div>
-<?php echo wp_kses( CST()->dfp_handler->sbb( 2 ), CST()->dfp_kses );
+<?php echo wp_kses( CST()->dfp_handler->sbb( 1 ), CST()->dfp_kses );
