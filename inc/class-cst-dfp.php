@@ -318,7 +318,7 @@ var dfp = {
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [[300, 50], [320, 50]]). //phone
     addSize([375, 667], [[300, 50], [320, 50]]). //phone
-    addSize([0, 0], [300, 50], [320, 50]). //other
+    addSize([0, 0], [[300, 50], [320, 50]]). //other
     build();
     article_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
@@ -333,13 +333,13 @@ var dfp = {
 	  .addSize([992, 0], [[184,90]]) //desktop
 	  .build();
     hp_cube_mapping = googletag.sizeMapping()
-      .addSize([0, 0], []) //other
 	  .addSize([1025, 0], [[300, 600]]) //desktop
 	  .addSize([768,1024], [[300, 600]]) //desktop no sidebar
 	  .addSize([768, 0], [[300, 600]]) //desktop
 	  .addSize([732, 0], [[300, 250]]) //mobile device
 	  .addSize([640, 480], [[320, 50], [300, 50]]) //phone
 	  .addSize([375, 667], [[320, 50], [300, 50]]) //phone
+	  .addSize([0, 0], [[300, 50], [320, 50]])
 	  .build();
     gallery_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
