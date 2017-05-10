@@ -3594,8 +3594,7 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .dfp-atf-leaderboard img, .homepage_wrapper .dfp-btf-leaderboard img {
     width: 728px; }
   .homepage_wrapper .dfp-cube {
-    margin-bottom: 5px;
-    max-width: 300px; }
+    margin-bottom: 5px; }
   .homepage_wrapper .cube-left > .dfp-cube {
     float: left; }
   .homepage_wrapper .cube-right > .dfp-cube {
