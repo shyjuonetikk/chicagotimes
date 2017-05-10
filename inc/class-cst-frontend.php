@@ -1071,7 +1071,10 @@ class CST_Frontend {
 						// First item and odd total
 						?>
 <div class="single-mini-story small-12 medium-4">
-	<?php $this->single_mini_story( $obj, 'alternate' ); $close_me = true; ?>
+	<?php
+	$this->single_mini_story( $obj, 'alternate' );
+	$close_me = true;
+	?>
 </div><!-- First one -->
 <div class="single-mini-story small-12 medium-8">
 					<?php } else {
@@ -1125,7 +1128,12 @@ class CST_Frontend {
 		?>
 		</a>
 	</div>
-	<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?>">
+	<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-portrait">
+		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+		</a>
+	</div>
+	<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-landscape">
 		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 		</a>

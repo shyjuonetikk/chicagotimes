@@ -57,6 +57,9 @@
 						Charles DeHaan got nine years in prison for fraudulently billing Medicare at house calls where prosecutors allege he sexually assaulted patients.</p>
 					<p class="authors">By Andy Grimm - 1 hour ago</p>
 				</div>
+				<div class="show-for-large-up">
+					<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+				</div>
 			</div>
 			<div class="columns small-12 large-8">
 				<div class="show-for-medium-only"><h3>In other news</h3></div>
@@ -92,11 +95,9 @@
 				CST()->frontend->cst_mini_stories_content_block( $query ); ?>
 				<div class="other-stories show-for-large-up">
 				<hr>
-					<h2>Trending the Chicago Sun-Times</h2>
+					<h2>Trending in the Chicago Sun-Times</h2>
 					<div id="root"></div>
-					<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.7ab4a033.js"></script>
-					<hr>
-					<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+					<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.aa30a1e2.js"></script>
 				</div>
 			</div>
 			<div class="small-12 columns more-stories-container">
@@ -115,14 +116,14 @@
 			</div>
 		</div>
 		<?php if ( get_query_var( 'showads', false ) ) { ?>
-			<div class="cst-ad-container"><img src="http://placehold.it/970x90/a0a0d0/130100&amp;text=[ad-will-be-responsive]"></div>
+			<div class="cst-ad-container"><img src="http://placehold.it/970x90/a0a0d0/130100&amp;text=[nativo]"></div>
 		<?php } ?>
 		<hr>
 		<div class="row more-stories-container">
 			<div class="columns small-12">
 				<div class="row">
 					<div class="columns small-12 medium-6 large-4">
-						<h3 class="more-sub-head">Latest Stories</h3>
+						<h3 class="more-sub-head">More Top Stories</h3>
 						<div class="row">
 							<div class="stories-list">
 								<?php $query = array(
@@ -140,7 +141,7 @@
 					<div class="columns small-12 medium-6 large-8">
 						<div class="small-12 columns">
 							<div class="row">
-								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Feature stories</h3>
+								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
 								<div class="featured-story">
 									<a href="http://chicago.suntimes.com/feature/50-years-after-chicago-areas-most-devastating-tornadoes/" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
 										<img src="https://suntimesmedia.files.wordpress.com/2017/04/tornado-041617-01_68208979.jpg?w=700" alt="article promo image" class="featured-story-hero">
@@ -167,6 +168,11 @@
 								</div>
 							</div>
 						</div>
+					</div>
+					<div class="columns small-12">
+						<?php if ( get_query_var( 'showads', false ) ) { ?>
+							<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
+						<?php } ?>
 					</div>
 					<div class="show-for-large-up hide-for-portrait">
 						<div class="small-12 columns more-stories-container">
@@ -261,7 +267,7 @@
 			<img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]">
 			<?php } ?>
 		</div>
-		<div class="show-for-medium-up">
+		<div class="hide-for-medium-down">
 			<hr>
 			<div class="row">
 				<?php the_widget( 'CST_STNG_Wire_Widget' ); ?>

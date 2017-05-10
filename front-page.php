@@ -20,13 +20,6 @@
 			dynamic_sidebar( 'homepage_headlines' );
 		endif;
 		?>
-		<div class="large-12 dfp-atf-leaderboard">
-			<?php if ( get_query_var( 'showads', false ) ) { ?>
-				<?php echo wp_kses( CST()->dfp_handler->unit( 3, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
-					CST()->dfp_kses
-				); ?>
-			<?php } ?>
-		</div>
 		<!-- circular flipp -->
 		<div class="row">
 			<div class="columns">
@@ -39,15 +32,6 @@
 			endif;
 			?>
 	<?php } ?>
-		</div>
-		<div>
-			<div class="large-12 dfp-atf-leaderboard">
-				<?php if ( get_query_var( 'showads', false ) ) { ?>
-					<?php echo wp_kses( CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
-						CST()->dfp_kses
-					); ?>
-				<?php } ?>
-			</div>
 		</div>
 		<div class="row">
 			<div class="large-12 columns content-wrapper cw">

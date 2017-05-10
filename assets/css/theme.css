@@ -3788,15 +3788,6 @@ body.post-gallery-lightbox-active {
   .homepage_wrapper .widgets .widget ul li {
     border-top: 1px solid #9a9a9a;
     padding: 5px; }
-    @media (min-width: 1026px) {
-      .homepage_wrapper .widgets .widget ul li {
-        font-size: 12px; } }
-    @media (min-width: 737px) and (max-width: 1025px) {
-      .homepage_wrapper .widgets .widget ul li {
-        font-size: 18px; } }
-    @media (max-width: 736px) {
-      .homepage_wrapper .widgets .widget ul li {
-        font-size: 16px; } }
     .homepage_wrapper .widgets .widget ul li a:hover {
       color: #cdcdcd; }
   .homepage_wrapper .widgets .widget ul li:hover {
