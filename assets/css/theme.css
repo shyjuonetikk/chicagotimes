@@ -228,10 +228,6 @@ body.error404 {
 #div-gpt-ym-craig {
   margin-top: 1.25rem; }
 
-#div-gpt-btf-leaderboard {
-  position: relative;
-  z-index: 2; }
-
 .section-front-anchor {
   top: 91px;
   position: fixed; }
@@ -254,21 +250,9 @@ body.error404 {
   max-width: 1000px;
   text-align: center;
   clear: both; }
-.dfp.dfp-billboard {
-  text-align: center;
-  position: relative;
-  z-index: 2;
-  margin: 10px auto 10px auto;
-  max-width: 1000px; }
-.dfp#div-gpt-btf-leaderboard {
-  position: relative;
-  z-index: 2; }
 .dfp#div-gpt-atf-leaderboard {
   margin-top: 10px;
   margin-bottom: 10px; }
-.dfp#div-gpt-mobile-leaderboard {
-  text-align: center;
-  margin-top: 10px; }
 .dfp.dfp-wire-cube-placeholder {
   width: 300px;
   height: 250px;
@@ -1649,11 +1633,8 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   position: relative;
   top: auto; }
 
-.single #div-gpt-atf-leaderboard, .single #div-gpt-mobile-leaderboard {
+.single #div-gpt-atf-leaderboard {
   margin-bottom: 0px; }
-.single #div-gpt-mobile-leaderboard {
-  margin-top: 0px;
-  height: 60px; }
 .single .taboola-container {
   position: relative;
   display: block;
@@ -3591,7 +3572,7 @@ body.post-gallery-lightbox-active {
   /* CONTENT */
   /* SIDEBAR */
   /* FOOTER */ }
-  .homepage_wrapper .dfp-atf-leaderboard img, .homepage_wrapper .dfp-btf-leaderboard img {
+  .homepage_wrapper .dfp-atf-leaderboard img {
     width: 728px; }
   .homepage_wrapper .dfp-cube {
     margin-bottom: 5px; }
@@ -3620,17 +3601,11 @@ body.post-gallery-lightbox-active {
       padding-right: 0.9375rem;
       margin: 0 0 10px;
       text-align: center; } }
-  @media (max-width: 568px) {
-    .homepage_wrapper .dfp-mobile-leaderboard {
-      padding-left: 0; } }
-  .homepage_wrapper .dfp-atf-leaderboard, .homepage_wrapper .dfp-btf-leaderboard {
+  .homepage_wrapper .dfp-atf-leaderboard {
     text-align: center;
     margin: 0 auto;
     display: block;
     clear: both; }
-  @media (max-width: 769px) {
-    .homepage_wrapper #div-gpt-btf-leaderboard {
-      display: none; } }
   .homepage_wrapper header .contain-to-grid {
     background-color: white; }
     .homepage_wrapper header .contain-to-grid .top-bar .top-bar-section {
