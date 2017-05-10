@@ -254,12 +254,6 @@ body.error404 {
   max-width: 1000px;
   text-align: center;
   clear: both; }
-.dfp.dfp-billboard {
-  text-align: center;
-  position: relative;
-  z-index: 2;
-  margin: 10px auto 10px auto;
-  max-width: 1000px; }
 .dfp#div-gpt-btf-leaderboard {
   position: relative;
   z-index: 2; }
