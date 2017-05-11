@@ -263,6 +263,8 @@ var dfp = {
 	"front_page": <?php echo wp_json_encode( is_front_page() ); ?>,
 	"section": <?php echo wp_json_encode( is_tax( 'cst_section' ) ); ?>,
 	"article": <?php echo wp_json_encode( is_singular() ); ?>,
+	"search": <?php echo wp_json_encode( is_search() ); ?>,
+	"fourohfour": <?php echo wp_json_encode( is_404() ); ?>,
 	"author": <?php echo wp_json_encode( is_author() ); ?>,
 	"gallery": <?php echo wp_json_encode( is_singular( 'cst_gallery' ) ); ?>,
 	"parent_inventory":<?php echo wp_json_encode( $parent_inventory . '/chicago.suntimes.com.index' ); ?>,
@@ -289,7 +291,7 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, billboard_mapping, super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
+  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -310,15 +312,6 @@ var dfp = {
     addSize([414, 0], [[320, 50], [300, 50]]). //phone
     addSize([375, 667], [[320, 50], [300, 50]]). //phone
     addSize([0, 0], [[320, 50], [300, 50]]). //other
-    build();
-    billboard_mapping = googletag.sizeMapping().
-    addSize([1200, 800], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //tablet
-    addSize([992, 0], [ [970, 250], [970, 90], [970, 415], [728,90] ] ). //desktop
-    addSize([800, 1200], [ [728,90] ] ). //tablet
-    addSize([768, 1024], [ [728,90] ] ). //tablet
-    addSize([640, 480], [[300, 50], [320, 50]]). //phone
-    addSize([375, 667], [[300, 50], [320, 50]]). //phone
-    addSize([0, 0], [[300, 50], [320, 50]]). //other
     build();
     article_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
@@ -413,11 +406,6 @@ var dfp = {
           .addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Right")
           .setCollapseEmptyDiv(true, true);
     }
-    if (dfp.front_page || dfp.section || dfp.author) {
-      googletag.defineSlot(adUnitPath, [320, 50], 'div-gpt-mobile-leaderboard')
-        .addService(googletag.pubads()).setTargeting("pos", "mobile leaderboard")
-        .setCollapseEmptyDiv(true, true);
-    }
     if (dfp.author) {
       googletag.defineSlot(adUnitPath, [ [728, 90] ], 'div-gpt-super-leaderboard-2')
         .defineSizeMapping(super_leaderboard_mapping)
@@ -425,12 +413,13 @@ var dfp = {
         .setTargeting("pos", "Super leaderboard 2 970x90")
         .setCollapseEmptyDiv(true, true);
     }
-
-    if (dfp.article) {
+    if (dfp.search||dfp.fourohfour||dfp.article) {
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-atf-leaderboard-1')
-		.defineSizeMapping(article_leaderboard_mapping)
+        .defineSizeMapping(article_leaderboard_mapping)
         .addService(googletag.pubads())
         .setTargeting("pos", "atf leaderboard");
+    }
+    if (dfp.article) {
       CSTAdTags['div-gpt-sky-scraper-1'] = googletag.defineSlot(adUnitPath, [160, 600], 'div-gpt-sky-scraper-1')
 		.defineSizeMapping(article_skyscraper_mapping)
 		.addService(googletag.pubads())

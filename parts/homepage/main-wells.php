@@ -63,9 +63,4 @@
 		</div>
 	</div>
 </div>
-<div class="large-12 dfp-atf-leaderboard">
-	<?php echo wp_kses( CST()->dfp_handler->dynamic_unit( 2, 'div-gpt-billboard', 'dfp dfp-centered dfp-billboard', 'billboard_mapping', 'Billboard 2 970x250', '728,90' ),
-		CST()->dfp_kses
-	); ?>
-</div>
-<?php echo wp_kses( CST()->dfp_handler->sbb( 2 ), CST()->dfp_kses );
+<?php echo wp_kses( CST()->dfp_handler->sbb( 1 ), CST()->dfp_kses );
