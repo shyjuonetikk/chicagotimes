@@ -97,7 +97,7 @@
 				<hr>
 					<h2>Trending in the Chicago Sun-Times</h2>
 					<div id="root"></div>
-					<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.aa30a1e2.js"></script>
+					<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.641bf377.js"></script>
 				</div>
 			</div>
 			<div class="small-12 columns more-stories-container">
