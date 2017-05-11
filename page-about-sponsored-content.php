@@ -68,6 +68,5 @@
 	</div>
 </section>
   <?php get_template_part( 'parts/dfp/homepage/dfp-homepage-mobile-wire-cube-2' ); ?>
-  <?php get_template_part( 'parts/dfp/homepage/dfp-btf-leaderboard' ); ?>
 <?php get_template_part( 'parts/homepage/footer' ); ?>
 <?php get_footer();

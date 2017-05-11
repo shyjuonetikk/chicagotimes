@@ -54,11 +54,7 @@
 <meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
 <?php
-if ( is_search() || is_404() ) {
-	get_template_part( 'parts/dfp/dfp-search' );
-} else {
-	CST()->dfp_handler->generate_header_definitions();
-}
+CST()->dfp_handler->generate_header_definitions();
 wp_head(); ?>
 </head>
 

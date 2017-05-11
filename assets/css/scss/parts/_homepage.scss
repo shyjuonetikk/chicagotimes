@@ -3,7 +3,7 @@
 	margin: auto 0;
 	background-color: $site_background;
 
-	.dfp-atf-leaderboard, .dfp-btf-leaderboard {
+	.dfp-atf-leaderboard {
 		img {
 			width: 728px;
 		}
@@ -52,24 +52,12 @@
 			text-align: center;
 		}
 	}
-	.dfp-mobile-leaderboard {
-		@media (max-width: 568px) {
-			padding-left: 0;
-		}
-	}
 
-
-	.dfp-atf-leaderboard, .dfp-btf-leaderboard {
+	.dfp-atf-leaderboard {
 		text-align: center;
 		margin: 0 auto;
 		display: block;
 		clear: both;
-	}
-
-	@media (max-width: 769px) {
-		#div-gpt-btf-leaderboard {
-			display: none;
-		}
 	}
 
 /* HEADER */

@@ -20,10 +20,6 @@
 #div-gpt-ym-craig {
 	margin-top: 1.25rem;
 }
-#div-gpt-btf-leaderboard {
-	position: relative;
-	z-index: 2;
-}
 .section-front-anchor {
 	top:91px;
 	position:fixed;
@@ -54,27 +50,9 @@
 		clear:both;
 	}
 
-	&.dfp-billboard {
-		text-align: center;
-		position: relative;
-		z-index: 2;
-		margin: 10px auto 10px auto;
-		max-width: 1000px;
-	}
-
-	&#div-gpt-btf-leaderboard {
-		position: relative;
-		z-index: 2;
-	}
-
 	&#div-gpt-atf-leaderboard {
 		margin-top: 10px;
 		margin-bottom: 10px;
-	}
-
-	&#div-gpt-mobile-leaderboard {
-		text-align: center;
-		margin-top: 10px;
 	}
 
 	&.dfp-wire-cube-placeholder {
