@@ -300,10 +300,8 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-featured-content-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-gracenote-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-headlines-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-v3-homepage-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-secondary-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-more-headlines-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-v3-homepage-more-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-election-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-election-map-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-weather-word-widget.php';
@@ -909,10 +907,8 @@ class CST {
 		register_widget( 'CST_Twitter_Feed_Widget' );
 		register_widget( 'CST_Featured_Content_Widget' );
 		register_widget( 'CST_Homepage_Headlines_Widget' );
-		register_widget( 'CST_Homepage_Headlines' );
 		register_widget( 'CST_Homepage_Secondary_Headlines_Widget' );
 		register_widget( 'CST_Homepage_More_Headlines_Widget' );
-		register_widget( 'CST_Homepage_More_Headlines' );
 		register_widget( 'CST_Elections_2016_More_Headlines_Widget' );
 		register_widget( 'CST_Elections_2016_Map_Widget' );
 		register_widget( 'CST_Banner_Link_Widget' );

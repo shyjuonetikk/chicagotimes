@@ -39,7 +39,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'cst_homepage_more_headlines',
-			esc_html__( 'CST Homepage More Headlines', 'chicagosuntimes' ),
+			esc_html__( 'CST! Homepage More Headlines', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays More Headlines.', 'chicagosuntimes' ),
 			),
@@ -125,7 +125,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		if ( ! empty( $widget_posts ) ) {
 
 			$homepage_more_well_posts = $this->get_headline_posts( $widget_posts );
-			get_template_part( 'parts/homepage/more-wells' );
+			get_template_part( 'parts/homepage/more-wells-v3' );
 
 		}
 

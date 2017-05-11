@@ -1,40 +1,16 @@
-<?php $ua_info = new Jetpack_User_Agent_Info(); ?>
+<?php global $homepage_main_well_posts; ?>
 <div class="row stories-container">
 	<div class="columns small-12 medium-8 large-9 stories">
 		<div class="row" data-equalizer-mq="large-up">
 			<div class="columns small-12 large-4">
-				<div class="lead-story">
-					<h3 class="hero-title">Missing 1-year-old girl found dead in her Joliet home</h3>
-					<div class="columns small-12 medium-6 large-12">
-						<div class="row">
-							<div class="show-for-portrait show-for-touch">
-								<span class="image">
-									<img src="https://suntimesmedia.files.wordpress.com/2017/04/semajcrosbyyellowhouse.jpg?w=394">
-								</span>
-							</div>
-							<div class="show-for-portrait show-for-xlarge-up">
-								<div class="small-12">
-									<h3>Related News.</h3>
-									<ul class="related-title">
-										<li>Weekend Killings</li>
-										<li>CPS budgets</li>
-										<li>Rauner pulls funding</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="columns small-12 medium-5 medium-offset-1 large-12 large-offset-0">
-						<div class="row">
-							<p class="excerpt">
-								A missing baby girl who vanished Tuesday evening was found dead late Wednesday in a home in “deplorable condition” near southwest suburban Joliet. “We do need the community’s help on this,” Will County sheriff’s office Deputy Chief Richard Ackerman said at a press conference Wednesday afternoon.
-							</p>
-							<p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p>
-							<ul class="related-title">
-								<li><a href="#"><h3>Analysis: When did Trump declare the wall will be built?</h3></a></li>
-							</ul>
-						</div>
-					</div>
+				<div class="hero-story">
+<?php
+$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
+if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+	$author          = CST()->frontend->get_article_author( $obj );
+	CST()->frontend->homepage_hero_story( $obj, $author );
+}
+?>
 				</div>
 				<div class="lead-story">
 					<h3 class="title">Sandi Jackson to Jesse Jr.: List all sex partners—names and dates</h3>
