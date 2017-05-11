@@ -964,7 +964,7 @@ class CST_Frontend {
 							</a>
 							<?php
 						}
-						if ( null !== $nativo_slug ) { ?>
+						if ( '' !== $nativo_slug ) { ?>
 							<ul id="<?php echo esc_html( $nativo_slug ); ?>">
 						<?php } else { ?>
 							<ul>
