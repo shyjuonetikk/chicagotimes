@@ -3862,6 +3862,55 @@ body.post-gallery-lightbox-active {
       background-color: white; }
       .homepage_wrapper section#section-column-wells .section-list ul li a {
         color: #282828; }
+.homepage_wrapper .hp-bn-wrapper {
+  list-style: none; }
+  .homepage_wrapper .hp-bn-wrapper .breaking-news-story, .homepage_wrapper .hp-bn-wrapper .breaking-section-story {
+    background-color: #7d7e7e;
+    width: 100%;
+    padding: 0 10px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border-bottom: 5px solid #231f20;
+    border-top: 5px solid #231f20;
+    position: relative;
+    z-index: 1;
+    float: left;
+    font-family: 'Libre Franklin', Arial, sans-serif; }
+    .homepage_wrapper .hp-bn-wrapper .breaking-news-story .title, .homepage_wrapper .hp-bn-wrapper .breaking-section-story .title {
+      font-size: 1.2rem;
+      margin-bottom: 0.1rem;
+      margin-top: 0;
+      color: #231f20; }
+      .homepage_wrapper .hp-bn-wrapper .breaking-news-story .title .breaking-news-link, .homepage_wrapper .hp-bn-wrapper .breaking-section-story .title .breaking-news-link {
+        font-size: 1rem;
+        background: transparent;
+        text-transform: none;
+        display: inline-block;
+        line-height: 2.2rem; }
+    .homepage_wrapper .hp-bn-wrapper .breaking-news-story a, .homepage_wrapper .hp-bn-wrapper .breaking-news-story button, .homepage_wrapper .hp-bn-wrapper .breaking-section-story a, .homepage_wrapper .hp-bn-wrapper .breaking-section-story button {
+      font-family: 'Libre Franklin', Arial, sans-serif;
+      color: white; }
+    .homepage_wrapper .hp-bn-wrapper .breaking-news-story span, .homepage_wrapper .hp-bn-wrapper .breaking-section-story span {
+      color: white;
+      text-transform: uppercase; }
+      .homepage_wrapper .hp-bn-wrapper .breaking-news-story span .fa, .homepage_wrapper .hp-bn-wrapper .breaking-section-story span .fa {
+        color: white;
+        cursor: pointer;
+        font-size: 22px; }
+    @media only screen and (max-width:64em) {
+      .homepage_wrapper .hp-bn-wrapper .breaking-news-story h3.title, .homepage_wrapper .hp-bn-wrapper .breaking-section-story h3.title {
+        font-size: 1rem; }
+      .homepage_wrapper .hp-bn-wrapper .breaking-news-story .breaking-news-link, .homepage_wrapper .hp-bn-wrapper .breaking-section-story .breaking-news-link {
+        font-size: 0.9rem;
+        line-height: 1rem; } }
+    .homepage_wrapper .hp-bn-wrapper .breaking-news-story .breaking-news-button, .homepage_wrapper .hp-bn-wrapper .breaking-section-story .breaking-news-button {
+      border-radius: 0;
+      margin-bottom: 0.2rem;
+      text-transform: uppercase;
+      background-color: #231f20;
+      border: 1px solid white;
+      padding: 0.35rem;
+      color: #ffe000; }
 
 .page_wrapper {
   width: 100%;
