@@ -10,33 +10,33 @@
 class CST_Homepage_Headlines_Widget extends WP_Widget {
 
 	private $hero_headlines = array(
-		'cst_homepage_headlines_one',
-		'cst_homepage_headlines_two',
-		'cst_homepage_headlines_three',
+		'cst_homepage_headlines_one' => true,
+		'cst_homepage_headlines_two' => true,
+		'cst_homepage_headlines_three' => true,
 	);
 	private $mini_headlines = array(
-		'cst_homepage_mini_headlines_one',
-		'cst_homepage_mini_headlines_two',
-		'cst_homepage_mini_headlines_three',
-		'cst_homepage_mini_headlines_four',
-		'cst_homepage_mini_headlines_five',
+		'cst_homepage_mini_headlines_one' => true,
+		'cst_homepage_mini_headlines_two' => true,
+		'cst_homepage_mini_headlines_three' => true,
+		'cst_homepage_mini_headlines_four' => true,
+		'cst_homepage_mini_headlines_five' => true,
 	);
 	private $hero_parameters = array(
-		'cst_homepage_hero_related_one',
-		'cst_homepage_hero_related_two',
-		'cst_homepage_hero_related_three',
+		'cst_homepage_hero_related_one' => true,
+		'cst_homepage_hero_related_two' => true,
+		'cst_homepage_hero_related_three' => true,
 	);
 	private $hero_titles = array(
-		'Main/Top Story',
-		'Upper Story',
-		'Lower Story',
+		'Main/Top Story' => true,
+		'Upper Story' => true,
+		'Lower Story' => true,
 	);
 	private $mini_titles = array(
-		'Story 1 - largest',
-		'Story 2',
-		'Story 3',
-		'Story 4',
-		'Story 5',
+		'Story 1 - largest' => true,
+		'Story 2' => true,
+		'Story 3' => true,
+		'Story 4' => true,
+		'Story 5' => true,
 	);
 
 	private $cache_key_stub;
@@ -123,6 +123,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		global $homepage_main_well_posts;
 		$widget_posts = array();
 
+		// @TODO need to parse instance to part out $hero_headlines and other variables
 		for ( $count = 0; $count < count( $instance ); $count++) {
 			if ( $instance[ $count ] ) {
 				$widget_posts[] = absint( $instance[ $count ] );
@@ -168,10 +169,14 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 * @return array
 	 */
 
-	public function form( $instance ) {
-		$instance = wp_parse_args(
-			(array) $instance
-		);
+	public function form( $incoming_instance ) {
+		$instance['related-posts'] = isset( $incoming__instance['related-posts'] ) ? 1 : 0;
+		foreach ( $this->hero_headlines as $hero_headline => $value ) {
+			$instance[$hero_headline] = isset( $incoming_instance[$hero_headline] ) ? intval( $incoming_instance[$hero_headline] ) : 0;
+		}
+		foreach ( $this->mini_headlines as $mini_headline => $value ) {
+			$instance[$mini_headline] = isset( $incoming_instance[$mini_headline] ) ? intval( $incoming_instance[$mini_headline] ) : 0;
+		}
 		$this->enqueue_scripts();
 		$count = 0;
 		$width = is_customize_preview() ? 'width:250px;' : 'width:400px;';
@@ -179,7 +184,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		<h3>Hero Story and 2 leads</h3>
 		<h4>Featured image included in certain layouts</h4>
 		<?php
-		foreach ( $this->hero_headlines as $array_member ) {
+		foreach ( $this->hero_headlines as $key => $array_member ) {
 			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
 			$obj = get_post( $headline );
 			if ( $obj ) {
@@ -188,26 +193,33 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			} else {
 				$story_title = '';
 			}
-			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
+			$dashed_key = preg_replace( '/_/', '-', $key );
 			?>
-				<p class="ui-state-default" id="i<?php echo esc_attr( $count ); ?>">
-					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
-						<?php esc_html_e( $this->hero_titles[ $count ], 'chicagosuntimes' ); ?>
+				<p class="ui-state-default" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+						<?php esc_html_e( $key, 'chicagosuntimes' ); ?>
 					</label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+					<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 				</p>
 			<?php
-			if ( 0 === $count ) {
-				foreach ( $this->hero_parameters as $hero_parameter ) {
+			if ( 0 === $count ) { ?>
+				<p>
+					<label for="<?php echo esc_attr( $this->get_field_name( 'related-posts' ) ); ?>">
+						<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'related-posts' ) ); ?>" id="<?php echo esc_attr( $this->get_field_name( 'related-posts' ) ); ?>" value="1" <?php checked( $this->get_field_name( 'related-posts' ), 1 ); ?>/>
+					</label>
+				</p>
+				<div class="related-posts">
+				<?php foreach ( $this->hero_parameters as $inner_key => $hero_parameter ) {
 					?>
 					<p class="ui-state-default">
-						<label for="<?php echo esc_attr( $hero_parameter ); ?>">
+						<label for="<?php echo esc_attr( $this->get_field_name( $inner_key ) ); ?>">
 							Related stories
 						</label>
-						<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $hero_parameter ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+						<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $inner_key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name(  $inner_key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 					</p>
 					<?php
 				}
+				?></div><?php
 			}
 			$count++;
 		}
@@ -216,8 +228,8 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		<h4>Featured image in all layouts</h4>
 		<?php
 		$mini_stories_count = 0;
-		foreach ( $this->mini_headlines as $array_member ) {
-			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
+		foreach ( $this->mini_headlines as $key => $array_member ) {
+			$headline = ! empty( $instance[ $count + $mini_stories_count ] ) ? $instance[ $count + $mini_stories_count ] : '';
 			$obj = get_post( $headline );
 			if ( $obj ) {
 				$content_type = get_post_type( $obj->ID );
@@ -225,13 +237,13 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			} else {
 				$story_title = '';
 			}
-			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
+			$dashed_key = preg_replace( '/_/', '-', $key );
 			?>
-				<p class="ui-state-default" id="i<?php echo esc_attr( $count ); ?>">
-					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
-						<?php esc_html_e( $this->mini_titles[ $mini_stories_count ], 'chicagosuntimes' ); ?>
+				<p class="ui-state-default" id="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+						<?php esc_html_e( $key, 'chicagosuntimes' ); ?>
 					</label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+					<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 				</p>
 			<?php
 			$count++;
@@ -251,10 +263,18 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$total = count( $new_instance );
-		for ( $count = 0; $count < $total; $count++ ) {
-			$instance[] = intval( array_shift( $new_instance ) );
+		// @TODO need to parse instance to match $hero_headlines etc and save accordingly
+		$instance['related-posts'] = isset( $new_instance['related-posts'] ) ? 1 : 0;
+		foreach ( $this->hero_headlines as $hero_headline => $value ) {
+			$instance[$hero_headline] = isset( $new_instance[$hero_headline] ) ? intval( $new_instance[$hero_headline] ) : 0;
 		}
+		foreach ( $this->mini_headlines as $mini_headline => $value ) {
+			$instance[$mini_headline] = isset( $new_instance[$mini_headline] ) ? intval( $new_instance[$mini_headline] ) : 0;
+		}
+//		$total = count( $new_instance );
+//		for ( $count = 0; $count < $total; $count++ ) {
+//			$instance[] = intval( array_shift( $new_instance ) );
+//		}
 		wp_cache_delete( $this->cache_key_stub );
 		return $instance;
 	}
