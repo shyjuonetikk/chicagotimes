@@ -11,46 +11,93 @@
 
         bindEvents: function() {
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
-                var el = widget.find(".cst-homepage-headlines-one");
-                if ( el.length ) {
-                    this.loadSelect2( el );
-                }
-            }, this ) );
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+              var el = widget.find(".cst-homepage-headlines-one");
+              if ( el.length ) {
+                  this.loadSelect2( el );
+              }
+          }, this ) );
 
-            $(".cst-homepage-headlines-one").each( $.proxy( function( key, el ){
-                this.loadSelect2( $( el ) );
-            }, this ) );
+          $(".cst-homepage-headlines-one").each( $.proxy( function( key, el ){
+              this.loadSelect2( $( el ) );
+          }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
-                var el = widget.find(".cst-homepage-headlines-two");
-                if ( el.length ) {
-                    this.loadSelect2( el );
-                }
-            }, this ) );
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+              var el = widget.find(".cst-homepage-headlines-two");
+              if ( el.length ) {
+                  this.loadSelect2( el );
+              }
+          }, this ) );
 
-            $(".cst-homepage-headlines-two").each( $.proxy( function( key, el ){
-                this.loadSelect2( $( el ) );
-            }, this ) );
+          $(".cst-homepage-headlines-two").each( $.proxy( function( key, el ){
+              this.loadSelect2( $( el ) );
+          }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
-                var el = widget.find(".cst-homepage-headlines-three");
-                if ( el.length ) {
-                    this.loadSelect2( el );
-                }
-            }, this ) );
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+              var el = widget.find(".cst-homepage-headlines-three");
+              if ( el.length ) {
+                  this.loadSelect2( el );
+              }
+          }, this ) );
 
-            $(".cst-homepage-headlines-three").each( $.proxy( function( key, el ){
-                this.loadSelect2( $( el ) );
-            }, this ) );
+          $(".cst-homepage-headlines-three").each( $.proxy( function( key, el ){
+              this.loadSelect2( $( el ) );
+          }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
-                var el = widget.find(".cst-homepage-headlines-four");
-                if ( el.length ) {
-                    this.loadSelect2( el );
-                }
-            }, this ) );
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+              var el = widget.find(".cst-homepage-mini-headlines-one");
+              if ( el.length ) {
+                  this.loadSelect2( el );
+              }
+          }, this ) );
 
+          $(".cst-homepage-mini-headlines-one").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
+
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            var el = widget.find(".cst-homepage-mini-headlines-two");
+            if ( el.length ) {
+              this.loadSelect2( el );
+            }
+          }, this ) );
+
+          $(".cst-homepage-mini-headlines-two").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
+
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+              var el = widget.find(".cst-homepage-mini-headlines-three");
+              if ( el.length ) {
+                  this.loadSelect2( el );
+              }
+          }, this ) );
+
+          $(".cst-homepage-mini-headlines-three").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
+
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            var el = widget.find(".cst-homepage-mini-headlines-four");
+            if ( el.length ) {
+              this.loadSelect2( el );
+            }
+          }, this ) );
+
+          $(".cst-homepage-mini-headlines-four").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
+
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            var el = widget.find(".cst-homepage-mini-headlines-five");
+            if ( el.length ) {
+              this.loadSelect2( el );
+            }
+          }, this ) );
+
+          $(".cst-homepage-mini-headlines-five").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
         },
 
         /**
@@ -60,7 +107,7 @@
 
             el.select2({
                 placeholder: CSTCategoryHeadlinesData.placeholder_text,
-                minimumInputLength: 0,
+                minimumInputLength: 3,
                 allowClear: true,
                 ajax: {
                     quietMillis: 150,

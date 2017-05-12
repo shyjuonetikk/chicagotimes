@@ -5,7 +5,7 @@
 			<?php if ( get_query_var( 'showads', false ) ) { ?>
 				<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
 			<?php } ?>
-			</div> 
+			</div>
 		</div>
 		<?php
 		do_action( 'above-homepage-headlines' );

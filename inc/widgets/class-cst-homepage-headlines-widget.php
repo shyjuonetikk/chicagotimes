@@ -9,16 +9,29 @@
 
 class CST_Homepage_Headlines_Widget extends WP_Widget {
 
-	private $headlines = array(
+	private $hero_headlines = array(
 		'cst_homepage_headlines_one',
 		'cst_homepage_headlines_two',
 		'cst_homepage_headlines_three',
 	);
-
-	private $titles = array(
-		'Main Story',
-		'Left Story',
-		'Right Story',
+	private $mini_headlines = array(
+		'cst_homepage_mini_headlines_one',
+		'cst_homepage_mini_headlines_two',
+		'cst_homepage_mini_headlines_three',
+		'cst_homepage_mini_headlines_four',
+		'cst_homepage_mini_headlines_five',
+	);
+	private $hero_titles = array(
+		'Main/Top Story',
+		'Upper Story',
+		'Lower Story',
+	);
+	private $mini_titles = array(
+		'Story 1 - largest',
+		'Story 2',
+		'Story 3',
+		'Story 4',
+		'Story 5',
 	);
 
 	private $cache_key_stub;
@@ -29,10 +42,15 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			esc_html__( 'CST! Homepage Main Headline Posts', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays Home/Section from selected Headlines.', 'chicagosuntimes' ),
-			)
+				'customize_selective_refresh' => true,
+			),
+			array( 'width' => '250' )
 		);
 		$this->cache_key_stub = 'homepage-headlines-widget';
 		add_action( 'wp_ajax_cst_homepage_headlines_get_posts', array( $this, 'cst_homepage_headlines_get_posts' ) );
+		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		}
 	}
 
 	/**
@@ -59,7 +77,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		$returning = array();
 		$posts = array();
 
-		if ( $search_query->have_posts() ):
+		if ( '' !== $term && strlen( $term ) >= 3 && $search_query->have_posts() ):
 
 			while ( $search_query->have_posts() ) : $search_query->the_post();
 				$obj = get_post( get_the_ID() );
@@ -82,7 +100,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 
 		wp_enqueue_script( 'cst_homepage_headlines', get_template_directory_uri() . '/assets/js/cst-homepage-headlines.js', array( 'jquery-ui-sortable', 'jquery' ) );
 		wp_localize_script( 'cst_homepage_headlines', 'CSTCategoryHeadlinesData', array(
-			'placeholder_text'	=> esc_html__( 'Search for content to feature', 'chicagosuntimes' ),
+			'placeholder_text'	=> esc_html__( 'Choose article', 'chicagosuntimes' ),
 			'nonce'				=> wp_create_nonce( 'cst_homepage_headlines' ),
 		) );
 		wp_enqueue_style( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' );
@@ -150,8 +168,11 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 
 		$this->enqueue_scripts();
 		$count = 0;
-
-		foreach ( $this->headlines as $array_member ) {
+		?>
+		<h3>Hero Story and 2 leads</h3>
+		<h4>Featured image included in certain layouts</h4>
+		<?php
+		foreach ( $this->hero_headlines as $array_member ) {
 			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
 			$obj = get_post( $headline );
 			if ( $obj ) {
@@ -162,15 +183,40 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			}
 			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
 			?>
-				<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
-					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
-						<?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?>
+				<p class="ui-state-default" id="i<?php echo esc_attr( $count ); ?>">
+					<label for="hero-<?php echo esc_attr( 'lead-' . $this->get_field_id( $count ) ); ?>">
+						<?php esc_html_e( $this->hero_titles[ $count ], 'chicagosuntimes' ); ?>
 					</label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;" />
+					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" />
 				</p>
 			<?php
 			$count++;
 		}
+		?>
+		<h3>Other stories 1 plus 2x2</h3>
+		<h4>Featured image in all layouts</h4>
+		<?php
+		foreach ( $this->mini_headlines as $array_member ) {
+			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
+			$obj = get_post( $headline );
+			if ( $obj ) {
+				$content_type = get_post_type( $obj->ID );
+				$story_title = $obj->post_title . ' [' . $content_type . ']';
+			} else {
+				$story_title = '';
+			}
+			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
+			?>
+				<p class="ui-state-default" id="i<?php echo esc_attr( $count ); ?>">
+					<label for="mini-<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
+						<?php esc_html_e( $this->hero_titles[ $count ], 'chicagosuntimes' ); ?>
+					</label>
+					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" />
+				</p>
+			<?php
+			$count++;
+		}
+
 
 	}
 
@@ -196,6 +242,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		$hero_story = $headlines[0];
 		$sub_lead_story = $headlines[1];
 		$sub_sub_lead_story = $headlines[2];
+		$mini_story = $headlines[3];
 ?>
 <div class="row stories-container">
 	<div class="columns small-12 medium-8 large-9 stories">
@@ -236,7 +283,7 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			<div class="show-for-medium-only"><h3>In other news</h3></div>
 			<div class="row lead-mini-story">
 				<?php
-				$obj = \CST\Objects\Post::get_by_post_id( $hero_story->ID );
+				$obj = \CST\Objects\Post::get_by_post_id( $mini_story->ID );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 					$author          = CST()->frontend->get_article_author( $obj );
 					$this->homepage_mini_story_lead( $obj, $author );
@@ -281,6 +328,8 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 		<?php } ?>
 		<hr>
 		<div class="row more-stories-container">
+			<!-- Pull from Top Stories widget -->
+			<?php $section_slug = 'news'; ?>
 			<div class="columns small-12">
 				<div class="row">
 					<div class="columns small-12 medium-6 large-4">
