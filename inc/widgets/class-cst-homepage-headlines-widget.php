@@ -21,6 +21,11 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		'cst_homepage_mini_headlines_four',
 		'cst_homepage_mini_headlines_five',
 	);
+	private $hero_parameters = array(
+		'cst_homepage_hero_related_one',
+		'cst_homepage_hero_related_two',
+		'cst_homepage_hero_related_three',
+	);
 	private $hero_titles = array(
 		'Main/Top Story',
 		'Upper Story',
@@ -192,6 +197,18 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 				</p>
 			<?php
+			if ( 0 === $count ) {
+				foreach ( $this->hero_parameters as $hero_parameter ) {
+					?>
+					<p class="ui-state-default">
+						<label for="<?php echo esc_attr( $hero_parameter ); ?>">
+							Related stories
+						</label>
+						<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $hero_parameter ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+					</p>
+					<?php
+				}
+			}
 			$count++;
 		}
 		?>
@@ -243,42 +260,15 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	}
 
 	public function widget_markup( $headlines ) {
-		$hero_story = $headlines[0];
-		$sub_lead_story = $headlines[1];
-		$sub_sub_lead_story = $headlines[2];
-		$mini_story = $headlines[3];
-?>
+	// @TODO Review parameters, error check etc
+		?>
 <div class="row stories-container">
 	<div class="columns small-12 medium-8 large-9 stories">
 		<div class="row" data-equalizer-mq="large-up">
 			<div class="columns small-12 large-4 lead-stories">
-				<div class="hero-story">
-<?php
-$obj = \CST\Objects\Post::get_by_post_id( $hero_story->ID );
-if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-	$author          = CST()->frontend->get_article_author( $obj );
-	$this->homepage_hero_story( $obj, $author );
-}
-?>
-		</div>
-		<div class="lead-story">
-			<?php
-			$obj = \CST\Objects\Post::get_by_post_id( $sub_lead_story->ID );
-			if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-				$author          = CST()->frontend->get_article_author( $obj );
-				$this->homepage_lead_story( $obj, $author );
-			}
-			?>
-		</div>
-		<div class="lead-story">
-			<?php
-			$obj = \CST\Objects\Post::get_by_post_id( $sub_sub_lead_story->ID );
-			if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-				$author          = CST()->frontend->get_article_author( $obj );
-				$this->homepage_lead_story( $obj, $author );
-			}
-			?>
-		</div>
+				<?php $this->homepage_hero_story( $headlines[0] ); ?>
+				<?php $this->homepage_lead_story( $headlines[1] ); ?>
+				<?php $this->homepage_lead_story( $headlines[2] ); ?>
 		<div class="show-for-large-up">
 			<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
 		</div>
@@ -287,7 +277,7 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			<div class="show-for-medium-only"><h3>In other news</h3></div>
 			<div class="row lead-mini-story">
 				<?php
-				$obj = \CST\Objects\Post::get_by_post_id( $mini_story->ID );
+				$obj = \CST\Objects\Post::get_by_post_id( $headlines[3]->ID );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 					$author          = CST()->frontend->get_article_author( $obj );
 					$this->homepage_mini_story_lead( $obj, $author );
@@ -296,25 +286,22 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			</div>
 			<hr>
 			<?php
-			$query = array(
-				'post_type'           => array( 'cst_article' ),
-				'ignore_sticky_posts' => true,
-				'posts_per_page'      => 4,
-				'post_status'         => 'publish',
-				'cst_section'         => 'news',
-				'orderby'             => 'modified',
-			);
-			CST()->frontend->cst_mini_stories_content_block( $query ); ?>
+			$this->mini_stories_content_block( array(
+					$headlines[4],
+					$headlines[5],
+					$headlines[6],
+					$headlines[7],
+			) ); ?>
 			<div class="other-stories show-for-large-up">
 				<hr>
-				<h2>Trending in the Chicago Sun-Times</h2>
+				<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
 				<div id="root"></div>
 				<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.641bf377.js"></script>
 			</div>
 		</div>
 		<div class="small-12 columns more-stories-container">
 			<hr>
-			<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Chicago Sports</a></h3>
+			<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Chicago Sports (to be slottable)</a></h3>
 			<?php
 			$query = array(
 				'post_type'           => array( 'cst_article' ),
@@ -408,8 +395,8 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 				</div>
 			</div>
 		</div>
-		</div>
-		<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
+	</div>
+	<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 			<?php if ( get_query_var( 'showads', false ) ) { ?>
 				<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad-will-be-responsive]"></div>
 			<?php } ?>
@@ -433,7 +420,7 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 					<h3 class="more-sub-head">
 						<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
 						   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title">
-							<?php esc_html_e( ucfirst( $section_slug ), 'chicagosuntimes' ); ?></a></h3>
+							<?php esc_html_e( ucfirst( $section_slug . ' slottable' ), 'chicagosuntimes' ); ?></a></h3>
 					<div class="row">
 						<div class="stories-list">
 							<?php $query = array(
@@ -484,27 +471,32 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			<div class="hide-for-medium-down">
 				<hr>
 				<div class="row">
-					<?php the_widget( 'CST_STNG_Wire_Widget' ); ?>
+					<?php //the_widget( 'CST_STNG_Wire_Widget' ); ?>
 				</div>
 			</div>
 		</div>
-		</div>
+</div>
 		<?php
 	}
 
 	/**
-	 * @param $obj
+	 * @param $headline
 	 * @param $author
 	 * @param string $image_size
 	 *
 	 * Hero story markup generation and display
 	 */
-	public function homepage_hero_story( $obj, $author, $image_size = 'chiwire-header-medium' ) {
+	public function homepage_hero_story( $headline, $image_size = 'chiwire-header-medium' ) {
+		$obj = \CST\Objects\Post::get_by_post_id( $headline->ID );
+		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+			$author          = CST()->frontend->get_article_author( $obj );
+		}
 		remove_filter( 'the_excerpt', 'wpautop' );
 		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
 		add_filter( 'the_excerpt', 'wpautop' );
 		?>
-<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+		<div class="hero-story">
+		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 	<h3 class="hero-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 </a>
 	<div class="columns small-12 medium-6 large-12">
@@ -549,16 +541,21 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 		</ul>
 	</div>
 </div>
+		</div>
+
 		<?php
 	}
 
 	/**
-	 * @param $obj
-	 * @param $author
+	 * @param $headline
 	 *
 	 * The lead stories - each generated by the following function - display below the hero story (see above)
 	 */
-	public function homepage_lead_story( $obj, $author ) {
+	public function homepage_lead_story( $headline ) {
+		$obj = \CST\Objects\Post::get_by_post_id( $headline->ID );
+		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+			$author          = CST()->frontend->get_article_author( $obj );
+		}
 		remove_filter( 'the_excerpt', 'wpautop' );
 		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
 		add_filter( 'the_excerpt', 'wpautop' );
@@ -571,6 +568,7 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			}
 		}
 		?>
+		<div class="lead-story">
 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
 	<h3 class="title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 	<span class="image show-for-landscape hidden-for-medium-up show-for-xlarge-up">
@@ -584,6 +582,7 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 	</p>
 </a>
 <p class="authors">By <?php echo esc_html( $author ); ?> - 1 hour ago</p>
+		</div>
 <?php
 	}
 
@@ -629,5 +628,40 @@ if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 	</div>
 </div>
 <?php
+	}
+	/**
+	 * A 2 x 2 block of content, each have image with title and anchored
+	 * Optionally a 5th piece of content on left of 2 x 2 block of content
+	 * @param $headlines array
+	 */
+	public function mini_stories_content_block( $headlines ) {
+		$count_headlines = count( $headlines );
+		$counter = 0;
+		$close_me = false; ?>
+		<div class="row mini-stories" data-equalizer>
+			<?php foreach ( $headlines as $headline ) {
+				$obj = \CST\Objects\Post::get_by_post_id( $headline->ID );
+				if ( $obj ) {
+					if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
+						// First item and odd total
+						?>
+						<div class="single-mini-story small-12 medium-4">
+							<?php
+							CST()->frontend->single_mini_story( $obj, 'alternate' );
+							$close_me = true;
+							?>
+						</div><!-- First one -->
+						<div class="single-mini-story small-12 medium-8">
+					<?php } else {
+						CST()->frontend->single_mini_story( $obj, 'regular' );
+					}
+				}
+				$counter++;
+				if ( $close_me && ( $count_headlines - 1 ) === $counter ) { ?>
+					</div><!-- right four -->
+				<?php } ?>
+			<?php } ?>
+		</div>
+	<?php
 	}
 }
