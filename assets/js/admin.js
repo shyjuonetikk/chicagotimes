@@ -32,7 +32,7 @@
 			}
 
 			if ( $(this.titleContent).length ) {
-				this.limitTheField( this.titleContent, 65 );
+				this.limitTheField( this.titleContent, 70 );
 			}
 
 		},
