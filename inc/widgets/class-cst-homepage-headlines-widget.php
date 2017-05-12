@@ -43,8 +43,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			array(
 				'description' => esc_html__( 'Displays Home/Section from selected Headlines.', 'chicagosuntimes' ),
 				'customize_selective_refresh' => true,
-			),
-			array( 'width' => '250' )
+			)
 		);
 		$this->cache_key_stub = 'homepage-headlines-widget';
 		add_action( 'wp_ajax_cst_homepage_headlines_get_posts', array( $this, 'cst_homepage_headlines_get_posts' ) );
@@ -165,9 +164,12 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 */
 
 	public function form( $instance ) {
-
+		$instance = wp_parse_args(
+			(array) $instance
+		);
 		$this->enqueue_scripts();
 		$count = 0;
+		$width = is_customize_preview() ? 'width:250px;' : 'width:400px;';
 		?>
 		<h3>Hero Story and 2 leads</h3>
 		<h4>Featured image included in certain layouts</h4>
@@ -184,10 +186,10 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
 			?>
 				<p class="ui-state-default" id="i<?php echo esc_attr( $count ); ?>">
-					<label for="hero-<?php echo esc_attr( 'lead-' . $this->get_field_id( $count ) ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
 						<?php esc_html_e( $this->hero_titles[ $count ], 'chicagosuntimes' ); ?>
 					</label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" />
+					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 				</p>
 			<?php
 			$count++;
@@ -196,6 +198,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		<h3>Other stories 1 plus 2x2</h3>
 		<h4>Featured image in all layouts</h4>
 		<?php
+		$mini_stories_count = 0;
 		foreach ( $this->mini_headlines as $array_member ) {
 			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
 			$obj = get_post( $headline );
@@ -208,13 +211,14 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
 			?>
 				<p class="ui-state-default" id="i<?php echo esc_attr( $count ); ?>">
-					<label for="mini-<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
-						<?php esc_html_e( $this->hero_titles[ $count ], 'chicagosuntimes' ); ?>
+					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>">
+						<?php esc_html_e( $this->mini_titles[ $mini_stories_count ], 'chicagosuntimes' ); ?>
 					</label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" />
+					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 				</p>
 			<?php
 			$count++;
+			$mini_stories_count++;
 		}
 
 
