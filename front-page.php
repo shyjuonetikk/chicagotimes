@@ -13,6 +13,86 @@
 			dynamic_sidebar( 'homepage_headlines' );
 		endif;
 		?>
+		<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
+			<?php if ( get_query_var( 'showads', false ) ) { ?>
+				<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad-will-be-responsive]"></div>
+			<?php } ?>
+			<div class="more-stories-container hide-for-large-up">
+				<hr>
+				<div class="other-stories">
+					<h2>Also in the Chicago Sun-Times</h2>
+					<ul class="list">
+						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago News</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Mentally ill woman gets 22 years for killing husband with poison</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago News</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">9 charged with Crystal Lake fight that led to stabbing</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago Sports</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Anthony Swarzak gettung career back on track with White Sox</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Entertainment</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Dear Abby: My friend bullies other kids at school</a></li>
+						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago Politics</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row more-stories-container">
+				<div class="columns small-12">
+					<hr>
+					<?php $section_slug = 'opinion'; ?>
+					<h3 class="more-sub-head">
+						<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
+						   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title">
+							<?php esc_html_e( ucfirst( $section_slug . ' slottable' ), 'chicagosuntimes' ); ?></a></h3>
+					<div class="row">
+						<div class="stories-list">
+							<?php $query = array(
+								'post_type'           => array( 'cst_article' ),
+								'ignore_sticky_posts' => true,
+								'posts_per_page'      => 7,
+								'post_status'         => 'publish',
+								'cst_section'         => esc_attr( $section_slug ),
+								'orderby'             => 'modified',
+							);
+							CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+						</div>
+					</div>
+				</div>
+			</div>
+			<?php if ( get_query_var( 'showads', false ) ) { ?>
+				<div class="cst-ad-container">
+					<hr>
+					<img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]">
+				</div>
+			<?php } ?>
+			<div class="row more-stories-container hide-for-landscape">
+				<div class="small-12 columns">
+					<hr>
+					<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
+					<?php
+					$query = array(
+						'post_type'           => array( 'cst_article' ),
+						'ignore_sticky_posts' => true,
+						'posts_per_page'      => 4,
+						'post_status'         => 'publish',
+						'cst_section'         => 'entertainment',
+						'orderby'             => 'modified',
+					);
+					CST()->frontend->cst_mini_stories_content_block( $query ); ?>
+				</div>
+			</div>
+			<div>
+				<hr>
+				<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' ); ?>
+			</div>
+			<div class="show-for-medium-up">
+				<hr>
+				<?php if ( get_query_var( 'showads', false ) ) { ?>
+					<img src="http://placehold.it/300x250/a0d0a0/130100&amp;text=[300x250-ad-will-be-responsive]">
+				<?php } ?>
+			</div>
+			<div class="hide-for-medium-down">
+				<hr>
+				<div class="row">
+					<?php //the_widget( 'CST_STNG_Wire_Widget' ); ?>
+				</div>
+			</div>
+		</div>
+	</div><!-- /stories-container -->
 		<!-- circular flipp -->
 		<div class="row">
 			<div class="columns">
