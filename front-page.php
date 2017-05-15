@@ -15,7 +15,9 @@
 		?>
 		<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 			<?php if ( get_query_var( 'showads', false ) ) { ?>
-				<div class="cst-ad-container"><img src="http://placehold.it/300x600&amp;text=[ad-will-be-responsive]"></div>
+				<?php if ( is_active_sidebar( 'homepage_sidebar' ) ) {
+					dynamic_sidebar( 'homepage_sidebar' );
+				} ?>
 			<?php } ?>
 			<div class="more-stories-container hide-for-large-up">
 				<hr>
@@ -28,29 +30,6 @@
 						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Entertainment</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Dear Abby: My friend bullies other kids at school</a></li>
 						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago Politics</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
 					</ul>
-				</div>
-			</div>
-			<div class="row more-stories-container">
-				<div class="columns small-12">
-					<hr>
-					<?php $section_slug = 'opinion'; ?>
-					<h3 class="more-sub-head">
-						<a href="<?php echo esc_url( home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/' ); ?>" data-on="click" data-event-category="navigation"
-						   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title">
-							<?php esc_html_e( ucfirst( $section_slug . ' slottable' ), 'chicagosuntimes' ); ?></a></h3>
-					<div class="row">
-						<div class="stories-list">
-							<?php $query = array(
-								'post_type'           => array( 'cst_article' ),
-								'ignore_sticky_posts' => true,
-								'posts_per_page'      => 7,
-								'post_status'         => 'publish',
-								'cst_section'         => esc_attr( $section_slug ),
-								'orderby'             => 'modified',
-							);
-							CST()->frontend->cst_latest_stories_content_block( $query ); ?>
-						</div>
-					</div>
 				</div>
 			</div>
 			<?php if ( get_query_var( 'showads', false ) ) { ?>

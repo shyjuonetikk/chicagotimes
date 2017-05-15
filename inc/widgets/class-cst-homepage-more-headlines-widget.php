@@ -41,10 +41,9 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			'cst_homepage_more_headlines',
 			esc_html__( 'CST! Homepage More Headlines', 'chicagosuntimes' ),
 			array(
-				'description' => esc_html__( 'Displays More Headlines.', 'chicagosuntimes' ),
+				'description' => esc_html__( 'Displays More Headlines - homepage/sidebar.', 'chicagosuntimes' ),
 				'customize_selective_refresh' => true,
-			),
-			array( 'width' => '400' )
+			)
 		);
 		$this->cache_key_stub = 'homepage-more-headlines-widget';
 		add_action( 'wp_ajax_cst_homepage_more_headlines_get_posts', array( $this, 'cst_homepage_more_headlines_get_posts' ) );
@@ -136,7 +135,12 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				'ignore_sticky_posts' => true,
 				'no_found_rows'       => true,
 			);
-			$this->more_stories_content( $query );
+			$sidebar_style = isset( $instance[ 'sidebar-style' ] ) ? intval( $instance[ 'sidebar-style' ] ) : 0;
+			if ( $sidebar_style ) {
+				$this->more_top_stories_block( $query, $instance['title'], 'sidebar-style' );
+			} else {
+				$this->more_stories_content( $query );
+			}
 //			get_template_part( 'parts/homepage/more-wells-v3' );
 
 
@@ -159,6 +163,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				'post_type'           => 'any',
 				'orderby'             => 'post__in',
 				'ignore_sticky_posts' => true,
+				'no_found_rows' => true,
 			);
 			$display_these_posts = new \WP_Query( $widget_posts_query );
 			$display_these_posts->have_posts();
@@ -179,12 +184,30 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	public function form( $instance ) {
 
 		$this->enqueue_scripts();
-		$count = 0;
+		$width = is_customize_preview() ? 'width:250px;' : 'width:400px;';
 		?>
-		<div class="cst-headline-sort ui-sortable">
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_name( 'sidebar-style' ) ); ?>">
+				<h4>Sidebar version?&nbsp;
+				<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'sidebar-style' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'sidebar-style' ) ); ?>"
+					   value="1" <?php checked( $instance['sidebar-style'], 1 ); ?>/>
+				</h4>
+			</label>
+		</p>
+		<?php if ( 1 === $instance['sidebar-style'] ) { ?>
+			<p>
+			<label for="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>">
+				<h4>Please enter a title?&nbsp;
+				<input type="text" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
+					   value="<?php echo esc_attr( $instance['title'] ); ?>"/>
+				</h4>
+			</label>
+			</p><?php
+		} ?>
+		<p class="cst-headline-sort ui-sortable">
 			<?php
-			foreach ( $this->headlines as $array_member ) {
-				$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
+			foreach ( $this->headlines as $key => $array_member ) {
+				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
 				$obj      = get_post( $headline );
 				if ( $obj ) {
 					$content_type = get_post_type( $obj->ID );
@@ -192,17 +215,16 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				} else {
 					$story_title = '';
 				}
-				$dashed_array_member = preg_replace( '/_/', '-', $array_member );
+				$dashed_key = preg_replace( '/_/', '-', $array_member );
 				?>
-				<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
-					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>"
-						   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;"/>
+				<p class="ui-state-default" id=<?php echo esc_attr( $key ); ?>>
+					<label for="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $key ], 'chicagosuntimes' ); ?></label>
+					<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>"
+						   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 				</p>
 				<?php
-				$count++;
 			}?>
-		</div>
+		</p>
 		<?php
 
 	}
@@ -217,9 +239,11 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$total    = count( $new_instance );
-		for ( $count = 0; $count < $total; $count ++ ) {
-			$instance[] = intval( array_shift( $new_instance ) );
+		// @TODO caching
+		$instance['sidebar-style'] = isset( $new_instance['sidebar-style'] ) ? 1 : 0;
+		$instance['title'] = isset( $new_instance['title'] ) ? $new_instance['title'] : false;
+		foreach ( $this->headlines as $headline => $value ) {
+			$instance[$headline] = isset( $new_instance[$headline] ) ? intval( $new_instance[$headline] ) : 0;
 		}
 		wp_cache_delete( $this->cache_key_stub );
 
@@ -232,14 +256,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			<!-- Pull from Top Stories widget -->
 			<div class="columns small-12">
 				<div class="row">
-					<div class="columns small-12 medium-6 large-4">
-						<h3 class="more-sub-head">More Top Stories!</h3>
-						<div class="row">
-							<div class="stories-list">
-								<?php CST()->frontend->cst_latest_stories_content_block( $query ); ?>
-							</div>
-						</div>
-					</div>
+					<?php $this->more_top_stories_block( $query, 'More Top Stories', 'normal-style' ); ?>
 					<div class="columns small-12 medium-6 large-8">
 						<div class="small-12 columns">
 							<div class="row">
@@ -297,6 +314,38 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			</div>
 		</div>
 		</div><!-- /stories -->
+		<?php
+	}
+
+	/**
+	 * @param $query
+	 * @param $title string  Title of the content block
+	 * @param $style string 'sidebar-style' | 'normal-style' to determine markup
+	 * List of stories - title -> image
+	 *
+	 */
+	public function more_top_stories_block( $query, $title, $style = 'sidebar-style' ) {
+		$widget_style = array(
+			'sidebar-style' => array(
+				'wrapper-open' => 'row more-stories-container',
+				'container-open' => 'columns small-12',
+			),
+			'normal-style' => array(
+				'wrapper-open' => 'more-stories-container',
+				'container-open' => 'columns small-12 medium-6 large-4',
+			),
+		);
+		?>
+		<div class="<?php echo esc_attr( $widget_style[$style]['wrapper-open'] ); ?>">
+			<div class="<?php echo esc_attr( $widget_style[$style]['container-open'] ); ?>">
+				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
+				<div class="row">
+					<div class="stories-list">
+						<?php CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+					</div>
+				</div>
+			</div>
+		</div>
 		<?php
 	}
 }
