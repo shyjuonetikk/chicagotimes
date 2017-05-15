@@ -148,7 +148,6 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			}
 		}
 		if ( ! empty( $widget_posts ) ) {
-
 			$homepage_main_well_posts = $this->get_headline_posts( $widget_posts );
 			$this->widget_markup( $homepage_main_well_posts, $article_map );
 			// get_template_part( 'parts/homepage/main-wells-v3' );
@@ -313,6 +312,11 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 */
 	public function widget_markup( $headlines, $article_map ) {
 	// @TODO Review parameters, error check etc
+	// We have post objects in $widget_posts and post ids in $article_map
+	// If we can select the post object and pass only that to the story function that might
+	// save a post retrieval / lookup
+	// Currently we pass the ID and it is looked up again within the story function.
+	// @TODO caching
 ?>
 <div class="row stories-container">
 	<div class="columns small-12 medium-8 large-9 stories">
@@ -345,10 +349,12 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				$article_map['cst_homepage_mini_headlines_five'],
 			) ); ?>
 			<div class="other-stories show-for-large-up">
+			<?php if ( ! $this->is_preview() ) { // @TODO Selective display / render as this seems to trip up customizer ?>
 				<hr>
 				<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
 				<div id="root"></div>
 				<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.641bf377.js"></script>
+			<?php } ?>
 			</div>
 		</div>
 		<div class="small-12 columns more-stories-container">
@@ -370,86 +376,9 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			<div class="cst-ad-container"><img src="http://placehold.it/970x90/a0a0d0/130100&amp;text=[nativo]"></div>
 		<?php } ?>
 		<hr>
-		<div class="row more-stories-container">
-			<!-- Pull from Top Stories widget -->
-			<?php $section_slug = 'news'; ?>
-			<div class="columns small-12">
-				<div class="row">
-					<div class="columns small-12 medium-6 large-4">
-						<h3 class="more-sub-head">More Top Stories</h3>
-						<div class="row">
-							<div class="stories-list">
-								<?php $query = array(
-									'post_type'           => array( 'cst_article' ),
-									'ignore_sticky_posts' => true,
-									'posts_per_page'      => 10,
-									'post_status'         => 'publish',
-									'cst_section'         => esc_attr( $section_slug ),
-									'orderby'             => 'modified',
-								);
-								CST()->frontend->cst_latest_stories_content_block( $query ); ?>
-							</div>
-						</div>
-					</div>
-					<div class="columns small-12 medium-6 large-8">
-						<div class="small-12 columns">
-							<div class="row">
-								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
-								<div class="featured-story">
-									<a href="http://chicago.suntimes.com/feature/50-years-after-chicago-areas-most-devastating-tornadoes/" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
-										<img src="https://suntimesmedia.files.wordpress.com/2017/04/tornado-041617-01_68208979.jpg?w=700" alt="article promo image" class="featured-story-hero">
-										<h3>Survivors' stories 50 years after Chicago area's deadliest tornadoes hit Oak Lawn, other towns</h3>
-									</a>
-								</div>
-							</div>
-							<div class="row">
-								<h3 class="more-sub-head">
-									<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
-									   data-event-action="navigate-hp-features-column-title">
-										More Features</a></h3>
-								<div class="columns small-12">
-									<div class="row">
-										<?php $query = array(
-											'post_type'           => array( 'cst_feature' ),
-											'ignore_sticky_posts' => true,
-											'posts_per_page'      => 4,
-											'post_status'         => 'publish',
-											'orderby'             => 'modified',
-										);
-										CST()->frontend->cst_mini_stories_content_block( $query ); ?>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="columns small-12">
-						<?php if ( get_query_var( 'showads', false ) ) { ?>
-							<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
-						<?php } ?>
-					</div>
-					<div class="show-for-large-up hide-for-portrait">
-						<div class="small-12 columns more-stories-container">
-							<hr>
-							<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
-							<?php
-							$query = array(
-								'post_type'           => array( 'cst_article' ),
-								'ignore_sticky_posts' => true,
-								'posts_per_page'      => 5,
-								'post_status'         => 'publish',
-								'cst_section'         => 'entertainment',
-								'orderby'             => 'modified',
-							);
-							CST()->frontend->cst_mini_stories_content_block( $query ); ?>
-						</div>
-					</div>
 
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<?php // Closing div in front-page.php
+	<?php // closing stories in class-cst-homepage-more-headlines-widget
+	// Closing div in front-page.php
 	}
 
 	/**

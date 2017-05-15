@@ -42,11 +42,15 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			esc_html__( 'CST! Homepage More Headlines', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays More Headlines.', 'chicagosuntimes' ),
+				'customize_selective_refresh' => true,
 			),
 			array( 'width' => '400' )
 		);
 		$this->cache_key_stub = 'homepage-more-headlines-widget';
 		add_action( 'wp_ajax_cst_homepage_more_headlines_get_posts', array( $this, 'cst_homepage_more_headlines_get_posts' ) );
+		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		}
 	}
 
 	/**
@@ -124,8 +128,17 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		if ( ! empty( $widget_posts ) ) {
 
-			$homepage_more_well_posts = $this->get_headline_posts( $widget_posts );
-			get_template_part( 'parts/homepage/more-wells-v3' );
+//			$homepage_more_well_posts = $this->get_headline_posts( $widget_posts );
+			$query  = array(
+				'post__in'            => $widget_posts,
+				'post_type'           => 'any',
+				'orderby'             => 'post__in',
+				'ignore_sticky_posts' => true,
+				'no_found_rows'       => true,
+			);
+			$this->more_stories_content( $query );
+//			get_template_part( 'parts/homepage/more-wells-v3' );
+
 
 		}
 
@@ -211,5 +224,79 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		wp_cache_delete( $this->cache_key_stub );
 
 		return $instance;
+	}
+
+	public function more_stories_content( $query ) {
+		?>
+		<div class="row more-stories-container">
+			<!-- Pull from Top Stories widget -->
+			<div class="columns small-12">
+				<div class="row">
+					<div class="columns small-12 medium-6 large-4">
+						<h3 class="more-sub-head">More Top Stories!</h3>
+						<div class="row">
+							<div class="stories-list">
+								<?php CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+							</div>
+						</div>
+					</div>
+					<div class="columns small-12 medium-6 large-8">
+						<div class="small-12 columns">
+							<div class="row">
+								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
+								<div class="featured-story">
+									<a href="http://chicago.suntimes.com/feature/50-years-after-chicago-areas-most-devastating-tornadoes/" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
+										<img src="https://suntimesmedia.files.wordpress.com/2017/04/tornado-041617-01_68208979.jpg?w=700" alt="article promo image" class="featured-story-hero">
+										<h3>Survivors' stories 50 years after Chicago area's deadliest tornadoes hit Oak Lawn, other towns</h3>
+									</a>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="more-sub-head">
+									<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
+									   data-event-action="navigate-hp-features-column-title">
+										More Features</a></h3>
+								<div class="columns small-12">
+									<div class="row">
+										<?php $query = array(
+											'post_type'           => array( 'cst_feature' ),
+											'ignore_sticky_posts' => true,
+											'posts_per_page'      => 4,
+											'post_status'         => 'publish',
+											'orderby'             => 'modified',
+										);
+										CST()->frontend->cst_mini_stories_content_block( $query ); ?>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns small-12">
+						<?php if ( get_query_var( 'showads', false ) ) { ?>
+							<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
+						<?php } ?>
+					</div>
+					<div class="show-for-large-up hide-for-portrait">
+						<div class="small-12 columns more-stories-container">
+							<hr>
+							<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
+							<?php
+							$query = array(
+								'post_type'           => array( 'cst_article' ),
+								'ignore_sticky_posts' => true,
+								'posts_per_page'      => 5,
+								'post_status'         => 'publish',
+								'cst_section'         => 'entertainment',
+								'orderby'             => 'modified',
+							);
+							CST()->frontend->cst_mini_stories_content_block( $query ); ?>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		</div><!-- /stories -->
+		<?php
 	}
 }

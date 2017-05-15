@@ -137,5 +137,18 @@
         CSTHomepageHeadlinesWidget.init();
 
     });
+  $( function() {
+    if ( 'undefined' !== typeof wp && wp.customize ) {
+      if ( wp.customize.selectiveRefresh ) {
+        wp.customize.selectiveRefresh.bind( 'partial-content-rendered', function( placement ) {
+          console.log( 'perhaps rendering ' + placement.partial.id );
+        } );
+      }
+      // wp.customize.bind( 'preview-ready', startRelatedPosts );
+      console.log('customize.bind triggered from cst-homepage-headlines')
+    } else {
+      console.log('wp is not undefined and wp.customize exists')
+    }
+  } );
 
 }( jQuery ) );
