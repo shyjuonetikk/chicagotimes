@@ -214,7 +214,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				if ( 0 === $count ) { ?>
 					<p>
 						<label for="<?php echo esc_attr( $this->get_field_name( 'related-posts' ) ); ?>">
-							Select related stories?
+							Select related stories to hero?
 							<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'related-posts' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'related-posts' ) ); ?>"
 								   value="1" <?php checked( $instance['related-posts'], 1 ); ?>/>
 						</label>
@@ -234,7 +234,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 							?>
 							<p class="ui-state-default">
 								<label for="<?php echo esc_attr( $this->get_field_name( $related_key ) ); ?>">
-									Related stories
+									<em>Related stories</em>
 								</label>
 								<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $related_key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $related_key ) ); ?>"
 									   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
@@ -341,7 +341,8 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	}
 
 	/**
-	 * @param $article_map
+	 * @param $article_map array
+	 * @param $instance array
 	 */
 	public function widget_markup( $article_map, $instance ) {
 	// @TODO Review parameters, error check etc
@@ -355,7 +356,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	<div class="columns small-12 medium-8 large-9 stories">
 		<div class="row" data-equalizer-mq="large-up">
 			<div class="columns small-12 large-4 lead-stories" id="hp-main-lead">
-				<?php $this->homepage_hero_story( $article_map['cst_homepage_headlines_one'] ); ?>
+				<?php $this->homepage_hero_story( $article_map['cst_homepage_headlines_one'], $instance ); ?>
 				<?php $this->homepage_lead_story( $article_map['cst_homepage_headlines_two'] ); ?>
 				<?php $this->homepage_lead_story( $article_map['cst_homepage_headlines_three'] ); ?>
 			<div class="show-for-large-up">
@@ -426,7 +427,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 *
 	 * Hero story markup generation and display
 	 */
-	public function homepage_hero_story( $headline, $image_size = 'chiwire-header-medium' ) {
+	public function homepage_hero_story( $headline, $instance ) {
 		$obj = \CST\Objects\Post::get_by_post_id( $headline );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = CST()->frontend->get_article_author( $obj );
@@ -449,7 +450,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				if ( $featured_image_id ) {
 					$attachment = wp_get_attachment_metadata( $featured_image_id );
 					if ( $attachment ) {
-						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', $image_size );
+						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-header-medium' );
 						echo wp_kses_post( $image_markup );
 					}
 				}
@@ -470,16 +471,16 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 </div>
 <div class="columns small-12 medium-5 medium-offset-1 large-12 large-offset-0">
 	<div class="row">
-		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+		<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 			<p class="excerpt">
 				<?php echo wp_kses_post( $story_excerpt ); ?>
 			</p>
 		</a>
 		<p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
-		<ul class="related-title">
-			<li><a href="#"><h3>Analysis: When did Trump declare the wall will be built?</h3></a></li>
-			<li><a href="#"><h3>Analysis: More on this story</h3></a></li>
-		</ul>
+		<?php if ( 1 === $instance['related-posts'] ) {
+			$this->handle_related_content( $instance );
+		}
+		?>
 	</div>
 </div>
 		</div>
@@ -569,5 +570,29 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	</div>
 </div>
 <?php
+	}
+
+	/**
+	* @param $instance
+	* Determine if any related stories are selected and display in a list
+	*/
+	public function handle_related_content( $instance ) {
+		$related = array_intersect_key( $instance, $this->hero_related );
+		$filter_result = array_filter( $related, function( $value ) {
+			return 0 !== $value;
+		} );
+		if ( count( $filter_result ) ) { ?>
+		<h3>Related stories:</h3>
+		<ul class="related-title">
+			<?php foreach( $filter_result as $hero_related => $value ) {
+				if ( isset( $instance[$hero_related] ) ) {
+					$obj = \CST\Objects\Post::get_by_post_id( $instance[$hero_related] );
+					if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
+						<li><a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story" ><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
+					<?php } ?>
+				<?php } ?>
+			<?php } ?>
+		</ul>
+	<?php }
 	}
 }
