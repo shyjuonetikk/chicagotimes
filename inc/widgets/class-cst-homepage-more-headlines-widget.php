@@ -52,7 +52,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'cst_homepage_more_headlines',
-			esc_html__( 'CST! Homepage More Headlines', 'chicagosuntimes' ),
+			esc_html__( 'CST! Homepage/RR More Headlines', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays More Headlines - homepage/sidebar.', 'chicagosuntimes' ),
 				'customize_selective_refresh' => true,
@@ -216,7 +216,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_name( 'sidebar-style' ) ); ?>">
-				<h4>Sidebar version?&nbsp;
+				<h4>Check to use as Right Rail version&nbsp;(will only show ten slottable stories)
 				<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'sidebar-style' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'sidebar-style' ) ); ?>"
 					   value="1" <?php checked( $instance['sidebar-style'], 1 ); ?>/>
 				</h4>
