@@ -389,7 +389,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 											$items[ $featured_story_block_headline ] = array_key_exists( $featured_story_block_headline, $article_map ) ? $article_map[ $featured_story_block_headline ] : null;
 										}
 										array_shift( $items );
-										CST()->frontend->mini_stories_content_block( $items ); ?>
+										CST()->frontend->mini_stories_content_block( $items, 'vertical' ); ?>
 									</div>
 								</div>
 							</div>

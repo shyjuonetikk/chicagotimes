@@ -20,25 +20,18 @@
 					dynamic_sidebar( 'homepage_sidebar' );
 				} ?>
 			<?php } ?>
-			<div class="more-stories-container hide-for-large-up">
-				<hr>
-				<div class="other-stories">
-					<h2>Also in the Chicago Sun-Times</h2>
-					<ul class="list">
-						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago News</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Mentally ill woman gets 22 years for killing husband with poison</a></li>
-						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago News</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">9 charged with Crystal Lake fight that led to stabbing</a></li>
-						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago Sports</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Anthony Swarzak gettung career back on track with White Sox</a></li>
-						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Entertainment</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Dear Abby: My friend bullies other kids at school</a></li>
-						<li><span class="section-name"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="section-link">Chicago Politics</a></span> <a href="<?php echo esc_url( 'http://chicago.suntimes.com/columnists/wanted-conservative-sports-network-to-compete-with-espn/' ); ?>" class=" magic-link-size">Sneed exclusive: City could deal blow to Trump wall contractors</a></li>
-					</ul>
-				</div>
-			</div>
 			<?php if ( get_query_var( 'showads', false ) ) { ?>
 				<div class="cst-ad-container">
 					<hr>
 					<img src="http://placehold.it/300x250/e0e0e0/130100&amp;text=[300x250-ad-will-be-responsive]">
 				</div>
 			<?php } ?>
+			<div class="more-stories-container hide-for-xlarge-up">
+				<hr>
+				<?php if ( is_active_sidebar( 'homepage_sidebar_two' ) ) {
+					dynamic_sidebar( 'homepage_sidebar_two' );
+				} ?>
+			</div>
 			<div class="row more-stories-container hide-for-landscape">
 				<div class="small-12 columns">
 					<hr>

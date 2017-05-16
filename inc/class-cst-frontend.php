@@ -1099,7 +1099,7 @@ class CST_Frontend {
 	 * Optionally a 5th piece of content on left of 2 x 2 block of content
 	 * @param $headlines array
 	 */
-	public function mini_stories_content_block( $headlines ) {
+	public function mini_stories_content_block( $headlines, $style = 'regular' ) {
 		$count_headlines = count( $headlines );
 		$counter = 0;
 		$close_me = false; ?>
@@ -1118,7 +1118,7 @@ class CST_Frontend {
 						</div><!-- First one -->
 						<div class="single-mini-story small-12 medium-8">
 					<?php } else {
-						CST()->frontend->single_mini_story( $obj, 'regular' );
+						CST()->frontend->single_mini_story( $obj, $style );
 					}
 				}
 				$counter++;
@@ -1147,6 +1147,13 @@ class CST_Frontend {
 			'image_class' => 'small-3 medium-4 large-4',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-8 large-8',
+			'watch' => 'data-equalizer-watch',
+		);
+		$layout['vertical'] = array (
+			'wrapper_class' => 'medium-6',
+			'image_class' => 'small-3 medium-12 large-4',
+			'image_size' => 'chiwire-small-square',
+			'title_class' => 'small-9 medium-12 large-8',
 			'watch' => 'data-equalizer-watch',
 		);
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {

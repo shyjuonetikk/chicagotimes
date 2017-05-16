@@ -323,7 +323,10 @@
 				li {
 					border-top: 1px solid $social_grey;
 					padding: 5px;
-
+					a, em, strong {
+						color: $cst_black;
+						font-size: 0.8rem;
+					}
 					a:hover {
 						color: $line_grey;
 					}

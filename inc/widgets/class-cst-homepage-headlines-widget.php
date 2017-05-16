@@ -394,6 +394,13 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			</div>
 			<div class="other-stories hide-for-xlarge-up">
 			<h3>Hello</h3>
+			<ul>
+				<li>Please</li>
+				<li>Fill</li>
+				<li>me</li>
+				<li>up</li>
+				<li>with content</li>
+				</ul>
 			</div>
 		</div>
 		<div class="small-12 columns more-stories-container" id="hp-section-lead">
@@ -460,13 +467,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				?>
 				</span></a>
 			</div>
-		<div class="show-for-portrait show-for-xlarge-up">
-			<div class="small-12">
-				<?php if ( 1 === $instance['related-posts'] ) {
-					$this->handle_related_content( $instance );
-				} ?>
-			</div>
-		</div>
+
 	</div>
 </div>
 <div class="columns small-12 medium-5 medium-offset-1 large-12 large-offset-0">
@@ -477,13 +478,22 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			</p>
 		</a>
 		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
-		<?php if ( 1 === $instance['related-posts'] ) {
-			$this->handle_related_content( $instance );
-		}
-		?>
-	</div>
-</div>
+		<div class="show-for-landscape show-for-xlarge-up">
+			<?php if ( 1 === $instance['related-posts'] ) {
+				$this->handle_related_content( $instance );
+			}
+			?>
 		</div>
+	</div>
+		<div class="show-for-portrait show-for-large-up">
+			<div class="small-12">
+				<?php if ( 1 === $instance['related-posts'] ) {
+					$this->handle_related_content( $instance );
+				} ?>
+			</div>
+		</div>
+</div>
+</div>
 
 		<?php
 	}
