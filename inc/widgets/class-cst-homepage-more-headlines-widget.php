@@ -364,7 +364,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				<div class="row">
 					<?php $this->more_top_stories_block( $query, 'More Top Stories', 'normal-style' ); ?>
 					<div class="columns small-12 medium-6 large-8">
-						<div class="small-12 columns">
+						<div class="small-12 columns" id="featured-stories">
 							<div class="row">
 								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
 								<div class="featured-story">
@@ -401,7 +401,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 						<?php } ?>
 					</div>
 					<div class="show-for-large-up hide-for-portrait">
-						<div class="small-12 columns more-stories-container">
+						<div class="small-12 columns more-stories-container" id="top-stories-section-lead">
 							<hr>
 							<h3 class="more-sub-head">
 								<?php
@@ -463,7 +463,6 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 	/**
 	 * @param $obj
-	 * @param $author
 	 */
 	public function featured_story_lead( $obj ) {
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
@@ -476,7 +475,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	if ( $featured_image_id )  {
 		$attachment = wp_get_attachment_metadata( $featured_image_id );
 		if ( $attachment ) {
-			$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], $attachment['image_meta']['caption'], 'none', 'cst-article-featured');
+			$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'none', 'cst-article-featured');
 			echo wp_kses_post( $image_markup );
 		}
 	}

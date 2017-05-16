@@ -449,7 +449,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				if ( $featured_image_id ) {
 					$attachment = wp_get_attachment_metadata( $featured_image_id );
 					if ( $attachment ) {
-						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], $attachment['image_meta']['caption'], 'left', $image_size );
+						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', $image_size );
 						echo wp_kses_post( $image_markup );
 					}
 				}
@@ -504,8 +504,8 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		if ( $featured_image_id ) {
 			$attachment = wp_get_attachment_metadata( $featured_image_id );
 			if ( $attachment ) {
-				$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], $attachment['image_meta']['caption'], 'left', 'chiwire-header-medium' );
-				$small_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], $attachment['image_meta']['caption'], 'left', 'chiwire-small-square' );
+				$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-header-medium' );
+				$small_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-small-square' );
 			}
 		}
 		?>
@@ -541,7 +541,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		if ( $featured_image_id ) {
 			$attachment = wp_get_attachment_metadata( $featured_image_id );
 			if ( $attachment ) {
-				$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], $attachment['image_meta']['caption'], 'left', 'secondary-wells' );
+				$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'secondary-wells' );
 			}
 		}
 ?>
