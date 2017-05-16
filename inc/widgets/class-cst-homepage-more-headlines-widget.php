@@ -350,9 +350,14 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 * @param $article_map
 	 * @param $instance
 	 *
-	 * Display full widget top stories link
+	 * Display full widget top stories link, Featured Story and featured stories block too
+	 * And display a section with slotted content below
 	 */
 	public function more_stories_content( $query, $article_map, $instance ) {
+		add_filter( 'get_image_tag_class', function( $class ) {
+			$class .= ' featured-story-hero';
+			return $class;
+		} );
 		?>
 		<div class="row more-stories-container">
 			<div class="columns small-12">
