@@ -353,17 +353,18 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 ?>
 <div class="row stories-container">
 	<div class="columns small-12 medium-8 large-9 stories">
-		<div class="row" data-equalizer-mq="large-up" id="hp-main-lead">
-			<div class="columns small-12 large-4 lead-stories">
+		<div class="row" data-equalizer-mq="large-up">
+			<div class="columns small-12 large-4 lead-stories" id="hp-main-lead">
 				<?php $this->homepage_hero_story( $article_map['cst_homepage_headlines_one'] ); ?>
 				<?php $this->homepage_lead_story( $article_map['cst_homepage_headlines_two'] ); ?>
 				<?php $this->homepage_lead_story( $article_map['cst_homepage_headlines_three'] ); ?>
 			<div class="show-for-large-up">
 				<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
 			</div>
-		</div>
-		<div class="columns small-12 large-8 other-lead-stories" id="hp-other-lead">
+		</div><!-- /hp-main-lead -->
+		<div class="columns small-12 large-8 other-lead-stories">
 			<div class="show-for-medium-only"><h3>In other news</h3></div>
+			<div id="hp-other-lead">
 			<div class="row lead-mini-story">
 				<?php
 				$obj = \CST\Objects\Post::get_by_post_id( $article_map['cst_homepage_mini_headlines_one'] );
@@ -381,6 +382,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				$article_map['cst_homepage_mini_headlines_four'],
 				$article_map['cst_homepage_mini_headlines_five'],
 			) ); ?>
+			</div><!-- hp-other-lead -->
 			<div class="other-stories show-for-large-up">
 			<?php if ( ! $this->is_preview() ) { // @TODO Selective display / render as this seems to trip up customizer ?>
 				<hr>
