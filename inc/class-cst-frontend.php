@@ -1150,7 +1150,7 @@ class CST_Frontend {
 			'watch' => 'data-equalizer-watch',
 		);
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-			$author          = CST()->frontend->get_article_author( $obj );
+			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		?>
 <div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo esc_attr( $layout[$layout_type]['watch']); ?>>
@@ -1178,7 +1178,7 @@ class CST_Frontend {
 			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 		</a>
 	</div>
-	<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
+	<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
 </div>
 		<?php
 	}
@@ -1550,6 +1550,24 @@ class CST_Frontend {
 		return $author;
 	}
 
+	/**
+	* @param \CST\Objects\Post $obj
+	*
+	* @return string
+	*
+	* Generate and return markup for author(s) for use on the homepage
+	*/
+	public function hp_get_article_authors( \CST\Objects\Post $obj ) {
+		$authors_open = '<span class="post-meta-author">';
+		$authors_close = '</span>';
+		foreach ( $obj->get_authors() as $i => $author ) {
+			$authors []= '<a href="' . esc_url( $author->get_permalink() ) . '" 
+			data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
+			esc_html( $author->get_display_name() ) . '
+			</a>';
+		}
+		return $authors_open . join( $authors, ' and ' ) . $authors_close;
+	}
 	/**
 	* Adding OpenX script tag in header section of markup for all
 	* site templates that might display advertising

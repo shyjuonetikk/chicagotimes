@@ -3551,6 +3551,8 @@ body.post-gallery-lightbox-active {
   .post .post-meta-bottom .post-meta-taxonomy-terms:hover a:hover .fa {
     color: #7d7e7e; }
 
+.homepage_wrapper .stories .post-meta-author a {
+  color: #231f20; }
 .homepage_wrapper .single-mini-story {
   float: left;
   margin-bottom: 0.5rem; }
@@ -3749,6 +3751,8 @@ body.post-gallery-lightbox-active {
     font-weight: 700; }
   .homepage_wrapper .widget-chartbeat-currently-viewing .time {
     color: #9a9a9a; }
+.homepage_wrapper .widgets li {
+  list-style-type: none; }
 .homepage_wrapper .widgets .widget .widgettitle {
   font-size: 1rem;
   font-weight: 400;

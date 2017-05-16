@@ -1,4 +1,11 @@
 .homepage_wrapper {
+	.stories {
+		.post-meta-author {
+			a {
+				color: $cst_black;
+			}
+		}
+	}
 	.single-mini-story {
 		float: left;
 		margin-bottom: 0.5rem;
@@ -288,6 +295,9 @@
 		}
 	}
 	.widgets{
+		li {
+			list-style-type: none;
+		}
 		.widget{
 			.widgettitle {
 				font-size: 1rem;

@@ -463,11 +463,10 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 	/**
 	 * @param $obj
+	 *
+	 * Display Featured Story - lead, large image
 	 */
 	public function featured_story_lead( $obj ) {
-		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-			$author          = CST()->frontend->get_article_author( $obj );
-		}
 		?>
 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
 	<?php

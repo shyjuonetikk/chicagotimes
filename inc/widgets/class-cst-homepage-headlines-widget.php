@@ -370,7 +370,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				<?php
 				$obj = \CST\Objects\Post::get_by_post_id( $article_map['cst_homepage_mini_headlines_one'] );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-					$author          = CST()->frontend->get_article_author( $obj );
+					$author          = CST()->frontend->hp_get_article_authors( $obj );
 					$this->homepage_mini_story_lead( $obj, $author );
 				}
 				?>
@@ -391,6 +391,9 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				<div id="root"></div>
 				<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.641bf377.js"></script>
 			<?php } ?>
+			</div>
+			<div class="other-stories hide-for-xlarge-up">
+			<h3>Hello</h3>
 			</div>
 		</div>
 		<div class="small-12 columns more-stories-container" id="hp-section-lead">
@@ -430,7 +433,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	public function homepage_hero_story( $headline, $instance ) {
 		$obj = \CST\Objects\Post::get_by_post_id( $headline );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-			$author          = CST()->frontend->get_article_author( $obj );
+			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		remove_filter( 'the_excerpt', 'wpautop' );
 		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
@@ -459,12 +462,9 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			</div>
 		<div class="show-for-portrait show-for-xlarge-up">
 			<div class="small-12">
-				<h3>Related News.</h3>
-				<ul class="related-title">
-					<li>Weekend Killings</li>
-					<li>CPS budgets</li>
-					<li>Rauner pulls funding</li>
-				</ul>
+				<?php if ( 1 === $instance['related-posts'] ) {
+					$this->handle_related_content( $instance );
+				} ?>
 			</div>
 		</div>
 	</div>
@@ -476,7 +476,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				<?php echo wp_kses_post( $story_excerpt ); ?>
 			</p>
 		</a>
-		<p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
+		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
 		<?php if ( 1 === $instance['related-posts'] ) {
 			$this->handle_related_content( $instance );
 		}
@@ -496,7 +496,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	public function homepage_lead_story( $headline ) {
 		$obj = \CST\Objects\Post::get_by_post_id( $headline );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-			$author          = CST()->frontend->get_article_author( $obj );
+			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		remove_filter( 'the_excerpt', 'wpautop' );
 		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
@@ -523,7 +523,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		<?php echo wp_kses_post( $story_excerpt ); ?>
 	</p>
 </a>
-<p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> hour ago</p>
+<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> hour ago</p>
 		</div>
 <?php
 	}
@@ -565,7 +565,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<p class="excerpt"><?php echo wp_kses_post( $story_excerpt ); ?></p>
 			</a>
-			<p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> hour ago</p>
+			<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> hour ago</p>
 		</div>
 	</div>
 </div>
