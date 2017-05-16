@@ -124,10 +124,13 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		global $homepage_more_well_posts;
 		$widget_posts = array();
+		$article_map = array();
 
-		for ( $count = 0; $count < count( $instance ); $count++ ) {
-			if ( $instance[ $count ] ) {
-				$widget_posts[] = absint( $instance[ $count ] );
+		foreach ( $this->headlines as $headline => $value ) {
+			$article_id = isset( $instance[$headline] ) ? intval( $instance[$headline] ) : 0;
+			if ( $article_id ) {
+				$widget_posts[] = $article_id;
+				$article_map[$headline] = $article_id;
 			}
 		}
 		foreach ( $this->five_story_block_headlines as $five_story_block_headlines => $value ) {
@@ -139,7 +142,6 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		}
 		if ( ! empty( $widget_posts ) ) {
 
-//			$homepage_more_well_posts = $this->get_headline_posts( $widget_posts );
 			$query  = array(
 				'post__in'            => $widget_posts,
 				'post_type'           => 'any',
@@ -153,9 +155,6 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			} else {
 				$this->more_stories_content( $query, $article_map, $instance );
 			}
-//			get_template_part( 'parts/homepage/more-wells-v3' );
-
-
 		}
 
 	}
@@ -197,6 +196,9 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		$this->enqueue_scripts();
 		$width = is_customize_preview() ? 'width:250px;' : 'width:400px;';
+		if ( ! isset( $instance['sidebar-style'] ) ) {
+			$instance['sidebar-style'] = 0;
+		}
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_name( 'sidebar-style' ) ); ?>">
@@ -211,11 +213,14 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>">
 				<h4>Please enter a title?&nbsp;
 				<input type="text" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-					   value="<?php echo esc_attr( $instance['title'] ); ?>"/>
+					   value="<?php echo esc_attr( $instance['title'] ); ?>" placeholder="Type custom title"/>
 				</h4>
 			</label>
 			</p><?php
-		} ?>
+		} else {
+			?><h3>More Top Stories</h3><?php
+		}?>
+		<h4>Choose ten slottable stories</h4>
 		<p class="cst-headline-sort ui-sortable">
 			<?php
 			foreach ( $this->headlines as $key => $array_member ) {
@@ -237,36 +242,38 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				<?php
 			}?>
 		</p>
-		<hr>
-		<h3>Other section stories 1 beside 2x2</h3>
-		<small>Featured image included</small>
-		<h4>Choose section heading:</h4>
-		<?php $sections = get_terms( 'cst_section', array( 'parent' => 0 ) ); ?>
-		<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'other_section_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'other_section_title' ) ); ?>">
-			<?php if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) : ?>
-				<?php foreach( $sections as $section ) : ?>
-					<option <?php selected( $section->slug == $instance['other_section_title'] ) ?> value="<?php echo esc_attr( $section->slug . ':' . $section->term_id ); ?>"><?php echo esc_html( $section->name ); ?></option>
-				<?php endforeach; ?>
-			<?php endif; ?>
-		</select>
-		<?php foreach ( $this->five_story_block_headlines as $key => $array_member ) {
-			$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
-			$obj = get_post( $headline );
-			if ( $obj ) {
-				$content_type = get_post_type( $obj->ID );
-				$story_title = $obj->post_title . ' [' . $content_type . ']';
-			} else {
-				$story_title = '';
+		<?php if ( isset( $instance['sidebar-style'] ) && 0 === $instance['sidebar-style'] ) { ?>
+			<hr>
+			<h3>Other section stories 1 beside 2x2</h3>
+			<small>5 slottable stories - featured image included</small>
+			<h4>Choose section heading:</h4>
+			<?php $sections = get_terms( 'cst_section', array( 'parent' => 0 ) ); ?>
+			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'other_section_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'other_section_title' ) ); ?>">
+				<?php if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) : ?>
+					<?php foreach( $sections as $section ) : ?>
+						<option <?php selected( $section->slug == $instance['other_section_title'] ) ?> value="<?php echo esc_attr( $section->slug . ':' . $section->term_id ); ?>"><?php echo esc_html( $section->name ); ?></option>
+					<?php endforeach; ?>
+				<?php endif; ?>
+			</select>
+			<?php foreach ( $this->five_story_block_headlines as $key => $array_member ) {
+				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
+				$obj = get_post( $headline );
+				if ( $obj ) {
+					$content_type = get_post_type( $obj->ID );
+					$story_title = $obj->post_title . ' [' . $content_type . ']';
+				} else {
+					$story_title = '';
+				}
+				$dashed_key = preg_replace( '/_/', '-', $key );
+				?>
+				<p class="ui-state-default" id="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+						<?php esc_html_e( $key, 'chicagosuntimes' ); ?>
+					</label>
+					<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+				</p>
+				<?php
 			}
-			$dashed_key = preg_replace( '/_/', '-', $key );
-			?>
-			<p class="ui-state-default" id="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
-				<label for="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
-					<?php esc_html_e( $key, 'chicagosuntimes' ); ?>
-				</label>
-				<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
-			</p>
-			<?php
 		}
 
 	}
@@ -299,10 +306,16 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		return $instance;
 	}
 
+	/**
+	 * @param $query
+	 * @param $article_map
+	 * @param $instance
+	 *
+	 * Display full widget top stories link
+	 */
 	public function more_stories_content( $query, $article_map, $instance ) {
 		?>
 		<div class="row more-stories-container">
-			<!-- Pull from Top Stories widget -->
 			<div class="columns small-12">
 				<div class="row">
 					<?php $this->more_top_stories_block( $query, 'More Top Stories', 'normal-style' ); ?>
@@ -349,19 +362,18 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 								<?php
 								$section_link_url = wpcom_vip_get_term_link( intval( $instance['other_section_id'] ) );
 								if ( ! is_wp_error( $section_link_url ) ) {
-									echo '<a href="' . esc_url( $section_link_url ) . '">' . esc_html( $instance['other_section_title'] ) . '</a>';
+									echo '<a href="' . esc_url( $section_link_url ) . '" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-section-link">' . esc_html( $instance['other_section_title'] ) . '</a>';
 								} else {
 									echo esc_html( $instance['other_section_title'] );
 								}
 								?>
 							</h3>
-							<?php CST()->frontend->mini_stories_content_block( array(
-								$article_map['cst_homepage_story_block_headlines_one'],
-								$article_map['cst_homepage_story_block_headlines_two'],
-								$article_map['cst_homepage_story_block_headlines_three'],
-								$article_map['cst_homepage_story_block_headlines_four'],
-								$article_map['cst_homepage_story_block_headlines_five'],
-							) );?>
+							<?php
+							$items = array();
+							foreach ( $this->five_story_block_headlines as $five_story_block_headline => $value ) {
+								$items[ $five_story_block_headline ] = array_key_exists( $five_story_block_headline, $article_map ) ? $article_map[ $five_story_block_headline ] : null;
+							}
+							CST()->frontend->mini_stories_content_block( $items ); ?>
 						</div>
 					</div>
 

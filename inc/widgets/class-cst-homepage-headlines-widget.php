@@ -249,7 +249,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			?>
 			<hr>
 			<h3>Other stories 1 above 2x2</h3>
-			<small>Featured image included</small>
+			<small>5 slottable stories - featured image included</small>
 			<?php
 			foreach ( $this->mini_headlines as $key => $array_member ) {
 				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
@@ -401,13 +401,12 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			}
 		?>
 		</h3>
-<?php CST()->frontend->mini_stories_content_block( array(
-				$article_map['cst_homepage_story_block_headlines_one'],
-				$article_map['cst_homepage_story_block_headlines_two'],
-				$article_map['cst_homepage_story_block_headlines_three'],
-				$article_map['cst_homepage_story_block_headlines_four'],
-				$article_map['cst_homepage_story_block_headlines_five'],
-) );?>
+			<?php
+			$items = array();
+			foreach ( $this->five_story_block_headlines as $five_story_block_headline => $value ) {
+				$items[ $five_story_block_headline ] = array_key_exists( $five_story_block_headline, $article_map ) ? $article_map[ $five_story_block_headline ] : null;
+			}
+			CST()->frontend->mini_stories_content_block( $items ); ?>
 		</div>
 		</div>
 		<?php if ( get_query_var( 'showads', false ) ) { ?>
@@ -474,7 +473,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				<?php echo wp_kses_post( $story_excerpt ); ?>
 			</p>
 		</a>
-		<p class="authors">By <?php echo esc_html( $author ); ?> - 2 hours ago</p>
+		<p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
 		<ul class="related-title">
 			<li><a href="#"><h3>Analysis: When did Trump declare the wall will be built?</h3></a></li>
 			<li><a href="#"><h3>Analysis: More on this story</h3></a></li>
@@ -521,7 +520,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		<?php echo wp_kses_post( $story_excerpt ); ?>
 	</p>
 </a>
-<p class="authors">By <?php echo esc_html( $author ); ?> - 1 hour ago</p>
+<p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> hour ago</p>
 		</div>
 <?php
 	}
@@ -563,7 +562,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<p class="excerpt"><?php echo wp_kses_post( $story_excerpt ); ?></p>
 			</a>
-			<p class="authors">By <?php echo esc_html( $author ); ?> - 1/2 hour ago</p>
+			<p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> hour ago</p>
 		</div>
 	</div>
 </div>
