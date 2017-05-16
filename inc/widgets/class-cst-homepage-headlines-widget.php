@@ -149,10 +149,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			}
 		}
 		if ( ! empty( $widget_posts ) ) {
-			$homepage_main_well_posts = $this->get_headline_posts( $widget_posts );
-			$this->widget_markup( $homepage_main_well_posts, $article_map );
-			// get_template_part( 'parts/homepage/main-wells-v3' );
-
+			$this->widget_markup( $article_map, $instance );
 		}
 
 	}
@@ -276,6 +273,15 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			<hr>
 			<h3>Other section stories 1 beside 2x2</h3>
 			<small>Featured image included</small>
+			<h4>Choose section heading:</h4>
+			<?php $sections = get_terms( 'cst_section', array( 'parent' => 0 ) ); ?>
+			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'other_section_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'other_section_title' ) ); ?>">
+				<?php if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) : ?>
+				<?php foreach( $sections as $section ) : ?>
+						<option <?php selected( $section->slug == $instance['other_section_title'] ) ?> value="<?php echo esc_attr( $section->slug . ':' . $section->term_id ); ?>"><?php echo esc_html( $section->name ); ?></option>
+				<?php endforeach; ?>
+				<?php endif; ?>
+			</select>
 			<?php foreach ( $this->five_story_block_headlines as $key => $array_member ) {
 				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
 				$obj = get_post( $headline );
@@ -322,6 +328,10 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		foreach ( $this->five_story_block_headlines as $five_story_block_headline => $value ) {
 			$instance[$five_story_block_headline] = isset( $new_instance[$five_story_block_headline] ) ? intval( $new_instance[$five_story_block_headline] ) : 0;
 		}
+		$temp_section = isset( $new_instance['other_section_title'] ) ? $new_instance['other_section_title'] : '';
+		$section_info = explode( ':', $temp_section );
+		$instance['other_section_title'] = isset( $section_info[0] ) ? $section_info[0] : '';
+		$instance['other_section_id'] = isset( $section_info[1] ) ? $section_info[1] : '';
 //		$total = count( $new_instance );
 //		for ( $count = 0; $count < $total; $count++ ) {
 //			$instance[] = intval( array_shift( $new_instance ) );
@@ -331,10 +341,9 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	}
 
 	/**
-	 * @param $headlines
 	 * @param $article_map
 	 */
-	public function widget_markup( $headlines, $article_map ) {
+	public function widget_markup( $article_map, $instance ) {
 	// @TODO Review parameters, error check etc
 	// We have post objects in $widget_posts and post ids in $article_map
 	// If we can select the post object and pass only that to the story function that might
@@ -382,7 +391,16 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			</div>
 		</div>
 		<div class="small-12 columns more-stories-container" id="hp-section-lead">
-		<h3 class="more-sub-head">Sports</h3>
+		<h3 class="more-sub-head">
+		<?php
+			$section_link_url = wpcom_vip_get_term_link( intval( $instance['other_section_id'] ) );
+			if ( ! is_wp_error( $section_link_url ) ) {
+				echo '<a href="' . esc_url( $section_link_url ) . '">' . esc_html( $instance['other_section_title'] ) . '</a>';
+			} else {
+				echo esc_html( $instance['other_section_title'] );
+			}
+		?>
+		</h3>
 <?php CST()->frontend->mini_stories_content_block( array(
 				$article_map['cst_homepage_story_block_headlines_one'],
 				$article_map['cst_homepage_story_block_headlines_two'],
@@ -459,6 +477,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		<p class="authors">By <?php echo esc_html( $author ); ?> - 2 hours ago</p>
 		<ul class="related-title">
 			<li><a href="#"><h3>Analysis: When did Trump declare the wall will be built?</h3></a></li>
+			<li><a href="#"><h3>Analysis: More on this story</h3></a></li>
 		</ul>
 	</div>
 </div>

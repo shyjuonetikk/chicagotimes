@@ -33,7 +33,13 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		'Headline Nine',
 		'Headline Ten',
 	);
-
+	private $five_story_block_headlines = array(
+		'cst_homepage_story_block_headlines_one' => true,
+		'cst_homepage_story_block_headlines_two' => true,
+		'cst_homepage_story_block_headlines_three' => true,
+		'cst_homepage_story_block_headlines_four' => true,
+		'cst_homepage_story_block_headlines_five' => true,
+	);
 	private $cache_key_stub;
 
 	public function __construct() {
@@ -124,7 +130,13 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				$widget_posts[] = absint( $instance[ $count ] );
 			}
 		}
-
+		foreach ( $this->five_story_block_headlines as $five_story_block_headlines => $value ) {
+			$article_id = isset( $instance[$five_story_block_headlines] ) ? intval( $instance[$five_story_block_headlines] ) : 0;
+			if ( $article_id ) {
+				$widget_posts[] = $article_id;
+				$article_map[$five_story_block_headlines] = $article_id;
+			}
+		}
 		if ( ! empty( $widget_posts ) ) {
 
 //			$homepage_more_well_posts = $this->get_headline_posts( $widget_posts );
@@ -139,7 +151,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			if ( $sidebar_style ) {
 				$this->more_top_stories_block( $query, $instance['title'], 'sidebar-style' );
 			} else {
-				$this->more_stories_content( $query );
+				$this->more_stories_content( $query, $article_map, $instance );
 			}
 //			get_template_part( 'parts/homepage/more-wells-v3' );
 
@@ -225,7 +237,37 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				<?php
 			}?>
 		</p>
-		<?php
+		<hr>
+		<h3>Other section stories 1 beside 2x2</h3>
+		<small>Featured image included</small>
+		<h4>Choose section heading:</h4>
+		<?php $sections = get_terms( 'cst_section', array( 'parent' => 0 ) ); ?>
+		<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'other_section_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'other_section_title' ) ); ?>">
+			<?php if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) : ?>
+				<?php foreach( $sections as $section ) : ?>
+					<option <?php selected( $section->slug == $instance['other_section_title'] ) ?> value="<?php echo esc_attr( $section->slug . ':' . $section->term_id ); ?>"><?php echo esc_html( $section->name ); ?></option>
+				<?php endforeach; ?>
+			<?php endif; ?>
+		</select>
+		<?php foreach ( $this->five_story_block_headlines as $key => $array_member ) {
+			$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
+			$obj = get_post( $headline );
+			if ( $obj ) {
+				$content_type = get_post_type( $obj->ID );
+				$story_title = $obj->post_title . ' [' . $content_type . ']';
+			} else {
+				$story_title = '';
+			}
+			$dashed_key = preg_replace( '/_/', '-', $key );
+			?>
+			<p class="ui-state-default" id="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+				<label for="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+					<?php esc_html_e( $key, 'chicagosuntimes' ); ?>
+				</label>
+				<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+			</p>
+			<?php
+		}
 
 	}
 
@@ -245,12 +287,19 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		foreach ( $this->headlines as $headline => $value ) {
 			$instance[$headline] = isset( $new_instance[$headline] ) ? intval( $new_instance[$headline] ) : 0;
 		}
+		foreach ( $this->five_story_block_headlines as $five_story_block_headline => $value ) {
+			$instance[$five_story_block_headline] = isset( $new_instance[$five_story_block_headline] ) ? intval( $new_instance[$five_story_block_headline] ) : 0;
+		}
+		$temp_section = isset( $new_instance['other_section_title'] ) ? $new_instance['other_section_title'] : '';
+		$section_info = explode( ':', $temp_section );
+		$instance['other_section_title'] = isset( $section_info[0] ) ? $section_info[0] : '';
+		$instance['other_section_id'] = isset( $section_info[1] ) ? $section_info[1] : '';
 		wp_cache_delete( $this->cache_key_stub );
 
 		return $instance;
 	}
 
-	public function more_stories_content( $query ) {
+	public function more_stories_content( $query, $article_map, $instance ) {
 		?>
 		<div class="row more-stories-container">
 			<!-- Pull from Top Stories widget -->
@@ -296,17 +345,23 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 					<div class="show-for-large-up hide-for-portrait">
 						<div class="small-12 columns more-stories-container">
 							<hr>
-							<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Entertainment</a></h3>
-							<?php
-							$query = array(
-								'post_type'           => array( 'cst_article' ),
-								'ignore_sticky_posts' => true,
-								'posts_per_page'      => 5,
-								'post_status'         => 'publish',
-								'cst_section'         => 'entertainment',
-								'orderby'             => 'modified',
-							);
-							CST()->frontend->cst_mini_stories_content_block( $query ); ?>
+							<h3 class="more-sub-head">
+								<?php
+								$section_link_url = wpcom_vip_get_term_link( intval( $instance['other_section_id'] ) );
+								if ( ! is_wp_error( $section_link_url ) ) {
+									echo '<a href="' . esc_url( $section_link_url ) . '">' . esc_html( $instance['other_section_title'] ) . '</a>';
+								} else {
+									echo esc_html( $instance['other_section_title'] );
+								}
+								?>
+							</h3>
+							<?php CST()->frontend->mini_stories_content_block( array(
+								$article_map['cst_homepage_story_block_headlines_one'],
+								$article_map['cst_homepage_story_block_headlines_two'],
+								$article_map['cst_homepage_story_block_headlines_three'],
+								$article_map['cst_homepage_story_block_headlines_four'],
+								$article_map['cst_homepage_story_block_headlines_five'],
+							) );?>
 						</div>
 					</div>
 

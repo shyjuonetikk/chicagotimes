@@ -990,7 +990,8 @@ class CST_Frontend {
 	/**
 	 * Fetch and output content from the specified section
 	 * Multi functional content layer outer
-	 * @param $content_query
+	 * @param $content_query string
+	 * @param $orientation string Basic name describing orientation of articles in this block
 	 */
 	public function cst_latest_stories_content_block( $content_query, $orientation = 'columns' ) {
 
@@ -1148,6 +1149,9 @@ class CST_Frontend {
 			'title_class' => 'small-9 medium-8 large-8',
 			'watch' => 'data-equalizer-watch',
 		);
+		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+			$author          = CST()->frontend->get_article_author( $obj );
+		}
 		?>
 <div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo esc_attr( $layout[$layout_type]['watch']); ?>>
 	<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
@@ -1174,7 +1178,7 @@ class CST_Frontend {
 			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 		</a>
 	</div>
-	<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By Clark Kent and Jimmy Olsen - 2 hours ago</p></div>
+	<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo esc_html( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
 </div>
 		<?php
 	}
