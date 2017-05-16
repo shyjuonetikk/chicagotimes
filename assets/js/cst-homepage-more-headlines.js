@@ -175,6 +175,60 @@
           $(".cst-homepage-story-block-headlines-five").each( $.proxy( function( key, el ){
             this.loadSelect2( $( el ) );
           }, this ) );
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            var el = widget.find(".featured-story-block-headlines-one");
+            if ( el.length ) {
+              this.loadSelect2( el );
+            }
+          }, this ) );
+
+          $(".featured-story-block-headlines-one").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
+
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            var el = widget.find(".featured-story-block-headlines-two");
+            if ( el.length ) {
+              this.loadSelect2( el );
+            }
+          }, this ) );
+
+          $(".featured-story-block-headlines-two").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
+
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            var el = widget.find(".featured-story-block-headlines-three");
+            if ( el.length ) {
+              this.loadSelect2( el );
+            }
+          }, this ) );
+
+          $(".featured-story-block-headlines-three").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
+
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            var el = widget.find(".featured-story-block-headlines-four");
+            if ( el.length ) {
+              this.loadSelect2( el );
+            }
+          }, this ) );
+
+          $(".featured-story-block-headlines-four").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
+
+          $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            var el = widget.find(".featured-story-block-headlines-five");
+            if ( el.length ) {
+              this.loadSelect2( el );
+            }
+          }, this ) );
+
+          $(".featured-story-block-headlines-five").each( $.proxy( function( key, el ){
+            this.loadSelect2( $( el ) );
+          }, this ) );
         },
 
         /**

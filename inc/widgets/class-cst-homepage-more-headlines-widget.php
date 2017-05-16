@@ -40,6 +40,13 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		'cst_homepage_story_block_headlines_four' => true,
 		'cst_homepage_story_block_headlines_five' => true,
 	);
+	private $featured_story_block_headlines = array(
+		'featured_story_block_headlines_one' => true,
+		'featured_story_block_headlines_two' => true,
+		'featured_story_block_headlines_three' => true,
+		'featured_story_block_headlines_four' => true,
+		'featured_story_block_headlines_five' => true,
+	);
 	private $cache_key_stub;
 
 	public function __construct() {
@@ -138,6 +145,13 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			if ( $article_id ) {
 				$widget_posts[] = $article_id;
 				$article_map[$five_story_block_headlines] = $article_id;
+			}
+		}
+		foreach ( $this->featured_story_block_headlines as $featured_story_block_headlines => $value ) {
+			$article_id = isset( $instance[$featured_story_block_headlines] ) ? intval( $instance[$featured_story_block_headlines] ) : 0;
+			if ( $article_id ) {
+				$widget_posts[] = $article_id;
+				$article_map[$featured_story_block_headlines] = $article_id;
 			}
 		}
 		if ( ! empty( $widget_posts ) ) {
@@ -244,6 +258,28 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		</p>
 		<?php if ( isset( $instance['sidebar-style'] ) && 0 === $instance['sidebar-style'] ) { ?>
 			<hr>
+			<h3>Featured story block</h3>
+			<small>5 slottable stories - featured image included</small>
+			<?php foreach ( $this->featured_story_block_headlines as $key => $array_member ) {
+				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
+				$obj = get_post( $headline );
+				if ( $obj ) {
+					$content_type = get_post_type( $obj->ID );
+					$story_title = $obj->post_title . ' [' . $content_type . ']';
+				} else {
+					$story_title = '';
+				}
+				$dashed_key = preg_replace( '/_/', '-', $key );
+				?>
+				<p class="ui-state-default" id="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+						<?php esc_html_e( $key, 'chicagosuntimes' ); ?>
+					</label>
+					<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+				</p>
+				<?php
+			} ?>
+			<hr>
 			<h3>Other section stories 1 beside 2x2</h3>
 			<small>5 slottable stories - featured image included</small>
 			<h4>Choose section heading:</h4>
@@ -297,6 +333,9 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		foreach ( $this->five_story_block_headlines as $five_story_block_headline => $value ) {
 			$instance[$five_story_block_headline] = isset( $new_instance[$five_story_block_headline] ) ? intval( $new_instance[$five_story_block_headline] ) : 0;
 		}
+		foreach ( $this->featured_story_block_headlines as $featured_story_block_headline => $value ) {
+			$instance[$featured_story_block_headline] = isset( $new_instance[$featured_story_block_headline] ) ? intval( $new_instance[$featured_story_block_headline] ) : 0;
+		}
 		$temp_section = isset( $new_instance['other_section_title'] ) ? $new_instance['other_section_title'] : '';
 		$section_info = explode( ':', $temp_section );
 		$instance['other_section_title'] = isset( $section_info[0] ) ? $section_info[0] : '';
@@ -324,10 +363,12 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 							<div class="row">
 								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
 								<div class="featured-story">
-									<a href="http://chicago.suntimes.com/feature/50-years-after-chicago-areas-most-devastating-tornadoes/" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
-										<img src="https://suntimesmedia.files.wordpress.com/2017/04/tornado-041617-01_68208979.jpg?w=700" alt="article promo image" class="featured-story-hero">
-										<h3>Survivors' stories 50 years after Chicago area's deadliest tornadoes hit Oak Lawn, other towns</h3>
-									</a>
+									<?php
+									$obj = \CST\Objects\Post::get_by_post_id( $article_map['featured_story_block_headlines_one'] );
+									if ( $obj ) {
+										$this->featured_story_lead( $obj );
+									}
+									?>
 								</div>
 							</div>
 							<div class="row">
@@ -337,14 +378,13 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 										More Features</a></h3>
 								<div class="columns small-12">
 									<div class="row">
-										<?php $query = array(
-											'post_type'           => array( 'cst_feature' ),
-											'ignore_sticky_posts' => true,
-											'posts_per_page'      => 4,
-											'post_status'         => 'publish',
-											'orderby'             => 'modified',
-										);
-										CST()->frontend->cst_mini_stories_content_block( $query ); ?>
+										<?php
+										$items = array();
+										foreach ( $this->featured_story_block_headlines as $featured_story_block_headline => $value ) {
+											$items[ $featured_story_block_headline ] = array_key_exists( $featured_story_block_headline, $article_map ) ? $article_map[ $featured_story_block_headline ] : null;
+										}
+										array_shift( $items );
+										CST()->frontend->mini_stories_content_block( $items ); ?>
 									</div>
 								</div>
 							</div>
@@ -414,5 +454,30 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * @param $obj
+	 * @param $author
+	 */
+	public function featured_story_lead( $obj ) {
+		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+			$author          = CST()->frontend->get_article_author( $obj );
+		}
+		?>
+<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
+	<?php
+	$featured_image_id = $obj->get_featured_image_id();
+	if ( $featured_image_id )  {
+		$attachment = wp_get_attachment_metadata( $featured_image_id );
+		if ( $attachment ) {
+			$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], $attachment['image_meta']['caption'], 'none', 'cst-article-featured');
+			echo wp_kses_post( $image_markup );
+		}
+	}
+	?>
+	<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+</a>
+<?php
 	}
 }
