@@ -13,6 +13,7 @@
 			dynamic_sidebar( 'homepage_headlines' );
 		endif;
 		?>
+
 		<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 			<?php if ( get_query_var( 'showads', false ) ) { ?>
 				<?php if ( is_active_sidebar( 'homepage_sidebar' ) ) {

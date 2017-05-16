@@ -1052,6 +1052,7 @@ class CST_Frontend {
 	/**
 	* A 2 x 2 block of content, each have image with title and anchored
 	* Optionally a 5th piece of content on left of 2 x 2 block of content
+ 	* @TODO rewrite to use mini_stories_content_block
 	* @param $content_query
 	*/
 	public function cst_mini_stories_content_block( $content_query ) {
@@ -1093,7 +1094,42 @@ class CST_Frontend {
 	}
 
 	/**
-	* A mini story content block as part of 2 x 2 or 1 + 2 x 2 (5)
+	 * A 2 x 2 block of content, each have image with title and anchored
+	 * Optionally a 5th piece of content on left of 2 x 2 block of content
+	 * @param $headlines array
+	 */
+	public function mini_stories_content_block( $headlines ) {
+		$count_headlines = count( $headlines );
+		$counter = 0;
+		$close_me = false; ?>
+		<div class="row mini-stories" data-equalizer>
+			<?php foreach ( $headlines as $headline ) {
+				$obj = \CST\Objects\Post::get_by_post_id( $headline );
+				if ( $obj ) {
+					if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
+						// First item and odd total
+						?>
+						<div class="single-mini-story small-12 medium-4">
+							<?php
+							CST()->frontend->single_mini_story( $obj, 'alternate' );
+							$close_me = true;
+							?>
+						</div><!-- First one -->
+						<div class="single-mini-story small-12 medium-8">
+					<?php } else {
+						CST()->frontend->single_mini_story( $obj, 'regular' );
+					}
+				}
+				$counter++;
+				if ( $close_me && ( $count_headlines ) === $counter ) { ?>
+					</div><!-- right four -->
+				<?php } ?>
+			<?php } ?>
+		</div>
+	<?php
+	}
+	/**
+	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
 	* @param $obj
 	* @param $layout_type
 	*/

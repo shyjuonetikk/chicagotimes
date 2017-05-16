@@ -21,22 +21,17 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		'cst_homepage_mini_headlines_four' => true,
 		'cst_homepage_mini_headlines_five' => true,
 	);
+	private $five_story_block_headlines = array(
+		'cst_homepage_story_block_headlines_one' => true,
+		'cst_homepage_story_block_headlines_two' => true,
+		'cst_homepage_story_block_headlines_three' => true,
+		'cst_homepage_story_block_headlines_four' => true,
+		'cst_homepage_story_block_headlines_five' => true,
+	);
 	private $hero_related = array(
 		'cst_homepage_hero_related_one' => true,
 		'cst_homepage_hero_related_two' => true,
 		'cst_homepage_hero_related_three' => true,
-	);
-	private $hero_titles = array(
-		'Main/Top Story' => true,
-		'Upper Story' => true,
-		'Lower Story' => true,
-	);
-	private $mini_titles = array(
-		'Story 1 - largest' => true,
-		'Story 2' => true,
-		'Story 3' => true,
-		'Story 4' => true,
-		'Story 5' => true,
 	);
 
 	private $cache_key_stub;
@@ -124,7 +119,6 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		$widget_posts = array();
 
 		// @TODO need to parse instance to part out $hero_headlines and other variables
-		$content_to_retrieve = array_merge( $this->hero_headlines, $this->mini_headlines, $this->hero_related );
 		$article_map = array();
 		foreach ( $this->hero_headlines as $hero_headline => $value ) {
 			$article_id = isset( $instance[$hero_headline] ) ? intval( $instance[$hero_headline] ) : 0;
@@ -145,6 +139,13 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			if ( $article_id ) {
 				$widget_posts[] = $article_id;
 				$article_map[$hero_related_headline] = $article_id;
+			}
+		}
+		foreach ( $this->five_story_block_headlines as $five_story_block_headlines => $value ) {
+			$article_id = isset( $instance[$five_story_block_headlines] ) ? intval( $instance[$five_story_block_headlines] ) : 0;
+			if ( $article_id ) {
+				$widget_posts[] = $article_id;
+				$article_map[$five_story_block_headlines] = $article_id;
 			}
 		}
 		if ( ! empty( $widget_posts ) ) {
@@ -249,10 +250,10 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				$count++;
 			}
 			?>
-			<h3>Other stories 1 plus 2x2</h3>
-			<h4>Featured image in all layouts</h4>
+			<hr>
+			<h3>Other stories 1 above 2x2</h3>
+			<small>Featured image included</small>
 			<?php
-			$mini_stories_count = 0;
 			foreach ( $this->mini_headlines as $key => $array_member ) {
 				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
 				$obj = get_post( $headline );
@@ -271,8 +272,28 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 					<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 				</p>
 				<?php
-				$count++;
-				$mini_stories_count++;
+			} ?>
+			<hr>
+			<h3>Other section stories 1 beside 2x2</h3>
+			<small>Featured image included</small>
+			<?php foreach ( $this->five_story_block_headlines as $key => $array_member ) {
+				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
+				$obj = get_post( $headline );
+				if ( $obj ) {
+					$content_type = get_post_type( $obj->ID );
+					$story_title = $obj->post_title . ' [' . $content_type . ']';
+				} else {
+					$story_title = '';
+				}
+				$dashed_key = preg_replace( '/_/', '-', $key );
+				?>
+				<p class="ui-state-default" id="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+					<label for="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>">
+						<?php esc_html_e( $key, 'chicagosuntimes' ); ?>
+					</label>
+					<input class="<?php echo esc_attr( $dashed_key ); ?>" id="<?php echo esc_attr( $this->get_field_id( $key ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $key ) ); ?>" value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+				</p>
+				<?php
 			}
 		} // empty $instance
 	}
@@ -298,6 +319,9 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		foreach ( $this->hero_related as $hero_related_headline => $value ) {
 			$instance[$hero_related_headline] = isset( $new_instance[$hero_related_headline] ) ? intval( $new_instance[$hero_related_headline] ) : 0;
 		}
+		foreach ( $this->five_story_block_headlines as $five_story_block_headline => $value ) {
+			$instance[$five_story_block_headline] = isset( $new_instance[$five_story_block_headline] ) ? intval( $new_instance[$five_story_block_headline] ) : 0;
+		}
 //		$total = count( $new_instance );
 //		for ( $count = 0; $count < $total; $count++ ) {
 //			$instance[] = intval( array_shift( $new_instance ) );
@@ -320,16 +344,16 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 ?>
 <div class="row stories-container">
 	<div class="columns small-12 medium-8 large-9 stories">
-		<div class="row" data-equalizer-mq="large-up">
+		<div class="row" data-equalizer-mq="large-up" id="hp-main-lead">
 			<div class="columns small-12 large-4 lead-stories">
 				<?php $this->homepage_hero_story( $article_map['cst_homepage_headlines_one'] ); ?>
 				<?php $this->homepage_lead_story( $article_map['cst_homepage_headlines_two'] ); ?>
 				<?php $this->homepage_lead_story( $article_map['cst_homepage_headlines_three'] ); ?>
-		<div class="show-for-large-up">
-			<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+			<div class="show-for-large-up">
+				<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+			</div>
 		</div>
-		</div>
-		<div class="columns small-12 large-8 other-lead-stories">
+		<div class="columns small-12 large-8 other-lead-stories" id="hp-other-lead">
 			<div class="show-for-medium-only"><h3>In other news</h3></div>
 			<div class="row lead-mini-story">
 				<?php
@@ -342,7 +366,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			</div>
 			<hr>
 			<?php
-			$this->mini_stories_content_block( array(
+			CST()->frontend->mini_stories_content_block( array(
 				$article_map['cst_homepage_mini_headlines_two'],
 				$article_map['cst_homepage_mini_headlines_three'],
 				$article_map['cst_homepage_mini_headlines_four'],
@@ -357,19 +381,15 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			<?php } ?>
 			</div>
 		</div>
-		<div class="small-12 columns more-stories-container">
-			<hr>
-			<h3 class="more-sub-head"><a href="<?php echo esc_url( '/' ); ?>">Chicago Sports (to be slottable)</a></h3>
-			<?php
-			$query = array(
-				'post_type'           => array( 'cst_article' ),
-				'ignore_sticky_posts' => true,
-				'posts_per_page'      => 5,
-				'post_status'         => 'publish',
-				'cst_section'         => 'sports',
-				'orderby'             => 'modified',
-			);
-			CST()->frontend->cst_mini_stories_content_block( $query ); ?>
+		<div class="small-12 columns more-stories-container" id="hp-section-lead">
+		<h3 class="more-sub-head">Sports</h3>
+<?php CST()->frontend->mini_stories_content_block( array(
+				$article_map['cst_homepage_story_block_headlines_one'],
+				$article_map['cst_homepage_story_block_headlines_two'],
+				$article_map['cst_homepage_story_block_headlines_three'],
+				$article_map['cst_homepage_story_block_headlines_four'],
+				$article_map['cst_homepage_story_block_headlines_five'],
+) );?>
 		</div>
 		</div>
 		<?php if ( get_query_var( 'showads', false ) ) { ?>
@@ -529,40 +549,5 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	</div>
 </div>
 <?php
-	}
-	/**
-	 * A 2 x 2 block of content, each have image with title and anchored
-	 * Optionally a 5th piece of content on left of 2 x 2 block of content
-	 * @param $headlines array
-	 */
-	public function mini_stories_content_block( $headlines ) {
-		$count_headlines = count( $headlines );
-		$counter = 0;
-		$close_me = false; ?>
-		<div class="row mini-stories" data-equalizer>
-			<?php foreach ( $headlines as $headline ) {
-				$obj = \CST\Objects\Post::get_by_post_id( $headline );
-				if ( $obj ) {
-					if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
-						// First item and odd total
-						?>
-						<div class="single-mini-story small-12 medium-4">
-							<?php
-							CST()->frontend->single_mini_story( $obj, 'alternate' );
-							$close_me = true;
-							?>
-						</div><!-- First one -->
-						<div class="single-mini-story small-12 medium-8">
-					<?php } else {
-						CST()->frontend->single_mini_story( $obj, 'regular' );
-					}
-				}
-				$counter++;
-				if ( $close_me && ( $count_headlines - 1 ) === $counter ) { ?>
-					</div><!-- right four -->
-				<?php } ?>
-			<?php } ?>
-		</div>
-	<?php
 	}
 }
