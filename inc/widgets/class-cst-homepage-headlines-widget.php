@@ -346,7 +346,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	 */
 	public function widget_markup( $article_map, $instance ) {
 	// @TODO Review parameters, error check etc
-	// We have post objects in $widget_posts and post ids in $article_map
+	// We have post ids in $article_map
 	// If we can select the post object and pass only that to the story function that might
 	// save a post retrieval / lookup
 	// Currently we pass the ID and it is looked up again within the story function.
@@ -422,8 +422,8 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 	}
 
 	/**
-	 * @param $headline
-	 * @param string $image_size
+	 * @param int $headline
+	 * @param array $instance
 	 *
 	 * Hero story markup generation and display
 	 */
