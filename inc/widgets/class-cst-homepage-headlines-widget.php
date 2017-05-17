@@ -192,6 +192,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 			?>
 			<h3>Hero Story and 2 leads</h3>
 			<h4>Featured image included in certain layouts</h4>
+			<div id="widget-lead-stories">
 			<?php
 			foreach ( $this->hero_headlines as $key => $array_member ) {
 				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
@@ -247,9 +248,11 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				$count++;
 			}
 			?>
+			</div><!-- /#widget-lead-stories -->
 			<hr>
 			<h3>Other stories 1 above 2x2</h3>
 			<small>5 slottable stories - featured image included</small>
+			<div id="widget-other-stories">
 			<?php
 			foreach ( $this->mini_headlines as $key => $array_member ) {
 				$headline = ! empty( $instance[ $key ] ) ? $instance[ $key ] : '';
@@ -270,10 +273,12 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				</p>
 				<?php
 			} ?>
+			</div><!-- /#widget-other-stories -->
 			<hr>
 			<h3>Other section stories 1 beside 2x2</h3>
 			<small>Featured image included</small>
 			<h4>Choose section heading:</h4>
+			<div id="widget-five-block">
 			<?php $sections = get_terms( 'cst_section', array( 'parent' => 0 ) ); ?>
 			<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'other_section_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'other_section_title' ) ); ?>">
 				<?php if ( ! empty( $sections ) && ! is_wp_error( $sections ) ) : ?>
@@ -301,6 +306,8 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 				</p>
 				<?php
 			}
+			?></div><!-- /#widget-five-block -->
+			<?php
 		} // empty $instance
 	}
 

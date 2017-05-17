@@ -198,7 +198,9 @@
           console.log( 'perhaps rendering ' + placement.partial.id );
         } );
       }
-      // wp.customize.bind( 'preview-ready', startRelatedPosts );
+      wp.customize.bind( 'preview-ready', function( placement ) {
+        console.log( 'preview ready on ' + placement.partial.id );
+      } );
       console.log('customize.bind triggered from cst-homepage-headlines')
     } else {
       console.log('wp is not undefined and wp.customize exists')
