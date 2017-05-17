@@ -327,6 +327,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-customizer-controls.php';
 
 		// Vendor plugins
 		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';

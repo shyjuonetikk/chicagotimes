@@ -1,10 +1,51 @@
 <?php get_header(); ?>
-	<div class="homepage-content">
+	<div class="homepage-content stories-container">
 		<div class="row">
 			<div class="columns small-12">
 			<?php if ( get_query_var( 'showads', false ) ) { ?>
 				<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
 			<?php } ?>
+			</div>
+		</div>
+		<div class="row stories-container">
+			<div class="columns small-12 medium-8 large-9 stories">
+				<div class="row" data-equalizer-mq="large-up">
+					<div class="columns small-12 large-4 lead-stories">
+						<div id="js-cst-homepage-headlines-one">
+							<h2>Headline here</h2>
+							<h4 style="color:#102056;"><?php echo get_theme_mod( 'cst-homepage-headlines-one' ); ?></h4>
+						</div>
+						<div id="js-cst-homepage-headlines-two">
+							<h2>Headline 2 here</h2>
+							<h4 style="color:#200056;"><?php echo get_theme_mod( 'js-cst-homepage-headlines-two' ); ?></h4>
+						</div>
+						<div id="js-cst-homepage-headlines-three">
+							<h2>Headline 3 here</h2>
+						</div>
+						<div class="show-for-large-up">
+							<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+						</div>
+					</div><!-- /hp-main-lead -->
+					<div class="columns small-12 large-8 other-lead-stories">
+						<div id="js-cst-homepage-other-headlines-one">
+							<h2>Headline here</h2>
+						</div>
+						<div id="js-cst-homepage-other-headlines-two">
+							<h2>Headline 2 here</h2>
+						</div>
+						<div id="js-cst-homepage-other-headlines-three">
+							<h2>Headline 3 here</h2>
+						</div>
+						<div id="js-cst-homepage-other-headlines-four">
+							<h2>Headline 4 here</h2>
+						</div>
+						<div id="js-cst-homepage-other-headlines-five">
+							<h2>Headline 5 here</h2>
+						</div>
+					</div>
+					<div class="small-12 columns more-stories-container" id="hp-section-lead">
+					</div>
+				</div>
 			</div>
 		</div>
 		<?php
