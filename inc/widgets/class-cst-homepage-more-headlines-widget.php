@@ -213,6 +213,9 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		if ( ! isset( $instance['sidebar-style'] ) ) {
 			$instance['sidebar-style'] = 0;
 		}
+		if ( ! isset( $instance['other_section_title'] ) ) {
+			$instance['other_section_title'] = '';
+		}
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_name( 'sidebar-style' ) ); ?>">
