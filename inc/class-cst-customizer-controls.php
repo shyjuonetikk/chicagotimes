@@ -1,19 +1,20 @@
 <?php
 if( class_exists( 'WP_Customize_Control' ) ) {
 	class WP_Customize_Hero_Select_Control extends WP_Customize_Control {
-		public $type = 'select_control';
+		public $type = 'cst_select_control';
 
 		public function __construct( $manager, $id, $args = array(), $options = array() ) {
-			$this->setup_actions();
 			parent::__construct( $manager, $id, $args );
+			add_action( 'wp_ajax_cst_customizer_control_homepage_headlines', [ $this, 'get_posts' ] );
+			$this->setup_actions();
 		}
 
 		public function setup_actions() {
-			add_action( 'wp_ajax_cst_customizer_control_homepage_headlines', [ $this, 'cst_customizer_control_homepage_headlines_get_posts' ] );
+			add_action( 'customize_controls_enqueue_scripts', [ $this, 'custom_control_enqueue' ] );
 		}
-		public function enqueue() {
-			wp_enqueue_script( 'cst_customizer_control_homepage_headlines', esc_url( get_stylesheet_directory_uri() . '/assets/js/cst-customize-control.js' ), array( 'customize-preview', 'jquery' ), '1.0', true );
-			wp_localize_script( 'cst_customizer_control_homepage_headlines', 'CSTCustomizerControlData', array(
+		public function custom_control_enqueue() {
+			wp_enqueue_script( 'cst_customizer_control', esc_url( get_stylesheet_directory_uri() . '/assets/js/cst-customize-control.js' ), array( 'customize-controls', 'select2' ), '1.0', true );
+			wp_localize_script( 'cst_customizer_control', 'CSTCustomizerControlData', array(
 				'placeholder_text' => esc_html__( '!Choose article', 'chicagosuntimes' ),
 				'nonce'            => wp_create_nonce( 'cst_customizer_control_homepage_headlines' ),
 			) );
@@ -28,20 +29,24 @@ if( class_exists( 'WP_Customize_Control' ) ) {
 				$content_type = get_post_type( $obj->ID );
 				$story_title  = $obj->post_title . ' [' . $content_type . ']';
 			} else {
-				$story_title = 'No article found';
+				if ( $headline === $this->id ) {
+					$story_title = $this->input_attrs['placeholder'];
+				} else {
+					$story_title = 'No article found';
+				}
 			}
 			?>
 			<label for="js-<?php echo esc_attr( $this->id ); ?>">
 				<?php esc_html_e( $this->label, 'chicagosuntimes' ); ?>
 			</label>
-			<input class="widefat js-<?php echo esc_attr( $this->input_attrs['class'] ); ?>" id="js-<?php echo esc_attr( $this->id ); ?>" name="js-<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $headline ); ?>"
+			<input class="widefat <?php echo esc_attr( $this->id ); ?>" id="js-<?php echo esc_attr( $this->id ); ?>" name="js-<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $headline ); ?>"
 				   placeholder="<?php echo esc_attr( $this->input_attrs['placeholder'] ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>"/>
 			<?php
 		}
 		/**
 		 * Get all published posts to display in Select2 dropdown
 		 */
-		public function cst_customizer_control_homepage_headlines_get_posts() {
+		public function get_posts() {
 			global $wp_customize;
 			while ( 0 !== ob_get_level() ) {
 				ob_end_clean();

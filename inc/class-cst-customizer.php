@@ -79,15 +79,14 @@ class CST_Customizer {
 				'transport' => $transport,
 			) );
 			$wp_customize->add_control( new WP_Customize_Hero_Select_Control( $wp_customize, $lead_story, array(
-				'type' => 'input',
+				'type' => 'cst_select_control',
 				'priority' => 10, // Within the section.
 				'section' => 'hp_lead_stories', // Required, core or custom.
 				'settings' => $lead_story,
 				'label' => __( 'Article' ),
 				'input_attrs' => array(
-					'class' => preg_replace( '/_/', '-', $lead_story ),
 					'style' => 'border: 1px solid #900',
-					'placeholder' => __( 'Choose article' ),
+					'placeholder' => __( '-Choose article-' ),
 				),
 			) ) );
 		}
@@ -124,9 +123,7 @@ class CST_Customizer {
 				'selector'        => '#js-' . preg_replace( '/_/', '-', $lead_story ),
 				'settings'        => $lead_story,
 				'container_inclusive' => false,
-				'render_callback' => function($lead_story) {
-					return get_theme_mod( $lead_story );
-				},
+				'render_callback' => [ $this, 'render_callback' ],
 			) );
 		}
 		foreach ( $this->other_stories as $other_story => $value ) {
@@ -140,8 +137,7 @@ class CST_Customizer {
 	}
 
 	public function render_callback( $element ) {
-		$b = preg_replace( '/-/', '_', $element );
-		return get_theme_mod( $b );
+		return get_theme_mod( $element->id );
 	}
 	/**
 	 * Bind JS handlers to instantly live-preview changes.

@@ -7,9 +7,6 @@
       "js-cst-homepage-headlines-two",
       "js-cst-homepage-headlines-three"
     ],
-    init: function() {
-      console.log('CSTCustomizerControl init.')
-    },
 
     loadSelect2: function( el ) {
 
@@ -38,18 +35,28 @@
       });
     }
   };
-  $(document).ready(function(){
 
-    console.log('The CSTCustomizerControl init.')
-    CSTCustomizerControl.input_elements.map(function(element) {
-      var el = $('.'+element);
-      if ( el.length ) {
-        CSTCustomizerControl.loadSelect2( el );
+
+    wp.customize.controlConstructor.cst_select_control = wp.customize.Control.extend( {
+      ready: function() {
+        var control = this;
+        wp.customize.Control.prototype.ready.call( control );
+        // Set up select2 control in this.container...
+        console.log('The CSTCustomizerControl init.');
+
+          var el = $('.'+this.id);
+            CSTCustomizerControl.loadSelect2( el );
+            wp.customize( this.id, function( value ) {
+              value.bind( function( to ) {
+                console.log(value+' : value.');
+              } );
+            } );
+            el.on("change", function (e) {
+              console.log("change: "+JSON.stringify({val:e.val}))
+            })
+              .on("select2-focus", function(e) { console.log ("focus");})
       }
-    });
-    wp.customize.bind( 'preview-ready', function() {
-      console.log( 'The CST Customizer Control preview ready' );
     } );
-  });
+
 } )( jQuery );
 

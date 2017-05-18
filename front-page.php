@@ -13,14 +13,14 @@
 					<div class="columns small-12 large-4 lead-stories">
 						<div id="js-cst-homepage-headlines-one">
 							<h2>Headline here</h2>
-							<h4 style="color:#102056;"><?php echo get_theme_mod( 'cst-homepage-headlines-one' ); ?></h4>
+							<h4><?php echo get_theme_mod( 'cst_homepage_headlines_one' ); ?></h4>
 						</div>
 						<div id="js-cst-homepage-headlines-two">
 							<h2>Headline 2 here</h2>
-							<h4 style="color:#200056;"><?php echo get_theme_mod( 'js-cst-homepage-headlines-two' ); ?></h4>
+							<h4><?php echo get_theme_mod( 'cst_homepage_headlines_two' ); ?></h4>
 						</div>
 						<div id="js-cst-homepage-headlines-three">
-							<h2>Headline 3 here</h2>
+							<h4><?php echo get_theme_mod( 'cst_homepage_headlines_three' ); ?></h4>
 						</div>
 						<div class="show-for-large-up">
 							<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
@@ -28,16 +28,16 @@
 					</div><!-- /hp-main-lead -->
 					<div class="columns small-12 large-8 other-lead-stories">
 						<div id="js-cst-homepage-other-headlines-one">
-							<h2>Headline here</h2>
+							<h4><?php echo get_theme_mod( 'cst_homepage_other_headlines_one' ); ?></h4>
 						</div>
 						<div id="js-cst-homepage-other-headlines-two">
-							<h2>Headline 2 here</h2>
+							<h4><?php echo get_theme_mod( 'cst_homepage_other_headlines_two' ); ?></h4>
 						</div>
 						<div id="js-cst-homepage-other-headlines-three">
-							<h2>Headline 3 here</h2>
+							<h4><?php echo get_theme_mod( 'cst_homepage_other_headlines_three' ); ?></h4>
 						</div>
 						<div id="js-cst-homepage-other-headlines-four">
-							<h2>Headline 4 here</h2>
+							<h4><?php echo get_theme_mod( 'cst_homepage_other_headlines_four' ); ?></h4>
 						</div>
 						<div id="js-cst-homepage-other-headlines-five">
 							<h2>Headline 5 here</h2>
