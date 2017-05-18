@@ -540,7 +540,7 @@ class CST_Homepage_Headlines_Widget extends WP_Widget {
 		<?php echo wp_kses_post( $story_excerpt ); ?>
 	</p>
 </a>
-<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> hour ago</p>
+<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
 		</div>
 <?php
 	}
