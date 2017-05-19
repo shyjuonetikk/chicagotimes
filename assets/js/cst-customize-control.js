@@ -2,12 +2,6 @@
   "use strict";
   var CSTCustomizerControl = {
 
-    input_elements : [
-      "js-cst-homepage-headlines-one",
-      "js-cst-homepage-headlines-two",
-      "js-cst-homepage-headlines-three"
-    ],
-
     loadSelect2: function( el ) {
 
       el.select2({
@@ -36,25 +30,31 @@
     }
   };
 
-
     wp.customize.controlConstructor.cst_select_control = wp.customize.Control.extend( {
       ready: function() {
         var control = this;
         wp.customize.Control.prototype.ready.call( control );
         // Set up select2 control in this.container...
-        console.log('The CSTCustomizerControl init.');
+        console.info('CSTCustomizerControl init customizer field: '+ this.id);
 
           var el = $('.'+this.id);
+          var selectedValue, markupId;
+          var temp = this.id.replace(/_/gi,'-');
+          markupId = '#js-'+ temp;
             CSTCustomizerControl.loadSelect2( el );
-            wp.customize( this.id, function( value ) {
-              value.bind( function( to ) {
-                console.log(value+' : value.');
-              } );
-            } );
+
             el.on("change", function (e) {
-              console.log("change: "+JSON.stringify({val:e.val}))
-            })
-              .on("select2-focus", function(e) { console.log ("focus");})
+              selectedValue = e.val;
+              wp.customize( this.id, function( value ) {
+                var updateMe = function(newval) {
+                  value.set(newval)
+                };
+                updateMe(selectedValue);
+                value.bind( function( to ) {
+                  $(markupId).html(to);
+                } );
+              } );
+            });
       }
     } );
 
