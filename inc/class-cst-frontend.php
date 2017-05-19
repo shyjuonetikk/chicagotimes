@@ -1095,10 +1095,11 @@ class CST_Frontend {
 	}
 
 	/**
-	 * A 2 x 2 block of content, each have image with title and anchored
-	 * Optionally a 5th piece of content on left of 2 x 2 block of content
-	 * @param $headlines array
-	 */
+	* A 2 x 2 block of content, each have image with title and anchored
+	* Optionally a 5th piece of content on left of 2 x 2 block of content
+	* @param $headlines array
+	* @param $style string
+	*/
 	public function mini_stories_content_block( $headlines, $style = 'regular' ) {
 		$count_headlines = count( $headlines );
 		$counter = 0;

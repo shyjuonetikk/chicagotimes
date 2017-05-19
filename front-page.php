@@ -78,7 +78,13 @@
 						</div>
 					</div>
 					<div class="small-12 columns more-stories-container" id="hp-section-lead">
-						<h3>Section based stories here</h3>
+						<?php CST()->frontend->mini_stories_content_block( array(
+							'cst_homepage_section_headlines_1',
+							'cst_homepage_section_headlines_2',
+							'cst_homepage_section_headlines_3',
+							'cst_homepage_section_headlines_4',
+							'cst_homepage_section_headlines_5',
+						) ); ?>
 					</div>
 				</div>
 				<?php if ( get_query_var( 'showads', false ) ) { ?>
