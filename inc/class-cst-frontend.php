@@ -1113,7 +1113,7 @@ class CST_Frontend {
 						?>
 						<div class="single-mini-story small-12 medium-4">
 							<?php
-							CST()->frontend->single_mini_story( $obj, 'alternate' );
+							CST()->frontend->single_mini_story( $obj, 'alternate', $index );
 							$close_me = true;
 							?>
 						</div><!-- First one -->
