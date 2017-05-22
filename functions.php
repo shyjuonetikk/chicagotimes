@@ -475,14 +475,6 @@ class CST {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
 
-//		add_action( 'init', function() {
-//			// Add custom AdOps role
-//			wpcom_vip_add_role( 'adops', 'Ad Ops', array(
-//				'upload_files' => true,
-//				'adops' => true,
-//				'read' => true,
-//			));
-//		} );
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 	}
 
