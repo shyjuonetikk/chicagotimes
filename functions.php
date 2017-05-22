@@ -607,8 +607,6 @@ class CST {
 				return array( 'cst_article', 'cst_gallery' );
 			} );
 		}
-
-//		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
 		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
@@ -619,39 +617,6 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
-		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
-		add_filter( 'user_has_cap', [ $this, 'alt_allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
-	}
-
-	/**
-	 * https://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
-	 *
-	 * Filter on the current_user_can() function.
-	 * Specifically for adops user restrictions to edit section
-	 * sponsorship options
-	 *
-	 * @param array $all_capabilities All the capabilities of the user
-	 * @param array $cap  [0] Required capability
-	 * @param array $args [0] Requested capability
-	 *                    [1] User ID
-	 *                    [2] Associated object ID
-	 *
-	 * @return mixed
-	 */
-	function adops_cap_filter( $all_capabilities, $cap, $args ) {
-		if ( 'edit_others_posts' !== $args[0] ) {
-			return $all_capabilities;
-		}
-
-		if ( ! $all_capabilities['adops'] ) {
-			return $all_capabilities;
-		}
-
-		$all_capabilities['manage_terms'] = true;
-		$all_capabilities['edit_others_posts'] = true;
-		$all_capabilities['upload_files'] = true;
-
-		return $all_capabilities;
 	}
 
 	/**
