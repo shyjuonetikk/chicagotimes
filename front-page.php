@@ -14,6 +14,12 @@
 						<div id="js-cst-homepage-headlines-one">
 							<?php CST()->frontend->homepage_hero_story( 'cst_homepage_headlines_one' ) ?>
 						</div>
+						<h3>Related stories:</h3>
+						<ul class="related-title">
+							<?php CST()->frontend->single_hero_related_story( 'cst_homepage_related_headlines_one' ) ?>
+							<?php CST()->frontend->single_hero_related_story( 'cst_homepage_related_headlines_two' ) ?>
+							<?php CST()->frontend->single_hero_related_story( 'cst_homepage_related_headlines_three' ) ?>
+						</ul>
 						<div id="js-cst-homepage-headlines-two">
 							<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_two' ) ?>
 						</div>

@@ -57,6 +57,18 @@
             });
       }
     } );
+    wp.customize.bind( 'ready', function() {
+      var customize = this;
+      customize( 'hero_related_posts', function( value ) {
+        var markupID = "#js-"+value.id.replace(/_/gi,'-');
+        var otherStoriesContainer = customize.control('hero_related_posts').container.find('input');
+        value.bind( function( to ) {
+          ( true === to ) ? $( markupID ).removeClass( 'hidden' ) : $( markupID ).addClass( 'hidden' );
+          otherStoriesContainer.css('background-color', '#ff9900');
+        })
+      })
+
+    })
 
 } )( jQuery );
 

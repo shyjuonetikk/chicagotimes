@@ -11,6 +11,11 @@ class CST_Customizer {
 		'cst_homepage_headlines_two' => true,
 		'cst_homepage_headlines_three' => true,
 	);
+	private $related_hero_stories = array(
+		'cst_homepage_related_headlines_one' => true,
+		'cst_homepage_related_headlines_two' => true,
+		'cst_homepage_related_headlines_three' => true,
+	);
 	private $other_stories = array(
 		'cst_homepage_other_headlines_1' => true,
 		'cst_homepage_other_headlines_2' => true,
@@ -65,9 +70,18 @@ class CST_Customizer {
 		$wp_customize->remove_section( 'static_front_page' );
 		$wp_customize->remove_section( 'colors' );
 		$wp_customize->remove_section( 'custom_css' );
+		/**
+		 * Add sections we want
+		 */
 		$wp_customize->add_section( 'hp_lead_stories', array(
 			'title' => __( 'Hero and lead stories', 'chicagosuntimes' ),
 			'description' => __( 'Choose lead articles', 'chicagosuntimes' ),
+			'priority' => 160,
+			'capability' => $this->capability,
+		) );
+		$wp_customize->add_section( 'hp_lead_related_stories', array(
+			'title' => __( 'Hero related stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose related articles', 'chicagosuntimes' ),
 			'priority' => 160,
 			'capability' => $this->capability,
 		) );
@@ -83,6 +97,9 @@ class CST_Customizer {
 			'priority' => 180,
 			'capability' => $this->capability,
 		) );
+		/**
+		 * Add settings within each section
+		 */
 		$lead_counter = 0;
 		foreach ( $this->lead_stories as $lead_story => $value ) {
 			$wp_customize->add_setting( $lead_story, array(
@@ -103,11 +120,14 @@ class CST_Customizer {
 				),
 			) ) );
 		}
+		/**
+		 * Related stories, checkbox and select2 custom control
+		 */
 		$wp_customize->add_setting( 'hero_related_posts', array(
 			'type' => 'theme_mod',
 			'capability' => $this->capability,
 			'default' => 'hero_related_posts',
-			'sanitize_callback' => 'esc_html',
+			'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
 			'transport' => $transport,
 		) );
 		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'hero_related_posts', array(
@@ -119,6 +139,28 @@ class CST_Customizer {
 				)
 			)
 		);
+		foreach ( $this->related_hero_stories as $lead_story => $value ) {
+			$wp_customize->add_setting( $lead_story, array(
+				'type' => 'theme_mod',
+				'capability' => $this->capability,
+				'default' => $lead_story,
+				'sanitize_callback' => 'esc_html',
+				'transport' => $transport,
+			) );
+			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $lead_story, array(
+				'type' => 'cst_select_control',
+				'priority' => 11, // Within the section.
+				'section' => 'hp_lead_related_stories', // Required, core or custom.
+				'settings' => $lead_story,
+				'label' => __( 'Related to Hero Article', 'chicagosuntimes' ),
+				'input_attrs' => array(
+					'placeholder' => __( '=Choose article=' ),
+				),
+			) ) );
+		}
+		/**
+		 * Other stories
+		 */
 		$lead_counter = 0;
 		foreach ( $this->other_stories as $other_story => $value ) {
 			$wp_customize->add_setting( $other_story, array(
@@ -138,6 +180,9 @@ class CST_Customizer {
 				),
 			) ) );
 		}
+		/**
+		 * Upper section based stories
+		 */
 		$lead_counter = 0;
 		foreach ( $this->upper_section_stories as $other_story => $value ) {
 			$wp_customize->add_setting( $other_story, array(
@@ -192,6 +237,15 @@ class CST_Customizer {
 				'render_callback' => [ $this, 'render_callback' ],
 			) );
 		}
+		foreach ( $this->related_hero_stories as $other_story => $value ) {
+			$wp_customize->selective_refresh->add_partial( $other_story, array(
+				'selector'        => '#js-' . preg_replace( '/_/', '-', $other_story ),
+				'settings'        => $other_story,
+				'container_inclusive' => false,
+				'sanitize_callback' => 'absint',
+				'render_callback' => [ $this, 'render_callback' ],
+			) );
+		}
 	}
 
 	/**
@@ -223,6 +277,12 @@ class CST_Customizer {
 			case 'cst_homepage_other_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id );
+				break;
+			case 'cst_homepage_related_headlines_one':
+			case 'cst_homepage_related_headlines_two':
+			case 'cst_homepage_related_headlines_three':
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+				return CST()->frontend->single_hero_related_story( $obj );
 				break;
 		}
 		return '';
@@ -292,5 +352,9 @@ class CST_Customizer {
 				exit();
 			}
 		}
+	}
+
+	public function sanitize_checkbox( $checked ) {
+		return ( ( isset( $checked ) && true == $checked ) ? true : false );
 	}
 }
