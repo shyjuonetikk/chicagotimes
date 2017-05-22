@@ -343,10 +343,7 @@ class CST {
 		wpcom_vip_load_plugin( 'fieldmanager' );
 		wpcom_vip_load_plugin( 'pushup' );
 		wpcom_vip_load_plugin( 'wpcom-thumbnail-editor' );
-		if ( ! current_user_can( 'adops' ) ) {
-			// Auto removes menu entry preventing adops role users from seeing it
-			wpcom_vip_load_plugin( 'zoninator' );
-		}
+		wpcom_vip_load_plugin( 'zoninator' );
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
 		if ( ! defined( 'WP_CLI' ) ) {
@@ -478,14 +475,14 @@ class CST {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
 
-		add_action( 'init', function() {
-			// Add custom AdOps role
-			wpcom_vip_add_role( 'adops', 'Ad Ops', array(
-				'upload_files' => true,
-				'adops' => true,
-				'read' => true,
-			));
-		} );
+//		add_action( 'init', function() {
+//			// Add custom AdOps role
+//			wpcom_vip_add_role( 'adops', 'Ad Ops', array(
+//				'upload_files' => true,
+//				'adops' => true,
+//				'read' => true,
+//			));
+//		} );
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 	}
 
@@ -611,7 +608,7 @@ class CST {
 			} );
 		}
 
-		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
+//		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
 		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
@@ -622,6 +619,8 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
+		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
+		add_filter( 'user_has_cap', [ $this, 'alt_allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
 	}
 
 	/**
@@ -1292,17 +1291,15 @@ class CST {
 			add_filter( "{$post_type}_rewrite_rules", '__return_empty_array' );
 		}
 
-		if ( ! current_user_can( 'adops' ) ) {
-			// Register a subset of post types with Zoninator
-			foreach ( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
-				// Register video post type with Zoninator
-				add_post_type_support( $post_type, $GLOBALS['zoninator']->zone_taxonomy );
-				register_taxonomy_for_object_type( $GLOBALS['zoninator']->zone_taxonomy, $post_type );
-			}
-
-			// Clear Zoninator supported post types cache
-			unset( $GLOBALS['zoninator']->post_types );
+		// Register a subset of post types with Zoninator
+		foreach ( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
+			// Register video post type with Zoninator
+			add_post_type_support( $post_type, $GLOBALS['zoninator']->zone_taxonomy );
+			register_taxonomy_for_object_type( $GLOBALS['zoninator']->zone_taxonomy, $post_type );
 		}
+
+		// Clear Zoninator supported post types cache
+		unset( $GLOBALS['zoninator']->post_types );
 
 	}
 

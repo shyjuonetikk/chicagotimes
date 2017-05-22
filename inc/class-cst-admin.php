@@ -85,7 +85,6 @@ class CST_Admin {
 		add_action( 'wp_update_nav_menu_item', array( $this, 'amp_nav_invalidate_cache' ) );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'section_nav_invalidate' ), 10, 3 );
 		add_action( 'post_submitbox_misc_actions', array( $this, 'trigger_notification_button' ) );
-		add_action( 'admin_init', [ $this, 'allow_editors_to_use_customizer' ] );
 	}
 
 	/**
@@ -139,7 +138,6 @@ class CST_Admin {
 
 		add_filter( 'enter_title_here', array( $this, 'filter_custom_enter_title' ) );
 		add_filter( 'admin_post_thumbnail_html', array( $this, 'filter_featured_image_instruction' ) );
-		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
 
 	}
 
@@ -1331,24 +1329,6 @@ class CST_Admin {
 			</div>
 			<?php
 		}
-	}
-
-	/**
-	 * Allow editors to access the customizer by adding capability
-	 */
-	public function allow_editors_to_use_customizer() {
-		$role = get_role( 'editor' );
-		if ( null !== $role ) {
-			$role->add_cap( 'customize' );
-		}
-	}
-
-	public function allow_users_who_can_edit_posts_to_customize( $caps, $cap, $user_id ) {
-		$required_cap = 'edit_posts';
-		if ( 'customize' === $cap && user_can( $user_id, $required_cap ) ) {
-			$caps = array( $required_cap );
-		}
-		return $caps;
 	}
 
 }
