@@ -25,7 +25,7 @@ class CST_Customizer {
 		'cst_homepage_section_headlines_4' => true,
 		'cst_homepage_section_headlines_5' => true,
 	);
-
+	private $capability = 'edit_others_posts';
 
 	public static function get_instance() {
 
@@ -57,7 +57,7 @@ class CST_Customizer {
 	 *
 	 * @param $wp_customize
 	 */
-	public function action_customize_register( $wp_customize ) {
+	public function action_customize_register( \WP_Customize_Manager $wp_customize ) {
 		$transport = ( $wp_customize->selective_refresh ? 'postMessage' : 'refresh' );
 		// Don't need to be able to edit blog title or description
 		// and we don't want the homepage to change
@@ -69,25 +69,25 @@ class CST_Customizer {
 			'title' => __( 'Hero and lead stories', 'chicagosuntimes' ),
 			'description' => __( 'Choose lead articles', 'chicagosuntimes' ),
 			'priority' => 160,
-			'capability' => 'edit_others_posts',
+			'capability' => $this->capability,
 		) );
 		$wp_customize->add_section( 'hp_other_stories', array(
 			'title' => __( 'Other lead stories' ),
 			'description' => __( 'Choose other lead stories' ),
 			'priority' => 170,
-			'capability' => 'edit_others_posts',
+			'capability' => $this->capability,
 		) );
 		$wp_customize->add_section( 'upper_section_stories', array(
 			'title' => __( 'Upper section stories' ),
 			'description' => __( 'Choose upper section stories' ),
 			'priority' => 180,
-			'capability' => 'edit_others_posts',
+			'capability' => $this->capability,
 		) );
 		$lead_counter = 0;
 		foreach ( $this->lead_stories as $lead_story => $value ) {
 			$wp_customize->add_setting( $lead_story, array(
 				'type' => 'theme_mod',
-				'capability' => 'edit_others_posts',
+				'capability' => $this->capability,
 				'default' => $lead_story,
 				'sanitize_callback' => 'esc_html',
 				'transport' => $transport,
@@ -105,7 +105,7 @@ class CST_Customizer {
 		}
 		$wp_customize->add_setting( 'hero_related_posts', array(
 			'type' => 'theme_mod',
-			'capability' => 'edit_others_posts',
+			'capability' => $this->capability,
 			'default' => 'hero_related_posts',
 			'sanitize_callback' => 'esc_html',
 			'transport' => $transport,
@@ -123,7 +123,7 @@ class CST_Customizer {
 		foreach ( $this->other_stories as $other_story => $value ) {
 			$wp_customize->add_setting( $other_story, array(
 				'type' => 'theme_mod',
-				'capability' => 'edit_others_posts',
+				'capability' => $this->capability,
 				'default' => $other_story,
 				'sanitize_callback' => 'esc_html',
 				'transport' => $transport,
@@ -142,7 +142,7 @@ class CST_Customizer {
 		foreach ( $this->upper_section_stories as $other_story => $value ) {
 			$wp_customize->add_setting( $other_story, array(
 				'type' => 'theme_mod',
-				'capability' => 'edit_others_posts',
+				'capability' => $this->capability,
 				'default' => $other_story,
 				'sanitize_callback' => 'esc_html',
 				'transport' => $transport,
@@ -202,7 +202,6 @@ class CST_Customizer {
 	 * Decide and trigger content rendering function
 	 */
 	public function render_callback( $element ) {
-		$b = get_theme_mod( $element->id );
 		switch ( $element->id ) {
 			case 'cst_homepage_headlines_one':
 				return CST()->frontend->homepage_hero_story( $element->id );
