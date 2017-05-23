@@ -1,8 +1,8 @@
 <?php
-/**
- * CST Custom Select2 dropdown controller
- */
 if( class_exists( 'WP_Customize_Control' ) ) {
+	/**
+	 * CST Custom Select2 dropdown controller
+	 */
 	class WP_Customize_CST_Select_Control extends \WP_Customize_Control {
 		public $type = 'cst_select_control'; // the name for the control
 

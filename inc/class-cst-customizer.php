@@ -222,7 +222,7 @@ class CST_Customizer {
 			'type'        => 'select',
 			'priority'    => 10,
 			'section'     => 'upper_section_stories',
-			'settings'     => 'upper_section_section_title',
+			'settings'    => 'upper_section_section_title',
 			'choices'     => $choices,
 			'label'       => 'Choose section title',
 		) ) );

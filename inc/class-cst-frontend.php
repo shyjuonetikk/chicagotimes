@@ -2639,12 +2639,11 @@ ready(fn);
 	}
 	/**
 	* @param int $headline
-	* @param array $instance
 	*
 	* Hero story markup generation and display
 	* Used by the customizer render callback
 	*/
-	public function homepage_hero_story( $headline, $instance ) {
+	public function homepage_hero_story( $headline ) {
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
