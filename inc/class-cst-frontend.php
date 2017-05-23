@@ -1094,6 +1094,121 @@ class CST_Frontend {
 		echo wp_kses_post( $cached_content );
 	}
 
+		/**
+	 * @param $query
+	 * @param $article_map
+	 * @param $instance
+	 *
+	 * Display full widget top stories link, Featured Story and featured stories block too
+	 * And display a section with slotted content below
+	 */
+	public function more_stories_content( $query, $article_map, $instance ) {
+		add_filter( 'get_image_tag_class', function( $class ) {
+			$class .= ' featured-story-hero';
+			return $class;
+		} );
+		?>
+		<div class="row more-stories-container">
+			<div class="columns small-12">
+				<div class="row">
+					<?php $this->more_top_stories_block( $query, 'More Top Stories', 'normal-style' ); ?>
+					<div class="columns small-12 medium-6 large-8">
+						<div class="small-12 columns" id="featured-stories">
+							<div class="row">
+								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
+								<div class="featured-story">
+									<?php
+									$obj = \CST\Objects\Post::get_by_post_id( $article_map['featured_story_block_headlines_one'] );
+									if ( $obj ) {
+										$this->featured_story_lead( $obj );
+									}
+									?>
+								</div>
+							</div>
+							<div class="row">
+								<h3 class="more-sub-head">
+									<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
+									   data-event-action="navigate-hp-features-column-title">
+										More Features</a></h3>
+								<div class="columns small-12">
+									<div class="row">
+										<?php
+										$items = array();
+										foreach ( $this->featured_story_block_headlines as $featured_story_block_headline => $value ) {
+											$items[ $featured_story_block_headline ] = array_key_exists( $featured_story_block_headline, $article_map ) ? $article_map[ $featured_story_block_headline ] : null;
+										}
+										array_shift( $items );
+										CST()->frontend->mini_stories_content_block( $items, 'vertical' ); ?>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="columns small-12">
+						<?php if ( get_query_var( 'showads', false ) ) { ?>
+							<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
+						<?php } ?>
+					</div>
+					<div class="show-for-large-up hide-for-portrait">
+						<div class="small-12 columns more-stories-container" id="top-stories-section-lead">
+							<hr>
+							<h3 class="more-sub-head">
+								<?php
+								$section_link_url = wpcom_vip_get_term_link( intval( $instance['other_section_id'] ) );
+								if ( ! is_wp_error( $section_link_url ) ) {
+									echo '<a href="' . esc_url( $section_link_url ) . '" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-section-link">' . esc_html( $instance['other_section_title'] ) . '</a>';
+								} else {
+									echo esc_html( $instance['other_section_title'] );
+								}
+								?>
+							</h3>
+							<?php
+							$items = array();
+							foreach ( $this->five_story_block_headlines as $five_story_block_headline => $value ) {
+								$items[ $five_story_block_headline ] = array_key_exists( $five_story_block_headline, $article_map ) ? $article_map[ $five_story_block_headline ] : null;
+							}
+							CST()->frontend->mini_stories_content_block( $items ); ?>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		</div><!-- /stories -->
+		<?php
+	}
+	/**
+	 * @param $query
+	 * @param $title string  Title of the content block
+	 * @param $style string 'sidebar-style' | 'normal-style' to determine markup
+	 * List of stories - title -> image
+	 *
+	 */
+	public function more_top_stories_block( $query, $title, $style = 'sidebar-style' ) {
+		$widget_style = array(
+			'sidebar-style' => array(
+				'wrapper-open' => 'row more-stories-container',
+				'container-open' => 'columns small-12',
+			),
+			'normal-style' => array(
+				'wrapper-open' => 'more-stories-container',
+				'container-open' => 'columns small-12 medium-6 large-4',
+			),
+		);
+		?>
+		<div class="<?php echo esc_attr( $widget_style[$style]['wrapper-open'] ); ?>">
+			<div class="<?php echo esc_attr( $widget_style[$style]['container-open'] ); ?>">
+				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
+				<div class="row">
+					<div class="stories-list">
+						<?php CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
 	/**
 	* A 2 x 2 block of content, each have image with title and anchored
 	* Optionally a 5th piece of content on left of 2 x 2 block of content

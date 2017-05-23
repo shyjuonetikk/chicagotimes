@@ -87,6 +87,45 @@
 						<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
 					<?php } ?>
 				</div>
+				<div class="row more-stories-container">
+					<div class="columns small-12">
+						<div class="row">
+							<h3>Top Stories</h3>
+						</div>
+						<div class="columns small-12 medium-6 large-8">
+							<div class="small-12 columns" id="featured-stories">
+								<div class="row">
+									<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
+									<div class="featured-story">
+										<?php
+										$obj = \CST\Objects\Post::get_by_post_id( $article_map['featured_story_block_headlines_one'] );
+										if ( $obj ) {
+											$this->featured_story_lead( $obj );
+										}
+										?>
+									</div>
+								</div>
+								<div class="row">
+									<h3 class="more-sub-head">
+										<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
+										   data-event-action="navigate-hp-features-column-title">
+											More Features</a></h3>
+									<div class="columns small-12">
+										<div class="row">
+											<?php
+											$items = array();
+											foreach ( $this->featured_story_block_headlines as $featured_story_block_headline => $value ) {
+												$items[ $featured_story_block_headline ] = array_key_exists( $featured_story_block_headline, $article_map ) ? $article_map[ $featured_story_block_headline ] : null;
+											}
+											array_shift( $items );
+											CST()->frontend->mini_stories_content_block( $items, 'vertical' ); ?>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 				<div class="show-for-large-up hide-for-portrait">
 					<div class="row">
 						<div class="small-12 columns more-stories-container" id="top-stories-section-lead">

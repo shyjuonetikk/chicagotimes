@@ -30,6 +30,18 @@ class CST_Customizer {
 		'cst_homepage_section_headlines_4' => true,
 		'cst_homepage_section_headlines_5' => true,
 	);
+	private $top_story_list_section_stories = array(
+		'cst_homepage_top_story_headline_1' => true,
+		'cst_homepage_top_story_headline_2' => true,
+		'cst_homepage_top_story_headline_3' => true,
+		'cst_homepage_top_story_headline_4' => true,
+		'cst_homepage_top_story_headline_5' => true,
+		'cst_homepage_top_story_headline_6' => true,
+		'cst_homepage_top_story_headline_7' => true,
+		'cst_homepage_top_story_headline_8' => true,
+		'cst_homepage_top_story_headline_9' => true,
+		'cst_homepage_top_story_headline_10' => true,
+	);
 	private $lower_section_stories = array(
 		'cst_homepage_lower_section_headlines_1' => true,
 		'cst_homepage_lower_section_headlines_2' => true,
@@ -107,6 +119,12 @@ class CST_Customizer {
 		$wp_customize->add_section( 'lower_section_stories', array(
 			'title' => __( 'Lower section stories' ),
 			'description' => __( 'Choose lower section stories' ),
+			'priority' => 180,
+			'capability' => $this->capability,
+		) );
+		$wp_customize->add_section( 'top_story_section_stories', array(
+			'title' => __( 'Top stories' ),
+			'description' => __( 'Choose top stories' ),
 			'priority' => 180,
 			'capability' => $this->capability,
 		) );
@@ -194,7 +212,7 @@ class CST_Customizer {
 			) ) );
 		}
 		/**
-		 * Upper section based stories
+		 * Upper section based stories, custom heading
 		 */
 		$lead_counter = 0;
 		foreach ( $this->upper_section_stories as $other_story => $value ) {
@@ -215,7 +233,31 @@ class CST_Customizer {
 				),
 			) ) );
 		}
+		/**
+		 * Top stories list of 10
+		 */
+		foreach ( $this->top_story_list_section_stories as $other_story => $value ) {
+			$wp_customize->add_setting( $other_story, array(
+				'type' => 'theme_mod',
+				'capability' => $this->capability,
+				'default' => $other_story,
+				'sanitize_callback' => 'esc_html',
+				'transport' => $transport,
+			) );
+			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
+				'type'        => 'cst_select_control',
+				'priority'    => 20,
+				'section'     => 'top_story_section_stories',
+				'label'       => __( 'Article', 'chicagosuntimes' ),
+				'input_attrs' => array(
+					'placeholder' => __( 'Choose top story article' ),
+				),
+			) ) );
+		}
 		$lead_counter = 0;
+		/**
+		 * Lower section based stories, custom heading
+		 */
 		foreach ( $this->lower_section_stories as $other_story => $value ) {
 			$wp_customize->add_setting( $other_story, array(
 				'type' => 'theme_mod',
@@ -234,6 +276,7 @@ class CST_Customizer {
 				),
 			) ) );
 		}
+
 		/**
 		 * Add a section choice for the five block of stories
 		 * Perhaps create a CST version of this control for reuse
@@ -323,6 +366,15 @@ class CST_Customizer {
 			) );
 		}
 		foreach ( $this->related_hero_stories as $story => $value ) {
+			$wp_customize->selective_refresh->add_partial( $story, array(
+				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'settings'        => $story,
+				'container_inclusive' => false,
+				'sanitize_callback' => 'absint',
+				'render_callback' => [ $this, 'render_callback' ],
+			) );
+		}
+		foreach ( $this->top_story_list_section_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '#js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
