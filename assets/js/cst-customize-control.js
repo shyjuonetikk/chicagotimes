@@ -56,20 +56,27 @@
   } );
   wp.customize.bind( 'ready', function() {
     var customize = this;
+    var showRelated = function () {
+      customize.section( 'hp_lead_related_stories' ).activate({ duration: 1000 });
+    };
+    var hideRelated = function () {
+      customize.section( 'hp_lead_related_stories' ).deactivate({ duration: 1000 });
+    };
+    customize( 'hero_related_posts' ).get() ? showRelated() : hideRelated();
   });
 
   // Handle custom input/settings and refresh
   wp.customize( 'hero_related_posts', function( setting ) {
-    var markupID = "#js-"+setting.id.replace(/_/gi,'-');
     var showRelated = function () {
+      wp.customize.section( 'hp_lead_related_stories' ).activate({ duration: 1000 });
       wp.customize.section( 'hp_lead_related_stories' ).focus();
     };
     var hideRelated = function () {
+      wp.customize.section( 'hp_lead_related_stories' ).deactivate({ duration: 1000 });
       wp.customize.section( 'hp_lead_stories' ).focus();
     };
     setting.bind( function( to ) {
       ( true === to ) ? showRelated() : hideRelated();
-      wp.customize.previewer.refresh();
     })
   });
   wp.customize( 'upper_section_section_title', function( setting ) {
