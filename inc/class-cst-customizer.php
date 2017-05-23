@@ -30,6 +30,13 @@ class CST_Customizer {
 		'cst_homepage_section_headlines_4' => true,
 		'cst_homepage_section_headlines_5' => true,
 	);
+	private $lower_section_stories = array(
+		'cst_homepage_lower_section_headlines_1' => true,
+		'cst_homepage_lower_section_headlines_2' => true,
+		'cst_homepage_lower_section_headlines_3' => true,
+		'cst_homepage_lower_section_headlines_4' => true,
+		'cst_homepage_lower_section_headlines_5' => true,
+	);
 	private $capability = 'edit_others_posts';
 
 	public static function get_instance() {
@@ -94,6 +101,12 @@ class CST_Customizer {
 		$wp_customize->add_section( 'upper_section_stories', array(
 			'title' => __( 'Upper section stories' ),
 			'description' => __( 'Choose upper section stories' ),
+			'priority' => 180,
+			'capability' => $this->capability,
+		) );
+		$wp_customize->add_section( 'lower_section_stories', array(
+			'title' => __( 'Lower section stories' ),
+			'description' => __( 'Choose lower section stories' ),
 			'priority' => 180,
 			'capability' => $this->capability,
 		) );
@@ -202,6 +215,25 @@ class CST_Customizer {
 				),
 			) ) );
 		}
+		$lead_counter = 0;
+		foreach ( $this->lower_section_stories as $other_story => $value ) {
+			$wp_customize->add_setting( $other_story, array(
+				'type' => 'theme_mod',
+				'capability' => $this->capability,
+				'default' => $other_story,
+				'sanitize_callback' => 'esc_html',
+				'transport' => $transport,
+			) );
+			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
+				'type'        => 'cst_select_control',
+				'priority'    => 20,
+				'section'     => 'lower_section_stories',
+				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
+				'input_attrs' => array(
+					'placeholder' => __( 'Choose other article' ),
+				),
+			) ) );
+		}
 		/**
 		 * Add a section choice for the five block of stories
 		 * Perhaps create a CST version of this control for reuse
@@ -223,6 +255,21 @@ class CST_Customizer {
 			'priority'    => 10,
 			'section'     => 'upper_section_stories',
 			'settings'    => 'upper_section_section_title',
+			'choices'     => $choices,
+			'label'       => 'Choose section title',
+		) ) );
+		$wp_customize->add_setting( 'lower_section_section_title', array(
+			'type' => 'theme_mod',
+			'capability' => $this->capability,
+			'default' => 'lower_section_section_title',
+			'sanitize_callback' => 'absint',
+			'transport' => $transport,
+		) );
+		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'lower_section_section_title', array(
+			'type'        => 'select',
+			'priority'    => 10,
+			'section'     => 'lower_section_stories',
+			'settings'    => 'lower_section_section_title',
 			'choices'     => $choices,
 			'label'       => 'Choose section title',
 		) ) );
@@ -266,6 +313,15 @@ class CST_Customizer {
 				'render_callback' => [ $this, 'render_callback' ],
 			) );
 		}
+		foreach ( $this->lower_section_stories as $story => $value ) {
+			$wp_customize->selective_refresh->add_partial( $story, array(
+				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'settings'        => $story,
+				'container_inclusive' => false,
+				'sanitize_callback' => 'absint',
+				'render_callback' => [ $this, 'render_callback' ],
+			) );
+		}
 		foreach ( $this->related_hero_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '#js-' . str_replace( '_', '-', $story ),
@@ -278,6 +334,13 @@ class CST_Customizer {
 		$wp_customize->selective_refresh->add_partial( 'upper_section_section_title', array(
 			'selector'        => '#js-upper-section-section-title',
 			'settings'        => 'upper_section_section_title',
+			'container_inclusive' => false,
+			'sanitize_callback' => 'absint',
+			'render_callback' => [ $this, 'render_callback' ],
+		) );
+		$wp_customize->selective_refresh->add_partial( 'lower_section_section_title', array(
+			'selector'        => '#js-lower-section-section-title',
+			'settings'        => 'lower_section_section_title',
 			'container_inclusive' => false,
 			'sanitize_callback' => 'absint',
 			'render_callback' => [ $this, 'render_callback' ],

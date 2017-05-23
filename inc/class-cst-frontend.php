@@ -2696,11 +2696,12 @@ ready(fn);
 	public function render_section_title( $section_theme_mod ) {
 		$section_title_id = get_theme_mod( $section_theme_mod );
 		// Check for no value and put a default - can't make get_theme_mod $default option work :-(
-		if ( ( $section_title_id === $section_theme_mod ) ){
+		if ( ( ! $section_title_id ) ){
 			$section_title = 'In other news';
 			$link = home_url() . '/section/news/';
 		} else {
-			$section_title = wpcom_vip_get_term_by( 'id', $section_title_id, 'cst_section' );
+			$section_term = wpcom_vip_get_term_by( 'id', $section_title_id, 'cst_section' );
+			$section_title = $section_term->name;
 			$link = wpcom_vip_get_term_link( $section_title, 'cst_section' );
 			if ( is_wp_error( $link ) ) {
 				$link = '';
@@ -2708,7 +2709,7 @@ ready(fn);
 		}
 ?>
 <div id="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
-	<h3 class="more-sub-head"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $section_title->name ); ?></a></h3>
+	<h3 class="more-sub-head"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $section_title ); ?></a></h3>
 </div>
 <?php
 	}
