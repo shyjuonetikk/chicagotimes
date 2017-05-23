@@ -34,15 +34,12 @@
     ready: function() {
       var control = this;
       wp.customize.Control.prototype.ready.call( control );
-      // Set up select2 control in this.container...
-      console.info('CSTCustomizerControl init customizer field: '+ this.id);
-
         var el = $('.'+this.id);
         var selectedValue, markupId;
         var temp = this.id.replace(/_/gi,'-');
+        console.info('CSTCustomizerControl init field: '+ this.id + ' -> ' + temp);
         markupId = '#js-'+ temp;
           CSTCustomizerControl.loadSelect2( el );
-
           el.on("change", function (e) {
             selectedValue = e.val;
             wp.customize( this.id, function( value ) {

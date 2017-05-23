@@ -1162,8 +1162,7 @@ class CST_Frontend {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		?>
-<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
-<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo esc_attr( $layout[$layout_type]['watch']); ?>>
+<div  id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>" class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo esc_attr( $layout[$layout_type]['watch']); ?>>
 	<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
 		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 		<?php
@@ -1189,7 +1188,6 @@ class CST_Frontend {
 		</a>
 	</div>
 	<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
-</div>
 </div><!-- /#js- -->
 		<?php
 	}

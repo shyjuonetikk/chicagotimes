@@ -279,7 +279,7 @@ class CST_Customizer {
 			'selector'        => '#js-upper-section-section-title',
 			'settings'        => 'upper_section_section_title',
 			'container_inclusive' => false,
-			'sanitize_callback' => '',
+			'sanitize_callback' => 'absint',
 			'render_callback' => [ $this, 'render_callback' ],
 		) );
 	}
