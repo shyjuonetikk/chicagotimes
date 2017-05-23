@@ -59,21 +59,28 @@
   } );
   wp.customize.bind( 'ready', function() {
     var customize = this;
-  })
+  });
 
-  // Handle custom input/selections
-  wp.customize( 'hero_related_posts', function( value ) {
-    var markupID = "#js-"+value.id.replace(/_/gi,'-');
+  // Handle custom input/settings and refresh
+  wp.customize( 'hero_related_posts', function( setting ) {
+    var markupID = "#js-"+setting.id.replace(/_/gi,'-');
     var showRelated = function () {
       wp.customize.section( 'hp_lead_related_stories' ).focus();
-      wp.customize.previewer.refresh();
     };
     var hideRelated = function () {
       wp.customize.section( 'hp_lead_stories' ).focus();
-      wp.customize.previewer.refresh();
     };
-    value.bind( function( to ) {
+    setting.bind( function( to ) {
       ( true === to ) ? showRelated() : hideRelated();
+      wp.customize.previewer.refresh();
+    })
+  });
+  wp.customize( 'upper_section_section_title', function( setting ) {
+    setting.bind( function( to ) {
+      var updateMe = function(newval) {
+        setting.set(newval)
+      };
+      updateMe(to);
     })
   })
 } )( jQuery );

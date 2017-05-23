@@ -2685,31 +2685,40 @@ ready(fn);
 			</p>
 		</a>
 		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
-		<div class="show-for-landscape show-for-xlarge-up">
-			<?php if ( 1 === $instance['related-posts'] ) {
-				$this->handle_related_content( $instance );
-			}
-			?>
-		</div>
 	</div>
-		<div class="show-for-portrait show-for-large-up">
-			<div class="small-12">
-				<?php if ( 1 === $instance['related-posts'] ) {
-					$this->handle_related_content( $instance );
-				} ?>
-			</div>
-		</div>
 </div>
 </div>
-
 		<?php
 	}
 
 	/**
-	* @param $instance
+	* @param $section_theme_mod
+	*
+	* Display heading content / markup from $section_theme_mod as an anchor link to a section front url
+	*/
+	public function render_section_title( $section_theme_mod ) {
+		$section_title_id = get_theme_mod( $section_theme_mod );
+		// Check for no value and put a default - can't make get_theme_mod $default option work :-(
+		if ( ( $section_title_id === $section_theme_mod ) ){
+			$section_title = 'In other news';
+			$link = home_url() . '/section/news/';
+		} else {
+			$section_title = wpcom_vip_get_term_by( 'id', $section_title_id, 'cst_section' );
+			$link = wpcom_vip_get_term_link( $section_title, 'cst_section' );
+			if ( is_wp_error( $link ) ) {
+				$link = '';
+			}
+		}
+?>
+<div id="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
+	<h3 class="more-sub-head"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $section_title->name ); ?></a></h3>
+</div>
+<?php
+	}
+	/**
 	* Determine if any related stories are selected and display in a list
 	*/
-	public function handle_related_content( $instance ) {
+	public function handle_related_content() {
 		$do_related = get_theme_mod( 'hero_related_posts' );
 		$related_hero_stories = array(
 			'cst_homepage_related_headlines_one' => true,
@@ -2723,7 +2732,7 @@ ready(fn);
 				<?php foreach ( $related_hero_stories as $story => $value ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
-				<li id="js-<?php echo esc_attr( preg_replace( '/_/', '-', $story ) ); ?>"><a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story"><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
+				<li id="js-<?php echo esc_attr( str_replace( '_', '-', $story ) ); ?>"><a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story"><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
 					<?php } ?>
 				<?php } ?>
 			</ul>

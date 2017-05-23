@@ -12,7 +12,14 @@
 				<div class="row" data-equalizer-mq="large-up">
 					<div class="columns small-12 large-4 lead-stories">
 						<?php CST()->frontend->homepage_hero_story( 'cst_homepage_headlines_one' ) ?>
-						<?php CST()->frontend->handle_related_content(); ?>
+						<div class="show-for-landscape show-for-xlarge-up">
+							<?php CST()->frontend->handle_related_content(); ?>
+						</div>
+						<div class="show-for-portrait show-for-large-up">
+							<div class="small-12">
+								<?php CST()->frontend->handle_related_content(); ?>
+							</div>
+						</div>
 						<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_two' ) ?>
 						<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_three' ) ?>
 						<div class="show-for-large-up">
@@ -73,6 +80,7 @@
 						</div>
 					</div>
 					<div class="small-12 columns more-stories-container" id="hp-section-lead">
+						<?php CST()->frontend->render_section_title( 'upper_section_section_title' ); ?>
 						<?php CST()->frontend->mini_stories_content_block( array(
 							'cst_homepage_section_headlines_1',
 							'cst_homepage_section_headlines_2',

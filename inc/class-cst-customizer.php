@@ -194,7 +194,7 @@ class CST_Customizer {
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
-				'priority'    => 10,
+				'priority'    => 20,
 				'section'     => 'upper_section_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
@@ -202,6 +202,30 @@ class CST_Customizer {
 				),
 			) ) );
 		}
+		/**
+		 * Add a section choice for the five block of stories
+		 * Perhaps create a CST version of this control for reuse
+		 */
+		$wp_customize->add_setting( 'upper_section_section_title', array(
+			'type' => 'theme_mod',
+			'capability' => $this->capability,
+			'default' => 'upper_section_section_title',
+			'sanitize_callback' => 'absint',
+			'transport' => $transport,
+		) );
+		$choices = get_terms( array(
+			'taxonomy' => 'cst_section',
+			'hide_empty' => true,
+			'fields' => 'id=>name',
+		) );
+		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'upper_section_section_title', array(
+			'type'        => 'select',
+			'priority'    => 10,
+			'section'     => 'upper_section_stories',
+			'settings'     => 'upper_section_section_title',
+			'choices'     => $choices,
+			'label'       => 'Choose section title',
+		) ) );
 	}
 
 	/**
@@ -251,6 +275,13 @@ class CST_Customizer {
 				'render_callback' => [ $this, 'render_callback' ],
 			) );
 		}
+		$wp_customize->selective_refresh->add_partial( 'upper_section_section_title', array(
+			'selector'        => '#js-upper-section-section-title',
+			'settings'        => 'upper_section_section_title',
+			'container_inclusive' => false,
+			'sanitize_callback' => '',
+			'render_callback' => [ $this, 'render_callback' ],
+		) );
 	}
 
 	/**
@@ -288,6 +319,9 @@ class CST_Customizer {
 			case 'cst_homepage_related_headlines_three':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->single_hero_related_story( $obj );
+				break;
+			case 'upper_section_section_title':
+				return CST()->frontend->render_section_title( $element->id );
 				break;
 		}
 		return '';
