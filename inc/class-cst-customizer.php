@@ -38,10 +38,12 @@ class CST_Customizer {
 		$customize->add_section( 'cst_site_header', array(
 			'title'          => esc_html__( 'Site Header', 'chicagosuntimes' ),
 			'priority'       => 35,
+			'capability'     => 'customize',
 		) );
 	 
 		$customize->add_setting( 'cst_headline_template', array(
 			'default'        => 'cst_images',
+			'capability'     => 'customize',
 		) );
 	 
 		$customize->add_control( 'cst_headline_template', array(
