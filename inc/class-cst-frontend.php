@@ -1162,7 +1162,7 @@ class CST_Frontend {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		?>
-<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>" class="hello">
+<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 <div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo esc_attr( $layout[$layout_type]['watch']); ?>>
 	<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
 		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
@@ -2653,7 +2653,7 @@ ready(fn);
 		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
 		add_filter( 'the_excerpt', 'wpautop' );
 		?>
-		<div class="hero-story">
+		<div class="hero-story" id="js-cst-homepage-headlines-one">
 		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 	<h3 class="hero-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 </a>
@@ -2710,31 +2710,27 @@ ready(fn);
 	* Determine if any related stories are selected and display in a list
 	*/
 	public function handle_related_content( $instance ) {
-		$related = array_intersect_key( $instance, $this->hero_related );
-		$filter_result = array_filter( $related, function( $value ) {
-			return 0 !== $value;
-		} );
-		if ( count( $filter_result ) ) { ?>
-		<h3>Related stories:</h3>
-		<ul class="related-title">
-			<?php foreach( $filter_result as $hero_related => $value ) {
-				if ( isset( $instance[$hero_related] ) ) {
-					$obj = \CST\Objects\Post::get_by_post_id( $instance[$hero_related] );
-					if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
-						<li><a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story" ><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
+		$do_related = get_theme_mod( 'hero_related_posts' );
+		$related_hero_stories = array(
+			'cst_homepage_related_headlines_one' => true,
+			'cst_homepage_related_headlines_two' => true,
+			'cst_homepage_related_headlines_three' => true,
+		);
+		if ( $do_related ) { ?>
+		<div class="related-stories">
+			<h3>Related stories:</h3>
+			<ul class="related-title">
+				<?php foreach ( $related_hero_stories as $story => $value ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
+				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
+				<li id="js-<?php echo esc_attr( preg_replace( '/_/', '-', $story ) ); ?>"><a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story"><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
 					<?php } ?>
 				<?php } ?>
-			<?php } ?>
-		</ul>
-	<?php }
-	}
-
-	public function single_hero_related_story( $headline ) {
-		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
-		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
-			<li><a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story" ><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
+			</ul>
+		</div>
 		<?php }
 	}
+
 	/**
 	* @param $headline
 	*
@@ -2758,7 +2754,7 @@ ready(fn);
 			}
 		}
 		?>
-		<div class="lead-story">
+		<div class="lead-story" id="js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
 	<h3 class="title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 	<span class="image show-for-landscape hidden-for-medium-up show-for-xlarge-up">

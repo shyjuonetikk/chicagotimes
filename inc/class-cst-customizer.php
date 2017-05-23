@@ -81,7 +81,7 @@ class CST_Customizer {
 		) );
 		$wp_customize->add_section( 'hp_lead_related_stories', array(
 			'title' => __( 'Hero related stories', 'chicagosuntimes' ),
-			'description' => __( 'Choose related articles', 'chicagosuntimes' ),
+			'description' => __( 'Choose related articles (only displayed if related checkbox selected)', 'chicagosuntimes' ),
 			'priority' => 160,
 			'capability' => $this->capability,
 		) );
@@ -111,8 +111,8 @@ class CST_Customizer {
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $lead_story, array(
 				'type' => 'cst_select_control',
-				'priority' => 10, // Within the section.
-				'section' => 'hp_lead_stories', // Required, core or custom.
+				'priority' => 10,
+				'section' => 'hp_lead_stories',
 				'settings' => $lead_story,
 				'label' => 0 === $lead_counter++ ? __( 'Hero Article', 'chicagosuntimes' ) : __( 'Lead Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
@@ -135,7 +135,7 @@ class CST_Customizer {
 					'section'        => 'hp_lead_stories',
 					'settings'       => 'hero_related_posts',
 					'type'           => 'checkbox',
-					'priority' => 9, // Within the section.
+					'priority' => 9,
 				)
 			)
 		);
@@ -149,8 +149,8 @@ class CST_Customizer {
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $lead_story, array(
 				'type' => 'cst_select_control',
-				'priority' => 11, // Within the section.
-				'section' => 'hp_lead_related_stories', // Required, core or custom.
+				'priority' => 11,
+				'section' => 'hp_lead_related_stories',
 				'settings' => $lead_story,
 				'label' => __( 'Related to Hero Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
@@ -172,8 +172,8 @@ class CST_Customizer {
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
-				'priority'    => 10, // Within the section.
-				'section'     => 'hp_other_stories', // Required, core or custom.
+				'priority'    => 10,
+				'section'     => 'hp_other_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
 					'placeholder' => __( 'Choose other article' ),
@@ -194,8 +194,8 @@ class CST_Customizer {
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
-				'priority'    => 10, // Within the section.
-				'section'     => 'upper_section_stories', // Required, core or custom.
+				'priority'    => 10,
+				'section'     => 'upper_section_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
 					'placeholder' => __( 'Choose other article' ),
@@ -204,43 +204,48 @@ class CST_Customizer {
 		}
 	}
 
+	/**
+	 * @param WP_Customize_Manager $wp_customize
+	 *
+	 * Setup the partials
+	 */
 	public function action_customize_refresh( WP_Customize_Manager $wp_customize ) {
 		// Abort if selective refresh is not available.
 		if ( ! isset( $wp_customize->selective_refresh ) ) {
 			return;
 		}
 
-		foreach ( $this->lead_stories as $lead_story => $value ) {
-			$wp_customize->selective_refresh->add_partial( $lead_story, array(
-				'selector'        => '#js-' . preg_replace( '/_/', '-', $lead_story ),
-				'settings'        => $lead_story,
+		foreach ( $this->lead_stories as $story => $value ) {
+			$wp_customize->selective_refresh->add_partial( $story, array(
+				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'settings'        => $story,
 				'container_inclusive' => false,
 				'render_callback' => [ $this, 'render_callback' ],
 				'sanitize_callback' => 'absint',
 			) );
 		}
-		foreach ( $this->other_stories as $other_story => $value ) {
-			$wp_customize->selective_refresh->add_partial( $other_story, array(
-				'selector'        => '#js-' . preg_replace( '/_/', '-', $other_story ),
-				'settings'        => $other_story,
+		foreach ( $this->other_stories as $story => $value ) {
+			$wp_customize->selective_refresh->add_partial( $story, array(
+				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
 				'render_callback' => [ $this, 'render_callback' ],
 			) );
 		}
-		foreach ( $this->upper_section_stories as $other_story => $value ) {
-			$wp_customize->selective_refresh->add_partial( $other_story, array(
-				'selector'        => '#js-' . preg_replace( '/_/', '-', $other_story ),
-				'settings'        => $other_story,
+		foreach ( $this->upper_section_stories as $story => $value ) {
+			$wp_customize->selective_refresh->add_partial( $story, array(
+				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
 				'render_callback' => [ $this, 'render_callback' ],
 			) );
 		}
-		foreach ( $this->related_hero_stories as $other_story => $value ) {
-			$wp_customize->selective_refresh->add_partial( $other_story, array(
-				'selector'        => '#js-' . preg_replace( '/_/', '-', $other_story ),
-				'settings'        => $other_story,
+		foreach ( $this->related_hero_stories as $story => $value ) {
+			$wp_customize->selective_refresh->add_partial( $story, array(
+				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
 				'render_callback' => [ $this, 'render_callback' ],
@@ -306,7 +311,7 @@ class CST_Customizer {
 
 		if ( '' !== $term && strlen( $term ) >= 3 ) {
 			$search_args = array(
-				'post_type'     => array( 'cst_article', 'cst_feature', 'cst_embed', 'cst_link', 'cst_gallery' ),
+				'post_type'     => CST()->get_post_types(),
 				's'             => $term,
 				'post_status'   => 'publish',
 				'no_found_rows' => true,

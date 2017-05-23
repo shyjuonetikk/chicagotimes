@@ -3608,12 +3608,12 @@ body.post-gallery-lightbox-active {
       margin: 0.4rem 0 0.4rem 0.4rem; }
     .homepage_wrapper .stories-container .stories .lead-story:last-child, .homepage_wrapper .stories-container .stories .hero-story:last-child {
       border-bottom: none; }
-    .homepage_wrapper .stories-container .stories .lead-story .related-title, .homepage_wrapper .stories-container .stories .hero-story .related-title {
-      list-style-type: square; }
-      .homepage_wrapper .stories-container .stories .lead-story .related-title h3, .homepage_wrapper .stories-container .stories .hero-story .related-title h3 {
-        font-weight: 600;
-        font-size: 0.8rem;
-        line-height: 1.1rem; }
+  .homepage_wrapper .stories-container .stories .related-stories .related-title {
+    list-style-type: square; }
+    .homepage_wrapper .stories-container .stories .related-stories .related-title h3 {
+      font-weight: 600;
+      font-size: 0.8rem;
+      line-height: 1.1rem; }
   .homepage_wrapper .stories-container .more-stories-container h3 {
     font-size: 0.9rem;
     line-height: 1.2rem; }

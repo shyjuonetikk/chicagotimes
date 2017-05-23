@@ -30,45 +30,51 @@
     }
   };
 
-    wp.customize.controlConstructor.cst_select_control = wp.customize.Control.extend( {
-      ready: function() {
-        var control = this;
-        wp.customize.Control.prototype.ready.call( control );
-        // Set up select2 control in this.container...
-        console.info('CSTCustomizerControl init customizer field: '+ this.id);
+  wp.customize.controlConstructor.cst_select_control = wp.customize.Control.extend( {
+    ready: function() {
+      var control = this;
+      wp.customize.Control.prototype.ready.call( control );
+      // Set up select2 control in this.container...
+      console.info('CSTCustomizerControl init customizer field: '+ this.id);
 
-          var el = $('.'+this.id);
-          var selectedValue, markupId;
-          var temp = this.id.replace(/_/gi,'-');
-          markupId = '#js-'+ temp;
-            CSTCustomizerControl.loadSelect2( el );
+        var el = $('.'+this.id);
+        var selectedValue, markupId;
+        var temp = this.id.replace(/_/gi,'-');
+        markupId = '#js-'+ temp;
+          CSTCustomizerControl.loadSelect2( el );
 
-            el.on("change", function (e) {
-              selectedValue = e.val;
-              wp.customize( this.id, function( value ) {
-                var updateMe = function(newval) {
-                  value.set(newval)
-                };
-                updateMe(selectedValue);
-                value.bind( function( to ) {
-                  $(markupId).html(to);
-                } );
+          el.on("change", function (e) {
+            selectedValue = e.val;
+            wp.customize( this.id, function( value ) {
+              var updateMe = function(newval) {
+                value.set(newval)
+              };
+              updateMe(selectedValue);
+              value.bind( function( to ) {
+                $(markupId).html(to);
               } );
-            });
-      }
-    } );
-    wp.customize.bind( 'ready', function() {
-      var customize = this;
-      customize( 'hero_related_posts', function( value ) {
-        var markupID = "#js-"+value.id.replace(/_/gi,'-');
-        var otherStoriesContainer = customize.control('hero_related_posts').container.find('input');
-        value.bind( function( to ) {
-          ( true === to ) ? $( markupID ).removeClass( 'hidden' ) : $( markupID ).addClass( 'hidden' );
-          otherStoriesContainer.css('background-color', '#ff9900');
-        })
-      })
+            } );
+          });
+    }
+  } );
+  wp.customize.bind( 'ready', function() {
+    var customize = this;
+  })
 
+  // Handle custom input/selections
+  wp.customize( 'hero_related_posts', function( value ) {
+    var markupID = "#js-"+value.id.replace(/_/gi,'-');
+    var showRelated = function () {
+      wp.customize.section( 'hp_lead_related_stories' ).focus();
+      wp.customize.previewer.refresh();
+    };
+    var hideRelated = function () {
+      wp.customize.section( 'hp_lead_stories' ).focus();
+      wp.customize.previewer.refresh();
+    };
+    value.bind( function( to ) {
+      ( true === to ) ? showRelated() : hideRelated();
     })
-
+  })
 } )( jQuery );
 
