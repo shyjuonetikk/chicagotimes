@@ -104,42 +104,49 @@ class CST_Customizer {
 			'description' => __( 'Choose lead articles', 'chicagosuntimes' ),
 			'priority' => 160,
 			'capability' => $this->capability,
+			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'hp_lead_related_stories', array(
 			'title' => __( 'Hero related stories', 'chicagosuntimes' ),
 			'description' => __( 'Choose related articles (only displayed if related checkbox selected)', 'chicagosuntimes' ),
 			'priority' => 160,
 			'capability' => $this->capability,
+			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'hp_other_stories', array(
 			'title' => __( 'Other lead stories' ),
 			'description' => __( 'Choose other lead stories' ),
 			'priority' => 170,
 			'capability' => $this->capability,
+			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'upper_section_stories', array(
 			'title' => __( 'Upper section stories' ),
 			'description' => __( 'Choose upper section stories' ),
 			'priority' => 180,
 			'capability' => $this->capability,
+			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'featured_stories_section', array(
 			'title' => __( 'Features' ),
 			'description' => __( 'Choose Features stories' ),
 			'priority' => 180,
 			'capability' => $this->capability,
+			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'lower_section_stories', array(
 			'title' => __( 'Lower section stories' ),
 			'description' => __( 'Choose lower section stories' ),
 			'priority' => 180,
 			'capability' => $this->capability,
+			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'top_story_section_stories', array(
 			'title' => __( 'Top stories' ),
 			'description' => __( 'Choose top stories' ),
 			'priority' => 180,
 			'capability' => $this->capability,
+			'active_callback' => 'is_front_page',
 		) );
 		/**
 		 * Add settings within each section
