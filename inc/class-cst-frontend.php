@@ -990,10 +990,9 @@ class CST_Frontend {
 	/**
 	 * Fetch and output content from the specified section
 	 * Multi functional content layer outer
-	 * @param $content_query string
 	 * @param $orientation string Basic name describing orientation of articles in this block
 	 */
-	public function cst_latest_stories_content_block( $content_query, $orientation = 'columns' ) {
+	public function cst_latest_stories_content_block( $orientation = 'columns' ) {
 
 		$classes = array(
 			'columns' => array(
@@ -1005,49 +1004,39 @@ class CST_Frontend {
 				'image' => 'columns small-3 medium-4 large-6 image',
 			),
 		);
-		$cache_key = md5( json_encode( $content_query ) );
-		$cached_content = wpcom_vip_cache_get( $cache_key );
-		if ( false === $cached_content || WP_DEBUG ) {
-			$items = new \WP_Query( $content_query );
-			ob_start();
-			if ( $items->have_posts() ) {
-				?>
-				<div class="row">
-				<div class="columns small-12">
-				<?php
-				while ( $items->have_posts() ) {
-					$items->the_post();
-					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );?>
-				<div class="latest-story">
-					<div class="<?php echo esc_attr( $classes[$orientation]['title'] ); ?>">
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
-							<?php echo esc_html( $obj->get_title() ); ?>
-						</a>
-					</div>
-					<div class="<?php echo esc_attr( $classes[$orientation]['image'] ); ?>">
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
-							<?php
-								$featured_image_id = $obj->get_featured_image_id();
-								if ( $featured_image_id )  {
-									$attachment = wp_get_attachment_metadata( $featured_image_id );
-									if ( $attachment ) {
-										$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', 'chiwire-slider-square');
-										echo wp_kses_post( $image_markup );
-									}
-								}
-							?>
-						</a>
-					</div>
-				</div>
-			<?php } ?>
-				</div>
-				</div>
-			<?php } ?>
+			?>
+			<div class="row">
+			<div class="columns small-12">
 			<?php
-			$cached_content = ob_get_clean();
-			wpcom_vip_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
-		}
-		echo wp_kses_post( $cached_content );
+			foreach ( CST()->customizer->get_top_stories() as $partial_id => $value ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
+				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
+			<div class="latest-story" id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
+				<div class="<?php echo esc_attr( $classes[$orientation]['title'] ); ?>">
+					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+						<?php echo esc_html( $obj->get_title() ); ?>
+					</a>
+				</div>
+				<div class="<?php echo esc_attr( $classes[$orientation]['image'] ); ?>">
+					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+						<?php
+							$featured_image_id = $obj->get_featured_image_id();
+							if ( $featured_image_id )  {
+								$attachment = wp_get_attachment_metadata( $featured_image_id );
+								if ( $attachment ) {
+									$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', 'chiwire-slider-square');
+									echo wp_kses_post( $image_markup );
+								}
+							}
+						?>
+					</a>
+				</div>
+			</div>
+		<?php }
+		} ?>
+			</div>
+			</div>
+		<?php
 	}
 
 	/**
@@ -1094,97 +1083,77 @@ class CST_Frontend {
 		echo wp_kses_post( $cached_content );
 	}
 
-		/**
-	 * @param $query
-	 * @param $article_map
-	 * @param $instance
-	 *
-	 * Display full widget top stories link, Featured Story and featured stories block too
+	/**
+	 * Display full widget style top stories link,
+	 * Featured Story and featured stories block too
 	 * And display a section with slotted content below
 	 */
-	public function more_stories_content( $query, $article_map, $instance ) {
+	public function more_stories_content() {
 		add_filter( 'get_image_tag_class', function( $class ) {
 			$class .= ' featured-story-hero';
 			return $class;
 		} );
 		?>
-		<div class="row more-stories-container">
-			<div class="columns small-12">
-				<div class="row">
-					<?php $this->more_top_stories_block( $query, 'More Top Stories', 'normal-style' ); ?>
-					<div class="columns small-12 medium-6 large-8">
-						<div class="small-12 columns" id="featured-stories">
-							<div class="row">
-								<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
-								<div class="featured-story">
-									<?php
-									$obj = \CST\Objects\Post::get_by_post_id( $article_map['featured_story_block_headlines_one'] );
-									if ( $obj ) {
-										$this->featured_story_lead( $obj );
-									}
-									?>
-								</div>
-							</div>
-							<div class="row">
-								<h3 class="more-sub-head">
-									<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
-									   data-event-action="navigate-hp-features-column-title">
-										More Features</a></h3>
-								<div class="columns small-12">
-									<div class="row">
-										<?php
-										$items = array();
-										foreach ( $this->featured_story_block_headlines as $featured_story_block_headline => $value ) {
-											$items[ $featured_story_block_headline ] = array_key_exists( $featured_story_block_headline, $article_map ) ? $article_map[ $featured_story_block_headline ] : null;
-										}
-										array_shift( $items );
-										CST()->frontend->mini_stories_content_block( $items, 'vertical' ); ?>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="columns small-12">
-						<?php if ( get_query_var( 'showads', false ) ) { ?>
-							<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
-						<?php } ?>
-					</div>
-					<div class="show-for-large-up hide-for-portrait">
-						<div class="small-12 columns more-stories-container" id="top-stories-section-lead">
-							<hr>
-							<h3 class="more-sub-head">
-								<?php
-								$section_link_url = wpcom_vip_get_term_link( intval( $instance['other_section_id'] ) );
-								if ( ! is_wp_error( $section_link_url ) ) {
-									echo '<a href="' . esc_url( $section_link_url ) . '" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-section-link">' . esc_html( $instance['other_section_title'] ) . '</a>';
-								} else {
-									echo esc_html( $instance['other_section_title'] );
-								}
-								?>
-							</h3>
+		<div class="more-stories-content more-stories-container">
+			<div class="row">
+			<?php $this->more_top_stories_block( 'More Top Stories', 'normal-style' ); ?>
+			<div class="columns small-12 medium-6 large-8">
+				<div class="small-12 columns more-stories-container" id="featured-stories">
+					<div class="row">
+						<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
+						<div class="featured-story" id="js-featured-story-block-headlines-1">
 							<?php
-							$items = array();
-							foreach ( $this->five_story_block_headlines as $five_story_block_headline => $value ) {
-								$items[ $five_story_block_headline ] = array_key_exists( $five_story_block_headline, $article_map ) ? $article_map[ $five_story_block_headline ] : null;
+							$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod('featured_story_block_headlines_1') );
+							if ( $obj ) {
+								$this->featured_story_lead( $obj );
 							}
-							CST()->frontend->mini_stories_content_block( $items ); ?>
+							?>
 						</div>
 					</div>
-
+					<div class="row">
+						<h3 class="more-sub-head">
+							<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
+							   data-event-action="navigate-hp-features-column-title">
+								More Features</a></h3>
+						<div class="columns small-12">
+							<div class="row">
+								<?php
+								$this->mini_stories_content_block( array(
+									'featured_story_block_headlines_2' => true,
+									'featured_story_block_headlines_3' => true,
+									'featured_story_block_headlines_4' => true,
+									'featured_story_block_headlines_5' => true,
+								), 'vertical' ); ?>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-		</div><!-- /stories -->
+			</div>
+			<div class="columns small-12">
+				<?php if ( get_query_var( 'showads', false ) ) { ?>
+					<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
+				<?php } ?>
+			</div>
+			<div class="show-for-large-up hide-for-portrait">
+			<div class="row">
+				<div class="small-12 columns more-stories-container" id="top-stories-section-lead">
+					<hr>
+					<?php CST()->frontend->render_section_title( 'lower_section_section_title' ); ?>
+					<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_lower_section_stories() ); ?>
+				</div>
+			</div>
+			</div>
+		</div><!-- /more-stories-content -->
 		<?php
 	}
 	/**
-	 * @param $query
 	 * @param $title string  Title of the content block
 	 * @param $style string 'sidebar-style' | 'normal-style' to determine markup
 	 * List of stories - title -> image
 	 *
 	 */
-	public function more_top_stories_block( $query, $title, $style = 'sidebar-style' ) {
+	public function more_top_stories_block( $title, $style = 'sidebar-style' ) {
 		$widget_style = array(
 			'sidebar-style' => array(
 				'wrapper-open' => 'row more-stories-container',
@@ -1201,7 +1170,7 @@ class CST_Frontend {
 				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
 				<div class="row">
 					<div class="stories-list">
-						<?php CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+						<?php CST()->frontend->cst_latest_stories_content_block( 'columns' ); ?>
 					</div>
 				</div>
 			</div>
@@ -1209,6 +1178,28 @@ class CST_Frontend {
 		<?php
 	}
 
+		/**
+	 * @param $obj
+	 *
+	 * Display Featured Story - lead, large image
+	 */
+	public function featured_story_lead( $obj ) {
+		?>
+<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
+	<?php
+	$featured_image_id = $obj->get_featured_image_id();
+	if ( $featured_image_id )  {
+		$attachment = wp_get_attachment_metadata( $featured_image_id );
+		if ( $attachment ) {
+			$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'none', 'cst-article-featured');
+			echo wp_kses_post( $image_markup );
+		}
+	}
+	?>
+	<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+</a>
+<?php
+	}
 	/**
 	* A 2 x 2 block of content, each have image with title and anchored
 	* Optionally a 5th piece of content on left of 2 x 2 block of content
@@ -1220,22 +1211,22 @@ class CST_Frontend {
 		$counter = 0;
 		$close_me = false; ?>
 		<div class="row mini-stories" data-equalizer>
-			<?php foreach ( $headlines as $headline => $index ) {
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $index ) );
+			<?php foreach ( $headlines as $partial_id => $index ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
 				if ( $obj ) {
 					if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
 						// First item and odd total
 						?>
 						<div class="single-mini-story small-12 medium-4">
 							<?php
-							CST()->frontend->single_mini_story( $obj, 'alternate', $index );
+							CST()->frontend->single_mini_story( $obj, 'alternate', $partial_id );
 							$close_me = true;
 							?>
 						</div><!-- First one -->
 						<div class="single-mini-story small-12 medium-8">
-					<?php } else {
-						CST()->frontend->single_mini_story( $obj, $style, $index );
-					}
+					<?php } else { ?>
+						<?php CST()->frontend->individual_mini_story( $obj, $style, $partial_id ); ?>
+					<?php }
 				}
 				$counter++;
 				if ( $close_me && ( $count_headlines ) === $counter ) { ?>
@@ -1243,6 +1234,14 @@ class CST_Frontend {
 				<?php } ?>
 			<?php } ?>
 		</div>
+	<?php
+	}
+
+	public function individual_mini_story( $obj, $layout_type, $partial_id = '' ) {
+	?>
+	<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
+		<?php CST()->frontend->single_mini_story( $obj, $layout_type, $partial_id ); ?>
+	</div>
 	<?php
 	}
 	/**
@@ -1277,7 +1276,7 @@ class CST_Frontend {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		?>
-<div  id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>" class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo esc_attr( $layout[$layout_type]['watch']); ?>>
+<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>">
 	<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
 		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 		<?php
@@ -1303,7 +1302,7 @@ class CST_Frontend {
 		</a>
 	</div>
 	<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
-</div><!-- /#js- -->
+</div>
 		<?php
 	}
 	/**

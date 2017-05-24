@@ -49,6 +49,13 @@ class CST_Customizer {
 		'cst_homepage_lower_section_headlines_4' => true,
 		'cst_homepage_lower_section_headlines_5' => true,
 	);
+	private $featured_story_block_headlines = array(
+		'featured_story_block_headlines_1' => true,
+		'featured_story_block_headlines_2' => true,
+		'featured_story_block_headlines_3' => true,
+		'featured_story_block_headlines_4' => true,
+		'featured_story_block_headlines_5' => true,
+	);
 	private $capability = 'edit_others_posts';
 
 	public static function get_instance() {
@@ -113,6 +120,12 @@ class CST_Customizer {
 		$wp_customize->add_section( 'upper_section_stories', array(
 			'title' => __( 'Upper section stories' ),
 			'description' => __( 'Choose upper section stories' ),
+			'priority' => 180,
+			'capability' => $this->capability,
+		) );
+		$wp_customize->add_section( 'featured_stories_section', array(
+			'title' => __( 'Features' ),
+			'description' => __( 'Choose Features stories' ),
 			'priority' => 180,
 			'capability' => $this->capability,
 		) );
@@ -256,6 +269,28 @@ class CST_Customizer {
 		}
 		$lead_counter = 0;
 		/**
+		 * Featured stories block
+		 */
+		foreach ( $this->featured_story_block_headlines as $other_story => $value ) {
+			$wp_customize->add_setting( $other_story, array(
+				'type' => 'theme_mod',
+				'capability' => $this->capability,
+				'default' => $other_story,
+				'sanitize_callback' => 'esc_html',
+				'transport' => $transport,
+			) );
+			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
+				'type'        => 'cst_select_control',
+				'priority'    => 20,
+				'section'     => 'featured_stories_section',
+				'label'       => 0 === $lead_counter++ ? __( 'Lead Feature', 'chicagosuntimes' ) : __( 'Other Features', 'chicagosuntimes' ),
+				'input_attrs' => array(
+					'placeholder' => __( 'Choose top story article' ),
+				),
+			) ) );
+		}
+		$lead_counter = 0;
+		/**
 		 * Lower section based stories, custom heading
 		 */
 		foreach ( $this->lower_section_stories as $other_story => $value ) {
@@ -383,6 +418,15 @@ class CST_Customizer {
 				'render_callback' => [ $this, 'render_callback' ],
 			) );
 		}
+		foreach ( $this->featured_story_block_headlines as $story => $value ) {
+			$wp_customize->selective_refresh->add_partial( $story, array(
+				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'settings'        => $story,
+				'container_inclusive' => false,
+				'sanitize_callback' => 'absint',
+				'render_callback' => [ $this, 'render_callback' ],
+			) );
+		}
 		$wp_customize->selective_refresh->add_partial( 'upper_section_section_title', array(
 			'selector'        => '#js-upper-section-section-title',
 			'settings'        => 'upper_section_section_title',
@@ -427,7 +471,11 @@ class CST_Customizer {
 			case 'cst_homepage_other_headlines_4':
 			case 'cst_homepage_other_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id );
+				return CST()->frontend->individual_mini_story( $obj, 'regular', $element->id );
+				break;
+			case 'featured_story_block_headlines_1':
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+				return CST()->frontend->featured_story_lead( $obj );
 				break;
 			case 'cst_homepage_related_headlines_one':
 			case 'cst_homepage_related_headlines_two':
@@ -435,7 +483,15 @@ class CST_Customizer {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->single_hero_related_story( $obj );
 				break;
+			case 'featured_story_block_headlines_2':
+			case 'featured_story_block_headlines_3':
+			case 'featured_story_block_headlines_4':
+			case 'featured_story_block_headlines_5':
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+				return CST()->frontend->single_mini_story( $obj, 'vertical', $element->id );
+				break;
 			case 'upper_section_section_title':
+			case 'lower_section_section_title':
 				return CST()->frontend->render_section_title( $element->id );
 				break;
 		}
@@ -510,5 +566,45 @@ class CST_Customizer {
 
 	public function sanitize_checkbox( $checked ) {
 		return ( ( isset( $checked ) && true == $checked ) ? true : false );
+	}
+
+	/**
+	 * Getter for top stories array
+	 * @return array
+	 */
+	public function get_top_stories() {
+		return $this->top_story_list_section_stories;
+	}
+
+	/**
+	 * Getter for upper section stories array
+	 * @return array
+	 */
+	public function get_upper_section_stories() {
+		return $this->upper_section_stories;
+	}
+
+	/**
+	 * Getter for lower section stories array
+	 * @return array
+	 */
+	public function get_lower_section_stories() {
+		return $this->lower_section_stories;
+	}
+
+	/**
+	 * Getter for Features section array
+	 * @return array
+	 */
+	public function get_featured_stories() {
+		return $this->featured_story_block_headlines;
+	}
+
+	/**
+	 * Getter for Other lead stories section array
+	 * @return array
+	 */
+	public function get_other_headlines_stories() {
+		return $this->other_stories;
 	}
 }

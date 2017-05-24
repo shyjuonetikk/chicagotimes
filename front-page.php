@@ -39,22 +39,16 @@
 								?>
 							</div><!-- /js-cst-homepage-other-headlines-1 -->
 							<hr>
-							<div class="mini-stories" data-equalizer>
-								<?php CST()->frontend->mini_stories_content_block( array(
-									'cst_homepage_other_headlines_2',
-									'cst_homepage_other_headlines_3',
-									'cst_homepage_other_headlines_4',
-									'cst_homepage_other_headlines_5',
-								) ); ?>
-							</div><!-- /mini-stories -->
+							<?php $other_stories = CST()->customizer->get_other_headlines_stories();
+							array_shift( $other_stories );
+							?>
+							<?php CST()->frontend->mini_stories_content_block( $other_stories ); ?>
 						</div><!-- hp-other-lead -->
 						<div class="other-stories show-for-large-up">
-							<?php if ( 1 ) { // @TODO Selective display / render as this seems to trip up customizer ?>
-								<hr>
-								<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
-								<div id="root"></div>
-								<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.641bf377.js"></script>
-							<?php } ?>
+							<hr>
+							<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
+							<div id="root"></div>
+							<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.641bf377.js"></script>
 						</div>
 						<div class="other-stories hide-for-xlarge-up">
 							<h3>Hello</h3>
@@ -69,78 +63,14 @@
 					</div>
 					<div class="small-12 columns more-stories-container" id="hp-section-lead">
 						<?php CST()->frontend->render_section_title( 'upper_section_section_title' ); ?>
-						<?php CST()->frontend->mini_stories_content_block( array(
-							'cst_homepage_section_headlines_1',
-							'cst_homepage_section_headlines_2',
-							'cst_homepage_section_headlines_3',
-							'cst_homepage_section_headlines_4',
-							'cst_homepage_section_headlines_5',
-						) ); ?>
-					</div>
+						<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
+					</div><!-- /#hp-section-lead -->
 				</div>
 				<?php if ( get_query_var( 'showads', false ) ) { ?>
 					<div class="cst-ad-container"><img src="http://placehold.it/970x90/a0a0d0/130100&amp;text=[nativo]"></div>
 				<?php } ?>
 				<hr>
-				<div class="columns small-12">
-					<?php if ( get_query_var( 'showads', false ) ) { ?>
-						<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
-					<?php } ?>
-				</div>
-				<div class="row more-stories-container">
-					<div class="columns small-12">
-						<div class="row">
-							<h3>Top Stories</h3>
-						</div>
-						<div class="columns small-12 medium-6 large-8">
-							<div class="small-12 columns" id="featured-stories">
-								<div class="row">
-									<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
-									<div class="featured-story">
-										<?php
-										$obj = \CST\Objects\Post::get_by_post_id( $article_map['featured_story_block_headlines_one'] );
-										if ( $obj ) {
-											$this->featured_story_lead( $obj );
-										}
-										?>
-									</div>
-								</div>
-								<div class="row">
-									<h3 class="more-sub-head">
-										<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
-										   data-event-action="navigate-hp-features-column-title">
-											More Features</a></h3>
-									<div class="columns small-12">
-										<div class="row">
-											<?php
-											$items = array();
-											foreach ( $this->featured_story_block_headlines as $featured_story_block_headline => $value ) {
-												$items[ $featured_story_block_headline ] = array_key_exists( $featured_story_block_headline, $article_map ) ? $article_map[ $featured_story_block_headline ] : null;
-											}
-											array_shift( $items );
-											CST()->frontend->mini_stories_content_block( $items, 'vertical' ); ?>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="show-for-large-up hide-for-portrait">
-					<div class="row">
-						<div class="small-12 columns more-stories-container" id="top-stories-section-lead">
-							<hr>
-							<?php CST()->frontend->render_section_title( 'lower_section_section_title' ); ?>
-							<?php CST()->frontend->mini_stories_content_block( array(
-								'cst_homepage_lower_section_headlines_1',
-								'cst_homepage_lower_section_headlines_2',
-								'cst_homepage_lower_section_headlines_3',
-								'cst_homepage_lower_section_headlines_4',
-								'cst_homepage_lower_section_headlines_5',
-							) ); ?>
-						</div>
-					</div>
-				</div>
+				<?php CST()->frontend->more_stories_content(); ?>
 			</div>
 			<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 				<?php if ( get_query_var( 'showads', false ) ) { ?>

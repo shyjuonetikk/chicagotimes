@@ -456,7 +456,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
 				<div class="row">
 					<div class="stories-list">
-						<?php CST()->frontend->cst_latest_stories_content_block( $query ); ?>
+						<?php CST()->frontend->cst_latest_stories_content_block( 'columns' ); ?>
 					</div>
 				</div>
 			</div>
