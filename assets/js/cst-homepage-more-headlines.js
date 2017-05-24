@@ -262,12 +262,14 @@
 
         },
       setSort: function () {
-        jQuery('.cst-headline-sort').sortable({
+          if ( jQuery('.cst-headline-sort').length ) {
+            jQuery('.cst-headline-sort').sortable({
 
-          revert: true,
-          cursor: 'move'
+              revert: true,
+              cursor: 'move'
 
-        });
+            });
+          }
       }
 
     };
