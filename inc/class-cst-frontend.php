@@ -1063,7 +1063,7 @@ class CST_Frontend {
 						?>
 <div class="single-mini-story small-12 medium-4">
 	<?php
-	$this->single_mini_story( $obj, 'alternate' );
+	$this->single_mini_story( $obj, 'prime' );
 	$close_me = true;
 	?>
 </div><!-- First one -->
@@ -1137,15 +1137,6 @@ class CST_Frontend {
 						<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
 					<?php } ?>
 				</div>
-			</div>
-			<div class="show-for-large-up hide-for-portrait">
-			<div class="row">
-				<div class="small-12 columns more-stories-container" id="top-stories-section-lead">
-					<hr>
-					<?php CST()->frontend->render_section_title( 'lower_section_section_title' ); ?>
-					<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_lower_section_stories() ); ?>
-				</div>
-			</div>
 			</div>
 		</div><!-- /more-stories-content -->
 		<?php
@@ -1223,7 +1214,7 @@ class CST_Frontend {
 						<div class="single-mini-story small-12 medium-4">
 							<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 							<?php
-							CST()->frontend->single_mini_story( $obj, 'alternate', $partial_id, 'no' );
+							CST()->frontend->single_mini_story( $obj, 'prime', $partial_id, 'no' );
 							$close_me = true;
 							?>
 							</div>
@@ -1253,7 +1244,7 @@ class CST_Frontend {
 	* @param $partial_id string Customizer reference DOM id
 	*/
 	public function single_mini_story( $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
-		$layout['alternate'] = array (
+		$layout['prime'] = array (
 			'wrapper_class' => '',
 			'image_class' => 'small-12',
 			'image_size' => 'secondary-wells',
@@ -1298,7 +1289,7 @@ class CST_Frontend {
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
 		</div>
-		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class_landscape']); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
+		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
 			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>

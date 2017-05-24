@@ -68,6 +68,29 @@
 				<?php } ?>
 				<hr>
 				<?php CST()->frontend->more_stories_content(); ?>
+				<div class="lower-section-stories">
+					<div class="row">
+						<div class="small-12 columns more-stories-container" id="top-stories-section-lead">
+							<hr>
+							<?php CST()->frontend->render_section_title( 'lower_section_section_title' ); ?>
+							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_lower_section_stories() ); ?>
+						</div>
+					</div>
+				</div><!-- /.lower-section-stories -->
+				<div class=" more-stories-container">
+					<div class="show-for-medium-up">
+						<div class="row">
+							<div class="columns small-12">
+								<h3 class="more-sub-head">Podcasts</h3>
+								<ul>
+									<li class="mini-story">Podcast #1</li>
+									<li class="mini-story">Podcast #2</li>
+									<li class="mini-story">Podcast #3</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div><!-- /.stories -->
 			<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 				<?php if ( get_query_var( 'showads', false ) ) { ?>
