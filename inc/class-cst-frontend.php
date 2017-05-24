@@ -1219,13 +1219,13 @@ class CST_Frontend {
 						?>
 						<div class="single-mini-story small-12 medium-4">
 							<?php
-							CST()->frontend->single_mini_story( $obj, 'alternate', $partial_id );
+							CST()->frontend->single_mini_story( $obj, 'alternate', $partial_id, 'no' );
 							$close_me = true;
 							?>
 						</div><!-- First one -->
 						<div class="single-mini-story small-12 medium-8">
 					<?php } else { ?>
-						<?php CST()->frontend->individual_mini_story( $obj, $style, $partial_id ); ?>
+						<?php CST()->frontend->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
 					<?php }
 				}
 				$counter++;
@@ -1237,7 +1237,7 @@ class CST_Frontend {
 	<?php
 	}
 
-	public function individual_mini_story( $obj, $layout_type, $partial_id = '' ) {
+	public function individual_mini_story( $obj, $layout_type, $partial_id = '', $watch ) {
 	?>
 	<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 		<?php CST()->frontend->single_mini_story( $obj, $layout_type, $partial_id ); ?>
@@ -1250,7 +1250,7 @@ class CST_Frontend {
 	* @param $layout_type
 	* @param $partial_id string Customizer reference DOM id
 	*/
-	public function single_mini_story( $obj, $layout_type, $partial_id = '' ) {
+	public function single_mini_story( $obj, $layout_type, $partial_id = '', $watch = 'no' ) {
 		$layout['alternate'] = array (
 			'wrapper_class' => '',
 			'image_class' => 'small-12',
@@ -1276,33 +1276,33 @@ class CST_Frontend {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		?>
-<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>">
-	<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
-		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-		<?php
-			$featured_image_id = $obj->get_featured_image_id();
-			if ( $featured_image_id )  {
-				$attachment = wp_get_attachment_metadata( $featured_image_id );
-				if ( $attachment ) {
-					$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[$layout_type]['image_size']);
-					echo wp_kses_post( $image_markup );
+	<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>"  <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
+		<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
+			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+			<?php
+				$featured_image_id = $obj->get_featured_image_id();
+				if ( $featured_image_id )  {
+					$attachment = wp_get_attachment_metadata( $featured_image_id );
+					if ( $attachment ) {
+						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[$layout_type]['image_size']);
+						echo wp_kses_post( $image_markup );
+					}
 				}
-			}
-		?>
-		</a>
+			?>
+			</a>
+		</div>
+		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-portrait">
+			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+			</a>
+		</div>
+		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-landscape">
+			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+			</a>
+		</div>
+		<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
 	</div>
-	<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-portrait">
-		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
-		</a>
-	</div>
-	<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-landscape">
-		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-			<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
-		</a>
-	</div>
-	<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
-</div>
 		<?php
 	}
 	/**

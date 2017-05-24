@@ -28,7 +28,7 @@
 					</div><!-- /hp-main-lead -->
 					<div class="columns small-12 large-8 other-lead-stories">
 						<div class="show-for-medium-only"><h3>In other news</h3></div>
-						<div id="hp-other-lead">
+						<div id="hp-other-lead-stories">
 							<div class="row lead-mini-story" id="js-cst-homepage-other-headlines-1">
 								<?php
 								$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( 'cst_homepage_other_headlines_1' ) );
@@ -42,7 +42,9 @@
 							<?php $other_stories = CST()->customizer->get_other_headlines_stories();
 							array_shift( $other_stories );
 							?>
-							<?php CST()->frontend->mini_stories_content_block( $other_stories ); ?>
+							<div class="section-other-stories">
+								<?php CST()->frontend->mini_stories_content_block( $other_stories, 'regular' ); ?>
+							</div>
 						</div><!-- hp-other-lead -->
 						<div class="other-stories show-for-large-up">
 							<hr>
@@ -71,7 +73,7 @@
 				<?php } ?>
 				<hr>
 				<?php CST()->frontend->more_stories_content(); ?>
-			</div>
+			</div><!-- /.stories -->
 			<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 				<?php if ( get_query_var( 'showads', false ) ) { ?>
 					<?php if ( is_active_sidebar( 'homepage_sidebar' ) ) {
@@ -123,6 +125,7 @@
 					</div>
 				</div>
 			</div>
+			<!-- /.widgets -->
 		</div>
 		<?php
 		do_action( 'above-homepage-headlines' );
@@ -131,8 +134,6 @@
 		endif;
 		?>
 
-
-	</div><!-- /stories-container -->
 		<!-- circular flipp -->
 		<div class="row">
 			<div class="columns">
@@ -152,7 +153,7 @@
 				<?php get_template_part( 'parts/homepage/column-wells' ); ?>
 			</div>
 		</div>
-	</div><!-- /homepage-content -->
+	</div><!-- /stories-container -->
 	<div class="row">
 		<div class="large-12 columns foo">
 			<?php if ( get_query_var( 'showads', false ) ) { ?>
