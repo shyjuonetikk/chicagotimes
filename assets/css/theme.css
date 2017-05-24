@@ -3658,6 +3658,9 @@ body.post-gallery-lightbox-active {
     line-height: 1.5rem; }
   .homepage_wrapper .stories-container .more-stories-container .featured-story .featured-story-hero {
     width: 100%; }
+  @media only screen and (min-width:48em) and (max-width:63.94em) {
+    .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .mini-image {
+      width: 100%; } }
   .homepage_wrapper .stories-container .mini-stories {
     margin-bottom: 0.625rem; }
     .homepage_wrapper .stories-container .mini-stories h3 {

@@ -46,6 +46,7 @@
 								<?php CST()->frontend->mini_stories_content_block( $other_stories, 'regular' ); ?>
 							</div>
 						</div><!-- hp-other-lead -->
+						<hr>
 						<div class="other-stories show-for-large-up">
 							<hr>
 							<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
@@ -53,17 +54,11 @@
 							<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.641bf377.js"></script>
 						</div>
 						<div class="other-stories hide-for-xlarge-up">
-							<h3>Hello</h3>
-							<ul>
-								<li>Please</li>
-								<li>Fill</li>
-								<li>me</li>
-								<li>up</li>
-								<li>with content</li>
-							</ul>
+							<?php CST()->frontend->render_section_title( 'upper_section_section_title' ); ?>
+							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 						</div>
 					</div>
-					<div class="small-12 columns more-stories-container" id="hp-section-lead">
+					<div class="small-12 columns more-stories-container show-for-xlarge-up" id="hp-section-lead">
 						<?php CST()->frontend->render_section_title( 'upper_section_section_title' ); ?>
 						<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 					</div><!-- /#hp-section-lead -->

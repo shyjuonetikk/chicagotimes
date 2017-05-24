@@ -1094,7 +1094,7 @@ class CST_Frontend {
 			return $class;
 		} );
 		?>
-		<div class="more-stories-content more-stories-container">
+		<div class="more-stories-content">
 			<div class="row">
 			<?php $this->more_top_stories_block( 'More Top Stories', 'normal-style' ); ?>
 			<div class="columns small-12 medium-6 large-8">
@@ -1115,7 +1115,7 @@ class CST_Frontend {
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
 							   data-event-action="navigate-hp-features-column-title">
 								More Features</a></h3>
-						<div class="columns small-12">
+						<div class="columns small-12 mini-featured-stories">
 							<div class="row">
 								<?php
 								$this->mini_stories_content_block( array(
@@ -1130,10 +1130,13 @@ class CST_Frontend {
 				</div>
 			</div>
 			</div>
-			<div class="columns small-12">
-				<?php if ( get_query_var( 'showads', false ) ) { ?>
-					<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
-				<?php } ?>
+			<hr>
+			<div class="row">
+				<div class="columns small-12">
+					<?php if ( get_query_var( 'showads', false ) ) { ?>
+						<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
+					<?php } ?>
+				</div>
 			</div>
 			<div class="show-for-large-up hide-for-portrait">
 			<div class="row">
@@ -1156,11 +1159,11 @@ class CST_Frontend {
 	public function more_top_stories_block( $title, $style = 'sidebar-style' ) {
 		$widget_style = array(
 			'sidebar-style' => array(
-				'wrapper-open' => 'row more-stories-container',
+				'wrapper-open' => 'row more-stories-container ss',
 				'container-open' => 'columns small-12',
 			),
 			'normal-style' => array(
-				'wrapper-open' => 'more-stories-container',
+				'wrapper-open' => 'more-stories-container ns',
 				'container-open' => 'columns small-12 medium-6 large-4',
 			),
 		);
@@ -1218,14 +1221,18 @@ class CST_Frontend {
 						// First item and odd total
 						?>
 						<div class="single-mini-story small-12 medium-4">
+							<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 							<?php
 							CST()->frontend->single_mini_story( $obj, 'alternate', $partial_id, 'no' );
 							$close_me = true;
 							?>
+							</div>
 						</div><!-- First one -->
 						<div class="single-mini-story small-12 medium-8">
 					<?php } else { ?>
+						<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 						<?php CST()->frontend->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
+						</div>
 					<?php }
 				}
 				$counter++;
@@ -1237,20 +1244,15 @@ class CST_Frontend {
 	<?php
 	}
 
-	public function individual_mini_story( $obj, $layout_type, $partial_id = '', $watch ) {
-	?>
-	<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
-		<?php CST()->frontend->single_mini_story( $obj, $layout_type, $partial_id ); ?>
-	</div>
-	<?php
-	}
 	/**
 	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
 	* @param $obj
 	* @param $layout_type
+	* @param $watch string yes to include Foundation equalizer watch parameter
+	* @param $custom_landscape_class string Include custom class modifier to landscape markup
 	* @param $partial_id string Customizer reference DOM id
 	*/
-	public function single_mini_story( $obj, $layout_type, $partial_id = '', $watch = 'no' ) {
+	public function single_mini_story( $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
 		$layout['alternate'] = array (
 			'wrapper_class' => '',
 			'image_class' => 'small-12',
@@ -1260,7 +1262,7 @@ class CST_Frontend {
 		);
 		$layout['regular'] = array (
 			'wrapper_class' => 'medium-6',
-			'image_class' => 'small-3 medium-4 large-4',
+			'image_class' => 'small-3 medium-4 large-4 mini-image',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-8 large-8',
 			'watch' => 'data-equalizer-watch',
@@ -1276,7 +1278,7 @@ class CST_Frontend {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		?>
-	<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>"  <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
+	<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
 		<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
 			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 			<?php
@@ -1296,7 +1298,7 @@ class CST_Frontend {
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
 		</div>
-		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-landscape">
+		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class_landscape']); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
 			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>

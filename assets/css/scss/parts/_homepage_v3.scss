@@ -157,6 +157,13 @@
 					width: 100%;
 				}
 			}
+			.mini-featured-stories {
+				@media #{$xmediumi-only} {
+					.mini-image {
+						width:100%;
+					}
+				}
+			}
 		}
 		.mini-stories {
 			margin-bottom: 0.625rem;
