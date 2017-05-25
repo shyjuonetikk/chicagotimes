@@ -2888,13 +2888,16 @@ ready(fn);
 
 
 	/**
-	* @param $obj
-	* @param $author
+	* @param $headline
 	*
 	* Display the central story, with image and excerpt
 	* Used by the customizer render callback
 	*/
-	public function homepage_mini_story_lead( $obj, $author ) {
+	public function homepage_mini_story_lead( $headline ) {
+		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+			$author = $this->hp_get_article_authors( $obj );
+		}
 		remove_filter( 'the_excerpt', 'wpautop' );
 		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
 		add_filter( 'the_excerpt', 'wpautop' );

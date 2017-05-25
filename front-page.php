@@ -30,13 +30,7 @@
 						<div class="show-for-medium-only"><h3>In other news</h3></div>
 						<div id="hp-other-lead-stories">
 							<div class="row lead-mini-story" id="js-cst-homepage-other-headlines-1">
-								<?php
-								$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( 'cst_homepage_other_headlines_1' ) );
-								if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-									$author          = CST()->frontend->hp_get_article_authors( $obj );
-									CST()->frontend->homepage_mini_story_lead( $obj, $author );
-								}
-								?>
+								<?php CST()->frontend->homepage_mini_story_lead( 'cst_homepage_other_headlines_1' ); ?>
 							</div><!-- /js-cst-homepage-other-headlines-1 -->
 							<hr>
 							<?php $other_stories = CST()->customizer->get_other_headlines_stories();
