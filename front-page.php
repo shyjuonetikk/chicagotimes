@@ -46,6 +46,12 @@
 			<?php get_template_part( 'parts/homepage/column-wells' ); ?>
 		</div>
 	</div>
+	<div class="other-stories show-for-large-up">
+		<hr>
+		<h3>[test]Trending in the Chicago Sun-Times (Chartbeat)</h3>
+		<div id="root"></div>
+		<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/js/main.a7ae93e0-cb-dev-test.js' ); ?>"></script>
+	</div>
 </div>
 <?php get_template_part( 'parts/homepage/footer' ); ?>
 <?php get_footer();
