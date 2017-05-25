@@ -238,7 +238,7 @@
 
             el.select2({
                 placeholder: CSTMoreHeadlinesData.placeholder_text,
-                minimumInputLength: 0,
+                minimumInputLength: 3,
                 allowClear: true,
                 ajax: {
                     quietMillis: 150,

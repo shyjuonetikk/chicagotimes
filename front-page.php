@@ -111,9 +111,7 @@
 				</div>
 				<div class="hide-for-medium-down">
 					<hr>
-					<div class="row">
-						<?php the_widget( 'CST_STNG_Wire_Widget' ); ?>
-					</div>
+					<?php the_widget( 'CST_STNG_Wire_Widget' ); ?>
 				</div>
 			</div>
 			<!-- /.widgets -->
