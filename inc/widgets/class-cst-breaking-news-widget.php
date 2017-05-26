@@ -9,9 +9,13 @@ class CST_Breaking_News_Widget extends WP_Widget {
             esc_html__( 'CST Homepage Breaking News', 'chicagosuntimes' ),
             array(
                 'description' => esc_html__( 'Set Breaking News displayed in the header.', 'chicagosuntimes' ),
+                'customize_selective_refresh' => true,
             )
         );
-
+        // Enqueue style if widget is active (appears in a sidebar) or if in Customizer preview.
+        if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
+            add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+        }
         add_action( 'wp_ajax_cst_breaking_news_get_posts', array( $this, 'cst_breaking_news_get_posts' ) );
         
     }
