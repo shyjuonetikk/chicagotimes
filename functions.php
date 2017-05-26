@@ -734,10 +734,10 @@ class CST {
 			'name'        => esc_html__( 'Homepage Breaking News', 'chicagosuntimes' ),
 		) );
 
-		register_sidebar( array(
-			'id'          => 'homepage_headlines',
-			'name'        => esc_html__( 'Homepage Headlines', 'chicagosuntimes' ),
-		) );
+//		register_sidebar( array(
+//			'id'          => 'homepage_headlines',
+//			'name'        => esc_html__( 'Homepage Headlines', 'chicagosuntimes' ),
+//		) );
 
 		register_sidebar( array(
 			'id'          => 'homepage_featured_story',
