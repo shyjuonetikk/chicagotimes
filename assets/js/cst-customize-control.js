@@ -57,17 +57,17 @@
 
   wp.customize( 'hero_related_posts', function( setting ) {
     var showRelated = function () {
-      wp.customize.section( 'hp_lead_related_stories' ).activate({ duration: 1000 });
-      wp.customize.section( 'hp_lead_related_stories' ).focus();
+      // wp.customize.section( 'hp_lead_related_stories' ).activate({ duration: 1000 });
+      // wp.customize.section( 'hp_lead_related_stories' ).focus();
       console.log('control hp_lead_related_show' );
     };
     var hideRelated = function () {
-      wp.customize.section( 'hp_lead_related_stories' ).deactivate({ duration: 1000 });
-      wp.customize.section( 'hp_lead_stories' ).focus();
+      // wp.customize.section( 'hp_lead_related_stories' ).deactivate({ duration: 1000 });
+      // wp.customize.section( 'hp_lead_stories' ).focus();
       console.log('control hp_lead_related_hide' );
     };
     setting.bind( function( to ) {
-      ( true === to ) ? showRelated() : hideRelated();
+      // ( true === to ) ? showRelated() : hideRelated();
     })
   });
 } )( jQuery );

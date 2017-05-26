@@ -193,14 +193,15 @@ class CST_Customizer {
 			'transport' => $transport,
 		) );
 		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'hero_related_posts', array(
-					'label'          => __( 'Choose and display related posts?', 'chicagosuntimes' ),
+					'label'          => __( 'Display the following hero story related articles?', 'chicagosuntimes' ),
 					'section'        => 'hp_lead_stories',
 					'settings'       => 'hero_related_posts',
 					'type'           => 'checkbox',
-					'priority' => 9,
+					'priority' => 29,
 				)
 			)
 		);
+		$article_count = 1;
 		foreach ( $this->related_hero_stories as $lead_story => $value ) {
 			$wp_customize->add_setting( $lead_story, array(
 				'type' => 'theme_mod',
@@ -211,10 +212,10 @@ class CST_Customizer {
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $lead_story, array(
 				'type' => 'cst_select_control',
-				'priority' => 11,
-				'section' => 'hp_lead_related_stories',
+				'priority' => 30,
+				'section' => 'hp_lead_stories',
 				'settings' => $lead_story,
-				'label' => __( 'Related to Hero Article', 'chicagosuntimes' ),
+				'label' => __( 'Article ' . $article_count++, 'chicagosuntimes' ),
 				'input_attrs' => array(
 					'placeholder' => __( '=Choose article=' ),
 				),
