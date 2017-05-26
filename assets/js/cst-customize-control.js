@@ -54,38 +54,21 @@
           });
     }
   } );
-  wp.customize.bind( 'ready', function() {
-    var customize = this;
-    var showRelated = function () {
-      customize.section( 'hp_lead_related_stories' ).activate({ duration: 1000 });
-    };
-    var hideRelated = function () {
-      customize.section( 'hp_lead_related_stories' ).deactivate({ duration: 1000 });
-    };
-    customize( 'hero_related_posts' ).get() ? showRelated() : hideRelated();
-  });
 
-  // Handle custom input/settings and refresh
   wp.customize( 'hero_related_posts', function( setting ) {
     var showRelated = function () {
       wp.customize.section( 'hp_lead_related_stories' ).activate({ duration: 1000 });
       wp.customize.section( 'hp_lead_related_stories' ).focus();
+      console.log('control hp_lead_related_show' );
     };
     var hideRelated = function () {
       wp.customize.section( 'hp_lead_related_stories' ).deactivate({ duration: 1000 });
       wp.customize.section( 'hp_lead_stories' ).focus();
+      console.log('control hp_lead_related_hide' );
     };
     setting.bind( function( to ) {
       ( true === to ) ? showRelated() : hideRelated();
     })
   });
-  wp.customize( 'upper_section_section_title', function( setting ) {
-    setting.bind( function( to ) {
-      var updateMe = function(newval) {
-        setting.set(newval)
-      };
-      updateMe(to);
-    })
-  })
 } )( jQuery );
 

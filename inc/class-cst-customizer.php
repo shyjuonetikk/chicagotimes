@@ -77,6 +77,17 @@ class CST_Customizer {
 		if ( method_exists( 'Jetpack_Custom_CSS', 'disable' ) ) {
 			add_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 11 );
 		}
+		add_action( 'customize_preview_init', [ $this, 'action_customizer_live_preview' ] );
+	}
+
+	public static function action_customizer_live_preview() {
+		wp_enqueue_script(
+			'chicagosuntimes-themecustomizer',			//Give the script an ID
+			get_template_directory_uri().'/assets/js/cst-customize-preview.js',//Point to file
+			array( 'jquery','customize-preview' ),	//Define dependencies
+			'',						//Define a version (optional)
+			true						//Put script in footer?
+		);
 	}
 
 	/**
@@ -448,6 +459,13 @@ class CST_Customizer {
 			'sanitize_callback' => 'absint',
 			'render_callback' => [ $this, 'render_callback' ],
 		) );
+		$wp_customize->selective_refresh->add_partial( 'hero_related_posts', array(
+			'selector'        => '#js-hero-related-posts',
+			'settings'        => 'hero_related_posts',
+			'container_inclusive' => false,
+			'sanitize_callback' => 'absint',
+			'render_callback' => [ $this, 'render_callback' ],
+		) );
 	}
 
 	/**
@@ -490,6 +508,9 @@ class CST_Customizer {
 			case 'featured_story_block_headlines_1':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->featured_story_lead( $obj );
+				break;
+			case 'hero_related_posts':
+				return CST()->frontend->handle_related_content();
 				break;
 			case 'cst_homepage_related_headlines_one':
 			case 'cst_homepage_related_headlines_two':

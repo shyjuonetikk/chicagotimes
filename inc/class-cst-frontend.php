@@ -2833,7 +2833,7 @@ ready(fn);
 			'cst_homepage_related_headlines_three' => true,
 		);
 		if ( $do_related ) { ?>
-		<div class="related-stories">
+		<div class="related-stories" id="hero-related-posts">
 			<h3>Related stories:</h3>
 			<ul class="related-title">
 				<?php foreach ( $related_hero_stories as $story => $value ) {
