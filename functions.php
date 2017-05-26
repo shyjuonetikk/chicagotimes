@@ -10,7 +10,7 @@ class CST {
 
 	private static $instance;
 
-	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler;
+	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler, $customizer;
 
 	private $post_types = array();
 
