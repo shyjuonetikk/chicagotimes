@@ -15,12 +15,12 @@ if ( false === $result ) {
 	$response = wpcom_vip_file_get_contents( $chartbeat_url );
 	if ( ! is_wp_error( $response ) ) {
 		$result = json_decode( $response );
-		wpcom_vip_cache_set( $cache_key, $result, 'default', 2 * MINUTE_IN_SECONDS );
+		wpcom_vip_cache_set( $cache_key, $result, 'default', 1 * MINUTE_IN_SECONDS );
 	}
 }
 if ( ! empty( $result->pages ) ) {
 header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
-echo json_encode( array_values( $result->pages ) );
+echo json_encode( $result );
 }
 if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 	wp_die();
