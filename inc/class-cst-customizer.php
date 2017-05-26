@@ -620,6 +620,14 @@ class CST_Customizer {
 	}
 
 	/**
+	 * Getter for upper section stories array
+	 * @return array
+	 */
+	public function get_hero_related_stories() {
+		return $this->related_hero_stories;
+	}
+
+	/**
 	 * Getter for lower section stories array
 	 * @return array
 	 */

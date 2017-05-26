@@ -2827,11 +2827,7 @@ ready(fn);
 	*/
 	public function handle_related_content() {
 		$do_related = get_theme_mod( 'hero_related_posts' );
-		$related_hero_stories = array(
-			'cst_homepage_related_headlines_one' => true,
-			'cst_homepage_related_headlines_two' => true,
-			'cst_homepage_related_headlines_three' => true,
-		);
+		$related_hero_stories = CST()->customizer->get_hero_related_stories();
 		if ( $do_related ) { ?>
 		<div class="related-stories" id="hero-related-posts">
 			<h3>Related stories:</h3>
