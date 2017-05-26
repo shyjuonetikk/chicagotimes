@@ -495,6 +495,19 @@ class CST_Customizer {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id );
 				break;
+			case 'cst_homepage_top_story_headline_1':
+			case 'cst_homepage_top_story_headline_2':
+			case 'cst_homepage_top_story_headline_3':
+			case 'cst_homepage_top_story_headline_4':
+			case 'cst_homepage_top_story_headline_5':
+			case 'cst_homepage_top_story_headline_6':
+			case 'cst_homepage_top_story_headline_7':
+			case 'cst_homepage_top_story_headline_8':
+			case 'cst_homepage_top_story_headline_9':
+			case 'cst_homepage_top_story_headline_10':
+				return CST()->frontend->top_story( $element->id, 'columns' );
+				break;
+				break;
 			case 'cst_homepage_section_headlines_2':
 			case 'cst_homepage_section_headlines_3':
 			case 'cst_homepage_section_headlines_4':

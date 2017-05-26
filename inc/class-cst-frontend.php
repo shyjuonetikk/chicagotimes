@@ -993,7 +993,24 @@ class CST_Frontend {
 	 * @param $orientation string Basic name describing orientation of articles in this block
 	 */
 	public function cst_latest_stories_content_block( $orientation = 'columns' ) {
+?>
+			<div class="row">
+			<div class="columns small-12">
+			<?php
+			foreach ( CST()->customizer->get_top_stories() as $partial_id => $value ) {
+				$this->top_story( $partial_id, $orientation );
+		} ?>
+			</div>
+			</div>
+		<?php
+	}
 
+	/**
+	* @param $partial_id
+	* @param $orientation
+	* Display story title and image in a column for homepage
+	*/
+	public function top_story( $partial_id, $orientation ) {
 		$classes = array(
 			'columns' => array(
 				'title' => 'columns small-9 medium-8 title',
@@ -1004,41 +1021,32 @@ class CST_Frontend {
 				'image' => 'columns small-3 medium-4 large-6 image',
 			),
 		);
-			?>
-			<div class="row">
-			<div class="columns small-12">
-			<?php
-			foreach ( CST()->customizer->get_top_stories() as $partial_id => $value ) {
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
-				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
-			<div class="latest-story" id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
-				<div class="<?php echo esc_attr( $classes[$orientation]['title'] ); ?>">
-					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
-						<?php echo esc_html( $obj->get_title() ); ?>
-					</a>
-				</div>
-				<div class="<?php echo esc_attr( $classes[$orientation]['image'] ); ?>">
-					<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
-						<?php
-							$featured_image_id = $obj->get_featured_image_id();
-							if ( $featured_image_id )  {
-								$attachment = wp_get_attachment_metadata( $featured_image_id );
-								if ( $attachment ) {
-									$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', 'chiwire-slider-square');
-									echo wp_kses_post( $image_markup );
-								}
+		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
+		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
+		<div class="latest-story" id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
+			<div class="<?php echo esc_attr( $classes[$orientation]['title'] ); ?>">
+				<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+					<?php echo esc_html( $obj->get_title() ); ?>
+				</a>
+			</div>
+			<div class="<?php echo esc_attr( $classes[$orientation]['image'] ); ?>">
+				<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+					<?php
+						$featured_image_id = $obj->get_featured_image_id();
+						if ( $featured_image_id )  {
+							$attachment = wp_get_attachment_metadata( $featured_image_id );
+							if ( $attachment ) {
+								$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', 'chiwire-slider-square');
+								echo wp_kses_post( $image_markup );
 							}
-						?>
-					</a>
-				</div>
+						}
+					?>
+				</a>
 			</div>
-		<?php }
-		} ?>
-			</div>
-			</div>
+		</div>
 		<?php
+		}
 	}
-
 	/**
 	* A 2 x 2 block of content, each have image with title and anchored
 	* Optionally a 5th piece of content on left of 2 x 2 block of content
