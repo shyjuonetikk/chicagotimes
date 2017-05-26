@@ -180,7 +180,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		$this->enqueue_scripts();
 		$count = 0;
-		$width = is_customize_preview() ? 'width:250px;' : 'width:400px;';
+		$width = is_customize_preview() ? 'width:100%;' : 'width:400px;';
 		isset( $instance['cst_more_headlines_title'] ) ? $title = $instance['cst_more_headlines_title'] : $title = '';
 		?>
 		<p>
