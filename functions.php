@@ -199,6 +199,7 @@ class CST {
 		add_image_size( 'more-wells', 228, 134, array( 'center', 'center' ) );
 		add_image_size( 'newspaper', 297, 287, true );
 
+		remove_role( 'adops' );
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true, 'customize' => true ) );
 
 		$this->setup_actions();
