@@ -476,8 +476,24 @@ class CST {
 		}
 
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
+		add_action( 'init', [ $this, 'banana' ] );
 	}
 
+	public function banana() {
+		$role = get_role( 'editor' );
+		if ( is_object( $role ) ) {
+			$role->add_cap( 'edit_others_posts' );
+			$role->add_cap( 'customize' );
+			$current_user = _wp_get_current_user();
+			if ( 0 == $current_user->ID ) {
+				// Not logged in.
+			} else {
+				// Logged in.
+			}
+			$b = current_user_can( 'edit_others_posts' );
+			$b = current_user_can( 'customize' );
+		}
+	}
 	/**
 	 * Set up any filters for the theme
 	 */
