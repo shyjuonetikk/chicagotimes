@@ -2762,10 +2762,9 @@ ready(fn);
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
-		}
-		remove_filter( 'the_excerpt', 'wpautop' );
-		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
-		add_filter( 'the_excerpt', 'wpautop' );
+			remove_filter( 'the_excerpt', 'wpautop' );
+			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+			add_filter( 'the_excerpt', 'wpautop' );
 		?>
 		<div class="hero-story" id="js-cst-homepage-headlines-one">
 		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
@@ -2803,6 +2802,7 @@ ready(fn);
 </div>
 </div>
 		<?php
+		}
 	}
 
 	/**
@@ -2861,18 +2861,17 @@ ready(fn);
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
-		}
-		remove_filter( 'the_excerpt', 'wpautop' );
-		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
-		add_filter( 'the_excerpt', 'wpautop' );
-		$featured_image_id = $obj->get_featured_image_id();
-		if ( $featured_image_id ) {
-			$attachment = wp_get_attachment_metadata( $featured_image_id );
-			if ( $attachment ) {
-				$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-header-medium' );
-				$small_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-small-square' );
+			remove_filter( 'the_excerpt', 'wpautop' );
+			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+			add_filter( 'the_excerpt', 'wpautop' );
+			$featured_image_id = $obj->get_featured_image_id();
+			if ( $featured_image_id ) {
+				$attachment = wp_get_attachment_metadata( $featured_image_id );
+				if ( $attachment ) {
+					$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-header-medium' );
+					$small_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-small-square' );
+				}
 			}
-		}
 		?>
 		<div class="lead-story" id="js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
@@ -2890,6 +2889,7 @@ ready(fn);
 <p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
 		</div>
 <?php
+		}
 	}
 
 
@@ -2903,17 +2903,16 @@ ready(fn);
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author = $this->hp_get_article_authors( $obj );
-		}
-		remove_filter( 'the_excerpt', 'wpautop' );
-		$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
-		add_filter( 'the_excerpt', 'wpautop' );
-		$featured_image_id = $obj->get_featured_image_id();
-		if ( $featured_image_id ) {
-			$attachment = wp_get_attachment_metadata( $featured_image_id );
-			if ( $attachment ) {
-				$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'secondary-wells' );
+			remove_filter( 'the_excerpt', 'wpautop' );
+			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+			add_filter( 'the_excerpt', 'wpautop' );
+			$featured_image_id = $obj->get_featured_image_id();
+			if ( $featured_image_id ) {
+				$attachment = wp_get_attachment_metadata( $featured_image_id );
+				if ( $attachment ) {
+					$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'secondary-wells' );
+				}
 			}
-		}
 ?>
 <div class="columns small-12">
 	<div class="row">
@@ -2939,6 +2938,7 @@ ready(fn);
 	</div>
 </div>
 <?php
+		}
 	}
 
 }
