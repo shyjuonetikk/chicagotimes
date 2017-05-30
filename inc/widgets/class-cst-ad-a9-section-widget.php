@@ -25,8 +25,11 @@ class CST_Ad_A9_Section_Widget extends WP_Widget {
 		echo wp_kses_post( $args['before_widget'] );
 		?>
 
-		<div id="div-gpt-test-a9-right-rail"></div>
-
+		<div id="div-gpt-ad-test-a9">
+            <script>
+                googletag.cmd.push(function() { googletag.display('div-gpt-ad-test-a9'); }); 
+            </script>
+</div>
 		<?php
 
 		echo wp_kses_post( $args['after_widget'] );

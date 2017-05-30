@@ -362,6 +362,10 @@ class CST {
 				);
 		});
 		wpcom_vip_load_plugin( 'bitly' );
+		if ( wpcom_vip_load_plugin( 'graphiq-search' ) ) {
+			GraphiqSearch::init();
+			add_post_type_support( 'cst_article', 'graphiq-search' );
+		}
 
 	}
 
