@@ -200,6 +200,7 @@ class CST {
 
 		remove_role( 'adops' );
 		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true, 'customize' => true ) );
+		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true ) );
 
 		$this->setup_actions();
 		$this->setup_filters();
