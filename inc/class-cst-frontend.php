@@ -1026,16 +1026,16 @@ class CST_Frontend {
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
 		<div class="latest-story js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
-			<div class="<?php echo esc_attr( $classes[$orientation]['title'] ); ?>">
-				<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+			<div class="<?php echo esc_attr( $classes[ $orientation ]['title'] ); ?>">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 					<?php echo esc_html( $obj->get_title() ); ?>
 				</a>
 			</div>
-			<div class="<?php echo esc_attr( $classes[$orientation]['image'] ); ?>">
-				<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+			<div class="<?php echo esc_attr( $classes[ $orientation ]['image'] ); ?>">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 					<?php
 						$featured_image_id = $obj->get_featured_image_id();
-						if ( $featured_image_id )  {
+						if ( $featured_image_id ) {
 							$attachment = wp_get_attachment_metadata( $featured_image_id );
 							if ( $attachment ) {
 								$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', 'chiwire-slider-square');
@@ -1166,12 +1166,12 @@ class CST_Frontend {
 			),
 		);
 		?>
-		<div class="<?php echo esc_attr( $widget_style[$style]['wrapper-open'] ); ?>">
-			<div class="<?php echo esc_attr( $widget_style[$style]['container-open'] ); ?>">
+		<div class="<?php echo esc_attr( $widget_style[ $style ]['wrapper-open'] ); ?>">
+			<div class="<?php echo esc_attr( $widget_style[ $style ]['container-open'] ); ?>">
 				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
 				<div class="row">
 					<div class="stories-list">
-						<?php CST()->frontend->cst_latest_stories_content_block( 'columns' ); ?>
+						<?php $this->cst_latest_stories_content_block( 'columns' ); ?>
 					</div>
 				</div>
 			</div>
@@ -1184,22 +1184,22 @@ class CST_Frontend {
 	 *
 	 * Display Featured Story - lead, large image
 	 */
-	public function featured_story_lead( $obj ) {
+	public function featured_story_lead( \CST\Objects\Post $obj ) {
 		?>
-<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
+		<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" title="<?php echo esc_html( $obj->get_title() ); ?>" target="_blank" data-on="click" data-event-category="navigation" data-event-action="navigate-hp-featured-story">
 	<?php
-	$featured_image_id = $obj->get_featured_image_id();
-	if ( $featured_image_id )  {
-		$attachment = wp_get_attachment_metadata( $featured_image_id );
-		if ( $attachment ) {
-			$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'none', 'cst-article-featured');
-			echo wp_kses_post( $image_markup );
+		$featured_image_id = $obj->get_featured_image_id();
+		if ( $featured_image_id )  {
+			$attachment = wp_get_attachment_metadata( $featured_image_id );
+			if ( $attachment ) {
+				$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'none', 'cst-article-featured' );
+				echo wp_kses_post( $image_markup );
+			}
 		}
-	}
-	?>
-	<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
-</a>
-<?php
+		?>
+		<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+		</a>
+		<?php
 	}
 	/**
 	* A 2 x 2 block of content, each have image with title and anchored
@@ -1220,13 +1220,13 @@ class CST_Frontend {
 						?>
 						<div class="single-mini-story small-12 medium-4">
 							<?php
-							CST()->frontend->single_mini_story( $obj, 'prime', $partial_id, 'no' );
+							$this->single_mini_story( $obj, 'prime', $partial_id, 'no' );
 							$close_me = true;
 							?>
 						</div><!-- First one -->
 						<div class="single-mini-story small-12 medium-8">
 					<?php } else { ?>
-						<?php CST()->frontend->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
+						<?php $this->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
 					<?php }
 				}
 				$counter++;
@@ -1240,13 +1240,13 @@ class CST_Frontend {
 
 	/**
 	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
-	* @param $obj
+	* @param $obj \CST\Objects\Post
 	* @param $layout_type
 	* @param $watch string yes to include Foundation equalizer watch parameter
 	* @param $custom_landscape_class string Include custom class modifier to landscape markup
 	* @param $partial_id string Customizer reference DOM id/class
 	*/
-	public function single_mini_story( $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
+	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
 		$layout['prime'] = array (
 			'wrapper_class' => '',
 			'image_class' => 'small-12',
@@ -1269,13 +1269,13 @@ class CST_Frontend {
 			'watch' => 'data-equalizer-watch',
 		);
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-			$author          = CST()->frontend->hp_get_article_authors( $obj );
+			$author          = $this->hp_get_article_authors( $obj );
 		}
 		?>
 		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 	<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
 		<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
-			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 			<?php
 				$featured_image_id = $obj->get_featured_image_id();
 				if ( $featured_image_id )  {
@@ -1289,12 +1289,12 @@ class CST_Frontend {
 			</a>
 		</div>
 		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-portrait">
-			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
 		</div>
 		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
-			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
 		</div>
