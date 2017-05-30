@@ -82,11 +82,11 @@ class CST_Customizer {
 
 	public static function action_customizer_live_preview() {
 		wp_enqueue_script(
-			'chicagosuntimes-themecustomizer',			//Give the script an ID
-			get_template_directory_uri().'/assets/js/cst-customize-preview.js',//Point to file
-			array( 'jquery','customize-preview' ),	//Define dependencies
-			'',						//Define a version (optional)
-			true						//Put script in footer?
+			'chicagosuntimes-themecustomizer',
+			get_template_directory_uri().'/assets/js/cst-customize-preview.js',
+			array( 'jquery', 'customize-preview' ),
+			'',
+			true
 		);
 	}
 
@@ -125,36 +125,36 @@ class CST_Customizer {
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'hp_other_stories', array(
-			'title' => __( 'Other lead stories' ),
-			'description' => __( 'Choose other lead stories' ),
+			'title' => __( 'Other lead stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose other lead stories', 'chicagosuntimes' ),
 			'priority' => 170,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'upper_section_stories', array(
-			'title' => __( 'Upper section stories' ),
-			'description' => __( 'Choose upper section stories' ),
+			'title' => __( 'Upper section stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose upper section stories', 'chicagosuntimes' ),
 			'priority' => 180,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'featured_stories_section', array(
-			'title' => __( 'Features' ),
-			'description' => __( 'Choose Features stories' ),
+			'title' => __( 'Features', 'chicagosuntimes' ),
+			'description' => __( 'Choose Features stories', 'chicagosuntimes' ),
 			'priority' => 180,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'lower_section_stories', array(
-			'title' => __( 'Lower section stories' ),
-			'description' => __( 'Choose lower section stories' ),
+			'title' => __( 'Lower section stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose lower section stories', 'chicagosuntimes' ),
 			'priority' => 180,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'top_story_section_stories', array(
-			'title' => __( 'Top stories' ),
-			'description' => __( 'Choose top stories' ),
+			'title' => __( 'Top stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose top stories', 'chicagosuntimes' ),
 			'priority' => 180,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
@@ -168,7 +168,7 @@ class CST_Customizer {
 				'type' => 'theme_mod',
 				'capability' => $this->capability,
 				'default' => $lead_story,
-				'sanitize_callback' => 'esc_html',
+				'sanitize_callback' => 'absint',
 				'transport' => $transport,
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $lead_story, array(
@@ -178,7 +178,7 @@ class CST_Customizer {
 				'settings' => $lead_story,
 				'label' => 0 === $lead_counter++ ? __( 'Hero Article', 'chicagosuntimes' ) : __( 'Lead Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => __( '-Choose article-' ),
+					'placeholder' => esc_attr__( '-Choose article-', 'chicagosuntimes' ),
 				),
 			) ) );
 		}
@@ -207,7 +207,7 @@ class CST_Customizer {
 				'type' => 'theme_mod',
 				'capability' => $this->capability,
 				'default' => $lead_story,
-				'sanitize_callback' => 'esc_html',
+				'sanitize_callback' => 'absint',
 				'transport' => $transport,
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $lead_story, array(
@@ -215,9 +215,9 @@ class CST_Customizer {
 				'priority' => 30,
 				'section' => 'hp_lead_stories',
 				'settings' => $lead_story,
-				'label' => __( 'Article ' . $article_count++, 'chicagosuntimes' ),
+				'label' => esc_attr__( 'Article ' . $article_count++ , 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => __( '=Choose article=' ),
+					'placeholder' => esc_attr__( '=Choose article=', 'chicagosuntimes' ),
 				),
 			) ) );
 		}
@@ -230,7 +230,7 @@ class CST_Customizer {
 				'type' => 'theme_mod',
 				'capability' => $this->capability,
 				'default' => $other_story,
-				'sanitize_callback' => 'esc_html',
+				'sanitize_callback' => 'absint',
 				'transport' => $transport,
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
@@ -239,7 +239,7 @@ class CST_Customizer {
 				'section'     => 'hp_other_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => __( 'Choose other article' ),
+					'placeholder' => esc_attr__( 'Choose other article', 'chicagosuntimes' ),
 				),
 			) ) );
 		}
@@ -261,7 +261,7 @@ class CST_Customizer {
 				'section'     => 'upper_section_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => __( 'Choose other article' ),
+					'placeholder' => esc_attr__( 'Choose other article' ),
 				),
 			) ) );
 		}
@@ -282,7 +282,7 @@ class CST_Customizer {
 				'section'     => 'top_story_section_stories',
 				'label'       => __( 'Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => __( 'Choose top story article' ),
+					'placeholder' => esc_attr__( 'Choose top story article' ),
 				),
 			) ) );
 		}
@@ -304,7 +304,7 @@ class CST_Customizer {
 				'section'     => 'featured_stories_section',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Feature', 'chicagosuntimes' ) : __( 'Other Features', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => __( 'Choose top story article' ),
+					'placeholder' => esc_attr__( 'Choose top story article' ),
 				),
 			) ) );
 		}
@@ -326,7 +326,7 @@ class CST_Customizer {
 				'section'     => 'lower_section_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => __( 'Choose other article' ),
+					'placeholder' => esc_attr__( 'Choose other article' ),
 				),
 			) ) );
 		}
@@ -353,7 +353,7 @@ class CST_Customizer {
 			'section'     => 'upper_section_stories',
 			'settings'    => 'upper_section_section_title',
 			'choices'     => $choices,
-			'label'       => 'Choose section title',
+			'label'       => __( 'Choose section title', 'chicagosuntimes' ),
 		) ) );
 		$wp_customize->add_setting( 'lower_section_section_title', array(
 			'type' => 'theme_mod',
@@ -368,12 +368,12 @@ class CST_Customizer {
 			'section'     => 'lower_section_stories',
 			'settings'    => 'lower_section_section_title',
 			'choices'     => $choices,
-			'label'       => 'Choose section title',
+			'label'       => __( 'Choose section title', 'chicagosuntimes' ),
 		) ) );
 	}
 
 	/**
-	 * @param WP_Customize_Manager $wp_customize
+	 * @param \WP_Customize_Manager $wp_customize
 	 *
 	 * Setup the partials
 	 */
@@ -388,7 +388,7 @@ class CST_Customizer {
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
 				'container_inclusive' => false,
-				'render_callback' => [ $this, 'render_callback' ],
+				'render_callback' => array( $this, 'render_callback' ),
 				'sanitize_callback' => 'absint',
 			) );
 		}
@@ -398,7 +398,7 @@ class CST_Customizer {
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
-				'render_callback' => [ $this, 'render_callback' ],
+				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
 		foreach ( $this->upper_section_stories as $story => $value ) {
@@ -407,7 +407,7 @@ class CST_Customizer {
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
-				'render_callback' => [ $this, 'render_callback' ],
+				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
 		foreach ( $this->lower_section_stories as $story => $value ) {
@@ -416,7 +416,7 @@ class CST_Customizer {
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
-				'render_callback' => [ $this, 'render_callback' ],
+				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
 		foreach ( $this->related_hero_stories as $story => $value ) {
@@ -425,7 +425,7 @@ class CST_Customizer {
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
-				'render_callback' => [ $this, 'render_callback' ],
+				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
 		foreach ( $this->top_story_list_section_stories as $story => $value ) {
@@ -434,7 +434,7 @@ class CST_Customizer {
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
-				'render_callback' => [ $this, 'render_callback' ],
+				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
 		foreach ( $this->featured_story_block_headlines as $story => $value ) {
@@ -443,7 +443,7 @@ class CST_Customizer {
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
-				'render_callback' => [ $this, 'render_callback' ],
+				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
 		$wp_customize->selective_refresh->add_partial( 'upper_section_section_title', array(
@@ -451,21 +451,21 @@ class CST_Customizer {
 			'settings'        => 'upper_section_section_title',
 			'container_inclusive' => false,
 			'sanitize_callback' => 'absint',
-			'render_callback' => [ $this, 'render_callback' ],
+			'render_callback' => array( $this, 'render_callback' ),
 		) );
 		$wp_customize->selective_refresh->add_partial( 'lower_section_section_title', array(
 			'selector'        => '.js-lower-section-section-title',
 			'settings'        => 'lower_section_section_title',
 			'container_inclusive' => false,
 			'sanitize_callback' => 'absint',
-			'render_callback' => [ $this, 'render_callback' ],
+			'render_callback' => array( $this, 'render_callback' ),
 		) );
 		$wp_customize->selective_refresh->add_partial( 'hero_related_posts', array(
 			'selector'        => '.js-hero-related-posts',
 			'settings'        => 'hero_related_posts',
 			'container_inclusive' => false,
 			'sanitize_callback' => 'absint',
-			'render_callback' => [ $this, 'render_callback' ],
+			'render_callback' => array( $this, 'render_callback' ),
 		) );
 	}
 
@@ -571,7 +571,7 @@ class CST_Customizer {
 				'no_found_rows' => true,
 			);
 
-			$search_query = new WP_Query( $search_args );
+			$search_query = new \WP_Query( $search_args );
 
 			$returning = array();
 			$posts     = array();
