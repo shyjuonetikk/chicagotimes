@@ -1094,10 +1094,11 @@ class CST_Frontend {
 	}
 
 	/**
-	 * Display full widget style top stories link,
-	 * Featured Story and featured stories block too
-	 * And display a section with slotted content below
-	 */
+	* Display two column stories:
+	* 	Widget style top stories column
+	* 	Then Featured Story and up to 4 featured stories block too
+	* And finally display an ad below those
+	*/
 	public function more_stories_content() {
 		add_filter( 'get_image_tag_class', function( $class ) {
 			$class .= ' featured-story-hero';
@@ -1113,7 +1114,7 @@ class CST_Frontend {
 						<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
 						<div class="featured-story js-featured-story-block-headlines-1">
 							<?php
-							$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod('featured_story_block_headlines_1') );
+							$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( 'featured_story_block_headlines_1' ) );
 							if ( $obj ) {
 								$this->featured_story_lead( $obj );
 							}
@@ -1127,13 +1128,9 @@ class CST_Frontend {
 								More Features</a></h3>
 						<div class="columns small-12 mini-featured-stories">
 							<div class="row">
-								<?php
-								$this->mini_stories_content_block( array(
-									'featured_story_block_headlines_2' => true,
-									'featured_story_block_headlines_3' => true,
-									'featured_story_block_headlines_4' => true,
-									'featured_story_block_headlines_5' => true,
-								), 'vertical' ); ?>
+								<?php $featured_stories = CST()->customizer->get_featured_stories();
+								array_shift( $featured_stories );
+								$this->mini_stories_content_block( $featured_stories, 'vertical' ); ?>
 							</div>
 						</div>
 					</div>
@@ -1247,7 +1244,7 @@ class CST_Frontend {
 	* @param $layout_type
 	* @param $watch string yes to include Foundation equalizer watch parameter
 	* @param $custom_landscape_class string Include custom class modifier to landscape markup
-	* @param $partial_id string Customizer reference DOM id
+	* @param $partial_id string Customizer reference DOM id/class
 	*/
 	public function single_mini_story( $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
 		$layout['prime'] = array (
