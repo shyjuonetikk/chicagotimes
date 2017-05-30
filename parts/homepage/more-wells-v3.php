@@ -31,12 +31,12 @@ $counter = 0;
 						?>
 						<div class="latest-story <?php echo esc_attr( 'cst_homepage_more_headlines_' . $counter ); ?>">
 							<div class="<?php echo esc_attr( $classes[ $orientation ]['title'] ); ?>">
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+								<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 									<?php echo esc_html( $obj->get_title() ); ?>
 								</a>
 							</div>
 							<div class="<?php echo esc_attr( $classes[ $orientation ]['image'] ); ?>">
-								<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
+								<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 									<?php
 									$featured_image_id = $obj->get_featured_image_id();
 									if ( $featured_image_id ) {
