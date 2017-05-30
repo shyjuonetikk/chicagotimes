@@ -9,16 +9,16 @@
 class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 	private $headlines = array(
-		'cst_homepage_more_headlines_one',
-		'cst_homepage_more_headlines_two',
-		'cst_homepage_more_headlines_three',
-		'cst_homepage_more_headlines_four',
-		'cst_homepage_more_headlines_five',
-		'cst_homepage_more_headlines_six',
-		'cst_homepage_more_headlines_seven',
-		'cst_homepage_more_headlines_eight',
-		'cst_homepage_more_headlines_nine',
-		'cst_homepage_more_headlines_ten',
+		'cst_homepage_more_headlines_1',
+		'cst_homepage_more_headlines_2',
+		'cst_homepage_more_headlines_3',
+		'cst_homepage_more_headlines_4',
+		'cst_homepage_more_headlines_5',
+		'cst_homepage_more_headlines_6',
+		'cst_homepage_more_headlines_7',
+		'cst_homepage_more_headlines_8',
+		'cst_homepage_more_headlines_9',
+		'cst_homepage_more_headlines_10',
 	);
 
 	private $titles = array(

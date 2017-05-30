@@ -29,7 +29,7 @@
 					<div class="columns small-12 large-8 other-lead-stories">
 						<div class="show-for-medium-only"><h3>In other news</h3></div>
 						<div id="hp-other-lead-stories">
-							<div class="row lead-mini-story" id="js-cst-homepage-other-headlines-1">
+							<div class="row lead-mini-story js-cst-homepage-other-headlines-1">
 								<?php CST()->frontend->homepage_mini_story_lead( 'cst_homepage_other_headlines_1' ); ?>
 							</div><!-- /js-cst-homepage-other-headlines-1 -->
 							<hr>

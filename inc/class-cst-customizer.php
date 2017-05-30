@@ -385,7 +385,7 @@ class CST_Customizer {
 
 		foreach ( $this->lead_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
-				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'render_callback' => [ $this, 'render_callback' ],
@@ -394,7 +394,7 @@ class CST_Customizer {
 		}
 		foreach ( $this->other_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
-				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
@@ -403,7 +403,7 @@ class CST_Customizer {
 		}
 		foreach ( $this->upper_section_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
-				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
@@ -412,7 +412,7 @@ class CST_Customizer {
 		}
 		foreach ( $this->lower_section_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
-				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
@@ -421,7 +421,7 @@ class CST_Customizer {
 		}
 		foreach ( $this->related_hero_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
-				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
@@ -430,7 +430,7 @@ class CST_Customizer {
 		}
 		foreach ( $this->top_story_list_section_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
-				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
@@ -439,7 +439,7 @@ class CST_Customizer {
 		}
 		foreach ( $this->featured_story_block_headlines as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
-				'selector'        => '#js-' . str_replace( '_', '-', $story ),
+				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
 				'container_inclusive' => false,
 				'sanitize_callback' => 'absint',
@@ -447,21 +447,21 @@ class CST_Customizer {
 			) );
 		}
 		$wp_customize->selective_refresh->add_partial( 'upper_section_section_title', array(
-			'selector'        => '#js-upper-section-section-title',
+			'selector'        => '.js-upper-section-section-title',
 			'settings'        => 'upper_section_section_title',
 			'container_inclusive' => false,
 			'sanitize_callback' => 'absint',
 			'render_callback' => [ $this, 'render_callback' ],
 		) );
 		$wp_customize->selective_refresh->add_partial( 'lower_section_section_title', array(
-			'selector'        => '#js-lower-section-section-title',
+			'selector'        => '.js-lower-section-section-title',
 			'settings'        => 'lower_section_section_title',
 			'container_inclusive' => false,
 			'sanitize_callback' => 'absint',
 			'render_callback' => [ $this, 'render_callback' ],
 		) );
 		$wp_customize->selective_refresh->add_partial( 'hero_related_posts', array(
-			'selector'        => '#js-hero-related-posts',
+			'selector'        => '.js-hero-related-posts',
 			'settings'        => 'hero_related_posts',
 			'container_inclusive' => false,
 			'sanitize_callback' => 'absint',

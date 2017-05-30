@@ -1023,7 +1023,7 @@ class CST_Frontend {
 		);
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
-		<div class="latest-story" id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
+		<div class="latest-story js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 			<div class="<?php echo esc_attr( $classes[$orientation]['title'] ); ?>">
 				<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 					<?php echo esc_html( $obj->get_title() ); ?>
@@ -1109,7 +1109,7 @@ class CST_Frontend {
 				<div class="small-12 columns more-stories-container" id="featured-stories">
 					<div class="row">
 						<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
-						<div class="featured-story" id="js-featured-story-block-headlines-1">
+						<div class="featured-story js-featured-story-block-headlines-1">
 							<?php
 							$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod('featured_story_block_headlines_1') );
 							if ( $obj ) {
@@ -1212,7 +1212,7 @@ class CST_Frontend {
 		$count_headlines = count( $headlines );
 		$counter = 0;
 		$close_me = false; ?>
-		<div class="row mini-stories" data-equalizer>
+		<div class="row mini-stories" >
 			<?php foreach ( $headlines as $partial_id => $index ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
 				if ( $obj ) {
@@ -1220,18 +1220,14 @@ class CST_Frontend {
 						// First item and odd total
 						?>
 						<div class="single-mini-story small-12 medium-4">
-							<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 							<?php
 							CST()->frontend->single_mini_story( $obj, 'prime', $partial_id, 'no' );
 							$close_me = true;
 							?>
-							</div>
 						</div><!-- First one -->
 						<div class="single-mini-story small-12 medium-8">
 					<?php } else { ?>
-						<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 						<?php CST()->frontend->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
-						</div>
 					<?php }
 				}
 				$counter++;
@@ -1277,7 +1273,7 @@ class CST_Frontend {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 		}
 		?>
-		<div id="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
+		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 	<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
 		<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
 			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
@@ -2766,7 +2762,7 @@ ready(fn);
 			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
 		?>
-		<div class="hero-story" id="js-cst-homepage-headlines-one">
+		<div class="hero-story js-cst-homepage-headlines-one">
 		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 	<h3 class="hero-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 </a>
@@ -2825,7 +2821,7 @@ ready(fn);
 			}
 		}
 ?>
-<div id="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
+<div class="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
 	<h3 class="more-sub-head"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $section_title ); ?></a></h3>
 </div>
 <?php
@@ -2843,7 +2839,7 @@ ready(fn);
 				<?php foreach ( $related_hero_stories as $story => $value ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
-				<li id="js-<?php echo esc_attr( str_replace( '_', '-', $story ) ); ?>"><a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story"><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
+				<li class="js-<?php echo esc_attr( str_replace( '_', '-', $story ) ); ?>"><a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story"><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
 					<?php } ?>
 				<?php } ?>
 			</ul>
@@ -2873,7 +2869,7 @@ ready(fn);
 				}
 			}
 		?>
-		<div class="lead-story" id="js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
+		<div class="lead-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
 <a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
 	<h3 class="title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 	<span class="image show-for-landscape hidden-for-medium-up show-for-xlarge-up">
