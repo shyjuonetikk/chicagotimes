@@ -109,6 +109,7 @@ header#header {
 			display: none;
 			text-transform: uppercase;
 			margin: 3px 42px 0;
+			color:$anchor-highlight;
 			img {
 				width: 204px;
 				@media #{$small-only} {
@@ -218,9 +219,9 @@ header#header {
 	#headlines-slider {
 		width: auto;
 	}
-	//-webkit-transition: -webkit-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
-	//-moz-transition: -moz-transform 1s cubic-bezier(0.86, 0, 0.07, 1);
-	//transition: transform 1s cubic-bezier(0.86, 0, 0.07, 1);
+	-webkit-transition: -webkit-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+	-moz-transition: -moz-transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+	transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
 	@media #{$medium-down} {
 		&.hide-header {
 			-webkit-transform: translateY(-100%);
@@ -843,6 +844,7 @@ ul#menu-sun-times-network {
 	display: block;
 	font-size: 30px;
 	font-weight: 700;
+	color: $anchor-highlight;
 	img {
 		width: 272px;
 		height: 34px;

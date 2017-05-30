@@ -180,6 +180,7 @@ class CST {
 
 		add_image_size( 'chiwire-article', 570, 260, true );
 		add_image_size( 'chiwire-small-square', 80, 80, true );
+		add_image_size( 'chiwire-mini-story-large', 160, 160, true );
 		add_image_size( 'chiwire-slider-square', 60, 60, true );
 		add_image_size( 'chiwire-featured-content-widget', 295, 165, true );
 		add_image_size( 'chiwire-header-large', 640, 480, true );
@@ -300,7 +301,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-twitter-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-featured-content-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-gracenote-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-secondary-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-more-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-election-headlines-widget.php';
@@ -328,6 +328,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-customizer-controls.php';
 
 		// Vendor plugins
 		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
@@ -374,6 +375,7 @@ class CST {
 
 		add_action( 'init', array( $this, 'action_init_early' ), 2 );
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ), 11 );
+		add_action( 'admin_init', [ $this, 'admin_roles_for_customizer' ], 10, 3 );
 
 		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
@@ -476,7 +478,6 @@ class CST {
 		if ( class_exists( 'CST_Elections' ) ) {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
-
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 	}
 
@@ -487,6 +488,9 @@ class CST {
 
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 10, 2 );
 		add_filter( 'post_rewrite_rules', array( $this, 'filter_post_rewrite_rules' ) );
+
+		// Add customize capability to users who can edit_posts (hopefully)
+		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
 
 		add_filter( 'default_option_taxonomy_image_plugin_settings', array( $this, 'filter_taxonomy_image_plugin_settings' ) );
 		add_filter( 'option_taxonomy_image_plugin_settings', array( $this, 'filter_taxonomy_image_plugin_settings' ) );
@@ -601,6 +605,7 @@ class CST {
 				return array( 'cst_article', 'cst_gallery' );
 			} );
 		}
+
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
 		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
@@ -611,8 +616,38 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
+		add_filter( 'query_vars', function( $vars ) {
+			$vars[] = 'showads';
+			return $vars;
+		} );
 	}
 
+	/**
+	 * @param $caps
+	 * @param $cap
+	 * @param $user_id
+	 *
+	 * @return array
+	 * Add customize to editor level role on
+	 */
+	function allow_users_who_can_edit_posts_to_customize( $caps, $cap, $user_id ) {
+		$required_cap = 'edit_posts';
+		if ( 'customize' === $cap && user_can( $user_id, $required_cap ) ) {
+			$caps = array( $required_cap );
+		}
+		return $caps;
+	}
+
+	/**
+	 * Use basic functions to add capabilities to editor role
+	 */
+	public function admin_roles_for_customizer() {
+		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true, 'edit_theme_options' => true ) );
+		// get the the role object
+		$editor = get_role( 'editor' );
+		$editor->add_cap( 'edit_theme_options' );
+		$editor->add_cap( 'customize' );
+	}
 	/**
 	 * @param $category
 	 * @param $_post_id
@@ -732,11 +767,6 @@ class CST {
 		register_sidebar( array(
 			'id'          => 'homepage_breaking_news',
 			'name'        => esc_html__( 'Homepage Breaking News', 'chicagosuntimes' ),
-		) );
-
-		register_sidebar( array(
-			'id'          => 'homepage_headlines',
-			'name'        => esc_html__( 'Homepage Headlines', 'chicagosuntimes' ),
 		) );
 
 		register_sidebar( array(
@@ -863,7 +893,6 @@ class CST {
 		register_widget( 'CST_Recent_Posts' );
 		register_widget( 'CST_Twitter_Feed_Widget' );
 		register_widget( 'CST_Featured_Content_Widget' );
-		register_widget( 'CST_Homepage_Headlines_Widget' );
 		register_widget( 'CST_Homepage_Secondary_Headlines_Widget' );
 		register_widget( 'CST_Homepage_More_Headlines_Widget' );
 		register_widget( 'CST_Elections_2016_More_Headlines_Widget' );
@@ -949,7 +978,11 @@ class CST {
 		);
 
 		add_feed( 'print', array( $this, 'render_print_feed' ) );
-
+		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true, 'edit_theme_options' => true ) );
+		// get the the role object
+		$editor = get_role( 'editor' );
+		$editor->add_cap( 'edit_theme_options' );
+		$editor->add_cap( 'customize' );
 
 	}
 

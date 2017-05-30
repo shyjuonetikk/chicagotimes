@@ -94,13 +94,14 @@
 		}
 	}
 	.large-logo {
-		max-width: 300px;
+		max-width: 350px;
 		margin: 0 auto;
 	}
 }
 @media #{$xmedium-up} {
 	.responsive-logo-wrapper {
 		margin-top: 50px;
+		max-width: 80rem;
 	}
 }
 .logo-wrapper.large-logo {
@@ -114,7 +115,7 @@
 }
 
 .date {
-	font-family: $merriweather;
+	font-family: $homepage_font;
 	height: 26px;
 	font-size: 1rem;
 	line-height: 1.5rem;
@@ -156,13 +157,15 @@
 	a {
 		font-size: 1rem;
 		line-height:1rem;
+		color:$anchor-highlight;
+		font-family: $article_content;
 	}
 	.nav-holder {
-		max-width: 62.5rem;
 		border-top: 4px solid $cst_black;
 	}
 	.nav-descriptor {
 		float: left;
+		font-family:$homepage_font;
 		display: inline-block;
 		height: auto;
 		padding: 0;
@@ -186,6 +189,11 @@ header {
 			.small-logo {
 				margin: 7px 0 0 0;
 				padding-left: 0;
+				overflow-y: hidden;
+				padding-right:0;
+				&.appear {
+					opacity: 1;
+				}
 				a {
 					padding: 6px 0 0 0;
 				}
@@ -195,6 +203,7 @@ header {
 				margin-left: 0;
 				overflow: hidden;
 				height: 45px;
+				max-width: 54.1rem;
 				ul {
 					list-style-type: none;
 					background: $cst_black;
@@ -317,9 +326,11 @@ header {
 						color: $white;
 					}
 					.homepage-nav-holder {
-						max-width: 62.5rem;
 						padding-left: 0;
 						padding-right: 0;
+						> a {
+							color: $cst_black;
+						}
 					}
 				}
 				.logo {

@@ -20,7 +20,7 @@
       this.body = $('body');
       this.primaryNavigation = $('#fixed-nav-wrapper');
       this.topBarSection = $('.top-bar-section');
-      this.topLogos = $('#top-logos');
+      this.smallLogo = $('.small-logo');
           this.wpAdminBar = $('#wpadminbar');
 
       this.scrollToolbarHeight = this.primaryNavigation.outerHeight();
@@ -36,7 +36,7 @@
       this.breakingSectionClose = $('.close-breaking-section');
       this.bearsCube = $('.bears-cube-story');
       this.bearsCubeClose = $('.close-bears-cube');
-      this.header = $('header');
+      this.header = $('#header');
       this.dfpSBB = $('#div-gpt-sbb-1');
       this.interstitial = $('#div-gpt-interstitial');
       this.interstitialContainer = $('#dfp-interstitial-container');
@@ -154,7 +154,6 @@
       } else {
         this.offCanvasMenu.removeClass("fixed-canvas-menu");
       }
-
 
     },
     handleNavigation: function() {

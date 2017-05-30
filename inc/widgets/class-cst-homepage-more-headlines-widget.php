@@ -3,22 +3,22 @@
 /**
  * Class CST_Homepage_More_Headlines_Widget
  *
- * Version 2
+ * Version 3
  *
  */
 class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 	private $headlines = array(
-		'cst_homepage_more_headlines_one',
-		'cst_homepage_more_headlines_two',
-		'cst_homepage_more_headlines_three',
-		'cst_homepage_more_headlines_four',
-		'cst_homepage_more_headlines_five',
-		'cst_homepage_more_headlines_six',
-		'cst_homepage_more_headlines_seven',
-		'cst_homepage_more_headlines_eight',
-		'cst_homepage_more_headlines_nine',
-		'cst_homepage_more_headlines_ten',
+		'cst_homepage_more_headlines_1',
+		'cst_homepage_more_headlines_2',
+		'cst_homepage_more_headlines_3',
+		'cst_homepage_more_headlines_4',
+		'cst_homepage_more_headlines_5',
+		'cst_homepage_more_headlines_6',
+		'cst_homepage_more_headlines_7',
+		'cst_homepage_more_headlines_8',
+		'cst_homepage_more_headlines_9',
+		'cst_homepage_more_headlines_10',
 	);
 
 	private $titles = array(
@@ -39,11 +39,10 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'cst_homepage_more_headlines',
-			esc_html__( 'CST Homepage More Headlines', 'chicagosuntimes' ),
+			esc_html__( 'CST RR Headlines', 'chicagosuntimes' ),
 			array(
-				'description' => esc_html__( 'Displays More Headlines.', 'chicagosuntimes' ),
-			),
-			array( 'width' => '400' )
+				'description' => esc_html__( 'Displays slottable headlines in homepage right rail.', 'chicagosuntimes' ),
+			)
 		);
 		$this->cache_key_stub = 'homepage-more-headlines-widget';
 		add_action( 'wp_ajax_cst_homepage_more_headlines_get_posts', array( $this, 'cst_homepage_more_headlines_get_posts' ) );
@@ -115,7 +114,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		global $homepage_more_well_posts;
 		$widget_posts = array();
-
+		$title = isset( $instance['cst_more_headlines_title'] ) ? $instance['cst_more_headlines_title'] : '';
 		for ( $count = 0; $count < count( $instance ); $count++ ) {
 			if ( $instance[ $count ] ) {
 				$widget_posts[] = absint( $instance[ $count ] );
@@ -125,7 +124,22 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		if ( ! empty( $widget_posts ) ) {
 
 			$homepage_more_well_posts = $this->get_headline_posts( $widget_posts );
-			get_template_part( 'parts/homepage/more-wells' );
+			echo wp_kses_post( $args['before_widget'] );
+			?>
+			<div class="more-stories-content">
+			<div class="row">
+			<div class="more-stories-container">
+			<?php
+			if ( ! empty( $title ) ) {
+				echo '<div class="columns"><div class="more-sub-head">' . esc_html( $title ) . '</div></div>';
+			}
+			get_template_part( 'parts/homepage/more-wells-v3' );
+			?>
+			</div>
+			</div>
+			</div>
+			<?php
+			echo wp_kses_post( $args['after_widget'] );
 
 		}
 
@@ -138,8 +152,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 *
 	 */
 	public function get_headline_posts( $widget_posts ) {
-
-		if ( false === ( $found = wpcom_vip_cache_get( $this->cache_key_stub ) ) ) {
+		if ( false === ( $found = wpcom_vip_cache_get( $this->cache_key_stub . '-' . $this->id ) ) ) {
 
 			$widget_posts_query  = array(
 				'post__in'            => $widget_posts,
@@ -150,7 +163,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			$display_these_posts = new \WP_Query( $widget_posts_query );
 			$display_these_posts->have_posts();
 			$found = $display_these_posts->get_posts();
-			wpcom_vip_cache_set( $this->cache_key_stub, $found, '', 1 * HOUR_IN_SECONDS );
+			wpcom_vip_cache_set( $this->cache_key_stub . '-' . $this->id, $found, '', 1 * HOUR_IN_SECONDS );
 		}
 
 		return $found;
@@ -167,28 +180,35 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		$this->enqueue_scripts();
 		$count = 0;
+		$width = is_customize_preview() ? 'width:100%;' : 'width:400px;';
+		isset( $instance['cst_more_headlines_title'] ) ? $title = $instance['cst_more_headlines_title'] : $title = '';
 		?>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'cst_more_headlines_title' ) ); ?>"><?php esc_html_e( 'Title:', 'chicagosuntimes' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'cst_more_headlines_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_more_headlines_title' ) ); ?>" type="text"
+				   value="<?php echo esc_attr( $title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+		</p>
 		<div class="cst-headline-sort ui-sortable">
 			<?php
-			foreach ( $this->headlines as $array_member ) {
-				$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
-				$obj      = get_post( $headline );
-				if ( $obj ) {
-					$content_type = get_post_type( $obj->ID );
-					$story_title  = $obj->post_title . ' [' . $content_type . ']';
-				} else {
-					$story_title = '';
-				}
-				$dashed_array_member = preg_replace( '/_/', '-', $array_member );
-				?>
-				<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
-					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>"
-						   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;"/>
-				</p>
-				<?php
-				$count++;
-			}?>
+		foreach ( $this->headlines as $array_member ) {
+			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
+			$obj      = get_post( $headline );
+			if ( $obj ) {
+				$content_type = get_post_type( $obj->ID );
+				$story_title  = $obj->post_title . ' [' . $content_type . ']';
+			} else {
+				$story_title = '';
+			}
+			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
+			?>
+			<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
+				<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
+				<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>"
+					   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+			</p>
+			<?php
+			$count++;
+		}?>
 		</div>
 		<?php
 
@@ -204,11 +224,13 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
+		$instance['cst_more_headlines_title'] = isset( $new_instance['cst_more_headlines_title'] ) ? $new_instance['cst_more_headlines_title'] : false;
+		array_shift( $new_instance );
 		$total    = count( $new_instance );
 		for ( $count = 0; $count < $total; $count ++ ) {
 			$instance[] = intval( array_shift( $new_instance ) );
 		}
-		wp_cache_delete( $this->cache_key_stub );
+		wp_cache_delete( $this->cache_key_stub . '-' . $this->id );
 
 		return $instance;
 	}
