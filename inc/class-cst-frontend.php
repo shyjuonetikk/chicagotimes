@@ -2863,15 +2863,16 @@ ready(fn);
 
 	}
 	/**
-	* Determine if any related stories are selected and display in a list
+	* Determine whether to display related stories,
+	* if selected retrieve related stories and display in a list
 	*/
 	public function handle_related_content() {
 		$do_related = get_theme_mod( 'hero_related_posts' );
-		$related_hero_stories = CST()->customizer->get_hero_related_stories();
 		if ( $do_related ) { ?>
 		<div class="related-stories" id="hero-related-posts">
 			<h3>Related stories:</h3>
 			<ul class="related-title">
+				<?php $related_hero_stories = CST()->customizer->get_hero_related_stories(); ?>
 				<?php foreach ( $related_hero_stories as $story => $value ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
