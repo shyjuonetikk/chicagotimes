@@ -563,7 +563,7 @@ class CST_Customizer {
 			wp_send_json_error( array( 'code' => 'bad_nonce' ), 400 );
 		}
 
-		$term = sanitize_key( $_GET['searchTerm'] );
+		$term = sanitize_text_field( $_GET['searchTerm'] );
 
 		if ( '' !== $term && strlen( $term ) >= 3 ) {
 			$search_args = array(

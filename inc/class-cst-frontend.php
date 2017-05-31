@@ -91,6 +91,7 @@ class CST_Frontend {
 
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
+		add_action( 'closing_body', [ $this, 'enqueue_chartbeat_react_engagement_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'cst_tracking_pixels' ] );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
@@ -2160,8 +2161,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		if ( ! is_404() ) {
 			CST()->dfp_handler->ad_header_settings();
 		}
-		}
+	}
 
+	/**
+	* Display Chartbeat engagement based article list on home page
+	*/
+	public function enqueue_chartbeat_react_engagement_script() {
+		if ( is_front_page() ) {
+			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/main.a7ae93e0-cb-dev-test.js' ), array(), null, true );
+		}
+	}
 	/**
 	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
