@@ -2903,11 +2903,11 @@ ready(fn);
 <a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
 	<h3 class="title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 	<span class="image show-for-landscape hidden-for-medium-up show-for-xlarge-up">
-				<?php echo ( false === $attachment ? '' : wp_kses_post( $large_image_markup ) ); ?>
+				<?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?>
 			</span>
 	<p class="excerpt">
 			<span class="image show-for-large-up show-for-touch">
-				<?php echo ( false === $attachment ? '' : wp_kses_post( $small_image_markup ) ); ?>
+				<?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $small_image_markup ); } ?>
 			</span>
 		<?php echo wp_kses_post( $story_excerpt ); ?>
 	</p>
@@ -2944,7 +2944,7 @@ ready(fn);
 	<div class="row">
 		<div class="columns small-12 medium-6 large-6">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
-			<span class="image"><?php echo ( false === $attachment ? '' : wp_kses_post( $large_image_markup ) ); ?></span>
+			<span class="image"><?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?></span>
 			<div class="hide-for-landscape">
 				<h3 class="alt-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</div>
