@@ -579,13 +579,18 @@ class CST_Frontend {
 	 */
 	public function get_facebook_open_graph_meta_tags() {
 
+		if ( isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] ) {
+			$default_url = is_ssl() ? 'https://' : 'http://';
+			$default_url .= wp_unslash( $_SERVER['HTTP_HOST'] ); // WPCS: sanitization okay
+			$default_url .= wp_unslash( $_SERVER['REQUEST_URI'] ); // WPCS: sanitization okay
+		}
 		// Defaults
 		$tags = array(
 			'og:site_name'        => get_bloginfo( 'name' ),
 			'og:type'             => 'website',
 			'og:title'            => get_bloginfo( 'name' ),
 			'og:description'      => get_bloginfo( 'description' ),
-			'og:url'              => esc_url( home_url( $_SERVER['REQUEST_URI'] ) ),
+			'og:url'              => esc_url( $default_url ),
 			);
 
 		// Single posts
@@ -611,13 +616,18 @@ class CST_Frontend {
 	 */
 	public function get_twitter_card_meta_tags() {
 
+		if ( isset( $_SERVER['REQUEST_URI'] ) && $_SERVER['REQUEST_URI'] ) {
+			$default_url = is_ssl() ? 'https://' : 'http://';
+			$default_url .= wp_unslash( $_SERVER['HTTP_HOST'] ); // WPCS: sanitization okay
+			$default_url .= wp_unslash( $_SERVER['REQUEST_URI'] ); // WPCS: sanitization okay
+		}
 		// Defaults
 		$tags = array(
 			'twitter:card'        => 'summary_large_image',
 			'twitter:site'        => '@' . CST_TWITTER_USERNAME,
 			'twitter:title'       => get_bloginfo( 'name' ),
 			'twitter:description' => get_bloginfo( 'description' ),
-			'twitter:url'         => esc_url( home_url( $_SERVER['REQUEST_URI'] ) ),
+			'twitter:url'         => esc_url( $default_url ),
 			);
 
 		// Single posts
