@@ -645,8 +645,10 @@ class CST {
 		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true, 'edit_theme_options' => true ) );
 		// get the the role object
 		$editor = get_role( 'editor' );
-		$editor->add_cap( 'edit_theme_options' );
-		$editor->add_cap( 'customize' );
+		if ( $editor ) {
+			$editor->add_cap( 'edit_theme_options' );
+			$editor->add_cap( 'customize' );
+		}
 	}
 	/**
 	 * @param $category
@@ -981,8 +983,10 @@ class CST {
 		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true, 'edit_theme_options' => true ) );
 		// get the the role object
 		$editor = get_role( 'editor' );
-		$editor->add_cap( 'edit_theme_options' );
-		$editor->add_cap( 'customize' );
+		if ( $editor ) {
+			$editor->add_cap( 'edit_theme_options' );
+			$editor->add_cap( 'customize' );
+		}
 
 	}
 

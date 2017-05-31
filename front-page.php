@@ -44,7 +44,6 @@
 							<hr>
 							<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
 							<div id="root"></div>
-							<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() ); ?>/assets/js/main.641bf377.js"></script>
 						</div>
 						<div class="other-stories hide-for-xlarge-up">
 							<?php CST()->frontend->render_section_title( 'upper_section_section_title' ); ?>
@@ -152,15 +151,6 @@
 			<?php } ?>
 		</div>
 	</div>
-	</div>
-	<div class="row">
-		<div class="other-stories show-for-large-up">
-			<hr>
-			<h3>[test]Trending in the Chicago Sun-Times (Chartbeat)</h3>
-			<div id="root"></div>
-			<script type="text/javascript" src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/js/main.a7ae93e0-cb-dev-test.js' ); ?>"></script>
-			<hr>
-		</div>
 	</div>
 </div>
 <?php get_template_part( 'parts/homepage/footer' ); ?>
