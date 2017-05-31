@@ -2662,7 +2662,7 @@ ready(fn);
 		return $section_slug;
 	}
 	/**
-	* Include Distroscale on Production homepage and all pages on Pre-Production
+	* Include Distroscale and all article pages on Pre-Production
 	*/
 	public function action_distroscale_injection() {
 		if ( is_singular( 'cst_feature' ) ) {
@@ -2682,20 +2682,24 @@ ready(fn);
 			return;
 		}
 		$site = CST()->dfp_handler->get_parent_dfp_inventory();
+		$enqueue_me = false;
 		if ( 'chicago.suntimes.com.test' === $site ) {
-			if ( is_front_page() || is_tax() || is_singular() ) { ?>
+			if ( is_front_page() || is_tax() || is_singular() ) {
+				$enqueue_me = true; ?>
 <!-- ddistroscale -->
-<script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"></script>
 <div id="ds_default_anchor"></div>
 <!-- /ddistroscale -->
 			<?php }
 		} elseif ( 'chicago.suntimes.com' === $site ) {
-			if ( is_singular() ) { ?>
+			if ( is_singular( 'cst_article' ) ) {
+				$enqueue_me = true; ?>
 <!-- distroscale -->
-<script async type="text/javascript" src="//c.jsrdn.com/s/cs.js?p=22519"></script>
 <div id="ds_default_anchor"></div>
 <!-- /distroscale -->
 			<?php }
+		}
+		if ( $enqueue_me ) {
+			wp_enqueue_script( 'distroscale', '//c.jsrdn.com/s/cs.js?p=22519', array(), null, false );
 		}
 	}
 
