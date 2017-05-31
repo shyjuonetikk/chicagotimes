@@ -163,7 +163,7 @@ class CST_Customizer {
 		 * Add settings within each section
 		 */
 		$lead_counter = 0;
-		foreach ( $this->lead_stories as $lead_story => $value ) {
+		foreach ( array_keys( $this->lead_stories ) as $lead_story ) {
 			$wp_customize->add_setting( $lead_story, array(
 				'type' => 'theme_mod',
 				'capability' => $this->capability,
@@ -385,7 +385,7 @@ class CST_Customizer {
 			return;
 		}
 
-		foreach ( $this->lead_stories as $story => $value ) {
+		foreach ( array_keys( $this->lead_stories ) as $story ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
@@ -394,7 +394,7 @@ class CST_Customizer {
 				'sanitize_callback' => 'absint',
 			) );
 		}
-		foreach ( $this->other_stories as $story => $value ) {
+		foreach ( array_keys( $this->other_stories ) as $story ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
@@ -403,7 +403,7 @@ class CST_Customizer {
 				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
-		foreach ( $this->upper_section_stories as $story => $value ) {
+		foreach ( array_keys( $this->upper_section_stories ) as $story ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
@@ -412,7 +412,7 @@ class CST_Customizer {
 				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
-		foreach ( $this->lower_section_stories as $story => $value ) {
+		foreach ( array_keys( $this->lower_section_stories ) as $story ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
@@ -430,7 +430,7 @@ class CST_Customizer {
 				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
-		foreach ( $this->top_story_list_section_stories as $story => $value ) {
+		foreach ( array_keys( $this->top_story_list_section_stories ) as $story ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
@@ -439,7 +439,7 @@ class CST_Customizer {
 				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
-		foreach ( $this->featured_story_block_headlines as $story => $value ) {
+		foreach ( array_keys( $this->featured_story_block_headlines ) as $story ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
@@ -611,14 +611,14 @@ class CST_Customizer {
 				), 400 );
 			} else {
 				//wp_send_json_success( $returning ); sends array vs object (that json_encode sends)
-				echo json_encode( $returning );
+				echo wp_json_encode( $returning );
 				exit();
 			}
 		}
 	}
 
 	public function sanitize_checkbox( $checked ) {
-		return ( ( isset( $checked ) && true == $checked ) ? true : false );
+		return ( ( isset( $checked ) && true === $checked ) ? true : false );
 	}
 
 	/**
