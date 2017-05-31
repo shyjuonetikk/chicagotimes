@@ -42,9 +42,14 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			esc_html__( 'CST RR Headlines', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays slottable headlines in homepage right rail.', 'chicagosuntimes' ),
+				'customize_selective_refresh' => true,
 			)
 		);
 		$this->cache_key_stub = 'homepage-more-headlines-widget';
+		// Enqueue style if widget is active (appears in a sidebar) or if in Customizer preview.
+		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		}
 		add_action( 'wp_ajax_cst_homepage_more_headlines_get_posts', array( $this, 'cst_homepage_more_headlines_get_posts' ) );
 	}
 
@@ -52,11 +57,12 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 * Get all published posts to display in Select2 dropdown
 	 */
 	public function cst_homepage_more_headlines_get_posts() {
-
-		if ( ! wp_verify_nonce( $_GET['nonce'], 'cst_homepage_more_headlines' )
-			 || ! current_user_can( 'edit_others_posts' )
+		if ( isset( $_GET['nonce'] )
+			 && empty( $_GET['nonce'] )
+			 && ! wp_verify_nonce( sanitize_key( $_GET['nonce'] ), 'cst_homepage_more_headlines' )
+			 || ! current_user_can_for_blog( get_current_blog_id(), 'edit_others_posts' )
 		) {
-			wp_send_json_error();
+			wp_send_json_error( array( 'code' => 'bad_nonce' ), 400 );
 		}
 
 		$term = sanitize_text_field( $_GET['searchTerm'] );
@@ -87,7 +93,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			endwhile;
 		endif;
 
-		echo json_encode( $returning );
+		echo wp_json_encode( $returning );
 		exit();
 
 	}

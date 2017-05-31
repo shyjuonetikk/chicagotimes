@@ -42,6 +42,7 @@ class CST_Customizer {
 		'cst_homepage_top_story_headline_9' => true,
 		'cst_homepage_top_story_headline_10' => true,
 	);
+	private $widget_top_story_list_stub = 'cst_homepage_widget_more_headlines_';
 	private $lower_section_stories = array(
 		'cst_homepage_lower_section_headlines_1' => true,
 		'cst_homepage_lower_section_headlines_2' => true,
@@ -667,5 +668,13 @@ class CST_Customizer {
 	 */
 	public function get_other_headlines_stories() {
 		return $this->other_stories;
+	}
+
+	/**
+	 * Getter for top stories - widget version - array
+	 * @return string
+	 */
+	public function get_widget_top_stories_stub() {
+		return $this->widget_top_story_list_stub;
 	}
 }

@@ -11,12 +11,13 @@ $classes = array(
 );
 $orientation = 'columns';
 $counter = 0;
+$class_name = CST()->customizer->get_widget_top_stories_stub();
 ?>
 
 <div class="stories-list">
 	<div class="columns small-12">
 		<?php foreach ( $homepage_more_well_posts as $homepage_more_well_post ) { ?>
-			<div class="more-story <?php echo esc_attr( 'cst_homepage_more_headlines_' . $counter ); ?>">
+			<div class="more-story <?php echo esc_attr( $class_name . $counter ); ?>">
 				<div class="row">
 					<?php
 					$obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_post->ID );
