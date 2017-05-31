@@ -1319,7 +1319,7 @@ class CST_Frontend {
 					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
 					?>
 					<div class="columns large-3 medium-6 small-12 recommended-post">
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
+						<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="dear-abby" data-event-action="click-text">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</div>
@@ -2789,13 +2789,13 @@ ready(fn);
 			add_filter( 'the_excerpt', 'wpautop' );
 		?>
 		<div class="hero-story js-cst-homepage-headlines-one">
-		<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+		<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 	<h3 class="hero-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 </a>
 	<div class="columns small-12 medium-6 large-12">
 		<div class="row">
 			<div class="show-for-portrait show-for-touch">
-				<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 				<span class="image">
 				<?php
 				$featured_image_id = $obj->get_featured_image_id();
@@ -2900,7 +2900,7 @@ ready(fn);
 			}
 		?>
 		<div class="lead-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
-<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
+<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
 	<h3 class="title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 	<span class="image show-for-landscape hidden-for-medium-up show-for-xlarge-up">
 				<?php echo ( false === $attachment ? '' : wp_kses_post( $large_image_markup ) ); ?>
@@ -2943,7 +2943,7 @@ ready(fn);
 <div class="columns small-12">
 	<div class="row">
 		<div class="columns small-12 medium-6 large-6">
-			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
+			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<span class="image"><?php echo ( false === $attachment ? '' : wp_kses_post( $large_image_markup ) ); ?></span>
 			<div class="hide-for-landscape">
 				<h3 class="alt-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
@@ -2951,12 +2951,12 @@ ready(fn);
 			</a>
 		</div>
 		<div class="columns small-12 medium-6 large-6 show-for-landscape">
-			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
+			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<h3 class="alt-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
 		</div>
 		<div class="columns small-12 medium-6 large-6">
-			<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
+			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<p class="excerpt"><?php echo wp_kses_post( $story_excerpt ); ?></p>
 			</a>
 			<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
