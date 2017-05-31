@@ -1753,7 +1753,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	function inject_send_to_news_video_player( $slug, $id ) {
 		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="'. esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div>';
 		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $id ) );
-		echo $markup;
+		echo wp_kses( $markup, CST()->sendtonews_kses );
 
 	}
 	/**
@@ -2236,6 +2236,8 @@ ready(fn);
 	/**
 	* Determine paragraph position exists and whether to inject Flipp into content
 	* Check if this content is sponsored and abort as appropriate.
+	* This function is run as part of the_content filter - enqueuing the script does not provide
+	* the same functionality
 	*
 	* @param string $article_content
 	* @return string $article_content
