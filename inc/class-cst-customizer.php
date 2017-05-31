@@ -178,7 +178,7 @@ class CST_Customizer {
 				'settings' => $lead_story,
 				'label' => 0 === $lead_counter++ ? __( 'Hero Article', 'chicagosuntimes' ) : __( 'Lead Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => esc_attr__( '-Choose article-', 'chicagosuntimes' ),
+				'placeholder' => esc_attr__( '-Choose article-', 'chicagosuntimes' ),
 				),
 			) ) );
 		}
@@ -192,12 +192,14 @@ class CST_Customizer {
 			'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
 			'transport' => $transport,
 		) );
-		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'hero_related_posts', array(
-					'label'          => __( 'Display the following hero story related articles?', 'chicagosuntimes' ),
-					'section'        => 'hp_lead_stories',
-					'settings'       => 'hero_related_posts',
-					'type'           => 'checkbox',
-					'priority' => 29,
+		$wp_customize->add_control(
+			new \WP_Customize_Control(
+				$wp_customize, 'hero_related_posts', array(
+				'label'          => __( 'Display the following hero story related articles?', 'chicagosuntimes' ),
+				'section'        => 'hp_lead_stories',
+				'settings'       => 'hero_related_posts',
+				'type'           => 'checkbox',
+				'priority' => 29,
 				)
 			)
 		);
@@ -217,7 +219,7 @@ class CST_Customizer {
 				'settings' => $lead_story,
 				'label' => esc_attr__( 'Article ' . $article_count++ , 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => esc_attr__( '=Choose article=', 'chicagosuntimes' ),
+				'placeholder' => esc_attr__( '=Choose article=', 'chicagosuntimes' ),
 				),
 			) ) );
 		}
@@ -237,9 +239,9 @@ class CST_Customizer {
 				'type'        => 'cst_select_control',
 				'priority'    => 10,
 				'section'     => 'hp_other_stories',
-				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
+				'label'       => 0 === $lead_counter++ ? __( 'Lead Article (large image)', 'chicagosuntimes' ) : __( 'Other Article (thumb image)', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => esc_attr__( 'Choose other article', 'chicagosuntimes' ),
+				'placeholder' => esc_attr__( 'Choose other article', 'chicagosuntimes' ),
 				),
 			) ) );
 		}
@@ -261,7 +263,7 @@ class CST_Customizer {
 				'section'     => 'upper_section_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => esc_attr__( 'Choose other article' ),
+				'placeholder' => esc_attr__( 'Choose other article' ),
 				),
 			) ) );
 		}
@@ -282,7 +284,7 @@ class CST_Customizer {
 				'section'     => 'top_story_section_stories',
 				'label'       => __( 'Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => esc_attr__( 'Choose top story article' ),
+				'placeholder' => esc_attr__( 'Choose top story article' ),
 				),
 			) ) );
 		}
@@ -304,7 +306,7 @@ class CST_Customizer {
 				'section'     => 'featured_stories_section',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Feature', 'chicagosuntimes' ) : __( 'Other Features', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => esc_attr__( 'Choose top story article' ),
+				'placeholder' => esc_attr__( 'Choose top story article' ),
 				),
 			) ) );
 		}
@@ -326,7 +328,7 @@ class CST_Customizer {
 				'section'     => 'lower_section_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => esc_attr__( 'Choose other article' ),
+				'placeholder' => esc_attr__( 'Choose other article' ),
 				),
 			) ) );
 		}
