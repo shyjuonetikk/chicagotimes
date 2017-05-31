@@ -555,13 +555,15 @@ class CST_Customizer {
 		while ( 0 !== ob_get_level() ) {
 			ob_end_clean();
 		}
-		if ( ! wp_verify_nonce( $_GET['nonce'], 'cst_customizer_control_homepage_headlines' )
-			 || ! current_user_can( 'edit_others_posts' )
+		if ( isset( $_GET['nonce'] )
+			&& ! empty( $_GET['nonce'] )
+			&& wp_verify_nonce( sanitize_key( $_GET['nonce'] ), 'cst_customizer_control_homepage_headlines' )
+			|| ! current_user_can( 'edit_others_posts' )
 		) {
 			wp_send_json_error( array( 'code' => 'bad_nonce' ), 400 );
 		}
 
-		$term = sanitize_text_field( $_GET['searchTerm'] );
+		$term = sanitize_key( $_GET['searchTerm'] );
 
 		if ( '' !== $term && strlen( $term ) >= 3 ) {
 			$search_args = array(
