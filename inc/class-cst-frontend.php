@@ -150,7 +150,6 @@ class CST_Frontend {
 				// This is a better way of killing it
 				$query->set( 'post_type', 'd5t34tfgdfg' );
 			}
-
 		} else if ( $query->is_main_query() && $query->is_feed() ) {
 			$query->set( 'post_type', 'cst_article' );
 			$query->set( 'ignore_sticky_posts', true );
@@ -181,7 +180,7 @@ class CST_Frontend {
 			wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts' ) );
 			wp_enqueue_script( 'cst-custom-js', get_template_directory_uri() . '/assets/js/theme-custom-page.js' );
-		} elseif ( is_page_template( 'page-paper-finder.php') ) {
+		} elseif ( is_page_template( 'page-paper-finder.php' ) ) {
 			wp_enqueue_style( 'fontawesome', get_template_directory_uri() . '/assets/css/vendor/font-awesome.min.css' );
 			wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts' ) );
 			wp_enqueue_script( 'google-paper-finder', esc_url( 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDkPQ9BLBwW_xCk4Wrh55UjZvyVqPc_5FU&libraries=places&callback=initAutocomplete' ), array( 'paper-finder' ), null, true );
@@ -305,7 +304,6 @@ class CST_Frontend {
 					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
 					break;
 			}
-
 		} elseif ( $obj = get_queried_object() ) {
 
 					wp_enqueue_style( 'chicagosuntimes', get_template_directory_uri() . '/assets/css/theme.css', array( 'google-fonts', 'fontawesome' ) );
@@ -631,7 +629,6 @@ class CST_Frontend {
 			if ( $image = $obj->get_twitter_card_tag( 'image' ) ) {
 				$tags['twitter:image'] = $image;
 			}
-
 		} elseif ( is_tax() && $description = get_queried_object()->description ) {
 			$tags['twitter:description'] = $description;
 		}
@@ -825,13 +822,13 @@ class CST_Frontend {
 
 		$taxonomy = sanitize_key( $taxonomy );
 		if ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg' ) ) {
-		    return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg';
+			return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.jpg';
 		} elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.svg' ) ) {
 			return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.svg';
 		} elseif ( file_exists( get_template_directory() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.png' ) ) {
 			return get_template_directory_uri() . '/assets/images/taxonomy/taxonomy-' . $taxonomy . '.png';
 		} else {
-		    return false;
+			return false;
 		}
 
 	}
@@ -856,7 +853,6 @@ class CST_Frontend {
 			for ( $i = 0; $i <= ( $total - 1); $i++ ) {
 				$total_severity += $traffic->incidents[ $i ]->severity;
 			}
-
 		}
 		$_traffic['accidents'] = $total;
 		if ( $total_severity <= $total ) {
@@ -961,7 +957,7 @@ class CST_Frontend {
 					if ( $count == $content_query['posts_per_page'] ) {
 						$featured_image_id = $obj->get_featured_image_id();
 						if ( $attachment = \CST\Objects\Attachment::get_by_post_id( $featured_image_id ) ) { ?>
-							<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
+							<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-column-wells">
 							<?php echo wp_kses_post( $attachment->get_html( 'homepage-columns' ) ); ?>
 							</a>
 							<?php
@@ -975,7 +971,7 @@ class CST_Frontend {
 					$count--;
 					?>
 					<li>
-						<a href="<?php echo esc_url( $obj->the_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
+						<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
 					</li>
@@ -999,7 +995,7 @@ class CST_Frontend {
 			<div class="row">
 			<div class="columns small-12">
 			<?php
-			foreach ( CST()->customizer->get_top_stories() as $partial_id => $value ) {
+		foreach ( CST()->customizer->get_top_stories() as $partial_id => $value ) {
 				$this->top_story( $partial_id, $orientation );
 		} ?>
 			</div>
@@ -1025,7 +1021,7 @@ class CST_Frontend {
 		);
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
-		<div class="latest-story js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
+			<div class="latest-story js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
 			<div class="<?php echo esc_attr( $classes[ $orientation ]['title'] ); ?>">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 					<?php echo esc_html( $obj->get_title() ); ?>
@@ -1035,17 +1031,17 @@ class CST_Frontend {
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" class="image-right" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 					<?php
 						$featured_image_id = $obj->get_featured_image_id();
-						if ( $featured_image_id ) {
-							$attachment = wp_get_attachment_metadata( $featured_image_id );
-							if ( $attachment ) {
-								$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', 'chiwire-slider-square');
-								echo wp_kses_post( $image_markup );
-							}
-						}
+			if ( $featured_image_id ) {
+				$attachment = wp_get_attachment_metadata( $featured_image_id );
+				if ( $attachment ) {
+					$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', 'chiwire-slider-square' );
+					echo wp_kses_post( $image_markup );
+				}
+			}
 					?>
 				</a>
 			</div>
-		</div>
+			</div>
 		<?php
 		}
 	}
@@ -1214,8 +1210,8 @@ class CST_Frontend {
 		<div class="row mini-stories" >
 			<?php foreach ( $headlines as $partial_id => $index ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
-				if ( $obj ) {
-					if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
+			if ( $obj ) {
+				if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
 						// First item and odd total
 						?>
 						<div class="single-mini-story small-12 medium-4">
@@ -1230,9 +1226,9 @@ class CST_Frontend {
 					<?php }
 				}
 				$counter++;
-				if ( $close_me && ( $count_headlines ) === $counter ) { ?>
-					</div><!-- right four -->
-				<?php } ?>
+			if ( $close_me && ( $count_headlines ) === $counter ) { ?>
+				</div><!-- right four -->
+			<?php } ?>
 			<?php } ?>
 		</div>
 	<?php
@@ -1247,21 +1243,21 @@ class CST_Frontend {
 	* @param $partial_id string Customizer reference DOM id/class
 	*/
 	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
-		$layout['prime'] = array (
+		$layout['prime'] = array(
 			'wrapper_class' => '',
 			'image_class' => 'small-12',
 			'image_size' => 'secondary-wells',
 			'title_class' => 'small-12',
 			'watch' => '',
 		);
-		$layout['regular'] = array (
+		$layout['regular'] = array(
 			'wrapper_class' => 'medium-6',
 			'image_class' => 'small-3 medium-4 large-4 mini-image',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-8 large-8',
 			'watch' => 'data-equalizer-watch',
 		);
-		$layout['vertical'] = array (
+		$layout['vertical'] = array(
 			'wrapper_class' => 'medium-6',
 			'image_class' => 'small-3 medium-12 large-4',
 			'image_size' => 'chiwire-small-square',
@@ -1273,34 +1269,34 @@ class CST_Frontend {
 		}
 		?>
 		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
-	<div class="single-mini-story small-12 <?php echo esc_attr( $layout[$layout_type]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
-		<div class="columns <?php echo esc_attr( $layout[$layout_type]['image_class']); ?>">
+		<div class="single-mini-story small-12 <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
+		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['image_class'] ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 			<?php
 				$featured_image_id = $obj->get_featured_image_id();
-				if ( $featured_image_id )  {
-					$attachment = wp_get_attachment_metadata( $featured_image_id );
-					if ( $attachment ) {
-						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[$layout_type]['image_size']);
-						echo wp_kses_post( $image_markup );
-					}
-				}
+		if ( $featured_image_id ) {
+			$attachment = wp_get_attachment_metadata( $featured_image_id );
+			if ( $attachment ) {
+				$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $layout_type ]['image_size'] );
+				echo wp_kses_post( $image_markup );
+			}
+		}
 			?>
 			</a>
 		</div>
-		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-portrait">
+		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['title_class'] ); ?> show-for-portrait">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
 		</div>
-		<div class="columns <?php echo esc_attr( $layout[$layout_type]['title_class']); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
+		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
 		</div>
 		<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
-	</div>
-	</div>
+		</div>
+		</div>
 		<?php
 	}
 	/**
@@ -1436,80 +1432,80 @@ class CST_Frontend {
 		$positions = array();
 		switch ( $slug ) {
 			case 'news':
-			    $positions = array( 'News1', 'News2' );
-			    break;
+				$positions = array( 'News1', 'News2' );
+				break;
 			case 'chicago':
-			    $positions = array( 'NewsChi1', 'NewsChi2' );
-			    break;
+				$positions = array( 'NewsChi1', 'NewsChi2' );
+				break;
 			case 'crime':
-			    $positions = array( 'NewsCrime1', 'NewsCrime2' );
-			    break;
+				$positions = array( 'NewsCrime1', 'NewsCrime2' );
+				break;
 			case 'the-watchdogs':
-			    $positions = array( 'NewsWatch1', 'NewsWatch2' );
-			    break;
+				$positions = array( 'NewsWatch1', 'NewsWatch2' );
+				break;
 			case 'nation-world':
-			    $positions = array( 'NewsNation1', 'NewsNation2' );
-			    break;
+				$positions = array( 'NewsNation1', 'NewsNation2' );
+				break;
 			case 'education':
-			    $positions = array( 'NewsEdu1', 'NewsEdu2' );
-			    break;
+				$positions = array( 'NewsEdu1', 'NewsEdu2' );
+				break;
 			case 'transportation':
-			    $positions = array( 'NewsTrans1', 'NewsTrans2' );
-			    break;
+				$positions = array( 'NewsTrans1', 'NewsTrans2' );
+				break;
 			case 'business':
-			    $positions = array( 'NewsBus1', 'NewsBus2' );
-			    break;
+				$positions = array( 'NewsBus1', 'NewsBus2' );
+				break;
 			case 'sneed':
-			    $positions = array( 'NewsSneed1', 'NewsSneed2' );
-			    break;
+				$positions = array( 'NewsSneed1', 'NewsSneed2' );
+				break;
 			case 'chicago-politics':
-			    $positions = array( 'PolChi1', 'PolChi2' );
-			    break;
+				$positions = array( 'PolChi1', 'PolChi2' );
+				break;
 			case 'springfield-politics':
-			    $positions = array( 'PolSpring1', 'PolSpring2' );
-			    break;
+				$positions = array( 'PolSpring1', 'PolSpring2' );
+				break;
 			case 'washington-politics':
-			    $positions = array( 'PolWash1', 'PolWash2' );
-			    break;
+				$positions = array( 'PolWash1', 'PolWash2' );
+				break;
 			case 'lynn-sweet-politics':
-			    $positions = array( 'PolSweet1', 'PolSweet2' );
-			    break;
+				$positions = array( 'PolSweet1', 'PolSweet2' );
+				break;
 			case 'rick-morrissey':
-			    $positions = array( 'SportsMorrissey1', 'SportsMorrissey2' );
-			    break;
+				$positions = array( 'SportsMorrissey1', 'SportsMorrissey2' );
+				break;
 			case 'rick-telander':
-			    $positions = array( 'SportsTelander1', 'SportsTelander2' );
-			    break;
+				$positions = array( 'SportsTelander1', 'SportsTelander2' );
+				break;
 			case 'cubs-baseball':
-			    $positions = array( 'SportsCubs1', 'SportsCubs2' );
-			    break;
+				$positions = array( 'SportsCubs1', 'SportsCubs2' );
+				break;
 			case 'white-sox':
-			    $positions = array( 'SportsSox1', 'SportsSox2' );
-			    break;
+				$positions = array( 'SportsSox1', 'SportsSox2' );
+				break;
 			case 'bears':
-			    $positions = array( 'SportsBears1', 'SportsBears2' );
-			    break;
+				$positions = array( 'SportsBears1', 'SportsBears2' );
+				break;
 			case 'blackhawks':
-			    $positions = array( 'SportsHawks1', 'SportsHawks2' );
-			    break;
+				$positions = array( 'SportsHawks1', 'SportsHawks2' );
+				break;
 			case 'bulls':
-			    $positions = array( 'SportsBulls1', 'SportsBulls2' );
-			    break;
+				$positions = array( 'SportsBulls1', 'SportsBulls2' );
+				break;
 			case 'outdoor':
-			    $positions = array( 'SportsOutdoor1', 'SportsOutdoor2' );
-			    break;
+				$positions = array( 'SportsOutdoor1', 'SportsOutdoor2' );
+				break;
 			case 'fire':
-			    $positions = array( 'SportsFire1', 'SportsFire2' );
-			    break;
+				$positions = array( 'SportsFire1', 'SportsFire2' );
+				break;
 			case 'colleges':
-			    $positions = array( 'SportsColleges1', 'SportsColleges2' );
-			    break;
+				$positions = array( 'SportsColleges1', 'SportsColleges2' );
+				break;
 			case 'entertainment':
 				$positions = array( 'Entertainment1', 'Entertainment2' );
 				break;
 			default:
 				$positions = array( 'News1', 'News2' );
-			    break;
+				break;
 		}
 		return $positions;
 	}
@@ -1536,8 +1532,8 @@ class CST_Frontend {
 				$post_sections  = $obj->get_section_slugs();
 				while ( $post_sections ) {
 					$section_name = array_pop( $post_sections );
-					if ( isset( $trackers[$section_name] ) ) {
-						$section_id = $trackers[$section_name];
+					if ( isset( $trackers[ $section_name ] ) ) {
+						$section_id = $trackers[ $section_name ];
 						$found = true;
 						break;
 					}
@@ -1545,8 +1541,8 @@ class CST_Frontend {
 			}
 			if ( is_tax() ) {
 				$section_name = get_queried_object()->slug;
-				if ( isset( $trackers[$section_name] ) ) {
-					$section_id = $trackers[$section_name];
+				if ( isset( $trackers[ $section_name ] ) ) {
+					$section_id = $trackers[ $section_name ];
 					$found = true;
 				}
 			}
@@ -1619,11 +1615,11 @@ class CST_Frontend {
 	* Display an article container and related markup in the homepage wells
 	*/
 	public function well_article_container_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-large', $tracking_location_name ) {
-?>
-<div class="article-container">
+		?>
+		<div class="article-container">
 	<?php $this->well_article_markup( $obj, $author, $primary_section, $image_size, $tracking_location_name ); ?>
-</div>
-<?php
+		</div>
+		<?php
 	}
 
 	/**
@@ -1635,8 +1631,8 @@ class CST_Frontend {
 	* Display an article anchor markup in the homepage wells
 	*/
 	public function well_article_markup( \CST\Objects\Post $obj, $author, $primary_section, $image_size = 'chiwire-header-small', $tracking_location_name ) {
-?>
-	<a href="<?php echo esc_url( $obj->the_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-<?php echo esc_attr( $tracking_location_name ); ?>" >
+		?>
+		<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-<?php echo esc_attr( $tracking_location_name ); ?>" >
 		<?php
 		$featured_image_id = $obj->get_featured_image_id();
 		if ( $featured_image_id ) {
@@ -1650,8 +1646,8 @@ class CST_Frontend {
 			<?php echo wp_kses_post( apply_filters( 'the_excerpt', $obj->get_excerpt() ) ); ?>
 			<span>By <?php echo esc_html( $author ); ?></span>
 		</div>
-	</a>
-<?php
+		</a>
+		<?php
 	}
 
 	/**
