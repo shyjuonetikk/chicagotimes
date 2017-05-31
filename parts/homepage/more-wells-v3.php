@@ -11,12 +11,13 @@ $classes = array(
 );
 $orientation = 'columns';
 $counter = 0;
+$class_name = CST()->customizer->get_widget_top_stories_stub();
 ?>
 
 <div class="stories-list">
 	<div class="columns small-12">
 		<?php foreach ( $homepage_more_well_posts as $homepage_more_well_post ) { ?>
-			<div class="more-story">
+			<div class="more-story <?php echo esc_attr( $class_name . $counter ); ?>">
 				<div class="row">
 					<?php
 					$obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_post->ID );
@@ -29,7 +30,7 @@ $counter = 0;
 							$author      = $author_data->get_display_name();
 						}
 						?>
-						<div class="latest-story <?php echo esc_attr( 'cst_homepage_more_headlines_' . $counter ); ?>">
+						<div class="latest-story">
 							<div class="<?php echo esc_attr( $classes[ $orientation ]['title'] ); ?>">
 								<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-latest-wells">
 									<?php echo esc_html( $obj->get_title() ); ?>
@@ -54,6 +55,7 @@ $counter = 0;
 					?>
 				</div>
 			</div>
-		<?php } ?>
+		<?php $counter++;
+} ?>
 	</div>
 </div>

@@ -1038,7 +1038,7 @@ class CST_Frontend {
 	*/
 	public function cst_mini_stories_content_block( $content_query ) {
 
-		$cache_key = md5( json_encode( $content_query ) );
+		$cache_key = md5( wp_json_encode( $content_query ) );
 		$close_me = false;
 		$cached_content = wpcom_vip_cache_get( $cache_key );
 		if ( false === $cached_content || WP_DEBUG ) {
@@ -1193,7 +1193,8 @@ class CST_Frontend {
 		$counter = 0;
 		$close_me = false; ?>
 		<div class="row mini-stories" >
-			<?php foreach ( $headlines as $partial_id => $index ) {
+		<?php $partials = array_keys( $headlines ); ?>
+			<?php foreach ( $partials as $partial_id ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
 			if ( $obj ) {
 				if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
@@ -1693,7 +1694,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	public function hp_get_article_authors( \CST\Objects\Post $obj ) {
 		$authors_open = '<span class="post-meta-author">';
 		$authors_close = '</span>';
-		foreach ( $obj->get_authors() as $i => $author ) {
+		foreach ( $obj->get_authors() as $author ) {
 			$authors []= '<a href="' . esc_url( $author->get_permalink() ) . '" 
 			data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
 			esc_html( $author->get_display_name() ) . '
@@ -2862,8 +2863,8 @@ ready(fn);
 		<div class="related-stories" id="hero-related-posts">
 			<h3>Related stories:</h3>
 			<ul class="related-title">
-				<?php $related_hero_stories = CST()->customizer->get_hero_related_stories(); ?>
-				<?php foreach ( $related_hero_stories as $story => $value ) {
+				<?php $related_hero_stories = array_keys( CST()->customizer->get_hero_related_stories() ); ?>
+				<?php foreach ( $related_hero_stories as $story ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
 				<li class="js-<?php echo esc_attr( str_replace( '_', '-', $story ) ); ?>"><a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story"><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
