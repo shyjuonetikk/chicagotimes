@@ -97,8 +97,8 @@ class CST_Frontend {
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 
 		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
-		add_action( 'wp_head', array( $this, 'action_cst_openx_header_bidding_script' ) );
-		add_action( 'wp_head', [ $this, 'action_distroscale_injection' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_cst_openx_header_bidding_script' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_distroscale_injection' ] );
 		add_action( 'head_early_elements', [ $this, 'action_head_early_elements' ] );
 		add_action( 'body_start', [ $this, 'action_body_start' ] );
 	}
@@ -1726,9 +1726,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		if ( is_page() || is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
-		?>
-<script type="text/javascript" async src="//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes"></script>
-		<?php
+		wp_enqueue_script( 'openx-async', '//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes', array(), null, false );
 	}
 	/**
 	 * Checks if we have a video player for embedding purposes for a section front
