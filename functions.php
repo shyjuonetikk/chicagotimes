@@ -783,17 +783,17 @@ class CST {
 
 		register_sidebar( array(
 			'id'          => 'homepage_sidebar',
-			'name'        => esc_html__( 'Top Homepage Sidebar', 'chicagosuntimes' ),
+			'name'        => esc_html__( 'The Right Rail (Top)', 'chicagosuntimes' ),
 		) );
 
 		register_sidebar( array(
 			'id'          => 'homepage_sidebar_two',
-			'name'        => esc_html__( 'Middle Homepage Sidebar', 'chicagosuntimes' ),
+			'name'        => esc_html__( 'The Right Rail (Middle)', 'chicagosuntimes' ),
 		) );
 
 		register_sidebar( array(
 			'id'          => 'homepage_sidebar_three',
-			'name'        => esc_html__( 'Bottom Homepage Sidebar', 'chicagosuntimes' ),
+			'name'        => esc_html__( 'The Right Rail (Bottom)', 'chicagosuntimes' ),
 		) );
 		register_sidebar( array(
 			'id'          => 'news_headlines',

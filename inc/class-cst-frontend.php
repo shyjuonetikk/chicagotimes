@@ -2863,7 +2863,7 @@ ready(fn);
 		<div class="related-stories" id="hero-related-posts">
 			<h3>Related stories:</h3>
 			<ul class="related-title">
-				<?php $related_hero_stories = array_keys( CST()->customizer->get_hero_related_stories() ); ?>
+				<?php $related_hero_stories = array_keys( CST()->customizer->get_column_one_related_stories() ); ?>
 				<?php foreach ( $related_hero_stories as $story ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
