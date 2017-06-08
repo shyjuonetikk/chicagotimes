@@ -1689,18 +1689,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	*
 	* @return string
 	*
-	* Generate and return markup for author(s) for use on the homepage
+	* Generate and return markup for article author(s) for use on the homepage
 	*/
 	public function hp_get_article_authors( \CST\Objects\Post $obj ) {
 		$authors_open = '<span class="post-meta-author">';
 		$authors_close = '</span>';
+		$authors = array();
 		foreach ( $obj->get_authors() as $author ) {
-			$authors []= '<a href="' . esc_url( $author->get_permalink() ) . '" 
+			$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '" 
 			data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
-			esc_html( $author->get_display_name() ) . '
-			</a>';
+			$author->get_display_name() . '</a>';
 		}
-		return $authors_open . join( $authors, ' and ' ) . $authors_close;
+		return $authors_open . implode( ' and ', $authors ) . $authors_close;
 	}
 	/**
 	* Adding OpenX script tag in header section of markup for all
