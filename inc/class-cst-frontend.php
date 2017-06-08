@@ -1689,18 +1689,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	*
 	* @return string
 	*
-	* Generate and return markup for author(s) for use on the homepage
+	* Generate and return markup for article author(s) for use on the homepage
 	*/
 	public function hp_get_article_authors( \CST\Objects\Post $obj ) {
 		$authors_open = '<span class="post-meta-author">';
 		$authors_close = '</span>';
+		$authors = array();
 		foreach ( $obj->get_authors() as $author ) {
-			$authors []= '<a href="' . esc_url( $author->get_permalink() ) . '" 
+			$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '" 
 			data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
-			esc_html( $author->get_display_name() ) . '
-			</a>';
+			$author->get_display_name() . '</a>';
 		}
-		return $authors_open . join( $authors, ' and ' ) . $authors_close;
+		return $authors_open . implode( ' and ', $authors ) . $authors_close;
 	}
 	/**
 	* Adding OpenX script tag in header section of markup for all
@@ -2863,7 +2863,7 @@ ready(fn);
 		<div class="related-stories" id="hero-related-posts">
 			<h3>Related stories:</h3>
 			<ul class="related-title">
-				<?php $related_hero_stories = array_keys( CST()->customizer->get_hero_related_stories() ); ?>
+				<?php $related_hero_stories = array_keys( CST()->customizer->get_column_one_related_stories() ); ?>
 				<?php foreach ( $related_hero_stories as $story ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
 				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>

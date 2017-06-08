@@ -6,12 +6,12 @@
 class CST_Customizer {
 
 	private static $instance;
-	private $lead_stories = array(
+	private $column_one_stories = array(
 		'cst_homepage_headlines_one' => true,
 		'cst_homepage_headlines_two' => true,
 		'cst_homepage_headlines_three' => true,
 	);
-	private $related_hero_stories = array(
+	private $related_column_one_stories = array(
 		'cst_homepage_related_headlines_one' => true,
 		'cst_homepage_related_headlines_two' => true,
 		'cst_homepage_related_headlines_three' => true,
@@ -112,22 +112,22 @@ class CST_Customizer {
 		 * Add sections we want
 		 */
 		$wp_customize->add_section( 'hp_lead_stories', array(
-			'title' => __( 'Hero and lead stories', 'chicagosuntimes' ),
-			'description' => __( 'Choose lead articles', 'chicagosuntimes' ),
+			'title' => __( 'Column 1 stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose column 1 stories', 'chicagosuntimes' ),
 			'priority' => 160,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'hp_lead_related_stories', array(
-			'title' => __( 'Hero related stories', 'chicagosuntimes' ),
-			'description' => __( 'Choose related articles (only displayed if related checkbox selected)', 'chicagosuntimes' ),
+			'title' => __( 'Related stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose related stories (only displayed if related checkbox selected)', 'chicagosuntimes' ),
 			'priority' => 160,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'hp_other_stories', array(
-			'title' => __( 'Other lead stories', 'chicagosuntimes' ),
-			'description' => __( 'Choose other lead stories', 'chicagosuntimes' ),
+			'title' => __( 'Photo stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose photo stories', 'chicagosuntimes' ),
 			'priority' => 170,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
@@ -163,8 +163,9 @@ class CST_Customizer {
 		/**
 		 * Add settings within each section
 		 */
-		$lead_counter = 0;
-		foreach ( array_keys( $this->lead_stories ) as $lead_story ) {
+		$lead_counter = 1;
+		$column_one_counter = 1;
+		foreach ( array_keys( $this->column_one_stories ) as $lead_story ) {
 			$wp_customize->add_setting( $lead_story, array(
 				'type' => 'theme_mod',
 				'capability' => $this->capability,
@@ -174,38 +175,42 @@ class CST_Customizer {
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $lead_story, array(
 				'type' => 'cst_select_control',
-				'priority' => 10,
+				'priority' => 10 + $lead_counter,
 				'section' => 'hp_lead_stories',
 				'settings' => $lead_story,
-				'label' => 0 === $lead_counter++ ? __( 'Hero Article', 'chicagosuntimes' ) : __( 'Lead Article', 'chicagosuntimes' ),
+				'label' => __( 'Column 1 Story ' . $column_one_counter, 'chicagosuntimes' ),
 				'input_attrs' => array(
 				'placeholder' => esc_attr__( '-Choose article-', 'chicagosuntimes' ),
 				),
 			) ) );
+			if ( 1 === $lead_counter ) {
+				/**
+				 * Related stories, checkbox and select2 custom control
+				 */
+				$wp_customize->add_setting( 'hero_related_posts', array(
+					'type' => 'theme_mod',
+					'capability' => $this->capability,
+					'default' => 'hero_related_posts',
+					'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
+					'transport' => $transport,
+				) );
+				$wp_customize->add_control(
+					new \WP_Customize_Control(
+						$wp_customize, 'hero_related_posts', array(
+						'label'          => __( 'Display the following Column 1 related stories?', 'chicagosuntimes' ),
+						'section'        => 'hp_lead_stories',
+						'settings'       => 'hero_related_posts',
+						'type'           => 'checkbox',
+						'priority' => 11,
+						)
+					)
+				);
+			}
+			$lead_counter += 4;
+			$column_one_counter++;
 		}
-		/**
-		 * Related stories, checkbox and select2 custom control
-		 */
-		$wp_customize->add_setting( 'hero_related_posts', array(
-			'type' => 'theme_mod',
-			'capability' => $this->capability,
-			'default' => 'hero_related_posts',
-			'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
-			'transport' => $transport,
-		) );
-		$wp_customize->add_control(
-			new \WP_Customize_Control(
-				$wp_customize, 'hero_related_posts', array(
-				'label'          => __( 'Display the following hero story related articles?', 'chicagosuntimes' ),
-				'section'        => 'hp_lead_stories',
-				'settings'       => 'hero_related_posts',
-				'type'           => 'checkbox',
-				'priority' => 29,
-				)
-			)
-		);
 		$article_count = 1;
-		foreach ( $this->related_hero_stories as $lead_story => $value ) {
+		foreach ( $this->related_column_one_stories as $lead_story => $value ) {
 			$wp_customize->add_setting( $lead_story, array(
 				'type' => 'theme_mod',
 				'capability' => $this->capability,
@@ -215,19 +220,19 @@ class CST_Customizer {
 			) );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $lead_story, array(
 				'type' => 'cst_select_control',
-				'priority' => 30,
+				'priority' => 11 + $article_count,
 				'section' => 'hp_lead_stories',
 				'settings' => $lead_story,
-				'label' => esc_attr__( 'Article ' . $article_count++ , 'chicagosuntimes' ),
+				'label' => esc_attr__( 'Related story ' . $article_count++ , 'chicagosuntimes' ),
 				'input_attrs' => array(
-				'placeholder' => esc_attr__( '=Choose article=', 'chicagosuntimes' ),
+				'placeholder' => esc_attr__( '=Choose related story=', 'chicagosuntimes' ),
 				),
 			) ) );
 		}
 		/**
-		 * Other stories
+		 * Photo stories
 		 */
-		$lead_counter = 0;
+		$photo_story_counter = 1;
 		foreach ( $this->other_stories as $other_story => $value ) {
 			$wp_customize->add_setting( $other_story, array(
 				'type' => 'theme_mod',
@@ -240,11 +245,12 @@ class CST_Customizer {
 				'type'        => 'cst_select_control',
 				'priority'    => 10,
 				'section'     => 'hp_other_stories',
-				'label'       => 0 === $lead_counter++ ? __( 'Lead Article (large image)', 'chicagosuntimes' ) : __( 'Other Article (thumb image)', 'chicagosuntimes' ),
+				'label'       => __( 'Photo story ' . $photo_story_counter, 'chicagosuntimes' ),
 				'input_attrs' => array(
-				'placeholder' => esc_attr__( 'Choose other article', 'chicagosuntimes' ),
+				'placeholder' => __( 'Choose photo story', 'chicagosuntimes' ),
 				),
 			) ) );
+			$photo_story_counter++;
 		}
 		/**
 		 * Upper section based stories, custom heading
@@ -386,7 +392,7 @@ class CST_Customizer {
 			return;
 		}
 
-		foreach ( array_keys( $this->lead_stories ) as $story ) {
+		foreach ( array_keys( $this->column_one_stories ) as $story ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
@@ -422,7 +428,7 @@ class CST_Customizer {
 				'render_callback' => array( $this, 'render_callback' ),
 			) );
 		}
-		foreach ( $this->related_hero_stories as $story => $value ) {
+		foreach ( $this->related_column_one_stories as $story => $value ) {
 			$wp_customize->selective_refresh->add_partial( $story, array(
 				'selector'        => '.js-' . str_replace( '_', '-', $story ),
 				'settings'        => $story,
@@ -642,8 +648,8 @@ class CST_Customizer {
 	 * Getter for upper section stories array
 	 * @return array
 	 */
-	public function get_hero_related_stories() {
-		return $this->related_hero_stories;
+	public function get_column_one_related_stories() {
+		return $this->related_column_one_stories;
 	}
 
 	/**
