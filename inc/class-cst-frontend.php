@@ -1088,7 +1088,7 @@ class CST_Frontend {
 		?>
 		<div class="more-stories-content">
 			<div class="row">
-			<?php $this->more_top_stories_block( 'More Top Stories', 'normal-style' ); ?>
+			<?php $this->more_top_stories_block( 'Entertainment', 'normal-style' ); ?>
 			<div class="columns small-12 medium-6 large-8">
 				<div class="small-12 columns more-stories-container" id="featured-stories">
 					<div class="row">
