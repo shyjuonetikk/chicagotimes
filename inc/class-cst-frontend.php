@@ -2057,10 +2057,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		if ( is_front_page() || is_singular() || is_tax() || is_post_type_archive() ) {
 			$chosen_parameters = array(
 					'theme_location' => 'homepage-menu',
+					'container' => '',
 					'depth' => 2,
 					'fallback_cb' => false,
 					'walker' => new GC_walker_nav_menu(),
-					'items_wrap' => '<ul id="%1$s-oc" class="cst-off-canvas-navigation-container homepage">%3$s</ul>',
+					'items_wrap' => '<ul id="%1$s-oc" class="off-canvas-list cst-off-canvas-navigation-container homepage">%3$s</ul>',
 					 );
 		} else if ( $current_obj = $this->get_current_object() ) {
 			$conditional_nav = $this->get_conditional_nav();
