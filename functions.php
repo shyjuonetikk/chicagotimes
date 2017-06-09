@@ -10,7 +10,7 @@ class CST {
 
 	private static $instance;
 
-	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler;
+	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler, $customizer;
 
 	private $post_types = array();
 
@@ -180,6 +180,7 @@ class CST {
 
 		add_image_size( 'chiwire-article', 570, 260, true );
 		add_image_size( 'chiwire-small-square', 80, 80, true );
+		add_image_size( 'chiwire-mini-story-large', 160, 160, true );
 		add_image_size( 'chiwire-slider-square', 60, 60, true );
 		add_image_size( 'chiwire-featured-content-widget', 295, 165, true );
 		add_image_size( 'chiwire-header-large', 640, 480, true );
@@ -343,10 +344,7 @@ class CST {
 		wpcom_vip_load_plugin( 'fieldmanager' );
 		wpcom_vip_load_plugin( 'pushup' );
 		wpcom_vip_load_plugin( 'wpcom-thumbnail-editor' );
-		if ( ! current_user_can( 'adops' ) ) {
-			// Auto removes menu entry preventing adops role users from seeing it
-			wpcom_vip_load_plugin( 'zoninator' );
-		}
+		wpcom_vip_load_plugin( 'zoninator' );
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
 		if ( ! defined( 'WP_CLI' ) ) {
@@ -474,14 +472,6 @@ class CST {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
 
-		add_action( 'init', function() {
-			// Add custom AdOps role
-			wpcom_vip_add_role( 'adops', 'Ad Ops', array(
-				'upload_files' => true,
-				'adops' => true,
-				'read' => true,
-			));
-		} );
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 	}
 
@@ -607,7 +597,6 @@ class CST {
 			} );
 		}
 
-		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
 		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
