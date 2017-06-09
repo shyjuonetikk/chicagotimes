@@ -1,9 +1,9 @@
 <header id="header" class="masthead">
 	<div class="contain-to-grid">
-		<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
+		<nav class="top-bar" data-topbar aria-hidden="true">
 			<ul class="title-area">
 			</ul>
-		<section class="top-bar-section">
+		<div class="top-bar-section">
 			<ul class="right">
 				<li class="has-form">
 					<div class="row collapse">
@@ -84,7 +84,7 @@
 					</div>
 				</li>
 			</ul>
-		</section>
+		</div>
 		</nav>
 	</div>
 	<?php if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) { ?>
@@ -99,10 +99,8 @@
 <div class="responsive-logo-wrapper row">
 	<div class="columns">
 		<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
-				<?php if ( get_query_var( 'showads', false ) ) { ?>
 			<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left"></div>
 			<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right"></div>
-					<?php } ?>
 		<?php } ?>
 		<div class="logo-wrapper large-logo">
 			<div class="logo">

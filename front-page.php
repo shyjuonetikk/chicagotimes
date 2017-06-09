@@ -76,29 +76,31 @@
 				</div>
 			</div><!-- /.stories -->
 			<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
+				<ul>
 					<?php if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 						dynamic_sidebar( 'homepage_sidebar' );
 } ?>
-				<div class="more-stories-container hide-for-xlarge-up">
+				<li class="more-stories-container hide-for-xlarge-up">
 					<hr>
 					<?php if ( is_active_sidebar( 'homepage_sidebar_two' ) ) {
 						dynamic_sidebar( 'homepage_sidebar_two' );
 } ?>
-				</div>
-				<div>
+				</li>
+				<li>
 					<hr>
 					<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' ); ?>
-				</div>
-				<div class="show-for-medium-up">
+				</li>
+				<li class="show-for-medium-up">
 					<hr>
 					<?php if ( is_active_sidebar( 'homepage_sidebar_three' ) ) {
 						dynamic_sidebar( 'homepage_sidebar_three' );
 } ?>
-				</div>
-				<div class="hide-for-medium-down">
+				</li>
+				<li class="hide-for-medium-down">
 					<hr>
 					<?php the_widget( 'CST_STNG_Wire_Widget' ); ?>
-				</div>
+				</li>
+				</ul>
 			</div>
 			<!-- /.widgets -->
 		</div>
@@ -114,13 +116,11 @@
 			<div class="columns">
 				<hr>
 			</div>
-	<?php if ( get_query_var( 'showads', false ) ) { ?>
 			<?php
 			if ( is_active_sidebar( 'undermorefrom' ) ) :
 				dynamic_sidebar( 'undermorefrom' );
 			endif;
 			?>
-	<?php } ?>
 		</div>
 		<div class="row">
 			<div class="large-12 columns content-wrapper cw">
@@ -136,7 +136,5 @@
 			); ?>
 		</div>
 	</div>
-	</div>
 </div>
-<?php get_template_part( 'parts/homepage/footer' ); ?>
 <?php get_footer();

@@ -359,7 +359,7 @@ body.admin-bar {
 	}
     .off-canvas-list {
 		margin-top:44px;
-		.cst-off-canvas-navigation-container {
+		&.cst-off-canvas-navigation-container {
 			ul {
 				&.dropdown {
 					left: 0;
