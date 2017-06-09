@@ -610,37 +610,6 @@ class CST {
 	}
 
 	/**
-	 * https://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
-	 *
-	 * Filter on the current_user_can() function.
-	 * Specifically for adops user restrictions to edit section
-	 * sponsorship options
-	 *
-	 * @param array $all_capabilities All the capabilities of the user
-	 * @param array $cap  [0] Required capability
-	 * @param array $args [0] Requested capability
-	 *                    [1] User ID
-	 *                    [2] Associated object ID
-	 *
-	 * @return mixed
-	 */
-	function adops_cap_filter( $all_capabilities, $cap, $args ) {
-		if ( 'edit_others_posts' !== $args[0] ) {
-			return $all_capabilities;
-		}
-
-		if ( ! $all_capabilities['adops'] ) {
-			return $all_capabilities;
-		}
-
-		$all_capabilities['manage_terms'] = true;
-		$all_capabilities['edit_others_posts'] = true;
-		$all_capabilities['upload_files'] = true;
-
-		return $all_capabilities;
-	}
-
-	/**
 	 * @param $category
 	 * @param $_post_id
 	 *
