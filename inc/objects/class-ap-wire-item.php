@@ -59,7 +59,10 @@ class AP_Wire_Item extends Post {
 
 				case 'enclosure':
 
-					$response = vip_safe_wp_remote_get( (string) $link['href'] );
+					$response = vip_safe_wp_remote_get( (string) $link['href'], '', 3, 3, 20 );
+					if ( is_wp_error( $response ) ) {
+						break;
+					}
 					if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
 						break;
 					}
