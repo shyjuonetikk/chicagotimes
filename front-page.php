@@ -114,13 +114,11 @@
 			<div class="columns">
 				<hr>
 			</div>
-	<?php if ( get_query_var( 'showads', false ) ) { ?>
 			<?php
 			if ( is_active_sidebar( 'undermorefrom' ) ) :
 				dynamic_sidebar( 'undermorefrom' );
 			endif;
 			?>
-	<?php } ?>
 		</div>
 		<div class="row">
 			<div class="large-12 columns content-wrapper cw">
