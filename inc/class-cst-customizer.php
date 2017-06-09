@@ -564,7 +564,7 @@ class CST_Customizer {
 		if ( isset( $_GET['nonce'] )
 			&& empty( $_GET['nonce'] )
 			&& ! wp_verify_nonce( sanitize_key( $_GET['nonce'] ), 'cst_customizer_control_homepage_headlines' )
-			|| ! current_user_can_for_blog( get_current_blog_id(), 'edit_others_posts' )
+			|| ! current_user_can( 'edit_others_posts' )
 		) {
 			wp_send_json_error( array( 'code' => 'bad_nonce' ), 400 );
 		}
