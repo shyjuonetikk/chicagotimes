@@ -75,9 +75,6 @@ class CST_Customizer {
 		add_action( 'wp_ajax_cst_customizer_control_homepage_headlines', [ $this, 'action_get_posts' ], 11 );
 		add_action( 'customize_register', [ $this, 'action_customize_register' ], 11 );
 		add_action( 'customize_register', [ $this, 'action_customize_refresh' ], 11 );
-		if ( method_exists( 'Jetpack_Custom_CSS', 'disable' ) ) {
-			add_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 11 );
-		}
 		add_action( 'customize_preview_init', [ $this, 'action_customizer_live_preview' ] );
 	}
 
@@ -94,7 +91,7 @@ class CST_Customizer {
 	/**
 	 * Register Customizer Panels, sections and controls
 	 *
-	 * Homepage Lead Stories
+	 * Homepage Column 1 Stories
 	 * Homepage Other Stories
 	 * Homepage Section stories
 	 *

@@ -2860,7 +2860,7 @@ ready(fn);
 	public function handle_related_content() {
 		$do_related = get_theme_mod( 'hero_related_posts' );
 		if ( $do_related ) { ?>
-		<div class="related-stories" id="hero-related-posts">
+		<div class="related-stories">
 			<h3>Related stories:</h3>
 			<ul class="related-title">
 				<?php $related_hero_stories = array_keys( CST()->customizer->get_column_one_related_stories() ); ?>
