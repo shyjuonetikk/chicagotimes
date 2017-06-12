@@ -19,8 +19,8 @@
 							<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
 						</div>
 					</div><!-- /hp-main-lead -->
-					<div class="columns small-12 large-8 other-lead-stories">
-						<div class="show-for-medium-only"><h3>In other news</h3></div>
+					<div class="columns small-12 large-8 more-stories-container other-lead-stories">
+						<div class="show-for-medium-only"><h3 class="more-sub-head">In other news</h3></div>
 						<div id="hp-other-lead-stories">
 							<div class="row lead-mini-story js-cst-homepage-other-headlines-1">
 								<?php CST()->frontend->homepage_mini_story_lead( 'cst_homepage_other_headlines_1' ); ?>
@@ -38,7 +38,7 @@
 							<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
 							<div id="root"></div>
 						</div>
-						<div class="other-stories hide-for-xlarge-up">
+						<div class="other-stories more-stories-container hide-for-xlarge-up">
 							<?php CST()->frontend->render_section_title( 'upper_section_section_title' ); ?>
 							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 						</div>
@@ -63,13 +63,10 @@
 				<div class=" more-stories-container">
 					<div class="show-for-medium-up">
 						<div class="row">
-							<div class="columns small-12">
-								<h3 class="more-sub-head">Podcasts (example for this location on the page)</h3>
-								<ul>
-									<li class="mini-story">Podcast #1</li>
-									<li class="mini-story">Podcast #2</li>
-									<li class="mini-story">Podcast #3</li>
-								</ul>
+							<div class="small-12 columns more-stories-container">
+								<hr>
+								<h3 class="more-sub-head">Podcasts</h3>
+								<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_podcast_section_stories() ); ?>
 							</div>
 						</div>
 					</div>

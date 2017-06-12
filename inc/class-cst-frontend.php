@@ -138,7 +138,7 @@ class CST_Frontend {
 	public function action_wp_enqueue_scripts() {
 		// Foundation
 		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.5.3' );
-		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.2.3' );
+		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.5.3' );
 		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
 		// Fonts
 		if ( is_post_type_archive( 'cst_feature' ) ) {
@@ -975,12 +975,12 @@ class CST_Frontend {
 	 * Multi functional content layer outer
 	 * @param $orientation string Basic name describing orientation of articles in this block
 	 */
-	public function cst_latest_stories_content_block( $orientation = 'columns' ) {
+	public function cst_entertainment_stories_content_block( $orientation = 'columns' ) {
 ?>
 			<div class="row">
 			<div class="columns small-12">
 			<?php
-		foreach ( CST()->customizer->get_top_stories() as $partial_id => $value ) {
+		foreach ( CST()->customizer->get_entertainment_stories() as $partial_id => $value ) {
 				$this->top_story( $partial_id, $orientation );
 		} ?>
 			</div>
@@ -1152,7 +1152,7 @@ class CST_Frontend {
 				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
 				<div class="row">
 					<div class="stories-list">
-						<?php $this->cst_latest_stories_content_block( 'columns' ); ?>
+						<?php $this->cst_entertainment_stories_content_block( 'columns' ); ?>
 					</div>
 				</div>
 			</div>
