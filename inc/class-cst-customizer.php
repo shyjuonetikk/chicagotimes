@@ -192,13 +192,7 @@ class CST_Customizer {
 				/**
 				 * Related stories, checkbox and select2 custom control
 				 */
-				$wp_customize->add_setting( 'hero_related_posts', array(
-					'type' => 'theme_mod',
-					'capability' => $this->capability,
-					'default' => 'hero_related_posts',
-					'sanitize_callback' => array( $this, 'sanitize_checkbox' ),
-					'transport' => $transport,
-				) );
+				$this->set_setting( $wp_customize, 'hero_related_posts', array( $this, 'sanitize_checkbox' ) );
 				$wp_customize->add_control(
 					new \WP_Customize_Control(
 						$wp_customize, 'hero_related_posts', array(
@@ -371,29 +365,18 @@ class CST_Customizer {
 			return;
 		}
 
-		foreach ( array_keys( $this->column_one_stories ) as $story ) {
-			$this->set_selective_refresh( $wp_customize, $story );
-		}
-		foreach ( array_keys( $this->other_stories ) as $story ) {
-			$this->set_selective_refresh( $wp_customize, $story );
-		}
-		foreach ( array_keys( $this->upper_section_stories ) as $story ) {
-			$this->set_selective_refresh( $wp_customize, $story );
-		}
-		foreach ( array_keys( $this->lower_section_stories ) as $story ) {
-			$this->set_selective_refresh( $wp_customize, $story );
-		}
-		foreach ( array_keys( $this->podcast_section_stories ) as $story ) {
-			$this->set_selective_refresh( $wp_customize, $story );
-		}
-		foreach ( $this->related_column_one_stories as $story => $value ) {
-			$this->set_selective_refresh( $wp_customize, $story );
-		}
-		foreach ( array_keys( $this->entertainment_list_section_stories ) as $story ) {
-			$this->set_selective_refresh( $wp_customize, $story );
-		}
-		foreach ( array_keys( $this->featured_story_block_headlines ) as $story ) {
-			$this->set_selective_refresh( $wp_customize, $story );
+		$combined_arrays = array_merge(
+			array_keys( $this->column_one_stories ),
+			array_keys( $this->other_stories ),
+			array_keys( $this->upper_section_stories ),
+			array_keys( $this->lower_section_stories ),
+			array_keys( $this->podcast_section_stories ),
+			array_keys( $this->related_column_one_stories ),
+			array_keys( $this->entertainment_list_section_stories ),
+			array_keys( $this->featured_story_block_headlines )
+		);
+		foreach ( $combined_arrays as $customizer_element_id ) {
+			$this->set_selective_refresh( $wp_customize, $customizer_element_id );
 		}
 		$this->set_selective_refresh( $wp_customize, 'upper_section_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'lower_section_section_title' );
