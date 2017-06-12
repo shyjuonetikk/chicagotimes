@@ -130,8 +130,8 @@ class CST_Customizer {
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'upper_section_stories', array(
-			'title' => __( 'Upper section stories', 'chicagosuntimes' ),
-			'description' => __( 'Choose upper section stories', 'chicagosuntimes' ),
+			'title' => __( 'Sports section stories', 'chicagosuntimes' ),
+			'description' => __( 'Choose sports section stories', 'chicagosuntimes' ),
 			'priority' => 180,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
