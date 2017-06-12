@@ -15,6 +15,7 @@
 <meta name="viewport" content="width=device-width">
 <?php if ( is_front_page() ) { ?>
 <meta property="fb:pages" content="47864940833" />
+<meta name="msvalidate.01" content="BAFD24499E1109D8CDDBC001C799A2A2" />
 <?php } ?>
 <title><?php wp_title( '|', true, 'right' ); ?></title>
 <link rel="profile" href="http://gmpg.org/xfn/11">
