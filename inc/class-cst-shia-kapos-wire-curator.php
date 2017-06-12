@@ -480,7 +480,7 @@ class CST_Shia_Kapos_Wire_Curator {
                 continue;
             }
 
-            $response = vip_safe_wp_remote_get( $feed, $args );
+            $response = vip_safe_wp_remote_get( $feed, '', 3, 3, 20 );
 
             if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
                 continue;
