@@ -63,13 +63,10 @@
 				<div class=" more-stories-container">
 					<div class="show-for-medium-up">
 						<div class="row">
-							<div class="columns small-12">
-								<h3 class="more-sub-head">Podcasts (example for this location on the page)</h3>
-								<ul>
-									<li class="mini-story">Podcast #1</li>
-									<li class="mini-story">Podcast #2</li>
-									<li class="mini-story">Podcast #3</li>
-								</ul>
+							<div class="small-12 columns more-stories-container">
+								<hr>
+								<h3 class="more-sub-head">Podcasts</h3>
+								<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_podcast_section_stories() ); ?>
 							</div>
 						</div>
 					</div>
