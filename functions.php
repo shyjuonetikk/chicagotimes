@@ -10,7 +10,7 @@ class CST {
 
 	private static $instance;
 
-	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler;
+	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler, $customizer;
 
 	private $post_types = array();
 
@@ -180,6 +180,7 @@ class CST {
 
 		add_image_size( 'chiwire-article', 570, 260, true );
 		add_image_size( 'chiwire-small-square', 80, 80, true );
+		add_image_size( 'chiwire-mini-story-large', 160, 160, true );
 		add_image_size( 'chiwire-slider-square', 60, 60, true );
 		add_image_size( 'chiwire-featured-content-widget', 295, 165, true );
 		add_image_size( 'chiwire-header-large', 640, 480, true );
@@ -343,10 +344,7 @@ class CST {
 		wpcom_vip_load_plugin( 'fieldmanager' );
 		wpcom_vip_load_plugin( 'pushup' );
 		wpcom_vip_load_plugin( 'wpcom-thumbnail-editor' );
-		if ( ! current_user_can( 'adops' ) ) {
-			// Auto removes menu entry preventing adops role users from seeing it
-			wpcom_vip_load_plugin( 'zoninator' );
-		}
+		wpcom_vip_load_plugin( 'zoninator' );
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
 		if ( ! defined( 'WP_CLI' ) ) {
@@ -474,14 +472,6 @@ class CST {
 			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
 		}
 
-		add_action( 'init', function() {
-			// Add custom AdOps role
-			wpcom_vip_add_role( 'adops', 'Ad Ops', array(
-				'upload_files' => true,
-				'adops' => true,
-				'read' => true,
-			));
-		} );
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 	}
 
@@ -607,7 +597,6 @@ class CST {
 			} );
 		}
 
-		add_filter( 'user_has_cap', array( $this, 'adops_cap_filter' ), 10, 3 );
 		add_filter( 'nav_menu_link_attributes', [ $this, 'navigation_link_tracking' ], 10, 3 );
 		add_filter( 'nav_menu_css_class', [ $this, 'masthead_nav_classes' ], 10, 4 );
 		add_filter( 'tiny_mce_before_init', [ $this, 'theme_editor_dynamic_styles' ] );
@@ -618,37 +607,6 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
-	}
-
-	/**
-	 * https://codex.wordpress.org/Plugin_API/Filter_Reference/user_has_cap
-	 *
-	 * Filter on the current_user_can() function.
-	 * Specifically for adops user restrictions to edit section
-	 * sponsorship options
-	 *
-	 * @param array $all_capabilities All the capabilities of the user
-	 * @param array $cap  [0] Required capability
-	 * @param array $args [0] Requested capability
-	 *                    [1] User ID
-	 *                    [2] Associated object ID
-	 *
-	 * @return mixed
-	 */
-	function adops_cap_filter( $all_capabilities, $cap, $args ) {
-		if ( 'edit_others_posts' !== $args[0] ) {
-			return $all_capabilities;
-		}
-
-		if ( ! $all_capabilities['adops'] ) {
-			return $all_capabilities;
-		}
-
-		$all_capabilities['manage_terms'] = true;
-		$all_capabilities['edit_others_posts'] = true;
-		$all_capabilities['upload_files'] = true;
-
-		return $all_capabilities;
 	}
 
 	/**
@@ -1288,17 +1246,15 @@ class CST {
 			add_filter( "{$post_type}_rewrite_rules", '__return_empty_array' );
 		}
 
-		if ( ! current_user_can( 'adops' ) ) {
-			// Register a subset of post types with Zoninator
-			foreach ( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
-				// Register video post type with Zoninator
-				add_post_type_support( $post_type, $GLOBALS['zoninator']->zone_taxonomy );
-				register_taxonomy_for_object_type( $GLOBALS['zoninator']->zone_taxonomy, $post_type );
-			}
-
-			// Clear Zoninator supported post types cache
-			unset( $GLOBALS['zoninator']->post_types );
+		// Register a subset of post types with Zoninator
+		foreach ( array( 'cst_article', 'cst_video', 'cst_liveblog', 'cst_gallery', 'cst_link' ) as $post_type ) {
+			// Register video post type with Zoninator
+			add_post_type_support( $post_type, $GLOBALS['zoninator']->zone_taxonomy );
+			register_taxonomy_for_object_type( $GLOBALS['zoninator']->zone_taxonomy, $post_type );
 		}
+
+		// Clear Zoninator supported post types cache
+		unset( $GLOBALS['zoninator']->post_types );
 
 	}
 
