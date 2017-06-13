@@ -139,7 +139,7 @@ class CST_Frontend {
 		// Foundation
 		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.5.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.5.3' );
-		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
+		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr-custom-01-061317.js', array( 'jquery' ), '6.0.0' );
 		// Fonts
 		if ( is_post_type_archive( 'cst_feature' ) ) {
 			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Open+Sans:400,400i,700,700i&amp;subset=latin' );
