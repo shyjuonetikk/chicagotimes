@@ -1231,7 +1231,7 @@ class CST_Frontend {
 	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
 		$layout['prime'] = array(
 			'wrapper_class' => '',
-			'image_class' => 'small-12',
+			'image_class' => 'small-12 prime',
 			'image_size' => 'secondary-wells',
 			'title_class' => 'small-12',
 			'watch' => '',
@@ -1240,7 +1240,7 @@ class CST_Frontend {
 			'wrapper_class' => 'medium-6',
 			'image_class' => 'small-3 medium-4 large-4 mini-image',
 			'image_size' => 'chiwire-small-square',
-			'title_class' => 'small-9 medium-8 large-8',
+			'title_class' => 'small-9 medium-8 large-8 mini-title',
 			'watch' => 'data-equalizer-watch',
 		);
 		$layout['vertical'] = array(
@@ -2941,7 +2941,7 @@ ready(fn);
 ?>
 <div class="columns small-12">
 	<div class="row">
-		<div class="columns small-12 medium-6 large-6">
+		<div class="columns small-12 medium-6 large-6 prime">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<span class="image"><?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?></span>
 			<div class="hide-for-landscape">
