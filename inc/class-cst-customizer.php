@@ -231,6 +231,7 @@ class CST_Customizer {
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
 				'priority'    => 10,
+				'settings'    => $other_story,
 				'section'     => 'hp_other_stories',
 				'label'       => __( 'Photo story ' . $photo_story_counter, 'chicagosuntimes' ),
 				'input_attrs' => array(
@@ -240,14 +241,14 @@ class CST_Customizer {
 			$photo_story_counter++;
 		}
 		/**
-		 * Upper section based stories, custom heading
+		 * Upper - Sports - section based stories, custom heading
 		 */
 		$lead_counter = 0;
 		foreach ( array_keys( $this->upper_section_stories ) as $other_story ) {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
-				'priority'    => 20,
+				'priority'    => 20 + $lead_counter,
 				'section'     => 'upper_section_stories',
 				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
@@ -255,6 +256,77 @@ class CST_Customizer {
 				),
 			) ) );
 		}
+		$choices = get_terms( array(
+			'taxonomy' => 'cst_section',
+			'hide_empty' => false,
+			'fields' => 'id=>name',
+		) );
+		$sports = wpcom_vip_get_term_by( 'name', 'Sports', 'cst_section' );
+		$sports_choices = new WP_Term_Query( array(
+			'taxonomy' => 'cst_section',
+			'parent' => $sports->term_id,
+			'hide_empty' => false,
+			'fields' => 'id=>name',
+		) );
+		$sports_sections = (array) $sports_choices->get_terms();
+		foreach ( array_keys( $sports_sections ) as $sports_sub_sections_id ) {
+			$sports_sub_section = new WP_Term_Query( array(
+				'taxonomy' => 'cst_section',
+				'parent' => $sports_sub_sections_id,
+				'hide_empty' => false,
+				'fields' => 'id=>name',
+			) );
+			if ( $sports_sub_section->get_terms() ) {
+				foreach ( $sports_sub_section->get_terms() as $item => $name ) {
+					$sports_sections[ $item ] = $name;
+				}
+			}
+		}
+		$sports_customizer = array(
+			'sport_section_lead' => array(
+				'section' => 'upper_section_stories',
+				'label' => 'Choose sport lead section',
+				'priority' => 19,
+				'choices' => $choices,
+			),
+			'sport_other_section_1' => array(
+				'section' => 'upper_section_stories',
+				'label' => 'Choose sport other section 1',
+				'priority' => 20,
+				'choices' => $sports_sections,
+			),
+			'sport_other_section_2' => array(
+				'section' => 'upper_section_stories',
+				'label' => 'Choose sport other section 2',
+				'priority' => 21,
+				'choices' => $sports_sections,
+			),
+			'sport_other_section_3' => array(
+				'section' => 'upper_section_stories',
+				'label' => 'Choose sport other section 3',
+				'priority' => 22,
+				'choices' => $sports_sections,
+			),
+			'sport_other_section_4' => array(
+				'section' => 'upper_section_stories',
+				'label' => 'Choose sport other section 4',
+				'priority' => 23,
+				'choices' => $sports_sections,
+			),
+		);
+
+		foreach ( $sports_customizer as $sports_customizer_id => $settings ) {
+			$this->set_setting( $wp_customize, $sports_customizer_id, 'absint' );
+			$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, $sports_customizer_id, array(
+				'type'        => 'select',
+				'priority'    => $settings['priority'],
+				'section'     => $settings['section'],
+				'settings'    => $sports_customizer_id,
+				'choices'     => $settings['choices'],
+				'label'       => __( $settings['label'], 'chicagosuntimes' ),
+			) ) );
+		}
+
 		/**
 		 * Top stories list of 10
 		 */
@@ -330,11 +402,6 @@ class CST_Customizer {
 		 * Perhaps create a CST version of this control for reuse
 		 */
 		$this->set_setting( $wp_customize, 'upper_section_section_title', 'absint' );
-		$choices = get_terms( array(
-			'taxonomy' => 'cst_section',
-			'hide_empty' => true,
-			'fields' => 'id=>name',
-		) );
 		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'upper_section_section_title', array(
 			'type'        => 'select',
 			'priority'    => 10,
@@ -471,6 +538,7 @@ class CST_Customizer {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes' );
 				break;
+			case 'cst_homepage_section_headlines_1':
 			case 'cst_podcast_section_headlines_1':
 			case 'cst_homepage_lower_section_headlines_1':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
@@ -521,6 +589,7 @@ class CST_Customizer {
 		}
 
 		$term = sanitize_text_field( $_GET['searchTerm'] );
+		$section = sanitize_text_field( $_GET['cst_section'] );
 
 		if ( '' !== $term && strlen( $term ) >= 3 ) {
 			$search_args = array(
@@ -530,6 +599,16 @@ class CST_Customizer {
 				'no_found_rows' => true,
 			);
 
+			if ( $section ) {
+				$search_args['tax_query'] = array(
+					array(
+						'taxonomy'  => 'cst_section',
+						'field'     => 'id',
+						'terms'     => $section,
+						'include_children' => false,
+					),
+				);
+			}
 			$search_query = new \WP_Query( $search_args );
 
 			$returning = array();

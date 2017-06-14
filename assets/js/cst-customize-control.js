@@ -14,9 +14,11 @@
                     url: ajaxurl,
                     dataType: "json",
                     data: function (term) {
+                      /* Retrieve relevant section term id from closest dropdown and pass in cst_section */
                         return {
                             action: "cst_customizer_control_homepage_headlines",
                             nonce: CSTCustomizerControlData.nonce,
+                            cst_section: CSTCustomizerControlData.cst_section,
                             searchTerm: term
                         };
                     },

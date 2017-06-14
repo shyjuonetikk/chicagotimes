@@ -1,5 +1,5 @@
 <?php
-if( class_exists( 'WP_Customize_Control' ) ) {
+if ( class_exists( 'WP_Customize_Control' ) ) {
 	/**
 	 * CST Custom Select2 dropdown controller
 	 */
@@ -15,10 +15,12 @@ if( class_exists( 'WP_Customize_Control' ) ) {
 			add_action( 'customize_controls_enqueue_scripts', [ $this, 'custom_control_enqueue' ] );
 		}
 		public function custom_control_enqueue() {
+			$sports_term = wpcom_vip_get_term_by( 'name', 'Sports', 'cst_section' );
 			wp_enqueue_script( 'cst_customizer_control', esc_url( get_stylesheet_directory_uri() . '/assets/js/cst-customize-control.js' ), array( 'customize-controls', 'select2' ), '1.0', true );
 			wp_localize_script( 'cst_customizer_control', 'CSTCustomizerControlData', array(
 				'placeholder_text' => esc_html__( '!Choose article', 'chicagosuntimes' ),
 				'nonce'            => wp_create_nonce( 'cst_customizer_control_homepage_headlines' ),
+				'cst_section' => $sports_term->term_id,
 			) );
 			wp_enqueue_style( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' );
 			wp_enqueue_script( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.min.js' );
