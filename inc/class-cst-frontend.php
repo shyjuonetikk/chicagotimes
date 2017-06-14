@@ -2917,6 +2917,15 @@ ready(fn);
 		}
 	}
 
+	/**
+	* Provide Chicago Sport heading, markup and link to section for homepage
+	*/
+	public function sports_heading() {
+		$sports_term = wpcom_vip_get_term_link( 'sports','cst_section' );
+		if ( ! is_wp_error( $sports_term ) ) { ?>
+			<h3 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h3>
+		<?php }
+	}
 
 	/**
 	* @param $headline

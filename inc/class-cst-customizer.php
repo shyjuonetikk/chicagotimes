@@ -65,6 +65,7 @@ class CST_Customizer {
 		'featured_story_block_headlines_5' => true,
 	);
 	private $capability = 'edit_others_posts';
+	private $sports_section_choices, $section_choices;
 
 	public static function get_instance() {
 
@@ -256,62 +257,31 @@ class CST_Customizer {
 				),
 			) ) );
 		}
-		$choices = get_terms( array(
-			'taxonomy' => 'cst_section',
-			'hide_empty' => false,
-			'fields' => 'id=>name',
-		) );
-		$sports = wpcom_vip_get_term_by( 'name', 'Sports', 'cst_section' );
-		$sports_choices = new WP_Term_Query( array(
-			'taxonomy' => 'cst_section',
-			'parent' => $sports->term_id,
-			'hide_empty' => false,
-			'fields' => 'id=>name',
-		) );
-		$sports_sections = (array) $sports_choices->get_terms();
-		foreach ( array_keys( $sports_sections ) as $sports_sub_sections_id ) {
-			$sports_sub_section = new WP_Term_Query( array(
-				'taxonomy' => 'cst_section',
-				'parent' => $sports_sub_sections_id,
-				'hide_empty' => false,
-				'fields' => 'id=>name',
-			) );
-			if ( $sports_sub_section->get_terms() ) {
-				foreach ( $sports_sub_section->get_terms() as $item => $name ) {
-					$sports_sections[ $item ] = $name;
-				}
-			}
-		}
+		$this->_generate_choices();
 		$sports_customizer = array(
-			'sport_section_lead' => array(
-				'section' => 'upper_section_stories',
-				'label' => 'Choose sport lead section',
-				'priority' => 19,
-				'choices' => $choices,
-			),
 			'sport_other_section_1' => array(
 				'section' => 'upper_section_stories',
 				'label' => 'Choose sport other section 1',
 				'priority' => 20,
-				'choices' => $sports_sections,
+				'choices' => $this->sports_section_choices,
 			),
 			'sport_other_section_2' => array(
 				'section' => 'upper_section_stories',
 				'label' => 'Choose sport other section 2',
 				'priority' => 21,
-				'choices' => $sports_sections,
+				'choices' => $this->sports_section_choices,
 			),
 			'sport_other_section_3' => array(
 				'section' => 'upper_section_stories',
 				'label' => 'Choose sport other section 3',
 				'priority' => 22,
-				'choices' => $sports_sections,
+				'choices' => $this->sports_section_choices,
 			),
 			'sport_other_section_4' => array(
 				'section' => 'upper_section_stories',
 				'label' => 'Choose sport other section 4',
 				'priority' => 23,
-				'choices' => $sports_sections,
+				'choices' => $this->sports_section_choices,
 			),
 		);
 
@@ -401,22 +371,13 @@ class CST_Customizer {
 		 * Add a section choice for the five block of stories
 		 * Perhaps create a CST version of this control for reuse
 		 */
-		$this->set_setting( $wp_customize, 'upper_section_section_title', 'absint' );
-		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'upper_section_section_title', array(
-			'type'        => 'select',
-			'priority'    => 10,
-			'section'     => 'upper_section_stories',
-			'settings'    => 'upper_section_section_title',
-			'choices'     => $choices,
-			'label'       => __( 'Choose section title', 'chicagosuntimes' ),
-		) ) );
 		$this->set_setting( $wp_customize, 'lower_section_section_title', 'absint' );
 		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'lower_section_section_title', array(
 			'type'        => 'select',
 			'priority'    => 10,
 			'section'     => 'lower_section_stories',
 			'settings'    => 'lower_section_section_title',
-			'choices'     => $choices,
+			'choices'     => $this->section_choices,
 			'label'       => __( 'Choose section title', 'chicagosuntimes' ),
 		) ) );
 	}
@@ -445,7 +406,6 @@ class CST_Customizer {
 		foreach ( $combined_arrays as $customizer_element_id ) {
 			$this->set_selective_refresh( $wp_customize, $customizer_element_id );
 		}
-		$this->set_selective_refresh( $wp_customize, 'upper_section_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'lower_section_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'hero_related_posts' );
 	}
@@ -485,6 +445,37 @@ class CST_Customizer {
 		) );
 	}
 
+	/**
+	 * Internal function to generate select drop down choices
+	 */
+	private function _generate_choices() {
+		$this->section_choices = get_terms( array(
+			'taxonomy' => 'cst_section',
+			'hide_empty' => false,
+			'fields' => 'id=>name',
+		) );
+		$sports_term = wpcom_vip_get_term_by( 'name', 'Sports', 'cst_section' );
+		$sports_child_terms = new WP_Term_Query( array(
+			'taxonomy' => 'cst_section',
+			'parent' => $sports_term->term_id,
+			'hide_empty' => false,
+			'fields' => 'id=>name',
+		) );
+		$this->sports_section_choices = (array) $sports_child_terms->get_terms();
+		foreach ( array_keys( $this->sports_section_choices ) as $sports_sub_sections_id ) {
+			$sports_sub_section = new WP_Term_Query( array(
+				'taxonomy' => 'cst_section',
+				'parent' => $sports_sub_sections_id,
+				'hide_empty' => false,
+				'fields' => 'id=>name',
+			) );
+			if ( $sports_sub_section->get_terms() ) {
+				foreach ( $sports_sub_section->get_terms() as $item => $name ) {
+					$this->sports_section_choices[ $item ] = $name;
+				}
+			}
+		}
+	}
 	/**
 	 * @param $element
 	 *
@@ -564,7 +555,6 @@ class CST_Customizer {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->single_mini_story( $obj, 'vertical', $element->id, 'feature-landscape' );
 				break;
-			case 'upper_section_section_title':
 			case 'lower_section_section_title':
 				return CST()->frontend->render_section_title( $element->id );
 				break;

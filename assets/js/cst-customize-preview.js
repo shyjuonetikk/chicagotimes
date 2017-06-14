@@ -9,8 +9,12 @@
           updateMe(to);
         });
     });
+    /*
+    * Sports section select auto update
+    * Pull this value when Select2 fires and pass with query request for section constraints
+    */
     var section_select = [
-      "sport_other_section_1","sport_other_section_2","sport_other_section_3","sport_other_section_4"
+      "sport_section_lead", "sport_other_section_1","sport_other_section_2","sport_other_section_3","sport_other_section_4"
     ];
     _.each(section_select, function (setting) {
         api.bind(setting,function(to) {

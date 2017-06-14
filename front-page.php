@@ -39,12 +39,12 @@
 							<div id="root"></div>
 						</div>
 						<div class="other-stories more-stories-container hide-for-xlarge-up">
-							<?php CST()->frontend->render_section_title( 'upper_section_section_title' ); ?>
+							<?php CST()->frontend->sports_heading(); ?>
 							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 						</div>
 					</div>
 					<div class="small-12 columns more-stories-container show-for-xlarge-up" id="hp-section-lead">
-						<?php CST()->frontend->render_section_title( 'upper_section_section_title' ); ?>
+						<?php CST()->frontend->sports_heading(); ?>
 						<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 					</div><!-- /#hp-section-lead -->
 				</div>
