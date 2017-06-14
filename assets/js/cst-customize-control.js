@@ -15,6 +15,7 @@
                     dataType: "json",
                     data: function (term) {
                       /* Retrieve relevant section term id from closest dropdown and pass in cst_section */
+                      var t = term;
                         return {
                             action: "cst_customizer_control_homepage_headlines",
                             nonce: CSTCustomizerControlData.nonce,
@@ -36,22 +37,17 @@
     api.controlConstructor.cst_select_control = api.Control.extend({
         ready: function () {
             var control = this;
-            var el = $("." + control.id);
-            var selectedValue, markupId;
-            var temp = control.id.replace(/_/gi, "-");
+            var element = $("." + control.id);
+            var selectedValue;
             api.Control.prototype.ready.call( control );
-            markupId = "#js-" + temp;
-            CSTCustomizerControl.loadSelect2(el);
-            el.on("change", function (e) {
+            CSTCustomizerControl.loadSelect2(element);
+            element.on("change", function (e) {
                 selectedValue = e.val;
                 api(control.id, function(value) {
                     var updateMe = function(newval) {
                        value.set(newval);
                     };
                     updateMe(selectedValue);
-                    value.bind(function (to) {
-                      jQuery(markupId).html(to);
-                    });
                 });
             });
         }

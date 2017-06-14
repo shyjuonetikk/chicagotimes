@@ -45,12 +45,15 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 					$story_title = 'No article found';
 				}
 			}
+			if ( isset( $this->input_attrs['data-related-section'] ) && ! empty( $this->input_attrs['data-related-section'] ) ) {
+				$related_section = $this->input_attrs['data-related-section'];
+			}
 			?>
 			<label for="<?php echo esc_attr( $this->id ); ?>">
 				<?php esc_html_e( $this->label, 'chicagosuntimes' ); ?>
 			</label>
 			<input class="widefat <?php echo esc_attr( $this->id ); ?>" id="<?php echo esc_attr( $this->id ); ?>" name="<?php echo esc_attr( $this->id ); ?>" value="<?php echo esc_attr( $headline ); ?>"
-				   placeholder="<?php echo esc_attr( $this->input_attrs['placeholder'] ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>"/>
+				   placeholder="<?php echo esc_attr( $this->input_attrs['placeholder'] ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" data-related-section="<?php echo esc_attr( $related_section ); ?>"/>
 			<?php
 		}
 	}

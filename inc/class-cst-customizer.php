@@ -244,21 +244,14 @@ class CST_Customizer {
 		/**
 		 * Upper - Sports - section based stories, custom heading
 		 */
-		$lead_counter = 0;
-		foreach ( array_keys( $this->upper_section_stories ) as $other_story ) {
-			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
-			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
-				'type'        => 'cst_select_control',
-				'priority'    => 20 + $lead_counter,
-				'section'     => 'upper_section_stories',
-				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
-				'input_attrs' => array(
-				'placeholder' => esc_attr__( 'Choose other article' ),
-				),
-			) ) );
-		}
 		$this->_generate_choices();
 		$sports_customizer = array(
+			'sport_section_lead' => array(
+				'section' => 'upper_section_stories',
+				'label' => 'Choose sport lead section',
+				'priority' => 19,
+				'choices' => $this->section_choices,
+			),
 			'sport_other_section_1' => array(
 				'section' => 'upper_section_stories',
 				'label' => 'Choose sport other section 1',
@@ -284,6 +277,20 @@ class CST_Customizer {
 				'choices' => $this->sports_section_choices,
 			),
 		);
+		$lead_counter = 0;
+		foreach ( array_keys( $this->upper_section_stories ) as $other_story ) {
+			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
+			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
+				'type'        => 'cst_select_control',
+				'priority'    => 20 + $lead_counter,
+				'section'     => 'upper_section_stories',
+				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
+				'input_attrs' => array(
+				'placeholder' => esc_attr__( 'Choose other article' ),
+				'data-related-section' => $sports_customizer[ $lead_counter ],
+				),
+			) ) );
+		}
 
 		foreach ( $sports_customizer as $sports_customizer_id => $settings ) {
 			$this->set_setting( $wp_customize, $sports_customizer_id, 'absint' );
