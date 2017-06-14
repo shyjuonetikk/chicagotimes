@@ -2900,7 +2900,6 @@ section#subscribe {
   text-align: center;
   clear: both; }
   .cst-navigation-container ul {
-    height: 26px;
     word-wrap: break-word;
     overflow: hidden;
     margin: 0;
@@ -2910,8 +2909,9 @@ section#subscribe {
       list-style: none;
       background: transparent; }
   .cst-navigation-container a {
-    font-size: 1rem;
-    line-height: 1rem; }
+    font-size: 0.9rem;
+    line-height: 1rem;
+    font-weight: 600; }
   .cst-navigation-container .nav-holder {
     max-width: 62.5rem;
     border-top: 4px solid #231f20; }
@@ -2926,8 +2926,8 @@ section#subscribe {
     .cst-navigation-container .nav-descriptor ul li {
       background: #f8f8f8;
       color: #231f20;
-      line-height: 32px;
-      padding-right: 10px; }
+      line-height: 25px;
+      padding-right: 5px; }
 
 header .contain-to-grid .top-bar {
   background: #231f20; }
