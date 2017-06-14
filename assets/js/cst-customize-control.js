@@ -7,7 +7,6 @@
 
             el.select2({
                 placeholder: CSTCustomizerControlData.placeholder_text,
-                minimumInputLength: 3,
                 allowClear: true,
                 ajax: {
                     quietMillis: 150,
@@ -15,13 +14,20 @@
                     dataType: "json",
                     data: function (term) {
                       /* Retrieve relevant section term id from closest dropdown and pass in cst_section */
-                      var t = term;
-                        return {
-                            action: "cst_customizer_control_homepage_headlines",
-                            nonce: CSTCustomizerControlData.nonce,
-                            cst_section: CSTCustomizerControlData.cst_section,
-                            searchTerm: term
-                        };
+                      var data_object = {
+                        action: "cst_customizer_control_homepage_headlines",
+                        nonce: CSTCustomizerControlData.nonce,
+                        searchTerm: term
+                      };
+                      var related_section_element = el.data("related-section");
+                      if ( related_section_element ) {
+                        var constraining_section = api.control(related_section_element);
+                        var constraining_section_id = constraining_section.settings.default.get();
+                        if ( constraining_section_id ) {
+                          data_object.cst_section = constraining_section_id;
+                        }
+                      }
+                        return data_object;
                     },
                     results: function (data) {
                         return {results: data};

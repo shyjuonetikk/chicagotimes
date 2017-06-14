@@ -278,18 +278,20 @@ class CST_Customizer {
 			),
 		);
 		$lead_counter = 0;
+		$sports_keys = array_keys( $sports_customizer );
 		foreach ( array_keys( $this->upper_section_stories ) as $other_story ) {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
 				'priority'    => 20 + $lead_counter,
 				'section'     => 'upper_section_stories',
-				'label'       => 0 === $lead_counter++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
+				'label'       => 0 === $lead_counter ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
 				'placeholder' => esc_attr__( 'Choose other article' ),
-				'data-related-section' => $sports_customizer[ $lead_counter ],
+				'data-related-section' => $sports_keys[ $lead_counter ],
 				),
 			) ) );
+			$lead_counter++;
 		}
 
 		foreach ( $sports_customizer as $sports_customizer_id => $settings ) {
@@ -588,63 +590,61 @@ class CST_Customizer {
 		$term = sanitize_text_field( $_GET['searchTerm'] );
 		$section = sanitize_text_field( $_GET['cst_section'] );
 
-		if ( '' !== $term && strlen( $term ) >= 3 ) {
-			$search_args = array(
-				'post_type'     => CST()->get_post_types(),
-				's'             => $term,
-				'post_status'   => 'publish',
-				'no_found_rows' => true,
+		$search_args = array(
+			'post_type'     => CST()->get_post_types(),
+			's'             => $term,
+			'post_status'   => 'publish',
+			'no_found_rows' => true,
+		);
+
+		if ( $section ) {
+			$search_args['tax_query'] = array(
+				array(
+					'taxonomy'  => 'cst_section',
+					'field'     => 'id',
+					'terms'     => absint( $section ),
+					'include_children' => false,
+				),
 			);
+		}
+		$search_query = new \WP_Query( $search_args );
 
-			if ( $section ) {
-				$search_args['tax_query'] = array(
-					array(
-						'taxonomy'  => 'cst_section',
-						'field'     => 'id',
-						'terms'     => $section,
-						'include_children' => false,
-					),
-				);
-			}
-			$search_query = new \WP_Query( $search_args );
+		$returning = array();
+		$posts     = array();
 
-			$returning = array();
-			$posts     = array();
+		if ( $search_query->have_posts() ) {
 
-			if ( '' !== $term && strlen( $term ) >= 3 && $search_query->have_posts() ) {
+			while ( $search_query->have_posts() ) : $search_query->the_post();
+				$obj = get_post( get_the_ID() );
+				if ( $obj ) {
+					$content_type  = get_post_type( $obj->ID );
+					$posts['id']   = get_the_ID();
+					$posts['text'] = $obj->post_title . ' [' . $content_type . ']';
+					array_push( $returning, $posts );
+				}
 
-				while ( $search_query->have_posts() ) : $search_query->the_post();
-					$obj = get_post( get_the_ID() );
-					if ( $obj ) {
-						$content_type  = get_post_type( $obj->ID );
-						$posts['id']   = get_the_ID();
-						$posts['text'] = $obj->post_title . ' [' . $content_type . ']';
-						array_push( $returning, $posts );
-					}
-
-				endwhile;
-				if ( ! empty( $wp_customize ) ) {
-					foreach ( $wp_customize->settings() as $setting ) {
-						/**
-						 * Setting.
-						 *
-						 * @var \WP_Customize_Setting $setting
-						 */
-						$setting->preview();
-					}
+			endwhile;
+			if ( ! empty( $wp_customize ) ) {
+				foreach ( $wp_customize->settings() as $setting ) {
+					/**
+					 * Setting.
+					 *
+					 * @var \WP_Customize_Setting $setting
+					 */
+					$setting->preview();
 				}
 			}
-			if ( is_wp_error( $returning ) ) {
-				wp_send_json_error( array(
-					'code' => $returning->get_error_code(),
-					'message' => $returning->get_error_message(),
-					'data' => $returning->get_error_data(),
-				), 400 );
-			} else {
-				//wp_send_json_success( $returning ); sends array vs object (that json_encode sends)
-				echo wp_json_encode( $returning );
-				exit();
-			}
+		}
+		if ( is_wp_error( $returning ) ) {
+			wp_send_json_error( array(
+				'code' => $returning->get_error_code(),
+				'message' => $returning->get_error_message(),
+				'data' => $returning->get_error_data(),
+			), 400 );
+		} else {
+			//wp_send_json_success( $returning ); sends array vs object (that json_encode sends)
+			echo wp_json_encode( $returning );
+			exit();
 		}
 	}
 
