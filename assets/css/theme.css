@@ -3665,6 +3665,9 @@ body.post-gallery-lightbox-active {
       width: 100%; } }
   .homepage_wrapper .stories-container .mini-stories {
     margin-bottom: 0.625rem; }
+    .homepage_wrapper .stories-container .mini-stories .prime-lead-story, .homepage_wrapper .stories-container .mini-stories .remaining-stories {
+      float: left;
+      margin-bottom: 0.5rem; }
     .homepage_wrapper .stories-container .mini-stories h3 {
       font-size: 0.9rem;
       line-height: 1.2rem; }
@@ -3680,6 +3683,19 @@ body.post-gallery-lightbox-active {
         float: left; }
       .homepage_wrapper .stories-container .mini-stories .mini-story .authors {
         margin-left: 0.625rem; }
+    .homepage_wrapper .stories-container .mini-stories .remaining-stories .single-mini-story {
+      float: left; }
+      @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
+        .homepage_wrapper .stories-container .mini-stories .remaining-stories .single-mini-story > .mini-image {
+          padding-right: 0;
+          padding-bottom: 0.9375rem; } }
+      @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+        .homepage_wrapper .stories-container .mini-stories .remaining-stories .single-mini-story > .mini-image {
+          padding-right: 0;
+          padding-bottom: 0.9375rem; } }
+      @media only screen and (max-width: 40em) and (orientation: portrait) {
+        .homepage_wrapper .stories-container .mini-stories .remaining-stories .single-mini-story > .prime img {
+          width: 100%; } }
     .homepage_wrapper .stories-container .mini-stories .byline {
       margin-top: 0.5rem; }
   .homepage_wrapper .stories-container h3 {
@@ -3725,6 +3741,9 @@ body.post-gallery-lightbox-active {
       font-weight: 600; }
     .homepage_wrapper .other-stories .list li a {
       color: #231f20; }
+@media only screen and (max-width: 40em) and (orientation: portrait) {
+  .homepage_wrapper .other-lead-stories .lead-mini-story .prime .image img {
+    width: 100%; } }
 @media only screen and (max-width: 40em) {
   .homepage_wrapper .sidebar {
     clear: both; } }
@@ -3788,9 +3807,9 @@ body.post-gallery-lightbox-active {
     background: white; }
 @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
   .homepage_wrapper .stories-container .stories {
-    width: 57%; }
+    width: 58%; }
   .homepage_wrapper .stories-container .sidebar {
-    width: 43%; }
+    width: 42%; }
   .homepage_wrapper .stories-container .single-mini-story .medium-4 {
     width: 50%; }
   .homepage_wrapper .stories-container .single-mini-story .medium-8 {

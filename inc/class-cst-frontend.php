@@ -139,7 +139,7 @@ class CST_Frontend {
 		// Foundation
 		wp_enqueue_script( 'foundation', get_template_directory_uri() . '/assets/js/vendor/foundation.min.js', array( 'jquery' ), '5.5.3' );
 		wp_enqueue_style( 'foundation', get_template_directory_uri() . '/assets/css/vendor/foundation.min.css', false, '5.5.3' );
-		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '5.2.3' );
+		wp_enqueue_script( 'modernizr', get_template_directory_uri() . '/assets/js/vendor/modernizr.js', array( 'jquery' ), '6.0.0' );
 		// Fonts
 		if ( is_post_type_archive( 'cst_feature' ) ) {
 			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i|Open+Sans:400,400i,700,700i&amp;subset=latin' );
@@ -1030,49 +1030,6 @@ class CST_Frontend {
 		<?php
 		}
 	}
-	/**
-	* A 2 x 2 block of content, each have image with title and anchored
-	* Optionally a 5th piece of content on left of 2 x 2 block of content
- 	* @TODO rewrite to use mini_stories_content_block
-	* @param $content_query
-	*/
-	public function cst_mini_stories_content_block( $content_query ) {
-
-		$cache_key = md5( wp_json_encode( $content_query ) );
-		$close_me = false;
-		$cached_content = wpcom_vip_cache_get( $cache_key );
-		if ( false === $cached_content || WP_DEBUG ) {
-			$items = new \WP_Query( $content_query );
-			ob_start();
-			if ( $items->have_posts() ) { ?>
-			<div class="row mini-stories" data-equalizer>
-					<?php while ( $items->have_posts() ) {
-					$items->the_post();
-					$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-					if ( 0 === $items->current_post && ( 0 !== $items->post_count%2 ) ) {
-						// First item and odd total
-						?>
-<div class="single-mini-story small-12 medium-4">
-	<?php
-	$this->single_mini_story( $obj, 'prime' );
-	$close_me = true;
-	?>
-</div><!-- First one -->
-<div class="single-mini-story small-12 medium-8">
-					<?php } else {
-						$this->single_mini_story( $obj, 'regular' );
-					} ?>
-				<?php if ( $close_me && ( $items->post_count - 1 ) === $items->current_post ) { ?>
-				</div><!-- right four -->
-				<?php } ?>
-			<?php } ?>
-			</div>
-			<?php }
-			$cached_content = ob_get_clean();
-			wpcom_vip_cache_set( $cache_key, $cached_content, 'default', 5 * MINUTE_IN_SECONDS );
-		}
-		echo wp_kses_post( $cached_content );
-	}
 
 	/**
 	* Display two column stories:
@@ -1200,13 +1157,13 @@ class CST_Frontend {
 				if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
 						// First item and odd total
 						?>
-						<div class="single-mini-story small-12 medium-4">
+						<div class="prime-lead-story small-12 medium-4">
 							<?php
 							$this->single_mini_story( $obj, 'prime', $partial_id, 'no' );
 							$close_me = true;
 							?>
 						</div><!-- First one -->
-						<div class="single-mini-story small-12 medium-8">
+						<div class="remaining-stories small-12 medium-8 columns">
 					<?php } else { ?>
 						<?php $this->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
 					<?php }
@@ -1231,7 +1188,7 @@ class CST_Frontend {
 	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
 		$layout['prime'] = array(
 			'wrapper_class' => '',
-			'image_class' => 'small-12',
+			'image_class' => 'small-12 prime',
 			'image_size' => 'secondary-wells',
 			'title_class' => 'small-12',
 			'watch' => '',
@@ -1240,7 +1197,7 @@ class CST_Frontend {
 			'wrapper_class' => 'medium-6',
 			'image_class' => 'small-3 medium-4 large-4 mini-image',
 			'image_size' => 'chiwire-small-square',
-			'title_class' => 'small-9 medium-8 large-8',
+			'title_class' => 'small-9 medium-8 large-8 mini-title',
 			'watch' => 'data-equalizer-watch',
 		);
 		$layout['vertical'] = array(
@@ -1254,8 +1211,8 @@ class CST_Frontend {
 			$author          = $this->hp_get_article_authors( $obj );
 		}
 		?>
-		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?>">
-		<div class="single-mini-story small-12 <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
+		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?> single-mini-story small-12 <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>">
+		<div <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
 		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['image_class'] ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 			<?php
@@ -2917,6 +2874,15 @@ ready(fn);
 		}
 	}
 
+	/**
+	* Provide Chicago Sport heading, markup and link to section for homepage
+	*/
+	public function sports_heading() {
+		$sports_term = wpcom_vip_get_term_link( 'sports','cst_section' );
+		if ( ! is_wp_error( $sports_term ) ) { ?>
+			<h3 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h3>
+		<?php }
+	}
 
 	/**
 	* @param $headline
@@ -2941,7 +2907,7 @@ ready(fn);
 ?>
 <div class="columns small-12">
 	<div class="row">
-		<div class="columns small-12 medium-6 large-6">
+		<div class="columns small-12 medium-6 large-6 prime">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<span class="image"><?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?></span>
 			<div class="hide-for-landscape">
