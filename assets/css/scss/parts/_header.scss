@@ -143,7 +143,6 @@
 	text-align: center;
 	clear: both;
 	ul {
-		height: 26px;
 		word-wrap: break-word;
 		overflow: hidden;
 		margin:0;
@@ -155,10 +154,11 @@
 		}
 	}
 	a {
-		font-size: 1rem;
+		font-size: 0.9rem;
 		line-height:1rem;
 		color:$anchor-highlight;
 		font-family: $article_content;
+		font-weight: 600;
 	}
 	.nav-holder {
 		border-top: 4px solid $cst_black;
@@ -176,8 +176,8 @@
 			li {
 				background: $light_grey;
 				color: $cst_black;
-				line-height:32px;
-				padding-right:10px;
+				line-height:25px;
+				padding-right:5px;
 			}
 		}
 	}
