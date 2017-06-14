@@ -48,7 +48,7 @@
 						<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 					</div><!-- /#hp-section-lead -->
 				</div>
-				<div class="cst-ad-container"><img src="http://placehold.it/970x90/a0a0d0/130100&amp;text=[nativo]"></div>
+				<div class="cst-ad-container"><img src="http://placehold.it/970x91/90b0d0/130100&amp;text=[nativo]"></div>
 				<hr>
 				<?php CST()->frontend->more_stories_content(); ?>
 				<div class="lower-section-stories">
