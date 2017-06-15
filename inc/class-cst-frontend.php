@@ -1161,7 +1161,7 @@ class CST_Frontend {
 							$close_me = true;
 							?>
 						</div><!-- First one -->
-						<div class="remaining-stories small-12 medium-8 columns">
+						<div class="remaining-stories small-12 medium-8 columns" data-equalizer>
 					<?php } else { ?>
 						<?php $this->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
 					<?php }
@@ -1179,38 +1179,35 @@ class CST_Frontend {
 	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
 	* @param $obj \CST\Objects\Post
 	* @param $layout_type
+	* @param $partial_id string Customizer reference DOM id/class
 	* @param $watch string yes to include Foundation equalizer watch parameter
 	* @param $custom_landscape_class string Include custom class modifier to landscape markup
-	* @param $partial_id string Customizer reference DOM id/class
+	* @param $render_partial Boolean true if this function called from Customizer Render callback
 	*/
-	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '' ) {
+	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '', $render_partial = false ) {
 		$layout['prime'] = array(
 			'wrapper_class' => '',
 			'image_class' => 'small-12 prime',
 			'image_size' => 'secondary-wells',
 			'title_class' => 'small-12',
-			'watch' => '',
 		);
 		$layout['regular'] = array(
-			'wrapper_class' => 'medium-6',
+			'wrapper_class' => $render_partial ? '' : 'small-12 medium-6',
 			'image_class' => 'small-3 medium-4 large-4 mini-image',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-8 large-8 mini-title',
-			'watch' => 'data-equalizer-watch',
 		);
 		$layout['vertical'] = array(
-			'wrapper_class' => 'medium-6',
+			'wrapper_class' => $render_partial ? '' : 'small-12 medium-6',
 			'image_class' => 'small-3 medium-12 large-4',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-12 large-8',
-			'watch' => 'data-equalizer-watch',
 		);
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = $this->hp_get_article_authors( $obj );
 		}
 		?>
-		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?> single-mini-story small-12 <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>">
-		<div <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
+		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
 		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['image_class'] ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 			<?php
@@ -1236,7 +1233,6 @@ class CST_Frontend {
 			</a>
 		</div>
 		<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
-		</div>
 		</div>
 		<?php
 	}

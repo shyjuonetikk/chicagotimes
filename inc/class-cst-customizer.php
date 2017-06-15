@@ -566,7 +566,7 @@ class CST_Customizer {
 			case 'cst_podcast_section_headlines_4':
 			case 'cst_podcast_section_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes' );
+				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes', '', true );
 				break;
 			case 'cst_homepage_section_headlines_1':
 			case 'cst_podcast_section_headlines_1':
@@ -592,7 +592,7 @@ class CST_Customizer {
 			case 'featured_story_block_headlines_4':
 			case 'featured_story_block_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-				return CST()->frontend->single_mini_story( $obj, 'vertical', $element->id, 'feature-landscape' );
+				return CST()->frontend->single_mini_story( $obj, 'vertical', $element->id, 'feature-landscape', true );
 				break;
 			case 'lower_section_section_title':
 				return CST()->frontend->render_section_title( $element->id );

@@ -83,10 +83,6 @@
 						dynamic_sidebar( 'homepage_sidebar_two' );
 } ?>
 				</li>
-				<li>
-					<hr>
-					<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' ); ?>
-				</li>
 				<li class="show-for-medium-up">
 					<hr>
 					<?php if ( is_active_sidebar( 'homepage_sidebar_three' ) ) {
