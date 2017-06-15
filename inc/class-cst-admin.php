@@ -424,6 +424,16 @@ class CST_Admin {
 				)
 			) );
 		$fm->add_meta_box( esc_html__( 'Newsletter Tag', 'chicagosuntimes' ), array( 'cst_article' ), 'normal', 'high' );
+		$fma = new Fieldmanager_TextArea( array(
+			'name'    => 'cst_long_excerpt',
+			'label'   => false,
+			'description'           => esc_html__( 'Long excerpt (max 300 characters).', 'chicagosuntimes' ),
+			'attributes' => array(
+				'cols' => 200,
+				'rows' => 3,
+			)
+		) );
+		$fma->add_meta_box( esc_html__( 'Long Excerpt', 'chicagosuntimes' ), array( 'cst_article', 'cst_gallery' ), 'normal', 'default' );
 
 	if ( is_admin() ) {
 		$fm = new Fieldmanager_Select( array( 
