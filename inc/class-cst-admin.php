@@ -429,7 +429,7 @@ class CST_Admin {
 			'label'   => false,
 			'description'           => esc_html__( 'Long excerpt (max 300 characters).', 'chicagosuntimes' ),
 			'attributes' => array(
-				'cols' => 200,
+				'cols' => 150,
 				'rows' => 3,
 			)
 		) );
