@@ -35,7 +35,7 @@
 						</div><!-- hp-other-lead -->
 						<div class="other-stories show-for-large-up">
 							<hr>
-							<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
+							<?php CST()->frontend->render_section_text_title( 'chartbeat_section_title' ); ?>
 							<div id="root"></div>
 						</div>
 						<div class="other-stories more-stories-container hide-for-xlarge-up">
@@ -82,10 +82,6 @@
 					<?php if ( is_active_sidebar( 'homepage_sidebar_two' ) ) {
 						dynamic_sidebar( 'homepage_sidebar_two' );
 } ?>
-				</li>
-				<li>
-					<hr>
-					<?php the_widget( 'CST_Chartbeat_Currently_Viewing_Widget' ); ?>
 				</li>
 				<li class="show-for-medium-up">
 					<hr>
