@@ -35,7 +35,7 @@
 						</div><!-- hp-other-lead -->
 						<div class="other-stories show-for-large-up">
 							<hr>
-							<h2>Trending in the Chicago Sun-Times (Chartbeat)</h2>
+							<?php CST()->frontend->render_section_text_title( 'chartbeat_section_title' ); ?>
 							<div id="root"></div>
 						</div>
 						<div class="other-stories more-stories-container hide-for-xlarge-up">

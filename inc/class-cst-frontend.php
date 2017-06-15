@@ -1078,9 +1078,7 @@ class CST_Frontend {
 			<hr>
 			<div class="row">
 				<div class="columns small-12">
-					<?php if ( get_query_var( 'showads', false ) ) { ?>
-						<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
-					<?php } ?>
+					<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
 				</div>
 			</div>
 		</div><!-- /more-stories-content -->
@@ -2810,6 +2808,19 @@ ready(fn);
 <?php
 		}
 
+	}
+	/**
+	* @param $section_theme_mod
+	*
+	* Display heading content / markup from $section_theme_mod as an anchor link to a section front url
+	*/
+	public function render_section_text_title( $section_theme_mod ) {
+		$section_title_text = get_theme_mod( $section_theme_mod );
+?>
+<div class="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
+	<h3 class="more-sub-head"><?php echo esc_html( $section_title_text ); ?></h3>
+</div>
+<?php
 	}
 	/**
 	* Determine whether to display related stories,

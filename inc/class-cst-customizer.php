@@ -137,38 +137,45 @@ class CST_Customizer {
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
+		$wp_customize->add_section( 'hp_chartbeat_stories', array(
+			'title' => __( 'Chartbeat stories', 'chicagosuntimes' ),
+			'description' => __( 'Configure Chartbeat', 'chicagosuntimes' ),
+			'priority' => 190,
+			'capability' => $this->capability,
+			'active_callback' => 'is_front_page',
+		) );
 		$wp_customize->add_section( 'upper_section_stories', array(
 			'title' => __( 'Sports section stories', 'chicagosuntimes' ),
 			'description' => __( 'Choose sports section stories', 'chicagosuntimes' ),
-			'priority' => 190,
+			'priority' => 200,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'featured_stories_section', array(
 			'title' => __( 'Features', 'chicagosuntimes' ),
 			'description' => __( 'Choose Features stories', 'chicagosuntimes' ),
-			'priority' => 200,
+			'priority' => 210,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'lower_section_stories', array(
 			'title' => __( 'Lower section stories', 'chicagosuntimes' ),
 			'description' => __( 'Choose lower section stories', 'chicagosuntimes' ),
-			'priority' => 210,
+			'priority' => 220,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'podcast_section_stories', array(
 			'title' => __( 'Podcast section stories', 'chicagosuntimes' ),
 			'description' => __( 'Choose podcast stories', 'chicagosuntimes' ),
-			'priority' => 220,
+			'priority' => 230,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'entertainment_section_stories', array(
 			'title' => __( 'Entertainment', 'chicagosuntimes' ),
 			'description' => __( 'Choose entertainment stories', 'chicagosuntimes' ),
-			'priority' => 230,
+			'priority' => 240,
 			'capability' => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
@@ -241,6 +248,28 @@ class CST_Customizer {
 			) ) );
 			$photo_story_counter++;
 		}
+		/**
+		 * Chartbeat
+		 */
+		$this->set_setting( $wp_customize, 'chartbeat_config', 'absint' );
+		$this->set_setting( $wp_customize, 'chartbeat_section_title', 'esc_html' );
+		$wp_customize->add_control( 'chartbeat_config', array(
+			'type'        => 'radio',
+			'priority'    => 25,
+			'section'     => 'hp_chartbeat_stories',
+			'label'       => __( 'What should Chartbeat return?', 'chicagosuntimes' ),
+			'choices' => array(
+				1 => 'Concurrents (default)',
+				2 => 'Returning',
+				3 => 'Engaged time',
+			)
+		)  );
+		$wp_customize->add_control( 'chartbeat_section_title', array(
+			'type'        => 'text',
+			'priority'    => 20,
+			'section'     => 'hp_chartbeat_stories',
+			'label'       => __( 'Choose title', 'chicagosuntimes' ),
+		)  );
 		/**
 		 * Upper - Sports - section based stories, custom heading
 		 */
@@ -416,6 +445,7 @@ class CST_Customizer {
 			$this->set_selective_refresh( $wp_customize, $customizer_element_id );
 		}
 		$this->set_selective_refresh( $wp_customize, 'lower_section_section_title' );
+		$this->set_selective_refresh( $wp_customize, 'chartbeat_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'hero_related_posts' );
 	}
 
@@ -566,6 +596,9 @@ class CST_Customizer {
 				break;
 			case 'lower_section_section_title':
 				return CST()->frontend->render_section_title( $element->id );
+				break;
+			case 'chartbeat_section_title':
+				return CST()->frontend->render_section_text_title( $element->id );
 				break;
 		}
 		return '';
