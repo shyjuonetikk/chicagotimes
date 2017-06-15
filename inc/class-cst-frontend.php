@@ -2808,7 +2808,7 @@ ready(fn);
 	/**
 	* @param $section_theme_mod
 	*
-	* Display heading content / markup from $section_theme_mod as an anchor link to a section front url
+	* Display textual heading content / markup from $section_theme_mod
 	*/
 	public function render_section_text_title( $section_theme_mod ) {
 		$section_title_text = get_theme_mod( $section_theme_mod );
