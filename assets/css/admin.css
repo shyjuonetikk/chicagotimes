@@ -16,7 +16,9 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 #postexcerpt .inside p:nth-child(0) {
 	visibility: hidden;
 }
-
+.fm-cst_long_excerpt textarea {
+    width:100%;
+}
 .media-frame-content label[data-setting="caption"] #character-limit {
 	width: 65%;
 	float: right;
