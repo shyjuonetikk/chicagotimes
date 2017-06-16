@@ -468,3 +468,12 @@ header {
 		}
 	}
 }
+@media #{$xmedium-only} {
+	header {
+		.contain-to-grid {
+			.top-bar {
+				max-width: 100%;
+			}
+		}
+	}
+}

@@ -3109,6 +3109,10 @@ header .contain-to-grid .cst-row {
             header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
               display: block; } }
 
+@media only screen and (min-width:48em) and (max-width:64em) {
+  header .contain-to-grid .top-bar {
+    max-width: 100%; } }
+
 #social-links {
   position: absolute;
   right: 80px;
