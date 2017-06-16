@@ -3609,17 +3609,21 @@ body.post-gallery-lightbox-active {
       font-size: 1.9rem;
       line-height: 2rem;
       font-weight: 700; }
-    .homepage_wrapper .stories-container .stories .lead-story .excerpt .image, .homepage_wrapper .stories-container .stories .hero-story .excerpt .image {
+    .homepage_wrapper .stories-container .stories .lead-story .excerpt, .homepage_wrapper .stories-container .stories .hero-story .excerpt {
+      float: left; }
+    .homepage_wrapper .stories-container .stories .lead-story .image, .homepage_wrapper .stories-container .stories .hero-story .image {
       float: right;
       margin: 0.4rem 0 0.4rem 0.4rem; }
     .homepage_wrapper .stories-container .stories .lead-story:last-child, .homepage_wrapper .stories-container .stories .hero-story:last-child {
       border-bottom: none; }
-  .homepage_wrapper .stories-container .stories .related-stories .related-title {
-    list-style-type: square; }
-    .homepage_wrapper .stories-container .stories .related-stories .related-title h3 {
-      font-weight: 600;
-      font-size: 0.8rem;
-      line-height: 1.1rem; }
+  .homepage_wrapper .stories-container .stories .related-stories {
+    float: left; }
+    .homepage_wrapper .stories-container .stories .related-stories .related-title {
+      list-style-type: square; }
+      .homepage_wrapper .stories-container .stories .related-stories .related-title h3 {
+        font-weight: 600;
+        font-size: 0.8rem;
+        line-height: 1.1rem; }
   .homepage_wrapper .stories-container .more-stories-container h3 {
     font-size: 0.9rem;
     line-height: 1.2rem; }
@@ -3672,6 +3676,34 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .stories-container .mini-stories .prime-lead-story, .homepage_wrapper .stories-container .mini-stories .remaining-stories {
       float: left;
       margin-bottom: 0.5rem; }
+    @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
+      .homepage_wrapper .stories-container .mini-stories .prime-lead-story {
+        width: 100%; }
+        .homepage_wrapper .stories-container .mini-stories .prime-lead-story .prime {
+          padding-right: 0; }
+        .homepage_wrapper .stories-container .mini-stories .prime-lead-story .prime-excerpt .excerpt {
+          font-size: 0.8rem;
+          line-height: 1.2; }
+      .homepage_wrapper .stories-container .mini-stories .remaining-stories {
+        width: 100%; } }
+    @media only screen and (min-width:64.063em) and (max-width:90em) and (orientation: landscape) {
+      .homepage_wrapper .stories-container .mini-stories .prime-lead-story {
+        width: 33.33333%; }
+        .homepage_wrapper .stories-container .mini-stories .prime-lead-story .prime {
+          padding-right: 0;
+          width: 100%; }
+        .homepage_wrapper .stories-container .mini-stories .prime-lead-story .title-container {
+          width: 100%; }
+        .homepage_wrapper .stories-container .mini-stories .prime-lead-story .prime-excerpt .excerpt {
+          font-size: 0.8rem;
+          line-height: 1.2; }
+      .homepage_wrapper .stories-container .mini-stories .remaining-stories {
+        width: 66.66667%; } }
+    @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
+      .homepage_wrapper .stories-container .mini-stories .prime-lead-story {
+        width: 100%; }
+      .homepage_wrapper .stories-container .mini-stories .remaining-stories {
+        width: 100%; } }
     .homepage_wrapper .stories-container .mini-stories h3 {
       font-size: 0.9rem;
       line-height: 1.2rem; }
@@ -3687,12 +3719,15 @@ body.post-gallery-lightbox-active {
         float: left; }
       .homepage_wrapper .stories-container .mini-stories .mini-story .authors {
         margin-left: 0.625rem; }
+    @media only screen and (max-width: 40em) and (orientation: portrait) {
+      .homepage_wrapper .stories-container .mini-stories .single-mini-story > .prime img {
+        width: 100%; } }
     .homepage_wrapper .stories-container .mini-stories .remaining-stories .single-mini-story {
       float: left; }
       @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
         .homepage_wrapper .stories-container .mini-stories .remaining-stories .single-mini-story > .mini-image {
           padding-right: 0;
-          padding-bottom: 0.9375rem; } }
+          padding-bottom: 0.4375rem; } }
       @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
         .homepage_wrapper .stories-container .mini-stories .remaining-stories .single-mini-story > .mini-image {
           padding-right: 0;
