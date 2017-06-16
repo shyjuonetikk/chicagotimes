@@ -1147,7 +1147,7 @@ class CST_Frontend {
 		$count_headlines = count( $headlines );
 		$counter = 0;
 		$close_me = false; ?>
-		<div class="row mini-stories" >
+		<div class="row mini-stories small-collapse" >
 		<?php $partials = array_keys( $headlines ); ?>
 			<?php foreach ( $partials as $partial_id ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
@@ -1157,7 +1157,7 @@ class CST_Frontend {
 						?>
 						<div class="prime-lead-story small-12 medium-4">
 							<?php
-							$this->single_mini_story( $obj, 'prime', $partial_id, 'no' );
+							$this->single_mini_story( $obj, 'prime', $partial_id, 'no', 'title-container' );
 							$close_me = true;
 							?>
 						</div><!-- First one -->
@@ -1187,9 +1187,9 @@ class CST_Frontend {
 	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '', $render_partial = false ) {
 		$layout['prime'] = array(
 			'wrapper_class' => '',
-			'image_class' => 'small-12 prime',
+			'image_class' => 'small-12 medium-6 large-12 prime',
 			'image_size' => 'secondary-wells',
-			'title_class' => 'small-12',
+			'title_class' => 'small-12 medium-6 large-12',
 		);
 		$layout['regular'] = array(
 			'wrapper_class' => $render_partial ? '' : 'small-12 medium-6',
@@ -1205,6 +1205,9 @@ class CST_Frontend {
 		);
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = $this->hp_get_article_authors( $obj );
+			remove_filter( 'the_excerpt', 'wpautop' );
+			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+			add_filter( 'the_excerpt', 'wpautop' );
 		}
 		?>
 		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
@@ -1226,13 +1229,31 @@ class CST_Frontend {
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
+			<?php if ( 'prime' === $layout_type ) { ?>
+			<div class="prime-excerpt">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+					<p class="excerpt">
+						<?php echo wp_kses_post( $story_excerpt ); ?>
+					</p>
+				</a>
+			</div>
+			<?php } ?>
 		</div>
 		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
+			<?php if ( 'prime' === $layout_type ) { ?>
+			<div class="prime-excerpt">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+					<p class="excerpt">
+						<?php echo wp_kses_post( $story_excerpt ); ?>
+					</p>
+				</a>
+			</div>
+			<?php } ?>
 		</div>
-		<div class="columns small-12 show-for-xlarge-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
+		<div class="columns small-12 show-for-large-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
 		</div>
 		<?php
 	}
@@ -2744,7 +2765,7 @@ ready(fn);
 </a>
 	<div class="columns small-12 medium-6 large-12">
 		<div class="row">
-			<div class="show-for-portrait show-for-touch">
+			<div class="hidden-for-large-up">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 				<span class="image">
 				<?php
@@ -2869,7 +2890,7 @@ ready(fn);
 				<?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?>
 			</span>
 	<p class="excerpt">
-			<span class="image show-for-large-up show-for-touch">
+			<span class="image show-for-medium-up">
 				<?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $small_image_markup ); } ?>
 			</span>
 		<?php echo wp_kses_post( $story_excerpt ); ?>
