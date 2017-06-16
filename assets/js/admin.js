@@ -35,11 +35,16 @@
 				this.limitTheField( this.titleContent, 70 );
 			}
 
+			if ( $(this.longExcerptTextArea).length ) {
+				this.limitTheField( this.longExcerptTextArea, 300 );
+			}
+
 		},
 
 		cacheElements: function() {
 
 			this.excerptTextArea = $('#postexcerpt .inside textarea');
+			this.longExcerptTextArea = $('#fm_meta_box_cst_long_excerpt .inside textarea');
 			this.description = $('#postexcerpt .inside p');
 
 			this.attachmentCaption = $('#attachment_caption');
@@ -87,8 +92,8 @@
 
 		limitTheField: function( theField, maxCharacters ) {
 			theField.attr('maxlength', maxCharacters);
-			theField.after('<p id="character-limit"><span id="remaining-characters"></span> characters remaining.</p>');
-			var remainingCharacters = $('#remaining-characters');
+			theField.after('<p id="character-limit"><span class="remaining-characters"></span> characters remaining.</p>');
+			var remainingCharacters = $(theField).parent().find('.remaining-characters');
 			remainingCharacters.html(maxCharacters - theField.val().length);
 			theField.on('keyup', function(e) {
 				var textRemaining = maxCharacters - $(this).val().length;
