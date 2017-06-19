@@ -20,7 +20,6 @@
       this.body = $('body');
       this.primaryNavigation = $('#fixed-nav-wrapper');
       this.topBarSection = $('.top-bar-section');
-      this.topLogos = $('#top-logos');
           this.wpAdminBar = $('#wpadminbar');
 
       this.scrollToolbarHeight = this.primaryNavigation.outerHeight();

@@ -95,13 +95,13 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( 'cst_homepage_more_headlines', get_template_directory_uri() . '/assets/js/cst-homepage-more-headlines.js', array( 'jquery' ) );
+		wp_enqueue_script( 'cst_homepage_more_headlines', esc_url( get_template_directory_uri() . '/assets/js/cst-homepage-more-headlines.js' ), array( 'jquery' ) );
 		wp_localize_script( 'cst_homepage_more_headlines', 'CSTMoreHeadlinesData', array(
 			'placeholder_text' => esc_html__( 'Search for content to feature', 'chicagosuntimes' ),
 			'nonce'            => wp_create_nonce( 'cst_homepage_more_headlines' ),
 		) );
-		wp_enqueue_style( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' );
-		wp_enqueue_script( 'select2', get_template_directory_uri() . '/assets/js/vendor/select2/select2.min.js' );
+		wp_enqueue_style( 'select2', esc_url( get_template_directory_uri() . '/assets/js/vendor/select2/select2.css' ) );
+		wp_enqueue_script( 'select2', esc_url( get_template_directory_uri() . '/assets/js/vendor/select2/select2.min.js' ) );
 		wp_enqueue_style( 'dashicons' );
 	}
 
