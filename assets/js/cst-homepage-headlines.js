@@ -11,7 +11,7 @@
 
         bindEvents: function() {
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-headlines-one");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -22,7 +22,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-headlines-two");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -33,7 +33,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-headlines-three");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -44,7 +44,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-headlines-four");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -65,10 +65,10 @@
                 ajax: {
                     quietMillis: 150,
                     url: ajaxurl,
-                    dataType: 'json',
+                    dataType: "json",
                     data: function ( term ) {
                         return {
-                            action: 'cst_homepage_headlines_get_posts',
+                            action: "cst_homepage_headlines_get_posts",
                             nonce: CSTCategoryHeadlinesData.nonce,
                             searchTerm: term
                         };
@@ -78,7 +78,7 @@
                     }
                 },
                 initSelection: function( el, callback ) {
-                    callback( { id: el.val(), text: el.data('story-title' ) } );
+                    callback( { id: el.val(), text: el.data("story-title" ) } );
                 }
             });
 
