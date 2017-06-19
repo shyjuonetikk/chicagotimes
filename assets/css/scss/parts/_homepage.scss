@@ -170,7 +170,7 @@
 /* BREAKING NEWS */
 .breaking-news-story,
 .breaking-section-story {
-	background: $anchor-highlight;
+	background-color: $red;
 }
 .bears-cube-story {
 
@@ -577,7 +577,12 @@
 			}
 		}
 	}
-
+	.hp-bn-wrapper {
+		ul {
+			list-style: none;
+			margin-left: 0;
+		}
+	}
 	section#secondary-wells {
 
 		.dfp-cube {
