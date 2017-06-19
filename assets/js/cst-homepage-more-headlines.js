@@ -12,7 +12,7 @@
 
         bindEvents: function() {
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-one");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -23,7 +23,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-two");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -34,7 +34,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-three");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -45,7 +45,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-four");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -56,7 +56,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-five");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -67,7 +67,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-six");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -78,7 +78,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-seven");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -89,7 +89,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-eight");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -100,7 +100,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-nine");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -111,7 +111,7 @@
                 this.loadSelect2( $( el ) );
             }, this ) );
 
-            $( document ).on( 'widget-updated widget-added', $.proxy( function( event, widget ){
+            $( document ).on( "widget-updated widget-added", $.proxy( function( event, widget ){
                 var el = widget.find(".cst-homepage-more-headlines-ten");
                 if ( el.length ) {
                     this.loadSelect2( el );
@@ -136,10 +136,10 @@
                 ajax: {
                     quietMillis: 150,
                     url: ajaxurl,
-                    dataType: 'json',
+                    dataType: "json",
                     data: function ( term ) {
                         return {
-                            action: 'cst_homepage_more_headlines_get_posts',
+                            action: "cst_homepage_more_headlines_get_posts",
                             nonce: CSTMoreHeadlinesData.nonce,
                             searchTerm: term
                         };
@@ -149,16 +149,16 @@
                     }
                 },
                 initSelection: function( el, callback ) {
-                    callback( { id: el.val(), text: el.data('story-title' ) } );
+                    callback( { id: el.val(), text: el.data("story-title" ) } );
                 }
             });
 
         },
       setSort: function () {
-        jQuery('.cst-headline-sort').sortable({
+        jQuery(".cst-headline-sort").sortable({
 
           revert: true,
-          cursor: 'move'
+          cursor: "move"
 
         });
       }

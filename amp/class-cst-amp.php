@@ -32,6 +32,7 @@ class CST_AMP {
 
 		add_filter( 'amp_post_template_file', array( $this, 'amp_set_custom_template' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
+		add_filter( 'amp_post_template_body_start', array( $this, 'amp_set_google_tag_manager' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_smart_banner' ) );
 		add_filter( 'amp_post_template_data', [ $this, 'amp_set_site_icon_url' ] );
 		add_filter( 'amp_site_icon_url', [ $this, 'amp_set_site_icon_url' ] );
@@ -308,6 +309,20 @@ class CST_AMP {
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
 	<?php
 
+	}
+
+	/**
+	 * Beginning of body tag for Google Tag Manager as per GTM implementation
+	 */
+	function amp_set_google_tag_manager() {
+		$site = CST()->dfp_handler->get_parent_dfp_inventory();
+		if ( 'chicago.suntimes.com' === $site ) {
+			return;
+		}
+		?>
+<!-- Google Tag Manager -->
+<amp-analytics config="https://www.googletagmanager.com/amp.json?id=GTM-N3SQKLN&gtm.url=SOURCE_URL" data-credentials="include"></amp-analytics>
+<?php
 	}
 
 	/**

@@ -476,6 +476,9 @@ class CST {
 		}
 
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
+		if ( class_exists( 'Jetpack_Custom_CSS' ) && method_exists( 'Jetpack_Custom_CSS', 'disable' ) ) {
+			add_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 11 );
+		}
 	}
 
 	/**
@@ -979,7 +982,13 @@ class CST {
 		);
 
 		add_feed( 'print', array( $this, 'render_print_feed' ) );
-
+		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true, 'edit_theme_options' => true ) );
+		// get the the role object
+		$editor = get_role( 'editor' );
+		if ( $editor ) {
+			$editor->add_cap( 'edit_theme_options' );
+			$editor->add_cap( 'customize' );
+		}
 
 	}
 
