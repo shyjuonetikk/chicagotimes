@@ -2124,7 +2124,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	*/
 	public function enqueue_chartbeat_react_engagement_script() {
 		if ( is_front_page() ) {
-			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/main.a7ae93e0-cb-dev-test.js' ), array(), null, true );
+			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/main.821eef7f-cb-dev-test.js' ), array(), null, true );
 		}
 	}
 	/**
