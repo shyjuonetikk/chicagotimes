@@ -615,10 +615,6 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
-		add_filter( 'query_vars', function( $vars ) {
-			$vars[] = 'showads';
-			return $vars;
-		} );
 	}
 
 	/**
