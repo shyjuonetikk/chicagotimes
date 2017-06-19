@@ -1,5 +1,5 @@
 /* global ajaxurl,CSTCustomizerControlData,CSTCustomizerControl,jQuery */
-(function(api, $) {
+(function (api, $) {
   "use strict";
   var CSTCustomizerControl = {
 
@@ -59,4 +59,4 @@
     }
   });
 
-})( wp.customize,jQuery);
+})(wp.customize, jQuery);
