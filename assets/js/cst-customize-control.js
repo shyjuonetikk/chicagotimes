@@ -20,10 +20,10 @@
               searchTerm: term
             };
             var related_section_element = el.data("related-section");
-            if ( related_section_element ) {
+            if (related_section_element) {
               var constraining_section = api.control(related_section_element);
               var constraining_section_id = constraining_section.settings.default.get();
-              if ( constraining_section_id ) {
+              if (constraining_section_id) {
                 data_object.cst_section = constraining_section_id;
               }
             }
@@ -45,12 +45,12 @@
       var control = this;
       var element = $("." + control.id);
       var selectedValue;
-      api.Control.prototype.ready.call( control );
+      api.Control.prototype.ready.call(control);
       CSTCustomizerControl.loadSelect2(element);
       element.on("change", function (e) {
         selectedValue = e.val;
-        api(control.id, function(value) {
-          var updateMe = function(newval) {
+        api(control.id, function (value) {
+          var updateMe = function (newval) {
             value.set(newval);
           };
           updateMe(selectedValue);
