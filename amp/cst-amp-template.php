@@ -11,6 +11,7 @@
 	</style>
 </head>
 <body>
+<?php do_action( 'amp_post_template_body_start', $this ); ?>
 <?php $this->load_parts( array( 'header-bar' ) ); ?>
 <div class="amp-wp-content">
 	<div class="amp-cst-meta">
