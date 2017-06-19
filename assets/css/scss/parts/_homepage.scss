@@ -577,7 +577,12 @@
 			}
 		}
 	}
-
+	.hp-bn-wrapper {
+		ul {
+			list-style: none;
+			margin-left: 0;
+		}
+	}
 	section#secondary-wells {
 
 		.dfp-cube {

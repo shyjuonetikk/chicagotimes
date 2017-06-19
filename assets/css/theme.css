@@ -3959,6 +3959,9 @@ body.post-gallery-lightbox-active {
     @media only screen and (min-width:48em) and (max-width:64em) {
       .homepage_wrapper section#main-well .left-main-well .article-container {
         height: 156px; } }
+  .homepage_wrapper .hp-bn-wrapper ul {
+    list-style: none;
+    margin-left: 0; }
   .homepage_wrapper section#secondary-wells .dfp-cube {
     text-align: center; }
     @media (max-width: 1024px) and (min-width: 481px) { }
