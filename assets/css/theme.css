@@ -964,9 +964,9 @@ ul#menu-sun-times-network {
   background-color: transparent;
   font-size: 0.675rem;
   border: 1px white solid;
-  padding: 6px 5px 6px 4px;
+  padding: 6px 5px 6px 2px;
   top: 0;
-  margin: 10px 7px 0 0;
+  margin: 7px 7px 0 0;
   display: block;
   width: 62px;
   color: #f8f8f8; }
@@ -2931,12 +2931,20 @@ header .contain-to-grid .top-bar {
     header .contain-to-grid .top-bar .masthead-sections ul {
       list-style-type: none;
       background: #231f20; }
+      @media only screen and (max-width: 40em) {
+        header .contain-to-grid .top-bar .masthead-sections ul {
+          margin-left: 1rem; } }
     header .contain-to-grid .top-bar .masthead-sections li, header .contain-to-grid .top-bar .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .masthead-sections a:not(.button) {
       display: inline-block;
       background: #231f20;
       line-height: 44px;
       color: white;
       padding: 0 2px; }
+    header .contain-to-grid .top-bar .masthead-sections li, header .contain-to-grid .top-bar .masthead-sections .homepage-nav-holder {
+      padding-left: 0;
+      padding-right: 0; }
+      header .contain-to-grid .top-bar .masthead-sections li > a, header .contain-to-grid .top-bar .masthead-sections .homepage-nav-holder > a {
+        color: #231f20; }
     @media only screen and (max-width:64em) {
       header .contain-to-grid .top-bar .masthead-sections li {
         padding-right: 0.6rem; }
@@ -3010,21 +3018,6 @@ header .contain-to-grid .top-bar {
       margin-top: -8px;
       top: 22.5px;
       right: -14px; }
-    header .contain-to-grid .top-bar .top-bar-section .masthead-sections ul {
-      list-style-type: none;
-      background: #231f20; }
-      @media only screen and (max-width: 40em) {
-        header .contain-to-grid .top-bar .top-bar-section .masthead-sections ul {
-          margin-left: 1rem; } }
-    header .contain-to-grid .top-bar .top-bar-section .masthead-sections li, header .contain-to-grid .top-bar .top-bar-section .masthead-sections li:not(.has-form) > a, header .contain-to-grid .top-bar .top-bar-section .masthead-sections a:not(.button) {
-      background: #231f20;
-      line-height: 44px;
-      color: white; }
-    header .contain-to-grid .top-bar .top-bar-section .masthead-sections .homepage-nav-holder {
-      padding-left: 0;
-      padding-right: 0; }
-      header .contain-to-grid .top-bar .top-bar-section .masthead-sections .homepage-nav-holder > a {
-        color: #231f20; }
     header .contain-to-grid .top-bar .top-bar-section .logo a {
       line-height: 42px; }
   @media only screen and (min-width: 78.063em) {
