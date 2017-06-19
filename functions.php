@@ -653,6 +653,7 @@ class CST {
 			$editor->add_cap( 'customize' );
 		}
 	}
+
 	/**
 	 * @param $category
 	 * @param $_post_id
@@ -772,6 +773,11 @@ class CST {
 		register_sidebar( array(
 			'id'          => 'homepage_breaking_news',
 			'name'        => esc_html__( 'Homepage Breaking News', 'chicagosuntimes' ),
+		) );
+
+		register_sidebar( array(
+			'id'          => 'homepage_headlines',
+			'name'        => esc_html__( 'Homepage Headlines', 'chicagosuntimes' ),
 		) );
 
 		register_sidebar( array(
