@@ -59,5 +59,5 @@
     }
   });
 
-})( wp.customize,jQuery);
+})(wp.customize, jQuery);
 
