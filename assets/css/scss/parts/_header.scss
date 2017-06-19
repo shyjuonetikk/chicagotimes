@@ -207,6 +207,9 @@ header {
 				ul {
 					list-style-type: none;
 					background: $cst_black;
+					@media #{$small-only} {
+						margin-left: 1rem;
+					}
 				}
 				li,
 				li:not(.has-form) > a, a:not(.button) {
@@ -215,6 +218,14 @@ header {
 					line-height:44px;
 					color: $white;
 					padding: 0 2px;
+				}
+				li,
+				.homepage-nav-holder {
+					padding-left: 0;
+					padding-right: 0;
+					> a {
+						color: $cst_black;
+					}
 				}
 				@media #{$xmedium-down} {
 					li {
@@ -310,28 +321,6 @@ header {
 					margin-top: -8px;
 					top: 22.5px;
 					right: -14px;
-				}
-				.masthead-sections {
-					ul {
-						list-style-type: none;
-						background: $cst_black;
-						@media #{$small-only} {
-							margin-left: 1rem;
-						}
-					}
-					li,
-					li:not(.has-form) > a, a:not(.button) {
-						background: $cst_black;
-						line-height: 44px;
-						color: $white;
-					}
-					.homepage-nav-holder {
-						padding-left: 0;
-						padding-right: 0;
-						> a {
-							color: $cst_black;
-						}
-					}
 				}
 				.logo {
 					a {
