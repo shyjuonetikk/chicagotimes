@@ -101,7 +101,7 @@
 @media #{$xmedium-up} {
 	.responsive-logo-wrapper {
 		margin-top: 50px;
-		max-width: 80rem;
+		max-width: $page_width;
 	}
 }
 .logo-wrapper.large-logo {

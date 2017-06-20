@@ -1082,7 +1082,7 @@ class CST_Frontend {
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
 							   data-event-action="navigate-hp-features-column-title">
 								More Features</a></h3>
-						<div class="columns small-12 mini-featured-stories">
+						<div class="columns small-12 mini-featured-stories" data-equalizer>
 							<div class="row">
 								<?php $featured_stories = CST()->customizer->get_featured_stories();
 								array_shift( $featured_stories );
@@ -1225,6 +1225,7 @@ class CST_Frontend {
 			$author          = $this->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
 			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
 		}
 		?>
@@ -1250,9 +1251,16 @@ class CST_Frontend {
 			<?php if ( 'prime' === $layout_type ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+					<div class="hide-for-medium">
 					<p class="excerpt">
 						<?php echo wp_kses_post( $story_excerpt ); ?>
 					</p>
+					</div>
+					<div class="show-for-medium">
+						<p class="excerpt">
+							<?php echo wp_kses_post( $story_long_excerpt ); ?>
+						</p>
+					</div>
 				</a>
 			</div>
 			<?php } ?>
@@ -1264,9 +1272,16 @@ class CST_Frontend {
 			<?php if ( 'prime' === $layout_type ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<p class="excerpt">
-						<?php echo wp_kses_post( $story_excerpt ); ?>
-					</p>
+					<div class="hide-for-medium">
+						<p class="excerpt">
+							<?php echo wp_kses_post( $story_excerpt ); ?>
+						</p>
+					</div>
+					<div class="show-for-medium">
+						<p class="excerpt">
+							<?php echo wp_kses_post( $story_long_excerpt ); ?>
+						</p>
+					</div>
 				</a>
 			</div>
 			<?php } ?>

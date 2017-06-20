@@ -239,6 +239,20 @@
 				}
 				.remaining-stories {
 					width:66.66667%;
+					.single-mini-story {
+						position: relative;
+						.mini-image {
+							width: 100%;
+						}
+						.mini-title {
+							width: 100%;
+							h3 {
+								font-size: 0.8rem;
+								line-height: 1rem;
+							}
+						}
+					}
+
 				}
 			}
 			@media #{$xmedium-only} and (orientation: landscape) {

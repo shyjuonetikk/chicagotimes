@@ -43,7 +43,7 @@
 .single-cst_feature {
 	article {
 		.row {
-			max-width:80rem;
+			max-width:$page_width;
 		}
 		&.post {
 			h1 {
