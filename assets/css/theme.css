@@ -137,7 +137,7 @@ h1, h2, h3, h4, h5, h6 {
 /* 1921px */
 @media only screen and (min-width:64.063em) {
   .homepage-content .row {
-    max-width: 80rem; } }
+    max-width: 83.4rem; } }
 
 @media only screen and (max-width:90em) { }
 
@@ -2844,7 +2844,7 @@ section#subscribe {
 @media only screen and (min-width:48em) {
   .responsive-logo-wrapper {
     margin-top: 50px;
-    max-width: 80rem; } }
+    max-width: 83.4rem; } }
 
 @media only screen and (min-width:48em) {
   .logo-wrapper.large-logo {
@@ -4299,7 +4299,7 @@ body.post-gallery-lightbox-active {
   padding-left: 0.9375rem; }
 
 .cst_feature-template-default article .row, .single-cst_feature article .row {
-  max-width: 80rem; }
+  max-width: 83.4rem; }
 .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
   color: white;
   font-size: 5rem;
