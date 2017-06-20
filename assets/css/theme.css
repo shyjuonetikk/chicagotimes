@@ -3665,18 +3665,15 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .mini-image {
       width: 100%; } }
   @media only screen and (min-width:48em) and (max-width:64em) and (orientation: landscape) {
-    .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story {
-      background: #7acaff; }
-      .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-image {
-        width: 100%; }
-      .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-title {
-        width: 100%; }
-        .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-title h3 {
-          font-size: 0.8rem;
-          line-height: 1rem; } }
+    .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-image {
+      width: 100%; }
+    .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-title {
+      width: 100%; }
+      .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-title h3 {
+        font-size: 0.8rem;
+        line-height: 1rem; } }
   @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
     .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story {
-      background: #195945;
       width: 100%; }
       .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-image {
         width: 50%; }
