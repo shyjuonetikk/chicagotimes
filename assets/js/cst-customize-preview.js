@@ -1,4 +1,4 @@
-(function (api, $) {
+(function(api, $) {
   "use strict";
 
   api("upper_section_section_title", function (setting) {
