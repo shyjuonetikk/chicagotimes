@@ -324,6 +324,17 @@ class CST_Frontend {
 			$meta_description = $post->get_seo_description();
 		} elseif ( is_tax() && $description = get_queried_object()->description ) {
 			$meta_description = $description;
+			$term = get_queried_object();
+			$seo = fm_get_term_meta( $term->term_id, 'cst_section', 'seo', true );
+			if ( $seo ) {
+				echo '<meta name="keywords" content="' . esc_attr( $seo['section_keywords'] ) . '" />' . esc_attr( PHP_EOL );
+			}
+			if ( ! empty( $term ) ) {
+				$term_link          = wpcom_vip_get_term_link( $term, $term->taxonomy );
+				if ( ! is_wp_error( $term_link ) ) {
+					echo '<link rel="canonical" href="' . esc_url( $term_link, null, 'other' ) . '" />' . "\n";
+				}
+			}
 		} else {
 			$meta_description = get_bloginfo( 'description' );
 		}
