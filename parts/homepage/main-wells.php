@@ -4,7 +4,7 @@
 		<h2 class="mobile-top-news show-for-small-only"><?php esc_html_e( 'Top News', 'chicagosuntimes' ); ?></h2>
 		<div class="large-8 medium-7 small-12 columns main-well-container">
 			<section id="main-well">
-				<div class="row large-collapse">
+				<div class="row">
 					<?php
 					$obj = \CST\Objects\Post::get_by_post_id( $homepage_main_well_posts[0]->ID );
 					if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
