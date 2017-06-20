@@ -90,7 +90,7 @@ class CST_Customizer {
 	public static function action_customizer_live_preview() {
 		wp_enqueue_script(
 			'chicagosuntimes-themecustomizer',
-			get_template_directory_uri().'/assets/js/cst-customize-preview.js',
+			get_template_directory_uri() . '/assets/js/cst-customize-preview.js',
 			array( 'jquery', 'customize-preview' ),
 			'',
 			true
@@ -152,30 +152,30 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
+		$wp_customize->add_section( 'entertainment_section_stories', array(
+			'title'           => __( 'Entertainment', 'chicagosuntimes' ),
+			'description'     => __( 'Choose entertainment stories', 'chicagosuntimes' ),
+			'priority'        => 210,
+			'capability'      => $this->capability,
+			'active_callback' => 'is_front_page',
+		) );
 		$wp_customize->add_section( 'featured_stories_section', array(
 			'title'           => __( 'Features', 'chicagosuntimes' ),
 			'description'     => __( 'Choose Features stories', 'chicagosuntimes' ),
-			'priority'        => 210,
+			'priority'        => 220,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'lower_section_stories', array(
 			'title'           => __( 'Lower section stories', 'chicagosuntimes' ),
 			'description'     => __( 'Choose lower section stories', 'chicagosuntimes' ),
-			'priority'        => 220,
+			'priority'        => 230,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'podcast_section_stories', array(
 			'title'           => __( 'Podcast section stories', 'chicagosuntimes' ),
 			'description'     => __( 'Choose podcast stories', 'chicagosuntimes' ),
-			'priority'        => 230,
-			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
-		) );
-		$wp_customize->add_section( 'entertainment_section_stories', array(
-			'title'           => __( 'Entertainment', 'chicagosuntimes' ),
-			'description'     => __( 'Choose entertainment stories', 'chicagosuntimes' ),
 			'priority'        => 240,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
