@@ -1064,7 +1064,7 @@ class CST_Frontend {
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
 							   data-event-action="navigate-hp-features-column-title">
 								More Features</a></h3>
-						<div class="columns small-12 mini-featured-stories">
+						<div class="columns small-12 mini-featured-stories" data-equalizer>
 							<div class="row">
 								<?php $featured_stories = CST()->customizer->get_featured_stories();
 								array_shift( $featured_stories );
