@@ -165,6 +165,36 @@
 						width:100%;
 					}
 				}
+				@media #{$xmedium-only} and (orientation: landscape) {
+					.single-mini-story {
+						.mini-image {
+							width: 100%;
+						}
+						.mini-title {
+							width: 100%;
+							h3 {
+								font-size: 0.8rem;
+								line-height: 1rem;
+							}
+						}
+					}
+				}
+				@media #{$xmedium-only} and (orientation: portrait) {
+					.single-mini-story {
+						width:100%;
+						.mini-image {
+							width: 50%;
+						}
+						.mini-title {
+							width: 50%;
+							padding-left:0;
+							h3 {
+								font-size: 0.8rem;
+								line-height: 1rem;
+							}
+						}
+					}
+				}
 			}
 		}
 		.mini-stories {
