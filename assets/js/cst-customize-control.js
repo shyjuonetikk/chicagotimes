@@ -1,6 +1,6 @@
 /* global ajaxurl,CSTCustomizerControlData,CSTCustomizerControl,jQuery */
 (function(api, $) {
-    "use strict";
+  "use strict";
   var CSTCustomizerControl = {
 
     loadSelect2: function (el) {
@@ -60,4 +60,3 @@
   });
 
 })(wp.customize, jQuery);
-
