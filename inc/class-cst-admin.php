@@ -81,6 +81,7 @@ class CST_Admin {
 				}
 			}
 		});
+		add_action( 'fm_term_cst_section', [ $this, 'section_keywords' ] );
 		add_action( 'fm_term_cst_section', array( $this, 'section_sponsorship_fields' ) );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'amp_nav_invalidate_cache' ) );
 		add_action( 'wp_update_nav_menu_item', array( $this, 'section_nav_invalidate' ), 10, 3 );
@@ -1278,6 +1279,19 @@ class CST_Admin {
 		$cst_section->add_term_form( esc_html__( 'Sponsorship', 'chicagosuntimes' ), 'cst_section' );
 	}
 
+	/**
+	 * Add input area on section edit screen to capture keywords for later use within section front source
+	 */
+	public function section_keywords() {
+		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section Keywords', 'chicagosuntimes' ), array(
+			'name' => 'seo',
+			'children' => array(
+			'section_keywords' => new \Fieldmanager_TextField( esc_html__( 'Type in keywords for this section', 'chicagosuntimes' ), array(
+				'description' => esc_html__( 'Type in keywords for this section', 'chicagosuntimes' )
+			) ) ),
+		));
+		$cst_section->add_term_form( esc_html__( 'Section Keywords', 'chicagosuntimes' ), 'cst_section' );
+	}
 	/**
 	 * Upon navigation/menu update this function is called by wp_update_nav_item action
 	 * to clear the nav cache used by AMP
