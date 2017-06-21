@@ -3862,34 +3862,36 @@ body.post-gallery-lightbox-active {
     color: #9a9a9a; }
 .homepage_wrapper .widgets li {
   list-style-type: none; }
-.homepage_wrapper .widgets .widget .widgettitle {
-  font-size: 1rem;
-  font-weight: 400;
-  text-transform: uppercase;
-  background-color: #dedede;
-  color: #231f20;
-  padding: 0.25rem; }
-.homepage_wrapper .widgets .widget ul {
-  list-style-type: none;
-  margin-left: 0;
-  margin-top: 10px; }
-  @media (max-width: 736px) {
-    .homepage_wrapper .widgets .widget ul {
-      margin-bottom: 0;
-      padding-bottom: 0; } }
-  .homepage_wrapper .widgets .widget ul.constrain {
-    overflow: auto;
-    max-height: 300px; }
-  .homepage_wrapper .widgets .widget ul li {
-    border-top: 1px solid #9a9a9a;
-    padding: 5px; }
-    .homepage_wrapper .widgets .widget ul li a, .homepage_wrapper .widgets .widget ul li em, .homepage_wrapper .widgets .widget ul li strong {
-      color: #231f20;
-      font-size: 0.8rem; }
-    .homepage_wrapper .widgets .widget ul li a:hover {
-      color: #cdcdcd; }
-  .homepage_wrapper .widgets .widget ul li:hover {
-    background: white; }
+.homepage_wrapper .widgets .widget {
+  background-color: transparent; }
+  .homepage_wrapper .widgets .widget .widgettitle {
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    background-color: #dedede;
+    color: #231f20;
+    padding: 0.25rem; }
+  .homepage_wrapper .widgets .widget ul {
+    list-style-type: none;
+    margin-left: 0;
+    margin-top: 10px; }
+    @media (max-width: 736px) {
+      .homepage_wrapper .widgets .widget ul {
+        margin-bottom: 0;
+        padding-bottom: 0; } }
+    .homepage_wrapper .widgets .widget ul.constrain {
+      overflow: auto;
+      max-height: 300px; }
+    .homepage_wrapper .widgets .widget ul li {
+      border-top: 1px solid #9a9a9a;
+      padding: 5px; }
+      .homepage_wrapper .widgets .widget ul li a, .homepage_wrapper .widgets .widget ul li em, .homepage_wrapper .widgets .widget ul li strong {
+        color: #231f20;
+        font-size: 0.8rem; }
+      .homepage_wrapper .widgets .widget ul li a:hover {
+        color: #cdcdcd; }
+    .homepage_wrapper .widgets .widget ul li:hover {
+      background: white; }
 @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
   .homepage_wrapper .stories-container .stories {
     width: 58%; }
