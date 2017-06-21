@@ -272,6 +272,10 @@
 			h3 {
 				font-size: 0.9rem;
 				line-height: 1.2rem;
+				@media #{$wallpaper-only} and (orientation: landscape) {
+					font-size: 0.8rem;
+					line-height: 1rem;
+				}
 			}
 			.mini-story {
 				box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
@@ -312,7 +316,10 @@
 					@media #{$xmedium-only} and (orientation: landscape) {
 						> .mini-image {
 							padding-right:0;
-							padding-bottom:0.9375rem;
+							padding-bottom:0.1rem;
+						}
+						> .mini-title {
+							padding-left:0;
 						}
 					}
 					@media #{$small-only} and (orientation: portrait) {
@@ -405,6 +412,34 @@
 	@media #{$small-only} {
 		.sidebar {
 			clear: both;
+		}
+	}
+	.lower-section-stories {
+		.more-stories-container {
+			.prime-lead-story {
+				.single-mini-story {
+					@media #{$large-up} and (orientation: landscape) {
+						.title-container {
+							display: none;
+						}
+					}
+				}
+			}
+			.remaining-stories {
+				.single-mini-story {
+					@media #{$large-up} and (orientation: landscape) {
+						.mini-image {
+							width: 25%;
+							padding-left:0;
+							padding-right:0.1rem;
+						}
+						.mini-title {
+							padding-left:0.1rem;
+							width: 75%;
+						}
+					}
+				}
+			}
 		}
 	}
 	.widget-chartbeat-currently-viewing {
