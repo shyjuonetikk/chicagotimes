@@ -186,6 +186,7 @@ header {
 	.contain-to-grid {
 		.top-bar {
 			background: $cst_black;
+			max-width:83.4rem;
 			.small-logo {
 				margin: 7px 0 0 0;
 				padding-left: 0;
@@ -398,6 +399,19 @@ header {
 		}
 		.cst-row {
 			margin: 0 auto;
+		}
+	}
+}
+body {
+	header{
+		.contain-to-grid{
+			.top-bar{
+				.masthead-sections{
+					li:not(.has-form) > a, a:not(.button) {
+						padding: 0 10px;
+					}
+				}
+			}
 		}
 	}
 }

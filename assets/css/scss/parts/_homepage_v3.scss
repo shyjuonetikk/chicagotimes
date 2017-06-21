@@ -149,7 +149,7 @@
 						a {
 							color: $cst_black;
 							font-weight:600;
-							font-size: 0.9rem;
+							font-size: 0.8rem;
 							line-height: 1rem;
 						}
 					}
@@ -268,7 +268,6 @@
 					width:100%;
 				}
 			}
-			margin-bottom: 0.625rem;
 			h3 {
 				font-size: 0.9rem;
 				line-height: 1.2rem;
@@ -414,7 +413,8 @@
 			clear: both;
 		}
 	}
-	.lower-section-stories {
+	.lower-section-stories,
+	.podcast-section-stories {
 		.more-stories-container {
 			.prime-lead-story {
 				.single-mini-story {
@@ -492,6 +492,7 @@
 			list-style-type: none;
 		}
 		.widget{
+			background-color: transparent;
 			.widgettitle {
 				font-size: 1rem;
 				font-weight: 400;

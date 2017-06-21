@@ -120,7 +120,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		global $homepage_more_well_posts;
 		$widget_posts = array();
-		$title = isset( $instance['cst_more_headlines_title'] ) ? $instance['cst_more_headlines_title'] : '';
+		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		for ( $count = 0; $count < count( $instance ); $count++ ) {
 			if ( $instance[ $count ] ) {
 				$widget_posts[] = absint( $instance[ $count ] );
@@ -187,11 +187,11 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		$this->enqueue_scripts();
 		$count = 0;
 		$width = is_customize_preview() ? 'width:100%;' : 'width:400px;';
-		isset( $instance['cst_more_headlines_title'] ) ? $title = $instance['cst_more_headlines_title'] : $title = '';
+		isset( $instance['title'] ) ? $title = $instance['title'] : $title = '';
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'cst_more_headlines_title' ) ); ?>"><?php esc_html_e( 'Title:', 'chicagosuntimes' ); ?></label>
-			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'cst_more_headlines_title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cst_more_headlines_title' ) ); ?>" type="text"
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'chicagosuntimes' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text"
 				   value="<?php echo esc_attr( $title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 		</p>
 		<div class="cst-headline-sort ui-sortable">
@@ -230,7 +230,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
-		$instance['cst_more_headlines_title'] = isset( $new_instance['cst_more_headlines_title'] ) ? $new_instance['cst_more_headlines_title'] : false;
+		$instance['title'] = isset( $new_instance['title'] ) ? $new_instance['title'] : false;
 		array_shift( $new_instance );
 		$total    = count( $new_instance );
 		for ( $count = 0; $count < $total; $count ++ ) {

@@ -44,10 +44,12 @@
 						</div>
 					</div>
 					<div class="small-12 columns more-stories-container show-for-xlarge-up" id="hp-section-lead">
+					<hr>
 						<?php CST()->frontend->sports_heading(); ?>
 						<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 					</div><!-- /#hp-section-lead -->
 				</div>
+				<hr>
 				<div class="cst-ad-container"><img src="http://placehold.it/970x91/90b0d0/130100&amp;text=[nativo]"></div>
 				<hr>
 				<?php CST()->frontend->more_stories_content(); ?>
@@ -60,7 +62,7 @@
 						</div>
 					</div>
 				</div><!-- /.lower-section-stories -->
-				<div class=" more-stories-container">
+				<div class="podcast-section-stories more-stories-container">
 					<div class="show-for-medium-up">
 						<div class="row">
 							<div class="small-12 columns more-stories-container">
