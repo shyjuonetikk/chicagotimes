@@ -1256,7 +1256,7 @@ class CST_Frontend {
 						<?php echo wp_kses_post( $story_excerpt ); ?>
 					</p>
 					</div>
-					<div class="show-for-medium">
+					<div class="show-for-large">
 						<p class="excerpt">
 							<?php echo wp_kses_post( $story_long_excerpt ); ?>
 						</p>

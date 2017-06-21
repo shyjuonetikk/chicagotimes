@@ -62,7 +62,7 @@
 						</div>
 					</div>
 				</div><!-- /.lower-section-stories -->
-				<div class=" more-stories-container">
+				<div class="podcast-section-stories more-stories-container">
 					<div class="show-for-medium-up">
 						<div class="row">
 							<div class="small-12 columns more-stories-container">

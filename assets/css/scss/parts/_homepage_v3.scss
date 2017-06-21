@@ -149,7 +149,7 @@
 						a {
 							color: $cst_black;
 							font-weight:600;
-							font-size: 0.9rem;
+							font-size: 0.8rem;
 							line-height: 1rem;
 						}
 					}
@@ -413,7 +413,8 @@
 			clear: both;
 		}
 	}
-	.lower-section-stories {
+	.lower-section-stories,
+	.podcast-section-stories {
 		.more-stories-container {
 			.prime-lead-story {
 				.single-mini-story {
