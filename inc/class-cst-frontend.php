@@ -2914,6 +2914,7 @@ ready(fn);
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
 			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
 			$featured_image_id = $obj->get_featured_image_id();
 			if ( $featured_image_id ) {
@@ -2934,7 +2935,7 @@ ready(fn);
 			<span class="image show-for-medium-up">
 				<?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $small_image_markup ); } ?>
 			</span>
-		<?php echo wp_kses_post( $story_excerpt ); ?>
+		<?php echo wp_kses_post( $story_long_excerpt ); ?>
 	</p>
 </a>
 <p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
