@@ -75,7 +75,12 @@
 				}
 				.image {
 					float: right;
-					margin: 0.4rem 0 0.4rem 0.4rem;
+					@media #{$small-only} and (orientation: portrait) {
+						float: none;
+						img {
+							width: 100%;
+						}
+					}
 				}
 				border-bottom: 1px solid $homepage_border_grey;
 				float: left;
@@ -627,6 +632,8 @@
 		ul {
 			list-style:none;
 			margin-left:0;
+			width:100%;
+			float:left;
 		}
 		.breaking-news-story,
 		.breaking-section-story {
@@ -669,13 +676,14 @@
 				}
 			}
 			@media #{$xmedium-down} {
-				h3.title {
+				.title {
 					font-size: 1rem;
-				}
-
-				.breaking-news-link {
-					font-size:0.9rem;
-					line-height:1rem;
+					margin-bottom: 0;
+					margin-top:inherit;
+					.breaking-news-link {
+						font-size:0.9rem;
+						line-height:1rem;
+					}
 				}
 			}
 			.breaking-news-button {

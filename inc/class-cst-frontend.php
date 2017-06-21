@@ -2790,6 +2790,7 @@ ready(fn);
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
 			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
 		?>
 		<div class="hero-story js-cst-homepage-headlines-one">
@@ -2806,7 +2807,7 @@ ready(fn);
 				if ( $featured_image_id ) {
 					$attachment = wp_get_attachment_metadata( $featured_image_id );
 					if ( $attachment ) {
-						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-header-medium' );
+						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-header-small' );
 						echo wp_kses_post( $image_markup );
 					}
 				}
@@ -2816,15 +2817,22 @@ ready(fn);
 
 	</div>
 </div>
-<div class="columns small-12 medium-5 medium-offset-1 large-12 large-offset-0">
-	<div class="row">
+<div class="row">
+<div class="columns small-12 medium-6 large-12 large-offset-0">
 		<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-			<p class="excerpt">
-				<?php echo wp_kses_post( $story_excerpt ); ?>
-			</p>
+			<div class="hide-for-medium">
+				<p class="excerpt">
+					<?php echo wp_kses_post( $story_excerpt ); ?>
+				</p>
+			</div>
+			<div class="show-for-medium">
+				<p class="excerpt">
+					<?php echo wp_kses_post( $story_long_excerpt ); ?>
+				</p>
+			</div>
 		</a>
 		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
-	</div>
+</div>
 </div>
 </div>
 		<?php
