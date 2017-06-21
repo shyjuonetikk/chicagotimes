@@ -327,7 +327,7 @@ class CST_Frontend {
 			$topics     = $post->get_topics();
 			$combined_taxonomies = array_merge( $topics, $locations, $people );
 			if ( $combined_taxonomies ) {
-				echo '<meta name="news_keywords" content="' . join( ', ', wp_list_pluck( $combined_taxonomies, 'name' ) ) . '" />' . esc_attr( PHP_EOL );
+				echo '<meta name="news_keywords" content="' . esc_attr( join( ', ', wp_list_pluck( $combined_taxonomies, 'name' ) ) ) . '" />' . esc_attr( PHP_EOL );
 			}
 		} elseif ( is_tax() && $description = get_queried_object()->description ) {
 			$meta_description = $description;
