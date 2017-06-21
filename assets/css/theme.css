@@ -3605,8 +3605,12 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .stories-container .stories .lead-story .excerpt, .homepage_wrapper .stories-container .stories .hero-story .excerpt {
       float: left; }
     .homepage_wrapper .stories-container .stories .lead-story .image, .homepage_wrapper .stories-container .stories .hero-story .image {
-      float: right;
-      margin: 0.4rem 0 0.4rem 0.4rem; }
+      float: right; }
+      @media only screen and (max-width: 40em) and (orientation: portrait) {
+        .homepage_wrapper .stories-container .stories .lead-story .image, .homepage_wrapper .stories-container .stories .hero-story .image {
+          float: none; }
+          .homepage_wrapper .stories-container .stories .lead-story .image img, .homepage_wrapper .stories-container .stories .hero-story .image img {
+            width: 100%; } }
     .homepage_wrapper .stories-container .stories .lead-story:last-child, .homepage_wrapper .stories-container .stories .hero-story:last-child {
       border-bottom: none; }
   .homepage_wrapper .stories-container .stories .related-stories {
@@ -3955,7 +3959,9 @@ body.post-gallery-lightbox-active {
         color: #282828; }
 .homepage_wrapper .hp-bn-wrapper ul {
   list-style: none;
-  margin-left: 0; }
+  margin-left: 0;
+  width: 100%;
+  float: left; }
 .homepage_wrapper .hp-bn-wrapper .breaking-news-story, .homepage_wrapper .hp-bn-wrapper .breaking-section-story {
   background-color: #d22d42;
   width: 100%;
@@ -3990,11 +3996,13 @@ body.post-gallery-lightbox-active {
       cursor: pointer;
       font-size: 22px; }
   @media only screen and (max-width:64em) {
-    .homepage_wrapper .hp-bn-wrapper .breaking-news-story h3.title, .homepage_wrapper .hp-bn-wrapper .breaking-section-story h3.title {
-      font-size: 1rem; }
-    .homepage_wrapper .hp-bn-wrapper .breaking-news-story .breaking-news-link, .homepage_wrapper .hp-bn-wrapper .breaking-section-story .breaking-news-link {
-      font-size: 0.9rem;
-      line-height: 1rem; } }
+    .homepage_wrapper .hp-bn-wrapper .breaking-news-story .title, .homepage_wrapper .hp-bn-wrapper .breaking-section-story .title {
+      font-size: 1rem;
+      margin-bottom: 0;
+      margin-top: inherit; }
+      .homepage_wrapper .hp-bn-wrapper .breaking-news-story .title .breaking-news-link, .homepage_wrapper .hp-bn-wrapper .breaking-section-story .title .breaking-news-link {
+        font-size: 0.9rem;
+        line-height: 1rem; } }
   .homepage_wrapper .hp-bn-wrapper .breaking-news-story .breaking-news-button, .homepage_wrapper .hp-bn-wrapper .breaking-section-story .breaking-news-button {
     border-radius: 0;
     margin-bottom: 0.2rem;
