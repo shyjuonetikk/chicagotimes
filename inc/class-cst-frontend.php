@@ -322,9 +322,9 @@ class CST_Frontend {
 		if ( is_singular() ) {
 			$post = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
 			$meta_description = $post->get_seo_description();
-			$people     = $post->get_people();
-			$locations  = $post->get_locations();
-			$topics     = $post->get_topics();
+			$people     = $post->get_people() ? $post->get_people() : array();
+			$locations  = $post->get_locations() ? $post->get_locations() : array();
+			$topics     = $post->get_topics() ? $post->get_topics() : array();
 			$combined_taxonomies = array_merge( $topics, $locations, $people );
 			if ( $combined_taxonomies ) {
 				echo '<meta name="news_keywords" content="' . esc_attr( join( ', ', wp_list_pluck( $combined_taxonomies, 'name' ) ) ) . '" />' . esc_attr( PHP_EOL );
