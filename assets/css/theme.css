@@ -3820,16 +3820,14 @@ body.post-gallery-lightbox-active {
 @media only screen and (min-width:64.063em) and (orientation: landscape) {
   .homepage_wrapper .lower-section-stories .more-stories-container .prime-lead-story .single-mini-story .title-container {
     display: none; } }
-.homepage_wrapper .lower-section-stories .more-stories-container .remaining-stories .single-mini-story {
-  border: 1px solid #ff9900; }
-  @media only screen and (min-width:64.063em) and (orientation: landscape) {
-    .homepage_wrapper .lower-section-stories .more-stories-container .remaining-stories .single-mini-story .mini-image {
-      width: 25%;
-      padding-left: 0;
-      padding-right: 0.1rem; }
-    .homepage_wrapper .lower-section-stories .more-stories-container .remaining-stories .single-mini-story .mini-title {
-      padding-left: 0.1rem;
-      width: 75%; } }
+@media only screen and (min-width:64.063em) and (orientation: landscape) {
+  .homepage_wrapper .lower-section-stories .more-stories-container .remaining-stories .single-mini-story .mini-image {
+    width: 25%;
+    padding-left: 0;
+    padding-right: 0.1rem; }
+  .homepage_wrapper .lower-section-stories .more-stories-container .remaining-stories .single-mini-story .mini-title {
+    padding-left: 0.1rem;
+    width: 75%; } }
 .homepage_wrapper .widget-chartbeat-currently-viewing {
   background-color: #dedede;
   margin-left: 0 !important;
