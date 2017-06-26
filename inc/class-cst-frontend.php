@@ -322,8 +322,26 @@ class CST_Frontend {
 		if ( is_singular() ) {
 			$post = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
 			$meta_description = $post->get_seo_description();
+			$people     = $post->get_people() ? $post->get_people() : array();
+			$locations  = $post->get_locations() ? $post->get_locations() : array();
+			$topics     = $post->get_topics() ? $post->get_topics() : array();
+			$combined_taxonomies = array_merge( $topics, $locations, $people );
+			if ( $combined_taxonomies ) {
+				echo '<meta name="news_keywords" content="' . esc_attr( join( ', ', wp_list_pluck( $combined_taxonomies, 'name' ) ) ) . '" />' . esc_attr( PHP_EOL );
+			}
 		} elseif ( is_tax() && $description = get_queried_object()->description ) {
 			$meta_description = $description;
+			$term = get_queried_object();
+			$seo = fm_get_term_meta( $term->term_id, 'cst_section', 'seo', true );
+			if ( $seo ) {
+				echo '<meta name="keywords" content="' . esc_attr( $seo['section_keywords'] ) . '" />' . esc_attr( PHP_EOL );
+			}
+			if ( ! empty( $term ) ) {
+				$term_link          = wpcom_vip_get_term_link( $term, $term->taxonomy );
+				if ( ! is_wp_error( $term_link ) ) {
+					echo '<link rel="canonical" href="' . esc_url( $term_link, null, 'other' ) . '" />' . "\n";
+				}
+			}
 		} else {
 			$meta_description = get_bloginfo( 'description' );
 		}
