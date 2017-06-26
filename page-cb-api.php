@@ -32,7 +32,7 @@ if ( false === $result ) {
 	$response = wpcom_vip_file_get_contents( $chartbeat_url );
 	if ( ! is_wp_error( $response ) ) {
 		$result = json_decode( $response );
-		wpcom_vip_cache_set( $cache_key, $result, 'default', 1 * MINUTE_IN_SECONDS );
+		wpcom_vip_cache_set( $cache_key, $result, 'cst', 1 * MINUTE_IN_SECONDS );
 	}
 }
 if ( ! empty( $result->pages ) ) {

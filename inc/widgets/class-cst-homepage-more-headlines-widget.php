@@ -48,7 +48,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		$this->cache_key_stub = 'homepage-more-headlines-widget';
 		// Enqueue style if widget is active (appears in a sidebar) or if in Customizer preview.
 		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
-			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		}
 		add_action( 'wp_ajax_cst_homepage_more_headlines_get_posts', array( $this, 'cst_homepage_more_headlines_get_posts' ) );
 	}
