@@ -424,9 +424,6 @@ var dfp = {
 		.defineSizeMapping(article_skyscraper_mapping)
 		.addService(googletag.pubads())
 		.setTargeting("pos", "SkyScraper");
-      googletag.defineSlot(dfp.adunitpath, [300, 250], 'div-gpt-ad-test-a9')
-        .defineSizeMapping(article_cube_mapping)
-        .addService(googletag.pubads());
     }
     if ( dfp.front_page || dfp.article || dfp.section || dfp.author ) {
       googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
@@ -438,7 +435,6 @@ var dfp = {
 		.defineSizeMapping(gallery_cube_mapping)
         .setTargeting("pos","gallery 1");
     }
-    googletag.pubads().disableInitialLoad();
     googletag.pubads().enableSingleRequest();
     window.CSTAds = window.CSTAds || false;
     if (window.CSTAds) {
