@@ -911,8 +911,8 @@ class CST_Admin {
 	 */
 	public function action_admin_enqueue_scripts() {
 
-		wp_enqueue_style( 'cst-admin', esc_url( get_template_directory_uri() . '/assets/css/admin.css' ) );
-		wp_enqueue_script( 'cst-admin', esc_url( get_template_directory_uri() . '/assets/js/admin.js' ), array( 'jquery' ) );
+		wp_enqueue_style( 'cst-admin', get_template_directory_uri() . '/assets/css/admin.css' );
+		wp_enqueue_script( 'cst-admin', get_template_directory_uri() . '/assets/js/admin.js', array( 'jquery' ) );
 		wp_localize_script( 'cst-admin', 'CSTAdminData', array(
 			'add_to_print_feed_label'            => esc_html__( 'Add to Print Feed', 'chicagosuntimes' ),
 			'included_in_print_feed_label'       => esc_html__( 'Included in Print Feed', 'chicagosuntimes' ),
