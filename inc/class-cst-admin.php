@@ -139,7 +139,7 @@ class CST_Admin {
 
 		add_filter( 'enter_title_here', array( $this, 'filter_custom_enter_title' ) );
 		add_filter( 'admin_post_thumbnail_html', array( $this, 'filter_featured_image_instruction' ) );
-		add_filter('customize_previewable_devices', [ $this, 'manage_previewable_devices' ]);
+		add_filter( 'customize_previewable_devices', [ $this, 'manage_previewable_devices' ]);
 
 	}
 
