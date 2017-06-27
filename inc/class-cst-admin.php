@@ -139,6 +139,7 @@ class CST_Admin {
 
 		add_filter( 'enter_title_here', array( $this, 'filter_custom_enter_title' ) );
 		add_filter( 'admin_post_thumbnail_html', array( $this, 'filter_featured_image_instruction' ) );
+		add_filter('customize_previewable_devices', [ $this, 'manage_previewable_devices' ]);
 
 	}
 
@@ -1355,4 +1356,18 @@ class CST_Admin {
 		}
 	}
 
+	/**
+	 * Filter available device previews within Customizer (Hint: add css in admin.css too)
+	 *
+	 * @param $devices
+	 *
+	 * @return mixed
+	 */
+	public function manage_previewable_devices( $devices ) {
+	
+			$devices['tablet-landscape'] = array(
+					'label' => 'Enter tablet preview mode (landscape)',
+				);
+			return $devices;
+ 	}
 }
