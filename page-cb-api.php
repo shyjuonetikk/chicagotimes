@@ -36,8 +36,8 @@ if ( false === $result ) {
 	}
 }
 if ( ! empty( $result->pages ) ) {
-header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
-echo json_encode( $result );
+	header( 'Content-Type: application/json; charset=' . get_option( 'blog_charset' ) );
+	echo json_encode( $result );
 }
 if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 	wp_die();
