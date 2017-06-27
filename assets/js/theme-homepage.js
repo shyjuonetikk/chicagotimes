@@ -154,6 +154,7 @@
       }
 
     },
+
     handleNavigation: function() {
         document.getElementsByTagName('body')[0].style.overflow='hidden';
         var scrollTop = $(window).scrollTop();
