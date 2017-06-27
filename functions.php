@@ -477,7 +477,7 @@ class CST {
 
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 		if ( class_exists( 'Jetpack_Custom_CSS' ) && method_exists( 'Jetpack_Custom_CSS', 'disable' ) ) {
-			remove_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 11 );
+			add_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 12 );
 		}
 	}
 
@@ -616,7 +616,6 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
-		add_filter( 'customize_previewable_devices', '__return_empty_array' );
 	}
 
 	/**

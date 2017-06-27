@@ -139,6 +139,7 @@ class CST_Admin {
 
 		add_filter( 'enter_title_here', array( $this, 'filter_custom_enter_title' ) );
 		add_filter( 'admin_post_thumbnail_html', array( $this, 'filter_featured_image_instruction' ) );
+		add_filter('customize_previewable_devices', [ $this, 'manage_previewable_devices' ]);
 
 	}
 
@@ -910,8 +911,8 @@ class CST_Admin {
 	 */
 	public function action_admin_enqueue_scripts() {
 
-		wp_enqueue_style( 'cst-admin', get_template_directory_uri() . '/assets/css/admin.css' );
-		wp_enqueue_script( 'cst-admin', get_template_directory_uri() . '/assets/js/admin.js', array( 'jquery' ) );
+		wp_enqueue_style( 'cst-admin', esc_url( get_template_directory_uri() . '/assets/css/admin.css' ) );
+		wp_enqueue_script( 'cst-admin', esc_url( get_template_directory_uri() . '/assets/js/admin.js' ), array( 'jquery' ) );
 		wp_localize_script( 'cst-admin', 'CSTAdminData', array(
 			'add_to_print_feed_label'            => esc_html__( 'Add to Print Feed', 'chicagosuntimes' ),
 			'included_in_print_feed_label'       => esc_html__( 'Included in Print Feed', 'chicagosuntimes' ),
@@ -1355,4 +1356,18 @@ class CST_Admin {
 		}
 	}
 
+	/**
+	 * Filter available device previews within Customizer (Hint: add css in admin.css too)
+	 *
+	 * @param $devices
+	 *
+	 * @return mixed
+	 */
+	public function manage_previewable_devices( $devices ) {
+
+		$devices['tablet-landscape'] = array(
+			'label' => 'Enter tablet preview mode (landscape)',
+		);
+		return $devices;
+	}
 }
