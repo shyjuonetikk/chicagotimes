@@ -161,7 +161,7 @@
 
             el.select2({
                 placeholder: CSTCategoryHeadlinesData.placeholder_text,
-                minimumInputLength: 3,
+                minimumInputLength: 0,
                 allowClear: true,
                 ajax: {
                     quietMillis: 150,
