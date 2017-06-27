@@ -180,7 +180,6 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
-
 		/**
 		 * Add settings within each section
 		 */
