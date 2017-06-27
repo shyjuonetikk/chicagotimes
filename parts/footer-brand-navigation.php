@@ -97,7 +97,7 @@ if ( has_nav_menu( 'page-footer-4' ) ) {
 			<p class="copyright"><?php echo sprintf( 'Copyright &copy; 2005 - %s', esc_attr( date( 'Y' ) ) ); ?> Chicago Sun-Times</p>
 		</div>
 		<div class="small-2 columns">
-			<?php echo wp_kses_post( str_replace( 'rel="generator', 'rel="', vip_powered_wpcom_img_html(6) ) ); ?>
+			<?php echo wp_kses_post( str_replace( 'rel="generator','rel="', vip_powered_wpcom_img_html( 6 ) ) ); ?>
 		</div>
 	</div>
 </footer>
