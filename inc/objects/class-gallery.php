@@ -46,4 +46,27 @@ class Gallery extends Post {
 		}
 	}
 
+	/**
+	 * Get the excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_excerpt() {
+		if ( $excerpt = $this->get_field( 'post_excerpt' ) ) {
+			return $excerpt;
+		}
+	}
+
+	/**
+	 * Get the long excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_long_excerpt() {
+		if ( $excerpt = $this->get_fm_field( 'cst_long_excerpt' ) ) {
+			return $excerpt;
+		} else {
+			return $this->get_excerpt();
+		}
+	}
 }
