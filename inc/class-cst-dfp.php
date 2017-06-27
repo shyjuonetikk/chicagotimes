@@ -443,6 +443,7 @@ var dfp = {
 	}
     googletag.enableServices();
 });
+
 </script>
 <?php
 	}
