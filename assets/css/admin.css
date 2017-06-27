@@ -79,3 +79,24 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 .taxonomy-cst_section input.fm-datepicker-time {
     max-width:2rem;
 }
+.preview-tablet-landscape .wp-full-overlay-main {
+    margin: auto 0 auto -512px;
+    width: 1024px;
+    height: 768px;
+    max-height: 100%;
+    max-width: 100%;
+    left: 50%;
+}
+.wp-full-overlay-footer .devices .preview-tablet-landscape:before {
+    transform: scaleX(-1) rotate(0.25turn);
+    content: '\f471';
+}
+.preview-mobile .wp-full-overlay-main {
+    margin: auto 0 auto -187px;
+    width: 375px;
+}
+
+.preview-tablet .wp-full-overlay-main {
+    margin: auto 0 auto -384px;
+    width: 768px;
+}
