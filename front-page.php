@@ -38,7 +38,7 @@
 							<?php CST()->frontend->render_section_text_title( 'chartbeat_section_title' ); ?>
 							<div id="root"></div>
 						</div>
-						<div class="other-stories more-stories-container hide-for-xlarge-up">
+						<div class="other-stories more-stories-container hide-for-xlarge-up" id="hp-sports-section-lead">
 							<?php CST()->frontend->sports_heading(); ?>
 							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 						</div>
@@ -62,7 +62,7 @@
 						</div>
 					</div>
 				</div><!-- /.lower-section-stories -->
-				<div class="podcast-section-stories more-stories-container">
+				<div class="podcast-section-stories more-stories-container" id="hp-podcasts-section-lead">
 					<div class="show-for-medium-up">
 						<div class="row">
 							<div class="small-12 columns more-stories-container">

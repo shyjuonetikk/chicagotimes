@@ -205,6 +205,9 @@ header {
 				overflow: hidden;
 				height: 45px;
 				max-width: 54.1rem;
+				@media #{$large-only} and (orientation:landscape) {
+					max-width: 48.2rem;
+				}
 				ul {
 					list-style-type: none;
 					background: $cst_black;
