@@ -50,7 +50,7 @@
 					</div><!-- /#hp-section-lead -->
 				</div>
 				<hr>
-				<div class="cst-ad-container"><img src="http://placehold.it/970x91/90b0d0/130100&amp;text=[nativo]"></div>
+				<div class="cst-ad-container" id="nativo-cst-homepage-01"></div>
 				<hr>
 				<?php CST()->frontend->more_stories_content(); ?>
 				<div class="lower-section-stories">
