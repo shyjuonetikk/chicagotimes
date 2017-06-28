@@ -1284,17 +1284,17 @@ class CST_Admin {
 	 * Add input area on section edit screen to capture keywords and SEO title for later use within section front markup
 	 */
 	public function section_keywords() {
-		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section Keywords', 'chicagosuntimes' ), array(
+		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section SEO Settings', 'chicagosuntimes' ), array(
 			'name' => 'seo',
 			'children' => array(
-			'section_keywords' => new \Fieldmanager_TextField( esc_html__( 'Type in keywords for this section', 'chicagosuntimes' ), array(
+			'section_keywords' => new \Fieldmanager_TextField( esc_html__( 'Keywords for this section', 'chicagosuntimes' ), array(
 				'description' => esc_html__( 'Type in keywords for this section', 'chicagosuntimes' )
 			) ),
-			'section_seo_title' => new \Fieldmanager_TextField( esc_html__( 'Type in SEO title for this section', 'chicagosuntimes' ), array(
+			'section_seo_title' => new \Fieldmanager_TextField( esc_html__( 'SEO title for this section', 'chicagosuntimes' ), array(
 				'description' => esc_html__( 'This SEO title is used in the &lt;title&gt; tag on the section front.', 'chicagosuntimes' )
 			) )),
 		));
-		$cst_section->add_term_form( esc_html__( 'Section Keywords', 'chicagosuntimes' ), 'cst_section' );
+		$cst_section->add_term_form( esc_html__( 'Section SEO Settings', 'chicagosuntimes' ), 'cst_section' );
 	}
 	/**
 	 * Upon navigation/menu update this function is called by wp_update_nav_item action
