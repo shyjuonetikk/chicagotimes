@@ -734,3 +734,48 @@
 		}
 	}
 }
+.customize-partial-edit-shortcuts-shown {
+	#hp-sports-section-lead,
+	#top-stories-section-lead,
+	#hp-podcasts-section-lead {
+		.prime-lead-story {
+			&.preview-prime-lead-story {
+				width:100%;
+			}
+		}
+		.single-mini-story {
+			&.preview-prime-lead-story {
+				width:50%;
+			}
+		}
+		.remaining-stories {
+			&.preview-remaining-stories {
+				width: 100%;
+			}
+		}
+	}
+	#featured-stories {
+		.preview-single-mini-story {
+			width: 100%;
+		}
+	}
+	.homepage_wrapper {
+		.stories-container {
+			.mini-stories {
+				&.ipad-customizer {
+					.prime-lead-story {
+						width:100%;
+					}
+					.remaining-stories {
+						width:100%;
+					}
+				}
+				.single-mini-story {
+					&.ipad-customizer {
+						width:100%;
+					}
+				}
+			}
+		}
+	}
+}

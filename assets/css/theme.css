@@ -128,6 +128,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 0, 640px */
 /* 641px, 767px */
+/* 720px, 767px */
 /* 768px, 1024px */
 /* 768px, 1023px */
 /* 1025px, 1440px */
@@ -2929,6 +2930,9 @@ header .contain-to-grid .top-bar {
     overflow: hidden;
     height: 45px;
     max-width: 54.1rem; }
+    @media only screen and (min-width:64.063em) and (max-width:90em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 48.2rem; } }
     header .contain-to-grid .top-bar .masthead-sections ul {
       list-style-type: none;
       background: #231f20; }
@@ -4033,6 +4037,23 @@ body.post-gallery-lightbox-active {
     padding: 0.35rem;
     color: #ffe000; }
 
+#hp-sports-section-lead .prime-lead-story.preview-prime-lead-story, #top-stories-section-lead .prime-lead-story.preview-prime-lead-story, #hp-podcasts-section-lead .prime-lead-story.preview-prime-lead-story {
+  width: 100%; }
+#hp-sports-section-lead .single-mini-story.preview-prime-lead-story, #top-stories-section-lead .single-mini-story.preview-prime-lead-story, #hp-podcasts-section-lead .single-mini-story.preview-prime-lead-story {
+  width: 50%; }
+#hp-sports-section-lead .remaining-stories.preview-remaining-stories, #top-stories-section-lead .remaining-stories.preview-remaining-stories, #hp-podcasts-section-lead .remaining-stories.preview-remaining-stories {
+  width: 100%; }
+
+#featured-stories .preview-single-mini-story {
+  width: 100%; }
+
+.customize-partial-edit-shortcuts-shown .homepage_wrapper .stories-container .mini-stories.ipad-customizer .prime-lead-story {
+  width: 100%; }
+.customize-partial-edit-shortcuts-shown .homepage_wrapper .stories-container .mini-stories.ipad-customizer .remaining-stories {
+  width: 100%; }
+.customize-partial-edit-shortcuts-shown .homepage_wrapper .stories-container .mini-stories .single-mini-story.ipad-customizer {
+  width: 100%; }
+
 .page_wrapper {
   width: 100%;
   margin: 0 auto; }
@@ -4298,6 +4319,7 @@ body.post-gallery-lightbox-active {
  */
 /* 0, 640px */
 /* 641px, 767px */
+/* 720px, 767px */
 /* 768px, 1024px */
 /* 768px, 1023px */
 /* 1025px, 1440px */
