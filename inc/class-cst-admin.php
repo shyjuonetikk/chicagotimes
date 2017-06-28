@@ -1281,7 +1281,7 @@ class CST_Admin {
 	}
 
 	/**
-	 * Add input area on section edit screen to capture keywords for later use within section front source
+	 * Add input area on section edit screen to capture keywords and SEO title for later use within section front markup
 	 */
 	public function section_keywords() {
 		$cst_section = new \Fieldmanager_Group( esc_html__( 'Section Keywords', 'chicagosuntimes' ), array(
@@ -1289,7 +1289,10 @@ class CST_Admin {
 			'children' => array(
 			'section_keywords' => new \Fieldmanager_TextField( esc_html__( 'Type in keywords for this section', 'chicagosuntimes' ), array(
 				'description' => esc_html__( 'Type in keywords for this section', 'chicagosuntimes' )
-			) ) ),
+			) ),
+			'section_seo_title' => new \Fieldmanager_TextField( esc_html__( 'Type in SEO title for this section', 'chicagosuntimes' ), array(
+				'description' => esc_html__( 'This SEO title is used in the &lt;title&gt; tag on the section front.', 'chicagosuntimes' )
+			) )),
 		));
 		$cst_section->add_term_form( esc_html__( 'Section Keywords', 'chicagosuntimes' ), 'cst_section' );
 	}
