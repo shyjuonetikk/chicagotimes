@@ -405,7 +405,10 @@ class CST_Frontend {
 		}
 
 		if ( is_tax() ) {
-
+			$seo = fm_get_term_meta( get_queried_object()->term_id, 'cst_section', 'seo', true );
+			if ( isset( $seo['section_seo_title'] ) && ! empty( $seo['section_seo_title'] ) ) {
+				return esc_html( $seo['section_seo_title'] . ' | Chicago Sun-Times' );
+			}
 			switch ( get_queried_object()->slug ) {
 				case 'business':
 					return 'Chicago Business - Chicago Sun-Times';
