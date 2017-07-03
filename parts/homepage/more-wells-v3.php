@@ -55,7 +55,7 @@ $class_name = CST()->customizer->get_widget_top_stories_stub();
 					?>
 				</div>
 			</div>
-		<?php $counter++;
-} ?>
+			<?php $counter++;
+		} ?>
 	</div>
 </div>
