@@ -13,10 +13,10 @@
     <div class="row" data-equalizer>
 <?php foreach ( $column_well_sections as $section_slug => $sponsored_key ) {
 	$term = wpcom_vip_get_term_by( 'slug', $section_slug, 'cst_section' );
+	$section_link = home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/';
 	if ( $term ) {
 		$section_term_link = wpcom_vip_get_term_link( $section_slug, 'cst_section' );
 		if ( is_wp_error( $section_term_link ) ) {
-			$section_link = home_url( '/' ) . 'section/' . esc_attr( $section_slug ) . '/';
 			$section_name = $section_slug;
 		} else {
 			$section_link = $section_term_link;
