@@ -95,6 +95,10 @@ class CST_Customizer {
 			'1.0',
 			true
 		);
+		wp_enqueue_style(
+			'chicagosuntimes-customizer-preview',
+			get_theme_file_uri( '/assets/css/cst-customizer-preview.css' )
+		);
 	}
 
 	/**
