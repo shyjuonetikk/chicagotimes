@@ -146,12 +146,16 @@
 						margin: 0 0 0 0.4rem;
 					}
 					.title {
+						padding-left:0;
 						a {
 							color: $cst_black;
 							font-weight:600;
 							font-size: 0.8rem;
 							line-height: 1rem;
 						}
+					}
+					.image {
+						padding-right:0;
 					}
 				}
 			}
