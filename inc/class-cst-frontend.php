@@ -1127,7 +1127,7 @@ class CST_Frontend {
 			<div class="<?php echo esc_attr( $widget_style[ $style ]['container-open'] ); ?>">
 				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
 				<div class="row">
-					<div class="stories-list">
+					<div class="columns stories-list">
 						<?php $this->cst_entertainment_stories_content_block( 'columns' ); ?>
 					</div>
 				</div>

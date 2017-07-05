@@ -2,6 +2,14 @@
 .customize-partial-edit-shortcut button {
     left: -26px;
 }
+.widget .mini-stories .customize-partial-edit-shortcut button,
+.mini-stories .customize-partial-edit-shortcut button {
+    left: -17px;
+}
+.widget .related-stories .customize-partial-edit-shortcut button,
+.related-stories .customize-partial-edit-shortcut button {
+    left: -31px;
+}
 @media screen and (max-width:1024px) {
     .widget .customize-partial-edit-shortcut button,
     .customize-partial-edit-shortcut button {
