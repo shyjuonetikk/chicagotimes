@@ -179,16 +179,6 @@ abstract class Post {
 		return str_replace( 'cst_', '', static::$post_type );
 	}
 
-	/**
-	 * Get the excerpt for the post
-	 *
-	 * @return mixed
-	 */
-	public function get_excerpt() {
-		if ( $excerpt = $this->get_field( 'post_excerpt' ) ) {
-			return $excerpt;
-		}
-	}
 
 	/**
 	 * Echo the excerpt for the post
