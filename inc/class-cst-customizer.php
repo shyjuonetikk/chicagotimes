@@ -87,13 +87,17 @@ class CST_Customizer {
 		add_action( 'customize_preview_init', [ $this, 'action_customizer_live_preview' ] );
 	}
 
-	public static function action_customizer_live_preview() {
+	public function action_customizer_live_preview() {
 		wp_enqueue_script(
 			'chicagosuntimes-themecustomizer',
-			get_template_directory_uri() . '/assets/js/cst-customize-preview.js',
-			array( 'jquery', 'customize-preview' ),
-			'',
+			get_theme_file_uri( '/assets/js/cst-customize-preview.js' ),
+			array( 'customize-preview' ),
+			'1.0',
 			true
+		);
+		wp_enqueue_style(
+			'chicagosuntimes-customizer-preview',
+			get_theme_file_uri( '/assets/css/cst-customizer-preview.css' )
 		);
 	}
 
