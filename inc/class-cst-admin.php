@@ -1367,7 +1367,7 @@ class CST_Admin {
 	 * @return mixed
 	 */
 	public function manage_previewable_devices( $devices ) {
-	
+
 		$devices['tablet-landscape'] = array(
 			'label' => 'Enter tablet preview mode (landscape)',
 		);
