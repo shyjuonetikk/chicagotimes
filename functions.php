@@ -371,7 +371,7 @@ class CST {
 
 		add_action( 'init', array( $this, 'action_init_early' ), 2 );
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ), 11 );
-		add_action( 'admin_init', [ $this, 'admin_roles_for_customizer' ], 10, 3 );
+		add_action( 'init', [ $this, 'admin_roles_for_customizer' ], 10, 3 );
 
 		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
@@ -645,6 +645,41 @@ class CST {
 			$editor->add_cap( 'edit_theme_options' );
 			$editor->add_cap( 'customize' );
 		}
+		remove_role( 'cst_editor' );
+		wpcom_vip_add_role( 'cst_editor', 'CustomizEditor', array(
+			'read' => true,
+			'delete_posts' => true,
+			'delete_published_posts' => true,
+			'publish_posts' => true,
+			'upload_files' => true,
+			'edit_posts' => true,
+			'edit_others_posts' => true,
+			'edit_private_posts' => true,
+			'edit_published_posts' => true,
+			'read_private_posts' => true,
+			'edit_pages' => true,
+			'edit_others_pages' => true,
+			'edit_private_pages' => true,
+			'edit_published_pages' => true,
+			'read_private_pages' => true,
+			'moderate_comments' => true,
+			'manage_categories' => true,
+			'manage_links' => true,
+			'publish_pages' => true,
+			'delete_pages' => true,
+			'delete_others_pages' => true,
+			'delete_published_pages' => true,
+			'delete_others_posts' => true,
+			'delete_private_posts' => true,
+			'delete_private_pages' => true,
+			'manage_options' => true,
+			'update_themes' => true,
+			'edit_dashboard' => true,
+			'customize' => true,
+			'edit_theme_options' => true,
+			'edit_themes' => true,
+		) );
+
 	}
 
 	/**
