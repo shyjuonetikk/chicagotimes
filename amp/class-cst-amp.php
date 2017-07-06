@@ -315,10 +315,6 @@ class CST_AMP {
 	 * Beginning of body tag for Google Tag Manager as per GTM implementation
 	 */
 	function amp_set_google_tag_manager() {
-		$site = CST()->dfp_handler->get_parent_dfp_inventory();
-		if ( 'chicago.suntimes.com' === $site ) {
-			return;
-		}
 		?>
 <!-- Google Tag Manager -->
 <amp-analytics config="https://www.googletagmanager.com/amp.json?id=GTM-N3SQKLN&gtm.url=SOURCE_URL" data-credentials="include"></amp-analytics>
