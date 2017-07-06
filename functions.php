@@ -328,6 +328,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-customizer-controls.php';
 
 		// Vendor plugins
 		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
@@ -487,6 +488,7 @@ class CST {
 
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 10, 2 );
 		add_filter( 'post_rewrite_rules', array( $this, 'filter_post_rewrite_rules' ) );
+
 		// Add customize capability to users who can edit_posts (hopefully)
 		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
 
