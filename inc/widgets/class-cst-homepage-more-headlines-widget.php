@@ -57,10 +57,11 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 * Get all published posts to display in Select2 dropdown
 	 */
 	public function cst_homepage_more_headlines_get_posts() {
+
 		if ( isset( $_GET['nonce'] )
-			 && empty( $_GET['nonce'] )
-			 && ! wp_verify_nonce( sanitize_key( $_GET['nonce'] ), 'cst_homepage_more_headlines' )
-			 || ! current_user_can( 'edit_others_posts' )
+			&& empty( $_GET['nonce'] )
+			&& ! wp_verify_nonce( sanitize_key( $_GET['nonce'] ), 'cst_homepage_more_headlines' )
+			|| ! current_user_can( 'edit_others_posts' )
 		) {
 			wp_send_json_error( array( 'code' => 'bad_nonce' ), 400 );
 		}
@@ -195,7 +196,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 				   value="<?php echo esc_attr( $title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
 		</p>
 		<div class="cst-headline-sort ui-sortable">
-			<?php
+		<?php
 		foreach ( $this->headlines as $array_member ) {
 			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
 			$obj      = get_post( $headline );
