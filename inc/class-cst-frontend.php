@@ -2805,7 +2805,6 @@ ready(fn);
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
-			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
 			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
 		?>
@@ -2836,16 +2835,9 @@ ready(fn);
 <div class="row">
 <div class="columns small-12 medium-6 large-12 large-offset-0">
 		<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-			<div class="hide-for-medium">
-				<p class="excerpt">
-					<?php echo wp_kses_post( $story_excerpt ); ?>
-				</p>
-			</div>
-			<div class="show-for-medium">
-				<p class="excerpt">
-					<?php echo wp_kses_post( $story_long_excerpt ); ?>
-				</p>
-			</div>
+			<p class="excerpt">
+				<?php echo wp_kses_post( $story_long_excerpt ); ?>
+			</p>
 		</a>
 		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
 </div>
@@ -2981,7 +2973,7 @@ ready(fn);
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author = $this->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
-			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
 			$featured_image_id = $obj->get_featured_image_id();
 			if ( $featured_image_id ) {
@@ -3008,7 +3000,7 @@ ready(fn);
 		</div>
 		<div class="columns small-12 medium-6 large-6">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
-			<p class="excerpt"><?php echo wp_kses_post( $story_excerpt ); ?></p>
+			<p class="excerpt"><?php echo wp_kses_post( $story_long_excerpt ); ?></p>
 			</a>
 			<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
 		</div>
