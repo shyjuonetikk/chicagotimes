@@ -2159,8 +2159,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* Display Chartbeat engagement based article list on home page
 	*/
 	public function enqueue_chartbeat_react_engagement_script() {
+		$site = CST()->dfp_handler->get_parent_dfp_inventory();
+		if ( 'chicago.suntimes.com' === $site ) {
+			$chartbeat_file_name = 'main.e2c38a67-cb-prod.js';
+		} else {
+			$chartbeat_file_name = 'main.821eef7f-cb-dev-test.js';
+		}
 		if ( is_front_page() ) {
-			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/main.821eef7f-cb-dev-test.js' ), array(), null, true );
+			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
 		}
 	}
 	/**
