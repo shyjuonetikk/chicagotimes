@@ -1244,20 +1244,20 @@ li.widget_cst_ad_widget {
 		margin-left: 0;
 		padding-left: 0;
 		line-height:1.3rem;
-			li {
-				list-style-type: none;
-				margin-bottom: 0.35rem;
-					&:last-child {
-						border-bottom: none;
-					}
-					.section-name {
-						text-transform: uppercase;
-						font-weight: 600;
-					}
-					a {
-						color: $cst_black;
-					}
-			}
+		li {
+			list-style-type: none;
+			margin-bottom: 0.35rem;
+				&:last-child {
+					border-bottom: none;
+				}
+				.section-name {
+					text-transform: uppercase;
+					font-weight: 600;
+				}
+				a {
+					color: $cst_black;
+				}
+		}
 	}
 }
 .banner-link {
