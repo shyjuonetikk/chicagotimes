@@ -1,9 +1,9 @@
 <header id="header" class="masthead">
 	<div class="contain-to-grid">
-		<nav class="top-bar" data-topbar role="navigation" aria-hidden="true">
+		<nav class="top-bar" data-topbar aria-hidden="true">
 			<ul class="title-area">
 			</ul>
-		<section class="top-bar-section">
+		<div class="top-bar-section">
 			<ul class="right">
 				<li class="has-form">
 					<div class="row collapse">
@@ -84,7 +84,7 @@
 					</div>
 				</li>
 			</ul>
-		</section>
+		</div>
 		</nav>
 	</div>
 	<?php if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) { ?>
@@ -96,13 +96,13 @@
 <div class="off-canvas-wrap" data-offcanvas>
 	<main class="inner-wrap">
 <?php if ( is_front_page() ) { ?>
-		<div class="responsive-logo-wrapper row">
-			<div class="columns">
+<div class="responsive-logo-wrapper row">
+	<div class="columns">
 
-	<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
+		<?php if ( ! is_page_template( 'page-monster.php' ) ) { ?>
 			<div id="div-gpt-sponsor-ear-left" class="sponsor-ear left"></div>
 			<div id="div-gpt-sponsor-ear-right" class="sponsor-ear right"></div>
-	<?php } ?>
+		<?php } ?>
 		<div class="logo-wrapper large-logo">
 			<div class="logo">
 				<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
@@ -111,9 +111,9 @@
 				<div class="date"><?php echo esc_html( date_i18n( 'l, F j, Y' ) ); ?></div>
 			</div>
 		</div>
-	<?php CST()->frontend->masthead_navigation( 'homepage-itn' ); ?>
-			</div>
-</div>
+		<?php CST()->frontend->masthead_navigation( 'homepage-itn' ); ?>
+	</div>
+</div><!-- /responsive-logo-wrapper -->
 <?php } ?>
 <?php get_template_part( 'parts/off-canvas-menu' );
 

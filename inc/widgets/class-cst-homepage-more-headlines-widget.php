@@ -42,10 +42,15 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			esc_html__( 'CST Homepage More Headlines', 'chicagosuntimes' ),
 			array(
 				'description' => esc_html__( 'Displays More Headlines.', 'chicagosuntimes' ),
+				'customize_selective_refresh' => true,
 			),
 			array( 'width' => '400' )
 		);
 		$this->cache_key_stub = 'homepage-more-headlines-widget';
+		// Enqueue style if widget is active (appears in a sidebar) or if in Customizer preview.
+		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+		}
 		add_action( 'wp_ajax_cst_homepage_more_headlines_get_posts', array( $this, 'cst_homepage_more_headlines_get_posts' ) );
 	}
 
@@ -54,10 +59,12 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 	 */
 	public function cst_homepage_more_headlines_get_posts() {
 
-		if ( ! wp_verify_nonce( $_GET['nonce'], 'cst_homepage_more_headlines' )
-			 || ! current_user_can( 'edit_others_posts' )
+		if ( isset( $_GET['nonce'] )
+			&& empty( $_GET['nonce'] )
+			&& ! wp_verify_nonce( sanitize_key( $_GET['nonce'] ), 'cst_homepage_more_headlines' )
+			|| ! current_user_can( 'edit_others_posts' )
 		) {
-			wp_send_json_error();
+			wp_send_json_error( array( 'code' => 'bad_nonce' ), 400 );
 		}
 
 		$term = sanitize_text_field( $_GET['searchTerm'] );
@@ -88,7 +95,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			endwhile;
 		endif;
 
-		echo json_encode( $returning );
+		echo wp_json_encode( $returning );
 		exit();
 
 	}
@@ -167,28 +174,29 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 
 		$this->enqueue_scripts();
 		$count = 0;
+		$width = is_customize_preview() ? 'width:100%;' : 'width:400px;';
 		?>
 		<div class="cst-headline-sort ui-sortable">
+		<?php
+		foreach ( $this->headlines as $array_member ) {
+			$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
+			$obj      = get_post( $headline );
+			if ( $obj ) {
+				$content_type = get_post_type( $obj->ID );
+				$story_title  = $obj->post_title . ' [' . $content_type . ']';
+			} else {
+				$story_title = '';
+			}
+			$dashed_array_member = preg_replace( '/_/', '-', $array_member );
+			?>
+			<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
+				<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
+				<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>"
+					   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="<?php echo esc_attr( $width ); ?>"/>
+			</p>
 			<?php
-			foreach ( $this->headlines as $array_member ) {
-				$headline = ! empty( $instance[ $count ] ) ? $instance[ $count ] : '';
-				$obj      = get_post( $headline );
-				if ( $obj ) {
-					$content_type = get_post_type( $obj->ID );
-					$story_title  = $obj->post_title . ' [' . $content_type . ']';
-				} else {
-					$story_title = '';
-				}
-				$dashed_array_member = preg_replace( '/_/', '-', $array_member );
-				?>
-				<p class="ui-state-default" id=i<?php echo esc_attr( $count ); ?>>
-					<label for="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>"><span class="dashicons dashicons-sort"></span><?php esc_html_e( $this->titles[ $count ], 'chicagosuntimes' ); ?></label>
-					<input class="<?php echo esc_attr( $dashed_array_member ); ?>" id="<?php echo esc_attr( $this->get_field_id( $count ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( $count ) ); ?>"
-						   value="<?php echo esc_attr( $headline ); ?>" data-story-title="<?php echo esc_attr( $story_title ); ?>" style="width:400px;"/>
-				</p>
-				<?php
-				$count++;
-			}?>
+			$count++;
+		}?>
 		</div>
 		<?php
 
