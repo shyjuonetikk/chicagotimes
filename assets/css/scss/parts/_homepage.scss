@@ -1222,6 +1222,43 @@ li.widget_cst_ad_widget {
 			margin-bottom: 0;
 		}
 	}
+	.cb-list {
+		margin-left: 0.1rem;
+		padding:0
+	}
+	.cb-articles {
+		list-style-type: none;
+		padding: 5px;
+		text-align: left;
+		box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+		margin-bottom: 0.5rem;
+		background: $white;
+	}
+	.section-name {
+		text-transform: uppercase;
+		font-size: 0.8rem;
+		font-weight: 600;
+		margin-right: 0.5rem;
+	}
+	.list {
+		margin-left: 0;
+		padding-left: 0;
+		line-height:1.3rem;
+			li {
+				list-style-type: none;
+				margin-bottom: 0.35rem;
+					&:last-child {
+						border-bottom: none;
+					}
+					.section-name {
+						text-transform: uppercase;
+						font-weight: 600;
+					}
+					a {
+						color: $cst_black;
+					}
+			}
+	}
 }
 .banner-link {
 	margin-bottom:10px;
