@@ -81,18 +81,17 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'json'      => '{"targeting":{"pos":"AMP Cube"}}',
 		) ) );
 		$ad_node_taboola = AMP_DOM_Utils::create_node( $this->dom, 'amp-embed', array(
-			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/taboola.md
+			// Updated with amp codw from Taboola
 			'width'            => 100,
-			'height'           => 283,
+			'height'           => 100,
 			'type'             => 'taboola',
 			'layout'           => 'responsive',
-			'heights'          => '(min-width:1907px) 39%, (min-width:1200px) 46%, (min-width:780px) 64%, (min-width:480px) 98%, (min-width:460px) 167%, 196%',
-			'data-mode'        => 'thumbnails-c',
-			'data-placement'   => 'Below Article Thumbnails',
+			'heights'          => '(min-width:524px) 621%, (min-width:401px) 659%, 711%',
+			'data-publisher'   => 'chicagosuntimes-network',
+			'data-mode'        => 'thumbnails-a-amp',
+			'data-placement'   => 'mobile below article thumbnails amp',
 			'data-target_type' => 'mix',
 			'data-article'     => 'auto',
-			'data-publisher'   => 'chicagosuntimes-chicagosuntimes',
-			'data-url'         => '',
 		) );
 
 		// Add in Teads then multiple cubes based on paragraph count
