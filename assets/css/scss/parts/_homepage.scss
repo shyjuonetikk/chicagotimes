@@ -1247,16 +1247,16 @@ li.widget_cst_ad_widget {
 		li {
 			list-style-type: none;
 			margin-bottom: 0.35rem;
-				&:last-child {
-					border-bottom: none;
-				}
-				.section-name {
-					text-transform: uppercase;
-					font-weight: 600;
-				}
-				a {
-					color: $cst_black;
-				}
+			&:last-child {
+				border-bottom: none;
+			}
+			.section-name {
+				text-transform: uppercase;
+				font-weight: 600;
+			}
+			a {
+				color: $cst_black;
+			}
 		}
 	}
 }
