@@ -1096,12 +1096,6 @@ class CST_Frontend {
 				</div>
 			</div>
 			</div>
-			<hr>
-			<div class="row">
-				<div class="columns small-12">
-					<div class="cst-ad-container dfp dfp-centered"><img src="http://placehold.it/970x90/6060e5/130100&amp;text=[ad-will-be-responsive]"></div>
-				</div>
-			</div>
 		</div><!-- /more-stories-content -->
 		<?php
 	}
