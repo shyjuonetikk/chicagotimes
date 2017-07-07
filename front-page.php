@@ -54,6 +54,14 @@
 				<hr>
 				<?php CST()->frontend->more_stories_content(); ?>
 				<div class="lower-section-stories">
+					<hr>
+					<div class="row">
+						<div class="columns small-12">
+							<?php echo wp_kses( CST()->dfp_handler->unit( 3, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+								CST()->dfp_kses
+							); ?>
+						</div>
+					</div>
 					<div class="row">
 						<div class="small-12 columns more-stories-container" id="top-stories-section-lead">
 							<hr>
