@@ -1,7 +1,6 @@
 (function(api, $) {
   "use strict";
   var cst_customizer_preview = function(e) {
-    console.log(e);
     var window_width = $( window ).width();
     var sports_stories_section = $("#hp-sports-section-lead");
     var featured_stories_section = $("#featured-stories");

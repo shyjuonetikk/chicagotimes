@@ -29,7 +29,7 @@
 							<?php $other_stories = CST()->customizer->get_other_headlines_stories();
 							array_shift( $other_stories );
 							?>
-							<div class="section-other-stories">
+							<div class="section-other-stories" data-equalizer>
 								<?php CST()->frontend->mini_stories_content_block( $other_stories, 'regular' ); ?>
 							</div>
 						</div><!-- hp-other-lead -->
