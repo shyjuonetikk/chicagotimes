@@ -1,7 +1,8 @@
-<?php if ( ! is_front_page() ) {
-	get_template_part( 'parts/page-footer' );
-} ?>
-</div>
+<!--homepage_wrapper-->
+<div class="clear-both"></div>
+<a class="exit-off-canvas"></a>
+</main>
+</div><!-- /off-canvas-wrap -->
 
 <?php
 if ( is_singular() ) {

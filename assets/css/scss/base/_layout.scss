@@ -1,3 +1,10 @@
+@media #{$large-up} {
+	.homepage-content {
+		.row {
+			max-width:$page_width;
+		}
+	}
+}
 @media #{$large-down}{
 	.row {
 		.row {

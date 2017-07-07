@@ -1,0 +1,3 @@
+[submodule "assets/js/cst-chartbeat"]
+	path = assets/js/cst-chartbeat
+	url = git@github.com:Wrapports/cst-chartbeat.git

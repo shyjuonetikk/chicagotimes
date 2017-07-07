@@ -1,9 +1,6 @@
 @import "../base/_variables";
-@import "../base/_functions";
-@import "../base/_general";
-@import "../base/_typography";
 @import "../base/_screensize";
-@import "../base/_layout";
+
 .cst_feature-template-default,
 .post-type-archive-cst_feature,
 .single-cst_feature {
@@ -46,7 +43,7 @@
 .single-cst_feature {
 	article {
 		.row {
-			max-width:80rem;
+			max-width:$page_width;
 		}
 		&.post {
 			h1 {

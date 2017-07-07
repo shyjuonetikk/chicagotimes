@@ -194,7 +194,8 @@ class CST {
 		add_image_size( 'cst-gallery-mobile-horizontal', 800, 600, true );
 		add_image_size( 'twitter-card', 400, 400, true );
 		add_image_size( 'facebook-open-graph', 1200, 630, true );
-		add_image_size( 'secondary-wells', 290, 190, true );
+		add_image_size( 'secondary-wells-legacy', 290, 190, true );
+		add_image_size( 'secondary-wells', 303, 198, true );
 		add_image_size( 'homepage-columns', 228, 134, true );
 		add_image_size( 'more-wells', 228, 134, array( 'center', 'center' ) );
 		add_image_size( 'newspaper', 297, 287, true );
@@ -300,7 +301,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-twitter-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-featured-content-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-gracenote-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-secondary-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-more-headlines-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-election-headlines-widget.php';
@@ -785,17 +785,17 @@ class CST {
 
 		register_sidebar( array(
 			'id'          => 'homepage_sidebar',
-			'name'        => esc_html__( 'Top Homepage Sidebar', 'chicagosuntimes' ),
+			'name'        => esc_html__( 'The Right Rail (Top)', 'chicagosuntimes' ),
 		) );
 
 		register_sidebar( array(
 			'id'          => 'homepage_sidebar_two',
-			'name'        => esc_html__( 'Middle Homepage Sidebar', 'chicagosuntimes' ),
+			'name'        => esc_html__( 'The Right Rail (Middle)', 'chicagosuntimes' ),
 		) );
 
 		register_sidebar( array(
 			'id'          => 'homepage_sidebar_three',
-			'name'        => esc_html__( 'Bottom Homepage Sidebar', 'chicagosuntimes' ),
+			'name'        => esc_html__( 'The Right Rail (Bottom)', 'chicagosuntimes' ),
 		) );
 		register_sidebar( array(
 			'id'          => 'news_headlines',
@@ -896,7 +896,6 @@ class CST {
 		register_widget( 'CST_Recent_Posts' );
 		register_widget( 'CST_Twitter_Feed_Widget' );
 		register_widget( 'CST_Featured_Content_Widget' );
-		register_widget( 'CST_Homepage_Headlines_Widget' );
 		register_widget( 'CST_Homepage_Secondary_Headlines_Widget' );
 		register_widget( 'CST_Homepage_More_Headlines_Widget' );
 		register_widget( 'CST_Elections_2016_More_Headlines_Widget' );

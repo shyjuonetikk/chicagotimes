@@ -21,28 +21,30 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 		}
 		echo wp_kses_post( $args['before_widget'] );
 		?>
-		<div class="large-12 small-12 columns widget_cst_stng_wire_widget">
-			<h2 class="widgettitle"><?php esc_html_e( 'Wire Updates', 'chicagosuntimes' ); ?></h2>
-			<ul class="widget-stng-wire-posts">
-				<?php
-				$stng_items = CST()->frontend->cst_homepage_fetch_feed( $feed_url, 10 );
-				if ( count( $stng_items ) > 0 ) :
-					foreach ( $stng_items as $stng_item ) {
-						?>
-						<li>
-							<strong><?php echo esc_html( human_time_diff( strtotime( $stng_item->get_date( 'j F Y g:i a' ) ) ) ); ?></strong>
-							<a href="<?php echo esc_url( $stng_item->get_permalink() ); ?>"
-							   title="<?php printf( __( 'Posted %s', 'cst-homepage' ), $stng_item->get_date( 'j F Y | g:i a' ) ); ?>"
-							   data-on="click" data-event-category="content" data-event-action="navigate-hp-stng-wire">
-								<?php echo esc_html( $stng_item->get_title() ); ?>
-							</a>
-							<em><?php esc_html_e( 'Sun-Times Wire', 'chicagosuntimes' ); ?></em>
-						</li>
-						<?php
-					}
-				endif;
-				?>
-			</ul>
+		<div class="row">
+			<div class="large-12 small-12 columns widget_cst_stng_wire_widget">
+				<h2 class="widgettitle"><?php esc_html_e( 'Wire Updates', 'chicagosuntimes' ); ?></h2>
+				<ul class="widget-stng-wire-posts<?php if ( is_front_page() ) { echo esc_attr( ' constrain' ); } ?>">
+					<?php
+					$stng_items = CST()->frontend->cst_homepage_fetch_feed( $feed_url, 10 );
+					if ( count( $stng_items ) > 0 ) :
+						foreach ( $stng_items as $stng_item ) {
+							?>
+							<li>
+								<strong><?php echo esc_html( human_time_diff( strtotime( $stng_item->get_date( 'j F Y g:i a' ) ) ) ); ?></strong>
+								<a href="<?php echo esc_url( $stng_item->get_permalink() ); ?>"
+								   title="<?php printf( __( 'Posted %s', 'cst-homepage' ), $stng_item->get_date( 'j F Y | g:i a' ) ); ?>"
+								   data-on="click" data-event-category="content" data-event-action="navigate-hp-stng-wire">
+									<?php echo esc_html( $stng_item->get_title() ); ?>
+								</a>
+								<em><?php esc_html_e( 'Sun-Times Wire', 'chicagosuntimes' ); ?></em>
+							</li>
+							<?php
+						}
+					endif;
+					?>
+				</ul>
+			</div>
 		</div>
 		<?php
 		echo wp_kses_post( $args['after_widget'] );

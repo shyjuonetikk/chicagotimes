@@ -94,13 +94,14 @@
 		}
 	}
 	.large-logo {
-		max-width: 300px;
+		max-width: 350px;
 		margin: 0 auto;
 	}
 }
 @media #{$xmedium-up} {
 	.responsive-logo-wrapper {
 		margin-top: 50px;
+		max-width: $page_width;
 	}
 }
 .logo-wrapper.large-logo {
@@ -114,7 +115,7 @@
 }
 
 .date {
-	font-family: $merriweather;
+	font-family: $homepage_font;
 	height: 26px;
 	font-size: 1rem;
 	line-height: 1.5rem;
@@ -155,14 +156,16 @@
 	a {
 		font-size: 0.9rem;
 		line-height:1rem;
+		color:$anchor-highlight;
+		font-family: $article_content;
 		font-weight: 600;
 	}
 	.nav-holder {
-		max-width: 62.5rem;
 		border-top: 4px solid $cst_black;
 	}
 	.nav-descriptor {
 		float: left;
+		font-family:$homepage_font;
 		display: inline-block;
 		height: auto;
 		padding: 0;
@@ -183,9 +186,15 @@ header {
 	.contain-to-grid {
 		.top-bar {
 			background: $cst_black;
+			max-width:83.4rem;
 			.small-logo {
 				margin: 7px 0 0 0;
 				padding-left: 0;
+				overflow-y: hidden;
+				padding-right:0;
+				&.appear {
+					opacity: 1;
+				}
 				a {
 					padding: 6px 0 0 0;
 				}
@@ -195,9 +204,16 @@ header {
 				margin-left: 0;
 				overflow: hidden;
 				height: 45px;
+				max-width: 54.1rem;
+				@media #{$large-only} and (orientation:landscape) {
+					max-width: 48.2rem;
+				}
 				ul {
 					list-style-type: none;
 					background: $cst_black;
+					@media #{$small-only} {
+						margin-left: 1rem;
+					}
 				}
 				li,
 				li:not(.has-form) > a, a:not(.button) {
@@ -206,6 +222,14 @@ header {
 					line-height:44px;
 					color: $white;
 					padding: 0 2px;
+				}
+				li,
+				.homepage-nav-holder {
+					padding-left: 0;
+					padding-right: 0;
+					> a {
+						color: $cst_black;
+					}
 				}
 				@media #{$xmedium-down} {
 					li {
@@ -302,26 +326,6 @@ header {
 					top: 22.5px;
 					right: -14px;
 				}
-				.masthead-sections {
-					ul {
-						list-style-type: none;
-						background: $cst_black;
-						@media #{$small-only} {
-							margin-left: 1rem;
-						}
-					}
-					li,
-					li:not(.has-form) > a, a:not(.button) {
-						background: $cst_black;
-						line-height: 44px;
-						color: $white;
-					}
-					.homepage-nav-holder {
-						max-width: 62.5rem;
-						padding-left: 0;
-						padding-right: 0;
-					}
-				}
 				.logo {
 					a {
 						line-height: 42px;
@@ -401,6 +405,19 @@ header {
 		}
 	}
 }
+body {
+	header{
+		.contain-to-grid{
+			.top-bar{
+				.masthead-sections{
+					li:not(.has-form) > a, a:not(.button) {
+						padding: 0 10px;
+					}
+				}
+			}
+		}
+	}
+}
 @media only screen and (min-width: 78.063em) {
 
 	header {
@@ -453,6 +470,15 @@ header {
 						}
 					}
 				}
+			}
+		}
+	}
+}
+@media #{$xmedium-only} {
+	header {
+		.contain-to-grid {
+			.top-bar {
+				max-width: 100%;
 			}
 		}
 	}

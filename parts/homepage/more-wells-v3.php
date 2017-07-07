@@ -18,7 +18,6 @@ $class_name = CST()->customizer->get_widget_top_stories_stub();
 	<div class="columns small-12">
 		<?php foreach ( $homepage_more_well_posts as $homepage_more_well_post ) { ?>
 			<div class="more-story <?php echo esc_attr( $class_name . $counter ); ?>">
-				<div class="row">
 					<?php
 					$obj = \CST\Objects\Post::get_by_post_id( $homepage_more_well_post->ID );
 					if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
@@ -53,7 +52,6 @@ $class_name = CST()->customizer->get_widget_top_stories_stub();
 						</div>
 					<?php }
 					?>
-				</div>
 			</div>
 			<?php $counter++;
 		} ?>
