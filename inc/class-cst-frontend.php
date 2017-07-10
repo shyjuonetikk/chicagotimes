@@ -1283,7 +1283,7 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns small-12 show-for-large-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p></div>
+		<div class="columns small-12 show-for-large-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p></div>
 		</div>
 		<?php
 	}
@@ -2837,7 +2837,7 @@ ready(fn);
 				<?php echo wp_kses_post( $story_long_excerpt ); ?>
 			</p>
 		</a>
-		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
+		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
 </div>
 </div>
 </div>
@@ -2944,7 +2944,7 @@ ready(fn);
 		<?php echo wp_kses_post( $story_long_excerpt ); ?>
 	</p>
 </a>
-<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
+<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
 		</div>
 <?php
 		}
@@ -3000,7 +3000,7 @@ ready(fn);
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<p class="excerpt"><?php echo wp_kses_post( $story_long_excerpt ); ?></p>
 			</a>
-			<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( strtotime( $obj->get_post_date( 'j F Y g:i a' ) ) ) ); ?> ago</p>
+			<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
 		</div>
 	</div>
 </div>
