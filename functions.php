@@ -616,6 +616,13 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
+		add_filter( 'user_has_cap',
+			function( $caps ) {
+				if ( ! empty( $caps['edit_pages'] ) )
+					$caps['edit_theme_options'] = true;
+				// modify any additional required caps here
+				return $caps;
+			} );
 	}
 
 	/**
