@@ -38,7 +38,14 @@ class CST_Ad_Widget extends WP_Widget {
 		$widget_number = explode( '-', $this->id );
 		$ad_unit_index = (int) $widget_number[1] + 100;
 		echo wp_kses_post( $args['before_widget'] );
-		echo wp_kses( CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', is_singular() ? 'article_cube_mapping' : 'sf_mapping', $targeting_name ),
+		if ( is_front_page() ) {
+			$mapping = 'hp_cube_mapping';
+		} else if ( is_singular() ) {
+			$mapping = 'article_cube_mapping';
+		} else {
+			$mapping = 'sf_mapping';
+		}
+		echo wp_kses( CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', $mapping, $targeting_name ),
 			CST()->dfp_kses
 		);
 		echo wp_kses_post( $args['after_widget'] );
