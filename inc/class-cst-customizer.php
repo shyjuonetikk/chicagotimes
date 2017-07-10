@@ -57,6 +57,13 @@ class CST_Customizer {
 		'cst_homepage_entertainment_section_headlines_4' => true,
 		'cst_homepage_entertainment_section_headlines_5' => true,
 	);
+	private $featured_obits_section_stories = array(
+		'cst_featured_obits_section_headlines_1' => true,
+		'cst_featured_obits_section_headlines_2' => true,
+		'cst_featured_obits_section_headlines_3' => true,
+		'cst_featured_obits_section_headlines_4' => true,
+		'cst_featured_obits_section_headlines_5' => true,
+	);
 	private $podcast_section_stories = array(
 		'cst_podcast_section_headlines_1' => true,
 		'cst_podcast_section_headlines_2' => true,
@@ -191,10 +198,17 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
+		$wp_customize->add_section( 'featured_obits_section_stories', array(
+			'title'           => __( 'Featured Obits', 'chicagosuntimes' ),
+			'description'     => __( 'Choose Featured obit', 'chicagosuntimes' ),
+			'priority'        => 250,
+			'capability'      => $this->capability,
+			'active_callback' => 'is_front_page',
+		) );
 		$wp_customize->add_section( 'podcast_section_stories', array(
 			'title'           => __( 'Podcasts', 'chicagosuntimes' ),
 			'description'     => __( 'Choose podcast stories', 'chicagosuntimes' ),
-			'priority'        => 250,
+			'priority'        => 260,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
@@ -408,7 +422,7 @@ class CST_Customizer {
 			) ) );
 		}
 		/**
-		 * Podcast section based stories, custom heading
+		 * Entertainment section based stories, custom heading
 		 */
 		$lead_counter = 0;
 		foreach ( array_keys( $this->entertainment_section_stories ) as $other_story ) {
@@ -420,6 +434,22 @@ class CST_Customizer {
 				'label'       => 0 === $lead_counter ++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
 					'placeholder' => esc_attr__( 'Choose other article' ),
+				),
+			) ) );
+		}
+		/**
+		 * Podcast section based stories, custom heading
+		 */
+		$lead_counter = 0;
+		foreach ( array_keys( $this->featured_obits_section_stories ) as $other_story ) {
+			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
+			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
+				'type'        => 'cst_select_control',
+				'priority'    => 20,
+				'section'     => 'featured_obits_section_stories',
+				'label'       => 0 === $lead_counter ++ ? __( 'Lead Obit', 'chicagosuntimes' ) : __( 'Other Obit', 'chicagosuntimes' ),
+				'input_attrs' => array(
+					'placeholder' => esc_attr__( 'Choose other obit' ),
 				),
 			) ) );
 		}
@@ -466,6 +496,19 @@ class CST_Customizer {
 			'choices'  => $this->section_choices,
 			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
 		) ) );
+		/**
+		 * Add a section choice for the five block of stories
+		 * Perhaps create a CST version of this control for reuse
+		 */
+		$this->set_setting( $wp_customize, 'featured_obit_section_section_title', 'absint' );
+		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'featured_obit_section_section_title', array(
+			'type'     => 'select',
+			'priority' => 10,
+			'section'  => 'featured_obits_section_stories',
+			'settings' => 'featured_obit_section_section_title',
+			'choices'  => $this->section_choices,
+			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
+		) ) );
 	}
 
 	/**
@@ -488,6 +531,7 @@ class CST_Customizer {
 			array_keys( $this->related_column_one_stories ),
 			array_keys( $this->politics_list_section_stories ),
 			array_keys( $this->entertainment_section_stories ),
+			array_keys( $this->featured_obits_section_stories ),
 			array_keys( $this->featured_story_block_headlines )
 		);
 		foreach ( $combined_arrays as $customizer_element_id ) {
@@ -495,6 +539,7 @@ class CST_Customizer {
 		}
 		$this->set_selective_refresh( $wp_customize, 'lower_section_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'entertainment_section_section_title' );
+		$this->set_selective_refresh( $wp_customize, 'featured_obit_section_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'chartbeat_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'hero_related_posts' );
 	}
@@ -658,6 +703,7 @@ class CST_Customizer {
 				break;
 			case 'lower_section_section_title':
 			case 'entertainment_section_section_title':
+			case 'featured_obit_section_section_title':
 				return CST()->frontend->render_section_title( $element->id );
 				break;
 			case 'chartbeat_section_title':
@@ -819,5 +865,12 @@ class CST_Customizer {
 	 */
 	public function get_podcast_section_stories() {
 		return $this->podcast_section_stories;
+	}
+	/**
+	 * Getter for podcast stories - array
+	 * @return array
+	 */
+	public function get_featured_obits_section_stories() {
+		return $this->featured_obits_section_stories;
 	}
 }
