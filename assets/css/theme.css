@@ -1793,6 +1793,8 @@ body[class^="cst_article-"] article.post .sponsored-notification {
           color: #59adeb; }
         .single article.post .post-meta-social .fa.fa-facebook {
           color: #3c5a96; } }
+.single article.cst_section-horoscopes .scope-sign h2 {
+  font-size: 1.9125rem; }
 .single .end-of-post-line {
   border: 0;
   border-bottom: 2px solid #cdcdcd;
