@@ -1248,7 +1248,7 @@ class CST_Frontend {
 			<?php if ( 'prime' === $layout_type ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<div class="hide-for-medium">
+					<div class="show-for-medium hide-for-large-up">
 					<p class="excerpt">
 						<?php echo wp_kses_post( $story_excerpt ); ?>
 					</p>
@@ -1269,7 +1269,7 @@ class CST_Frontend {
 			<?php if ( 'prime' === $layout_type ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<div class="hide-for-medium">
+					<div class="hide-for-medium hide-for-large-up">
 						<p class="excerpt">
 							<?php echo wp_kses_post( $story_excerpt ); ?>
 						</p>
