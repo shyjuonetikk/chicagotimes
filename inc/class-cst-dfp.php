@@ -304,10 +304,11 @@ var dfp = {
       .addSize([0, 0], [[320, 50],[300,50]]) //other
 	  .build();
     super_leaderboard_mapping = googletag.sizeMapping().
-    addSize([1200, 800], [ [970, 250], [970,90], [728,90] ] ). //tablet
-    addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
-    addSize([800, 1200], [ [728,90] ] ). //tablet
-    addSize([768, 1024], [ [728,90] ] ). //tablet
+    addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
+    addSize([992, 0], [ [970, 90], [728, 90] ] ). //desktop
+    addSize([1024, 768], [ [320, 50], [300, 50] ] ). //tablet
+    addSize([800, 1200], [ [320, 50], [300, 50] ] ). //tablet
+    addSize([768, 1024], [ [320, 50], [300, 50] ] ). //tablet
     addSize([640, 480], [[320, 50], [300, 50]]). //phone
     addSize([414, 0], [[320, 50], [300, 50]]). //phone
     addSize([375, 667], [[320, 50], [300, 50]]). //phone
