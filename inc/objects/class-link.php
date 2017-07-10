@@ -22,4 +22,15 @@ class Link extends Post {
 		return $this->get_meta( 'external_url' );
 	}
 
+	/**
+	 * Get the excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_excerpt() {
+		if ( $excerpt = $this->get_field( 'post_excerpt' ) ) {
+			return $excerpt;
+		}
+	}
+
 }
