@@ -3779,6 +3779,9 @@ body.post-gallery-lightbox-active {
         width: 100%; } }
   .homepage_wrapper .stories-container .mini-stories .byline {
     margin-top: 0.5rem; }
+  .homepage_wrapper .stories-container .mini-stories .prime-lead-story h3 {
+    font-size: 1.1rem;
+    line-height: 1.4rem; }
   .homepage_wrapper .stories-container h3 {
     font-size: 1.1rem;
     line-height: 1.4rem;
