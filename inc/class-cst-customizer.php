@@ -30,7 +30,7 @@ class CST_Customizer {
 		'cst_homepage_section_headlines_4' => true,
 		'cst_homepage_section_headlines_5' => true,
 	);
-	private $entertainment_list_section_stories = array(
+	private $politics_list_section_stories = array(
 		'cst_homepage_top_story_headline_1'  => true,
 		'cst_homepage_top_story_headline_2'  => true,
 		'cst_homepage_top_story_headline_3'  => true,
@@ -49,6 +49,13 @@ class CST_Customizer {
 		'cst_homepage_lower_section_headlines_3' => true,
 		'cst_homepage_lower_section_headlines_4' => true,
 		'cst_homepage_lower_section_headlines_5' => true,
+	);
+	private $entertainment_section_stories = array(
+		'cst_homepage_entertainment_section_headlines_1' => true,
+		'cst_homepage_entertainment_section_headlines_2' => true,
+		'cst_homepage_entertainment_section_headlines_3' => true,
+		'cst_homepage_entertainment_section_headlines_4' => true,
+		'cst_homepage_entertainment_section_headlines_5' => true,
 	);
 	private $podcast_section_stories = array(
 		'cst_podcast_section_headlines_1' => true,
@@ -143,22 +150,22 @@ class CST_Customizer {
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'hp_chartbeat_stories', array(
-			'title'           => __( 'Chartbeat stories', 'chicagosuntimes' ),
+			'title'           => __( 'Chartbeat settings', 'chicagosuntimes' ),
 			'description'     => __( 'Configure Chartbeat', 'chicagosuntimes' ),
 			'priority'        => 190,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'upper_section_stories', array(
-			'title'           => __( 'Sports section stories', 'chicagosuntimes' ),
-			'description'     => __( 'Choose sports section stories', 'chicagosuntimes' ),
+			'title'           => __( 'Sports', 'chicagosuntimes' ),
+			'description'     => __( 'Choose sports stories', 'chicagosuntimes' ),
 			'priority'        => 200,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
-		$wp_customize->add_section( 'entertainment_section_stories', array(
-			'title'           => __( 'Entertainment', 'chicagosuntimes' ),
-			'description'     => __( 'Choose entertainment stories', 'chicagosuntimes' ),
+		$wp_customize->add_section( 'politics_section_stories', array(
+			'title'           => __( 'Politics', 'chicagosuntimes' ),
+			'description'     => __( 'Choose politics stories', 'chicagosuntimes' ),
 			'priority'        => 210,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
@@ -171,16 +178,23 @@ class CST_Customizer {
 			'active_callback' => 'is_front_page',
 		) );
 		$wp_customize->add_section( 'lower_section_stories', array(
-			'title'           => __( 'Lower section stories', 'chicagosuntimes' ),
-			'description'     => __( 'Choose lower section stories', 'chicagosuntimes' ),
+			'title'           => __( 'Crime', 'chicagosuntimes' ),
+			'description'     => __( 'Choose crime stories', 'chicagosuntimes' ),
 			'priority'        => 230,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
-		$wp_customize->add_section( 'podcast_section_stories', array(
-			'title'           => __( 'Podcast section stories', 'chicagosuntimes' ),
-			'description'     => __( 'Choose podcast stories', 'chicagosuntimes' ),
+		$wp_customize->add_section( 'entertainment_section_stories', array(
+			'title'           => __( 'Entertainment', 'chicagosuntimes' ),
+			'description'     => __( 'Choose entertainment stories', 'chicagosuntimes' ),
 			'priority'        => 240,
+			'capability'      => $this->capability,
+			'active_callback' => 'is_front_page',
+		) );
+		$wp_customize->add_section( 'podcast_section_stories', array(
+			'title'           => __( 'Podcasts', 'chicagosuntimes' ),
+			'description'     => __( 'Choose podcast stories', 'chicagosuntimes' ),
+			'priority'        => 250,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
@@ -343,15 +357,15 @@ class CST_Customizer {
 		/**
 		 * Top stories list of 10
 		 */
-		foreach ( array_keys( $this->entertainment_list_section_stories ) as $other_story ) {
+		foreach ( array_keys( $this->politics_list_section_stories ) as $other_story ) {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
 				'priority'    => 20,
-				'section'     => 'entertainment_section_stories',
+				'section'     => 'politics_section_stories',
 				'label'       => __( 'Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
-					'placeholder' => esc_attr__( 'Choose Entertainment story article' ),
+					'placeholder' => esc_attr__( 'Choose Politics story article' ),
 				),
 			) ) );
 		}
@@ -385,8 +399,24 @@ class CST_Customizer {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
-				'priority'    => 20,
+				'priority'    => 10,
 				'section'     => 'lower_section_stories',
+				'label'       => 0 === $lead_counter ++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
+				'input_attrs' => array(
+					'placeholder' => esc_attr__( 'Choose other article' ),
+				),
+			) ) );
+		}
+		/**
+		 * Podcast section based stories, custom heading
+		 */
+		$lead_counter = 0;
+		foreach ( array_keys( $this->entertainment_section_stories ) as $other_story ) {
+			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
+			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
+				'type'        => 'cst_select_control',
+				'priority'    => 20,
+				'section'     => 'entertainment_section_stories',
 				'label'       => 0 === $lead_counter ++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
 				'input_attrs' => array(
 					'placeholder' => esc_attr__( 'Choose other article' ),
@@ -401,7 +431,7 @@ class CST_Customizer {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, array(
 				'type'        => 'cst_select_control',
-				'priority'    => 20,
+				'priority'    => 30,
 				'section'     => 'podcast_section_stories',
 				'label'       => 0 === $lead_counter ++ ? __( 'Lead Podcast', 'chicagosuntimes' ) : __( 'Other Podcast', 'chicagosuntimes' ),
 				'input_attrs' => array(
@@ -420,6 +450,19 @@ class CST_Customizer {
 			'priority' => 10,
 			'section'  => 'lower_section_stories',
 			'settings' => 'lower_section_section_title',
+			'choices'  => $this->section_choices,
+			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
+		) ) );
+		/**
+		 * Add a section choice for the five block of stories
+		 * Perhaps create a CST version of this control for reuse
+		 */
+		$this->set_setting( $wp_customize, 'entertainment_section_section_title', 'absint' );
+		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'entertainment_section_section_title', array(
+			'type'     => 'select',
+			'priority' => 10,
+			'section'  => 'entertainment_section_stories',
+			'settings' => 'entertainment_section_section_title',
 			'choices'  => $this->section_choices,
 			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
 		) ) );
@@ -443,13 +486,15 @@ class CST_Customizer {
 			array_keys( $this->lower_section_stories ),
 			array_keys( $this->podcast_section_stories ),
 			array_keys( $this->related_column_one_stories ),
-			array_keys( $this->entertainment_list_section_stories ),
+			array_keys( $this->politics_list_section_stories ),
+			array_keys( $this->entertainment_section_stories ),
 			array_keys( $this->featured_story_block_headlines )
 		);
 		foreach ( $combined_arrays as $customizer_element_id ) {
 			$this->set_selective_refresh( $wp_customize, $customizer_element_id );
 		}
 		$this->set_selective_refresh( $wp_customize, 'lower_section_section_title' );
+		$this->set_selective_refresh( $wp_customize, 'entertainment_section_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'chartbeat_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'hero_related_posts' );
 	}
@@ -572,6 +617,10 @@ class CST_Customizer {
 			case 'cst_podcast_section_headlines_3':
 			case 'cst_podcast_section_headlines_4':
 			case 'cst_podcast_section_headlines_5':
+			case 'cst_homepage_entertainment_section_headlines_2':
+			case 'cst_homepage_entertainment_section_headlines_3':
+			case 'cst_homepage_entertainment_section_headlines_4':
+			case 'cst_homepage_entertainment_section_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 
 				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes', '', true );
@@ -579,6 +628,7 @@ class CST_Customizer {
 			case 'cst_homepage_section_headlines_1':
 			case 'cst_podcast_section_headlines_1':
 			case 'cst_homepage_lower_section_headlines_1':
+			case 'cst_homepage_entertainment_section_headlines_1':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 
 				return CST()->frontend->single_mini_story( $obj, 'prime', $element->id, 'yes' );
@@ -607,6 +657,7 @@ class CST_Customizer {
 				return CST()->frontend->single_mini_story( $obj, 'vertical', $element->id, 'feature-landscape', true );
 				break;
 			case 'lower_section_section_title':
+			case 'entertainment_section_section_title':
 				return CST()->frontend->render_section_title( $element->id );
 				break;
 			case 'chartbeat_section_title':
@@ -703,7 +754,15 @@ class CST_Customizer {
 	 * @return array
 	 */
 	public function get_entertainment_stories() {
-		return $this->entertainment_list_section_stories;
+		return $this->entertainment_section_stories;
+	}
+
+	/**
+	 * Getter for top stories array
+	 * @return array
+	 */
+	public function get_politics_stories() {
+		return $this->politics_list_section_stories;
 	}
 
 	/**

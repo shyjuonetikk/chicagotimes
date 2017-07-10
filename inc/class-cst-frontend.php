@@ -996,12 +996,12 @@ class CST_Frontend {
 	 * Multi functional content layer outer
 	 * @param $orientation string Basic name describing orientation of articles in this block
 	 */
-	public function cst_entertainment_stories_content_block( $orientation = 'columns' ) {
+	public function cst_politics_stories_content_block( $orientation = 'columns' ) {
 ?>
 			<div class="row">
 			<div class="columns small-12">
 			<?php
-		foreach ( CST()->customizer->get_entertainment_stories() as $partial_id => $value ) {
+		foreach ( CST()->customizer->get_politics_stories() as $partial_id => $value ) {
 				$this->top_story( $partial_id, $orientation );
 		} ?>
 			</div>
@@ -1066,7 +1066,7 @@ class CST_Frontend {
 		?>
 		<div class="more-stories-content">
 			<div class="row">
-			<?php $this->more_top_stories_block( 'Entertainment', 'normal-style' ); ?>
+			<?php $this->more_top_stories_block( 'Politics', 'normal-style' ); ?>
 			<div class="columns small-12 medium-6 large-8">
 				<div class="small-12 columns more-stories-container" id="featured-stories">
 					<div class="row">
@@ -1122,7 +1122,7 @@ class CST_Frontend {
 				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
 				<div class="row">
 					<div class="columns stories-list">
-						<?php $this->cst_entertainment_stories_content_block( 'columns' ); ?>
+						<?php $this->cst_politics_stories_content_block( 'columns' ); ?>
 					</div>
 				</div>
 			</div>
