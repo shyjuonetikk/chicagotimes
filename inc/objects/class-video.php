@@ -135,4 +135,15 @@ class Video extends Post {
 
 	}
 
+	/**
+	 * Get the excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_excerpt() {
+		if ( $excerpt = $this->get_field( 'post_excerpt' ) ) {
+			return $excerpt;
+		}
+	}
+
 }

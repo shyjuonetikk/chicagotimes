@@ -17,7 +17,7 @@ class CST_STNG_Wire_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		$feed_url = ! empty( $instance[ 'cst_stng_wire_feed_url' ] ) ? $instance[ 'cst_stng_wire_feed_url' ] : '';
 		if ( empty( $feed_url ) ) {
-			$feed_url = 'http://www.suntimeswire.com/feed';
+			$feed_url = 'http://chicago.suntimes.com/section/stng-wire/feed/';
 		}
 		echo wp_kses_post( $args['before_widget'] );
 		?>
