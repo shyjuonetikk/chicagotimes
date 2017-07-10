@@ -1697,10 +1697,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		$authors_open = '<span class="post-meta-author">';
 		$authors_close = '</span>';
 		$authors = array();
-		foreach ( $obj->get_authors() as $author ) {
-			$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '" 
-			data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
-			$author->get_display_name() . '</a>';
+		if ( $byline = $obj->get_byline() ) {
+			$authors = array( $byline );
+		} else {
+			foreach ( $obj->get_authors() as $author ) {
+				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '" 
+				data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
+				$author->get_display_name() . '</a>';
+			}
 		}
 		return $authors_open . implode( ' and ', $authors ) . $authors_close;
 	}
