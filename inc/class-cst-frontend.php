@@ -1228,7 +1228,7 @@ class CST_Frontend {
 		?>
 		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
 		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['image_class'] ); ?>">
-			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
 			<?php
 				$featured_image_id = $obj->get_featured_image_id();
 		if ( $featured_image_id ) {
