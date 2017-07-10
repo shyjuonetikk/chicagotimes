@@ -99,7 +99,7 @@
 						dynamic_sidebar( 'homepage_sidebar_three' );
 } ?>
 				</li>
-				<li class="hide-for-medium-down">
+				<li class="hide-for-small-down">
 					<hr>
 					<?php the_widget( 'CST_STNG_Wire_Widget' ); ?>
 				</li>
