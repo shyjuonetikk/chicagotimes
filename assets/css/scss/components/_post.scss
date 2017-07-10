@@ -731,7 +731,13 @@ body[class^="cst_article-"] {
 
 
 	}
-
+	article.cst_section-horoscopes {
+		.scope-sign {
+			h2 {
+				font-size:1.9125rem;
+			}
+		}
+	}
 	.end-of-post-line {
 		border: 0;
 		border-bottom: 2px solid $line_grey;
