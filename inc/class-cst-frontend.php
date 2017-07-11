@@ -1283,8 +1283,7 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author ); ?>
-</div>
+		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author ); ?></div>
 		</div>
 		<?php
 	}
@@ -2838,7 +2837,7 @@ ready(fn);
 				<?php echo wp_kses_post( $story_long_excerpt ); ?>
 			</p>
 		</a>
-<?php $this->homepage_byline( $obj, $author ); ?>
+		<?php $this->homepage_byline( $obj, $author ); ?>
 </div>
 </div>
 </div>
@@ -3008,7 +3007,6 @@ ready(fn);
 <?php
 		}
 	}
-
 	public function homepage_byline( CST\Objects\Post $obj, $author ) { ?>
 <p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_localized_pub_mod_date_gmt() ) ); ?> ago</p>
 	<?php }
