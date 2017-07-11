@@ -540,6 +540,11 @@
 				}
 			}
 		}
+		@media #{$small-only} {
+			.widget_cst_ad_widget {
+				text-align:center;
+			}
+		}
 	}
 	@media #{$xmedium-only} and (orientation: portrait) {
 		.stories-container {

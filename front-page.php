@@ -80,6 +80,14 @@
 							</div>
 						</div>
 					</div>
+					<hr>
+					<div class="row">
+						<div class="columns small-12">
+							<?php echo wp_kses( CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+								CST()->dfp_kses
+							); ?>
+						</div>
+					</div>
 				</div>
 				<div class="featured-obits-section-stories more-stories-container" id="hp-featured-obits-section-lead">
 					<div class="show-for-medium-up">

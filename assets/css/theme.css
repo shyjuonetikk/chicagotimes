@@ -3902,6 +3902,9 @@ body.post-gallery-lightbox-active {
         color: #cdcdcd; }
     .homepage_wrapper .widgets .widget ul li:hover {
       background: white; }
+@media only screen and (max-width: 40em) {
+  .homepage_wrapper .widgets .widget_cst_ad_widget {
+    text-align: center; } }
 @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
   .homepage_wrapper .stories-container .stories {
     width: 58%; }
