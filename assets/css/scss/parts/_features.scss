@@ -372,7 +372,20 @@ body#tinymce {
 		color: $social_grey;
 		text-transform: uppercase;
 	}
-
+	ul.pagination {
+		float: left;
+		li {
+			padding:0.5rem;
+			height:auto;
+			background-color: $cst_black;
+			color:$white;
+			a {
+				transition:none;
+				border-radius:0;
+				padding:0;
+			}
+		}
+	}
 }
 #tinymce.post-type-cst_feature {
 	font-family: 'Merriweather', Georgia, serif;

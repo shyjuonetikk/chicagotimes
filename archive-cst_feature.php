@@ -12,12 +12,21 @@
 					<?php get_template_part( 'sticky-content' ); ?>
 				<?php endwhile; ?>
 			<?php endif; ?>
-
 			<?php if ( have_posts() ) : ?>
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php get_template_part( 'content' ); ?>
 				<?php endwhile; ?>
 			<?php endif; ?>
+			<?php
+			$features_nav = get_the_posts_pagination( array(
+				'show_all' => true,
+				'type' => 'list',
+				'mid_size' => 2,
+			) );
+			$features_nav = str_replace( 'page-numbers', 'page-numbers pagination', $features_nav );
+			$features_nav = str_replace( '><span class=\'page-numbers pagination current', ' class="current"><span class=\'page-numbers pagination current', $features_nav );
+			echo wp_kses_post( $features_nav );
+			?>
 		</div>
 	</section>
 <?php get_footer();
