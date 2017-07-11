@@ -341,6 +341,30 @@ abstract class Post {
 	public function get_localized_pub_mod_date( $format = 'U' ) {
 		$post_modified_date = $this->get_post_modified();
 		$original_date = $this->get_post_date();
+		return $this->get_date_diff( $original_date, $post_modified_date );
+	}
+	/**
+	 * Return the publish date or if modified the post modified date in GMT
+	 * @param string $format
+	 *
+	 * @return mixed|string
+	 *
+	 */
+	public function get_localized_pub_mod_date_gmt( $format = 'U' ) {
+		$post_modified_date = $this->get_post_modified_gmt();
+		$original_date = $this->get_post_date_gmt();
+		return $this->get_date_diff( $original_date, $post_modified_date );
+	}
+
+	/**
+	 * @param $original_date
+	 * @param $post_modified_date
+	 *
+	 * @return mixed
+	 *
+	 * Common function to return the up to date date.
+	 */
+	public function get_date_diff( $original_date, $post_modified_date ) {
 		if ( $post_modified_date > $original_date ) {
 			$localized_display_date = $post_modified_date;
 		} else {
