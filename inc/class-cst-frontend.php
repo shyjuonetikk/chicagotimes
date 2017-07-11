@@ -1283,7 +1283,8 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns small-12 show-for-large-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p></div>
+		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author ); ?>
+</div>
 		</div>
 		<?php
 	}
@@ -2837,7 +2838,7 @@ ready(fn);
 				<?php echo wp_kses_post( $story_long_excerpt ); ?>
 			</p>
 		</a>
-		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
+<?php $this->homepage_byline( $obj, $author ); ?>
 </div>
 </div>
 </div>
@@ -2944,7 +2945,7 @@ ready(fn);
 		<?php echo wp_kses_post( $story_long_excerpt ); ?>
 	</p>
 </a>
-<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
+<?php $this->homepage_byline( $obj, $author ); ?>
 		</div>
 <?php
 		}
@@ -3000,7 +3001,7 @@ ready(fn);
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<p class="excerpt"><?php echo wp_kses_post( $story_long_excerpt ); ?></p>
 			</a>
-			<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
+			<?php $this->homepage_byline( $obj, $author ); ?>
 		</div>
 	</div>
 </div>
@@ -3008,4 +3009,7 @@ ready(fn);
 		}
 	}
 
+	public function homepage_byline( CST\Objects\Post $obj, $author ) { ?>
+<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_localized_pub_mod_date_gmt() ) ); ?> ago</p>
+	<?php }
 }
