@@ -616,6 +616,9 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
+		add_filter( 'nav_menu_item_id', function() {
+			return '';
+		});
 	}
 
 	/**
