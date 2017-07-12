@@ -71,13 +71,11 @@
 					</div>
 				</div><!-- /.lower-section-stories -->
 				<div class="entertainment-section-stories more-stories-container" id="hp-entertainment-section-lead">
-					<div class="show-for-medium-up">
-						<div class="row">
-							<div class="small-12 columns more-stories-container">
-								<hr>
-								<?php CST()->frontend->render_section_title( 'entertainment_section_section_title' ); ?>
-								<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_entertainment_stories() ); ?>
-							</div>
+					<div class="row">
+						<div class="small-12 columns more-stories-container">
+							<hr>
+							<?php CST()->frontend->render_section_title( 'entertainment_section_section_title' ); ?>
+							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_entertainment_stories() ); ?>
 						</div>
 					</div>
 					<hr>
@@ -90,24 +88,20 @@
 					</div>
 				</div>
 				<div class="featured-obits-section-stories more-stories-container" id="hp-featured-obits-section-lead">
-					<div class="show-for-medium-up">
-						<div class="row">
-							<div class="small-12 columns more-stories-container">
-								<hr>
-								<?php CST()->frontend->render_section_title( 'featured_obit_section_section_title' ); ?>
-								<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_featured_obits_section_stories() ); ?>
-							</div>
+					<div class="row">
+						<div class="small-12 columns more-stories-container">
+							<hr>
+							<?php CST()->frontend->render_section_title( 'featured_obit_section_section_title' ); ?>
+							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_featured_obits_section_stories() ); ?>
 						</div>
 					</div>
 				</div>
 				<div class="podcast-section-stories more-stories-container" id="hp-podcasts-section-lead">
-					<div class="show-for-medium-up">
-						<div class="row">
-							<div class="small-12 columns more-stories-container">
-								<hr>
-								<h3 class="more-sub-head">Podcasts</h3>
-								<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_podcast_section_stories() ); ?>
-							</div>
+					<div class="row">
+						<div class="small-12 columns more-stories-container">
+							<hr>
+							<h3 class="more-sub-head">Podcasts</h3>
+							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_podcast_section_stories() ); ?>
 						</div>
 					</div>
 				</div>
