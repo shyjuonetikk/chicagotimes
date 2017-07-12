@@ -375,14 +375,38 @@ body#tinymce {
 	ul.pagination {
 		float: left;
 		li {
-			padding:0.5rem;
 			height:auto;
 			background-color: $cst_black;
 			color:$white;
 			a {
+				padding:0.625rem;
 				transition:none;
 				border-radius:0;
-				padding:0;
+				&:focus {
+					background-color:$social_grey;
+					color:$white;
+				}
+			}
+			&.current {
+				background-color:$social_grey;
+				span {
+					&.current {
+						padding:0.625rem;
+						height:auto;
+						display: block;
+					}
+				}
+			}
+			&:hover {
+				a,
+				button {
+					color:$white;
+					background-color:$social_grey;
+					&:focus {
+						background-color:$social_grey;
+					}
+				}
+
 			}
 		}
 	}

@@ -1283,8 +1283,7 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author ); ?>
-</div>
+		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author ); ?></div>
 		</div>
 		<?php
 	}
@@ -2838,7 +2837,7 @@ ready(fn);
 				<?php echo wp_kses_post( $story_long_excerpt ); ?>
 			</p>
 		</a>
-<?php $this->homepage_byline( $obj, $author ); ?>
+		<?php $this->homepage_byline( $obj, $author ); ?>
 </div>
 </div>
 </div>
@@ -3008,8 +3007,21 @@ ready(fn);
 <?php
 		}
 	}
-
 	public function homepage_byline( CST\Objects\Post $obj, $author ) { ?>
 <p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_localized_pub_mod_date_gmt() ) ); ?> ago</p>
 	<?php }
+
+	/**
+	* Provide basic pagination and styling for Features archive pages
+	*/
+	public function features_pagination() {
+		$features_nav = get_the_posts_pagination( array(
+			'show_all' => true,
+			'type' => 'list',
+			'mid_size' => 2,
+		) );
+		$features_nav = str_replace( 'page-numbers', 'page-numbers pagination', $features_nav );
+		$features_nav = str_replace( '><span class=\'page-numbers pagination current', ' class="current"><span class=\'page-numbers pagination current', $features_nav );
+		echo wp_kses_post( $features_nav );
+	}
 }
