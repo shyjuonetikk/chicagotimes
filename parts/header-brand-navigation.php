@@ -9,7 +9,7 @@
 					<div class="row collapse">
 						<div class="large-2 small-9 columns hide-for-small">
 						<?php $weather = CST()->frontend->get_weather(); ?>
-						<?php if ( false && ! empty( $weather ) ) { ?>
+						<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
 							<div class="weather">
 								<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
 	<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
