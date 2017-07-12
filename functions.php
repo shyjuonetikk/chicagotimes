@@ -1274,6 +1274,7 @@ class CST {
 					'add_new_item'       => esc_html__( 'Add New Feature', 'chicagosuntimes' ),
 					'edit_item'          => esc_html__( 'Edit Feature', 'chicagosuntimes' ),
 					'view_item'          => esc_html__( 'View Feature', 'chicagosuntimes' ),
+					'view_items'         => esc_html__( 'View Features', 'chicagosuntimes' ),
 					'search_items'       => esc_html__( 'Search Features', 'chicagosuntimes' ),
 					'not_found'          => esc_html__( 'No Features found', 'chicagosuntimes' ),
 					'not_found_in_trash' => esc_html__( 'No Features found in trash', 'chicagosuntimes' ),
@@ -1979,7 +1980,7 @@ class CST {
 	public function jetpack_infinite_support() {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular( 'cst_article', 'cst_feature' ) || is_tax() || is_archive() );
+			( is_singular( 'cst_article', 'cst_feature' ) || is_tax() );
 	}
 
 	/**
