@@ -934,6 +934,17 @@ class CST {
 		unregister_widget( 'WP_Widget_RSS' );
 		unregister_widget( 'WP_Widget_Tag_Cloud' );
 		unregister_widget( 'WP_Widget_Search' );
+		unregister_widget( 'WP_Widget_Calendar' );
+		unregister_widget( 'WP_Nav_Menu_Widget' );
+		unregister_widget( 'WPCOM_Widget_VIP_Powered' );
+		unregister_widget( 'Zoninator_ZonePosts_Widget' );
+		unregister_widget( 'Akismet_Widget' );
+		unregister_widget( 'Jetpack_Blog_Stats_Widget' );
+		unregister_widget( 'WP_Widget_Tag_Cloud' );
+		unregister_widget( 'Jetpack_Twitter_Timeline_Widget' );
+		unregister_widget( 'Jetpack_Top_Posts_Widget' );
+		unregister_widget( 'WP_Widget_Recent_Comments' );
+		unregister_widget( 'Jetpack_MailChimp_Subscriber_Popup_Widget' );
 
 	}
 
