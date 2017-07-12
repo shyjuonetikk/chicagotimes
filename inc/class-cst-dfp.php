@@ -314,7 +314,7 @@ var dfp = {
     addSize([375, 667], [[320, 50], [300, 50]]). //phone
     addSize([0, 0], [[320, 50], [300, 50]]). //other
     build();
-    hp_upper_super_leaderboard_mapping = googletag.sizeMapping().
+    var hp_upper_super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
     addSize([992, 0], [ [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
