@@ -312,7 +312,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-stng-wire-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-social-follow-us-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-category-headlines-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chatter-site-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-featured-story-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-ndn-video-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-search-widget.php';
@@ -616,6 +615,9 @@ class CST {
 		add_filter( 'safe_style_css', function( $styles ) {
 			$styles[] = 'display';
 		} );
+		add_filter( 'nav_menu_item_id', function() {
+			return '';
+		});
 	}
 
 	/**
@@ -909,7 +911,6 @@ class CST {
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
 		register_widget( 'CST_Category_Headlines_Widget' );
-		register_widget( 'CST_Chatter_Site_Widget' );
 		register_widget( 'CST_Homepage_Featured_Story_Widget' );
 		register_widget( 'CST_Search_Widget' );
 		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
