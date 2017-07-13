@@ -341,21 +341,6 @@ class CST_Admin {
 				)
 			) );
 		}
-		$terms_group->children['choose_chatter'] = new \Fieldmanager_Group( esc_html__( 'Choose Chatter Widget', 'chicagosuntimes' ), array(
-			'name'             => 'choose_chatter',
-			'description' => 'Please select the Chatter Widget to be injected into the article body',
-			'children'         => array(
-				'chatter_widget_selection'         => new \Fieldmanager_Select( esc_html__( 'Select the Chatter Widget injected into the article', 'chicagosuntimes' ), array(
-					'name'     => 'chatter_widget_selection',
-					'options'  => array(
-						'default_chatter' 	 => esc_html__( 'Article Section Chatter', 'chicagosuntimes' ),
-						'politics_chatter'   => esc_html__( 'Politics Chatter', 'chicagosuntimes' ),
-						'celeb_chatter'      => esc_html__( 'Celeb Chatter', 'chicagosuntimes' ),
-						'sports_chatter'     => esc_html__( 'Sports Chatter', 'chicagosuntimes' ),
-						'no_widget' 		 => esc_html__( 'No Chatter Widget', 'chicagosuntimes' ),
-						),
-					) )
-			)));
 		$terms_group->children['choose_topic'] = new \Fieldmanager_Group( esc_html__( 'Choose Topic', 'chicagosuntimes' ), array(
 			'name'             => 'choose_topic',
 			'description' => 'Please select the single Topic to display below the article',

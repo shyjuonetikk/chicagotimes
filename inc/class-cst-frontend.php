@@ -206,10 +206,6 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-						if ( $this->should_we_inject_headlinesnetwork( $obj ) ) {
-							wp_enqueue_script( 'aggrego-headlinesnetwork', get_template_directory_uri(). '/assets/js/vendor/aggrego-headlinesnetwork.js', array(), false, true );
-							wp_localize_script( 'aggrego-headlinesnetwork', 'vendor_hn', $this->headlines_network_slugs );
-						}
 					}
 
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
@@ -996,12 +992,12 @@ class CST_Frontend {
 	 * Multi functional content layer outer
 	 * @param $orientation string Basic name describing orientation of articles in this block
 	 */
-	public function cst_entertainment_stories_content_block( $orientation = 'columns' ) {
+	public function cst_politics_stories_content_block( $orientation = 'columns' ) {
 ?>
 			<div class="row">
 			<div class="columns small-12">
 			<?php
-		foreach ( CST()->customizer->get_entertainment_stories() as $partial_id => $value ) {
+		foreach ( CST()->customizer->get_politics_stories() as $partial_id => $value ) {
 				$this->top_story( $partial_id, $orientation );
 		} ?>
 			</div>
@@ -1066,7 +1062,7 @@ class CST_Frontend {
 		?>
 		<div class="more-stories-content">
 			<div class="row">
-			<?php $this->more_top_stories_block( 'Entertainment', 'normal-style' ); ?>
+			<?php $this->more_top_stories_block( 'Politics', 'normal-style' ); ?>
 			<div class="columns small-12 medium-6 large-8">
 				<div class="small-12 columns more-stories-container" id="featured-stories">
 					<div class="row">
@@ -1122,7 +1118,7 @@ class CST_Frontend {
 				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
 				<div class="row">
 					<div class="columns stories-list">
-						<?php $this->cst_entertainment_stories_content_block( 'columns' ); ?>
+						<?php $this->cst_politics_stories_content_block( 'columns' ); ?>
 					</div>
 				</div>
 			</div>
@@ -1228,7 +1224,7 @@ class CST_Frontend {
 		?>
 		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
 		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['image_class'] ); ?>">
-			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
 			<?php
 				$featured_image_id = $obj->get_featured_image_id();
 		if ( $featured_image_id ) {
@@ -1248,7 +1244,7 @@ class CST_Frontend {
 			<?php if ( 'prime' === $layout_type ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<div class="hide-for-medium">
+					<div class="show-for-medium hide-for-large-up">
 					<p class="excerpt">
 						<?php echo wp_kses_post( $story_excerpt ); ?>
 					</p>
@@ -1269,7 +1265,7 @@ class CST_Frontend {
 			<?php if ( 'prime' === $layout_type ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<div class="hide-for-medium">
+					<div class="hide-for-medium hide-for-large-up">
 						<p class="excerpt">
 							<?php echo wp_kses_post( $story_excerpt ); ?>
 						</p>
@@ -1283,7 +1279,7 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns small-12 show-for-large-up byline"><p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p></div>
+		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author ); ?></div>
 		</div>
 		<?php
 	}
@@ -2733,47 +2729,6 @@ ready(fn);
 		}
 		return $attrs;
 	}
-
-	/**
-	* Return if we can inject HeadlinesNetwork code
-	* @param $obj \CST\Objects\Article
-	*
-	* @return bool|\CST\Objects\Article
-	*/
-	public function should_we_inject_headlinesnetwork( $obj ) {
-		if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
-			$primary_section = $obj->get_primary_parent_section();
-			if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
-				return $primary_section->slug;
-			}
-		}
-		return false;
-	}
-	/**
-	* Determine if we can inject Headlines Network markup and if so return the markup
-	* @param $obj \CST\Objects\Article
-	*
-	* @return string
-	*
-	*/
-	public function inject_headlines_network_markup( $obj ) {
-
-		$slug = $this->should_we_inject_headlinesnetwork( $obj );
-		if ( $slug ) {
-			return $this->generate_in_article_headlinesnetwork_markup( $obj );
-		} else {
-			return '';
-		}
-	}
-
-	/**
-	* @param $obj \CST\Objects\Article
-	*
-	* @return string
-	*/
-	public function generate_in_article_headlinesnetwork_markup( $obj ) {
-		echo sprintf( '<div class="columns small-12"><h4 class="agg-sponsored">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn small-12 end"></div></div>', esc_attr( $obj->get_id() ) );
-	}
 	/**
 	 * For third party vendor templates just display basic navigational links
 	 * @return bool
@@ -2837,7 +2792,7 @@ ready(fn);
 				<?php echo wp_kses_post( $story_long_excerpt ); ?>
 			</p>
 		</a>
-		<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
+		<?php $this->homepage_byline( $obj, $author ); ?>
 </div>
 </div>
 </div>
@@ -2944,7 +2899,7 @@ ready(fn);
 		<?php echo wp_kses_post( $story_long_excerpt ); ?>
 	</p>
 </a>
-<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
+<?php $this->homepage_byline( $obj, $author ); ?>
 		</div>
 <?php
 		}
@@ -3000,12 +2955,28 @@ ready(fn);
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<p class="excerpt"><?php echo wp_kses_post( $story_long_excerpt ); ?></p>
 			</a>
-			<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_post_date_gmt() ) ); ?> ago</p>
+			<?php $this->homepage_byline( $obj, $author ); ?>
 		</div>
 	</div>
 </div>
 <?php
 		}
 	}
+	public function homepage_byline( CST\Objects\Post $obj, $author ) { ?>
+<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_localized_pub_mod_date_gmt() ) ); ?> ago</p>
+	<?php }
 
+	/**
+	* Provide basic pagination and styling for Features archive pages
+	*/
+	public function features_pagination() {
+		$features_nav = get_the_posts_pagination( array(
+			'show_all' => true,
+			'type' => 'list',
+			'mid_size' => 2,
+		) );
+		$features_nav = str_replace( 'page-numbers', 'page-numbers pagination', $features_nav );
+		$features_nav = str_replace( '><span class=\'page-numbers pagination current', ' class="current"><span class=\'page-numbers pagination current', $features_nav );
+		echo wp_kses_post( $features_nav );
+	}
 }

@@ -280,6 +280,30 @@ body#tinymce {
 .post-type-archive-cst_feature .features {
   color: #9a9a9a;
   text-transform: uppercase; }
+.post-type-archive-cst_feature ul.pagination {
+  float: left; }
+  .post-type-archive-cst_feature ul.pagination li {
+    height: auto;
+    background-color: #231f20;
+    color: white; }
+    .post-type-archive-cst_feature ul.pagination li a {
+      padding: 0.625rem;
+      transition: none;
+      border-radius: 0; }
+      .post-type-archive-cst_feature ul.pagination li a:focus {
+        background-color: #9a9a9a;
+        color: white; }
+    .post-type-archive-cst_feature ul.pagination li.current {
+      background-color: #9a9a9a; }
+      .post-type-archive-cst_feature ul.pagination li.current span.current {
+        padding: 0.625rem;
+        height: auto;
+        display: block; }
+    .post-type-archive-cst_feature ul.pagination li:hover a, .post-type-archive-cst_feature ul.pagination li:hover button {
+      color: white;
+      background-color: #9a9a9a; }
+      .post-type-archive-cst_feature ul.pagination li:hover a:focus, .post-type-archive-cst_feature ul.pagination li:hover button:focus {
+        background-color: #9a9a9a; }
 
 #tinymce.post-type-cst_feature {
   font-family: 'Merriweather', Georgia, serif;

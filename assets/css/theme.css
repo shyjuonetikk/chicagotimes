@@ -219,7 +219,6 @@ body.error404 {
 .dfp.dfp-super-leaderboard {
   position: relative;
   z-index: 2;
-  margin: 10px auto 10px auto;
   max-width: 1000px;
   text-align: center;
   clear: both; }
@@ -3779,6 +3778,9 @@ body.post-gallery-lightbox-active {
         width: 100%; } }
   .homepage_wrapper .stories-container .mini-stories .byline {
     margin-top: 0.5rem; }
+  .homepage_wrapper .stories-container .mini-stories .prime-lead-story h3 {
+    font-size: 1.1rem;
+    line-height: 1.4rem; }
   .homepage_wrapper .stories-container h3 {
     font-size: 1.1rem;
     line-height: 1.4rem;
@@ -3899,6 +3901,9 @@ body.post-gallery-lightbox-active {
         color: #cdcdcd; }
     .homepage_wrapper .widgets .widget ul li:hover {
       background: white; }
+@media only screen and (max-width: 40em) {
+  .homepage_wrapper .widgets .widget_cst_ad_widget {
+    text-align: center; } }
 @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
   .homepage_wrapper .stories-container .stories {
     width: 58%; }
@@ -4590,6 +4595,30 @@ body#tinymce {
 .post-type-archive-cst_feature .features {
   color: #9a9a9a;
   text-transform: uppercase; }
+.post-type-archive-cst_feature ul.pagination {
+  float: left; }
+  .post-type-archive-cst_feature ul.pagination li {
+    height: auto;
+    background-color: #231f20;
+    color: white; }
+    .post-type-archive-cst_feature ul.pagination li a {
+      padding: 0.625rem;
+      transition: none;
+      border-radius: 0; }
+      .post-type-archive-cst_feature ul.pagination li a:focus {
+        background-color: #9a9a9a;
+        color: white; }
+    .post-type-archive-cst_feature ul.pagination li.current {
+      background-color: #9a9a9a; }
+      .post-type-archive-cst_feature ul.pagination li.current span.current {
+        padding: 0.625rem;
+        height: auto;
+        display: block; }
+    .post-type-archive-cst_feature ul.pagination li:hover a, .post-type-archive-cst_feature ul.pagination li:hover button {
+      color: white;
+      background-color: #9a9a9a; }
+      .post-type-archive-cst_feature ul.pagination li:hover a:focus, .post-type-archive-cst_feature ul.pagination li:hover button:focus {
+        background-color: #9a9a9a; }
 
 #tinymce.post-type-cst_feature {
   font-family: 'Merriweather', Georgia, serif;
