@@ -312,7 +312,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-stng-wire-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-social-follow-us-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-category-headlines-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-chatter-site-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-featured-story-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-homepage-ndn-video-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-search-widget.php';
@@ -912,7 +911,6 @@ class CST {
 		register_widget( 'CST_STNG_Wire_Widget' );
 		register_widget( 'CST_Social_Follow_Us_Widget' );
 		register_widget( 'CST_Category_Headlines_Widget' );
-		register_widget( 'CST_Chatter_Site_Widget' );
 		register_widget( 'CST_Homepage_Featured_Story_Widget' );
 		register_widget( 'CST_Search_Widget' );
 		register_widget( 'CST_Chartbeat_Currently_Viewing_Widget' );
@@ -937,17 +935,6 @@ class CST {
 		unregister_widget( 'WP_Widget_RSS' );
 		unregister_widget( 'WP_Widget_Tag_Cloud' );
 		unregister_widget( 'WP_Widget_Search' );
-		unregister_widget( 'WP_Widget_Calendar' );
-		unregister_widget( 'WP_Nav_Menu_Widget' );
-		unregister_widget( 'WPCOM_Widget_VIP_Powered' );
-		unregister_widget( 'Zoninator_ZonePosts_Widget' );
-		unregister_widget( 'Akismet_Widget' );
-		unregister_widget( 'Jetpack_Blog_Stats_Widget' );
-		unregister_widget( 'WP_Widget_Tag_Cloud' );
-		unregister_widget( 'Jetpack_Twitter_Timeline_Widget' );
-		unregister_widget( 'Jetpack_Top_Posts_Widget' );
-		unregister_widget( 'WP_Widget_Recent_Comments' );
-		unregister_widget( 'Jetpack_MailChimp_Subscriber_Popup_Widget' );
 
 	}
 

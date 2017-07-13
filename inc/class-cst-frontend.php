@@ -206,10 +206,6 @@ class CST_Frontend {
 						for ( $i = 1;  $i <= 9;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
-						if ( $this->should_we_inject_headlinesnetwork( $obj ) ) {
-							wp_enqueue_script( 'aggrego-headlinesnetwork', get_template_directory_uri(). '/assets/js/vendor/aggrego-headlinesnetwork.js', array(), false, true );
-							wp_localize_script( 'aggrego-headlinesnetwork', 'vendor_hn', $this->headlines_network_slugs );
-						}
 					}
 
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
@@ -2732,47 +2728,6 @@ ready(fn);
 			$attrs .= ' data-cst-' . sanitize_key( $key ) . '="' . $val . '"';
 		}
 		return $attrs;
-	}
-
-	/**
-	* Return if we can inject HeadlinesNetwork code
-	* @param $obj \CST\Objects\Article
-	*
-	* @return bool|\CST\Objects\Article
-	*/
-	public function should_we_inject_headlinesnetwork( $obj ) {
-		if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) {
-			$primary_section = $obj->get_primary_parent_section();
-			if ( array_key_exists( $primary_section->slug, $this->headlines_network_slugs ) ) {
-				return $primary_section->slug;
-			}
-		}
-		return false;
-	}
-	/**
-	* Determine if we can inject Headlines Network markup and if so return the markup
-	* @param $obj \CST\Objects\Article
-	*
-	* @return string
-	*
-	*/
-	public function inject_headlines_network_markup( $obj ) {
-
-		$slug = $this->should_we_inject_headlinesnetwork( $obj );
-		if ( $slug ) {
-			return $this->generate_in_article_headlinesnetwork_markup( $obj );
-		} else {
-			return '';
-		}
-	}
-
-	/**
-	* @param $obj \CST\Objects\Article
-	*
-	* @return string
-	*/
-	public function generate_in_article_headlinesnetwork_markup( $obj ) {
-		echo sprintf( '<div class="columns small-12"><h4 class="agg-sponsored">Stories from around the web you may like</h4><div id="exchange-embed-widget-%1$s" class="agg-hn small-12 end"></div></div>', esc_attr( $obj->get_id() ) );
 	}
 	/**
 	 * For third party vendor templates just display basic navigational links
