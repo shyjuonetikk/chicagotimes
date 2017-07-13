@@ -618,12 +618,30 @@ class CST {
 			function( $caps ) {
 				if ( ! empty( $caps['edit_pages'] ) )
 					$caps['edit_theme_options'] = true;
-				// modify any additional required caps here
+					$caps['customize'] = true;
 				return $caps;
 			}
 		);
+		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
 	}
 
+	/**
+	 * @param $caps
+	 * @param $cap
+	 * @param $user_id
+	 *
+	 * @return array
+	 *
+	 * Trying this Editor->Customizer access code from:
+	 * https://make.wordpress.org/core/2014/07/08/customizer-improvements-in-4-0/
+	 */
+	public function allow_users_who_can_edit_posts_to_customize( $caps, $cap, $user_id ) {
+		$required_cap = 'edit_posts';
+		if ( 'customize' === $cap && user_can( $user_id, $required_cap ) ) {
+			$caps = array( $required_cap );
+		}
+		return $caps;
+	}
 	/**
 	 * @param $category
 	 * @param $_post_id
