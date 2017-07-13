@@ -219,6 +219,7 @@ body.error404 {
 .dfp.dfp-super-leaderboard {
   position: relative;
   z-index: 2;
+  margin: 10px auto 10px auto;
   max-width: 1000px;
   text-align: center;
   clear: both; }
@@ -4046,6 +4047,9 @@ body.post-gallery-lightbox-active {
     border: 1px solid white;
     padding: 0.35rem;
     color: #ffe000; }
+.homepage_wrapper .dfp.dfp-super-leaderboard {
+  margin-top: 0;
+  margin-bottom: 0; }
 
 .customize-partial-edit-shortcuts-shown #hp-sports-section-lead .prime-lead-story.preview-prime-lead-story, .customize-partial-edit-shortcuts-shown #top-stories-section-lead .prime-lead-story.preview-prime-lead-story, .customize-partial-edit-shortcuts-shown #hp-podcasts-section-lead .prime-lead-story.preview-prime-lead-story {
   width: 100%; }
