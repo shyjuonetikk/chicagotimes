@@ -618,7 +618,7 @@ class CST {
 			function( $caps ) {
 				if ( ! empty( $caps['edit_pages'] ) )
 					$caps['edit_theme_options'] = true;
-				// modify any additional required caps here
+					$caps['customize'] = true;
 				return $caps;
 			}
 		);
