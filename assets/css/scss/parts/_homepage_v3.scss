@@ -747,6 +747,12 @@
 			}
 		}
 	}
+	.dfp {
+		&.dfp-super-leaderboard {
+			margin-top:0;
+			margin-bottom:0;
+		}
+	}
 }
 .customize-partial-edit-shortcuts-shown {
 	#hp-sports-section-lead,
