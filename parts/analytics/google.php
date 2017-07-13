@@ -12,6 +12,7 @@ ga('BNA.require','eventTracker', {attributePrefix: 'data-', hitFilter: function 
   if ( 'chicago.suntimes.com' !== model.get('cookieDomain') ) {throw new Error('Aborting hit');}
 }});
 ga('BNA.require','outboundLinkTracker', {attributePrefix: 'data-'});
+ga('send', 'pageview');
 <?php
 // taken from here: http://www.labnol.org/internet/track-404-error-pages/13509/
 if ( is_404() ) { ?>
