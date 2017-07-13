@@ -370,7 +370,6 @@ class CST {
 
 		add_action( 'init', array( $this, 'action_init_early' ), 2 );
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ), 11 );
-		add_action( 'init', [ $this, 'admin_roles_for_customizer' ], 10, 3 );
 
 		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
@@ -487,9 +486,6 @@ class CST {
 
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 10, 2 );
 		add_filter( 'post_rewrite_rules', array( $this, 'filter_post_rewrite_rules' ) );
-
-		// Add customize capability to users who can edit_posts (hopefully)
-		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
 
 		add_filter( 'default_option_taxonomy_image_plugin_settings', array( $this, 'filter_taxonomy_image_plugin_settings' ) );
 		add_filter( 'option_taxonomy_image_plugin_settings', array( $this, 'filter_taxonomy_image_plugin_settings' ) );
@@ -618,35 +614,14 @@ class CST {
 		add_filter( 'nav_menu_item_id', function() {
 			return '';
 		});
-	}
-
-	/**
-	 * @param $caps
-	 * @param $cap
-	 * @param $user_id
-	 *
-	 * @return array
-	 * Add customize to editor level role on
-	 */
-	function allow_users_who_can_edit_posts_to_customize( $caps, $cap, $user_id ) {
-		$required_cap = 'edit_posts';
-		if ( 'customize' === $cap && user_can( $user_id, $required_cap ) ) {
-			$caps = array( $required_cap );
-		}
-		return $caps;
-	}
-
-	/**
-	 * Use basic functions to add capabilities to editor role
-	 */
-	public function admin_roles_for_customizer() {
-		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true, 'edit_theme_options' => true ) );
-		// get the the role object
-		$editor = get_role( 'editor' );
-		if ( $editor ) {
-			$editor->add_cap( 'edit_theme_options' );
-			$editor->add_cap( 'customize' );
-		}
+		add_filter( 'user_has_cap',
+			function( $caps ) {
+				if ( ! empty( $caps['edit_pages'] ) )
+					$caps['edit_theme_options'] = true;
+				// modify any additional required caps here
+				return $caps;
+			}
+		);
 	}
 
 	/**
