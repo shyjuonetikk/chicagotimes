@@ -349,10 +349,6 @@ var dfp = {
       .addSize([0, 0], []) //other
 	  .addSize([1025, 0], [[300, 250]]) //desktop
 	  .build();
-    var ym_craig_mapping = googletag.sizeMapping()
-	  .addSize([992, 0], [728, 90]) //desktop
-	  .addSize([0, 0], [300, 250]) //other
-	  .build();
     article_mapping = googletag.sizeMapping().
     addSize([992, 0], [ [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
@@ -383,17 +379,9 @@ var dfp = {
       .addSize([0, 0], [320, 50]) //other
       .build();
     if (dfp.front_page) {
-    googletag.defineSlot(adUnitPath, [[300, 600]], 'div-gpt-rr-cube-1')
-	  .defineSizeMapping(hp_cube_mapping)
-      .addService(googletag.pubads()).setTargeting("pos", "rr cube 1");
       googletag.defineSlot(adUnitPath, [[2, 2], [970, 90]], 'div-gpt-sbb-1')
         .addService(googletag.pubads())
         .setTargeting("pos", "sbb")
-        .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-2')
-        .defineSizeMapping(hp_upper_super_leaderboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Super leaderboard 2 970x90")
         .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
         .defineSizeMapping(super_leaderboard_mapping)
@@ -410,9 +398,6 @@ var dfp = {
         .addService(googletag.pubads())
         .setTargeting("pos", "Super Leaderboard 5")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-rr-cube-7')
-        .defineSizeMapping(gallery_cube_mapping)
-        .addService(googletag.pubads()).setTargeting("pos", "rr cube 7");
         googletag.defineSlot(adUnitPath, [184, 90], 'div-gpt-sponsor-ear-left')
           .defineSizeMapping(hp_ear_mapping)
           .addService(googletag.pubads()).setTargeting("pos", "Sponsor Ear Left")
