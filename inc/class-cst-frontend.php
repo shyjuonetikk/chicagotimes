@@ -1721,7 +1721,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	 * @param $counter int
 	 */
 	function cst_section_front_video( $counter ) {
-		return;
+		if ( 'chicago.suntimes.com' === CST()->dfp_handler->get_parent_dfp_inventory() ) {
+			return;
+		}
 		if ( 3 === $counter ) {
 			if ( is_tax() ) {
 				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
