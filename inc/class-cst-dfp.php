@@ -390,11 +390,6 @@ var dfp = {
         .addService(googletag.pubads())
         .setTargeting("pos", "sbb")
         .setCollapseEmptyDiv(true, true);
-      googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-2')
-        .defineSizeMapping(hp_upper_super_leaderboard_mapping)
-        .addService(googletag.pubads())
-        .setTargeting("pos", "Super leaderboard 2 970x90")
-        .setCollapseEmptyDiv(true, true);
       googletag.defineSlot(adUnitPath, [[728, 90]], 'div-gpt-super-leaderboard-3')
         .defineSizeMapping(super_leaderboard_mapping)
         .addService(googletag.pubads())
