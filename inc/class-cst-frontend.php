@@ -2819,7 +2819,7 @@ ready(fn);
 			$section_title = $section_term->name;
 		}
 		if ( $section_term ) {
-		$link = wpcom_vip_get_term_link( $section_title, 'cst_section' );
+		$link = wpcom_vip_get_term_link( $section_term->slug, 'cst_section' );
 		if ( is_wp_error( $link ) ) {
 			$link = '';
 		}
