@@ -3630,6 +3630,10 @@ body.post-gallery-lightbox-active {
         font-weight: 600;
         font-size: 0.8rem;
         line-height: 1.1rem; }
+      .homepage_wrapper .stories-container .stories .related-stories .related-title li {
+        float: left; }
+        .homepage_wrapper .stories-container .stories .related-stories .related-title li a {
+          float: left; }
   .homepage_wrapper .stories-container .more-stories-container h3 {
     font-size: 0.9rem;
     line-height: 1.2rem; }
