@@ -5,6 +5,7 @@ class CST_Feeds {
 	private static $instance;
 	private $syndicated_feeds = array(
 		'headlinenews',
+		'wciu',
 	);
 
 	public static function get_instance() {
@@ -56,10 +57,21 @@ class CST_Feeds {
 	}
 	/**
 	 * Include feed template for a custom feed.
+	 *
+	 * Create a /feeds/feed-rss2-<feed type>.php file, add to this conditional
 	 */
 	public function process_syndicated_news_feed() {
-		if ( file_exists( get_template_directory() . '/feeds/feed-rss2.php' ) ) {
-			require( get_template_directory() . '/feeds/feed-rss2.php' );
+		$filename = '';
+		$custom_feed_type = get_query_var( 'feed' );
+		switch ($custom_feed_type) {
+			case 'wciu':
+				$filename = '-wciu';
+				break;
+			default:
+				$filename = '';
+		}
+		if ( file_exists( get_template_directory() . '/feeds/feed-rss2' . $filename . '.php' ) ) {
+			require( get_template_directory() . '/feeds/feed-rss2' . $filename . '.php' );
 		}
 	}
 
