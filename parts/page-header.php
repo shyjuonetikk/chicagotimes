@@ -8,12 +8,15 @@
 	</div>
 	<?php
 }
-if ( is_home() || is_front_page() || is_tax() ) {
+if ( is_home() || is_front_page() ) {
 	echo wp_kses( CST()->dfp_handler->dynamic_unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered', 'hp_upper_super_leaderboard_mapping', 'Super leaderboard 2 970x90' ),
 		CST()->dfp_kses
 	);
 }
 if ( is_tax() ) {
+	echo wp_kses( CST()->dfp_handler->dynamic_unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered', 'sf_super_leaderboard_mapping', 'Super leaderboard 2 970x90' ),
+		CST()->dfp_kses
+	);
 	$section_obj = get_queried_object();
 	$section_slug = CST()->frontend->determine_section_slug( $section_obj );
 	if ( isset( $section_slug ) ) :
