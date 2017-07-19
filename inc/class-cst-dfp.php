@@ -291,7 +291,7 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, super_leaderboard_mapping, hp_upper_super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
+  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, sf_super_leaderboard_mapping, super_leaderboard_mapping, hp_upper_super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -317,6 +317,16 @@ var dfp = {
     hp_upper_super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
     addSize([992, 0], [ [970, 90], [728, 90] ] ). //desktop
+    addSize([800, 1200], [ [728,90] ] ). //tablet
+    addSize([768, 1024], [ [728,90] ] ). //tablet
+    addSize([640, 480], [[320, 50], [300, 50]]). //phone
+    addSize([414, 0], [[320, 50], [300, 50]]). //phone
+    addSize([375, 667], [[320, 50], [300, 50]]). //phone
+    addSize([0, 0], [[320, 50], [300, 50]]). //other
+	  build();
+    sf_super_leaderboard_mapping = googletag.sizeMapping().
+    addSize([1200, 800], [ [970, 250], [970,90], [728,90] ] ). //tablet
+    addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [[320, 50], [300, 50]]). //phone
