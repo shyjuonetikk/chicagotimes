@@ -29,6 +29,9 @@
 		.homepage-sidebar {
 			padding-left:0.6rem;
 			padding-right:0.6rem;
+			&.mobile {
+				padding-bottom:0.6rem;
+			}
 			.cst-ad-container {
 				text-align: right;
 				max-width: 320px;
@@ -367,6 +370,9 @@
 		}
 	}
 	.other-stories {
+		&.more-stories-container {
+			clear: both;
+		}
 		h2 {
 			font-size: 1.1rem;
 			line-height: 1.3rem;
