@@ -70,8 +70,11 @@ class CST_Feeds {
 			default:
 				$filename = '';
 		}
-		if ( file_exists( validate_file( get_template_directory() . '/feeds/feed-rss2' . $filename . '.php' ) ) ) {
-			require( get_template_directory() . '/feeds/feed-rss2' . $filename . '.php' );
+		$file_to_include = get_template_directory() . '/feeds/feed-rss2' . $filename . '.php';
+		if ( 0 === validate_file( $file_to_include ) ) {
+			if ( file_exists( $file_to_include ) ) {
+				require( $file_to_include );
+			}
 		}
 	}
 
