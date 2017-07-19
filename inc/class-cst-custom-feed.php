@@ -63,14 +63,14 @@ class CST_Feeds {
 	public function process_syndicated_news_feed() {
 		$filename = '';
 		$custom_feed_type = get_query_var( 'feed' );
-		switch ($custom_feed_type) {
+		switch ( $custom_feed_type ) {
 			case 'wciu':
 				$filename = '-wciu';
 				break;
 			default:
 				$filename = '';
 		}
-		if ( file_exists( get_template_directory() . '/feeds/feed-rss2' . $filename . '.php' ) ) {
+		if ( file_exists( validate_file( get_template_directory() . '/feeds/feed-rss2' . $filename . '.php' ) ) ) {
 			require( get_template_directory() . '/feeds/feed-rss2' . $filename . '.php' );
 		}
 	}
