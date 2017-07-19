@@ -33,11 +33,13 @@
 								<?php CST()->frontend->mini_stories_content_block( $other_stories, 'regular' ); ?>
 							</div>
 						</div><!-- hp-other-lead -->
+	<?php if ( function_exists( 'jetpack_is_mobile' ) && ! jetpack_is_mobile() ) { ?>
 						<div class="other-stories show-for-large-up">
 							<hr>
 							<?php CST()->frontend->render_section_text_title( 'chartbeat_section_title' ); ?>
 							<div id="root"></div>
 						</div>
+	<?php } ?>
 						<div class="other-stories more-stories-container hide-for-xlarge-up" id="hp-sports-section-lead">
 							<?php CST()->frontend->sports_heading(); ?>
 							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
@@ -106,6 +108,7 @@
 					</div>
 				</div>
 			</div><!-- /.stories -->
+<?php if ( function_exists( 'jetpack_is_mobile' ) && ! jetpack_is_mobile() ) { ?>
 			<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 				<ul>
 					<?php if ( is_active_sidebar( 'homepage_sidebar' ) ) {
@@ -130,6 +133,7 @@
 				</ul>
 			</div>
 			<!-- /.widgets -->
+<?php } ?>
 		</div>
 		<?php
 		do_action( 'above-homepage-headlines' );
