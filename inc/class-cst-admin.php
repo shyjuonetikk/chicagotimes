@@ -475,7 +475,7 @@ class CST_Admin {
 		$fm = new Fieldmanager_Textfield( array(
 			'name'                  => 'video_url',
 			'label'                 => false,
-			'description'           => esc_html__( 'YouTube videos are supported at this time.', 'chicagosuntimes' ),
+			'description'           => esc_html__( 'YouTube and Cube videos are supported at this time.', 'chicagosuntimes' ),
 			));
 		$fm->add_meta_box( esc_html__( 'Video URL', 'chicagosuntimes' ), array( 'cst_video'), 'normal', 'high' );
 
