@@ -16,7 +16,7 @@
 			<div class="post-lead-media post-content columns small-12 end">
 				<?php echo do_shortcode( '[cst-content id="' . $gallery->get_id() . '"]' ); ?>
 			</div>
-		<?php }elseif ( 'video' === $media_type ) { ?>
+		<?php } elseif ( 'video' === $media_type || 'embed_video' === $media_type ) { ?>
 			<div class="post-lead-media post-content columns small-12 end">
 				<?php  $obj->featured_video_embed(); ?>
 			</div>
