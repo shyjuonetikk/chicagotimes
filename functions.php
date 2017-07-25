@@ -478,6 +478,9 @@ class CST {
 		if ( class_exists( 'Jetpack_Custom_CSS' ) && method_exists( 'Jetpack_Custom_CSS', 'disable' ) ) {
 			add_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 12 );
 		}
+		add_action( 'dynamic_sidebar', function( $id ) {
+			$t = $id;
+		});
 	}
 
 	/**
