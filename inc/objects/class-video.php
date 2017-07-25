@@ -59,7 +59,18 @@ class Video extends Post {
 				$iframe = '<iframe class="cst-responsive" data-true-height="640" data-true-width="360" width="100%" height="320px" src="' . esc_url( '//www.youtube.com/embed/' . sanitize_text_field( $video_id ) ) . '" frameborder="0"></iframe>';
 				break;
 			case 'cube':
-				$iframe = '<iframe src="//thecube.com/embed/' . esc_attr( $video_id )  . '" width="640" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px" href="http://thecube.com">Share Events on The Cube</a></div>';
+				if ( is_front_page() ) {
+					$share_link = '';
+					$embed_size = 'secondary-wells';
+					$image_sizes = wp_get_additional_image_sizes();
+					$max_width = intval( $image_sizes[ $embed_size ]['width'] );
+					$max_height = intval( $image_sizes[ $embed_size ]['height'] );
+				} else {
+					$share_link = '<div><a style="font-size:11px" href="http://thecube.com">Share Events on The Cube</a></div>';
+					$max_height = 460;
+					$max_width = 640;
+				}
+				$iframe = '<iframe src="//thecube.com/embed/' . esc_attr( $video_id )  . '" width="' . esc_attr( $max_width ) . '" height="' . esc_attr( $max_height ) . '" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>' . wp_kses_post( $share_link );
 				break;
 			default:
 				$iframe = '';
@@ -163,4 +174,16 @@ class Video extends Post {
 		}
 	}
 
+	/**
+	 * Get the long excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_long_excerpt() {
+		if ( $excerpt = $this->get_fm_field( 'cst_long_excerpt' ) ) {
+			return $excerpt;
+		} else {
+			return $this->get_excerpt();
+		}
+	}
 }

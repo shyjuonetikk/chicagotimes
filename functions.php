@@ -1230,6 +1230,7 @@ class CST {
 					'author',
 					'thumbnail',
 					'bitly',
+					'excerpt',
 				),
 				'has_archive'       => 'video',
 				'rewrite'           => array(

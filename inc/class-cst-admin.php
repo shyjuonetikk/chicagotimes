@@ -420,7 +420,7 @@ class CST_Admin {
 				'rows' => 3,
 			)
 		) );
-		$fma->add_meta_box( esc_html__( 'Long Excerpt', 'chicagosuntimes' ), array( 'cst_article', 'cst_gallery' ), 'normal', 'default' );
+		$fma->add_meta_box( esc_html__( 'Long Excerpt', 'chicagosuntimes' ), array( 'cst_article', 'cst_gallery', 'cst_video' ), 'normal', 'default' );
 
 	if ( is_admin() ) {
 		$fm = new Fieldmanager_Select( array( 
