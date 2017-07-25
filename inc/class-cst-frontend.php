@@ -93,7 +93,7 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
-		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
+		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
@@ -2257,6 +2257,9 @@ ready(fn);
 		if ( $obj->get_sponsored_content() ) {
 			return $article_content;
 		}
+		if ( '' === $article_content ) {
+			return $article_content;
+		}
 		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$postnum = get_query_var( 'paged' );
 		// flipp recommends no more than 5 circulars per page
@@ -2264,9 +2267,13 @@ ready(fn);
 			$div_id_suffix = 10635 + $postnum;
 			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
 			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
-			$last_item = array_pop( $article_array );
-			array_push( $article_array, $flipp_ad );
-			array_push( $article_array, $last_item );
+			if ( count( $article_array ) > 1 ) {
+				$last_item = array_pop( $article_array );
+				array_push( $article_array, $flipp_ad );
+				array_push( $article_array, $last_item );
+			} else {
+				array_push( $article_array, $flipp_ad );
+			}
 			$article_content = implode( $article_array );
 		}
 		return $article_content;
