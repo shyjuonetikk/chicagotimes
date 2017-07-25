@@ -2926,6 +2926,7 @@ ready(fn);
 	*/
 	public function homepage_mini_story_lead( $headline ) {
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+		// Handle video embed here if the slotted content is a video post type
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author = $this->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
@@ -2938,12 +2939,26 @@ ready(fn);
 					$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'secondary-wells' );
 				}
 			}
+			$type = $obj->get_type();
+			if ( 'video' === $type ) {
+				$large_image_markup = $obj->get_video_embed();
+				if ( '' !== $large_image_markup ) {
+					$featured_image_id = true;
+					$attachment = true;
+				}
+			}
 ?>
 <div class="columns small-12">
 	<div class="row">
 		<div class="columns small-12 medium-6 large-6 prime">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
-			<span class="image"><?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?></span>
+			<span class="image"><?php if ( $featured_image_id && $attachment ) {
+				if ( 'video' === $type ) {
+					echo wp_kses( $large_image_markup, CST()->video_iframe_kses );
+				} else {
+					echo wp_kses_post( $large_image_markup );
+				}
+			} ?></span>
 			<div class="hide-for-landscape">
 				<h3 class="alt-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</div>
