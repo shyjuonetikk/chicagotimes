@@ -61,10 +61,10 @@ class Article extends Post {
 		} else if ( '--disable--' !== $media_type ) {
 			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
 				if ( defined( 'AMP__VERSION' ) && is_amp_endpoint() ) {
-					return $this->get_featured_video_embed( $media_type, false );
+					return $this->get_featured_video_embed( $media_type );
 				} else {
 					if ( is_singular() || is_tax( 'cst_section' ) ) {
-						$this->get_featured_video_embed( $media_type, true );
+						return $this->get_featured_video_embed( $media_type );
 					}
 				}
 			} else {
@@ -90,11 +90,10 @@ class Article extends Post {
 	}
 	/**
 	 * @param $media_type
-	 * @param bool $echo
 	 *
 	 * @return string
 	 */
-	public function get_featured_video_embed( $media_type, $echo = true ) {
+	public function get_featured_video_embed( $media_type ) {
 
 		if ( defined( 'AMP__VERSION' ) && is_amp_endpoint() ) { // legacy
 			$template   = '<iframe id="%1$s" src="%2$s" %3$s></iframe>';
@@ -105,11 +104,7 @@ class Article extends Post {
 			$template = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"><script type="text/javascript" src="' . esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div></div>';
 			$markup   = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $media_type ] ), esc_attr( $this->post->ID ) );
 		}
-		if ( $echo ) {
-			echo wp_kses( $markup, CST()->video_iframe_kses );
-		} else {
-			return $markup;
-		}
+		return $markup;
 	}
 	/**
 	 * Get preferred section if set or fallback to default behavior
