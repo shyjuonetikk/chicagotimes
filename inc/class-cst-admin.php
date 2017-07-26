@@ -230,6 +230,7 @@ class CST_Admin {
 						'image'   => esc_html__( "Article's Featured Image", 'chicagosuntimes' ),
 						'gallery' => esc_html__( 'Gallery', 'chicagosuntimes' ),
 						'video'   => esc_html__( 'Video', 'chicagosuntimes' ),
+						'embed_video'   => esc_html__( 'Embed video', 'chicagosuntimes' ),
 					),
 				) ),
 				'featured_gallery'    => new \Fieldmanager_Autocomplete( esc_html__( 'Featured Gallery', 'chicagosuntimes' ), array(
@@ -248,6 +249,7 @@ class CST_Admin {
 					'name'        => 'featured_video',
 					'description' => 'Choosing this option replaces the featured image with a video embed element and automatically places the featured image further down the content.',
 					'options'     => array(
+						'--disable--'       => esc_html__( "Disable", 'chicagosuntimes' ),
 						'cubs'              => esc_html__( "Chicago Cubs", 'chicagosuntimes' ),
 						'white-sox'         => esc_html__( 'Chicago White Sox', 'chicagosuntimes' ),
 						'bulls'             => esc_html__( "Chicago Bulls", 'chicagosuntimes' ),
@@ -259,7 +261,20 @@ class CST_Admin {
 						'rio-2016'          => esc_html__( 'Rio 2016', 'chicagosuntimes' ),
 						'blackhawks-hockey' => esc_html__( 'Blackhawks', 'chicagosuntimes' ),
 					),
-				) )
+				) ),
+				'embed_video'    => new \Fieldmanager_Autocomplete( esc_html__( 'Embed Video (only when type of media to feature is Embed video)', 'chicagosuntimes' ), array(
+					'name'       => 'embed_video',
+					'attributes' => array(
+						'placeholder' => esc_html__( 'Search by title', 'chicagosuntimes' ),
+						'size'        => 45,
+						'default'     => -1,
+					),
+					'datasource' => new \Fieldmanager_Datasource_Post( array(
+						'query_args' => array(
+							'post_type' => array( 'cst_video' ),
+						),
+					) )
+				) ),
 			),
 		) );
 		$featured_media->children['sponsored_content'] = new \Fieldmanager_Group( esc_html__( 'Sponsored Content', 'chicagosuntimes' ), array(

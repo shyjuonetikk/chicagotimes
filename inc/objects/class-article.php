@@ -27,46 +27,73 @@ class Article extends Post {
 
 	/**
 	 * Get the featured media type for the article
+	 * Handle custom video embeds but check they are disabled
+	 * and if so resort to using featured image
 	 *
 	 * @return string
 	 */
 	public function get_featured_media_type() {
 		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_media_type' ) ) {
-			return $media_type;
+			$video_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' );
+			if ( 'embed_video' === $media_type ) {
+				return $media_type;
+			}
+			if ( 'video' === $media_type && '--disable--' !== $video_type ) {
+				return $media_type;
+			}
+			return 'image';
 		} else {
 			return 'image';
 		}
 	}
 
 	/**
-	 * Display featured video embed markup for the article
+	 * Return featured video embed markup for the article
 	 * Return empty string if for some reason array key is outside scope
 	 *
 	 * @return string
 	 */
 	public function featured_video_embed() {
-		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' ) ) {
+		$media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' );
+		$video_id = $this->get_fm_field( 'cst_production', 'featured_media', 'embed_video' );
+		if ( '--disable--' === $media_type && $video_id ) {
+			return $this->get_cst_video_embed( (int) $video_id );
+		} else if ( '--disable--' !== $media_type ) {
 			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
 				if ( defined( 'AMP__VERSION' ) && is_amp_endpoint() ) {
-						return $this->get_featured_video_embed( $media_type, false );
+					return $this->get_featured_video_embed( $media_type );
 				} else {
-						$this->get_featured_video_embed( $media_type, true );
+					if ( is_singular() || is_tax( 'cst_section' ) ) {
+						return $this->get_featured_video_embed( $media_type );
 					}
-				} else {
-					return '';
 				}
+			} else {
+				return '';
+			}
 		} else {
 			return '';
 		}
 	}
 
 	/**
-	 * @param $media_type
-	 * @param bool $echo
+	 * @param $embed_id
 	 *
 	 * @return string
 	 */
-	public function get_featured_video_embed( $media_type, $echo = true ) {
+	private function get_cst_video_embed( $embed_id ) {
+		$obj = \CST\Objects\Post::get_by_post_id( $embed_id );
+		if ( ! $obj || is_wp_error( $obj ) || 'publish' !== $obj->get_status() ) {
+			return '';
+		} else {
+			return $obj->get_video_embed();
+		}
+	}
+	/**
+	 * @param $media_type
+	 *
+	 * @return string
+	 */
+	public function get_featured_video_embed( $media_type ) {
 
 		if ( defined( 'AMP__VERSION' ) && is_amp_endpoint() ) { // legacy
 			$template   = '<iframe id="%1$s" src="%2$s" %3$s></iframe>';
@@ -77,11 +104,7 @@ class Article extends Post {
 			$template = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"><script type="text/javascript" src="' . esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div></div>';
 			$markup   = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $media_type ] ), esc_attr( $this->post->ID ) );
 		}
-		if ( $echo ) {
-			echo $markup;
-		} else {
-			return $markup;
-		}
+		return $markup;
 	}
 	/**
 	 * Get preferred section if set or fallback to default behavior
