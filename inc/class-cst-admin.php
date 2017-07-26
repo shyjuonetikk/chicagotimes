@@ -420,7 +420,7 @@ class CST_Admin {
 				'rows' => 3,
 			)
 		) );
-		$fma->add_meta_box( esc_html__( 'Long Excerpt', 'chicagosuntimes' ), array( 'cst_article', 'cst_gallery' ), 'normal', 'default' );
+		$fma->add_meta_box( esc_html__( 'Long Excerpt', 'chicagosuntimes' ), array( 'cst_article', 'cst_gallery', 'cst_video' ), 'normal', 'default' );
 
 	if ( is_admin() ) {
 		$fm = new Fieldmanager_Select( array( 
@@ -475,7 +475,7 @@ class CST_Admin {
 		$fm = new Fieldmanager_Textfield( array(
 			'name'                  => 'video_url',
 			'label'                 => false,
-			'description'           => esc_html__( 'YouTube videos are supported at this time.', 'chicagosuntimes' ),
+			'description'           => esc_html__( 'YouTube and Cube videos are supported at this time.', 'chicagosuntimes' ),
 			));
 		$fm->add_meta_box( esc_html__( 'Video URL', 'chicagosuntimes' ), array( 'cst_video'), 'normal', 'high' );
 

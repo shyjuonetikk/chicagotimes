@@ -181,12 +181,12 @@ class CST_Frontend {
 					}
 				}
 				if ( is_singular() || is_tax() ) {
-					if ( is_singular( array( 'cst_feature', 'cst_article', 'cst_gallery' ) ) ) {
+					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) ) {
 						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
-					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() || is_author() ) {
+					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) || is_tax() || is_author() ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
@@ -211,14 +211,14 @@ class CST_Frontend {
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
 				}
 
-				if ( is_singular( 'cst_article', 'cst_gallery' ) && ! is_admin() ) {
+				if ( is_singular( [ 'cst_article', 'cst_gallery', 'cst_video' ] ) && ! is_admin() ) {
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 				}
 
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
 				}
-				if ( ( is_author() || is_tax() || is_singular( 'cst_article', 'cst_gallery' ) )  && ! is_admin() ) {
+				if ( ( is_author() || is_tax() || is_singular( [ 'cst_article', 'cst_gallery', 'cst_video' ] ) )  && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 				}
 				if ( is_tax() ) {
@@ -1742,7 +1742,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	function inject_send_to_news_video_player( $slug, $id ) {
 		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="'. esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div>';
 		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $id ) );
-		echo wp_kses( $markup, CST()->sendtonews_kses );
+		echo wp_kses( $markup, CST()->video_iframe_kses );
 
 	}
 	/**
@@ -2933,6 +2933,7 @@ ready(fn);
 	*/
 	public function homepage_mini_story_lead( $headline ) {
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+		// Handle video embed here if the slotted content is a video post type
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author = $this->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
@@ -2945,12 +2946,26 @@ ready(fn);
 					$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'secondary-wells' );
 				}
 			}
+			$type = $obj->get_type();
+			if ( 'video' === $type ) {
+				$large_image_markup = $obj->get_video_embed();
+				if ( '' !== $large_image_markup ) {
+					$featured_image_id = true;
+					$attachment = true;
+				}
+			}
 ?>
 <div class="columns small-12">
 	<div class="row">
 		<div class="columns small-12 medium-6 large-6 prime">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
-			<span class="image"><?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?></span>
+			<span class="image"><?php if ( $featured_image_id && $attachment ) {
+				if ( 'video' === $type ) {
+					echo wp_kses( $large_image_markup, CST()->video_iframe_kses );
+				} else {
+					echo wp_kses_post( $large_image_markup );
+				}
+			} ?></span>
 			<div class="hide-for-landscape">
 				<h3 class="alt-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</div>
