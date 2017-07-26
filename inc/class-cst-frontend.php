@@ -1727,7 +1727,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		if ( 3 === $counter ) {
 			if ( is_tax() ) {
 				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
-					$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+					return $this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
 				}
 			}
 		}
@@ -1738,12 +1738,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @param $slug
 	* @param $id
 	* Inject SendToNews responsive video player into markup.
+	* @return string
 	*/
 	function inject_send_to_news_video_player( $slug, $id ) {
 		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="'. esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div>';
 		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $id ) );
-		echo wp_kses( $markup, CST()->video_iframe_kses );
-
+		return $markup;
 	}
 	/**
 	 * Do not display section heading in the regular place
