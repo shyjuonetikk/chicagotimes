@@ -2013,7 +2013,7 @@ class CST {
 	public function jetpack_infinite_support() {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular( 'cst_article', 'cst_feature' ) || is_tax() );
+			( is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) || is_tax() );
 	}
 
 	/**

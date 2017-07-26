@@ -28,7 +28,7 @@ if ( $sponsored ) {
 			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
-			<?php if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) : ?>
+			<?php if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) : ?>
 
 				<?php if ( 'cst_embed' !== $obj->get_post_type() || 'twitter' !== $obj->get_embed_type() ) : ?>
 					<div class="post-meta post-meta-social show-for-medium-up">
