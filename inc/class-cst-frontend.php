@@ -1742,7 +1742,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	function inject_send_to_news_video_player( $slug, $id ) {
 		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="'. esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div>';
 		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $id ) );
-		echo wp_kses( $markup, CST()->sendtonews_kses );
+		echo wp_kses( $markup, CST()->video_iframe_kses );
 
 	}
 	/**
@@ -2928,21 +2928,41 @@ ready(fn);
 	/**
 	* Display the central story, with image and excerpt
 	* Used by the customizer render callback
+	* Updated to handle video embeds from STN or CST
 	*
 	* @param $headline
 	*/
 	public function homepage_mini_story_lead( $headline ) {
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+		// Handle video embed here if the slotted content is a video post type
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author = $this->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
 			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
+			// Determine whether to use STN video embed, supported CST video embed or Featured image
 			$featured_image_id = $obj->get_featured_image_id();
-			if ( $featured_image_id ) {
+			$video_embed = '';
+			if ( method_exists( $obj, 'featured_video_embed' ) ) {
+				$video_embed = $obj->featured_video_embed();
+				if ( ! empty( $video_embed ) ) {
+					$featured_image_id = true;
+					$attachment = true;
+					$large_image_markup = $video_embed;
+				}
+			}
+			if ( $featured_image_id && empty( $video_embed ) ) {
 				$attachment = wp_get_attachment_metadata( $featured_image_id );
 				if ( $attachment ) {
 					$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'secondary-wells' );
+				}
+			}
+			$type = $obj->get_type();
+			if ( 'video' === $type ) {
+				$large_image_markup = $obj->get_video_embed();
+				if ( ! empty( $large_image_markup ) ) {
+					$featured_image_id = true;
+					$attachment = true;
 				}
 			}
 ?>
@@ -2950,7 +2970,13 @@ ready(fn);
 	<div class="row">
 		<div class="columns small-12 medium-6 large-6 prime">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
-			<span class="image"><?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?></span>
+			<span class="image"><?php if ( $featured_image_id && $attachment ) {
+				if ( 'video' === $type || ! empty( $video_embed ) ) {
+					echo wp_kses( $large_image_markup, CST()->video_iframe_kses );
+				} else {
+					echo wp_kses_post( $large_image_markup );
+				}
+			} ?></span>
 			<div class="hide-for-landscape">
 				<h3 class="alt-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</div>

@@ -9,6 +9,7 @@ class CST_Shortcode_Manager {
 		'scribblelive',
 		'ndn-video',
 		'ooyala',
+		'cube',
 		);
 
 	public static function get_instance() {
@@ -88,5 +89,16 @@ class CST_Shortcode_Manager {
 		return '<script type="text/javascript" src="//player.ooyala.com/v3/38f013a07e0458db1ee84d020e47cac"></script><div class="ooyalaplayer" id="ooyalaplayer-' . esc_attr( $atts['id'] ) . '"></div><script>OO.ready(function(){ OO.Player.create("ooyalaplayer-' . sanitize_text_field( $atts['id'] ) . '", "' . sanitize_text_field( $atts['id'] ) . '"); });</script><noscript><div>Please enable Javascript to watch this video</div></noscript>';
 
 	}
+	/**
+	 * Do the Cube video shortcode
+	 */
+	public function cube( $atts ) {
 
+		if ( empty( $atts['id'] ) ) {
+			return '';
+		}
+
+		return '<iframe src="//thecube.com/embed/' . esc_attr( $atts['id'] )  . '" width="640" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px" href="http://thecube.com">Share Events on The Cube</a></div>';
+
+	}
 }

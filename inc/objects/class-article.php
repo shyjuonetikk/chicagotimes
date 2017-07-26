@@ -27,39 +27,67 @@ class Article extends Post {
 
 	/**
 	 * Get the featured media type for the article
+	 * Handle custom video embeds but check they are disabled
+	 * and if so resort to using featured image
 	 *
 	 * @return string
 	 */
 	public function get_featured_media_type() {
 		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_media_type' ) ) {
-			return $media_type;
+			$video_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' );
+			if ( 'embed_video' === $media_type ) {
+				return $media_type;
+			}
+			if ( 'video' === $media_type && '--disable--' !== $video_type ) {
+				return $media_type;
+			}
+			return 'image';
 		} else {
 			return 'image';
 		}
 	}
 
 	/**
-	 * Display featured video embed markup for the article
+	 * Return featured video embed markup for the article
 	 * Return empty string if for some reason array key is outside scope
 	 *
 	 * @return string
 	 */
 	public function featured_video_embed() {
-		if ( $media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' ) ) {
+		$media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' );
+		$video_id = $this->get_fm_field( 'cst_production', 'featured_media', 'embed_video' );
+		if ( '--disable--' === $media_type && $video_id ) {
+			return $this->get_cst_video_embed( (int) $video_id );
+		} else if ( '--disable--' !== $media_type ) {
 			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
 				if ( defined( 'AMP__VERSION' ) && is_amp_endpoint() ) {
-						return $this->get_featured_video_embed( $media_type, false );
+					return $this->get_featured_video_embed( $media_type, false );
 				} else {
+					if ( is_singular() || is_tax( 'cst_section' ) ) {
 						$this->get_featured_video_embed( $media_type, true );
 					}
-				} else {
-					return '';
 				}
+			} else {
+				return '';
+			}
 		} else {
 			return '';
 		}
 	}
 
+	/**
+	 * @param $embed_id
+	 *
+	 * @return string
+	 */
+	private function get_cst_video_embed( $embed_id ) {
+		$obj = \CST\Objects\Post::get_by_post_id( $embed_id );
+		if ( ! $obj || is_wp_error( $obj ) || 'publish' !== $obj->get_status() ) {
+			return '';
+		} else {
+			return $obj->get_video_embed();
+		}
+	}
 	/**
 	 * @param $media_type
 	 * @param bool $echo
@@ -78,7 +106,7 @@ class Article extends Post {
 			$markup   = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $media_type ] ), esc_attr( $this->post->ID ) );
 		}
 		if ( $echo ) {
-			echo $markup;
+			echo wp_kses( $markup, CST()->video_iframe_kses );
 		} else {
 			return $markup;
 		}
