@@ -57,7 +57,7 @@ class Article extends Post {
 		$media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' );
 		$video_id = $this->get_fm_field( 'cst_production', 'featured_media', 'embed_video' );
 		if ( '--disable--' === $media_type && $video_id ) {
-			return $this->get_cst_video_embed( (int) $video_id );
+			return wp_kses( $this->get_cst_video_embed( (int) $video_id ), CST()->video_iframe_kses );
 		} else if ( '--disable--' !== $media_type ) {
 			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
 				if ( defined( 'AMP__VERSION' ) && is_amp_endpoint() ) {
