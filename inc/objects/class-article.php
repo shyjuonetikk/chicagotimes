@@ -48,7 +48,7 @@ class Article extends Post {
 	}
 
 	/**
-	 * Display featured video embed markup for the article
+	 * Return featured video embed markup for the article
 	 * Return empty string if for some reason array key is outside scope
 	 *
 	 * @return string
@@ -57,13 +57,15 @@ class Article extends Post {
 		$media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' );
 		$video_id = $this->get_fm_field( 'cst_production', 'featured_media', 'embed_video' );
 		if ( '--disable--' === $media_type && $video_id ) {
-			echo wp_kses( $this->get_cst_video_embed( (int) $video_id ), CST()->video_iframe_kses );
+			return $this->get_cst_video_embed( (int) $video_id );
 		} else if ( '--disable--' !== $media_type ) {
 			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
 				if ( defined( 'AMP__VERSION' ) && is_amp_endpoint() ) {
 					return $this->get_featured_video_embed( $media_type, false );
 				} else {
-					$this->get_featured_video_embed( $media_type, true );
+					if ( is_singular() || is_tax( 'cst_section' ) ) {
+						$this->get_featured_video_embed( $media_type, true );
+					}
 				}
 			} else {
 				return '';
@@ -104,7 +106,7 @@ class Article extends Post {
 			$markup   = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $media_type ] ), esc_attr( $this->post->ID ) );
 		}
 		if ( $echo ) {
-			echo $markup;
+			echo wp_kses( $markup, CST()->video_iframe_kses );
 		} else {
 			return $markup;
 		}

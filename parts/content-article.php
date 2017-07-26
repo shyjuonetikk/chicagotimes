@@ -18,7 +18,7 @@
 			</div>
 		<?php } elseif ( 'video' === $media_type || 'embed_video' === $media_type ) { ?>
 			<div class="post-lead-media post-content columns small-12 end">
-				<?php  $obj->featured_video_embed(); ?>
+				<?php echo wp_kses( $obj->featured_video_embed(), CST()->video_iframe_kses ); ?>
 			</div>
 		<?php } ?>
 		<?php echo wp_kses_post( CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ) ); ?>
@@ -35,10 +35,10 @@
 		foreach ( $obj->get_authors() as $author ) {
 			$user_logins[] = $author->get_user_login();
 		}
-		if ( in_array( 'associated-press', $user_logins ) ) { ?>
+		if ( in_array( 'associated-press', $user_logins, true ) ) { ?>
 			<p class="post-copyright">Copyright <?php
 			// Support for multiple years
-			if ( date( 'Y' ) != $obj->get_post_date_gmt( 'Y' ) ) {
+			if ( date( 'Y' ) !== $obj->get_post_date_gmt( 'Y' ) ) {
 				echo esc_html( $obj->get_post_date_gmt( 'Y' ) ) . '-';
 			}
 			echo esc_attr( date( 'Y' ) ); ?> Associated Press. All rights reserved. This material may not be published, broadcast, rewritten, or redistributed.</p>
