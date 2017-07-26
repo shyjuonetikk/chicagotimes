@@ -87,7 +87,7 @@
 		</div>
 		</nav>
 	</div>
-	<?php if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) { ?>
+	<?php if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) { ?>
 		<section id="headlines-slider">
 			<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
 		</section>
