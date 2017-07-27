@@ -31,7 +31,7 @@
 					<?php get_template_part( 'content' ); ?>
 					<?php
 						$video_position_counter++;
-						echo wp_kses( CST()->frontend->cst_section_front_video( $video_position_counter ), CST()->video_iframe_kses );;
+						echo CST()->frontend->cst_section_front_video( $video_position_counter );
 					?>
 				<?php endwhile; ?>
 
