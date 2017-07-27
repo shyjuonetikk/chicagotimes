@@ -2970,7 +2970,7 @@ ready(fn);
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
 			<span class="image"><?php if ( $featured_image_id && $attachment ) {
 				if ( 'video' === $type || ! empty( $video_embed ) ) {
-					echo wp_kses( $large_image_markup, CST()->video_iframe_kses );
+					echo $large_image_markup;
 				} else {
 					echo wp_kses_post( $large_image_markup );
 				}
