@@ -4079,6 +4079,12 @@ body.post-gallery-lightbox-active {
 .page section .page-content {
   margin-top: 45px; }
 
+.page-template-page-subscribe .promo-code .promo-code-input {
+  max-width: 200px; }
+.page-template-page-subscribe .promo-code .promo-code-push {
+  padding: 0;
+  background-color: transparent; }
+
 .elections-container {
   margin: 0; }
 
