@@ -3,6 +3,28 @@
    * Template Name: Subscribe
    */
 ?>
+<?php
+if ( isset($_REQUEST['promo-code-input']) && '' !== $_REQUEST['promo-code-input'] ) {
+	$bananas = wp_verify_nonce( $_REQUEST['_wpnonce'], '_wpnonce_promo_code_request' );
+	if ( 1 === $bananas ) {
+		$offer_code = sanitize_text_field( $_REQUEST['promo-code-input'] );
+		$redirect_url = false;
+		switch ( $offer_code ) {
+			case 'CST Promo 1':
+				$redirect_url = 'https://suntiservices.dticloud.com/cgi-bin/cmo_cmo.sh/custservice/web/addrfind.html?siteid=CST&campaign=wbmem1699';
+				break;
+			case 'CST Promo 2':
+				$redirect_url = 'https://suntiservices.dticloud.com/cgi-bin/cmo_cmo.sh/custservice/web/addrfind.html?siteid=CST&campaign=wbmemon295';
+				break;
+			default:
+				wp_sanitize_redirect( esc_url( get_permalink() ) );
+		}
+		if ( $redirect_url ) {
+			wp_redirect( $redirect_url );
+		}
+	}
+}
+?>
 <?php get_header(); ?>
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 <?php $obj = \CST\Objects\Page::get_by_post_id( get_the_ID() ); ?>
@@ -60,7 +82,24 @@
 							</div>
 						</div>
 		<?php } ?>
+						<div class="small-12 columns promo-code lower">
+							<div class="small-12 medium-8 columns details">
+								<h3>Have a code? Enter below and be directed to our subscribe service.</h3>
+							</div>
+						<form class="promo-code-wrap" autocomplete="off" action="<?php echo esc_url( get_permalink() ); ?>">
+							<div class="small-8 columns">
 
+							<input class="promo-code-input" placeholder="<?php esc_attr_e( 'Code...', 'chicagosuntimes' ); ?>" name="promo-code-input" value=""/>
+							</div>
+							<div class="small-4 columns">
+							<button type="submit" class="promo-code-push">
+								<span><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/promo-button-selectoffer-yellow.png" ></span>
+							</button>
+							</div>
+							<?php wp_nonce_field( '_wpnonce_promo_code_request' ) ?>
+							<input type="hidden" name="_wp_http_referer" value="<?php echo esc_url( get_permalink() ); ?>" />
+						</form>
+						</div>
 		<?php if( ! empty( $subscribe_print_content['print_package_2']['package_title'] ) ) { ?>
 						<div class="small-12 columns lower">
 							<div class="small-12 medium-8 columns details">
