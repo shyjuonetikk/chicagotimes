@@ -18,7 +18,7 @@
 			</div>
 		<?php } elseif ( 'video' === $media_type || 'embed_video' === $media_type ) { ?>
 			<div class="post-lead-media post-content columns small-12 end">
-				<?php echo wp_kses( $obj->featured_video_embed(), CST()->video_iframe_kses ); ?>
+				<?php echo $obj->featured_video_embed(); ?>
 			</div>
 		<?php } ?>
 		<?php echo wp_kses_post( CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ) ); ?>

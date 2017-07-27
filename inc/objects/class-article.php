@@ -54,7 +54,9 @@ class Article extends Post {
 	 * @return string
 	 */
 	public function featured_video_embed() {
+		// $media_type reflects choice for Featured Image position - image, SendToNews video or gallery
 		$media_type = $this->get_fm_field( 'cst_production', 'featured_media', 'featured_video' );
+		// $video_id reflects the id of the CST Video that has an embed such as Cube
 		$video_id = $this->get_fm_field( 'cst_production', 'featured_media', 'embed_video' );
 		if ( '--disable--' === $media_type && $video_id ) {
 			return $this->get_cst_video_embed( (int) $video_id );
