@@ -4079,11 +4079,16 @@ body.post-gallery-lightbox-active {
 .page section .page-content {
   margin-top: 45px; }
 
-.page-template-page-subscribe .promo-code .promo-code-input {
-  max-width: 200px; }
-.page-template-page-subscribe .promo-code .promo-code-push {
-  padding: 0;
-  background-color: transparent; }
+.page-template-page-subscribe .promo-code {
+  padding-left: 0; }
+  .page-template-page-subscribe .promo-code .promo-img {
+    max-height: 37px; }
+  .page-template-page-subscribe .promo-code .promo-code-input {
+    max-width: 200px; }
+  .page-template-page-subscribe .promo-code .promo-code-push {
+    padding: 0;
+    max-height: 37px;
+    background-color: transparent; }
 
 .elections-container {
   margin: 0; }
