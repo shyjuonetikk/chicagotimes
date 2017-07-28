@@ -1531,6 +1531,7 @@ class CST {
 	 */
 	function vip_quickstart_add_test_hosts( $content ) {
 		$content[] = 'chicago.suntimes.com';
+		$content[] = 'suntiservices.dticloud.com';
 		return $content;
 	}
 
