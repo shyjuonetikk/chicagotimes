@@ -6,7 +6,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 ga('create', 'UA-53290409-1', 'auto', {name: 'networkGlobal'});
 ga('networkGlobal.require', 'displayfeatures');
 ga('networkGlobal.send', 'pageview');
-ga('create', '<?php echo esc_attr( CST_GOOGLE_ANALYTICS ); ?>', 'auto', {name: 'BNA'});
+ga('create', '<?php echo wp_json_encode( CST_GOOGLE_ANALYTICS ); ?>', 'auto', {name: 'BNA'});
 ga('BNA.require', 'displayfeatures');
 ga('BNA.send', 'pageview');
 ga('BNA.require','eventTracker', {attributePrefix: 'data-', hitFilter: function (model) {
