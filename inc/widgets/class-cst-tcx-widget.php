@@ -3,9 +3,10 @@
 class CST_TCX_Widget extends WP_Widget {
 
     protected $tcx_widgets = array(
+        'entertainment',
+        'money',
         'sports',
-        'demographics',
-        'finance'
+        'weather'
         );
 
     public function __construct() {
@@ -24,29 +25,41 @@ class CST_TCX_Widget extends WP_Widget {
 
         $current_tcx = isset( $instance['tcx_widget'] ) ? $instance['tcx_widget'] : '';
         switch( $current_tcx ) {
+            case 'entertainment':
+            ?>
+                <li class="tcx_entertainment_widget tcx_widget">
+                    <div class="large-12 medium-6 small-6">
+                    <script src="http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&amp;type=dynamic_group_entertainment&amp;style=standard"></script>
+                    </div>
+                </li>
+            <?php
+                break;
+
+              case 'money':
+            ?>
+                <li class="tcx_money_widget tcx_widget">
+                    <div class="large-12 medium-6 small-6">
+                    <script src="http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&amp;type=dynamic_group_money&amp;style=standard"></script>
+                    </div>
+                </li>
+            <?php
+                break;
+
             case 'sports':
             ?>
                 <li class="tcx_sports_widget tcx_widget">
                     <div class="large-12 medium-6 small-6">
-                    <script src="http://content.synapsys.us/embeds/sports/dynamic_300x600/partner.js"></script>
+                    <script src="http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&amp;type=dynamic_group_sports&amp;style=standard"></script>
                     </div>
                 </li>
             <?php
                 break;
-            case 'demographics':
+
+            case 'weather':
             ?>
-                <li class="tcx_demographics_widget tcx_widget">
+                <li class="tcx_weather_widget tcx_widget">
                     <div class="large-12 medium-6 small-6">
-                    <script src="http://content.synapsys.us/embeds/demographics/dynamic_300x600/partner.js"></script>
-                    </div>
-                </li>
-            <?php
-                break;
-            case 'finance':
-            ?>
-                <li class="tcx_finance_widget tcx_widget">
-                    <div class="large-12 medium-6 small-6">
-                    <script src="http://content.synapsys.us/embeds/finance/dynamic_300x600/partner.js"></script>
+                    <script src="http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&amp;type=dynamic_group_weather&amp;style=standard"></script>
                     </div>
                 </li>
             <?php

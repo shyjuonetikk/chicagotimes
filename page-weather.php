@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="large-4 columns" style="margin-top:50px;">
-                <script src="http://content.synapsys.us/embeds/weather/dynamic_300x600/partner.js"></script>
+                <script src="//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&amp;type=dynamic_group_weather&amp;style=standard"></script>
             </div>
         </div>
     </section>
