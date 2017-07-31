@@ -2933,6 +2933,9 @@ header .contain-to-grid .top-bar {
     max-width: 54.1rem; }
     @media only screen and (min-width:64.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 67rem; } }
+    @media only screen and (min-width:90.063em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
         max-width: 72.5rem; } }
     header .contain-to-grid .top-bar .masthead-sections ul {
       list-style-type: none;
