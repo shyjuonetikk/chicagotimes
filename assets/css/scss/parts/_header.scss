@@ -206,6 +206,9 @@ header {
 				height: 45px;
 				max-width: 54.1rem;
 				@media #{$large-up} and (orientation:landscape) {
+					max-width: 67rem;
+				}
+				@media #{$xlarge-up} and (orientation:landscape) {
 					max-width: 72.5rem;
 				}
 				ul {
