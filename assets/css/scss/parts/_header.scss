@@ -205,8 +205,8 @@ header {
 				overflow: hidden;
 				height: 45px;
 				max-width: 54.1rem;
-				@media #{$large-only} and (orientation:landscape) {
-					max-width: 48.2rem;
+				@media #{$large-up} and (orientation:landscape) {
+					max-width: 72.5rem;
 				}
 				ul {
 					list-style-type: none;
