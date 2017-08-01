@@ -2933,10 +2933,31 @@ header .contain-to-grid .top-bar {
     max-width: 54.1rem; }
     @media only screen and (min-width:64.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 61rem; } }
+    @media only screen and (min-width:85.25em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
         max-width: 67rem; } }
     @media only screen and (min-width:90.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 72.5rem; } }
+        max-width: 71rem; } }
+    @media screen and (min-width: 92em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 73rem; } }
+    @media screen and (min-width: 94em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 75rem; } }
+    @media screen and (min-width: 96em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 78rem; } }
+    @media screen and (min-width: 98em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 80.6rem; } }
+    @media screen and (min-width: 100em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 82.6rem; } }
+    @media only screen and (min-width:120.063em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 83rem; } }
     header .contain-to-grid .top-bar .masthead-sections ul {
       list-style-type: none;
       background: #231f20; }
@@ -3003,6 +3024,8 @@ header .contain-to-grid .top-bar {
     padding: 0; }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
+    header .contain-to-grid .top-bar .top-bar-section .main-nav-holder {
+      padding-left: 0; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
       display: block; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
@@ -3029,9 +3052,14 @@ header .contain-to-grid .top-bar {
       right: -14px; }
     header .contain-to-grid .top-bar .top-bar-section .logo a {
       line-height: 42px; }
+    @media only screen and (min-width:64.063em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .top-bar-section .left .search > .small-1 {
+        padding-left: 0; } }
   @media only screen and (min-width: 78.063em) {
     header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button) {
       padding: 0 14px !important; }
+      header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button):first-child {
+        padding-left: 6px !important; }
       header .contain-to-grid .top-bar .top-bar-section li:not(.has-form) a:not(.button):hover {
         background-color: #231f20;
         color: white; } }
@@ -3082,6 +3110,40 @@ header .contain-to-grid .cst-row {
 
 body header .contain-to-grid .top-bar .masthead-sections li:not(.has-form) > a, body header .contain-to-grid .top-bar .masthead-sections a:not(.button) {
   padding: 0 10px; }
+
+body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+  padding-right: 0; }
+  @media only screen and (min-width:64.063em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 51.5rem; } }
+  @media only screen and (min-width:85.25em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 57.5rem; } }
+  @media screen and (min-width: 87em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 60.9rem; } }
+  @media only screen and (min-width:90.063em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 63rem; } }
+  @media screen and (min-width: 92em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 67rem; } }
+  @media screen and (min-width: 94em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 69rem; } }
+  @media screen and (min-width: 96em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 70rem; } }
+  @media screen and (min-width: 98em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 72.6rem; } }
+  @media screen and (min-width: 100em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 74.6rem;
+      width: 100%; } }
+  @media only screen and (min-width:120.063em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 78rem; } }
 
 @media only screen and (min-width: 78.063em) {
   header .contain-to-grid {
