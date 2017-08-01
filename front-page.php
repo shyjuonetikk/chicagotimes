@@ -30,7 +30,7 @@
 							array_shift( $other_stories );
 							?>
 							<div class="section-other-stories" data-equalizer>
-								<?php CST()->frontend->mini_stories_content_block( $other_stories, 'regular' ); ?>
+								<?php CST()->frontend->mini_stories_content_block( $other_stories ); ?>
 							</div>
 						</div><!-- hp-other-lead -->
 						<div class="other-stories show-for-large-up">

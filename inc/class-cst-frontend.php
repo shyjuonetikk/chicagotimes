@@ -1085,7 +1085,9 @@ class CST_Frontend {
 							<div class="row">
 								<?php $featured_stories = CST()->customizer->get_featured_stories();
 								array_shift( $featured_stories );
-								$this->mini_stories_content_block( $featured_stories, 'vertical' ); ?>
+								$featured_stories['display_relative_timestamp'] = false;
+								$featured_stories['layout_type'] = 'vertical';
+								$this->mini_stories_content_block( $featured_stories ); ?>
 							</div>
 						</div>
 					</div>
@@ -1152,10 +1154,13 @@ class CST_Frontend {
 	* A 2 x 2 block of content, each have image with title and anchored
 	* Optionally a 5th piece of content on left of 2 x 2 block of content
 	* @param $headlines array
-	* @param $style string
 	*/
-	public function mini_stories_content_block( $headlines, $style = 'regular' ) {
+	public function mini_stories_content_block( $headlines ) {
 		$count_headlines = count( $headlines );
+		$display_relative_timestamp = true;
+		if ( isset( $headlines['display_relative_timestamp'] ) && false === $headlines['display_relative_timestamp'] ){
+			$display_relative_timestamp = false;
+		}
 		$counter = 0;
 		$close_me = false; ?>
 		<div class="row mini-stories small-collapse" >
@@ -1168,13 +1173,26 @@ class CST_Frontend {
 						?>
 						<div class="prime-lead-story small-12 medium-4">
 							<?php
-							$this->single_mini_story( $obj, 'prime', $partial_id, 'no', 'title-container' );
+							$this->single_mini_story( [
+								'story' => $obj,
+								'layout_type' => 'prime',
+								'partial_id' => $partial_id,
+								'watch' => 'no',
+								'custom_landscape_class' => 'title-container',
+								'display_relative_timestamp' => $display_relative_timestamp,
+							] );
 							$close_me = true;
 							?>
 						</div><!-- First one -->
 						<div class="remaining-stories small-12 medium-8 columns" data-equalizer>
 					<?php } else { ?>
-						<?php $this->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
+						<?php $this->single_mini_story( [
+								'story' => $obj,
+								'layout_type' => 'regular',
+								'partial_id' => $partial_id,
+								'watch' => 'yes',
+								'display_relative_timestamp' => $display_relative_timestamp,
+								] ); ?>
 					<?php }
 				}
 				$counter++;
@@ -1188,14 +1206,18 @@ class CST_Frontend {
 
 	/**
 	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
-	* @param $obj \CST\Objects\Post
-	* @param $layout_type
-	* @param $partial_id string Customizer reference DOM id/class
-	* @param $watch string yes to include Foundation equalizer watch parameter
-	* @param $custom_landscape_class string Include custom class modifier to landscape markup
-	* @param $render_partial Boolean true if this function called from Customizer Render callback
 	*/
-	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '', $render_partial = false ) {
+	public function single_mini_story( $args) {
+		$obj = $args['story'];
+		$defaults = [
+			'layout_type' => 'prime',
+			'partial_id' => '',
+			'watch' => 'no',
+			'custom_landscape_class' => '',
+			'render_partial' => false,
+			'display_relative_timestamp' => true,
+		];
+		$args = wp_parse_args( $args, $defaults );
 		$layout['prime'] = array(
 			'wrapper_class' => '',
 			'image_class' => 'small-12 medium-6 large-12 prime',
@@ -1203,13 +1225,13 @@ class CST_Frontend {
 			'title_class' => 'small-12 medium-6 large-12',
 		);
 		$layout['regular'] = array(
-			'wrapper_class' => $render_partial ? '' : 'small-12 medium-6',
+			'wrapper_class' => $args['render_partial'] ? '' : 'small-12 medium-6',
 			'image_class' => 'small-3 medium-4 large-4 mini-image',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-8 large-8 mini-title',
 		);
 		$layout['vertical'] = array(
-			'wrapper_class' => $render_partial ? '' : 'small-12 medium-6',
+			'wrapper_class' => $args['render_partial'] ? '' : 'small-12 medium-6',
 			'image_class' => 'small-3 medium-12 large-4',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-12 large-8',
@@ -1222,26 +1244,26 @@ class CST_Frontend {
 			add_filter( 'the_excerpt', 'wpautop' );
 		}
 		?>
-		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
-		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['image_class'] ); ?>">
+		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $args['partial_id'] ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $args['layout_type'] ]['wrapper_class'] ); ?>" <?php echo 'yes' === $args['watch'] ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
+		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['image_class'] ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
 			<?php
 				$featured_image_id = $obj->get_featured_image_id();
 		if ( $featured_image_id ) {
 			$attachment = wp_get_attachment_metadata( $featured_image_id );
 			if ( $attachment ) {
-				$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $layout_type ]['image_size'] );
+				$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $args['layout_type'] ]['image_size'] );
 				echo wp_kses_post( $image_markup );
 			}
 		}
 			?>
 			</a>
 		</div>
-		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['title_class'] ); ?> show-for-portrait">
+		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-portrait">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
-			<?php if ( 'prime' === $layout_type ) { ?>
+			<?php if ( 'prime' === $args['layout_type'] ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 					<div class="show-for-medium hide-for-large-up">
@@ -1258,11 +1280,11 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
+		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $args['custom_landscape_class'] ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
-			<?php if ( 'prime' === $layout_type ) { ?>
+			<?php if ( 'prime' === $args['layout_type'] ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 					<div class="hide-for-medium hide-for-large-up">
@@ -1279,7 +1301,7 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author ); ?></div>
+		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author, $args['display_relative_timestamp'] ); ?></div>
 		</div>
 		<?php
 	}
@@ -2996,8 +3018,15 @@ ready(fn);
 <?php
 		}
 	}
-	public function homepage_byline( CST\Objects\Post $obj, $author ) { ?>
-<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_localized_pub_mod_date_gmt() ) ); ?> ago</p>
+	/**
+	* @param \CST\Objects\Post $obj
+	* @param $author
+	* @param $display_relative_timestamp
+	*/
+	public function homepage_byline( CST\Objects\Post $obj, $author, $display_relative_timestamp = true) { ?>
+<p class="authors">By <?php echo wp_kses_post( $author );
+echo $display_relative_timestamp ? ' - ' . esc_html( human_time_diff( $obj->get_localized_pub_mod_date_gmt() ) ) . ' ago' : '';
+?></p>
 	<?php }
 
 	/**
