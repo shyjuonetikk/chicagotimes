@@ -1077,10 +1077,10 @@ class CST_Frontend {
 						</div>
 					</div>
 					<div class="row">
-						<h3 class="more-sub-head">
+						<h2 class="more-sub-head">
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
 							   data-event-action="navigate-hp-features-column-title">
-								More Features</a></h3>
+								More Features</a></h2>
 						<div class="columns small-12 mini-featured-stories" data-equalizer>
 							<div class="row">
 								<?php $featured_stories = CST()->customizer->get_featured_stories();
@@ -1117,7 +1117,7 @@ class CST_Frontend {
 		?>
 		<div class="<?php echo esc_attr( $widget_style[ $style ]['wrapper-open'] ); ?>">
 			<div class="<?php echo esc_attr( $widget_style[ $style ]['container-open'] ); ?>">
-				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
+				<h2 class="more-sub-head"><?php echo esc_html( $title ); ?></h2>
 				<div class="row">
 					<div class="columns stories-list">
 						<?php $this->cst_politics_stories_content_block( 'columns' ); ?>
@@ -2852,11 +2852,30 @@ ready(fn);
 		}
 ?>
 <div class="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
-	<h3 class="more-sub-head"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $section_title ); ?></a></h3>
+	<h2 class="more-sub-head"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $section_title ); ?></a></h2>
 </div>
 <?php
 		}
 
+	}
+	/**
+	* @param $term_name
+	* Display anchor link markup when provided with a Section name
+	*/
+	public function render_term_link( $term_name ) {
+		if ( '' === trim( $term_name ) ) {
+			echo '';
+		} else {
+			$section_term = wpcom_vip_get_term_by( 'name', $term_name, 'cst_section' );
+			if ( $section_term ) {
+				$link = wpcom_vip_get_term_link( $section_term->slug, 'cst_section' );
+				if ( is_wp_error( $link ) ) {
+					echo '';
+				} else {
+					echo '<a href="' . esc_url( $link ) . '">' . esc_html( $term_name ) . '</a>';
+				}
+			}
+		}
 	}
 	/**
 	* Display textual heading content / markup from $section_theme_mod
@@ -2867,7 +2886,7 @@ ready(fn);
 		$section_title_text = get_theme_mod( $section_theme_mod );
 ?>
 <div class="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
-	<h3 class="more-sub-head"><?php echo esc_html( $section_title_text ); ?></h3>
+	<h2 class="more-sub-head"><?php echo esc_html( $section_title_text ); ?></h2>
 </div>
 <?php
 	}
@@ -2941,7 +2960,7 @@ ready(fn);
 	public function sports_heading() {
 		$sports_term = wpcom_vip_get_term_link( 'sports','cst_section' );
 		if ( ! is_wp_error( $sports_term ) ) { ?>
-			<h3 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h3>
+			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h2>
 		<?php }
 	}
 
