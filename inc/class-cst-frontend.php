@@ -973,9 +973,11 @@ class CST_Frontend {
 					$count--;
 					?>
 					<li>
+						<h3>
 						<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
+						</h3>
 					</li>
 			<?php }
 			} ?>

@@ -4040,14 +4040,14 @@ body.post-gallery-lightbox-active {
   background-color: white;
   border: 1px solid #cccccc;
   margin-bottom: 20px; }
-  .homepage_wrapper section#section-column-wells .section-list h3 {
+  .homepage_wrapper section#section-column-wells .section-list h2 {
     font-size: 1rem;
     text-transform: uppercase;
     font-weight: 700;
     padding: 0 0 2px 10px;
     position: relative;
     width: 100%; }
-  .homepage_wrapper section#section-column-wells .section-list h3:after {
+  .homepage_wrapper section#section-column-wells .section-list h2:after {
     content: '';
     position: absolute;
     width: inherit;
@@ -4061,14 +4061,19 @@ body.post-gallery-lightbox-active {
     list-style-type: none;
     margin-left: 0;
     margin-bottom: 0; }
-    .homepage_wrapper section#section-column-wells .section-list ul li {
-      border-bottom: 1px solid #dedede;
+    .homepage_wrapper section#section-column-wells .section-list ul li > h3 {
+      font-weight: normal;
       font-size: 14px;
       line-height: 16px;
       padding: 10px;
-      background-color: white; }
-      .homepage_wrapper section#section-column-wells .section-list ul li a {
+      background-color: white;
+      font-family: inherit; }
+      .homepage_wrapper section#section-column-wells .section-list ul li > h3 a {
         color: #282828; }
+    .homepage_wrapper section#section-column-wells .section-list ul li {
+      border-bottom: 1px solid #dedede; }
+      .homepage_wrapper section#section-column-wells .section-list ul li:last-child {
+        border-bottom: 0; }
 .homepage_wrapper .hp-bn-wrapper ul {
   list-style: none;
   margin-left: 0;
