@@ -644,7 +644,7 @@
 			border: 1px solid $grey;
 			margin-bottom: 20px;
 
-			h3 {
+			h2 {
 				font-size: 1rem;
 				text-transform: uppercase;
 				font-weight: 700;
@@ -653,7 +653,7 @@
 				width: 100%;
 			}
 
-			h3:after {
+			h2:after {
 				content: '';
 				position: absolute;
 				width: inherit;
@@ -671,14 +671,21 @@
 				list-style-type: none;
 				margin-left: 0;
 				margin-bottom: 0;
-				li {
-					border-bottom: 1px solid $homepage_border_grey;
+				li > h3 {
+					font-weight:normal;
 					font-size: 14px;
 					line-height: 16px;
 					padding: 10px;
 					background-color: $white;
+					font-family:inherit;
 					a {
 						color: $black;
+					}
+				}
+				li {
+					border-bottom: 1px solid $homepage_border_grey;
+					&:last-child {
+						border-bottom:0;
 					}
 				}
 			}
