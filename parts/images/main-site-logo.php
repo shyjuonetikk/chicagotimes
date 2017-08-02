@@ -28,7 +28,7 @@ if ( is_tax() ) : ?>
 		}
 	} ?>
 <?php endif; ?>
-
+<h2>
 <?php if ( 'sports' === $section ) : ?>
 	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'sports', 'cst_section' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-newsfeed-logo"><?php esc_html_e( 'Sports', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'news' === $section ) : ?>
@@ -45,5 +45,5 @@ if ( is_tax() ) : ?>
 	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'columnists', 'cst_section' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-newsfeed-logo"><?php esc_html_e( 'Columnists', 'chicagosuntimes' ); ?></a>
 <?php elseif ( 'obits' === $section ) : ?>
 	<a id="newsfeed-logo" href="<?php echo esc_url( wpcom_vip_get_term_link( 'obits', 'cst_section' ) ); ?>" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-newsfeed-logo"><?php esc_html_e( 'Obits', 'chicagosuntimes' ); ?></a>
-<?php endif;
-
+<?php endif; ?>
+</h2>

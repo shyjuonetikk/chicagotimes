@@ -1915,6 +1915,13 @@ body[class~="archive"] article.index-view .section-title {
   @media only screen and (max-width:47.398em) {
     body[class~="archive"] article.index-view .section-title h1 {
       font-weight: 600; } }
+body[class~="archive"] article.index-view .section-article-link {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+  font-weight: 800;
+  margin-left: 10px;
+  margin-right: 10px; }
 body[class~="archive"] article.index-view .post-meta-bottom {
   clear: both; }
 body[class~="archive"] .dfp-super-leaderboard {
