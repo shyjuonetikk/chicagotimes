@@ -1350,6 +1350,16 @@ body.search {
     padding-right: 0.9375rem;
     width: 41.1%; } }
 
+#infinite-handle span {
+  text-align: center;
+  background-color: #231f20;
+  color: #ffe000;
+  padding: 1rem;
+  display: block;
+  margin: 1rem auto;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 1.2rem; }
+
 article.post {
   background-color: white;
   float: none; }
