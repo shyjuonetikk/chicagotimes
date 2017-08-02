@@ -7,7 +7,7 @@
 		<?php echo CST()->get_template_part( 'post/social-share', array( 'obj' => $obj ) ); ?>
 	</div>
 	<?php } else { ?>
-	<h1><a href="<?php $obj->the_permalink(); ?>" data-on="click" data-event-category="sf-list" data-event-action="click-title"><?php $obj->the_title(); ?></a></h1>
+	<h3 class="section-article-link"><a href="<?php $obj->the_permalink(); ?>" data-on="click" data-event-category="sf-list" data-event-action="click-title"><?php $obj->the_title(); ?></a></h3>
 	<?php } ?>
 <?php } else { ?>
 	<h3><a href="<?php $obj->the_permalink(); ?>" data-on="click" data-event-category="sf-list" data-event-action="click-sf-title"><?php $obj->the_title(); ?></a></h3>

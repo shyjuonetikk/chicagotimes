@@ -100,7 +100,7 @@
 					<div class="row">
 						<div class="small-12 columns more-stories-container">
 							<hr>
-							<h3 class="more-sub-head">Podcasts</h3>
+							<h2 class="more-sub-head"><?php CST()->frontend->render_term_link( 'Podcasts' ); ?></h2>
 							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_podcast_section_stories() ); ?>
 						</div>
 					</div>

@@ -922,6 +922,14 @@ body[class~="archive"] {
 					}
 				}
 			}
+			.section-article-link {
+				font-family:$open_sans;
+				font-size: 1.4rem;
+				line-height:1.9rem;
+				font-weight:800;
+				margin-left:10px;
+				margin-right:10px;
+			}
 			.post-meta-bottom {
 				clear:both;
 			}

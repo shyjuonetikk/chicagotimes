@@ -26,8 +26,8 @@
 	?>
 	<div class="large-3 medium-6 small-12 columns" data-equalizer-watch>
 		<div class="section-list">
-			<h3 class="<?php echo esc_attr( $section_slug ); ?>-border"><a href="<?php echo esc_url( $section_link ); ?>" data-on="click" data-event-category="navigation"
-									   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title"><?php esc_html_e( ucfirst( $section_name ), 'chicagosuntimes' ); ?></a></h3>
+			<h2><a href="<?php echo esc_url( $section_link ); ?>" data-on="click" data-event-category="navigation"
+									   data-event-action="navigate-hp-<?php echo esc_attr( $section_slug ); ?>-column-title"><?php esc_html_e( ucfirst( $section_name ), 'chicagosuntimes' ); ?></a></h2>
 			<?php $query = array(
 				'post_type'           => array( 'cst_article' ),
 				'ignore_sticky_posts' => true,
