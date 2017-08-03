@@ -401,6 +401,7 @@ class CST {
 
 		add_action( 'init', array( $this, 'action_init_early' ), 2 );
 		add_action( 'widgets_init', array( $this, 'action_widgets_init' ), 11 );
+		add_action( 'init', [ $this, 'admin_roles_for_customizer' ], 10, 3 );
 
 		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
@@ -674,6 +675,19 @@ class CST {
 			$caps = array( $required_cap );
 		}
 		return $caps;
+	}
+
+	/**
+	 * Use basic functions to add capabilities to editor role
+	 */
+	public function admin_roles_for_customizer() {
+		wpcom_vip_add_role_caps( 'editor', [ 'customize' => true, 'edit_theme_options' => true ] );
+		// get the the role object
+		$editor = get_role( 'editor' );
+		if ( $editor ) {
+			$editor->add_cap( 'edit_theme_options' );
+			$editor->add_cap( 'customize' );
+		}
 	}
 	/**
 	 * @param $category
