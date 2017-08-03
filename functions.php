@@ -174,7 +174,7 @@ class CST {
 			$this->frontend = CST_Frontend::get_instance();
 		}
 
-		$this->yieldmo_tags = CST_Yieldmo_Tags::get_instance();
+		$this->yieldmo_tags = CST_YieldMo_Tags::get_instance();
 		$this->dfp_handler = CST_DFP_Handler::get_instance();
 		$this->ad_vendor_handler = CST_Ad_Vendor_Handler::get_instance();
 		$this->slack = CST_Slack::get_instance();
@@ -191,10 +191,10 @@ class CST {
 
 		add_theme_support( 'post-thumbnails' );
 		add_theme_support( 'customize-selective-refresh-widgets' );
-		add_theme_support( 'infinite-scroll', array(
+		add_theme_support( 'infinite-scroll', [
 			'container' => 'main',
 			'footer'    => false,
-		) );
+		] );
 
 		wpcom_vip_disable_sharing();
 		wpcom_vip_disable_post_flair();
@@ -203,10 +203,10 @@ class CST {
 		// Disable Media Explorer
 		if ( class_exists( 'Media_Explorer' ) ) {
 			$instance = Media_Explorer::init();
-			remove_action( 'init',                  array( $instance, 'action_init' ) );
-			remove_action( 'wp_enqueue_media',      array( $instance, 'action_enqueue_media' ) );
-			remove_action( 'print_media_templates', array( $instance, 'action_print_media_templates' ) );
-			remove_action( 'wp_ajax_mexp_request',   array( $instance, 'ajax_request' ) );
+			remove_action( 'init',                  [ $instance, 'action_init' ] );
+			remove_action( 'wp_enqueue_media',      [ $instance, 'action_enqueue_media' ] );
+			remove_action( 'print_media_templates', [ $instance, 'action_print_media_templates' ] );
+			remove_action( 'wp_ajax_mexp_request',   [ $instance, 'ajax_request' ] );
 		}
 
 		add_image_size( 'chiwire-article', 570, 260, true );
@@ -228,12 +228,12 @@ class CST {
 		add_image_size( 'secondary-wells-legacy', 290, 190, true );
 		add_image_size( 'secondary-wells', 303, 198, true );
 		add_image_size( 'homepage-columns', 302, 177, true );
-		add_image_size( 'more-wells', 228, 134, array( 'center', 'center' ) );
+		add_image_size( 'more-wells', 228, 134, [ 'center', 'center' ] );
 		add_image_size( 'newspaper', 297, 287, true );
 
 		remove_role( 'adops' );
-		wpcom_vip_merge_role_caps( 'editor', array( 'edit_theme_options' => true, 'customize' => true ) );
-		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true ) );
+		wpcom_vip_merge_role_caps( 'editor', [ 'edit_theme_options' => true, 'customize' => true ] );
+		wpcom_vip_add_role_caps( 'editor', [ 'customize' => true ] );
 
 		$this->setup_actions();
 		$this->setup_filters();
@@ -399,13 +399,13 @@ class CST {
 	 */
 	private function setup_actions() {
 
-		add_action( 'init', array( $this, 'action_init_early' ), 2 );
-		add_action( 'widgets_init', array( $this, 'action_widgets_init' ), 11 );
+		add_action( 'init', [ $this, 'action_init_early' ], 2 );
+		add_action( 'widgets_init', [ $this, 'action_widgets_init' ], 11 );
 		add_action( 'init', [ $this, 'admin_roles_for_customizer' ], 10, 3 );
 
 		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
-		add_action( 'wp_footer', array( $this, 'action_wp_footer_gallery_backdrop' ) );
+		add_action( 'wp_footer', [ $this, 'action_wp_footer_gallery_backdrop' ] );
 
 		/*
 		 * Remove "New Post" from admin bar because we don't have posts,
@@ -497,17 +497,17 @@ class CST {
 		} );
 
 		remove_all_actions( 'do_feed_rss2' );
-		add_action( 'do_feed_rss2', array( $this, 'cst_custom_feed_rss2' ), 10, 1 );
+		add_action( 'do_feed_rss2', [ $this, 'cst_custom_feed_rss2' ], 10, 1 );
 		add_action( 'rss2_ns', [ $this, 'cst_custom_feed_ns' ], 10, 1 );
-		add_action( 'do_feed_AP_atom', array( $this, 'cst_rss_AP_atom' ), 10, 1 );
+		add_action( 'do_feed_AP_atom', [ $this, 'cst_rss_AP_atom' ], 10, 1 );
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
-			add_action( 'above-homepage-headlines', array( CST_Elections::get_instance(), 'election_shortcode' ) );
+			add_action( 'above-homepage-headlines', [ CST_Elections::get_instance(), 'election_shortcode' ] );
 		}
 
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
 		if ( class_exists( 'Jetpack_Custom_CSS' ) && method_exists( 'Jetpack_Custom_CSS', 'disable' ) ) {
-			add_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 12 );
+			add_action( 'init', [ 'Jetpack_Custom_CSS', 'disable' ], 12 );
 		}
 	}
 
@@ -516,14 +516,14 @@ class CST {
 	 */
 	private function setup_filters() {
 
-		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 10, 2 );
-		add_filter( 'post_rewrite_rules', array( $this, 'filter_post_rewrite_rules' ) );
+		add_filter( 'post_type_link', [ $this, 'filter_post_type_link' ], 10, 2 );
+		add_filter( 'post_rewrite_rules', [ $this, 'filter_post_rewrite_rules' ] );
 
 		// Add customize capability to users who can edit_posts (hopefully)
 		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
 
-		add_filter( 'default_option_taxonomy_image_plugin_settings', array( $this, 'filter_taxonomy_image_plugin_settings' ) );
-		add_filter( 'option_taxonomy_image_plugin_settings', array( $this, 'filter_taxonomy_image_plugin_settings' ) );
+		add_filter( 'default_option_taxonomy_image_plugin_settings', [ $this, 'filter_taxonomy_image_plugin_settings' ] );
+		add_filter( 'option_taxonomy_image_plugin_settings', [ $this, 'filter_taxonomy_image_plugin_settings' ] );
 
 		$right_blog_id = get_current_blog_id();
 		add_filter( 'pre_option_timezone_string', function( $value ) use ( $right_blog_id ) {
@@ -563,9 +563,9 @@ class CST {
 			}
 		});
 
-		add_filter( 'post_gallery', array( $this, 'filter_post_gallery' ), 10, 2 );
+		add_filter( 'post_gallery', [ $this, 'filter_post_gallery' ], 10, 2 );
 
-		add_filter( 'wp_unique_post_slug', array( $this, 'filter_wp_unique_post_slug' ), 10, 6 );
+		add_filter( 'wp_unique_post_slug', [ $this, 'filter_wp_unique_post_slug' ], 10, 6 );
 
 		// All of the filters!
 		add_filter( 'pre_option_link_manager_enabled', '__return_zero', 100 );
@@ -580,11 +580,11 @@ class CST {
 		} );
 		add_filter( 'coauthors_guest_author_parent_page', function() { return 'tools.php'; } );
 
-		add_filter( 'wpcom_sitemap_post_types', array( $this, 'filter_sitemap_post_types' ) );
-		add_filter( 'wpcom_sitemap_news_sitemap_post_types', array( $this, 'filter_sitemap_post_types' ) );
+		add_filter( 'wpcom_sitemap_post_types', [ $this, 'filter_sitemap_post_types' ] );
+		add_filter( 'wpcom_sitemap_news_sitemap_post_types', [ $this, 'filter_sitemap_post_types' ] );
 
-		add_filter( 'rest_api_allowed_post_types', array( $this, 'filter_rest_api_post_types' ) );
-		add_filter( 'infinite_scroll_archive_supported', array( $this, 'jetpack_infinite_support' ) );
+		add_filter( 'rest_api_allowed_post_types', [ $this, 'filter_rest_api_post_types' ] );
+		add_filter( 'infinite_scroll_archive_supported', [ $this, 'jetpack_infinite_support' ] );
 
 		/**
 		 * Remove avatar references from RSS feed
@@ -612,9 +612,9 @@ class CST {
 		 *
 		 * Precautionary measure.
 		 */
-		add_filter( 'allowed_redirect_hosts' , array( $this, 'vip_quickstart_add_test_hosts' ) );
+		add_filter( 'allowed_redirect_hosts' , [ $this, 'vip_quickstart_add_test_hosts' ] );
 		//
-		add_filter( 'post_updated_messages', array( $this, 'cpt_messages' ) );
+		add_filter( 'post_updated_messages', [ $this, 'cpt_messages' ] );
 
 		/**
 		 * Apple News: allow editors and above to automatically
@@ -624,15 +624,15 @@ class CST {
 			return 'edit_others_posts';
 		}, 10, 0 );
 
-		add_filter( 'apple_news_exporter_byline', array( $this, 'apple_news_author' ), 10, 2 );
+		add_filter( 'apple_news_exporter_byline', [ $this, 'apple_news_author' ], 10, 2 );
 		if ( defined( 'INSTANT_ARTICLES_SLUG' ) ) {
-			add_filter( 'instant_articles_cover_kicker', array( $this, 'cst_fbia_category_kicker' ) , 10, 2 );
-			add_filter( 'instant_articles_authors', array( $this, 'cst_fbia_authors' ) , 12, 2 );
-			add_filter( 'instant_articles_content', array( $this, 'cst_fbia_use_full_size_image' ), 9999 );
-			add_filter( 'instant_articles_content', array( $this, 'cst_fbia_convert_protected_embeds' ), 9999 );
-			add_filter( 'instant_articles_content', array( $this, 'cst_fbia_gallery_content' ) );
+			add_filter( 'instant_articles_cover_kicker', [ $this, 'cst_fbia_category_kicker' ], 10, 2 );
+			add_filter( 'instant_articles_authors', [ $this, 'cst_fbia_authors' ], 12, 2 );
+			add_filter( 'instant_articles_content', [ $this, 'cst_fbia_use_full_size_image' ], 9999 );
+			add_filter( 'instant_articles_content', [ $this, 'cst_fbia_convert_protected_embeds' ], 9999 );
+			add_filter( 'instant_articles_content', [ $this, 'cst_fbia_gallery_content' ] );
 			add_filter( 'instant_articles_post_types', function ( $types ) {
-				return array( 'cst_article', 'cst_gallery' );
+				return [ 'cst_article', 'cst_gallery' ];
 			} );
 		}
 
@@ -662,7 +662,7 @@ class CST {
 	function allow_users_who_can_edit_posts_to_customize( $caps, $cap, $user_id ) {
 		$required_cap = 'edit_posts';
 		if ( 'customize' === $cap && user_can( $user_id, $required_cap ) ) {
-			$caps = array( $required_cap );
+			$caps = [ $required_cap ];
 		}
 		return $caps;
 	}
@@ -671,7 +671,7 @@ class CST {
 	 * Use basic functions to add capabilities to editor role
 	 */
 	public function admin_roles_for_customizer() {
-		wpcom_vip_add_role_caps( 'editor', array( 'customize' => true, 'edit_theme_options' => true ) );
+		wpcom_vip_add_role_caps( 'editor', [ 'customize' => true, 'edit_theme_options' => true ] );
 		// get the the role object
 		$editor = get_role( 'editor' );
 		if ( $editor ) {
@@ -709,7 +709,7 @@ class CST {
 	function cst_fbia_authors( $incoming_authors, $_post_id ) {
 
 		$author_list = get_coauthors( $_post_id );
-		$authors = array();
+		$authors = [];
 		foreach ( $author_list as $wp_user ) {
 			$author = new stdClass;
 			$author->ID            = $wp_user->ID;
