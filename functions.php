@@ -518,6 +518,9 @@ class CST {
 		add_filter( 'post_type_link', array( $this, 'filter_post_type_link' ), 10, 2 );
 		add_filter( 'post_rewrite_rules', array( $this, 'filter_post_rewrite_rules' ) );
 
+		// Add customize capability to users who can edit_posts (hopefully)
+		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
+
 		add_filter( 'default_option_taxonomy_image_plugin_settings', array( $this, 'filter_taxonomy_image_plugin_settings' ) );
 		add_filter( 'option_taxonomy_image_plugin_settings', array( $this, 'filter_taxonomy_image_plugin_settings' ) );
 
@@ -653,7 +656,6 @@ class CST {
 				return $caps;
 			}
 		);
-		add_filter( 'map_meta_cap', [ $this, 'allow_users_who_can_edit_posts_to_customize' ], 10, 3 );
 	}
 
 	/**
