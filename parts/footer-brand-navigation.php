@@ -1,5 +1,5 @@
-<?php if ( is_front_page() || is_page() || is_404() || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' ) ) { ?>
-<footer>
+<?php if ( is_front_page() || is_page() || is_404() || is_tax( 'cst_section' ) || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' ) ) { ?>
+<footer id="cst-footer">
 	<div class="footerlead">
 		<div class="row">
 			<div class="columns small-12 back-to-top">
