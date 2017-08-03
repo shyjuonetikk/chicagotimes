@@ -3661,6 +3661,10 @@ body.post-gallery-lightbox-active {
 .homepage_wrapper .homepage-content .homepage-sidebar {
   padding-left: 0.6rem;
   padding-right: 0.6rem; }
+  .homepage_wrapper .homepage-content .homepage-sidebar.mobile {
+    padding-bottom: 0.6rem;
+    padding-left: 0;
+    padding-right: 0; }
   .homepage_wrapper .homepage-content .homepage-sidebar .cst-ad-container {
     text-align: right;
     max-width: 320px;
@@ -3878,6 +3882,8 @@ body.post-gallery-lightbox-active {
       line-height: 1.4rem; }
 .homepage_wrapper .latest-stories a {
   color: #231f20; }
+.homepage_wrapper .other-stories.more-stories-container {
+  clear: both; }
 .homepage_wrapper .other-stories h2 {
   font-size: 1.1rem;
   line-height: 1.3rem;

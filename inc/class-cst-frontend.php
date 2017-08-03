@@ -1062,41 +1062,47 @@ class CST_Frontend {
 			return $class;
 		} );
 		?>
-		<div class="more-stories-content">
+<div class="more-stories-content">
+	<div class="row">
+	<?php $this->more_top_stories_block( 'Politics', 'normal-style' ); ?>
+	<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() && is_active_sidebar( 'homepage_sidebar_two' ) ) { ?>
+	<div class="columns small-12 medium-6 large-4 sidebar homepage-sidebar widgets mobile">
+	<div class="columns"><hr></div>
+	<?php dynamic_sidebar( 'homepage_sidebar_two' ); ?>
+	</div>
+	<?php } ?>
+	<div class="columns small-12 medium-6 large-8">
+		<div class="small-12 columns more-stories-container" id="featured-stories">
 			<div class="row">
-			<?php $this->more_top_stories_block( 'Politics', 'normal-style' ); ?>
-			<div class="columns small-12 medium-6 large-8">
-				<div class="small-12 columns more-stories-container" id="featured-stories">
+				<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
+				<div class="featured-story js-featured-story-block-headlines-1">
+					<?php
+					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( 'featured_story_block_headlines_1' ) );
+					if ( $obj ) {
+						$this->featured_story_lead( $obj );
+					}
+					?>
+				</div>
+			</div>
+			<div class="row">
+				<h2 class="more-sub-head">
+					<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
+					   data-event-action="navigate-hp-features-column-title">
+						More Features</a></h2>
+				<div class="columns small-12 mini-featured-stories" data-equalizer>
 					<div class="row">
-						<h3 class="more-sub-head"><a href="<?php echo esc_url( home_url( '/' ) ); ?>features/"></a>Featured story</h3>
-						<div class="featured-story js-featured-story-block-headlines-1">
-							<?php
-							$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( 'featured_story_block_headlines_1' ) );
-							if ( $obj ) {
-								$this->featured_story_lead( $obj );
-							}
-							?>
-						</div>
-					</div>
-					<div class="row">
-						<h2 class="more-sub-head">
-							<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
-							   data-event-action="navigate-hp-features-column-title">
-								More Features</a></h2>
-						<div class="columns small-12 mini-featured-stories" data-equalizer>
-							<div class="row">
-								<?php $featured_stories = CST()->customizer->get_featured_stories();
-								array_shift( $featured_stories );
-								$featured_stories['display_relative_timestamp'] = false;
-								$featured_stories['layout_type'] = 'vertical';
-								$this->mini_stories_content_block( $featured_stories ); ?>
-							</div>
-						</div>
+						<?php $featured_stories = CST()->customizer->get_featured_stories();
+						array_shift( $featured_stories );
+						$featured_stories['display_relative_timestamp'] = false;
+						$featured_stories['layout_type'] = 'vertical';
+						$this->mini_stories_content_block( $featured_stories ); ?>
 					</div>
 				</div>
 			</div>
-			</div>
-		</div><!-- /more-stories-content -->
+		</div>
+	</div>
+	</div>
+</div><!-- /more-stories-content -->
 		<?php
 	}
 	/**
