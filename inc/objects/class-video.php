@@ -30,15 +30,22 @@ class Video extends Post {
 	public function get_video_embed() {
 
 		$video_url = $this->get_video_url();
-		$host = parse_url( $video_url, PHP_URL_HOST );
-
+		$host = wp_parse_url( $video_url, PHP_URL_HOST );
+		$render_host = '';
 		// ex http://youtu.be/HJMapA8WgYw
-		if ( in_array( $host, array( 'youtu.be' ) ) ) {
-			$video_id = trim( parse_url( $video_url, PHP_URL_PATH ), '/' );
+		if ( in_array( $host, [ 'youtu.be' ], true ) ) {
+			$video_id = trim( wp_parse_url( $video_url, PHP_URL_PATH ), '/' );
+			$render_host = 'youtube';
 		// ex https://www.youtube.com/watch?v=HJMapA8WgYw&feature=youtu.be
-		} else if ( in_array( $host, array( 'youtube.com', 'www.youtube.com' ) ) ) {
-			parse_str( parse_url( $this->get_video_url(), PHP_URL_QUERY ), $youtube_vars );
+		} else if ( in_array( $host, [ 'youtube.com', 'www.youtube.com' ], true ) ) {
+			parse_str( wp_parse_url( $this->get_video_url(), PHP_URL_QUERY ), $youtube_vars );
 			$video_id = ( ! empty( $youtube_vars['v'] ) ) ? $youtube_vars['v'] : '';
+			$render_host = 'youtube';
+		} else if ( in_array( $host, [ 'thecube.com' ], true ) ) {
+			if ( preg_match( '/([\d]{3,7})$/', $this->get_video_url(), $matches ) ) {
+				$video_id = $matches[0];
+				$render_host = 'cube';
+			}
 		} else {
 			$video_id = '';
 		}
@@ -47,7 +54,28 @@ class Video extends Post {
 			return '';
 		}
 
-		$iframe = '<iframe class="cst-responsive" data-true-height="640" data-true-width="360" width="100%" height="320px" src="' . esc_url( '//www.youtube.com/embed/' . sanitize_text_field( $video_id ) ) . '" frameborder="0"></iframe>';
+		switch ( $render_host ) {
+			case 'youtube':
+				$iframe = '<iframe class="cst-responsive" data-true-height="640" data-true-width="360" width="100%" height="320px" src="' . esc_url( '//www.youtube.com/embed/' . sanitize_text_field( $video_id ) ) . '" frameborder="0"></iframe>';
+				break;
+			case 'cube':
+				if ( is_front_page() ) {
+					$share_link = '';
+					$embed_size = 'secondary-wells';
+					$image_sizes = wp_get_additional_image_sizes();
+					$max_width = intval( $image_sizes[ $embed_size ]['width'] );
+					$max_height = intval( $image_sizes[ $embed_size ]['height'] );
+				} else {
+					$share_link = '<div><a style="font-size:11px" href="http://thecube.com">Share Events on The Cube</a></div>';
+					$max_height = 460;
+					$max_width = 640;
+				}
+				$iframe = '<iframe src="//thecube.com/embed/' . esc_attr( $video_id )  . '" width="' . esc_attr( $max_width ) . '" height="' . esc_attr( $max_height ) . '" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>' . wp_kses_post( $share_link );
+				break;
+			default:
+				$iframe = '';
+		}
+
 		return $iframe;
 
 	}
@@ -146,4 +174,16 @@ class Video extends Post {
 		}
 	}
 
+	/**
+	 * Get the long excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_long_excerpt() {
+		if ( $excerpt = $this->get_fm_field( 'cst_long_excerpt' ) ) {
+			return $excerpt;
+		} else {
+			return $this->get_excerpt();
+		}
+	}
 }

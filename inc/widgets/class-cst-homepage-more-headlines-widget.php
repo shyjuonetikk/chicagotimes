@@ -138,7 +138,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			<div class="more-stories-container">
 			<?php
 			if ( ! empty( $title ) ) {
-				echo '<div class="columns"><div class="more-sub-head">' . esc_html( $title ) . '</div></div>';
+				echo '<div class="columns"><h2 class="more-sub-head">' . esc_html( $title ) . '</h2></div>';
 			}
 			get_template_part( 'parts/homepage/more-wells-v3' );
 			?>

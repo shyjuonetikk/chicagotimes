@@ -77,7 +77,7 @@
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
 							</div>
-							<div class="columns small-10 show-for-large-up">
+							<div class="columns small-10 show-for-large-up main-nav-holder">
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</div>
 						<?php } ?>
@@ -87,7 +87,7 @@
 		</div>
 		</nav>
 	</div>
-	<?php if ( is_singular( array( 'cst_article', 'cst_gallery' ) ) ) { ?>
+	<?php if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) { ?>
 		<section id="headlines-slider">
 			<?php echo CST()->get_template_part( 'headlines/headlines-slider' ); ?>
 		</section>

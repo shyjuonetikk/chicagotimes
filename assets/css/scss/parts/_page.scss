@@ -12,3 +12,19 @@
 		}
 	}
 }
+.page-template-page-subscribe {
+	.promo-code {
+		padding-left:0;
+		.promo-img {
+			max-height:37px;
+		}
+		.promo-code-input {
+			max-width: 200px;
+		}
+		.promo-code-push {
+			padding:0;
+			max-height:37px;
+			background-color:transparent;
+		}
+	}
+}

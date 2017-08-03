@@ -93,7 +93,7 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
-		add_filter( 'the_content', [ $this, 'inject_flipp' ] );
+		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
@@ -181,12 +181,12 @@ class CST_Frontend {
 					}
 				}
 				if ( is_singular() || is_tax() ) {
-					if ( is_singular( array( 'cst_feature', 'cst_article', 'cst_gallery' ) ) ) {
+					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) ) {
 						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
-					if ( is_singular( array( 'cst_article', 'cst_feature', 'cst_gallery' ) ) || is_tax() || is_author() ) {
+					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) || is_tax() || is_author() ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
@@ -211,14 +211,14 @@ class CST_Frontend {
 					wp_localize_script( 'cst-ga-custom-actions', 'CSTAnalyticsData', $analytics_data );
 				}
 
-				if ( is_singular( 'cst_article', 'cst_gallery' ) && ! is_admin() ) {
+				if ( is_singular( [ 'cst_article', 'cst_gallery', 'cst_video' ] ) && ! is_admin() ) {
 					wp_enqueue_script( 'yieldmo', get_template_directory_uri() . '/assets/js/vendor/yieldmo.js' );
 				}
 
 				if ( is_page() ) {
 					wp_enqueue_script( 'google-maps', get_template_directory_uri() . '/assets/js/vendor/google-map.js', array( 'jquery' ), '5.2.3' );
 				}
-				if ( ( is_author() || is_tax() || is_singular( 'cst_article', 'cst_gallery' ) )  && ! is_admin() ) {
+				if ( ( is_author() || is_tax() || is_singular( [ 'cst_article', 'cst_gallery', 'cst_video' ] ) )  && ! is_admin() ) {
 					wp_enqueue_script( 'cst-ads', get_template_directory_uri() . '/assets/js/ads.js', array( 'jquery' ) );
 				}
 				if ( is_tax() ) {
@@ -973,9 +973,11 @@ class CST_Frontend {
 					$count--;
 					?>
 					<li>
+						<h3>
 						<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-column-wells">
 							<?php echo esc_html( $obj->get_title() ); ?>
 						</a>
+						</h3>
 					</li>
 			<?php }
 			} ?>
@@ -1077,15 +1079,17 @@ class CST_Frontend {
 						</div>
 					</div>
 					<div class="row">
-						<h3 class="more-sub-head">
+						<h2 class="more-sub-head">
 							<a href="<?php echo esc_url( home_url( '/' ) ); ?>features/" data-on="click" data-event-category="navigation"
 							   data-event-action="navigate-hp-features-column-title">
-								More Features</a></h3>
+								More Features</a></h2>
 						<div class="columns small-12 mini-featured-stories" data-equalizer>
 							<div class="row">
 								<?php $featured_stories = CST()->customizer->get_featured_stories();
 								array_shift( $featured_stories );
-								$this->mini_stories_content_block( $featured_stories, 'vertical' ); ?>
+								$featured_stories['display_relative_timestamp'] = false;
+								$featured_stories['layout_type'] = 'vertical';
+								$this->mini_stories_content_block( $featured_stories ); ?>
 							</div>
 						</div>
 					</div>
@@ -1115,7 +1119,7 @@ class CST_Frontend {
 		?>
 		<div class="<?php echo esc_attr( $widget_style[ $style ]['wrapper-open'] ); ?>">
 			<div class="<?php echo esc_attr( $widget_style[ $style ]['container-open'] ); ?>">
-				<h3 class="more-sub-head"><?php echo esc_html( $title ); ?></h3>
+				<h2 class="more-sub-head"><?php echo esc_html( $title ); ?></h2>
 				<div class="row">
 					<div class="columns stories-list">
 						<?php $this->cst_politics_stories_content_block( 'columns' ); ?>
@@ -1152,10 +1156,13 @@ class CST_Frontend {
 	* A 2 x 2 block of content, each have image with title and anchored
 	* Optionally a 5th piece of content on left of 2 x 2 block of content
 	* @param $headlines array
-	* @param $style string
 	*/
-	public function mini_stories_content_block( $headlines, $style = 'regular' ) {
+	public function mini_stories_content_block( $headlines ) {
 		$count_headlines = count( $headlines );
+		$display_relative_timestamp = true;
+		if ( isset( $headlines['display_relative_timestamp'] ) && false === $headlines['display_relative_timestamp'] ){
+			$display_relative_timestamp = false;
+		}
 		$counter = 0;
 		$close_me = false; ?>
 		<div class="row mini-stories small-collapse" >
@@ -1168,13 +1175,26 @@ class CST_Frontend {
 						?>
 						<div class="prime-lead-story small-12 medium-4">
 							<?php
-							$this->single_mini_story( $obj, 'prime', $partial_id, 'no', 'title-container' );
+							$this->single_mini_story( [
+								'story' => $obj,
+								'layout_type' => 'prime',
+								'partial_id' => $partial_id,
+								'watch' => 'no',
+								'custom_landscape_class' => 'title-container',
+								'display_relative_timestamp' => $display_relative_timestamp,
+							] );
 							$close_me = true;
 							?>
 						</div><!-- First one -->
 						<div class="remaining-stories small-12 medium-8 columns" data-equalizer>
 					<?php } else { ?>
-						<?php $this->single_mini_story( $obj, 'regular', $partial_id, 'yes' ); ?>
+						<?php $this->single_mini_story( [
+								'story' => $obj,
+								'layout_type' => 'regular',
+								'partial_id' => $partial_id,
+								'watch' => 'yes',
+								'display_relative_timestamp' => $display_relative_timestamp,
+								] ); ?>
 					<?php }
 				}
 				$counter++;
@@ -1188,14 +1208,18 @@ class CST_Frontend {
 
 	/**
 	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
-	* @param $obj \CST\Objects\Post
-	* @param $layout_type
-	* @param $partial_id string Customizer reference DOM id/class
-	* @param $watch string yes to include Foundation equalizer watch parameter
-	* @param $custom_landscape_class string Include custom class modifier to landscape markup
-	* @param $render_partial Boolean true if this function called from Customizer Render callback
 	*/
-	public function single_mini_story( \CST\Objects\Post $obj, $layout_type, $partial_id = '', $watch = 'no', $custom_landscape_class = '', $render_partial = false ) {
+	public function single_mini_story( $args) {
+		$obj = $args['story'];
+		$defaults = [
+			'layout_type' => 'prime',
+			'partial_id' => '',
+			'watch' => 'no',
+			'custom_landscape_class' => '',
+			'render_partial' => false,
+			'display_relative_timestamp' => true,
+		];
+		$args = wp_parse_args( $args, $defaults );
 		$layout['prime'] = array(
 			'wrapper_class' => '',
 			'image_class' => 'small-12 medium-6 large-12 prime',
@@ -1203,13 +1227,13 @@ class CST_Frontend {
 			'title_class' => 'small-12 medium-6 large-12',
 		);
 		$layout['regular'] = array(
-			'wrapper_class' => $render_partial ? '' : 'small-12 medium-6',
+			'wrapper_class' => $args['render_partial'] ? '' : 'small-12 medium-6',
 			'image_class' => 'small-3 medium-4 large-4 mini-image',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-8 large-8 mini-title',
 		);
 		$layout['vertical'] = array(
-			'wrapper_class' => $render_partial ? '' : 'small-12 medium-6',
+			'wrapper_class' => $args['render_partial'] ? '' : 'small-12 medium-6',
 			'image_class' => 'small-3 medium-12 large-4',
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-12 large-8',
@@ -1222,26 +1246,26 @@ class CST_Frontend {
 			add_filter( 'the_excerpt', 'wpautop' );
 		}
 		?>
-		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $partial_id ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $layout_type ]['wrapper_class'] ); ?>" <?php echo 'yes' === $watch ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
-		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['image_class'] ); ?>">
+		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $args['partial_id'] ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $args['layout_type'] ]['wrapper_class'] ); ?>" <?php echo 'yes' === $args['watch'] ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
+		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['image_class'] ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
 			<?php
 				$featured_image_id = $obj->get_featured_image_id();
 		if ( $featured_image_id ) {
 			$attachment = wp_get_attachment_metadata( $featured_image_id );
 			if ( $attachment ) {
-				$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $layout_type ]['image_size'] );
+				$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $args['layout_type'] ]['image_size'] );
 				echo wp_kses_post( $image_markup );
 			}
 		}
 			?>
 			</a>
 		</div>
-		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['title_class'] ); ?> show-for-portrait">
+		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-portrait">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
-			<?php if ( 'prime' === $layout_type ) { ?>
+			<?php if ( 'prime' === $args['layout_type'] ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 					<div class="show-for-medium hide-for-large-up">
@@ -1258,11 +1282,11 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns <?php echo esc_attr( $layout[ $layout_type ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $custom_landscape_class ); ?>">
+		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $args['custom_landscape_class'] ); ?>">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
 				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</a>
-			<?php if ( 'prime' === $layout_type ) { ?>
+			<?php if ( 'prime' === $args['layout_type'] ) { ?>
 			<div class="prime-excerpt">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
 					<div class="hide-for-medium hide-for-large-up">
@@ -1279,7 +1303,7 @@ class CST_Frontend {
 			</div>
 			<?php } ?>
 		</div>
-		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author ); ?></div>
+		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author, $args['display_relative_timestamp'] ); ?></div>
 		</div>
 		<?php
 	}
@@ -1721,13 +1745,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	 * @param $counter int
 	 */
 	function cst_section_front_video( $counter ) {
-		if ( 'chicago.suntimes.com' === CST()->dfp_handler->get_parent_dfp_inventory() ) {
-			return;
-		}
 		if ( 3 === $counter ) {
 			if ( is_tax() ) {
 				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
-					$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+					return $this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
 				}
 			}
 		}
@@ -1738,11 +1759,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @param $slug
 	* @param $id
 	* Inject SendToNews responsive video player into markup.
+	* @return string
 	*/
 	function inject_send_to_news_video_player( $slug, $id ) {
 		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="'. esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div>';
 		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $id ) );
-		echo wp_kses( $markup, CST()->sendtonews_kses );
+		return $markup;
 
 	}
 	/**
@@ -1883,7 +1905,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					<a href="<?php echo esc_url( get_term_feed_link( $section_obj->term_id , 'cst_section' ) ); ?>"  data-on="click" data-event-category="navigation" data-event-action="navigate-sf-feed"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/rss.png" alt="rss"></a>
 				</div>
 			</div>
-		<a href="<?php echo esc_url( $section_link ); ?>" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', $section_obj->name ) ); ?></a>
+		<h1><a href="<?php echo esc_url( $section_link ); ?>" class="section-front" data-on="click" data-event-category="navigation" data-event-action="navigate-sf-upper-heading"><?php echo esc_html( str_replace( '_', ' ', $section_obj->name ) ); ?></a></h1>
 		</div>
 	</div>
 	<?php echo wp_kses_post( $sponsor_markup ); ?>
@@ -2257,6 +2279,9 @@ ready(fn);
 		if ( $obj->get_sponsored_content() ) {
 			return $article_content;
 		}
+		if ( '' === $article_content ) {
+			return $article_content;
+		}
 		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
 		$postnum = get_query_var( 'paged' );
 		// flipp recommends no more than 5 circulars per page
@@ -2264,9 +2289,13 @@ ready(fn);
 			$div_id_suffix = 10635 + $postnum;
 			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
 			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
-			$last_item = array_pop( $article_array );
-			array_push( $article_array, $flipp_ad );
-			array_push( $article_array, $last_item );
+			if ( count( $article_array ) > 1 ) {
+				$last_item = array_pop( $article_array );
+				array_push( $article_array, $flipp_ad );
+				array_push( $article_array, $last_item );
+			} else {
+				array_push( $article_array, $flipp_ad );
+			}
 			$article_content = implode( $article_array );
 		}
 		return $article_content;
@@ -2825,11 +2854,30 @@ ready(fn);
 		}
 ?>
 <div class="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
-	<h3 class="more-sub-head"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $section_title ); ?></a></h3>
+	<h2 class="more-sub-head"><a href="<?php echo esc_url( $link ); ?>"><?php echo esc_html( $section_title ); ?></a></h2>
 </div>
 <?php
 		}
 
+	}
+	/**
+	* @param $term_name
+	* Display anchor link markup when provided with a Section name
+	*/
+	public function render_term_link( $term_name ) {
+		if ( '' === trim( $term_name ) ) {
+			echo '';
+		} else {
+			$section_term = wpcom_vip_get_term_by( 'name', $term_name, 'cst_section' );
+			if ( $section_term ) {
+				$link = wpcom_vip_get_term_link( $section_term->slug, 'cst_section' );
+				if ( is_wp_error( $link ) ) {
+					echo '';
+				} else {
+					echo '<a href="' . esc_url( $link ) . '">' . esc_html( $term_name ) . '</a>';
+				}
+			}
+		}
 	}
 	/**
 	* Display textual heading content / markup from $section_theme_mod
@@ -2840,7 +2888,7 @@ ready(fn);
 		$section_title_text = get_theme_mod( $section_theme_mod );
 ?>
 <div class="js-<?php echo esc_attr( str_replace( '_', '-', $section_theme_mod ) ); ?>">
-	<h3 class="more-sub-head"><?php echo esc_html( $section_title_text ); ?></h3>
+	<h2 class="more-sub-head"><?php echo esc_html( $section_title_text ); ?></h2>
 </div>
 <?php
 	}
@@ -2914,28 +2962,48 @@ ready(fn);
 	public function sports_heading() {
 		$sports_term = wpcom_vip_get_term_link( 'sports','cst_section' );
 		if ( ! is_wp_error( $sports_term ) ) { ?>
-			<h3 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h3>
+			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h2>
 		<?php }
 	}
 
 	/**
 	* Display the central story, with image and excerpt
 	* Used by the customizer render callback
+	* Updated to handle video embeds from STN or CST
 	*
 	* @param $headline
 	*/
 	public function homepage_mini_story_lead( $headline ) {
 		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+		// Handle video embed here if the slotted content is a video post type
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author = $this->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
 			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
+			// Determine whether to use STN video embed, supported CST video embed or Featured image
 			$featured_image_id = $obj->get_featured_image_id();
-			if ( $featured_image_id ) {
+			$video_embed = '';
+			if ( method_exists( $obj, 'featured_video_embed' ) ) {
+				$video_embed = $obj->featured_video_embed();
+				if ( ! empty( $video_embed ) ) {
+					$featured_image_id = true;
+					$attachment = true;
+					$large_image_markup = $video_embed;
+				}
+			}
+			if ( $featured_image_id && empty( $video_embed ) ) {
 				$attachment = wp_get_attachment_metadata( $featured_image_id );
 				if ( $attachment ) {
 					$large_image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'secondary-wells' );
+				}
+			}
+			$type = $obj->get_type();
+			if ( 'video' === $type ) {
+				$large_image_markup = $obj->get_video_embed();
+				if ( ! empty( $large_image_markup ) ) {
+					$featured_image_id = true;
+					$attachment = true;
 				}
 			}
 ?>
@@ -2943,7 +3011,13 @@ ready(fn);
 	<div class="row">
 		<div class="columns small-12 medium-6 large-6 prime">
 			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-mini-story" >
-			<span class="image"><?php if ( $featured_image_id && $attachment ) { echo wp_kses_post( $large_image_markup ); } ?></span>
+			<span class="image"><?php if ( $featured_image_id && $attachment ) {
+				if ( 'video' === $type || ! empty( $video_embed ) ) {
+					echo $large_image_markup;
+				} else {
+					echo wp_kses_post( $large_image_markup );
+				}
+			} ?></span>
 			<div class="hide-for-landscape">
 				<h3 class="alt-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 			</div>
@@ -2965,8 +3039,15 @@ ready(fn);
 <?php
 		}
 	}
-	public function homepage_byline( CST\Objects\Post $obj, $author ) { ?>
-<p class="authors">By <?php echo wp_kses_post( $author ); ?> - <?php echo esc_html( human_time_diff( $obj->get_localized_pub_mod_date_gmt() ) ); ?> ago</p>
+	/**
+	* @param \CST\Objects\Post $obj
+	* @param $author
+	* @param $display_relative_timestamp
+	*/
+	public function homepage_byline( CST\Objects\Post $obj, $author, $display_relative_timestamp = true) { ?>
+<p class="authors">By <?php echo wp_kses_post( $author );
+echo $display_relative_timestamp ? ' - ' . esc_html( human_time_diff( $obj->get_localized_pub_mod_date_gmt() ) ) . ' ago' : '';
+?></p>
 	<?php }
 
 	/**

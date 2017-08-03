@@ -12,114 +12,145 @@ class CST {
 
 	public $frontend, $dfp_handler, $slack, $cst_feeds, $ad_vendor_handler, $customizer;
 
-	private $post_types = array();
+	private $post_types = [];
 
-	private $pagefair_ids = array(
+	private $pagefair_ids = [
 		'prod' => '7B8C6522340440F1',
 		'dev' => '2C63F38287CF46AC',
-	);
+	];
 
-	public $dfp_kses = array(
-		'script' => array( 'class' ) ,
-		'div' => array( 'id' => array(), 'class' => array(), 'data-visual-index' => array(), 'data-target' => array() )
-	);
-	public $slider_kses = array(
-		'h3' => array(),
-		'h4' => array(),
-		'img' => array(
-			'src' => array(),
-			'alt' => array(),
-		),
-		'div' => array(
-			'id' => array(),
-			'style' => array(),
-			'class' => array(),
-		),
-		'a' => array(
-			'href' => array(),
-			'data-on' => array(),
-			'data-event-action' => array(),
-			'data-event-category' => array(),
-		),
-	);
-	public $gallery_kses = array(
-		'img' => array(
-			'src' => array(),
-			'alt' => array(),
-			'class' => array(),
-		),
-		'div' => array(
-			'id' => array(),
-			'style' => array(),
-			'class' => array(),
-			'data-image-desktop-src' => array(),
-			'data-image-mobile-src' => array(),
-			'data-image-caption' => array(),
-			'data-slide-url' => array(),
-			'data-gallery-title' => array(),
-		),
-		'i' => array(
-			'class' => array(),
-		),
-		'a' => array(
-			'id' => array(),
-			'class' => array(),
-			'href' => array(),
-			'data-on' => array(),
-			'data-event-action' => array(),
-			'data-event-category' => array(),
-		),
-	);
-	public $recommendation_kses = array(
-		'h3' => array(),
-		'h4' => array(),
-		'hr' => array(),
-		'img' => array(
-			'src' => array(),
-			'alt' => array(),
-			'class' => array(),
-			'width' => array(),
-			'height' => array(),
-		),
-		'svg' => array(
-			'version' => array(),
-			'width' => array(),
-			'height' => array(),
-			'viewbox' => array(),
-			'xmlns' => array()
-		),
-		'path' => array(
-			'd' => array()
-		),
-		'div' => array(
-			'id' => array(),
-			'style' => array(),
-			'class' => array(),
-		),
-		'span' => array(),
-		'a' => array(
-			'href' => array(),
-			'title' => array(),
-			'class' => array(),
-			'data-on' => array(),
-			'data-event-action' => array(),
-			'data-event-category' => array(),
-		),
-	);
-	public $sendtonews_kses = array(
-		'iframe' => array(
-			'id' => array(), 'class' => array(), 'src' => array(), 'style' => array(), 'allowfullscreen' => array(), 'frameborder' => array(), 'scrolling' => array(), 'marginheight' => array(), 'marginwidth' => array(), 'width' => array(), 'height' => array()
-		),
-		'span' => array( 'class' => array() ),
-		'div' => array( 'class' => array(), 'data-type' => array() ),
-		'p' => array(),
-		'script' => array(
-			'class' => array(),
-			'type' => array(),
-			'src' => array(),
-			'data-type' => array(),
-		),
-	);
+	public $dfp_kses = [
+		'script' => [ 'class' ],
+		'div' => [ 'id' => [], 'class' => [], 'data-visual-index' => [], 'data-target' => [] ],
+	];
+	public $slider_kses = [
+		'h3' => [],
+		'h4' => [],
+		'img' => [
+			'src' => [],
+			'alt' => [],
+		],
+		'div' => [
+			'id' => [],
+			'style' => [],
+			'class' => [],
+		],
+		'a' => [
+			'href' => [],
+			'data-on' => [],
+			'data-event-action' => [],
+			'data-event-category' => [],
+		],
+	];
+	public $gallery_kses = [
+		'img' => [
+			'src' => [],
+			'alt' => [],
+			'class' => [],
+		],
+		'div' => [
+			'id' => [],
+			'style' => [],
+			'class' => [],
+			'data-image-desktop-src' => [],
+			'data-image-mobile-src' => [],
+			'data-image-caption' => [],
+			'data-slide-url' => [],
+			'data-gallery-title' => [],
+		],
+		'i' => [
+			'class' => [],
+		],
+		'a' => [
+			'id' => [],
+			'class' => [],
+			'href' => [],
+			'data-on' => [],
+			'data-event-action' => [],
+			'data-event-category' => [],
+		],
+	];
+	public $recommendation_kses = [
+		'h3' => [],
+		'h4' => [],
+		'hr' => [],
+		'img' => [
+			'src' => [],
+			'alt' => [],
+			'class' => [],
+			'width' => [],
+			'height' => [],
+		],
+		'svg' => [
+			'version' => [],
+			'width' => [],
+			'height' => [],
+			'viewbox' => [],
+			'xmlns' => [],
+		],
+		'path' => [
+			'd' => [],
+		],
+		'div' => [
+			'id' => [],
+			'style' => [],
+			'class' => [],
+		],
+		'span' => [],
+		'a' => [
+			'href' => [],
+			'title' => [],
+			'class' => [],
+			'data-on' => [],
+			'data-event-action' => [],
+			'data-event-category' => [],
+		],
+	];
+	public $video_iframe_kses = [
+		'iframe' => [
+			'id' => [],
+			'class' => [],
+			'src' => [],
+			'style' => [],
+			'allowfullscreen' => [],
+			'frameborder' => [],
+			'scrolling' => [],
+			'marginheight' => [],
+			'marginwidth' => [],
+			'width' => [],
+			'height' => [],
+			'allowtransparency' => [],
+			'mozallowfullscreen' => [],
+			'webkitallowfullscreen' => [],
+		],
+		'protected-iframe' => [
+			'id' => [],
+			'info' => [],
+			'class' => [],
+			'src' => [],
+			'style' => [],
+			'allowfullscreen' => [],
+			'frameborder' => [],
+			'scrolling' => [],
+			'marginheight' => [],
+			'marginwidth' => [],
+			'width' => [],
+			'height' => [],
+			'allowtransparency' => [],
+			'mozallowfullscreen' => [],
+			'webkitallowfullscreen' => [],
+		],
+		'span' => [ 'class' => [] ],
+		'div' => [ 'class' => [], 'data-type' => [] ],
+		'p' => [],
+		'a' => [],
+		'script' => [
+			'class' => [],
+			'type' => [],
+			'src' => [],
+			'data-type' => [],
+		],
+	];
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -1219,6 +1250,7 @@ class CST {
 					'author',
 					'thumbnail',
 					'bitly',
+					'excerpt',
 				),
 				'has_archive'       => 'video',
 				'rewrite'           => array(
@@ -1509,6 +1541,7 @@ class CST {
 	 */
 	function vip_quickstart_add_test_hosts( $content ) {
 		$content[] = 'chicago.suntimes.com';
+		$content[] = 'suntiservices.dticloud.com';
 		return $content;
 	}
 
@@ -1984,7 +2017,7 @@ class CST {
 	public function jetpack_infinite_support() {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular( 'cst_article', 'cst_feature' ) || is_tax() );
+			( is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) || is_tax() );
 	}
 
 	/**
