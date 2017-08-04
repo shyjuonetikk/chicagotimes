@@ -29,7 +29,7 @@ class CST_TCX_Widget extends WP_Widget {
                 case 'entertainment':
                 if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
                     #echo "TCX WIDGET IS MOBILE $tcx_widgets ";
-                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=centipede_entertainment&style=standard";
+                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&amp;type=centipede_entertainment&amp;style=standard";
                     ?>
                     <li class="tcx_entertainment_widget tcx_widget">
                         <div class="large-12 medium-6 small-6">
