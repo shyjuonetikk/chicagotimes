@@ -2932,6 +2932,17 @@ ready(fn);
 				echo wp_kses( CST()->dfp_handler->dynamic_adx_tag( 19 ),
 					CST()->dfp_kses
 				);
+				break;
+				case '4':
+				echo wp_kses( CST()->dfp_handler->get_dynamic_adhesion_start()
+				. CST()->dfp_handler->dynamic_unit( '10101', '', 'dfp onebyone dfp-centered', '', '1x1', '320,50' )
+				. CST()->dfp_handler->get_dynamic_adhesion_end(),
+					CST()->dfp_kses
+				);
+				break;
+				case '999':
+				default:
+				echo wp_kses_post( '<!-- no cst ad-->' );
 			}
 		}
 	}

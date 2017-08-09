@@ -518,20 +518,22 @@ class CST_Customizer {
 		) ) );
 
 		/**
-		 * HP Footer Ads
+		 * HP Footer ad options
 		 */
 		$this->set_setting( $wp_customize, 'footer_config', 'absint' );
-		$wp_customize->add_control( 'footer_config', array(
+		$wp_customize->add_control( 'footer_config', [
 			'type'     => 'radio',
 			'priority' => 25,
 			'section'  => 'hp_footer_section_ads',
 			'label'    => __( 'Choose mobile adhesion ad type.', 'chicagosuntimes' ),
-			'choices'  => array(
-				1 => 'AOL',
-				2 => 'Verve',
-				3 => 'AdX',
-			)
-		) );
+			'choices'  => [
+			1 => 'AOL',
+			2 => 'Verve',
+			3 => 'AdX',
+			4 => 'Generic 1x1',
+			999 => 'Disable',
+			],
+		] );
 	}
 
 	/**

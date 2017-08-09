@@ -314,7 +314,6 @@ body.error404 {
 
 div[id^="cst-wrapper-"] {
   left: 0;
-  background-color: #cccccc;
   z-index: 1001;
   margin: 0 auto;
   position: fixed;
