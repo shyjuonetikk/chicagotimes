@@ -212,6 +212,13 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		) );
+		$wp_customize->add_section( 'hp_footer_section_ads', array(
+			'title'           => __( 'Homepage Footer', 'chicagosuntimes' ),
+			'description'     => __( 'Choose HP footer ads', 'chicagosuntimes' ),
+			'priority'        => 270,
+			'capability'      => $this->capability,
+			'active_callback' => 'is_front_page',
+		) );
 		/**
 		 * Add settings within each section
 		 */
@@ -509,6 +516,22 @@ class CST_Customizer {
 			'choices'  => $this->section_choices,
 			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
 		) ) );
+
+		/**
+		 * HP Footer Ads
+		 */
+		$this->set_setting( $wp_customize, 'footer_config', 'absint' );
+		$wp_customize->add_control( 'footer_config', array(
+			'type'     => 'radio',
+			'priority' => 25,
+			'section'  => 'hp_footer_section_ads',
+			'label'    => __( 'Choose mobile adhesion ad type.', 'chicagosuntimes' ),
+			'choices'  => array(
+				1 => 'AOL',
+				2 => 'Verve',
+				3 => 'AdX',
+			)
+		) );
 	}
 
 	/**
@@ -708,6 +731,9 @@ class CST_Customizer {
 				break;
 			case 'chartbeat_section_title':
 				return CST()->frontend->render_section_text_title( $element->id );
+				break;
+			case 'footer_config':
+				return CST()->frontend->render_hp_footer_ad_unit( $element->id );
 				break;
 		}
 

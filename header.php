@@ -57,13 +57,6 @@
 <?php
 CST()->dfp_handler->generate_header_definitions();
 wp_head(); ?>
-<script class="dfp">
-  googletag.cmd.push(function() {
-	CSTAdTags['101'] = googletag.defineOutOfPageSlot(dfp.adunitpath, '101').addService(googletag.pubads());
-	googletag.pubads().enableSingleRequest();
-	googletag.enableServices();
-  });
-</script>
 </head>
 
 <body <?php body_class(); ?>>
