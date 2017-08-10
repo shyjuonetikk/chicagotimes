@@ -20,8 +20,10 @@ class CST {
 	];
 
 	public $dfp_kses = [
-		'script' => [ 'class' ],
-		'div' => [ 'id' => [], 'class' => [], 'data-visual-index' => [], 'data-target' => [] ],
+		'script' => [ 'class' => [] , 'src' => [] ],
+		'div' => [ 'id' => [], 'class' => [], 'data-visual-index' => [], 'data-target' => [], 'onclick' => [] ],
+		'span' => [ 'class' => [] ],
+		'i' => [ 'class' => [] ],
 	];
 	public $slider_kses = [
 		'h3' => [],
