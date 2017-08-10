@@ -383,6 +383,19 @@ class CST_Customizer {
 				),
 			) ) );
 		}
+		$wp_customize->add_setting( 'top_stories_block_title', array(
+			'type'              => 'theme_mod',
+			'capability'        => $this->capability,
+			'default'           => 'Politics',
+			'sanitize_callback' => 'esc_html',
+			'transport'         => $transport,
+		) );
+		$wp_customize->add_control( 'top_stories_block_title', array(
+			'type'     => 'text',
+			'priority' => 2,
+			'section'  => 'politics_section_stories',
+			'label'    => __( 'Choose Top Stories title', 'chicagosuntimes' ),
+		) );
 		$lead_counter = 0;
 		/**
 		 * Featured stories block
@@ -541,6 +554,7 @@ class CST_Customizer {
 		$this->set_selective_refresh( $wp_customize, 'entertainment_section_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'featured_obit_section_section_title' );
 		$this->set_selective_refresh( $wp_customize, 'chartbeat_section_title' );
+		$this->set_selective_refresh( $wp_customize, 'top_stories_block_title' );
 		$this->set_selective_refresh( $wp_customize, 'hero_related_posts' );
 	}
 
@@ -704,6 +718,7 @@ class CST_Customizer {
 			case 'lower_section_section_title':
 			case 'entertainment_section_section_title':
 			case 'featured_obit_section_section_title':
+			case 'top_stories_block_title':
 				return CST()->frontend->render_section_title( $element->id );
 				break;
 			case 'chartbeat_section_title':

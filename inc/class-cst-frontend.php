@@ -1064,7 +1064,7 @@ class CST_Frontend {
 		?>
 		<div class="more-stories-content">
 			<div class="row">
-			<?php $this->more_top_stories_block( 'Politics', 'normal-style' ); ?>
+			<?php $this->more_top_stories_block( $section_title_text = get_theme_mod( 'top_stories_block_title' ), 'normal-style' ); ?>
 			<div class="columns small-12 medium-6 large-8">
 				<div class="small-12 columns more-stories-container" id="featured-stories">
 					<div class="row">
