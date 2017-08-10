@@ -509,7 +509,7 @@ abstract class Post {
 		if ( $sections = $this->get_sections() ) {
 
 			while ( $section = array_shift( $sections ) ) {
-				if ( 0 == $section->parent ) {
+				if ( 0 === $section->parent ) {
 					return $section;
 				} else {
 					$section = $this->get_grandchild_parent_section();
