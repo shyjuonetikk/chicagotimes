@@ -128,7 +128,7 @@ googletag.cmd.push(function() {
       vrv.c = \'97\';
       vrv.sc = \'x\';
 	</script>
-	<script src="https://c.vrvm.com/pass/vrv/adtag/vervetag_secure.js?%%CACHEBUSTER%%"></script>' . $this->adhesion_template_end;
+	<script src="https://c.vrvm.com/pass/vrv/adtag/vervetag_secure.js?' . intval( mt_rand( 0, 2338290 ) ) . '"></script>' . $this->adhesion_template_end;
 		return sprintf( $ad_unit_template, esc_attr( intval( $unit_id ) ) );
 	}
 	/**
