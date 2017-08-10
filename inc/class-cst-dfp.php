@@ -12,17 +12,17 @@ class CST_DFP_Handler {
 	private $adhesion_template_begin =
 	'
 <div id="cst-wrapper-%1$d">
-<div class="cst-dfp cst-creative">
-<div id="cst-close-%1$d" onclick="document.getElementById(\'cst-close-%1$d\').style.display=\'none\';document.getElementById(\'cst-wrapper-%1$d\').style.display=\'none\';">
-	<span class="fa-stack"><i class="fa fa-circle fa-stack-1x"></i><i class="fa fa-times-circle fa-stack-1x fa-inverse"></i></span>
-</div>'
-;
+	<div class="cst-dfp cst-creative">
+	<div id="cst-close-%1$d" onclick="document.getElementById(\'cst-close-%1$d\').style.display=\'none\';document.getElementById(\'cst-wrapper-%1$d\').style.display=\'none\';">
+		<span class="fa-stack"><i class="fa fa-circle fa-stack-1x"></i><i class="fa fa-times-circle fa-stack-1x fa-inverse"></i></span>
+	</div>'
+	;
 
 	private $adhesion_template_end =
 	'
 </div>
 </div>'
-;
+	;
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -121,14 +121,15 @@ googletag.cmd.push(function() {
 	 */
 	public function dynamic_verve_tag( $unit_id ) {
 		$ad_unit_template = $this->adhesion_template_begin . '
-	<script>
-      vrv = document.vrv || {};
-      vrv.b = \'suntimes\';
-      vrv.p = \'ptnr\';
-      vrv.c = \'97\';
-      vrv.sc = \'x\';
-	</script>
-	<script src="https://c.vrvm.com/pass/vrv/adtag/vervetag_secure.js?' . intval( mt_rand( 0, 2338290 ) ) . '"></script>' . $this->adhesion_template_end;
+<script>
+  vrv = document.vrv || {};
+  vrv.b = \'suntimes\';
+  vrv.p = \'ptnr\';
+  vrv.c = \'97\';
+  vrv.sc = \'x\';
+</script>
+'
+		. '<script src="https://c.vrvm.com/pass/vrv/adtag/vervetag_secure.js?' . intval( mt_rand( 0, 2338290 ) ) . '"></script>' . $this->adhesion_template_end;
 		return sprintf( $ad_unit_template, esc_attr( intval( $unit_id ) ) );
 	}
 	/**
@@ -197,7 +198,6 @@ src="//pagead2.googlesyndication.com/pagead/show_ads.js">
 	}
 	/**
 	 * @param $index
-	 * @param string $type
 	 * @param string $class
 	 *
 	 * @return string
@@ -288,10 +288,9 @@ googletag.cmd.push(function() {
 ',
 			esc_attr( 'div-gpt-interstitial' ),
 			esc_attr( 'dfp dfp-centered show-for-medium-up dfp-interstitial' )
-
-			);
+		);
 	}
- 	/**
+	/**
 	 * Determine content location and inject the settings for DFP
 	 * into the markup
 	 *
