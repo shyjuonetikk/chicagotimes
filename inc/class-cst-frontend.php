@@ -2945,7 +2945,7 @@ ready(fn);
 					case '4':
 						$id_num = mt_rand( 0, 38290 );
 					echo wp_kses( sprintf( CST()->dfp_handler->get_dynamic_adhesion_start(), $id_num )
-					. CST()->dfp_handler->dynamic_unit( $id_num, '', 'dfp onebyone dfp-centered', '', '1x1,cst-adhesion', '[300,50],[320,50]' )
+					. CST()->dfp_handler->dynamic_unit( $id_num, '', 'dfp onebyone dfp-centered', '', 'cst-adhesion', '[320,50],[300,50]' )
 					. CST()->dfp_handler->get_dynamic_adhesion_end(),
 						CST()->dfp_kses
 					);
