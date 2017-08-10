@@ -20,7 +20,7 @@ class CST {
 	];
 
 	public $dfp_kses = [
-		'script' => [ 'class' => [] , 'src' => [] ],
+		'script' => [ 'class' => [] , 'src' => [], 'type' => [] ],
 		'div' => [ 'id' => [], 'class' => [], 'data-visual-index' => [], 'data-target' => [], 'onclick' => [] ],
 		'span' => [ 'class' => [] ],
 		'i' => [ 'class' => [] ],

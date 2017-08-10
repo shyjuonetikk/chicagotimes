@@ -323,7 +323,8 @@ div[id^="cst-wrapper-"] {
   width: 320px; }
 
 .cst-creative {
-  position: relative; }
+  position: relative;
+  float: right; }
 
 #cst-creative img {
   max-width: 100%;
