@@ -64,7 +64,7 @@ wp_head(); ?>
 <div id="ie8-user" style="display:none;"></div>
 
 <?php
-if ( is_front_page() || is_tax() || is_singular( 'cst_article' ) || is_author() ) {
+if ( function_exists( 'jetpack_is_mobile' ) && ! jetpack_is_mobile() && ( is_front_page() || is_tax() || is_singular( 'cst_article' ) || is_author() ) ) {
 	echo wp_kses( CST()->dfp_handler->interstitial(),
 		CST()->dfp_kses
 	);
