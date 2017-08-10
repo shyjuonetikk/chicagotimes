@@ -2923,7 +2923,7 @@ ready(fn);
 	}
 
 	public function render_hp_footer_ad_unit( $section_theme_mod ) {
-		if ( jetpack_is_mobile() ) {
+		if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
 			if ( is_front_page() ) {
 				$ad_type = get_theme_mod( $section_theme_mod );
 				switch ( $ad_type ) {

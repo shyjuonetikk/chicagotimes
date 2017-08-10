@@ -129,7 +129,10 @@ googletag.cmd.push(function() {
   vrv.sc = \'x\';
 </script>
 '
-		. '<script src="https://c.vrvm.com/pass/vrv/adtag/vervetag_secure.js?' . intval( mt_rand( 0, 2338290 ) ) . '"></script>' . $this->adhesion_template_end;
+		. '
+<script src="https://c.vrvm.com/pass/vrv/adtag/vervetag_secure.js?' . intval( mt_rand( 0, 2338290 ) ) . '">
+</script>
+' . $this->adhesion_template_end;
 		return sprintf( $ad_unit_template, esc_attr( intval( $unit_id ) ) );
 	}
 	/**
@@ -141,7 +144,8 @@ googletag.cmd.push(function() {
 		$ad_unit_template = $this->adhesion_template_begin . '
 <!--Mobile JavaScript Tag // Tag for network 10506: Marketplace: SunTimes // Website: Chicago Sun-Times Mobile Web // Page: Chicago Sun-Times Mobile Web // Placement: Chicago Sun-Times Mobile Web 320x50 ROS (4543612) // created at: Apr 19, 2017 10:00:49 AM-->
 <div id="adtech4543612">
-	<script src="http://a.adtechus.com/addyn/3.0/10506.1/0/0/-1/ADTECH;lat=LATITUDE;long=LONGITUDE;loc=100;grp=[group];alias=4543612;misc=[timestamp]"></script>
+<script src="http://a.adtechus.com/addyn/3.0/10506.1/0/0/-1/ADTECH;lat=LATITUDE;long=LONGITUDE;loc=100;grp=[group];alias=4543612;misc=[timestamp]">
+</script>
 </div>
 <!-- End of Mobile JavaScript Tag -->
 ' . $this->adhesion_template_end;
@@ -162,8 +166,7 @@ google_ad_width = 320;
 google_ad_height = 50;
 //-->
 </script>
-<script type="text/javascript"
-src="//pagead2.googlesyndication.com/pagead/show_ads.js">
+<script type="text/javascript" src="//pagead2.googlesyndication.com/pagead/show_ads.js">
 </script>
 ' . $this->adhesion_template_end;
 		return sprintf( $ad_unit_template, esc_attr( intval( $unit_id ) ) );
