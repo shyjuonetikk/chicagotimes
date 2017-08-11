@@ -509,6 +509,9 @@ class CST {
 		if ( class_exists( 'Jetpack_Custom_CSS' ) && method_exists( 'Jetpack_Custom_CSS', 'disable' ) ) {
 			add_action( 'init', array( 'Jetpack_Custom_CSS', 'disable' ), 12 );
 		}
+		add_action( 'dynamic_sidebar', function( $id ) {
+			$t = $id;
+		});
 	}
 
 	/**
@@ -788,131 +791,136 @@ class CST {
 	 */
 	private function register_sidebars() {
 
-		register_sidebar( array(
+		register_sidebar( [
 			'id'          => 'articleleft',
 			'name'        => esc_html__( 'Article Left', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'articleright',
 			'name'        => esc_html__( 'Article Right', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'homepage_breaking_news',
 			'name'        => esc_html__( 'Homepage Breaking News', 'chicagosuntimes' ),
-		) );
+		] );
 
-		register_sidebar( array(
+		register_sidebar( [
 			'id'          => 'homepage_headlines',
 			'name'        => esc_html__( 'Homepage Headlines', 'chicagosuntimes' ),
-		) );
+		] );
 
-		register_sidebar( array(
+		register_sidebar( [
 			'id'          => 'homepage_featured_story',
 			'name'        => esc_html__( 'Homepage Featured Story', 'chicagosuntimes' ),
-		) );
+		] );
 
-		register_sidebar( array(
+		register_sidebar( [
 			'id'          => 'homepage_weather_word',
 			'name'        => esc_html__( 'Homepage Weather Word', 'chicagosuntimes' ),
-		) );
+		] );
 
-		register_sidebar( array(
+		register_sidebar( [
 			'id'          => 'homepage_sidebar',
 			'name'        => esc_html__( 'The Right Rail (Top)', 'chicagosuntimes' ),
-		) );
+		] );
 
-		register_sidebar( array(
+		register_sidebar( [
 			'id'          => 'homepage_sidebar_two',
 			'name'        => esc_html__( 'The Right Rail (Middle)', 'chicagosuntimes' ),
-		) );
+		] );
 
-		register_sidebar( array(
+		register_sidebar( [
 			'id'          => 'homepage_sidebar_three',
 			'name'        => esc_html__( 'The Right Rail (Bottom)', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+
+		register_sidebar( [
+			'id'          => 'homepage_sidebar_four',
+			'name'        => esc_html__( 'The Right Rail (Basement)', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
 			'id'          => 'news_headlines',
 			'name'        => esc_html__( 'News Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'newswire',
 			'name'        => esc_html__( 'NewsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'sports_headlines',
 			'name'        => esc_html__( 'Sports Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'sportswire',
 			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'entertainment_headlines',
 			'name'        => esc_html__( 'Entertainment Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'entertainmentwire',
 			'name'        => esc_html__( 'EntertainmentWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'politics_headlines',
 			'name'        => esc_html__( 'Politics Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'politicswire',
 			'name'        => esc_html__( 'PoliticsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'lifestyles_headlines',
 			'name'        => esc_html__( 'Lifestyles Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'lifestyleswire',
 			'name'        => esc_html__( 'LifestylesWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'opinion_headlines',
 			'name'        => esc_html__( 'Opinion Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'opinionwire',
 			'name'        => esc_html__( 'OpinionWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'columnists_headlines',
 			'name'        => esc_html__( 'Columnists Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'columnistswire',
 			'name'        => esc_html__( 'ColumnistsWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'autos_headlines',
 			'name'        => esc_html__( 'Autos Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'autoswire',
 			'name'        => esc_html__( 'AutosWire', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'obits_headlines',
 			'name'        => esc_html__( 'Obits Headlines', 'chicagosuntimes' ),
-		) );
-		register_sidebar( array(
+		] );
+		register_sidebar( [
 			'id'          => 'obitswire',
 			'name'        => esc_html__( 'ObitsWire', 'chicagosuntimes' ),
-		) );
+		] );
 
-		register_sidebar( array(
+		register_sidebar( [
 			'id'          => 'undermorefrom',
 			'name'        => esc_html__( 'UnderMoreFrom', 'chicagosuntimes' ),
-		) );
+		] );
 
 		if ( class_exists( 'CST_Elections' ) ) {
-			register_sidebar( array(
+			register_sidebar( [
 				'id'          => 'election_2016_headlines',
 				'name'        => esc_html__( 'Election 2016 AP Widgets', 'chicagosuntimes' ),
-			) );
+			] );
 		}
 	}
 

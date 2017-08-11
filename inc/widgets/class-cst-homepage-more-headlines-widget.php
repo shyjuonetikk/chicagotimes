@@ -133,7 +133,7 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 			$homepage_more_well_posts = $this->get_headline_posts( $widget_posts );
 			echo wp_kses_post( $args['before_widget'] );
 			?>
-			<div class="more-stories-content">
+			<div class="more-stories-content <?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { echo esc_attr( 'mobile' ); } ?>">
 			<div class="row">
 			<div class="more-stories-container">
 			<?php

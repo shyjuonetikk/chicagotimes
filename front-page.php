@@ -33,13 +33,17 @@
 								<?php CST()->frontend->mini_stories_content_block( $other_stories ); ?>
 							</div>
 						</div><!-- hp-other-lead -->
-	<?php if ( function_exists( 'jetpack_is_mobile' ) && ! jetpack_is_mobile() ) { ?>
-						<div class="other-stories show-for-large-up">
-							<hr>
-							<?php CST()->frontend->render_section_text_title( 'chartbeat_section_title' ); ?>
-							<div id="root"></div>
-						</div>
-	<?php } ?>
+<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { ?>
+<div class="columns small-12 sidebar homepage-sidebar widgets mobile">
+<?php the_widget( 'CST_Ad_Widget', [], 'dfp-rr-cube-1' ); ?>
+</div>
+<?php } else { ?>
+<div class="other-stories show-for-large-up">
+	<hr>
+	<?php CST()->frontend->render_section_text_title( 'chartbeat_section_title' ); ?>
+	<div id="root"></div>
+</div>
+<?php } ?>
 						<div class="other-stories more-stories-container hide-for-xlarge-up" id="hp-sports-section-lead">
 							<?php CST()->frontend->sports_heading(); ?>
 							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
@@ -51,6 +55,14 @@
 						<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 					</div><!-- /#hp-section-lead -->
 				</div>
+<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { ?>
+<div class="columns small-12 sidebar homepage-sidebar widgets mobile">
+<?php
+if ( is_active_sidebar( 'homepage_sidebar' ) ) {
+	dynamic_sidebar( 'homepage_sidebar' );
+} ?>
+</div>
+<?php } ?>
 				<hr>
 				<div class="cst-ad-container" id="nativo-cst-homepage-01"></div>
 				<hr>
@@ -74,6 +86,18 @@
 				</div><!-- /.lower-section-stories -->
 				<div class="entertainment-section-stories more-stories-container" id="hp-entertainment-section-lead">
 					<div class="row">
+						<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { ?>
+							<div class="columns small-12 sidebar homepage-sidebar widgets">
+								<?php
+								if ( is_active_sidebar( 'homepage_sidebar_three' ) ) {
+									dynamic_sidebar( 'homepage_sidebar_three' );
+								}
+								if ( is_active_sidebar( 'homepage_sidebar_four' ) ) { ?>
+									<hr>
+									<?php dynamic_sidebar( 'homepage_sidebar_four' );
+								} ?>
+							</div>
+						<?php } ?>
 						<div class="small-12 columns more-stories-container">
 							<hr>
 							<?php CST()->frontend->render_section_title( 'entertainment_section_section_title' ); ?>
@@ -108,21 +132,29 @@
 					</div>
 				</div>
 			</div><!-- /.stories -->
+<?php if ( function_exists( 'jetpack_is_mobile' ) && ! jetpack_is_mobile() ) { ?>
 			<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 				<ul>
+					<?php the_widget( 'CST_Ad_Widget', [], 'dfp-rr-cube-1' ); ?>
 					<?php if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 						dynamic_sidebar( 'homepage_sidebar' );
 } ?>
-				<li class="more-stories-container hide-for-xlarge-up">
+				<li class="more-stories-container two">
 					<hr>
 					<?php if ( is_active_sidebar( 'homepage_sidebar_two' ) ) {
 						dynamic_sidebar( 'homepage_sidebar_two' );
 } ?>
 				</li>
-				<li class="show-for-medium-up">
+				<li class="show-for-medium-up three">
 					<hr>
 					<?php if ( is_active_sidebar( 'homepage_sidebar_three' ) ) {
 						dynamic_sidebar( 'homepage_sidebar_three' );
+} ?>
+				</li>
+				<li class="show-for-medium-up four">
+					<hr>
+					<?php if ( is_active_sidebar( 'homepage_sidebar_four' ) ) {
+						dynamic_sidebar( 'homepage_sidebar_four' );
 } ?>
 				</li>
 				<li class="hide-for-small-down">
@@ -132,6 +164,7 @@
 				</ul>
 			</div>
 			<!-- /.widgets -->
+<?php } ?>
 		</div>
 		<?php
 		do_action( 'above-homepage-headlines' );
