@@ -1064,7 +1064,8 @@ class CST_Frontend {
 		?>
 		<div class="more-stories-content">
 			<div class="row">
-			<?php $this->more_top_stories_block( 'Politics', 'normal-style' ); ?>
+			<?php
+			$this->more_top_stories_block( get_theme_mod( 'top_stories_block_title' ), 'normal-style' ); ?>
 			<div class="columns small-12 medium-6 large-8">
 				<div class="small-12 columns more-stories-container" id="featured-stories">
 					<div class="row">
@@ -2178,14 +2179,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* Display Chartbeat engagement based article list on home page
 	*/
 	public function enqueue_chartbeat_react_engagement_script() {
-		$site = CST()->dfp_handler->get_parent_dfp_inventory();
-		if ( 'chicago.suntimes.com' === $site ) {
-			$chartbeat_file_name = 'main.e2c38a67-cb-prod.js';
-		} else {
-			$chartbeat_file_name = 'main.821eef7f-cb-dev-test.js';
-		}
-		if ( is_front_page() ) {
-			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
+		if ( function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
+			$site = CST()->dfp_handler->get_parent_dfp_inventory();
+			if ( 'chicago.suntimes.com' === $site ) {
+				$chartbeat_file_name = 'main.e2c38a67-cb-prod.js';
+			} else {
+				$chartbeat_file_name = 'main.821eef7f-cb-dev-test.js';
+			}
+			if ( is_front_page() ) {
+				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
+			}
 		}
 	}
 	/**
