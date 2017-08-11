@@ -5,13 +5,16 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 	private static $script_src = 'https://cdn.ampproject.org/v0/amp-ad-0.1.js';
 	public $dfp_handler;
 
-	public function __construct( $dom, $args = array() ) {
-		parent::__construct( $dom, $args = array() );
+	public function __construct( $dom, $args = [] ) {
+		parent::__construct( $dom, $args = [] );
 		$this->dfp_handler = new CST_DFP_Handler;
 	}
 
 	public function get_scripts() {
-		return array( self::$script_slug => self::$script_src );
+		return [
+			self::$script_slug => self::$script_src,
+			'amp-sticky-ad' => 'https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js',
+		];
 	}
 	public function sanitize() {
 		// Paragraph block ad spacing
@@ -21,15 +24,15 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		// Initial value includes all elements like galleries
 		// But these should not be included when determining ad cube placement
 		$number_of_paragraph_blocks = $paragraph_nodes->length;
-		$cst_cube_ads = array();
-		$classes_to_avoid_injecting_ads = array(
+		$cst_cube_ads = [];
+		$classes_to_avoid_injecting_ads = [
 			'post-lead-media',
 			'captiontext',
 			'caption',
 			'image-caption',
 			'wp-caption',
 			'wp-caption-text',
-		);
+		];
 		// Determine paragraph blocks
 		foreach ( $paragraph_nodes as $content_item ) {
 			if ( $content_item->hasAttributes() ) {
@@ -42,45 +45,45 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		}
 		$paras_to_inject_ad_into = absint( ( $number_of_paragraph_blocks / $ad_paragraph_spacing ) );
 
-		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		$ad_node_teads = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/teads.md
 			'width'            => 300,
 			'height'           => 1,
 			'type'             => 'teads',
 			'layout'           => 'responsive',
 			'data-pid'         => '59505',
-		) );
+		] );
 		for ( $index = 0; $index <= $paras_to_inject_ad_into; $index++ ) {
-			$center_div = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
-			$center_div->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+			$center_div = AMP_DOM_Utils::create_node( $this->dom, 'div', [ 'class' => 'ad-center' ] );
+			$center_div->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
 				// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 				'width'     => 300,
 				'height'    => 250,
 				'type'      => 'doubleclick',
 				'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 				'json'      => '{"targeting":{"pos":"AMP Cube"}}',
-			) ) );
+			] ) );
 			$cst_cube_ads[ $index ] = $center_div;
 		}
 		$center_div_leaderboard = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
-		$center_div_leaderboard->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		$center_div_leaderboard->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 			'width'     => 320,
 			'height'    => 50,
 			'type'      => 'doubleclick',
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"mobile leaderboard"}}',
-		) ) );
-		$ad_node_cube_last = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
-		$ad_node_cube_last->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		] ) );
+		$ad_node_cube_last = AMP_DOM_Utils::create_node( $this->dom, 'div', [ 'class' => 'ad-center' ] );
+		$ad_node_cube_last->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
 			'width'     => 300,
 			'height'    => 250,
 			'type'      => 'doubleclick',
 			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
 			'json'      => '{"targeting":{"pos":"AMP Cube"}}',
-		) ) );
-		$ad_node_taboola = AMP_DOM_Utils::create_node( $this->dom, 'amp-embed', array(
+		] ) );
+		$ad_node_taboola = AMP_DOM_Utils::create_node( $this->dom, 'amp-embed', [
 			// Updated with amp codw from Taboola
 			'width'            => 100,
 			'height'           => 100,
@@ -92,7 +95,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-placement'   => 'mobile below article thumbnails amp',
 			'data-target_type' => 'mix',
 			'data-article'     => 'auto',
-		) );
+		] );
 
 		// Add in Teads then multiple cubes based on paragraph count
 		if ( $paras_to_inject_ad_into >= 1 ) {
@@ -126,10 +129,19 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 
 		$body->appendChild( $ad_node_taboola );
 
-		$body->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', array(
+		$body->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
 			'height'            => 200,
 			'type'             => 'yieldmo',
 			'data-ymid'        => '1555064078586984494',
-		) ) );
+		] ) );
+		$amp_sticky = AMP_DOM_Utils::create_node( $this->dom, 'amp-sticky-ad', [ 'layout' => 'nodisplay' ] );
+		$amp_sticky->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
+			'width'     => 320,
+			'height'    => 50,
+			'type'      => 'doubleclick',
+			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
+			'json'      => '{"targeting":{"pos":"cst-adhesion"}}',
+		] ) );
+		$body->appendChild( $amp_sticky );
 	}
 }
