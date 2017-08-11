@@ -670,6 +670,7 @@ class CST {
 	 * @param $user_id
 	 *
 	 * @return array
+	 * Add customize to editor level role on
 	 *
 	 * Trying this Editor->Customizer access code from:
 	 * https://make.wordpress.org/core/2014/07/08/customizer-improvements-in-4-0/
