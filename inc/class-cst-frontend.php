@@ -2199,26 +2199,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 	/**
 	*
-	* Inject supplied TCX tag if singular and mobile and over 16
+	* Inject supplied TCX tag if singular and mobile and over 16 paragraphs
+	* Only do this on article pages
 	*
+	* @param $content string
+	* @return string
 	*/
 	public function inject_tcx( $content ) {
-		if ( is_singular() ) {
+		if ( is_singular( 'cst_article' ) ) {
 			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
-			$tcxjs = '<script src="//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=default_mobile&style=inline"></script>';
-			$exploded = explode( '</p>',$content );
-			$num_exploded = count($exploded);
-			if( $num_exploded > 16) {
-				array_splice( $exploded, 17, 0, $tcxjs );
-				$content = join( '</p>',$exploded );
-				return $content;
-			} else {
-				return $content;
-			}
-		} else {
-			return $content;
+				$tcxjs = '<script src="//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=default_mobile&style=inline"></script>';
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 16) {
+					array_splice( $exploded, 17, 0, $tcxjs );
+					$content = join( '</p>', $exploded );
+				}
 			}
 		}
+		return $content;
 	}
 
 	/**
