@@ -93,6 +93,7 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+		add_filter( 'the_content', [ $this, 'inject_tcx' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
@@ -2195,6 +2196,30 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			}
 		}
 	}
+
+	/**
+	*
+	* Inject supplied TCX tag if singular and mobile and over 16 paragraphs
+	* Only do this on article pages
+	*
+	* @param $content string
+	* @return string
+	*/
+	public function inject_tcx( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
+				$tcxjs = '<script src="//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=default_mobile&style=inline"></script>';
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 16) {
+					array_splice( $exploded, 17, 0, $tcxjs );
+					$content = join( '</p>', $exploded );
+				}
+			}
+		}
+		return $content;
+	}
+
 	/**
 	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
