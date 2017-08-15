@@ -312,6 +312,58 @@ body.error404 {
       margin: 0 !important;
       margin-bottom: 5px !important; } }
 
+div[id^="cst-wrapper-"] {
+  left: 0;
+  z-index: 1001;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 50px;
+  width: 320px; }
+
+.cst-creative {
+  position: relative;
+  float: right; }
+
+#cst-creative img {
+  max-width: 100%;
+  height: 50px;
+  width: 320px; }
+
+div[id^="cst-close-"] {
+  right: 0;
+  margin-top: -22px;
+  margin-right: -20px;
+  color: black;
+  display: block;
+  cursor: pointer;
+  position: absolute; }
+  div[id^="cst-close-"]:hover {
+    opacity: 0.8; }
+  div[id^="cst-close-"] > .fa {
+    font-size: 20px;
+    cursor: pointer; }
+  div[id^="cst-close-"] > .fa-circle {
+    font-size: 26px;
+    opacity: 0.8;
+    color: black; }
+
+@media screen and (max-width: 767px) {
+  div[id^="cst-close-"] {
+    margin-right: -23px;
+    margin-top: -16px; }
+  div[id^="cst-close-"] .fa-circle {
+    margin-left: 0; } }
+
+@media screen and (width: 320px) {
+  div[id^="cst-wrapper-"] {
+    width: 300px; }
+  div[id^="cst-close-"] {
+    right: 0;
+    margin-top: -17px;
+    margin-right: -17px; } }
+
 #ie8-user {
   text-align: center;
   margin-top: 20px; }
@@ -2936,35 +2988,40 @@ header .contain-to-grid .top-bar {
     padding-left: 0;
     margin-left: 0;
     overflow: hidden;
-    height: 45px;
-    max-width: 54.1rem; }
-    @media only screen and (min-width:64.063em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 61rem; } }
-    @media only screen and (min-width:85.25em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 67rem; } }
-    @media only screen and (min-width:90.063em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 71rem; } }
-    @media screen and (min-width: 92em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 73rem; } }
-    @media screen and (min-width: 94em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 75rem; } }
-    @media screen and (min-width: 96em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 78rem; } }
-    @media screen and (min-width: 98em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 80.6rem; } }
-    @media screen and (min-width: 100em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 82.6rem; } }
+    height: 45px; }
     @media only screen and (min-width:120.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 83rem; } }
+    @media screen and (max-width: 100em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 82.3rem; } }
+    @media screen and (max-width: 98em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 80.6rem; } }
+    @media screen and (max-width: 96em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 78rem; } }
+    @media screen and (max-width: 94em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 75rem; } }
+    @media screen and (max-width: 92em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 72.8rem; } }
+    @media screen and (max-width: 89em) and (min-width: 83em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 66.4rem; } }
+    @media screen and (max-width: 82.9em) and (min-width: 77em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 56rem; } }
+    @media screen and (max-width: 76.9em) and (min-width: 72em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 53rem; } }
+    @media screen and (max-width: 71.9em) and (min-width: 67em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 51rem; } }
+    @media screen and (max-width: 66.9em) and (min-width: 64em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 48.2rem; } }
     header .contain-to-grid .top-bar .masthead-sections ul {
       list-style-type: none;
       background: #231f20; }

@@ -23,6 +23,8 @@ $medium-only: "#{$screen} and (min-width:#{lower-bound($medium-range)}) and (max
 $xmedium-up: "#{$screen} and (min-width:#{lower-bound($xmedium-range)})" !default;
 $xmedium-down: "#{$screen} and (max-width:#{upper-bound($xmedium-range)})" !default;
 $xmedium-only: "#{$screen} and (min-width:#{lower-bound($xmedium-range)}) and (max-width:#{upper-bound($xmedium-range)})" !default;
+
+$xmediumi-up: "#{$screen} and (min-width:#{lower-bound($xmediumi-range)})" !default;
 $xmediumi-only: "#{$screen} and (min-width:#{lower-bound($xmediumi-range)}) and (max-width:#{upper-bound($xmediumi-range)})" !default;
 $xmediumi-down: "#{$screen} and (max-width:#{upper-bound($xmediumi-range)})" !default;
 
