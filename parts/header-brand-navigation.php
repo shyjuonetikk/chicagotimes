@@ -55,7 +55,7 @@
 						<?php } ?>
 					</div>
 				</li>
-				<li class="has-form">
+				<li class="has-form masthead-sections">
 					<div class="row-collapse">
 						<?php if ( is_front_page() ) { ?>
 							<div class="columns small-12 show-for-small-only small-logo">
