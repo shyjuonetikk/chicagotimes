@@ -3025,7 +3025,7 @@ header .contain-to-grid .top-bar {
         max-width: 75rem; } }
     @media screen and (max-width: 92em) and (min-width: 89.01em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 72.8rem; } }
+        max-width: 73.4rem; } }
     @media screen and (max-width: 89em) and (min-width: 83em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 66.9rem; } }
@@ -3068,6 +3068,10 @@ header .contain-to-grid .top-bar {
         padding-right: 0.1rem; }
         header .contain-to-grid .top-bar .masthead-sections li:last-child {
           padding-right: 0; } }
+    header .contain-to-grid .top-bar .masthead-sections .nav-wrapper {
+      padding: 0; }
+    header .contain-to-grid .top-bar .masthead-sections .homepage-nav-wrapper {
+      padding: 0; }
   header .contain-to-grid .top-bar .burger-wrapper-no-fries {
     width: 44px;
     padding: 0;
@@ -3105,6 +3109,11 @@ header .contain-to-grid .top-bar {
         margin-left: 0; } }
   header .contain-to-grid .top-bar .weather-wrapper {
     padding: 0; }
+  header .contain-to-grid .top-bar .info-container {
+    margin-right: 3.4rem; }
+    @media only screen and (max-width: 40em) {
+      header .contain-to-grid .top-bar .info-container {
+        margin-right: 0; } }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section .main-nav-holder {

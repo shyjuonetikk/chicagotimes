@@ -44,7 +44,7 @@
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
 							</div>
-							<div class="columns small-12 show-for-large-up">
+							<div class="columns small-12 show-for-large-up nav-wrapper">
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</div>
 						<?php } else { ?>
@@ -59,44 +59,23 @@
 						<?php } ?>
 					</div>
 				</li>
-				<li class="has-form show-for-large-up">
-					<div class="has-form">
-						<div class="row collapse">
-							<div class="columns hide-for-small">
-								<div class="weather">
-									<?php $weather = CST()->frontend->get_weather(); ?>
-									<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
-										<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
-<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
-	<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
-										</a>
-									<?php } ?>
-									<a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
-				<li class="has-form show-for-medium-down">
-					<div class="has-form">
-						<div class="row collapse">
-							<div class="columns hide-for-small">
-								<div class="weather">
-									<?php $weather = CST()->frontend->get_weather(); ?>
-									<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
-										<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
-<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
-	<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
-										</a>
-									<?php } ?>
-									<a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe!</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</li>
 			</ul>
-
+		</div>
+		<div class="has-form right">
+			<div class="row collapse info-container">
+				<div class="columns">
+					<div class="weather">
+						<?php $weather = CST()->frontend->get_weather(); ?>
+						<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
+							<span class="hide-for-small-only"><a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
+<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+								</a></span>
+						<?php } ?>
+						<span class=""><a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe!</a></span>
+					</div>
+				</div>
+			</div>
 		</div>
 		</nav>
 	</div>

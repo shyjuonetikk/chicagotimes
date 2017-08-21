@@ -239,7 +239,7 @@ header {
 					max-width: 75rem;
 				}
 				@media screen and (max-width: 92em) and (min-width: 89.01em) and (orientation:landscape) {
-					max-width: 72.8rem;
+					max-width: 73.4rem;
 				}
 				@media screen and (max-width: 89em) and (min-width: 83em) and (orientation:landscape) {
 					max-width: 66.9rem;
@@ -295,6 +295,12 @@ header {
 						}
 					}
 				}
+				.nav-wrapper {
+					padding:0;
+				}
+				.homepage-nav-wrapper {
+					padding:0;
+				}
 			}
 			.burger-wrapper-no-fries {
 				width: 44px;
@@ -337,6 +343,12 @@ header {
 			}
 			.weather-wrapper {
 				padding:0;
+			}
+			.info-container {
+				margin-right:3.4rem;
+				@media #{$small-only} {
+					margin-right:0;
+				}
 			}
 			.top-bar-section {
 				.main-nav-holder {
