@@ -16,6 +16,9 @@ if ( isset($_REQUEST['promo-code-input']) && '' !== $_REQUEST['promo-code-input'
 			case 'CST Promo 2':
 				$redirect_url = 'https://suntiservices.dticloud.com/cgi-bin/cmo_cmo.sh/custservice/web/addrfind.html?siteid=CST&campaign=wbmemon295';
 				break;
+			case 'cityclub':
+				$redirect_url = 'https://suntiservices.dticloud.com/cgi-bin/cmo_cmo.sh/custservice/web/addrfind.html?siteid=CST&campaign=wbmem1699';
+				break;
 			default:
 				wp_sanitize_redirect( esc_url( get_permalink() ) );
 		}
