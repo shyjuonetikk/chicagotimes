@@ -4,30 +4,6 @@
 			<ul class="title-area">
 			</ul>
 		<div class="top-bar-section">
-			<ul class="right">
-				<li class="has-form">
-					<div class="row collapse">
-						<div class="large-2 small-9 columns hide-for-small">
-						<?php $weather = CST()->frontend->get_weather(); ?>
-						<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
-							<div class="weather">
-								<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
-	<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
-		<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
-								</a>
-							</div>
-						<?php } ?>
-						</div>
-					</div>
-				</li>
-				<li class="has-form">
-					<div class="row collapse">
-						<div class="large-2 small-2 columns subscribe-container">
-							<a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe</a>
-						</div>
-					</div>
-				</li>
-			</ul>
 			<ul class="left">
 				<li class="has-form">
 					<div class="row-collapse search">
@@ -83,7 +59,44 @@
 						<?php } ?>
 					</div>
 				</li>
+				<li class="has-form show-for-large-up">
+					<div class="has-form">
+						<div class="row collapse">
+							<div class="columns hide-for-small">
+								<div class="weather">
+									<?php $weather = CST()->frontend->get_weather(); ?>
+									<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
+										<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
+	<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+										</a>
+									<?php } ?>
+									<a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
+				<li class="has-form show-for-medium-down">
+					<div class="has-form">
+						<div class="row collapse">
+							<div class="columns hide-for-small">
+								<div class="weather">
+									<?php $weather = CST()->frontend->get_weather(); ?>
+									<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
+										<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
+	<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+										</a>
+									<?php } ?>
+									<a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe!</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</li>
 			</ul>
+
 		</div>
 		</nav>
 	</div>

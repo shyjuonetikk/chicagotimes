@@ -1016,12 +1016,14 @@ ul#menu-sun-times-network {
   background-color: transparent;
   font-size: 0.675rem;
   border: 1px white solid;
-  padding: 6px 5px 6px 2px;
+  padding: 6px 5px 5px 2px;
   top: 0;
-  margin: 7px 7px 0 0;
+  line-height: initial;
+  margin: -2px 0 0 5px;
   display: block;
   width: 62px;
-  color: #f8f8f8; }
+  color: #f8f8f8;
+  float: left; }
   .masthead .subscribe-link a, .masthead .subscribe-link a:visited, .masthead .subscribe-link a:focus, .masthead .subscribe-link a:hover {
     color: #f8f8f8;
     font-size: 0.8rem; }
@@ -2877,15 +2879,23 @@ section#subscribe {
   max-height: 50px; }
 
 .weather {
-  padding: 10px 5px; }
+  padding: 10px 0;
+  max-width: 126px;
+  line-height: 24px;
+  color: white;
+  background-color: transparent;
+  height: auto;
+  margin: 0;
+  font-size: 1.2rem;
+  top: 0; }
   .weather .weather-link {
     line-height: 24px;
     color: white; }
     .weather .weather-link:hover, .weather .weather-link:visited {
       color: white; }
     .weather .weather-link .degrees {
-      width: 60px;
       float: left;
+      font-size: 1rem;
       color: #ffe000; }
       .weather .weather-link .degrees i {
         color: #ffe000; }
@@ -2988,35 +2998,47 @@ header .contain-to-grid .top-bar {
     height: 45px; }
     @media only screen and (min-width:120.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 83rem; } }
-    @media screen and (max-width: 100em) and (orientation: landscape) {
+        max-width: 97rem; } }
+    @media screen and (min-width: 112.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 96rem; } }
+    @media screen and (max-width: 112em) and (min-width: 106.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 89.5rem; } }
+    @media screen and (max-width: 106em) and (min-width: 103.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 87.3rem; } }
+    @media screen and (max-width: 103em) and (min-width: 100.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 84.3rem; } }
+    @media screen and (max-width: 100em) and (min-width: 98.01em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 82.3rem; } }
-    @media screen and (max-width: 98em) and (orientation: landscape) {
+    @media screen and (max-width: 98em) and (min-width: 96.01em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 80.6rem; } }
-    @media screen and (max-width: 96em) and (orientation: landscape) {
+    @media screen and (max-width: 96em) and (min-width: 94.01em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 78rem; } }
-    @media screen and (max-width: 94em) and (orientation: landscape) {
+    @media screen and (max-width: 94em) and (min-width: 92.01em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 75rem; } }
-    @media screen and (max-width: 92em) and (orientation: landscape) {
+    @media screen and (max-width: 92em) and (min-width: 89.01em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 72.8rem; } }
     @media screen and (max-width: 89em) and (min-width: 83em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 66.4rem; } }
-    @media screen and (max-width: 82.9em) and (min-width: 77em) and (orientation: landscape) {
+        max-width: 66.9rem; } }
+    @media screen and (max-width: 82.99em) and (min-width: 77em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 56rem; } }
-    @media screen and (max-width: 76.9em) and (min-width: 72em) and (orientation: landscape) {
+        max-width: 61rem; } }
+    @media screen and (max-width: 76.99em) and (min-width: 72em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 53rem; } }
-    @media screen and (max-width: 71.9em) and (min-width: 67em) and (orientation: landscape) {
+    @media screen and (max-width: 71.99em) and (min-width: 67em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 51rem; } }
-    @media screen and (max-width: 66.9em) and (min-width: 64em) and (orientation: landscape) {
+    @media screen and (max-width: 66.99em) and (min-width: 64em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 48.2rem; } }
     header .contain-to-grid .top-bar .masthead-sections ul {
