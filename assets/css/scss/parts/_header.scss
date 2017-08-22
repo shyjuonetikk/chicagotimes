@@ -216,6 +216,7 @@ header {
 				margin-left: 0;
 				overflow: hidden;
 				height: 45px;
+				max-width: 11rem;
 				@media #{$xxlarge-up} and (orientation:landscape) {
 					max-width: 97rem;
 				}
@@ -497,6 +498,7 @@ body {
 					}
 					a.logo-anchor {
 						padding:0;
+						margin-top:-2px;
 					}
 				}
 			}
