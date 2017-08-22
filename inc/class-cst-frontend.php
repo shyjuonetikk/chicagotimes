@@ -2137,8 +2137,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	public function masthead_navigation( $page_type ) {
 		$page_types = array(
 			'homepage' => array(
-					'container_class' => 'columns small-12 show-for-medium-up show-for-landscape',
-					'items_wrap'      => '<div class="homepage-nav-holder columns"><ul id="%1$s" class="homepage masthead-sections">%3$s</ul></div>',
+					'container_class' => 'columns small-12 show-for-medium-up show-for-landscape homepage-nav-wrapper',
+					'items_wrap'      => '<div class="homepage-nav-holder columns"><ul id="%1$s" class="homepage">%3$s</ul></div>',
 					'location'        => 'homepage-masthead',
 			),
 			'section-front' => array(
