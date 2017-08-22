@@ -24,7 +24,7 @@
 					<div class="row-collapse">
 						<?php if ( ! CST()->frontend->display_minimal_nav() ) { ?>
 							<div class="columns small-1 burger-wrapper-no-fries">
-									<a href="#1" class="left-off-canvas-toggle burger-bar">
+									<a href="#" class="left-off-canvas-toggle burger-bar">
 											<i class="fa fa-bars"></i>
 									</a>
 							</div>
@@ -34,8 +34,8 @@
 				<li class="has-form masthead-sections">
 					<div class="row-collapse">
 						<?php if ( is_front_page() ) { ?>
-							<div class="columns small-12 show-for-small-only small-logo">
-								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+							<div class="columns small-12 small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>" class="logo-anchor">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
 							</div>
@@ -48,8 +48,8 @@
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</div>
 						<?php } else { ?>
-							<div class="columns small-12 medium-10 large-2 small-logo">
-								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+							<div class="columns small-12 medium-12 large-2 small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>" class="logo-anchor">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
 							</div>
