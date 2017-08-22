@@ -946,16 +946,19 @@ body.single {
 			}
 		}
 	}
+
 	.subscribe-link {
 		background-color: transparent;
 		font-size: 0.675rem;
 		border: 1px white solid;
-		padding: 6px 5px 6px 2px;
+		padding: 9px 5px 9px 5px;
 		top: 0;
-		margin: 7px 7px 0 0;
+		line-height: initial;
+		margin:-4px 0 0 5px;
 		display: block;
 		width: 62px;
 		color: $light_grey;
+		float:left;
 		a, a:visited, a:focus, a:hover {
 			color: $light_grey;
 			font-size: 0.8rem;

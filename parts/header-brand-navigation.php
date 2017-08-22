@@ -4,30 +4,6 @@
 			<ul class="title-area">
 			</ul>
 		<div class="top-bar-section">
-			<ul class="right">
-				<li class="has-form">
-					<div class="row collapse">
-						<div class="large-2 small-9 columns hide-for-small">
-						<?php $weather = CST()->frontend->get_weather(); ?>
-						<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
-							<div class="weather">
-								<a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
-	<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
-		<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
-								</a>
-							</div>
-						<?php } ?>
-						</div>
-					</div>
-				</li>
-				<li class="has-form">
-					<div class="row collapse">
-						<div class="large-2 small-2 columns subscribe-container">
-							<a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe</a>
-						</div>
-					</div>
-				</li>
-			</ul>
 			<ul class="left">
 				<li class="has-form">
 					<div class="row-collapse search">
@@ -48,32 +24,27 @@
 					<div class="row-collapse">
 						<?php if ( ! CST()->frontend->display_minimal_nav() ) { ?>
 							<div class="columns small-1 burger-wrapper-no-fries">
-									<a href="#1" class="left-off-canvas-toggle burger-bar">
+									<a href="#" class="left-off-canvas-toggle burger-bar">
 											<i class="fa fa-bars"></i>
 									</a>
 							</div>
 						<?php } ?>
 					</div>
 				</li>
-				<li class="has-form">
+				<li class="has-form masthead-sections">
 					<div class="row-collapse">
 						<?php if ( is_front_page() ) { ?>
-							<div class="columns small-12 show-for-small-only small-logo">
-								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+							<div class="columns small-12 small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>" class="logo-anchor">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
 							</div>
-							<div class="columns small-12 show-for-small-device-landscape small-logo">
-								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
-									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
-								</a>
-							</div>
-							<div class="columns small-12 show-for-large-up">
+							<div class="columns small-12 show-for-large-up nav-wrapper">
 								<?php CST()->frontend->masthead_navigation( 'homepage' ); ?>
 							</div>
 						<?php } else { ?>
-							<div class="columns small-12 medium-10 large-2 small-logo">
-								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>">
+							<div class="columns small-12 medium-12 large-2 small-logo">
+								<a href="<?php echo( esc_url( home_url( '/' ) ) ); ?>" class="logo-anchor">
 									<img src="<?php echo esc_url( get_template_directory_uri() . '/cst-amp-logo.svg' ); ?>" alt='Chicago Sun-Times logo' height="32" width="167">
 								</a>
 							</div>
@@ -84,6 +55,22 @@
 					</div>
 				</li>
 			</ul>
+		</div>
+		<div class="has-form right">
+			<div class="row collapse info-container">
+				<div class="columns">
+					<div class="weather">
+						<?php $weather = CST()->frontend->get_weather(); ?>
+						<?php if ( ! empty( $weather ) && is_array( $weather ) ) { ?>
+							<span class="hide-for-small-only"><a href="<?php echo esc_url( home_url( '/' ) . 'weather' ); ?>" class="weather-link">
+<span class="degrees"><i class="wi <?php echo esc_attr( CST()->frontend->get_weather_icon( $weather[0]->WeatherIcon ) ); ?>"></i>
+<?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
+								</a></span>
+						<?php } ?>
+						<span class=""><a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe</a></span>
+					</div>
+				</div>
+			</div>
 		</div>
 		</nav>
 	</div>
