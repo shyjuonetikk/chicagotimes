@@ -3000,7 +3000,8 @@ header .contain-to-grid .top-bar {
     padding-left: 0;
     margin-left: 0;
     overflow: hidden;
-    height: 45px; }
+    height: 45px;
+    max-width: 11rem; }
     @media only screen and (min-width:120.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 97rem; } }
@@ -3210,7 +3211,8 @@ body header .contain-to-grid .top-bar .masthead-sections li:not(.has-form) > a, 
   padding: 0 10px;
   float: left; }
 body header .contain-to-grid .top-bar .masthead-sections a.logo-anchor {
-  padding: 0; }
+  padding: 0;
+  margin-top: -2px; }
 
 body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
   padding-right: 0; }
