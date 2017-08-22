@@ -72,7 +72,7 @@
 <?php echo esc_html( $weather[0]->Temperature->Imperial->Value . '&deg;' ); ?></span>
 								</a></span>
 						<?php } ?>
-						<span class=""><a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe!</a></span>
+						<span class=""><a href="<?php echo esc_url( home_url( '/' ) . 'subscribe/' ); ?>" class="subscribe-link">Subscribe</a></span>
 					</div>
 				</div>
 			</div>
