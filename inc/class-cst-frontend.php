@@ -2947,41 +2947,6 @@ ready(fn);
 		<?php }
 	}
 
-	public function render_hp_footer_ad_unit( $section_theme_mod ) {
-		if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
-			if ( is_front_page() ) {
-				$ad_type = get_theme_mod( $section_theme_mod );
-				switch ( $ad_type ) {
-					case '1':
-					echo wp_kses( CST()->dfp_handler->dynamic_aol_tag( 17 ),
-						CST()->dfp_kses
-					);
-					break;
-					case '2':
-					echo wp_kses( CST()->dfp_handler->dynamic_verve_tag( 18 ),
-						CST()->dfp_kses
-					);
-					break;
-					case '3':
-					echo wp_kses( CST()->dfp_handler->dynamic_adx_tag( 19 ),
-						CST()->dfp_kses
-					);
-					break;
-					case '4':
-						$id_num = mt_rand( 0, 38290 );
-					echo wp_kses( sprintf( CST()->dfp_handler->get_dynamic_adhesion_start(), $id_num )
-					. CST()->dfp_handler->dynamic_unit( $id_num, '', 'dfp onebyone dfp-centered', '', 'cst-adhesion', '[320,50],[300,50]' )
-					. CST()->dfp_handler->get_dynamic_adhesion_end(),
-						CST()->dfp_kses
-					);
-					break;
-					case '999':
-					default:
-					echo wp_kses_post( '<!-- no cst ad-->' );
-				}
-			}
-		}
-	}
 	/**
 	* Inject a dfp div for a mobile adhesion ad unit
 	*/
