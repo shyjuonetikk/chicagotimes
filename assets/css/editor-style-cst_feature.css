@@ -56,7 +56,7 @@
     .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 4rem;
       line-height: 4.5rem; } }
-  @media only screen and (max-width:upper-bound(40.063em, 47.398em)) {
+  @media only screen and (max-width:upper-bound(40.063em, 47.98em)) {
     .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 3.4rem;
       line-height: 3.5rem; } }
@@ -130,7 +130,7 @@
         .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 60%;
           padding: 0; } }
-      @media only screen and (max-width:upper-bound(40.063em, 47.398em)) {
+      @media only screen and (max-width:upper-bound(40.063em, 47.98em)) {
         .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 60%;
           padding: 0 15px; } }
@@ -152,7 +152,7 @@
           .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3, .single-cst_feature .post-lead-media .hero-image .hero-sig h3 {
             font-size: 1.2rem;
             line-height: 1.8rem; } }
-      @media only screen and (max-width:upper-bound(40.063em, 47.398em)) {
+      @media only screen and (max-width:upper-bound(40.063em, 47.98em)) {
         .cst_feature-template-default .post-lead-media .hero-image .hero-sig, .single-cst_feature .post-lead-media .hero-image .hero-sig {
           padding: 10px; }
           .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3, .single-cst_feature .post-lead-media .hero-image .hero-sig h3 {
@@ -241,12 +241,12 @@ body#tinymce {
         font-size: 1.3rem;
         line-height: 1.7rem;
         padding-bottom: 0; } }
-    @media only screen and (min-width:lower-bound(40.063em, 47.398em)) and (orientation: landscape) {
+    @media only screen and (min-width:lower-bound(40.063em, 47.98em)) and (orientation: landscape) {
       .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
         padding-bottom: 5px;
         font-size: 1.6rem;
         line-height: 2rem; } }
-    @media only screen and (min-width:lower-bound(40.063em, 47.398em)) {
+    @media only screen and (min-width:lower-bound(40.063em, 47.98em)) {
       .post-type-archive-cst_feature article.index-view .cst_feature-archive .cst_feature-title h1 {
         font-size: 1.6rem;
         line-height: 2rem; } }
@@ -260,11 +260,11 @@ body#tinymce {
       .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
         font-size: 1.4rem;
         line-height: 2rem; } }
-    @media only screen and (min-width:lower-bound(40.063em, 47.398em)) {
+    @media only screen and (min-width:lower-bound(40.063em, 47.98em)) {
       .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
         font-size: 1.1rem;
         line-height: 1.5rem; } }
-    @media only screen and (min-width:lower-bound(40.063em, 47.398em)) and (orientation: landscape) {
+    @media only screen and (min-width:lower-bound(40.063em, 47.98em)) and (orientation: landscape) {
       .post-type-archive-cst_feature article.index-view .cst_feature-archive .feature-sig {
         font-size: 1.2rem;
         line-height: 1.5rem; } }

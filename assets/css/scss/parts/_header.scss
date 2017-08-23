@@ -58,7 +58,8 @@
 	max-height:50px;
 }
 .weather {
-	padding: 10px 5px;
+	padding: 10px 0;
+	max-width: 126px;
 	.weather-link {
 		line-height: 24px;
 		color: $white;
@@ -67,14 +68,21 @@
 			color: $white;
 		}
 		.degrees {
-			width:60px;
 			float:left;
+			font-size:1rem;
 			color: $cst_yellow;
 			i {
 				color: $cst_yellow;
 			}
 		}
 	}
+	line-height: 24px;
+	color: white;
+	background-color: transparent;
+	height: auto;
+	margin: 0;
+	font-size: 1.2rem;
+	top: 0;
 }
 .responsive-logo-wrapper {
 	.utility {
@@ -107,7 +115,6 @@
 .logo-wrapper.large-logo {
 	@media #{$xmedium-up} {
 		display: block;
-		height: 101px;
 	}
 	@media #{$medium-down} {
 		display: none !important;
@@ -188,7 +195,6 @@ header {
 			background: $cst_black;
 			max-width:83.4rem;
 			.small-logo {
-				margin: 7px 0 0 0;
 				padding-left: 0;
 				overflow-y: hidden;
 				padding-right:0;
@@ -198,39 +204,63 @@ header {
 				a {
 					padding: 6px 0 0 0;
 				}
+				@media #{$small-up} {
+					display: block;
+				}
+				@media #{$xmedium-up} {
+					display: none !important;
+				}
 			}
 			.masthead-sections {
 				padding-left:0;
 				margin-left: 0;
 				overflow: hidden;
 				height: 45px;
-				max-width: 54.1rem;
-				@media #{$large-up} and (orientation:landscape) {
-					max-width: 61rem;
+				max-width: 11rem;
+				@media #{$xxlarge-up} and (orientation:landscape) {
+					max-width: 97rem;
 				}
-				@media #{$wallpaper-only} and (orientation:landscape) {
-					max-width: 67rem;
+				@media screen and (min-width: 112.01em) and (orientation:landscape) {
+					max-width: 96rem;
 				}
-				@media #{$xlarge-up} and (orientation:landscape) {
-					max-width: 71rem;
+				@media screen and (max-width: 112em) and (min-width: 106.01em) and (orientation:landscape) {
+					max-width: 89.5rem;
 				}
-				@media screen and (min-width: 92em) and (orientation:landscape) {
-					max-width: 73rem;
+				@media screen and (max-width: 106em) and (min-width: 103.01em) and (orientation:landscape) {
+					max-width: 87.3rem;
 				}
-				@media screen and (min-width: 94em) and (orientation:landscape) {
-					max-width: 75rem;
+				@media screen and (max-width: 103em) and (min-width: 100.01em) and (orientation:landscape) {
+					max-width: 84.3rem;
 				}
-				@media screen and (min-width: 96em) and (orientation:landscape) {
-					max-width: 78rem;
+				@media screen and (max-width: 100em) and (min-width: 98.01em) and (orientation:landscape) {
+					max-width: 82.3rem;
 				}
-				@media screen and (min-width: 98em) and (orientation:landscape) {
+				@media screen and (max-width: 98em) and (min-width: 96.01em) and (orientation:landscape) {
 					max-width: 80.6rem;
 				}
-				@media screen and (min-width: 100em) and (orientation:landscape) {
-					max-width: 82.6rem;
+				@media screen and (max-width: 96em) and (min-width: 94.01em) and (orientation:landscape) {
+					max-width: 78rem;
 				}
-				@media #{$xxlarge-up} and (orientation:landscape) {
-					max-width: 83rem;
+				@media screen and (max-width: 94em) and (min-width: 92.01em) and (orientation:landscape) {
+					max-width: 75rem;
+				}
+				@media screen and (max-width: 92em) and (min-width: 89.01em) and (orientation:landscape) {
+					max-width: 73.4rem;
+				}
+				@media screen and (max-width: 89em) and (min-width: 83em) and (orientation:landscape) {
+					max-width: 66.9rem;
+				}
+				@media screen and (max-width: 82.99em) and (min-width: 77em) and (orientation:landscape) {
+					max-width: 61rem;
+				}
+				@media screen and (max-width: 76.99em) and (min-width: 72em) and (orientation:landscape) {
+					max-width: 53rem;
+				}
+				@media screen and (max-width: 71.99em) and (min-width: 67em) and (orientation:landscape) {
+					max-width: 51rem;
+				}
+				@media screen and (max-width: 66.99em) and (min-width: 64em) and (orientation:landscape) {
+					max-width: 48.2rem;
 				}
 				ul {
 					list-style-type: none;
@@ -270,6 +300,12 @@ header {
 							padding-right:0;
 						}
 					}
+				}
+				.nav-wrapper {
+					padding:0;
+				}
+				.homepage-nav-wrapper {
+					padding:0;
 				}
 			}
 			.burger-wrapper-no-fries {
@@ -314,9 +350,16 @@ header {
 			.weather-wrapper {
 				padding:0;
 			}
+			.info-container {
+				margin-right:3.4rem;
+				@media #{$small-only} {
+					margin-right:0;
+				}
+			}
 			.top-bar-section {
 				.main-nav-holder {
 					padding-left: 0;
+					padding-right:0;
 				}
 				background: $light_grey;
 				#menu-homepage-left, #menu-homepage {
@@ -451,6 +494,11 @@ body {
 				.masthead-sections{
 					li:not(.has-form) > a, a:not(.button) {
 						padding: 0 10px;
+						float:left;
+					}
+					a.logo-anchor {
+						padding:0;
+						margin-top:-2px;
 					}
 				}
 			}
@@ -462,37 +510,56 @@ body:not(.home) {
 		.contain-to-grid {
 			.top-bar {
 				.masthead-sections {
+					.small-logo {
+						@media #{$xmedium-up} {
+							display: block !important;
+						}
+					}
 					padding-right: 0;
-					@media #{$large-up} and (orientation:landscape) {
-						max-width: 51.5rem;
-					}
-					@media #{$wallpaper-only} and (orientation:landscape) {
-						max-width: 57.5rem;
-					}
-					@media screen and (min-width: 87em) and (orientation:landscape) {
-						max-width: 60.9rem;
-					}
-					@media #{$xlarge-up} and (orientation:landscape) {
-						max-width: 63rem;
-					}
-					@media screen and (min-width: 92em) and (orientation:landscape) {
-						max-width: 67rem;
-					}
-					@media screen and (min-width: 94em) and (orientation:landscape) {
-						max-width: 69rem;
-					}
-					@media screen and (min-width: 96em) and (orientation:landscape) {
-						max-width: 70rem;
-					}
-					@media screen and (min-width: 98em) and (orientation:landscape) {
-						max-width: 72.6rem;
-					}
-					@media screen and (min-width: 100em) and (orientation:landscape) {
-						max-width: 74.6rem;
-						width:100%;
-					}
 					@media #{$xxlarge-up} and (orientation:landscape) {
+						max-width: 96rem;
+					}
+					@media screen and (min-width: 112.01em) and (orientation:landscape) {
+						max-width: 96rem;
+					}
+					@media screen and (max-width: 112em) and (min-width: 106.01em) and (orientation:landscape) {
+						max-width: 89.5rem;
+					}
+					@media screen and (max-width: 106em) and (min-width: 103.01em) and (orientation:landscape) {
+						max-width: 87.3rem;
+					}
+					@media screen and (max-width: 103em) and (min-width: 100.01em) and (orientation:landscape) {
+						max-width: 84.3rem;
+					}
+					@media screen and (max-width: 100em) and (min-width: 98.01em) and (orientation:landscape) {
+						max-width: 82.3rem;
+					}
+					@media screen and (max-width: 98em) and (min-width: 96.01em) and (orientation:landscape) {
+						max-width: 80.6rem;
+					}
+					@media screen and (max-width: 96em) and (min-width: 94.01em) and (orientation:landscape) {
 						max-width: 78rem;
+					}
+					@media screen and (max-width: 94em) and (min-width: 92.01em) and (orientation:landscape) {
+						max-width: 75rem;
+					}
+					@media screen and (max-width: 92em) and (min-width: 89.01em) and (orientation:landscape) {
+						max-width: 73.4rem;
+					}
+					@media screen and (max-width: 89em) and (min-width: 83em) and (orientation:landscape) {
+						max-width: 66.9rem;
+					}
+					@media screen and (max-width: 82.99em) and (min-width: 77em) and (orientation:landscape) {
+						max-width: 61rem;
+					}
+					@media screen and (max-width: 76.99em) and (min-width: 74em) and (orientation:landscape) {
+						max-width: 58rem;
+					}
+					@media screen and (max-width: 73.99em) and (min-width: 67em) and (orientation:landscape) {
+						max-width: 51rem;
+					}
+					@media screen and (max-width: 65.99em) and (min-width: 63em) and (orientation:landscape) {
+						max-width: 47.8rem;
 					}
 				}
 			}

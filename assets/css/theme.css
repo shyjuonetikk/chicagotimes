@@ -312,6 +312,56 @@ body.error404 {
       margin: 0 !important;
       margin-bottom: 5px !important; } }
 
+div[id^="cst-wrapper-"] {
+  left: 0;
+  z-index: 1001;
+  margin: 0 auto;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 50px;
+  text-align: center;
+  display: inline-block; }
+
+.cst-creative {
+  position: relative; }
+
+#cst-creative img {
+  max-width: 100%;
+  height: 50px;
+  width: 320px; }
+
+div[id^="cst-close-"] {
+  right: 4px;
+  margin-top: -17px;
+  color: black;
+  display: block;
+  cursor: pointer;
+  position: absolute; }
+  div[id^="cst-close-"]:hover {
+    opacity: 0.8; }
+  div[id^="cst-close-"] > .fa {
+    font-size: 20px;
+    cursor: pointer; }
+  div[id^="cst-close-"] > .fa-circle {
+    font-size: 26px;
+    opacity: 0.8;
+    color: black; }
+
+@media screen and (max-width: 767px) {
+  div[id^="cst-close-"] {
+    margin-top: -17px; }
+  div[id^="cst-close-"] .fa-circle {
+    margin-left: 0; } }
+
+@media screen and (width: 320px) {
+  div[id^="cst-wrapper-"] {
+    width: 300px; }
+  div[id^="cst-close-"] {
+    right: 0;
+    margin-top: -17px;
+    margin-right: -17px; } }
+
 #ie8-user {
   text-align: center;
   margin-top: 20px; }
@@ -384,7 +434,7 @@ header#header {
       display: block; }
       header#header section#primary-navigation a#suntimes-logo img {
         width: 207px; }
-        @media only screen and (min-width:40.063em) and (max-width:47.398em) {
+        @media only screen and (min-width:40.063em) and (max-width:47.98em) {
           header#header section#primary-navigation a#suntimes-logo img {
             width: 267px; } }
         @media only screen and (max-width: 40em) {
@@ -461,7 +511,7 @@ header#header {
     top: auto; }
   header#header #headlines-slider {
     width: auto; }
-  @media only screen and (max-width:47.398em) {
+  @media only screen and (max-width:47.98em) {
     header#header.hide-header {
       -webkit-transform: translateY(-100%);
       -moz-transform: translateY(-100%);
@@ -964,12 +1014,14 @@ ul#menu-sun-times-network {
   background-color: transparent;
   font-size: 0.675rem;
   border: 1px white solid;
-  padding: 6px 5px 6px 2px;
+  padding: 9px 5px 9px 5px;
   top: 0;
-  margin: 7px 7px 0 0;
+  line-height: initial;
+  margin: -4px 0 0 5px;
   display: block;
   width: 62px;
-  color: #f8f8f8; }
+  color: #f8f8f8;
+  float: left; }
   .masthead .subscribe-link a, .masthead .subscribe-link a:visited, .masthead .subscribe-link a:focus, .masthead .subscribe-link a:hover {
     color: #f8f8f8;
     font-size: 0.8rem; }
@@ -1102,7 +1154,7 @@ ul#menu-sun-times-network {
     color: #484848;
     font-size: 0.9rem;
     line-height: 1.25rem; }
-  @media only screen and (max-width:47.398em) {
+  @media only screen and (max-width:47.98em) {
     .wire .post .post-excerpt p {
       display: none; } }
   @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
@@ -1339,7 +1391,7 @@ body.search {
 .section-meta .section-feed .icon {
   margin-top: 15px; }
 
-@media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+@media only screen and (min-width:40.063em) and (max-width:47.98em) and (orientation: landscape) {
   section .right-rail {
     padding-left: 0;
     padding-right: 0.4rem; } }
@@ -1467,7 +1519,7 @@ article.post {
         width: 310px;
         height: 174px;
         margin: 0 auto; } }
-    @media only screen and (min-width:40.063em) and (max-width:47.398em) {
+    @media only screen and (min-width:40.063em) and (max-width:47.98em) {
       article.post .post-content .ooyalaplayer {
         width: 468px;
         height: 261px; } }
@@ -1665,7 +1717,7 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   .single #post-body .dfp-wire-cube {
     padding-top: 30px;
     clear: left; }
-  @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+  @media only screen and (min-width:40.063em) and (max-width:47.98em) and (orientation: landscape) {
     .single #post-body #main.medium-7 {
       width: 100%; }
     .single #post-body #post-sidebar.medium-5 {
@@ -1816,7 +1868,7 @@ body[class^="cst_article-"] article.post .sponsored-notification {
   @media only screen and (max-width: 40em) {
     .single .ndn_embed {
       height: 216px; } }
-  @media only screen and (min-width:40.063em) and (max-width:47.398em) {
+  @media only screen and (min-width:40.063em) and (max-width:47.98em) {
     .single .ndn_embed {
       height: 414px; } }
 .single .post-recommendations {
@@ -1912,7 +1964,7 @@ body[class~="archive"] article.index-view .section-title {
       font-size: 0.9rem;
       line-height: 1.15rem;
       margin-bottom: 0; } }
-  @media only screen and (max-width:47.398em) {
+  @media only screen and (max-width:47.98em) {
     body[class~="archive"] article.index-view .section-title h1 {
       font-weight: 600; } }
 body[class~="archive"] article.index-view .section-article-link {
@@ -1956,8 +2008,6 @@ body[class~="archive"] .masthead .cst-navigation-container .logo-container, body
 body[class~="archive"] .masthead .cst-navigation-container .nav-container, body[class~="single"] .masthead .cst-navigation-container .nav-container {
   padding: 0;
   overflow: hidden; }
-body[class~="archive"] .masthead .masthead-sections, body[class~="single"] .masthead .masthead-sections {
-  max-width: 54.1rem; }
 @media only screen and (min-width:48em) and (max-width:63.94em) and (orientation: portrait) {
   body[class~="archive"] .masthead #main, body[class~="single"] .masthead #main {
     padding-right: 0; }
@@ -2471,7 +2521,7 @@ section#subscribe {
   .article-sidebar {
     display: block; } }
 
-@media only screen and (max-width:47.398em) {
+@media only screen and (max-width:47.98em) {
   .article-sidebar {
     display: none; } }
 
@@ -2805,7 +2855,7 @@ section#subscribe {
     .search .search-input-wrapper .search-icon a, .search .search-input-wrapper .search-icon a:visited, .search .search-input-wrapper .search-icon a:hover, .search .search-input-wrapper .search-icon a:active {
       color: white;
       line-height: 45px; }
-  @media only screen and (max-width:47.398em) {
+  @media only screen and (max-width:47.98em) {
     .search .search-input-wrapper .search-icon {
       margin-left: 0; } }
   .search .glass {
@@ -2827,15 +2877,23 @@ section#subscribe {
   max-height: 50px; }
 
 .weather {
-  padding: 10px 5px; }
+  padding: 10px 0;
+  max-width: 126px;
+  line-height: 24px;
+  color: white;
+  background-color: transparent;
+  height: auto;
+  margin: 0;
+  font-size: 1.2rem;
+  top: 0; }
   .weather .weather-link {
     line-height: 24px;
     color: white; }
     .weather .weather-link:hover, .weather .weather-link:visited {
       color: white; }
     .weather .weather-link .degrees {
-      width: 60px;
       float: left;
+      font-size: 1rem;
       color: #ffe000; }
       .weather .weather-link .degrees i {
         color: #ffe000; }
@@ -2857,9 +2915,8 @@ section#subscribe {
 
 @media only screen and (min-width:48em) {
   .logo-wrapper.large-logo {
-    display: block;
-    height: 101px; } }
-@media only screen and (max-width:47.398em) {
+    display: block; } }
+@media only screen and (max-width:47.98em) {
   .logo-wrapper.large-logo {
     display: none !important; } }
 
@@ -2924,7 +2981,6 @@ header .contain-to-grid .top-bar {
   background: #231f20;
   max-width: 83.4rem; }
   header .contain-to-grid .top-bar .small-logo {
-    margin: 7px 0 0 0;
     padding-left: 0;
     overflow-y: hidden;
     padding-right: 0; }
@@ -2932,39 +2988,63 @@ header .contain-to-grid .top-bar {
       opacity: 1; }
     header .contain-to-grid .top-bar .small-logo a {
       padding: 6px 0 0 0; }
+    @media only screen {
+      header .contain-to-grid .top-bar .small-logo {
+        display: block; } }
+    @media only screen and (min-width:48em) {
+      header .contain-to-grid .top-bar .small-logo {
+        display: none !important; } }
   header .contain-to-grid .top-bar .masthead-sections {
     padding-left: 0;
     margin-left: 0;
     overflow: hidden;
     height: 45px;
-    max-width: 54.1rem; }
-    @media only screen and (min-width:64.063em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 61rem; } }
-    @media only screen and (min-width:85.25em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 67rem; } }
-    @media only screen and (min-width:90.063em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 71rem; } }
-    @media screen and (min-width: 92em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 73rem; } }
-    @media screen and (min-width: 94em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 75rem; } }
-    @media screen and (min-width: 96em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 78rem; } }
-    @media screen and (min-width: 98em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 80.6rem; } }
-    @media screen and (min-width: 100em) and (orientation: landscape) {
-      header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 82.6rem; } }
+    max-width: 11rem; }
     @media only screen and (min-width:120.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 83rem; } }
+        max-width: 97rem; } }
+    @media screen and (min-width: 112.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 96rem; } }
+    @media screen and (max-width: 112em) and (min-width: 106.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 89.5rem; } }
+    @media screen and (max-width: 106em) and (min-width: 103.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 87.3rem; } }
+    @media screen and (max-width: 103em) and (min-width: 100.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 84.3rem; } }
+    @media screen and (max-width: 100em) and (min-width: 98.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 82.3rem; } }
+    @media screen and (max-width: 98em) and (min-width: 96.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 80.6rem; } }
+    @media screen and (max-width: 96em) and (min-width: 94.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 78rem; } }
+    @media screen and (max-width: 94em) and (min-width: 92.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 75rem; } }
+    @media screen and (max-width: 92em) and (min-width: 89.01em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 73.4rem; } }
+    @media screen and (max-width: 89em) and (min-width: 83em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 66.9rem; } }
+    @media screen and (max-width: 82.99em) and (min-width: 77em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 61rem; } }
+    @media screen and (max-width: 76.99em) and (min-width: 72em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 53rem; } }
+    @media screen and (max-width: 71.99em) and (min-width: 67em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 51rem; } }
+    @media screen and (max-width: 66.99em) and (min-width: 64em) and (orientation: landscape) {
+      header .contain-to-grid .top-bar .masthead-sections {
+        max-width: 48.2rem; } }
     header .contain-to-grid .top-bar .masthead-sections ul {
       list-style-type: none;
       background: #231f20; }
@@ -2992,6 +3072,10 @@ header .contain-to-grid .top-bar {
         padding-right: 0.1rem; }
         header .contain-to-grid .top-bar .masthead-sections li:last-child {
           padding-right: 0; } }
+    header .contain-to-grid .top-bar .masthead-sections .nav-wrapper {
+      padding: 0; }
+    header .contain-to-grid .top-bar .masthead-sections .homepage-nav-wrapper {
+      padding: 0; }
   header .contain-to-grid .top-bar .burger-wrapper-no-fries {
     width: 44px;
     padding: 0;
@@ -3029,10 +3113,16 @@ header .contain-to-grid .top-bar {
         margin-left: 0; } }
   header .contain-to-grid .top-bar .weather-wrapper {
     padding: 0; }
+  header .contain-to-grid .top-bar .info-container {
+    margin-right: 3.4rem; }
+    @media only screen and (max-width: 40em) {
+      header .contain-to-grid .top-bar .info-container {
+        margin-right: 0; } }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section .main-nav-holder {
-      padding-left: 0; }
+      padding-left: 0;
+      padding-right: 0; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.obit-external {
       display: block; }
     header .contain-to-grid .top-bar .top-bar-section #menu-homepage-left .menu-item.hide-obit-external, header .contain-to-grid .top-bar .top-bar-section #menu-homepage .menu-item.hide-obit-external {
@@ -3106,7 +3196,7 @@ header .contain-to-grid .top-bar {
       padding-left: 10px; } }
   header .contain-to-grid .top-bar .title-area .nav-container {
     padding: 0; }
-    @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+    @media only screen and (min-width:40.063em) and (max-width:47.98em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .title-area .nav-container {
         width: 63%; } }
     @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
@@ -3116,41 +3206,62 @@ header .contain-to-grid .cst-row {
   margin: 0 auto; }
 
 body header .contain-to-grid .top-bar .masthead-sections li:not(.has-form) > a, body header .contain-to-grid .top-bar .masthead-sections a:not(.button) {
-  padding: 0 10px; }
+  padding: 0 10px;
+  float: left; }
+body header .contain-to-grid .top-bar .masthead-sections a.logo-anchor {
+  padding: 0;
+  margin-top: -2px; }
 
 body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
   padding-right: 0; }
-  @media only screen and (min-width:64.063em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 51.5rem; } }
-  @media only screen and (min-width:85.25em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 57.5rem; } }
-  @media screen and (min-width: 87em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 60.9rem; } }
-  @media only screen and (min-width:90.063em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 63rem; } }
-  @media screen and (min-width: 92em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 67rem; } }
-  @media screen and (min-width: 94em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 69rem; } }
-  @media screen and (min-width: 96em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 70rem; } }
-  @media screen and (min-width: 98em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 72.6rem; } }
-  @media screen and (min-width: 100em) and (orientation: landscape) {
-    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
-      max-width: 74.6rem;
-      width: 100%; } }
+  @media only screen and (min-width:48em) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections .small-logo {
+      display: block !important; } }
   @media only screen and (min-width:120.063em) and (orientation: landscape) {
     body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 96rem; } }
+  @media screen and (min-width: 112.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 96rem; } }
+  @media screen and (max-width: 112em) and (min-width: 106.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 89.5rem; } }
+  @media screen and (max-width: 106em) and (min-width: 103.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 87.3rem; } }
+  @media screen and (max-width: 103em) and (min-width: 100.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 84.3rem; } }
+  @media screen and (max-width: 100em) and (min-width: 98.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 82.3rem; } }
+  @media screen and (max-width: 98em) and (min-width: 96.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 80.6rem; } }
+  @media screen and (max-width: 96em) and (min-width: 94.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
       max-width: 78rem; } }
+  @media screen and (max-width: 94em) and (min-width: 92.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 75rem; } }
+  @media screen and (max-width: 92em) and (min-width: 89.01em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 73.4rem; } }
+  @media screen and (max-width: 89em) and (min-width: 83em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 66.9rem; } }
+  @media screen and (max-width: 82.99em) and (min-width: 77em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 61rem; } }
+  @media screen and (max-width: 76.99em) and (min-width: 74em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 58rem; } }
+  @media screen and (max-width: 73.99em) and (min-width: 67em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 51rem; } }
+  @media screen and (max-width: 65.99em) and (min-width: 63em) and (orientation: landscape) {
+    body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
+      max-width: 47.8rem; } }
 
 @media only screen and (min-width: 78.063em) {
   header .contain-to-grid {
@@ -3335,7 +3446,7 @@ body.post-gallery-lightbox-active {
         padding-top: 10px; } }
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title {
       margin-top: 15px; }
-      @media only screen and (max-width:47.398em) {
+      @media only screen and (max-width:47.98em) {
         #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title {
           margin-top: 0; } }
       #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title h2 {
@@ -3343,7 +3454,7 @@ body.post-gallery-lightbox-active {
         line-height: 1.25rem;
         font-weight: 700;
         color: #f8f8f8; }
-        @media only screen and (max-width:47.398em) {
+        @media only screen and (max-width:47.98em) {
           #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-title h2 {
             margin-top: 0; } }
     #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
@@ -3358,7 +3469,7 @@ body.post-gallery-lightbox-active {
       overflow: auto;
       border-top: 1px solid white;
       border-bottom: 1px solid white; }
-      @media only screen and (max-width:47.398em) {
+      @media only screen and (max-width:47.98em) {
         #cst-gallery-wrap #cst-gallery-slides-sidebar #cst-gallery-slide-caption {
           padding-bottom: 0;
           background: #231f20;
@@ -3437,14 +3548,14 @@ body.post-gallery-lightbox-active {
         top: 144px !important; }
       #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
         top: 50%; } }
-    @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+    @media only screen and (min-width:40.063em) and (max-width:47.98em) and (orientation: landscape) {
       #cst-gallery-wrap .slick-slider .slick-slide img {
         max-height: 91% !important;
         top: 1px !important; } }
     @media only screen and (max-width: 40em) {
       #cst-gallery-wrap .slick-slider .slick-prev, #cst-gallery-wrap .slick-slider .slick-next {
         top: 30%; } }
-  @media only screen and (max-width:47.398em) and (orientation: landscape) {
+  @media only screen and (max-width:47.98em) and (orientation: landscape) {
     #cst-gallery-wrap #cst-gallery-slides-wrap {
       margin-top: 51px; }
     #cst-gallery-wrap .slick-slider {
@@ -3461,7 +3572,7 @@ body.post-gallery-lightbox-active {
         top: -6px !important; }
       #cst-gallery-wrap #cst-gallery-slides-wrap .slick-initialized .slick-slide {
         margin-top: 7px; } }
-  @media only screen and (max-width:47.398em) and (orientation: portrait) {
+  @media only screen and (max-width:47.98em) and (orientation: portrait) {
     #cst-gallery-wrap #cst-gallery-slides-wrap {
       margin-top: 143px; }
     #cst-gallery-wrap .slick-slider {
@@ -3513,7 +3624,7 @@ body.post-gallery-lightbox-active {
       .post .post-meta .developing .right-ribbon {
         border-top: 11px solid #9a9a9a;
         border-bottom: 12px solid #9a9a9a; } }
-    @media only screen and (min-width:40.063em) and (max-width:47.398em) and (orientation: landscape) {
+    @media only screen and (min-width:40.063em) and (max-width:47.98em) and (orientation: landscape) {
       .post .post-meta .developing .developing-text {
         font-weight: 600;
         font-size: 0.6rem;
@@ -4473,7 +4584,7 @@ body.post-gallery-lightbox-active {
     .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 4rem;
       line-height: 4.5rem; } }
-  @media only screen and (max-width:47.398em) {
+  @media only screen and (max-width:47.98em) {
     .cst_feature-template-default article.post h1.hero-feature-title, .single-cst_feature article.post h1.hero-feature-title {
       font-size: 3.4rem;
       line-height: 3.5rem; } }
@@ -4547,7 +4658,7 @@ body.post-gallery-lightbox-active {
         .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 60%;
           padding: 0; } }
-      @media only screen and (max-width:47.398em) {
+      @media only screen and (max-width:47.98em) {
         .cst_feature-template-default .post-lead-media .hero-image .hero-title, .single-cst_feature .post-lead-media .hero-image .hero-title {
           top: 60%;
           padding: 0 15px; } }
@@ -4569,7 +4680,7 @@ body.post-gallery-lightbox-active {
           .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3, .single-cst_feature .post-lead-media .hero-image .hero-sig h3 {
             font-size: 1.2rem;
             line-height: 1.8rem; } }
-      @media only screen and (max-width:47.398em) {
+      @media only screen and (max-width:47.98em) {
         .cst_feature-template-default .post-lead-media .hero-image .hero-sig, .single-cst_feature .post-lead-media .hero-image .hero-sig {
           padding: 10px; }
           .cst_feature-template-default .post-lead-media .hero-image .hero-sig h3, .single-cst_feature .post-lead-media .hero-image .hero-sig h3 {

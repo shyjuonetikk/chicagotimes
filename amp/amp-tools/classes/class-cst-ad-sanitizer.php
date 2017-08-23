@@ -13,6 +13,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 	public function get_scripts() {
 		return [
 			self::$script_slug => self::$script_src,
+			'amp-sticky-ad' => 'https://cdn.ampproject.org/v0/amp-sticky-ad-1.0.js',
 		];
 	}
 	public function sanitize() {
@@ -133,5 +134,14 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'type'             => 'yieldmo',
 			'data-ymid'        => '1555064078586984494',
 		] ) );
+		$amp_sticky = AMP_DOM_Utils::create_node( $this->dom, 'amp-sticky-ad', [ 'layout' => 'nodisplay' ] );
+		$amp_sticky->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
+			'width'     => 320,
+			'height'    => 50,
+			'type'      => 'doubleclick',
+			'data-slot' => $this->dfp_handler->ad_header_settings( true ),
+			'json'      => '{"targeting":{"pos":"cst-adhesion"}}',
+		] ) );
+		$body->appendChild( $amp_sticky );
 	}
 }
