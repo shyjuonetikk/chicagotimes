@@ -522,6 +522,7 @@ class CST_Customizer {
 			'choices'  => $this->section_choices,
 			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
 		] ) );
+
 	}
 
 	/**

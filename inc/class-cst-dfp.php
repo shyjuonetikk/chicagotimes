@@ -9,7 +9,20 @@
 class CST_DFP_Handler {
 
 	private static $instance;
+	private $adhesion_template_begin =
+	'
+<div id="cst-wrapper-%1$d">
+	<div class="cst-dfp cst-creative">
+	<div id="cst-close-%1$d" onclick="document.getElementById(\'cst-close-%1$d\').style.display=\'none\';document.getElementById(\'cst-wrapper-%1$d\').style.display=\'none\';">
+		<span class="fa-stack"><i class="fa fa-circle fa-stack-1x"></i><i class="fa fa-times-circle fa-stack-1x fa-inverse"></i></span>
+	</div>'
+	;
 
+	private $adhesion_template_end =
+	'
+</div>
+</div>'
+	;
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -99,6 +112,13 @@ googletag.cmd.push(function() {
 			esc_attr( $targeting_name ),
 			esc_attr( $default_size )
 		);
+	}
+
+	public function get_dynamic_adhesion_start() {
+		return $this->adhesion_template_begin;
+	}
+	public function get_dynamic_adhesion_end() {
+		return $this->adhesion_template_end;
 	}
 	/**
 	 * @param $index
@@ -190,10 +210,9 @@ googletag.cmd.push(function() {
 ',
 			esc_attr( 'div-gpt-interstitial' ),
 			esc_attr( 'dfp dfp-centered show-for-medium-up dfp-interstitial' )
-
-			);
+		);
 	}
- 	/**
+	/**
 	 * Determine content location and inject the settings for DFP
 	 * into the markup
 	 *
