@@ -142,30 +142,6 @@ googletag.cmd.push(function() {
 			esc_attr( $class )
 		);
 	}
-	/**
-	 * @param $index
-	 * @param string $class
-	 *
-	 * @return string
-	 *
-	 * Create a DFP cube unit
-	 */
-	public function out_of_page_dynamic( $index, $class = '' ) {
-		return sprintf(
-			'
-<script class="dfp">
-googletag.cmd.push(function() {
-	CSTAdTags[\'%1$s\'] = googletag.defineOutOfPageSlot(dfp.adunitpath, \'%1$s\');
-	googletag.pubads().enableSingleRequest();
-	googletag.enableServices();
-	});
-</script>
-
-',
-			esc_attr( intval( $index ) ),
-			esc_attr( $class )
-		);
-	}
 
 	/**
 	 * @param $index
