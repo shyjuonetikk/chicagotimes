@@ -212,13 +212,6 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		] );
-		$wp_customize->add_section( 'hp_footer_section_ads', array(
-			'title'           => __( 'Homepage Footer', 'chicagosuntimes' ),
-			'description'     => __( 'Choose HP footer ads', 'chicagosuntimes' ),
-			'priority'        => 270,
-			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
-		) );
 		/**
 		 * Add settings within each section
 		 */
@@ -731,9 +724,6 @@ class CST_Customizer {
 				break;
 			case 'chartbeat_section_title':
 				return CST()->frontend->render_section_text_title( $element->id );
-				break;
-			case 'footer_config':
-				return CST()->frontend->render_hp_footer_ad_unit( $element->id );
 				break;
 		}
 
