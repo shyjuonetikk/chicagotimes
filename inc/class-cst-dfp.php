@@ -171,6 +171,12 @@ google_ad_height = 50;
 ' . $this->adhesion_template_end;
 		return sprintf( $ad_unit_template, esc_attr( intval( $unit_id ) ) );
 	}
+	public function get_dynamic_adhesion_start() {
+		return $this->adhesion_template_begin;
+	}
+	public function get_dynamic_adhesion_end() {
+		return $this->adhesion_template_end;
+	}
 	/**
 	 * @param $index
 	 * @param string $type

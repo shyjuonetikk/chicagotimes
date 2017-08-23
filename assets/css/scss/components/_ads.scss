@@ -186,19 +186,18 @@
 }
 div[id^="cst-wrapper-"] {
 	left: 0;
-	background-color: #ccc;
 	z-index: 1001;
 	margin: 0 auto;
 	position: fixed;
 	bottom: 0;
 	right: 0;
 	height: 50px;
-	width: 320px;
+	text-align:center;
+	display:inline-block;
 }
 
 .cst-creative {
 	position: relative;
-	float:right;
 }
 
 #cst-creative img {
@@ -208,9 +207,8 @@ div[id^="cst-wrapper-"] {
 }
 
 div[id^="cst-close-"] {
-	right: 0;
-	margin-top: -22px;
-	margin-right: -20px;
+	right: 4px;
+	margin-top: -17px;
 	color: #000;
 	display: block;
 	cursor: pointer;
@@ -231,8 +229,7 @@ div[id^="cst-close-"] {
 
 @media screen and (max-width: 767px) {
 	div[id^="cst-close-"] {
-		margin-right: -23px;
-		margin-top: -16px;
+		margin-top: -17px;
 	}
 
 	div[id^="cst-close-"] .fa-circle {
