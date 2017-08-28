@@ -303,6 +303,7 @@ var dfp = {
 	  .build();
     super_leaderboard_mapping = googletag.sizeMapping().
     addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
+    addSize([1025, 0], [728, 90]). //desktop
     addSize([992, 0], [ [970, 90], [728, 90] ] ). //desktop
     addSize([1024, 768], [ [320, 50], [300, 50] ] ). //tablet
     addSize([800, 1200], [ [320, 50], [300, 50] ] ). //tablet
