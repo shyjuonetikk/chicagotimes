@@ -2306,6 +2306,9 @@ section#subscribe {
   margin-right: auto;
   margin-bottom: 10px; }
 
+body.page-id-682082 section .page-content {
+  max-width: 95%; }
+
 .cst-embed-twitter .embed-content {
   padding-top: 10px;
   padding-bottom: 10px; }
@@ -2998,7 +3001,6 @@ header .contain-to-grid .top-bar {
     padding-left: 0;
     margin-left: 0;
     overflow: hidden;
-    height: 45px;
     max-width: 11rem; }
     @media only screen and (min-width:120.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
