@@ -191,28 +191,7 @@ googletag.cmd.push(function() {
 	}
 
 	/**
-	* @return string
-	*
-	* Create a custom interstitial unit
-	*/
-	public function interstitial() {
 
-		return sprintf(
-			'
-<div id="%1$s" class="%2$s">
-	<div id="dfp-interstitial-container">
-		<div class="dfp-interstitial-headerbar">
-			<a id="dfp-interstitial-close"></a>
-		</div>
-		<div id="dfp-interstitial-content"></div>
-	</div>
-</div>
-',
-			esc_attr( 'div-gpt-interstitial' ),
-			esc_attr( 'dfp dfp-centered show-for-medium-up dfp-interstitial' )
-		);
-	}
-	/**
 	 * Determine content location and inject the settings for DFP
 	 * into the markup
 	 *
@@ -455,10 +434,6 @@ var dfp = {
 		.addService(googletag.pubads())
 		.setTargeting("pos", "SkyScraper");
     }
-    if ( dfp.front_page || dfp.article || dfp.section || dfp.author ) {
-      googletag.defineSlot(adUnitPath, [1, 1], 'div-gpt-interstitial')
-        .addService(googletag.pubads()).setTargeting("pos", "1x1");
-	}
     if(dfp.gallery) {
       CSTAdTags['div-gpt-gallery-1'] = googletag.defineSlot(adUnitPath, [300, 250], 'div-gpt-gallery-1')
         .addService(googletag.pubads())

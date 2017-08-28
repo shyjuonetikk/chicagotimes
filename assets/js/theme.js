@@ -54,9 +54,6 @@
             this.searchInput = $('#search-input');
             this.leftSidebar = $('.stick-sidebar-left');
             this.dfpSBB = $('#div-gpt-sbb');
-            this.interstitial = $('#div-gpt-interstitial');
-            this.interstitialContainer = $('#dfp-interstitial-container');
-            this.closeInterstitial = $('#dfp-interstitial-close');
           this.header = $('#header');
             this.articleUpperAdUnit = $('.article-upper-ad-unit');
             this.spacer = $(".spacer");
@@ -119,11 +116,6 @@
                 $( "#dfp-sbb-top" ).show();
                 $( "#dfp-sbb-bottom" ).hide();
             });
-            this.closeInterstitial.on( "click", $.proxy( function (e) {
-                e.preventDefault();
-                this.interstitial.css('display', 'none');
-                this.interstitialContainer.css('display', 'none');
-            }, this ) );
           $(document)
             .on('open.fndtn.offcanvas', '[data-offcanvas]', CST.handleNavigation)
             .on('close.fndtn.offcanvas', '[data-offcanvas]', function() {
