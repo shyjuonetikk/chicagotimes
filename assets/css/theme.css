@@ -3011,7 +3011,6 @@ header .contain-to-grid .top-bar {
     padding-left: 0;
     margin-left: 0;
     overflow: hidden;
-    height: 45px;
     max-width: 11rem; }
     @media only screen and (min-width:120.063em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
