@@ -24,12 +24,10 @@ class CST_TCX_Widget extends WP_Widget {
     public function widget( $args, $instance ) {
 
             $current_tcx = isset( $instance['tcx_widget'] ) ? $instance['tcx_widget'] : '';
-            #echo "CurrentTCX $current_tcx ";
             switch( $current_tcx ) {
                 case 'entertainment':
-                if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
-                    #echo "TCX WIDGET IS MOBILE $tcx_widgets ";
-                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&amp;type=centipede_entertainment&amp;style=standard";
+                if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+                    $url = "//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&amp;type=centipede_entertainment&amp;style=standard";
                     ?>
                     <li class="tcx_entertainment_widget tcx_widget">
                         <div class="large-12 medium-6 small-6">
@@ -37,9 +35,8 @@ class CST_TCX_Widget extends WP_Widget {
                         </div>
                     </li>
                 <?php
-                } else { 
-                   #echo "TCX WIDGET IS NOT MOBILE $tcx_widgets ";
-                   $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=dynamic_group_entertainment&style=standard";
+                } else {
+                   $url = "//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=dynamic_group_entertainment&style=standard";
                     ?>
                    <li class="tcx_entertainment_widget tcx_widget">
                         <div class="large-12 medium-6 small-6">
@@ -51,9 +48,8 @@ class CST_TCX_Widget extends WP_Widget {
                     break;
 
                  case 'money':
-                if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
-                    #echo "TCX WIDGET IS MOBILE $tcx_widgets ";
-                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=centipede_money&style=standard";
+                if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+                    $url = "//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=centipede_money&style=standard";
                 ?>
                     <li class="tcx_entertainment_widget tcx_widget">
                         <div class="large-12 medium-6 small-6">
@@ -61,9 +57,8 @@ class CST_TCX_Widget extends WP_Widget {
                         </div>
                     </li>
                 <?php
-                } else { 
-                    #echo "TCX WIDGET IS NOT MOBILE $tcx_widgets ";
-                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=dynamic_group_money&style=standard";
+                } else {
+                    $url = "//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=dynamic_group_money&style=standard";
                     ?>
 
                    <li class="tcx_entertainment_widget tcx_widget">
@@ -77,9 +72,8 @@ class CST_TCX_Widget extends WP_Widget {
                     break;
 
                  case 'sports':
-                if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
-                    #echo "TCX WIDGET IS MOBILE $tcx_widgets ";
-                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=centipede_sports&style=standard";
+                if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+                    $url = "//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=centipede_sports&style=standard";
                     ?>
                     <li class="tcx_entertainment_widget tcx_widget">
                         <div class="large-12 medium-6 small-6">
@@ -87,9 +81,8 @@ class CST_TCX_Widget extends WP_Widget {
                         </div>
                     </li>
                 <?php
-                } else { 
-                    #echo "TCX WIDGET IS NOT MOBILE $tcx_widgets ";
-                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=dynamic_group_sports&style=standard";
+                } else {
+                    $url = "//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=dynamic_group_sports&style=standard";
                     ?>
                    <li class="tcx_entertainment_widget tcx_widget">
                         <div class="large-12 medium-6 small-6">
@@ -97,13 +90,12 @@ class CST_TCX_Widget extends WP_Widget {
                         </div>
                     </li>
                 <?php
-                }   
+                }
                     break;
 
                 case 'weather':
-                if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
-                    #echo "TCX WIDGET IS MOBILE $tcx_widgets ";
-                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=centipede_weather&style=standard";
+                if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+                    $url = "//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=centipede_weather&style=standard";
                     ?>
                     <li class="tcx_entertainment_widget tcx_widget">
                         <div class="large-12 medium-6 small-6">
@@ -111,9 +103,8 @@ class CST_TCX_Widget extends WP_Widget {
                         </div>
                     </li>
                 <?php
-                } else { 
-                    #echo "TCX WIDGET IS NOT MOBILE $tcx_widgets ";
-                    $url = "http://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=dynamic_group_weather&style=standard";
+                } else {
+                    $url = "//content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&type=dynamic_group_weather&style=standard";
                     ?>
 
                    <li class="tcx_entertainment_widget tcx_widget">

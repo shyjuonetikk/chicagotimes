@@ -20,7 +20,7 @@ class CST_Chartbeat_Currently_Viewing_Widget extends WP_Widget {
 
 		echo wp_kses_post( $args['before_title'] . 'Currently Trending' . $args['after_title'] );
 
-		$feed_url  = 'http://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=chicago%20news,%20sports,%20entertainment,%20lifestyles,%20columnists,%20politics,features&all_platforms=1&types=1&limit=10
+		$feed_url  = 'https://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=chicago%20news,%20sports,%20entertainment,%20lifestyles,%20columnists,%20politics,features&all_platforms=1&types=1&limit=10
 ';
 		$cache_key = md5( $feed_url );
 		$result    = wpcom_vip_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.

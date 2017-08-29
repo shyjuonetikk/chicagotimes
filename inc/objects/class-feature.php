@@ -37,7 +37,7 @@ class Feature extends Post {
 			if ( array_key_exists( $media_type, $this->send_to_news_embeds ) ) {
 				$template   = '<p><iframe id="%s" src="%s" %s></iframe></p>';
 				$styles     = 'frameborder="0" scrolling="no" allowfullscreen="" style="height:100%; min-height: 26rem; width:1px; min-width:100%; margin:0 auto; padding:0; display:block; border:0 none;" class="s2nvcloader"';
-				$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $media_type ] );
+				$iframe_url = sprintf( 'https://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $media_type ] );
 				$markup     = sprintf( $template, 's2nIframe-' . $this->send_to_news_embeds[ $media_type ] . '-' . $this->post->ID, $iframe_url, $styles );
 				return $markup;
 			} else {

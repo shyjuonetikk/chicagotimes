@@ -100,10 +100,10 @@ class Article extends Post {
 		if ( defined( 'AMP__VERSION' ) && is_amp_endpoint() ) { // legacy
 			$template   = '<iframe id="%1$s" src="%2$s" %3$s></iframe>';
 			$styles     = 'frameborder="0" scrolling="no" allowfullscreen=" class=s2nvcloader';
-			$iframe_url = sprintf( 'http://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $media_type ] );
+			$iframe_url = sprintf( 'https://embed.sendtonews.com/player2/embedplayer.php?type=full&amp;fk=%s&amp;cid=4661', $this->send_to_news_embeds[ $media_type ] );
 			$markup = sprintf( $template, 's2nIframe-' . esc_attr( $this->send_to_news_embeds[ $media_type ] ) . '-' . esc_attr( $this->post->ID ), esc_url( $iframe_url ), esc_attr( $styles ) );
 		} else {
-			$template = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"><script type="text/javascript" src="' . esc_url( 'http://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div></div>';
+			$template = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"><script type="text/javascript" src="' . esc_url( 'https://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div></div>';
 			$markup   = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $media_type ] ), esc_attr( $this->post->ID ) );
 		}
 		return $markup;
