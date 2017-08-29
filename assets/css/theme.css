@@ -4246,6 +4246,14 @@ body.post-gallery-lightbox-active {
     max-height: 37px;
     background-color: transparent; }
 
+.weather-video-container {
+  margin: 50px 22px 20px 0;
+  width: 100%;
+  height: auto; }
+
+.weather-sidebar {
+  margin-top: 50px; }
+
 .elections-container {
   margin: 0; }
 
