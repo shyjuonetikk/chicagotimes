@@ -11,19 +11,19 @@ $chartbeat_result_type = get_theme_mod( 'chartbeat_config' );
 switch ( $chartbeat_result_type ) {
 	case 1 :
 		// Concurrents (default Chartbeat)
-		$chartbeat_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=fe619e0e0b2a7b2742c6a97e14fb2eb8&host=chicago.suntimes.com&section=chicago%20news,sports,politics,business,sun-times%20wire,opinion,crime,the%20watchdogs,baseball,football,basketball,hockey&metrics=post_id&limit=6';
+		$chartbeat_url = 'https://api.chartbeat.com/live/toppages/v3/?apikey=fe619e0e0b2a7b2742c6a97e14fb2eb8&host=chicago.suntimes.com&section=chicago%20news,sports,politics,business,sun-times%20wire,opinion,crime,the%20watchdogs,baseball,football,basketball,hockey&metrics=post_id&limit=6';
 		break;
 	case 2 :
 		// Returning time
-		$chartbeat_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=fe619e0e0b2a7b2742c6a97e14fb2eb8&host=chicago.suntimes.com&section=chicago%20news,sports,politics,business,sun-times%20wire,opinion,crime,the%20watchdogs,baseball,football,basketball,hockey&metrics=post_id&sort_by=returning&limit=6';
+		$chartbeat_url = 'https://api.chartbeat.com/live/toppages/v3/?apikey=fe619e0e0b2a7b2742c6a97e14fb2eb8&host=chicago.suntimes.com&section=chicago%20news,sports,politics,business,sun-times%20wire,opinion,crime,the%20watchdogs,baseball,football,basketball,hockey&metrics=post_id&sort_by=returning&limit=6';
 		break;
 	case 3 :
 		// Engaged time
-		$chartbeat_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=fe619e0e0b2a7b2742c6a97e14fb2eb8&host=chicago.suntimes.com&section=chicago%20news,sports,politics,business,sun-times%20wire,opinion,crime,the%20watchdogs,baseball,football,basketball,hockey&metrics=post_id&sort_by=engaged_time&limit=6';
+		$chartbeat_url = 'https://api.chartbeat.com/live/toppages/v3/?apikey=fe619e0e0b2a7b2742c6a97e14fb2eb8&host=chicago.suntimes.com&section=chicago%20news,sports,politics,business,sun-times%20wire,opinion,crime,the%20watchdogs,baseball,football,basketball,hockey&metrics=post_id&sort_by=engaged_time&limit=6';
 		break;
 	default:
 		// Concurrents - default if theme mod not available.
-		$chartbeat_url = 'http://api.chartbeat.com/live/toppages/v3/?apikey=fe619e0e0b2a7b2742c6a97e14fb2eb8&host=chicago.suntimes.com&section=chicago%20news,sports,politics,business,sun-times%20wire,opinion,crime,the%20watchdogs,baseball,football,basketball,hockey&metrics=post_id&limit=6';
+		$chartbeat_url = 'https://api.chartbeat.com/live/toppages/v3/?apikey=fe619e0e0b2a7b2742c6a97e14fb2eb8&host=chicago.suntimes.com&section=chicago%20news,sports,politics,business,sun-times%20wire,opinion,crime,the%20watchdogs,baseball,football,basketball,hockey&metrics=post_id&limit=6';
 }
 $cache_key = md5( $chartbeat_url );
 $chartbeat_data = wpcom_vip_cache_get( $cache_key, 'cst' );
