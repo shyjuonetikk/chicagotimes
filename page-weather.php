@@ -15,7 +15,7 @@
             <div class="large-8 columns">
                 <div class="weather-video-container">
                     <h2><?php esc_html_e( 'ABC7 Weather', 'chicagosuntimes' ); ?></h2>
-                    <video id= "player" width="100%" height="357" controls poster = "https://cdn.abclocal.go.com/images/wls/cms_exf_2007/automation/images/9423983_600x338.jpg">
+                    <video id= "player" width="100%" height="357" controls poster = "http://cdn.abclocal.go.com/images/wls/cms_exf_2007/automation/images/9423983_600x338.jpg">
                         <source src="https://dig.abclocal.go.com/wls/video/SunTimes/wls_vid_wx_planner.mp4?vs=20141101 21:16:01" type='video/mp4' />
                         <source src="https://dig.abclocal.go.com/wls/video/SunTimes/wls_vid_wx_planner.webm?vs=20141101 21:16:01" type='video/webm' />
                         <source src="https://dig.abclocal.go.com/wls/video/SunTimes/wls_vid_wx_planner.ogv?vs=20141101 21:16:01" type='video/ogg' />
