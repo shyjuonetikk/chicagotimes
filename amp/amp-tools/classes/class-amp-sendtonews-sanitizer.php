@@ -51,7 +51,7 @@ class CST_AMP_Send_To_News_Sanitizer extends AMP_Base_Sanitizer {
 	public function get_scripts() {
 		$player_id = $this->get_player_id();
 		if ( $player_id ) {
-			return array( 'http://embed.sendtonews.com/player2/embedcode.php?type=full&fk=' . $player_id . '&cid=4661' );
+			return array( 'https://embed.sendtonews.com/player2/embedcode.php?type=full&fk=' . $player_id . '&cid=4661' );
 		} else {
 			return array();
 		}
