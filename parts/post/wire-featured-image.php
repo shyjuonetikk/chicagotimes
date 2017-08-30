@@ -1,4 +1,4 @@
-<?php $image_size = ( is_tax() || is_author() ) ? 'chiwire-header-small' : 'chiwire-article'; ?>
+<?php $image_size = ( is_tax() || is_author() ) ? 'chiwire-section-small' : 'chiwire-article'; ?>
 <?php if ( $obj->get_sponsored_content() ) { ?>
 <div class="section-sponsor-banner">
 	<h4 class="sponsored-notification">SPONSORED</h4>
