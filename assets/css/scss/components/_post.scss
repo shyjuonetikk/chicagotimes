@@ -887,9 +887,6 @@ body[class~="archive"] {
 			.section-front {
 				float: left;
 			}
-			.post-lead-media {
-				float:left;
-			}
 			.section-image {
 				position: relative;
 				float:left;
@@ -929,6 +926,10 @@ body[class~="archive"] {
 				font-weight:800;
 				margin-left:10px;
 				margin-right:10px;
+				@media #{$xmediumi-down} {
+					font-size: 0.9rem;
+					line-height:1.1rem;
+				}
 			}
 			.post-meta-bottom {
 				clear:both;
