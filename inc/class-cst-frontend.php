@@ -700,7 +700,7 @@ class CST_Frontend {
 		if ( $this->display_minimal_nav() ) {
 			return;
 		}
-		$response = wpcom_vip_file_get_contents( 'http://apidev.accuweather.com/currentconditions/v1/348308.json?language=en&apikey=' . CST_ACCUWEATHER_API_KEY );
+		$response = wpcom_vip_file_get_contents( 'https://apidev.accuweather.com/currentconditions/v1/348308.json?language=en&apikey=' . CST_ACCUWEATHER_API_KEY );
 		$data = json_decode( $response );
 		if ( ! $data ) {
 			return false;
