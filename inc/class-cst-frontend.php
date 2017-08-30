@@ -293,6 +293,7 @@ class CST_Frontend {
 	* Zendesk #68999
 	*/
 	public function section_front_dequeue_devicepx() {
+		// An alternative for sitewide disablement is wpcom_vip_disable_devicepx_js()
 		if ( is_tax() ) {
 			wp_dequeue_script( 'devicepx' );
 		}
