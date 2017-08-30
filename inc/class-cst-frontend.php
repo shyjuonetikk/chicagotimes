@@ -76,6 +76,8 @@ class CST_Frontend {
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_distroscale_injection' ] );
 		add_action( 'head_early_elements', [ $this, 'action_head_early_elements' ] );
 		add_action( 'body_start', [ $this, 'action_body_start' ] );
+		add_action( 'wp_enqueue_scripts', [ $this, 'section_front_dequeue_devicepx' ] );
+
 	}
 
 	/**
@@ -287,6 +289,16 @@ class CST_Frontend {
 
 	}
 
+	/**
+	* Remove the devicepx code from our section fronts to test and prevent unnecessary img src modifications
+	* Zendesk #68999
+	*/
+	public function section_front_dequeue_devicepx() {
+		// An alternative for sitewide disablement is wpcom_vip_disable_devicepx_js()
+		if ( is_tax() ) {
+			wp_dequeue_script( 'devicepx' );
+		}
+	}
 	/**
 	 * Add meta tags to the head of our site
 	 */
