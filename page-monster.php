@@ -17,15 +17,15 @@
 		/* VARIABLES END */
 	</script>
 
-	<script type="text/javascript" src="http://media.newjobs.com/cms/OpenTemplate/Newspaper/2016/js/jquery-identify-v2.js"></script>
-	<link id="stylesheet-dimensions" rel="stylesheet" type="text/css" href="http://media.newjobs.com/cms/OpenTemplate/Newspaper/2016/css/main_fluid.css" />
+	<script type="text/javascript" src="//media.newjobs.com/cms/OpenTemplate/Newspaper/2016/js/jquery-identify-v2.js"></script>
+	<link id="stylesheet-dimensions" rel="stylesheet" type="text/css" href="//media.newjobs.com/cms/OpenTemplate/Newspaper/2016/css/main_fluid.css" />
 	<!--[if IE 8]>
-	<link rel="stylesheet" type="text/css" href="http://media.newjobs.com/homepage/css/home/ie.css" />
+	<link rel="stylesheet" type="text/css" href="//media.newjobs.com/homepage/css/home/ie.css" />
 	<![endif]-->
 	<link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500' rel='stylesheet' type='text/css'>
 	<!--[if lt IE 9]>
-	<script src="http://media.newjobs.com/homepage/js/html5shim.js"></script>
-	<script src="http://media.newjobs.com/homepage/js/html5shiv.js"></script>
+	<script src="//media.newjobs.com/homepage/js/html5shim.js"></script>
+	<script src="//media.newjobs.com/homepage/js/html5shiv.js"></script>
 	<![endif]-->
 <div>
 	<br>
@@ -38,7 +38,7 @@
 							<div class="nc-row nc-seeker-cta">
 								<div class="nc-logo">
 									<a href="http://jobsearch.local-jobs.monster.com/?wt.mn_n=hjnpmonstercom" target="_blank">
-										<img src="http://media.newjobs.com/global/img/logo_NOTAGLINE.png"/>
+										<img src="//media.newjobs.com/global/img/logo_NOTAGLINE.png"/>
 									</a>
 								</div>
 
@@ -138,8 +138,8 @@
 </div>
 
 	<!--DON'T MODIFY-->
-	<script type="text/javascript" src="http://media.newjobs.com/js/global/at_1.4.js" ></script>
-	<script type="text/javascript" src="http://media.newjobs.com/cms/OpenTemplate/Newspaper/2016/js/footerhookv1-min.js"></script>
+	<script type="text/javascript" src="//media.newjobs.com/js/global/at_1.4.js" ></script>
+	<script type="text/javascript" src="//media.newjobs.com/cms/OpenTemplate/Newspaper/2016/js/footerhookv1-min.js"></script>
 	<!--DON'T MODIFY-->
 
 
