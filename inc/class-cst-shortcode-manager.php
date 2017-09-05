@@ -98,7 +98,7 @@ class CST_Shortcode_Manager {
 			return '';
 		}
 
-		return '<iframe src="//thecube.com/embed/' . esc_attr( $atts['id'] )  . '" width="640" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px" href="http://thecube.com">Share Events on The Cube</a></div>';
+		return '<iframe src="//thecube.com/embed/' . esc_attr( $atts['id'] )  . '" width="640" height="460" frameborder="0" scrolling="no" allowtransparency="true" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe><div><a style="font-size:11px" href="https://thecube.com">Share Events on The Cube</a></div>';
 
 	}
 }
