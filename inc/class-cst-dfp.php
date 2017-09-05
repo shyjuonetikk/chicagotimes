@@ -461,21 +461,20 @@ var dfp = {
 	 * Defaults to production ad delivery
 	 */
 	public function get_parent_dfp_inventory() {
-		$current_site_url = get_bloginfo( 'url' );
-		switch ( $current_site_url ) {
-			case 'http://dev.suntimes.com':
-			case 'https://suntimesmediapreprod.wordpress.com':
-			case 'http://vip.local':
-			case 'http://vagrant.local':
+		$pathname = explode( '//', get_bloginfo( 'url' ) );
+		switch ( $pathname[1] ) {
+			case 'dev.suntimes.com':
+			case 'suntimesmediapreprod.wordpress.com':
+			case 'vip.local':
+			case 'vagrant.local':
 				$parent_inventory = 'chicago.suntimes.com.test';
 				break;
-			case 'http://chicago.suntimes.com':
-			case 'https://suntimesmedia.wordpress.com':
+			case 'chicago.suntimes.com':
+			case 'suntimesmedia.wordpress.com':
 				$parent_inventory = 'chicago.suntimes.com';
 				break;
 			default:
 				$parent_inventory = 'chicago.suntimes.com';
-
 		}
 		return $parent_inventory;
 	}
