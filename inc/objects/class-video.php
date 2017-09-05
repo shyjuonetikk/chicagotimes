@@ -66,7 +66,7 @@ class Video extends Post {
 					$max_width = intval( $image_sizes[ $embed_size ]['width'] );
 					$max_height = intval( $image_sizes[ $embed_size ]['height'] );
 				} else {
-					$share_link = '<div><a style="font-size:11px" href="http://thecube.com">Share Events on The Cube</a></div>';
+					$share_link = '<div><a style="font-size:11px" href="https://thecube.com">Share Events on The Cube</a></div>';
 					$max_height = 460;
 					$max_width = 640;
 				}
@@ -129,7 +129,7 @@ class Video extends Post {
 			return;
 		}
 
-		$request_url = 'http://www.youtube.com/oembed?format=json&maxheight=9999&maxwidth=9999&url=' . urlencode( $video_url );
+		$request_url = 'https://www.youtube.com/oembed?format=json&maxheight=9999&maxwidth=9999&url=' . urlencode( $video_url );
 		$response = wp_remote_get( $request_url );
 		// Let's not try again anyway.
 		if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {

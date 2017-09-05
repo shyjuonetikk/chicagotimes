@@ -475,7 +475,6 @@ var dfp = {
 				break;
 			default:
 				$parent_inventory = 'chicago.suntimes.com';
-
 		}
 		return $parent_inventory;
 	}
