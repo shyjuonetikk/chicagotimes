@@ -697,6 +697,7 @@ class CST {
 			$editor->add_cap( 'customize' );
 		}
 	}
+
 	/**
 	 * @param $category
 	 * @param $_post_id
