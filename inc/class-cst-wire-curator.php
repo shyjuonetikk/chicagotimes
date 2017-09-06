@@ -175,7 +175,7 @@ class CST_Wire_Curator {
 			return $out;
 		}
 
-		$out .= '<p>' . sprintf( __( 'Wire Curator accepts WebFeeds from WebFeeds manager Products or Save Searches. You can <a target="_blank" href="%s">log in</a> with these credentials: %s / %s', 'chicagosuntimes' ), 'http://wfm.ap.org/Admin/', CST_AP_SYNDICATION_USERNAME, CST_AP_SYNDICATION_PASSWORD ) . '</p>';
+		$out .= '<p>' . sprintf( __( 'Wire Curator accepts WebFeeds from WebFeeds manager Products or Save Searches. You can <a target="_blank" href="%s">log in</a> with these credentials: %s / %s', 'chicagosuntimes' ), 'https://wfm.ap.org/Admin/', CST_AP_SYNDICATION_USERNAME, CST_AP_SYNDICATION_PASSWORD ) . '</p>';
 
 		return $out;
 	}
