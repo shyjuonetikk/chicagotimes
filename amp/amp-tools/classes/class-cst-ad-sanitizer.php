@@ -65,6 +65,14 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			] ) );
 			$cst_cube_ads[ $index ] = $center_div;
 		}
+		$ad_node_nativo = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
+			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/nativo.md
+			'width'            => 300,
+			'height'           => 200,
+			'type'             => 'nativo',
+			'layout'           => 'responsive',
+			'src'              => '//s.ntv.io/serve/load.js'
+		] );
 		$center_div_leaderboard = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
 		$center_div_leaderboard->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/builtins/amp-ad.md
@@ -97,10 +105,16 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'data-article'     => 'auto',
 		] );
 
-		// Add in Teads then multiple cubes based on paragraph count
-		if ( $paras_to_inject_ad_into >= 1 ) {
+		// Add in Teads based on paragraph count
+		if ( $number_of_paragraph_blocks > 1 ) {
 			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $ad_node_teads, $paragraph_nodes->item( 2 ) );
-			// Now add in cubes spaced as best possible
+		}
+		// Now add in the Nativo unit
+		if ( $number_of_paragraph_blocks > 5 ) {
+			$paragraph_nodes->item( 6 )->parentNode->insertBefore( $ad_node_nativo, $paragraph_nodes->item( 6 ) );
+		}
+		// Now add in multiple cubes spaced as best possible
+		if ( $paras_to_inject_ad_into >= 1 ) {
 			for ( $index = 0, $paras = $ad_paragraph_spacing; $index <= $paras_to_inject_ad_into; $index++, $paras += $ad_paragraph_spacing  ) {
 				if ( $paras > $number_of_paragraph_blocks ) {
 					break;
