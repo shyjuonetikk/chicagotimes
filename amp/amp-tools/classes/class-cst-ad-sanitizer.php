@@ -71,6 +71,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 			'height'           => 200,
 			'type'             => 'nativo',
 			'layout'           => 'responsive',
+			'src'              => '//s.ntv.io/serve/load.js'
 		] );
 		$center_div_leaderboard = AMP_DOM_Utils::create_node( $this->dom, 'div', array( 'class' => 'ad-center' ) );
 		$center_div_leaderboard->appendChild( AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
