@@ -657,10 +657,11 @@ class CST {
 		});
 		add_filter( 'user_has_cap',
 			function( $caps ) {
-				if ( ! empty( $caps['edit_pages'] ) )
+				if ( ! empty( $caps['edit_pages'] ) ) {
 					$caps['edit_theme_options'] = true;
-					$caps['customize'] = true;
-				return $caps;
+					$caps['customize']          = true;
+					return $caps;
+				}
 			}
 		);
 	}

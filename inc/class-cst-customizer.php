@@ -78,7 +78,7 @@ class CST_Customizer {
 		'featured_story_block_headlines_4' => true,
 		'featured_story_block_headlines_5' => true,
 	];
-	private $capability = 'edit_theme_options';
+	private $capability = 'edit_others_posts';
 	private $sports_section_choices, $section_choices;
 
 	public static function get_instance() {
