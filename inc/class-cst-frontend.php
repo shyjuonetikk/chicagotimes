@@ -96,7 +96,6 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
-		add_filter( 'the_content', [ $this, 'inject_nativo_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
@@ -2209,26 +2208,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
 			}
 		}
-	}
-	/**
-	*
-	* Inject Nativo mobile if singular and mobile and over 16 paragraphs
-	* Only do this on article pages
-	*
-	*/
-	public function inject_nativo_mobile( $content ) {
-		if ( is_singular( 'cst_article' ) ) {
-			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
-				$nativo_mobile = '<amp-ad width=300 height=250 type=nativo layout=responsive></amp-ad>';
-				$exploded = explode( '</p>', $content );
-				$num_exploded = count( $exploded );
-				if ( $num_exploded > 5) {
-					array_splice( $exploded, 6, 0, $nativo_mobile );
-					$content = join( '</p>', $exploded );
-				}
-			}
-		}
-		return $content;
 	}
 	/**
 	*
