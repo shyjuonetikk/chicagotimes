@@ -111,7 +111,10 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		}
 		// Now add in the Nativo unit
 		if ( $number_of_paragraph_blocks > 5 ) {
-			$paragraph_nodes->item( 6 )->parentNode->insertBefore( $ad_node_nativo, $paragraph_nodes->item( 6 ) );
+			// VIP: Stopping fatal error "Uncaught Error: Call to a member function insertBefore() on null"
+			if ( is_callable( array( $paragraph_nodes->item( 6 )->parentNode, 'insertBefore' ) ) ) {
+				$paragraph_nodes->item( 6 )->parentNode->insertBefore( $ad_node_nativo, $paragraph_nodes->item( 6 ) );
+			}
 		}
 		// Now add in multiple cubes spaced as best possible
 		if ( $paras_to_inject_ad_into >= 1 ) {
