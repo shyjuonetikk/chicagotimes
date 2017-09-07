@@ -688,21 +688,6 @@ abstract class Post {
 	}
 
 	/**
-	 * Get the chatter widget field for the post
-	 *
-	 * @return string
-	 */
-	public function get_chatter_widget_selection() {
-
-		if ( $chatter_selection = $this->get_fm_field( 'cst_preferred_terms' ) ) {
-			return $chatter_selection['choose_chatter']['chatter_widget_selection'];
-		} else {
-			return false;
-		}
-
-	}
-
-	/**
 	 * Get the yieldmo tag field for the post
 	 *
 	 * @return string

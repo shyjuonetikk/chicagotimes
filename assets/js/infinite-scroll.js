@@ -126,12 +126,7 @@
 
         CSTInfiniteScroll.fireTaboola(uri);
         CSTInfiniteScroll.fireYieldmo();
-        CSTInfiniteScroll.fireChatter();
 
-
-			    if(window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK){
-            window.AggregoHeadlinesNetwork && AggregoHeadlinesNetwork.inject(window.SECTIONS_FOR_AGGREGO_HEADLINESNETWORK)
-			    }
         wp_title = post.data("cst-wp-title");
 
 				document.title = wp_title;
@@ -209,11 +204,6 @@
         window._taboola = window._taboola || [];
         _taboola.push({mode:"thumbnails-c", container: CSTData.taboola_container_id, placement: "Below Article Thumbnails", target_type: "mix"});
         _taboola.push({article:"auto", url:uri});
-      }
-    },
-		fireChatter: function() {
-      if(window.SECTIONS_FOR_AGGREGO_CHATTER){
-        window.AggregoChatter && AggregoChatter.inject(window.SECTIONS_FOR_AGGREGO_CHATTER)
       }
     },
 		fireYieldmo: function() {

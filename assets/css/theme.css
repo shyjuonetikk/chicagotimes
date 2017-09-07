@@ -1873,38 +1873,6 @@ body[class^="cst_article-"] article.post .sponsored-notification {
     margin: 0;
     padding: 0.8rem; }
 
-article[id^="post-"] .agg-collage {
-  margin-top: -5px;
-  padding: 6px 0; }
-article[id^="post-"] .agg-chatter {
-  float: left; }
-article[id^="post-"] .agg-collage .agg-collage-container {
-  margin: 0 auto; }
-article[id^="post-"] .agg-collage .agg-collage-version-mid_article_three_pack .post-thumbnail {
-  height: 76%;
-  padding-bottom: 60% !important;
-  background-position: top left !important;
-  -webkit-border-radius: 0 !important;
-  -moz-border-radius: 0 !important;
-  border-radius: 0 !important;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  background-size: contain !important;
-  background-repeat: no-repeat; }
-article[id^="post-"] .agg-collage .agg-collage-post {
-  margin: 0.5% 0.9% 0.5%;
-  width: 30.3%; }
-article[id^="post-"] h4.agg-sponsored {
-  margin-top: 20px;
-  font-size: 1rem;
-  color: #9a9a9a;
-  font-weight: 600;
-  text-transform: uppercase; }
-  article[id^="post-"] h4.agg-sponsored span {
-    text-transform: capitalize;
-    color: #7d7e7e; }
-
 body[class~="archive"] article.post {
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   float: left; }
