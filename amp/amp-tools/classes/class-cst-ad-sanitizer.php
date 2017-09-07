@@ -68,7 +68,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		$ad_node_nativo = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/nativo.md
 			'width'            => 300,
-			'height'           => 200,
+			'height'           => 250,
 			'type'             => 'nativo',
 			'layout'           => 'responsive',
 			'src'              => '//s.ntv.io/serve/load.js'
