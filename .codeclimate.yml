@@ -18,7 +18,10 @@ engines:
     enabled: true
   phpmd:
     enabled: true
-  phpcodesniffer:
+    config:
+        file_extensions: "php"
+        rulesets: "unusedcode,cleancode,controversial,design"
+phpcodesniffer:
     enabled: true
     config:
         standard: "WordPress-VIP"
