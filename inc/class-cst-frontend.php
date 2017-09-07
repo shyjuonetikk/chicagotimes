@@ -2242,38 +2242,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			return;
 		}
 		if ( is_singular() ) {
-		?>
-<!-- teads tag -->
-<script type="text/javascript">
-function ready(fn) {
-  if (document.readyState != 'complete') {
-    window.addEventListener('load', fn);
-  } else {
-    fn();
-  }
-}
-function fn() {
-window._ttf = window._ttf || [];
-_ttf.push({
-       pid          : 58294
-       ,lang        : "en"
-       ,slot        : '[itemprop="articleBody"] > p'
-       ,format      : "inread"
-       ,minSlot     : 2
-       ,css         : "margin: 0px auto 5px; max-width: 550px;"
-});
-
-(function (d) {
-        var js, s = d.getElementsByTagName('script')[0];
-        js = d.createElement('script');
-        js.async = true;
-        js.src = '//cdn.teads.tv/media/format.js';
-        s.parentNode.insertBefore(js, s);
-})(window.document);
-}
-ready(fn);
-</script><!-- /teads tag -->
-	<?php
+			wp_enqueue_script( 'teads', '//a.teads.tv/page/53230/tag', [], null, true );
 		}
 	}
 
