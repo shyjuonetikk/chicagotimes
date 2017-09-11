@@ -106,8 +106,11 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		] );
 
 		// Add in Teads based on paragraph count
-		if ( $number_of_paragraph_blocks > 1 ) {
-			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $ad_node_teads, $paragraph_nodes->item( 2 ) );
+		if ( $number_of_paragraph_blocks >= 2 ) {
+			// Zendesk 69406 - prevent fatal errors
+			if ( is_callable( array( $paragraph_nodes->item( 2 )->parentNode, 'insertBefore' ) ) ) {
+				$paragraph_nodes->item( 2 )->parentNode->insertBefore( $ad_node_teads, $paragraph_nodes->item( 2 ) );
+			}
 		}
 		// Now add in the Nativo unit
 		if ( $number_of_paragraph_blocks > 5 ) {
