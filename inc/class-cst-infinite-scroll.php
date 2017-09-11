@@ -20,11 +20,11 @@ class CST_Infinite_Scroll {
 	 */
 	private function setup_actions() {
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'action_wp_enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_wp_enqueue_scripts' ] );
 
-		add_action( 'template_redirect', array( $this, 'bypass_is_last_batch_in_footer' ), 9, 0 );
+		add_action( 'template_redirect', [ $this, 'bypass_is_last_batch_in_footer' ], 9, 0 );
 
-		add_action( 'template_redirect', array( $this, 'remove_bypass_is_last_batch_in_footer' ), 11, 0 );
+		add_action( 'template_redirect', [ $this, 'remove_bypass_is_last_batch_in_footer' ], 11, 0 );
 	}
 
 	/**
@@ -50,7 +50,6 @@ class CST_Infinite_Scroll {
 
 		add_filter( 'infinite_scroll_js_settings', function( $settings ) {
 			$settings['google_analytics'] = false;
-			$settings['offset'] = 251;
 			$settings['text'] = 'Load more.';
 			return $settings;
 		});
