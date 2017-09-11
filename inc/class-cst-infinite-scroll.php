@@ -51,6 +51,7 @@ class CST_Infinite_Scroll {
 		add_filter( 'infinite_scroll_js_settings', function( $settings ) {
 			$settings['google_analytics'] = false;
 			$settings['offset'] = 251;
+			$settings['text'] = 'Load more.';
 			return $settings;
 		});
 
