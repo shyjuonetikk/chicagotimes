@@ -140,9 +140,11 @@ class CST_Infinite_Scroll {
 		if ( is_page_template( 'page-monster.php' ) || is_front_page() || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' ) ) {
 			return;
 		}
+		$is_mobile = function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ? true : false;
 		wp_enqueue_script( 'cst-infinite-scroll', get_template_directory_uri() . '/assets/js/infinite-scroll.js', array( 'chicagosuntimes', 'the-neverending-homepage', 'cst-ga-custom-actions' ), false, true );
 		wp_localize_script( 'cst-infinite-scroll', 'CSTInfiniteScrollData', array(
 			'readMoreLabel'           => esc_html__( 'Read More', 'chicagosuntimes' ),
+			'isMobile'           => wp_json_encode( $is_mobile ),
 		) );
 		$post_sections = array_map( 'strtolower', CST_Frontend::$post_sections );
 		$post_sections = array_map( 'esc_attr', $post_sections );

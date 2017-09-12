@@ -144,7 +144,8 @@ var CSTAds;
       }
     },
     refreshSectionCubeAds: function() {
-      if ( CSTAds.isSection && ! CSTAds.refreshing ) {
+		  // Use by Infinite scroll
+      if ( false && CSTAds.isSection && ! CSTAds.refreshing ) {
         CSTAds.refreshing = true;
         var last_one = 1, tags_to_refresh = Object.keys(CSTAdTags);
         tags_to_refresh.forEach(function (ad_slot) {
