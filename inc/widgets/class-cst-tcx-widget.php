@@ -66,7 +66,6 @@ class CST_TCX_Widget extends WP_Widget {
                         <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
-                }
                 <?php
                 }
                     break;
