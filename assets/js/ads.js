@@ -143,19 +143,6 @@ var CSTAds;
         CSTAds.refreshing = false;
       }
     },
-    refreshSectionCubeAds: function() {
-      if ( CSTAds.isSection && ! CSTAds.refreshing ) {
-        CSTAds.refreshing = true;
-        var last_one = 1, tags_to_refresh = Object.keys(CSTAdTags);
-        tags_to_refresh.forEach(function (ad_slot) {
-          last_one = ad_slot.match(/rr-cube-[0-9]{1,3}$/) || last_one;
-        });
-        CSTAdTags[last_one.input].doNotRefresh = 0;
-        CSTAds.triggerUnitRefresh(last_one.input);
-        console.info('Refresh sticky cube ad ' .concat(last_one.input));
-        CSTAds.refreshing = false;
-      }
-    },
     handleGptVisibility: function(event) {
 		  var slotId = event.slot.getSlotElementId();
       console.log('Slot visibility changed for: ' + slotId + ' to ' + event.inViewPercentage );

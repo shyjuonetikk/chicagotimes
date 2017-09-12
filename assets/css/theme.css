@@ -1371,6 +1371,8 @@ body.search {
   margin: 1rem auto;
   font-family: 'Open Sans', Arial, sans-serif;
   font-size: 1.2rem; }
+#infinite-handle .cst-load-more {
+  color: #231f20; }
 
 article.post {
   background-color: white;

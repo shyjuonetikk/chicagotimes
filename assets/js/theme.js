@@ -29,7 +29,6 @@
       if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
 			}
-      this.stickSectionSidebar();
 			this.taboola();},
 
         /**
@@ -266,9 +265,11 @@
         },
 
       stickSectionSidebar: function() {
-        if (this.body.hasClass("tax-cst_section")) {
-          this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10});
-        }
+          if('false' === CSTInfiniteScrollData.isMobile && this.body.hasClass("tax-cst_section")) {
+            if (!this.anchorMe.hasClass('is_stuck')) {
+              this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10});
+            }
+          }
       },
         /**
          * Dynamically rescale headlines images
