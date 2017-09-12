@@ -50,7 +50,7 @@ class CST_Infinite_Scroll {
 
 		add_filter( 'infinite_scroll_js_settings', function( $settings ) {
 			$settings['google_analytics'] = false;
-			$settings['text'] = 'Load more.';
+			$settings['text'] = '<a class="cst-load-more" data-on="click" data-event-category="navigation" data-event-action="sf-load-more">Load more.</a>';
 			return $settings;
 		});
 
