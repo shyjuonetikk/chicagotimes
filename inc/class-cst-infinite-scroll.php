@@ -44,6 +44,7 @@ class CST_Infinite_Scroll {
 		add_filter( 'infinite_scroll_settings', function( $settings ) {
 			if ( is_singular() ) {
 				$settings['posts_per_page'] = 1;
+				$settings['type'] = 'scroll';
 			}
 			return $settings;
 		});
