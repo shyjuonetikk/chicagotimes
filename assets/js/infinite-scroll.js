@@ -76,11 +76,6 @@
 						}
 
 					}
-          console.info( 'IS post-load triggered.' );
-          // Trigger reload of rr cube 6 (section front), trigger keep this cube in position too
-          if ( "object" === typeof CSTAds ) {
-            CSTAds.refreshSectionCubeAds();
-          }
 				}
 			});
 
