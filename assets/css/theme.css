@@ -1364,13 +1364,15 @@ body.search {
 
 #infinite-handle span {
   text-align: center;
-  background-color: #231f20;
-  color: #ffe000;
+  background-color: #dedede;
+  color: #231f20;
   padding: 1rem;
   display: block;
   margin: 1rem auto;
   font-family: 'Open Sans', Arial, sans-serif;
   font-size: 1.2rem; }
+#infinite-handle .cst-load-more {
+  color: #231f20; }
 
 article.post {
   background-color: white;

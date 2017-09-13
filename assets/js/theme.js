@@ -29,11 +29,7 @@
       if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
 			}
-
-			if (this.body.hasClass("tax-cst_section")) {
-        this.anchorMe.stick_in_parent({"bottoming" : false, "offset_top": this.adminBar.height() + this.header.height() + 10 });
-      }
-		this.taboola();},
+			this.taboola();},
 
         /**
          * Cache elements to object-level variables
@@ -180,6 +176,7 @@
 
                 }
             this.positionAndSizePostSidebar(scrollTop);
+            this.stickSectionSidebar();
             },
       handleNavigation: function() {
         document.getElementsByTagName('body')[0].style.overflow='hidden';
@@ -267,6 +264,13 @@
 
         },
 
+      stickSectionSidebar: function() {
+          if('false' === CSTInfiniteScrollData.isMobile && this.body.hasClass("tax-cst_section")) {
+            if (!this.anchorMe.hasClass('is_stuck')) {
+              this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10});
+            }
+          }
+      },
         /**
          * Dynamically rescale headlines images
          */

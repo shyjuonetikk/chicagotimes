@@ -40,12 +40,15 @@
 #infinite-handle {
 	span {
 		text-align: center;
-		background-color: $cst_black;
-		color: $cst_yellow;
+		background-color: $homepage_border_grey;
+		color: $cst_black;
 		padding: 1rem;
 		display: block;
 		margin: 1rem auto;
 		font-family: $open_sans;
 		font-size: 1.2rem;
+	}
+	.cst-load-more {
+		color: $cst_black;
 	}
 }
