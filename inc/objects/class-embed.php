@@ -141,7 +141,7 @@ class Embed extends Post {
 
 			case 'instagram':
 
-				$response = vip_safe_wp_remote_get( 'http://api.instagram.com/oembed?url=' . urlencode( $embed_url ) );
+				$response = vip_safe_wp_remote_get( 'https://api.instagram.com/oembed?url=' . urlencode( $embed_url ) );
 
 				if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 					break;
