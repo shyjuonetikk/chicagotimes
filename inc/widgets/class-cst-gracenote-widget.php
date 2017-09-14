@@ -19,7 +19,7 @@ class CST_Gracenote_Sports_Widget extends WP_Widget {
 			'order' => 'NCAAB;NFL;MLB;NBA;NCAAF',
 		),
 	);
-	private $format = '<iframe frameborder="0" src="http://scores.suntimes.com/sports-scores/score-carousel.aspx?Leagues=%1$s&amp;numVisible=5&amp;isVertical=true" style="border:none; width:100%%; height:520px;" allowtransparency="true" scrolling="no">Live Scores</iframe>';
+	private $format = '<iframe frameborder="0" src="https://suntimes.sportsdirectinc.com/sports-scores/score-carousel.aspx?Leagues=%1$s&amp;numVisible=5&amp;isVertical=true" style="border:none; width:100%%; height:520px;" allowtransparency="true" scrolling="no">Live Scores</iframe>';
 
 	public function __construct() {
 
