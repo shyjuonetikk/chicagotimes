@@ -20,7 +20,7 @@ engines:
     enabled: true
     config:
         file_extensions: "php"
-        rulesets: "unusedcode,cleancode,controversial,design"
+        rulesets: "unusedcode,cleancode,design"
 phpcodesniffer:
     enabled: true
     config:
