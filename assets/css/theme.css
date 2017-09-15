@@ -197,6 +197,9 @@ body.error404 {
   background-color: white; }
   .vip-local .tcx_widget:before, .vagrant-local .tcx_widget:before {
     content: "tcx widget"; }
+  .tcx_widget {
+  margin-top: 10px;
+  margin-bottom: 10px; }
 
 #div-gpt-ym-craig {
   margin-top: 1.25rem; }
