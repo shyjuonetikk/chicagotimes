@@ -1,0 +1,1 @@
+<li class="cst-section"><?php $primary_section = CST()->get_primary_section_slug(); echo esc_html( $primary_section ); ?></li>

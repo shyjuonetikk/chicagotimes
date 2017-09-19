@@ -1,0 +1,77 @@
+{
+  "name": "chicagosuntimes",
+  "version": "2.0.0",
+  "main": "Gruntfile.js",
+  "author": "Chicago Sun-Times",
+  "license": "Proprietary",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Wrapports/cst-vip-v2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wrapports/cst-vip-v2/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-sass": "^0.6.1",
+    "jscs": "^3.0.7"
+  },
+  "dependencies": {
+    "node-sass": "^3.4.2",
+    "sticky-kit": "^1.1.3"
+  },
+  "jscsConfig": {
+    "preset": "jquery",
+    "requireDotNotation": {
+      "allExcept": [
+        "snake_case",
+        "keywords"
+      ]
+    },
+    "disallowSpaceAfterPrefixUnaryOperators": [
+      "++",
+      "--",
+      "+",
+      "-",
+      "~"
+    ],
+    "disallowSpaceBeforePostfixUnaryOperators": true,
+    "maximumLineLength": null,
+    "requireVarDeclFirst": true,
+    "requireSpaceAfterPrefixUnaryOperators": [
+      "!"
+    ],
+    "requireSpacesInsideBrackets": null,
+    "requireSpacesInsideParentheses": {
+      "all": true,
+      "except": [
+        "{",
+        "}",
+        "[",
+        "]",
+        "function"
+      ]
+    },
+    "requireYodaConditions": [
+      "==",
+      "!=",
+      "===",
+      "!=="
+    ],
+    "validateQuoteMarks": "'",
+    "requireCapitalizedComments": {
+      "allExcept": [
+        "global",
+        "exported",
+        "jshint",
+        "eslint",
+        "jslint"
+      ]
+    },
+    "requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+    "requireBlocksOnNewline": true
+  }
+}

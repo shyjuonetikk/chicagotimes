@@ -1,0 +1,469 @@
+.widgets {
+	margin-left:0;
+
+	li.widget {
+		background-color: $white;
+		margin-top: 0;
+		margin-bottom: 10px;
+		clear: both;
+
+		h2.widgettitle {
+			background-color: $black;
+			color: $white;
+			font-size: 0.75rem;
+			line-height: 0.9rem;
+			text-transform: uppercase;
+			font-weight: 700;
+			padding-left: 5px;
+			padding-right: 5px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+		}
+
+		&.widget_cst_featured_content_widget {
+
+			h2.widgettitle {
+				margin-bottom: 0;
+			}
+		}
+
+		&.widget_cst_ad_widget,
+		&.widget_cst_drive_chicago,
+		&.widget_image {
+			background-color: transparent;
+		}
+		h3 {
+			font-size: 0.8rem;
+			color: $cst_yellow;
+			background-color: $cst_black;
+			text-transform: uppercase;
+			padding: 5px;
+			margin-bottom: 5px;
+		}
+	}
+
+	ul.widget-recent-posts, ul.widget-chartbeat-currently-viewing {
+		background-color: $light_grey;
+		margin-left: 0 !important;
+		font-size: 12px;
+		font-weight: 700;
+
+		li {
+			background: white;
+			margin-bottom: 5px;
+			padding: 5px;
+			box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+			float: none;
+			overflow: hidden;
+
+			> a {
+				display: block;
+			}
+
+			a {
+				color: $black;
+			}
+		}
+
+		li:hover a, li:hover span, li:hover {
+			background: $light_grey;
+			color: $black;
+		}
+
+		.section {
+			color: $anchor-highlight;
+			text-transform: uppercase;
+			font-weight: 700;
+		}
+
+		.title {
+			a {
+				color: $black;
+				font-weight: 700;
+			}
+		}
+		
+		.time {
+			color: $social_grey;
+		}
+	}
+
+	li.widget.widget_cst_twitter_widget {
+		background-color: transparent;
+		display: none;
+
+		.tweet-tweet { 
+			position: relative; 
+			background: $box_grey; 
+			border: 1px solid $box_grey; 
+			margin-bottom:20px;
+			padding:10px;
+			height:165px;
+
+			.tweet-body {
+				height:150px;
+			}
+			
+			.tweet-options {
+				margin-right: 10px;
+				position: absolute;
+				bottom:0px;
+				right:0px;
+				
+				a {
+					font-size:.8rem;
+					font-weight:normal;
+					border-bottom: none;
+				}
+				
+				li {
+					display:inline;
+					line-height: 35px;
+					margin-left:30px;
+				}
+				
+				.fa {
+					color:$social_grey;
+					font-size:16px;
+				}
+			}
+			
+			span.twitter-title {
+				font-weight:700;
+				font-size:14px;
+				color:$social_grey;
+
+				.fa {
+					color: $anchor-highlight;
+				}
+
+				a {
+					color: $social_grey;
+				}
+
+				a:hover {
+					color: $anchor-highlight;
+				}
+			}
+			
+			span.twitter-time {
+				font-weight:300;
+				font-size:12px;
+			}
+			
+			p.twitter-tweet {
+				font-weight:700;
+				font-size:14px;
+				color:black;
+				line-height:18px;
+			}
+
+			.twitter-widget-next:hover, .twitter-widget-prev:hover {
+				background:transparent;
+				opacity:0.5
+			}
+
+			.twitter-widget-next:focus, .twitter-widget-prev:focus {
+				background:transparent;
+			}
+
+			.twitter-widget-next:before, .twitter-widget-prev:before {
+				color: $social_grey;
+			}
+
+			.twitter-widget-prev, .twitter-widget-next { 
+				top: 93%; 
+				margin-top: 39px; 
+				position: absolute; 
+				z-index: 200;
+				display: block;
+				height: 20px;
+				width: 20px;
+				cursor: pointer;
+				background: transparent;
+				padding: 0;
+				border: none;
+				outline: none;
+			}
+
+			.twitter-widget-prev { 
+				left: 80px; 
+			}
+
+			.twitter-widget-next { 
+				right: 10px; 
+			}
+
+			.slick-dots {
+				bottom: -46px;
+				left: 15px;
+			}
+
+			.slick-dots li button:before { 
+				font-size: 16px; 
+				color: $social_grey; 
+			}
+
+
+		}
+
+	}
+	
+	.big {
+			font-size:50px;
+			color:$anchor-highlight;
+		}
+	
+	.tweet-bird {
+		background:transparent;
+		font-size:16px;
+	}
+	
+	#triangle-topleft { 
+		width: 0; 
+		height: 0; 
+		border-top: 20px solid $box_grey; ; 
+		border-right: 20px solid transparent; 
+		margin-left: 50px;
+		margin-top: -20px;
+	}
+
+	.featured-story {
+		background:$box_grey;
+		margin-top:30px;
+		position:relative;
+
+		.fa {
+			color:$white;
+			font-size:12px;
+		}
+		
+		.featured-story-image { 
+			width: 100%;
+			max-height: 165px;
+			overflow: hidden;
+
+			img {
+				width:100%;
+			}
+
+		}
+
+		.hover-state {
+			.fa {
+				display:none;
+			}
+		}
+
+		.hover-state:hover {
+			background: $anchor-highlight;
+
+			.fa {
+				display:block;
+				position:absolute;
+				z-index:200;
+				left:40%;
+				top:30%;
+				font-size:60px;
+			}
+
+			img {
+				opacity:.5;
+				background:$light_black;
+			}
+
+		}
+		
+		.featured-story-body {
+			padding:10px;
+			
+			.section {
+				a {
+					color: $anchor-highlight;
+					text-transform: uppercase;
+					font-weight: 900;
+					font-size:12px;
+				}
+
+			}
+
+			.section:hover {
+				a, .fa {
+					color: $social_grey;
+				}
+			}
+
+			h3.title {
+				line-height:1.25rem;
+				font-size: 1.00rem;
+
+				a {
+					color: $black;
+					font-weight: 900;
+				}
+
+				a:hover {
+					color: $anchor-highlight;
+				}
+			}
+			
+			.fa {
+				color: $anchor-highlight;
+				height:15px;
+				font-size:12px;
+			}
+		}
+
+	}
+
+	#polar-widget {
+		background: $box_grey;
+
+		.polar-widget-ads {
+			margin-left: 0 !important;
+			
+			li {
+				padding: 15px;
+
+				a {
+					.headline {
+						font-size: 1rem;
+						line-height: 1.25rem;
+						color: $black;
+						font-weight: 700;
+					}
+				}
+
+				a:hover {
+					.headline {
+						color: $social_grey;
+					}
+				}
+
+				.sponsor {
+					font-size: 0.75rem;
+					color: $social_grey;
+					text-transform: uppercase;
+					font-weight: normal;
+				}
+			}
+
+		}
+
+	}
+
+	.search-widget {
+		padding: 0;
+		margin-bottom: 20px;
+		float: left;
+
+		#search-input {
+			font-size: 1.25rem;
+			border: 2px ridge;
+			padding: 5px 29px 5px 5px;
+			width: 100%;
+			float: left;
+	    }
+
+	    #search-button {
+	      	display: block;
+			font-size: 20px;
+			padding: 0;
+			color: $menu_black;
+			float: left;
+			margin: 8px 0 0 -26px;
+			background: transparent;
+	    }
+
+	    #search-button:hover {
+			color: $anchor-highlight;
+	    }
+	}
+
+	li.ap_ncaa_cbb_scoreboard_widget, li.ap_ncaa_cbb_news_widget {
+		overflow: hidden;
+		margin-bottom: 10px;
+
+		h1.widget-title {
+			background-color: $black !important;
+			color: $white !important;
+			a {
+				color: $white !important;
+				font-size: 0.75rem !important;
+			}
+			font-size: 0.75rem !important;
+			line-height: 0.9rem !important;
+			text-transform: uppercase !important;
+			font-weight: 700 !important;
+			padding-left: 5px !important;
+			padding-right: 5px !important;
+			padding-top: 5px !important;
+			padding-bottom: 5px !important;
+		}
+
+		.columns {
+			padding: 0;
+		}
+
+		#ap-new-widgets {
+			background: transparent !important;
+
+			.title-block {
+
+				.inner-frame {
+					padding: 0 !important;
+				}
+			}
+		}
+		.button-left,
+		.button-right {
+			padding: 0 0.5rem;
+		}
+	}
+
+	li.cst_newsletter_signup {
+		background: $white;
+		height: auto;
+		overflow: hidden;
+		list-style-type: none;
+		margin-bottom: 20px;
+
+		.columns {
+			padding: 0;
+		}
+
+		h2.widgettitle {
+			background-color: $black;
+			color: $white;
+			font-size: 0.75rem;
+			line-height: 0.9rem;
+			text-transform: uppercase;
+			font-weight: 700;
+			padding-left: 5px;
+			padding-right: 5px;
+			padding-top: 5px;
+			padding-bottom: 5px;
+			margin: 0;
+		}
+
+		p {
+			padding: 5px;
+			margin-bottom: 0;
+
+			span {
+				font-style: italic;
+			}
+
+			.button.tiny {
+				margin: 0;
+				background: $anchor-highlight;
+			}
+			.button:hover {
+				opacity: .5;
+			}
+
+		}
+
+	}
+
+}

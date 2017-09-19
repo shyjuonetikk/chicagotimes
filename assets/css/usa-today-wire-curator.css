@@ -1,0 +1,155 @@
+.post-type-cst_usa_today_item #post-query-submit {
+    display: none;
+}
+
+.post-type-cst_usa_today_item .tablenav .bulkactions,
+.post-type-cst_usa_today_item .tablenav .view-switch {
+    display: none;
+}
+
+#cst-refresh-usa-today-wire-items {
+    font-size: 14px;
+    font-weight: 300;
+    background-color: #C3EAC3;
+    border-color: #C3EAC3;
+}
+
+.post-type-cst_usa_today_item #cst-last-refresh {
+    margin-left: 8px;
+    color: #777;
+    display: inline-block;
+    line-height: 30px;
+}
+
+#cst-delete-usa-today-wire-items {
+    float: right;
+    margin-left: 20px;
+    font-size: 12px;
+    font-weight: 300;
+    background-color: #EF9C9C;
+    border-color: #EF9C9C;
+}
+
+#cst-reset-usa-today-items-timer {
+    margin-left: 20px;
+    text-decoration: italic;
+    font-weight: 300;
+    background-color: #EFCB8A;
+    border-color: #EFCB8A;
+}
+
+#cst-refresh-usa-today-wire-items:hover, #cst-delete-usa-today-wire-items:hover, #cst-reset-usa-today-items-timer:hover {
+    opacity: .5;
+}
+
+.post-type-cst_usa_today_item .cst-preview-data {
+    display: none;
+}
+
+.post-type-cst_usa_today_item .column-cst_usa_today_item_title strong {
+    display: block;
+    margin-bottom: .2em;
+    font-size: 14px;
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 360px;
+    background: #000;
+    opacity: .7;
+    filter: alpha(opacity=70);
+    z-index: 100100;
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap {
+    display: none;
+    background-color: #fff;
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.3);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.3);
+    box-shadow: 0 3px 6px rgba(0,0,0,.3);
+    width: 760px;
+    height: 600px;
+    margin-top: -300px;
+    overflow: hidden;
+    margin-left: -380px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 100105;
+    -moz-transition: height .2s,margin-top .2s;
+    -webkit-transition: height .2s,margin-top .2s;
+    transition: height .2s,margin-top .2s;
+    overflow-y: scroll;
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap .submitbox {
+    padding: 8px 16px;
+    background: #fcfcfc;
+    border-top: 1px solid #dfdfdf;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap #cst-usa-today-wire-curator-preview-item-modal-title {
+    background: #fcfcfc;
+    border-bottom: 1px solid #dfdfdf;
+    height: 36px;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 36px;
+    padding: 0 36px 0 16px;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap #cst-usa-today-wire-curator-close-preview-item-modal {
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    text-align: center;
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap #cst-usa-today-wire-curator-close-preview-item-modal:before {
+    font: 400 20px/36px dashicons;
+    vertical-align: top;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    width: 36px;
+    height: 36px;
+    content: '\f158';
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap #cst-usa-today-wire-curator-preview-item-headline,
+#cst-usa-today-wire-curator-preview-item-modal-wrap #cst-usa-today-wire-curator-preview-item-content {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap ul#cst-usa-today-wire-curator-preview-item-search-results li input {
+    margin-right: 8px;
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap #cst-usa-today-wire-curator-preview-item-add-wrap {
+    float: right;
+}
+
+#cst-usa-today-wire-curator-preview-item-modal-wrap #cst-usa-today-wire-curator-preview-item-cancel-wrap {
+    line-height: 25px;
+}

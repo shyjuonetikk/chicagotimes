@@ -1,0 +1,4 @@
+node_modules
+.svn
+.svn/wc.db
+.svn/*

@@ -1,0 +1,102 @@
+tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-menus {
+	margin-left: 5px;
+	color: #bbb;
+}
+
+.widget-error {
+	margin: 5px 0 15px;
+	border-left: 4px solid #dd3d36;
+	border-top:2px solid #fff;
+	-moz-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,0.1);
+	padding: 1px 12px;
+}
+
+#postexcerpt .inside p:nth-child(0) {
+	visibility: hidden;
+}
+.fm-cst_long_excerpt textarea {
+    width:100%;
+}
+.media-frame-content label[data-setting="caption"] #character-limit {
+	width: 65%;
+	float: right;
+}
+
+.media-frame-content label[data-setting="caption"] #character-limit span {
+	float: none;
+}
+
+#newswire .sidebar-name, #news_headlines .sidebar-name {
+    border-top:2px solid #D22D42;
+}
+#sportswire .sidebar-name, #sports_headlines .sidebar-name {
+    border-top:2px solid #34485E;
+}
+#sportswire .sidebar-name h2 {
+    margin-top: -2px;
+}
+#entertainmentwire .sidebar-name, #entertainment_headlines .sidebar-name {
+    border-top:2px solid #00AE04;
+}
+#entertainmentwire .sidebar-name h2 {
+    margin-top: -2px;
+}
+#politicswire .sidebar-name, #politics_headlines .sidebar-name {
+    border-top:2px solid #29AAE2;
+}
+#politicswire .sidebar-name h2 {
+    margin-top: -2px;
+}
+#opinionwire .sidebar-name, #opinion_headlines .sidebar-name {
+    border-top:2px solid #BDBDBD;
+}
+#opinionwire .sidebar-name h2 {
+    margin-top: -2px;
+}
+#lifestyleswire .sidebar-name, #lifestyles_headlines .sidebar-name {
+    border-top:2px solid #873AFA;
+}
+#lifestyleswire .sidebar-name h2 {
+    margin-top: -2px;
+}
+#columnistswire .sidebar-name, #columnists_headlines .sidebar-name {
+    border-top:2px solid #D5C35F;
+}
+#columnistswire .sidebar-name h2 {
+    margin-top: -2px;
+}
+#obitswire .sidebar-name, #obits_headlines .sidebar-name {
+    border-top:2px solid #222222;
+}
+#obitswire .sidebar-name h2 {
+    margin-top: -2px;
+}
+.taxonomy-cst_section input.fm-datepicker-popup {
+    max-width:6rem;
+}
+.taxonomy-cst_section input.fm-datepicker-time {
+    max-width:2rem;
+}
+.preview-tablet-landscape .wp-full-overlay-main {
+    margin: auto 0 auto -512px;
+    width: 1024px;
+    height: 768px;
+    max-height: 100%;
+    max-width: 100%;
+    left: 50%;
+}
+.wp-full-overlay-footer .devices .preview-tablet-landscape:before {
+    transform: scaleX(-1) rotate(0.25turn);
+    content: '\f471';
+}
+.preview-mobile .wp-full-overlay-main {
+    margin: auto 0 auto -187px;
+    width: 375px;
+}
+
+.preview-tablet .wp-full-overlay-main {
+    margin: auto 0 auto -384px;
+    width: 768px;
+}

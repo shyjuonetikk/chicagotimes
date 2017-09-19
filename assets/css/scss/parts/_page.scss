@@ -1,0 +1,38 @@
+.page_wrapper {
+	width:100%;
+	margin:0 auto;
+	.page-content {
+		background: #fff;
+	}
+}
+.page {
+	section {
+		.page-content {
+			margin-top:45px;
+		}
+	}
+}
+.page-template-page-subscribe {
+	.promo-code {
+		padding-left:0;
+		.promo-img {
+			max-height:37px;
+		}
+		.promo-code-input {
+			max-width: 200px;
+		}
+		.promo-code-push {
+			padding:0;
+			max-height:37px;
+			background-color:transparent;
+		}
+	}
+}
+.weather-video-container {
+	margin:50px 22px 20px 0;
+	width:100%;
+	height:auto;
+}
+.weather-sidebar {
+	margin-top:50px;
+}

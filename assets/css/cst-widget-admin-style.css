@@ -1,0 +1,25 @@
+.cst_banner_link_widget {
+    text-align: left;
+}
+
+.cst_banner_link_widget label {
+    font-weight: bold;
+    display: block;
+}
+
+.cst_banner_link_widget input {
+    width: 100%;
+}
+
+.cst_banner_link_widget .widget_input {
+    margin-bottom: 10px;
+}
+
+.cst_banner_link_widget .preview_placeholder {
+    margin: 0 auto;
+}
+
+.cst_banner_link_widget .preview_placeholder img {
+    width: 100%;
+    padding: 5px;
+}
