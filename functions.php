@@ -219,7 +219,7 @@ class CST {
 		add_image_size( 'chiwire-header-large', 640, 480, true );
 		add_image_size( 'chiwire-header-medium', 425, 320, true );
 		add_image_size( 'chiwire-header-small', 320, 240, true );
-		add_image_size( 'chiwire-section-small', 212, 159, false );
+		add_image_size( 'chiwire-section-small', 212, 159, true );
 		add_image_size( 'cst-article-featured', 763, 9999, false );
 		add_image_size( 'cst-feature-hero', 1200, 1600, false );
 		add_image_size( 'cst-gallery-desktop-vertical', 1200, 1600, true );
