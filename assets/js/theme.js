@@ -203,17 +203,11 @@
          */
         responsiveIframes: function() {
 
-          var pageHeight = 640;
-          var pageWidth = 360;
-          if ( this.body.hasClass("page") ) {
-            pageHeight = 800;
-            pageWidth = 600;
-          }
             $('iframe.cst-responsive').each(function(){
                 var el = $(this),
                     parentWidth = el.parent().width();
-                var trueHeight = el.data('true-height') ? el.data('true-height') : pageHeight;
-                var trueWidth = el.data('true-width') ? el.data('true-width') : pageWidth;
+                var trueHeight = el.data('true-height') ? el.data('true-height') : 640;
+                var trueWidth = el.data('true-width') ? el.data('true-width') : 360;
                 var newHeight = ( parentWidth / trueHeight ) * trueWidth;
                 $(this).attr('height', newHeight ).attr('width', parentWidth);
             });
