@@ -1913,7 +1913,8 @@ body[class~="archive"] article.index-view .section-article-link {
   @media only screen and (max-width:63.94em) {
     body[class~="archive"] article.index-view .section-article-link {
       font-size: 0.9rem;
-      line-height: 1.1rem; } }
+      line-height: 1rem;
+      font-weight: 700; } }
 body[class~="archive"] article.index-view .post-meta-bottom {
   clear: both; }
 body[class~="archive"] .dfp-super-leaderboard {
