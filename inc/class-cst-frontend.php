@@ -76,7 +76,6 @@ class CST_Frontend {
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_distroscale_injection' ] );
 		add_action( 'head_early_elements', [ $this, 'action_head_early_elements' ] );
 		add_action( 'body_start', [ $this, 'action_body_start' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'section_front_dequeue_devicepx' ] );
 
 	}
 
