@@ -1880,8 +1880,6 @@ body[class~="archive"] article.post {
   float: left; }
   body[class~="archive"] article.post .sponsored-notification {
     margin-top: -2px; }
-body[class~="archive"] article.index-view .section-front {
-  float: left; }
 body[class~="archive"] article.index-view .section-image {
   position: relative;
   float: left; }
