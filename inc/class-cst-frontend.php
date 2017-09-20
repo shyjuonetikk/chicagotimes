@@ -233,6 +233,9 @@ class CST_Frontend {
 			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
 
 		}
+		if ( is_page() ) {
+			wp_enqueue_script( 'page-iframe-reponsify', get_template_directory_uri() . '/assets/js/theme-page.js', array(), null, true );
+		}
 		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
 			'disqus_shortname' => CST_DISQUS_SHORTNAME,
