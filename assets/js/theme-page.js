@@ -3,11 +3,7 @@
   var CSTPage = {
 
     init: function () {
-      this.cacheElements();
       this.bindEvents();
-    },
-    cacheElements: function () {
-      this.body = $('body');
     },
     bindEvents: function() {
       var delayedTimer = false;
@@ -39,12 +35,6 @@
         ouriFrame.attr('height', newHeight ).attr('width', parentWidth);
       });
 
-    },
-    hasClass: function(el,className) {
-      if (el.classList)
-        return el.classList.contains(className);
-      else
-        return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
     }
   };
 	/**
