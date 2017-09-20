@@ -18,7 +18,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 		$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
 		$attrs = CST()->frontend->article_dimensions( $obj );
 	} else {
-		$classes = array( 'index-view' );
+		$classes = array( 'columns index-view' );
 	}
 if ( $sponsored ) {
 	$classes[] = 'sponsored-content';
