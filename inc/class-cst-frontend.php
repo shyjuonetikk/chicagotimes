@@ -95,8 +95,10 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+		add_filter( 'the_content', [ $this, 'inject_nativo_mobile2' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
+		add_filter( 'the_content', [ $this, 'inject_nativo_mobile' ],99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
@@ -2189,6 +2191,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	}
 	/**
 	*
+	* Inject Nativo mobile if singular and mobile and over 16 paragraphs
+	* Only do this on article pages
+	*
+	*/
+	public function inject_nativo_mobile2( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
+				$nativo_mobile = '<div id="nativo-sponsored">' . '<h4>Sponsored Content</h4>' . '<ul class="nativo-sponsored-articles">';
+				$nativo_mobile = $nativo_mobile . '<div id="nativo-sponsored-article-image"></div><li id="News1"></li><li id="News2"></li></ul></div>';
+
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 5) {
+					array_splice( $exploded, 6, 0, $nativo_mobile );
+					$content = join( '</p>', $exploded );
+				}
+			}
+		}
+		return $content;
+	}	
+	/**
+	*
 	* Inject supplied TCX tag if singular and mobile and over 16 paragraphs
 	* Only do this on article pages
 	*
@@ -2290,6 +2314,68 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}
 		return $article_content;
  	}
+
+
+
+
+
+
+
+
+	/**
+	* Determine paragraph position exists and whether to inject Nativo into content
+	* Check if this content is sponsored and abort as appropriate.
+	* This function is run as part of the_content filter - enqueuing the script does not provide
+	* the same functionality
+	*
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_nativo_mobile( $article_content ) {
+		#if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
+		#	return $article_content;
+		#}
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return $article_content;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return $article_content;
+		}
+		if ( '' === $article_content ) {
+			return $article_content;
+		}
+		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
+		#$postnum = get_query_var( 'paged' );
+		// flipp recommends no more than 5 circulars per page
+		#if ( $postnum < 5 ) {
+		#	$div_id_suffix = 10635 + $postnum;
+
+			#$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+			#$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
+
+			$nativo_ad = '<div id="nativo-sponsored">' . '<h4>Sponsored Content</h4>' . '<ul class="nativo-sponsored-articles">';
+			$nativo_ad = $nativo_ad . '<div id="nativo-sponsored-article-image"></div><li id="News1"></li><li id="News2"></li></ul></div>';
+
+			if ( count( $article_array ) > 1 ) {
+				$last_item = array_pop( $article_array );
+				array_push( $article_array, $nativo_ad );
+				array_push( $article_array, $last_item );
+			} else {
+				array_push( $article_array, $nativo_ad );
+			}
+			$article_content = implode( $article_array );
+		#}
+		return $article_content;
+ 	}
+
+
+
+
+
+
+
+
 	/**
 	 * Determine if content destined for the display is partnership or we have
 	 * an arrangement or not
