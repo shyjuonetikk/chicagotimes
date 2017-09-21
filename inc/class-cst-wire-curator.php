@@ -258,7 +258,40 @@ class CST_Wire_Curator {
 				echo $item->get_content();
 				echo '<div class="cst-preview-data">';
 				echo '<div class="preview-headline">' . esc_html( $item->get_wire_headline() ) . '</div>';
-				echo '<div class="preview-content">' . wp_kses_post( $item->get_wire_content() ) . '</div>';
+				echo '<div class="preview-content">' . wp_kses_post( $item->get_wire_content() );
+				if($item->get_wire_media() != new stdClass()) {
+					$media = $item->get_wire_media();
+					$img = (isset($media->preview)) ? $media->preview : $media->thumbnail;
+					?>
+					<ul id="mediaTab" class="nav nav-tabs">
+						<li class="nav-item">
+							<a class="nav-link active" data-target="photo" href="#photo">Photo</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-target="videos" href="#videos">Videos</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+					  <div class="tab-pane active photo" id="photo" role="tabpanel">
+							<h2>Image Preview</h2>
+							<img src="<?=$img?>" width="100%"/>
+						</div>
+					  <div class="tab-pane videos" id="videos" role="tabpanel"></div>
+					</div>
+					<script type="text/javascript">
+						jQuery(function($) {
+							$('#mediaTab a').live('click',function (e) {
+								e.preventDefault();
+								$(this).tab('show');
+								var target = $(e.currentTarget).data('target');
+								$('.tab-pane').removeClass("active");
+								$('.'+target).addClass('active');
+							});
+						});
+					</script>
+					<?php
+				}
+				echo "</div>";
 				echo '</div>';
 				break;
 
@@ -544,7 +577,7 @@ class CST_Wire_Curator {
 						// Only handle articles right now
 						$is_article = false;
 						foreach ( $entry->link as $link ) {
-							if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
+							if ('AP Article' === (string) $link['title'] ) {
 								$is_article = true;
 								break;
 							}

@@ -2307,3 +2307,10 @@ function getWeatherImage( $locationname ){
 	$SatImageSrc = $satImage[0]->Url;
 	return $SatImageSrc;
 }
+
+// Add a Bootstrap files to WP Admin Area
+function admin_bootstrap_scripts() {
+    wp_enqueue_style('bootstrap-admin-style', get_template_directory_uri() . '/assets/css/bootstrap.min.css');
+		wp_enqueue_script('bootstrap-admin-script', get_template_directory_uri() . '/assets/js/bootstrap.min.js');
+}
+add_action('admin_enqueue_scripts', 'admin_bootstrap_scripts');
