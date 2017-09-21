@@ -1,0 +1,51 @@
+
+#main {
+	.video-injection {
+		margin-bottom: 10px;
+		clear: both;
+		position: relative;
+	}
+}
+.upper-heading {
+	margin-bottom: 30px;
+}
+.section-meta {
+	.section-name,
+	.section-feed {
+		float: left;
+	}
+	.section-feed {
+		.icon {
+			margin-top: 15px;
+		}
+	}
+}
+@media #{$medium-only} and (orientation: landscape ) {
+	section {
+		.right-rail {
+			padding-left: 0;
+			padding-right: 0.4rem;
+		}
+	}
+}
+@media #{$xmediumi-only} and (orientation: portrait ) {
+	section {
+		.right-rail {
+			padding-left: 0;
+			padding-right: 0.9375rem;
+			width: 41.1%;
+		}
+	}
+}
+#infinite-handle {
+	span {
+		text-align: center;
+		background-color: $cst_black;
+		color: $cst_yellow;
+		padding: 1rem;
+		display: block;
+		margin: 1rem auto;
+		font-family: $open_sans;
+		font-size: 1.2rem;
+	}
+}

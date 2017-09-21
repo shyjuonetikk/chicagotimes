@@ -1,0 +1,62 @@
+body.error404 {
+	background-color: $light_grey;
+  height: inherit;
+
+  h1 {
+    font-weight: 700;
+  }
+
+  p {
+    padding-top: 20px;
+  }
+
+  .search-wrap {
+
+    #search-input {
+      font-size: 1.25rem;
+      border: 2px ridge;
+      padding: 5px 29px 5px 5px;
+    }
+
+    #search-button {
+      font-size: 1.5rem;
+      color: $menu_black;
+      margin-left: 10px;
+    }
+
+    #search-button:hover {
+      color: $anchor-highlight;
+    }
+  }
+
+  .left-off-canvas-menu {
+    overflow-y:inherit;
+  }
+
+  .exit-off-canvas {
+    height: 100%;
+  }
+
+  .off-canvas-wrap {
+    overflow-y: hidden;
+    
+    &.inner-wrap {
+      min-height: inherit;
+      overflow-y: hidden;
+    }
+    &.move-right {
+      height: 100%;
+      overflow: inherit;
+    }
+  }
+
+	.home-page-link {
+		color: $black;
+
+		&:hover,
+		&:active,
+		&:visited {
+			color: $black;
+		}
+	}
+}

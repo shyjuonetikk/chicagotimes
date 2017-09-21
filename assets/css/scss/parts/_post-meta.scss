@@ -1,0 +1,268 @@
+.post {
+
+	.post-meta {
+		font-size: 0.75rem;
+		line-height: 0.9rem;
+		color: $social_grey;
+		
+		.developing {
+			display: inline-block;
+
+			.triangle-top-right {
+				position: relative;
+				height: 0;
+				width: 0;
+				border-top: 8px solid $black;
+				border-left: 9px solid transparent;
+				right: 19px;
+				top: 16px;
+			}
+
+			.developing-text {
+				position: relative;
+				text-transform: uppercase;
+				font-weight: 700;
+				color: $white;
+				background: $social_grey;
+				padding: 5px;
+				right: 28px;
+				bottom: 14px;
+			}
+
+			.right-ribbon {
+				display: inline-block;
+				position: relative;
+				height: 0;
+				width: 0;
+				border-top: 14px solid $social_grey;
+				border-right: 13px solid transparent;
+				border-bottom: 13px solid $social_grey;
+				right: 31px;
+				top:-5px;
+			}
+
+			@media #{$small-only} {
+				.developing-text {
+					font-weight:600;
+					font-size: 0.6rem;
+					bottom: 13px;
+				}
+				.triangle-top-right {
+					top: 16px;
+				}
+				.right-ribbon {
+					border-top: 11px solid $social_grey;
+					border-bottom: 12px solid $social_grey;
+				}
+			}
+			@media #{$medium-only} and (orientation:landscape) {
+				.developing-text {
+					font-weight:600;
+					font-size: 0.6rem;
+					bottom: 13px;
+				}
+				.triangle-top-right {
+					top: 16px;
+				}
+				.right-ribbon {
+					border-top: 11px solid $social_grey;
+					border-bottom: 12px solid $social_grey;
+				}
+			}
+			@media #{$xmedium-only} {
+				.developing-text {
+					bottom: 14px;
+				}
+				.triangle-top-right {
+					top: 16px;
+				}
+				.right-ribbon {
+					right: 32px;
+				}
+			}
+			@media #{$large-only} {
+				.developing-text {
+					bottom: 15px;
+				}
+				.triangle-top-right {
+					top: 15px;
+				}
+				.right-ribbon {
+					right: 32px;
+					top: -6px;
+				}
+			}
+		}
+
+		.post-section-taxonomy,
+		.post-embed-source {
+			position: relative;
+
+			a {
+				color: $anchor-highlight;
+				text-transform: uppercase;
+				font-weight: 700;
+			}
+
+			a:hover {
+				color: $social_grey;
+			}
+
+
+		}
+
+		&.sticky-taxonomy {
+			position: absolute;
+			z-index: 10;
+			.post-section-taxonomy,
+			.post-embed-source {
+				bottom: 8px;
+				right: 31px;
+			}
+		}
+
+	}
+
+
+
+	.post-meta-byline {
+		margin-bottom: 10px;
+
+		@media only screen and (min-width:1025px) {
+			.author-meta-box {
+				padding-left: 0.9375rem;
+			}
+		}
+
+		.post-meta-author {
+			font-family: $open_sans;
+			font-weight: 700;
+			font-size: 1rem;
+			margin-top: 10px;
+			margin-bottom: 10px;
+
+			a {
+				color: $black;
+			}
+
+		}
+
+		.post-meta-author-contact {
+			margin-top: 10px;
+			margin-bottom: 10px;
+
+			a {
+				color: $social_grey;
+
+				&:hover {
+					color: $anchor-highlight;
+				}
+			}
+
+			.fa {
+				width: 20px;
+				height: 20px;
+				font-size: 20px;
+				margin-right: 10px
+			}
+
+			.fa:hover {
+				color: $anchor-highlight;
+			}
+		}
+
+	}
+
+	.byline-author {
+		color: $black;
+	}
+
+	.post-social {
+
+		@media #{$medium-up} {
+			background-color: $social_grey;
+		}
+
+		&.twitter:hover {
+			background-color: $twitter_blue;
+		}
+
+		&.facebook:hover {
+			background-color: $facebook_blue;
+		}
+
+		.fa {
+			color: $white;
+		}
+
+	}
+
+	.post-meta-social {
+		position: absolute;
+		top: 30px;
+		right: 0;
+		.fa {
+			font-size: 1rem;
+			padding: 10px 14px;
+		}
+		a {
+			display: inline-block;
+			height: 40px;
+			width: 40px;
+		}
+
+		@media #{$xmedium-only} and (orientation: portrait) {
+			top: -40px;
+			a {
+				height:30px;
+				width:30px;
+			}
+			.fa {
+				font-size: 1rem;
+				padding: 7px;
+			}
+		}
+	}
+
+	.post-meta-bottom {
+	background-color: $social_grey;
+		.fa {
+
+			&.post-taxonomy {
+				color: $social_grey;
+				padding-right: 4px;
+			}
+
+		}
+
+		.post-meta-taxonomy-terms {
+			color: $social_grey;
+			text-transform: uppercase;
+			font-family: $open_sans;
+			font-weight: 700;
+			line-height: 1.4rem;
+
+			a {
+				color: $social_grey;
+				white-space: nowrap;
+
+				body.single & {
+					padding-right: 14px;
+				}
+			}
+
+			a:hover {
+				color: $anchor-highlight;
+			}
+
+		}
+
+		.post-meta-taxonomy-terms:hover {
+			a:hover .fa {
+				color: $anchor-highlight;
+			}
+		}
+
+	}
+
+}

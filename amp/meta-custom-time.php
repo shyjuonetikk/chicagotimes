@@ -1,0 +1,1 @@
+<li class="top-date"><?php echo date( 'm/d/Y, h:ia', $this->get( 'post_publish_timestamp' ) ); ?></li>

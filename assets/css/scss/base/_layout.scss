@@ -1,0 +1,28 @@
+@media #{$large-up} {
+	.homepage-content {
+		.row {
+			max-width:$page_width;
+		}
+	}
+}
+@media #{$large-down}{
+	.row {
+		.row {
+/*			margin-left: 0px;
+			margin-right: 0px;*/
+		}
+	}
+}
+.show-for-small-device-landscape {
+	display: none;
+}
+@media #{$xmediumi-down} and (orientation: landscape) {
+	.show-for-small-device-landscape {
+		display: block;
+	}
+}
+@media #{$small-only} and (orientation: landscape) {
+	.show-for-small-only {
+		display: none !important;
+	}
+}

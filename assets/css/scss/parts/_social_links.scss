@@ -1,0 +1,45 @@
+#social-links {
+	position:absolute;
+	right:80px;
+	top:1px;
+	color:$white;
+	text-transform:uppercase;
+	font-family: $open_sans;
+
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			display: inline-block;
+			margin: 5px 0;
+			width: 2.1rem;
+			height: 2.1rem;
+			text-align: center;
+			padding:4px;
+
+			a {
+				.fa {
+					font-size: 1.7rem;
+				}
+				.fa-facebook {
+					color: $white;
+				}
+				.fa-twitter {
+					color: $white;
+				}
+				.fa:hover {
+					opacity: .75;
+				}
+			}
+		}
+
+		li.facebook {
+			background: $facebook_blue;
+		}
+		li.twitter {
+			background: $twitter_blue;
+		}
+	}
+}

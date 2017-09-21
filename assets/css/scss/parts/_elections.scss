@@ -1,0 +1,216 @@
+.elections-container {
+	margin: 0;
+}
+.election-results-2016 {
+	margin: 10px 0;
+}
+.elections-container,
+.row.page-content {
+	padding: 10px 0;
+	.ap-embed {
+		min-height: 44rem;
+	}
+	.ap-embed.cube {
+		min-height: 15rem;
+	}
+	header#header {
+		min-height: 140px;
+	}
+	h1 {
+		font-size: 1.8rem;
+	}
+	h2 {
+		font-size: 1.6rem;
+	}
+	h3 {
+		font-size: 1.4rem;
+	}
+	h4	{
+		font-size: 1.2rem;
+	}
+	table tr th, table tr td {
+		padding: 0.3625rem 0.425rem;
+	}
+	td > table {
+		margin-bottom: 0.25rem;
+	}
+	.ap-data > table {
+		width: 100%;
+		margin-bottom: 0.25rem;
+	}
+	.ap-data > p:last-child {
+		display: none;
+	}
+	.eln-position {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+		color: #003366;
+		text-decoration: none;
+	}
+	.eln-state {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 14px;
+		color: #663333;
+		text-decoration: none;
+		background-color: EEEEEE;
+		font-weight: bold;
+		text-indent: 5px;
+	}
+	.eln-date {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 10px;
+		font-weight: bold;
+		color: #666666;
+		text-decoration: none;
+	}
+	.eln-label1 {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+		color: #993333;
+	}
+	.eln-bodyregular {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		color: #000000;
+		text-decoration: none;
+		line-height:0.525rem;
+	}
+	.eln-cty-bodyregular {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 9px;
+		color: #000000;
+		text-decoration: none;
+	}
+	.eln-official {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 13px;
+		font-weight: bold;
+		color: #333333;
+	}
+	.eln-office-name {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 12px;
+		font-weight: bold;
+		color: #993333;
+	}
+	.eln-bodyreg-bar {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 11px;
+		color: #000000;
+		text-decoration: none;
+		background-color: #EEEEEE;
+	}
+	.eln-cty-bodyreg-bar {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 9px;
+		color: #000000;
+		text-decoration: none;
+		background-color: #EEEEEE;
+	}
+	.eln-bodybold {
+		font: bold 10px Verdana, Arial, Helvetica, sans-serif; color: #000000;
+	}
+	.eln-subhed-table {
+		font: bold 10px Verdana, Arial, Helvetica, sans-serif;
+		color: #FFFFFF;
+		text-decoration: none;
+		background-color: #999999;
+	}
+	.eln-cty-subhed-table {
+		font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+		color: #FFFFFF;
+		text-decoration: none;
+		background-color: #CCCCCC;
+	}
+	.eln-navback {
+		font-family: Verdana, Arial, sans-serif;
+		color: 003366;
+		text-decoration: none;
+		background-color: #EEEEEE;
+		text-align: right;
+		font-size: 11px;
+		font-weight: bold;
+	}
+	.eln-footer-top {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 10px;
+		color: #FFFFFF;
+		font-weight: bold;
+		text-decoration: none;
+		background-color: #999999;
+	}
+	.eln-footer-body {
+		font-family: Verdana, Arial, Helvetica, sans-serif;
+		font-size: 10px;
+		color: #006600;
+		text-align: left;
+		text-decoration: none;
+	}
+}
+.page-template-page-election-results {
+	&.f-topbar-fixed {
+		padding-top:108px;
+	}
+	@media only screen and (min-width: $medium-up) {
+		&.f-topbar-fixed {
+			padding-top:218px;
+		}
+
+	}
+	footer {
+		clear: both;
+	}
+}
+@media #{$xmedium-down} {
+.page {
+	.page_wrapper {
+		#header {
+			height: 45px;
+		}
+	}
+}
+
+}
+.top-bar {
+	&.election {
+		min-height:45px;
+		height: auto;
+		ul {
+			margin-left: 0;
+		}
+	}
+}
+.election-2016-navigation {
+	padding: 9px;
+	li {
+		&.button {
+			padding: 0.35rem 0.75rem;
+			display: inline;
+			white-space: nowrap;
+			line-height:35px;
+			top:0 !important;
+		}
+		a {
+			font-family: $homepage_font;
+			font-weight: 300;
+			font-size: 15px;
+			text-transform: uppercase;
+			text-align: left;
+			color: #fff;
+		}
+	}
+}
+
+.elections-2016 {
+	float: left;
+	margin-bottom:10px;
+}
+.homepage-content {
+	.elections-2016 {
+		.ap-data {
+			min-height: 14.1rem;
+		}
+	}
+}
