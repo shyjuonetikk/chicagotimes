@@ -212,6 +212,19 @@
                 $(this).attr('height', newHeight ).attr('width', parentWidth);
             });
 
+          pageHeight = 800;
+          pageWidth = 750;
+          $('iframe.cst-embed-responsive').each(function(){
+            var ouriFrame = $(this),
+              parentWidth = ouriFrame.parent().width();
+            var trueHeight = ouriFrame.data('true-height') ? ouriFrame.data('true-height') : pageHeight;
+            var trueWidth = ouriFrame.data('true-width') ? ouriFrame.data('true-width') : pageWidth;
+            var newHeight = ( parentWidth / trueHeight ) * trueWidth;
+            if ( newHeight < pageHeight ) {
+              newHeight = pageHeight;
+            }
+            ouriFrame.attr('height', newHeight ).attr('width', parentWidth);
+          });
         },
 
         /**
