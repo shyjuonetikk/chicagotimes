@@ -333,4 +333,19 @@ class AP_Wire_Item extends Post {
 		}
 	}
 
+	/**
+	 * Get the media from ntif
+	 *
+	 * @return Object
+	 */
+	public function get_wire_media() {
+		$media = new \stdClass;
+		foreach(['main','preivew','thumbnail'] as $item) {
+			if($this->get_meta( $item )) {
+				$media->{$item} = $this->get_meta( $item );
+			}
+		}
+		return $media;
+	}
+
 }
