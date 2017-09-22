@@ -2269,8 +2269,6 @@ function filter_include_nativo_on_certain_pages() {
 function filter_load_morpheus() {
 	return ! is_404();
 }
-<<<<<<< HEAD
-=======
 
 
 function getData( $url ) {
@@ -2309,4 +2307,9 @@ function getWeatherImage( $locationname ){
 	$SatImageSrc = $satImage[0]->Url;
 	return $SatImageSrc;
 }
->>>>>>> c416e69eec8f95bbba54772f10192fb96cc6f39e
+// Add a Bootstrap files to WP Admin Area
+function admin_bootstrap_scripts() {
+    wp_enqueue_style('bootstrap-admin-style', get_template_directory_uri() . '/assets/css/bootstrap.min.css');
+		wp_enqueue_script('bootstrap-admin-script', get_template_directory_uri() . '/assets/js/bootstrap.min.js');
+}
+// add_action('admin_enqueue_scripts', 'admin_bootstrap_scripts');

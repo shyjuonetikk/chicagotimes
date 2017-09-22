@@ -258,7 +258,65 @@ class CST_Wire_Curator {
 				echo $item->get_content();
 				echo '<div class="cst-preview-data">';
 				echo '<div class="preview-headline">' . esc_html( $item->get_wire_headline() ) . '</div>';
-				echo '<div class="preview-content">' . wp_kses_post( $item->get_wire_content() ) . '</div>';
+				echo '<div class="preview-content">' . wp_kses_post( $item->get_wire_content() );
+				if($item->get_wire_media() != new stdClass()) {
+					$media = $item->get_wire_media();
+					$img = (isset($media->preview)) ? $media->preview : $media->thumbnail;
+					?>
+					<ul id="mediaTab" class="nav nav-tabs">
+						<li class="nav-item">
+							<a class="nav-link active" data-target="photo" href="#photo">Photo</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" data-target="videos" href="#videos">Videos</a>
+						</li>
+					</ul>
+					<div class="tab-content">
+					  <div class="tab-pane active photo" id="photo" role="tabpanel">
+							<h2>Image Preview</h2>
+							<img src="<?=$img?>" width="100%"/>
+						</div>
+					  <div class="tab-pane videos" id="videos" role="tabpanel"></div>
+					</div>
+					<script type="text/javascript">
+						jQuery(function($) {
+							$('#mediaTab a').live('click',function (e) {
+								e.preventDefault();
+								$(this).tab('show');
+								var target = $(e.currentTarget).data('target');
+								$('.tab-pane').removeClass("active");
+								$('.'+target).addClass('active');
+							});
+						});
+					</script>
+					<?php
+				}
+				$create_args = array(
+					'action'        => 'cst_create_from_wire_item',
+					'nonce'         => wp_create_nonce( 'cst_create_from_wire_item' ),
+					'wire_item_id'  => $item->get_id(),
+					);
+				$create_url = add_query_arg( $create_args, admin_url( 'admin-ajax.php' ) );
+				if ( $item->get_wire_content() ) {
+
+					if ( $article = $item->get_article_post() ) {
+						echo '<a class="btn btn-default" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
+					} else {
+						echo '<a class="btn btn-default" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create Article', 'chicagosuntimes' ) . '</a>';
+					}
+
+				}
+
+				if ( $item->get_external_url() ) {
+
+					if ( $link = $item->get_link_post() ) {
+						echo '<a class="btn btn-default" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
+					} else {
+						echo '<a class="btn btn-default" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Create Link', 'chicagosuntimes' ) . '</a>';
+					}
+
+				}
+				echo '</div>';
 				echo '</div>';
 				break;
 
@@ -460,12 +518,16 @@ class CST_Wire_Curator {
 			}
 
 			$item = new \CST\Objects\AP_Wire_Item( $post );
+			$mainImg = $item->get_wire_media()->main;
 
 			switch ( $_GET['create'] ) {
 
 				case 'link':
 
 					$link = $item->create_link_post();
+					$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
+					set_post_thumbnail( $link->get_id(), $thumbnail_id );
+
 					if ( $link ) {
 						wp_safe_redirect( $link->get_edit_link() );
 						exit;
@@ -478,6 +540,8 @@ class CST_Wire_Curator {
 				case 'article':
 
 					$article = $item->create_article_post();
+					$thumbnail_id = media_sideload_image( $mainImg, $article->get_id(), 'Main image', 'id');
+					set_post_thumbnail( $article->get_id(), $thumbnail_id );
 					if ( $article ) {
 						wp_safe_redirect( $article->get_edit_link() );
 						exit;
@@ -544,7 +608,7 @@ class CST_Wire_Curator {
 						// Only handle articles right now
 						$is_article = false;
 						foreach ( $entry->link as $link ) {
-							if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
+							if ('AP Article' === (string) $link['title'] ) {
 								$is_article = true;
 								break;
 							}

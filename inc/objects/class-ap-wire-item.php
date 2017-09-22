@@ -44,6 +44,8 @@ class AP_Wire_Item extends Post {
 		}
 
 		$post = new AP_Wire_Item( $post_id );
+		// Save media
+		$post->saveMedia($feed_entry->content->nitf);
 
 		// Process attributes
 		foreach ( $feed_entry->link as $link ) {
@@ -298,6 +300,52 @@ class AP_Wire_Item extends Post {
 	 */
 	public function get_font_icon() {
 		return '';
+	}
+
+	public function saveMedia($ntif) {
+		if(empty($ntif))
+			return false;
+		$mediaFields = ['OriginalFileName', 'Format', 'Role', 'IngestLink'];
+		$media_list = $ntif->xpath('body/body.content/media');
+		if($media_list) {
+			foreach ($media_list as $media) {
+	      $media_type = strtolower($media->attributes()->{'media-type'});
+	      $media_data = [];
+	      foreach($media->xpath('media-metadata') as $meta) {
+	        if(in_array($meta->attributes()->{'name'}->__toString(), $mediaFields)) {
+	          $uniqueID = explode(":",$meta->attributes()->{'id'}->__toString())[1];
+	          $media_data[$uniqueID][$meta->attributes()->{'name'}->__toString()] = $meta->attributes()->{'value'}->__toString();
+	        }
+	      }
+
+	      foreach($media->xpath('media-reference') as $meta) {
+	        $uniqueID = explode(":",$meta->attributes()->{'id'}->__toString())[1];
+	        $media_data[$uniqueID][$media_type] = new \stdClass;
+	        foreach($meta->attributes() as $key => $value) {
+	          $media_data[$uniqueID][$media_type]->{$key} = $value->__toString();
+	        }
+	      }
+
+	      foreach($media_data as $media) {
+					$this->set_meta( strtolower($media['Role']), $media['photo']->source );
+	      }
+	    }
+		}
+	}
+
+	/**
+	 * Get the media from ntif
+	 *
+	 * @return Object
+	 */
+	public function get_wire_media() {
+		$media = new \stdClass;
+		foreach(['main','preivew','thumbnail'] as $item) {
+			if($this->get_meta( $item )) {
+				$media->{$item} = $this->get_meta( $item );
+			}
+		}
+		return $media;
 	}
 
 }
