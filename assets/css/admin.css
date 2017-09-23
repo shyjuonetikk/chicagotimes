@@ -203,3 +203,11 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 	display: inline;
 	float: right;
 }
+
+.active {
+	display: block;
+}
+
+.tab-pane {
+	display: none;
+}

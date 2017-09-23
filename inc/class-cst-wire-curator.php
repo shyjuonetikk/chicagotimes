@@ -258,11 +258,11 @@ class CST_Wire_Curator {
 				echo $item->get_content();
 				echo '<div class="cst-preview-data">';
 				echo '<div class="button-group">';
-				echo $item->get_wire_content()? '<a class="btn btn-inverse active" data-target="text">Text</a>' : '';
+				echo $item->get_wire_content()? '<a class="btn btn-inverse active apwire-tab" data-target="text">Text</a>' : '';
 				$imageTab = (!$item->get_wire_content())? 'btn-inverse' : 'btn-default';
 				?>
-						<a class="btn <?=$imageTab?>" data-target="images">Images</a>
-						<a class="btn btn-default" data-target="videos">Videos</a>
+						<a class="btn <?=$imageTab?> apwire-tab" data-target="images">Images</a>
+						<a class="btn btn-default apwire-tab" data-target="videos">Videos</a>
 				<?php
 					$create_args = array(
 						'action'        => 'cst_create_from_wire_item',
@@ -273,9 +273,9 @@ class CST_Wire_Curator {
 					if ( $item->get_wire_content() ) {
 
 						if ( $article = $item->get_article_post() ) {
-							echo '<a class="btn btn-default" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
+							echo '<a class="btn btn-default apwire-save-draft" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-default" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-default apwire-save-draft" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -283,9 +283,9 @@ class CST_Wire_Curator {
 					if ( $item->get_external_url() ) {
 
 						if ( $link = $item->get_link_post() ) {
-							echo '<a class="btn btn-default" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
+							echo '<a class="btn btn-default save-draft" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-default" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-default save-draft" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -293,13 +293,13 @@ class CST_Wire_Curator {
 				echo '<div class="preview-headline">' . esc_html( $item->get_wire_headline() ) . '</div>';
 				echo '<div class="preview-content">';
 				$fCon = wp_kses_post( $item->get_wire_content());
-				echo $item->get_wire_content()? "<div class=\"text active\">{$fCon}</div>" : '';
+				echo $item->get_wire_content()? "<div class=\"tab-pane text active\">{$fCon}</div>" : '';
 				$imageTabActive = (!$item->get_wire_content())? 'active' : '';
 				?>
-				<div class="images <?=$imageTabActive?>">
+				<div class="tab-pane images <?=$imageTabActive?>">
 					<?php
-						if($item->get_wire_media() != new stdClass()) {
-							$media = $item->get_wire_media();
+						if(!empty($item->get_wire_media('photo'))) {
+							$media = $item->get_wire_media('photo');
 							// print_r($media);
 							?>
 
@@ -307,6 +307,21 @@ class CST_Wire_Curator {
 						} else {
 							?>
 								<p>No images available.</p>
+							<?php
+						}
+					?>
+				</div>
+				<div class="tab-pane videos <?=$imageTabActive?>">
+					<?php
+						if(!empty($item->get_wire_media('videos'))) {
+							$media = $item->get_wire_media('videos');
+							// print_r($media);
+							?>
+
+							<?php
+						} else {
+							?>
+								<p>No videos available.</p>
 							<?php
 						}
 					?>

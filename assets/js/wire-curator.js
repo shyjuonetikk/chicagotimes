@@ -18,6 +18,7 @@
 			this.previewHeadline = $('#cst-wire-curator-preview-item-headline h2');
 			this.buttonGroup = $('#cst-wire-curator-button-group');
 			this.previewContent = $('#cst-wire-curator-preview-item-content');
+			this.tab = $('.apwire-tab');
 
 			this.bindEvents();
 
@@ -42,7 +43,7 @@
 				}
 
 			}, this ) );
-
+			this.tab.on( 'click', $.proxy( this.showTab, this ) );
 		},
 
 		/**
@@ -137,6 +138,16 @@
 			this.wrap.hide();
 			this.backdrop.hide();
 
+		},
+		/**
+		* Tab method
+		*/
+		showTab: function( e ) {
+			e.preventDefault();
+
+			var tab = $(e.currentTarget).data('target');
+			$('.tab-pane').removeClass('active');
+			$('.'+tab).addClass('active');
 		}
 
 	};
