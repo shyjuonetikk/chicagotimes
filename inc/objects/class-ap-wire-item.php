@@ -326,9 +326,15 @@ class AP_Wire_Item extends Post {
 	        }
 	      }
 
+				$medialist = [];
 	      foreach($media_data as $media) {
-					$this->set_meta( strtolower($media['Role']), $media['photo']->source );
+					if(!in_array($media['OriginalFileName'], $medialist)) {
+	            $medialist[] = strtolower($media['OriginalFileName']);
+	        }
+					$this->set_meta( strtolower($media['Role']."_".$media['OriginalFileName']), $media['photo']->source );
 	      }
+
+				$this->set_meta( 'media', implode(',', $medialist) );
 	    }
 		}
 	}
@@ -339,11 +345,16 @@ class AP_Wire_Item extends Post {
 	 * @return Object
 	 */
 	public function get_wire_media() {
-		$media = new \stdClass;
-		foreach(['main','preivew','thumbnail'] as $item) {
-			if($this->get_meta( $item )) {
-				$media->{$item} = $this->get_meta( $item );
+		$media = [];
+		$mediaList = explode(',', $this->get_meta('media'));
+		foreach($mediaList as $key) {
+			$mediaItem = new \stdClass;
+			foreach(['main','preivew','thumbnail'] as $item) {
+				if($this->get_meta( $item . '_' . $key )) {
+					$mediaItem->{$item} = $this->get_meta( $item . '_' . $key );
+				}
 			}
+			$media[] = $mediaItem;
 		}
 		return $media;
 	}
