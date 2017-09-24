@@ -362,6 +362,16 @@ class CST_Wire_Curator {
 							preview.find('img').remove();
 							preview.css('display', 'none');
 						});
+
+						$('input.set_default').on('click', function(e) {
+							var value = $(e.currentTarget).val();
+							var url = $('.save-draft');
+							var href = new URL(url.attr('href'));
+							var search = new URLSearchParams(href.search);
+							search.set('default', value);
+							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
+							url.attr('href', newURL);
+						});
 					});
 				</script>
 				<?php
@@ -567,7 +577,7 @@ class CST_Wire_Curator {
 			}
 
 			$item = new \CST\Objects\AP_Wire_Item( $post );
-			$mainImg = $item->get_wire_media()->main;
+			$mainImg = $item->get_media_by_key($_GET['default']);
 
 			switch ( $_GET['create'] ) {
 

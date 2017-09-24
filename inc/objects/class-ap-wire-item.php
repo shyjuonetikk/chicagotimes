@@ -375,4 +375,8 @@ class AP_Wire_Item extends Post {
 		return $media;
 	}
 
+	public function get_media_by_key($key) {
+		return $this->get_meta($key);
+	}
+
 }
