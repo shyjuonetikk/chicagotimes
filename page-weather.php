@@ -21,6 +21,8 @@
 						<source src="https://dig.abclocal.go.com/wls/video/SunTimes/wls_vid_wx_planner.ogv?vs=20141101 21:16:01" type='video/ogg' />
 					</video>
 				</div>
+<<<<<<< HEAD
+=======
 				<div class="weather-radar-container">
 					<h2><?php echo esc_html_e( 'Weather Radar', 'chicagosuntimes' ); ?></h2>
 					<div class="image-container">
@@ -44,6 +46,7 @@
 	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); ?>
 		</article>
 				</div>
+>>>>>>> c416e69eec8f95bbba54772f10192fb96cc6f39e
 			</div>
 			<div class="large-4 columns weather-sidebar">
 				<script src="https://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&#038;type=dynamic_group_weather&#038;style=standard"></script>
