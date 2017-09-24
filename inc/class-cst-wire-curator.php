@@ -300,9 +300,31 @@ class CST_Wire_Curator {
 					<?php
 						if(!empty($item->get_wire_media('photo'))) {
 							$media = $item->get_wire_media('photo');
-							// print_r($media);
 							?>
-
+							<ul class="photo_list">
+								<?php foreach($media as $photo): ?>
+									<? $preview_img = isset($photo->preview)? $photo->preview->file : $photo->main->file; ?>
+									<li>
+										<div class="thumbnail">
+											<img src="<?=$photo->thumbnail->file?>"/>
+										</div>
+										<div class="on-hover">
+											<label class="set-default">
+												Set default
+												<input type="radio" class="set_default" name="set_default" value="<?=$photo->main->name?>"/>
+											</label>
+											<label class="add-to-media">
+												Add media
+												<input type="checkbox" class="add_to_media" name="add_to_media" value="<?=$photo->main->name?>"/>
+											</label>
+											<a class="preview-btn">Preivew</a>
+										</div>
+										<div class="preview" data-target="<?=$preview_img?>">
+											<a class="close"></a>
+										</div>
+									</li>
+								<?php endforeach; ?>
+							</ul>
 							<?php
 						} else {
 							?>
@@ -311,21 +333,37 @@ class CST_Wire_Curator {
 						}
 					?>
 				</div>
-				<div class="tab-pane videos <?=$imageTabActive?>">
-					<?php
-						if(!empty($item->get_wire_media('videos'))) {
-							$media = $item->get_wire_media('videos');
-							// print_r($media);
-							?>
+				<div class="tab-pane videos"></div>
+				<script type="text/javascript">
+					jQuery(function($){
+						/**
+						* Tab method
+						*/
+						$('a.apwire-tab').on('click', function(e) {
+							e.preventDefault();
+							var tab = $(e.currentTarget).data('target');
+							$('.tab-pane').removeClass('active');
+							$('.'+tab).addClass('active');
+						});
+						/**
+						 * Image preview
+						 */
+						$('a.preview-btn').on('click', function(e) {
+							e.preventDefault();
+							var preview = $(e.target).closest('li').find('.preview');
+							var target = $(preview).data('target');
+							preview.append('<img src="' + target + '"/>');
+							preview.css('display', 'block');
+						});
 
-							<?php
-						} else {
-							?>
-								<p>No videos available.</p>
-							<?php
-						}
-					?>
-				</div>
+						$('a.close').on('click', function(e) {
+							e.preventDefault();
+							var preview = $(e.target).closest('.preview');
+							preview.find('img').remove();
+							preview.css('display', 'none');
+						});
+					});
+				</script>
 				<?php
 				echo '</div>';
 				echo '</div>';
