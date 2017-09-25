@@ -257,65 +257,124 @@ class CST_Wire_Curator {
 			case 'cst_wire_item_content':
 				echo $item->get_content();
 				echo '<div class="cst-preview-data">';
+				echo '<div class="button-group">';
+				echo $item->get_wire_content()? '<a class="btn btn-inverse active apwire-tab" data-target="text">Text</a>' : '';
+				$imageTab = (!$item->get_wire_content())? 'btn-inverse' : 'btn-default';
+				?>
+						<a class="btn <?=$imageTab?> apwire-tab" data-target="images">Images</a>
+						<a class="btn btn-default apwire-tab" data-target="videos">Videos</a>
+				<?php
+					$create_args = array(
+						'action'        => 'cst_create_from_wire_item',
+						'nonce'         => wp_create_nonce( 'cst_create_from_wire_item' ),
+						'wire_item_id'  => $item->get_id(),
+						);
+					$create_url = add_query_arg( $create_args, admin_url( 'admin-ajax.php' ) );
+					if ( $item->get_wire_content() ) {
+
+						if ( $article = $item->get_article_post() ) {
+							echo '<a class="btn btn-default apwire-save-draft" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
+						} else {
+							echo '<a class="btn btn-default apwire-save-draft" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft', 'chicagosuntimes' ) . '</a>';
+						}
+
+					}
+
+					if ( $item->get_external_url() ) {
+
+						if ( $link = $item->get_link_post() ) {
+							echo '<a class="btn btn-default save-draft" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
+						} else {
+							echo '<a class="btn btn-default save-draft" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft', 'chicagosuntimes' ) . '</a>';
+						}
+
+					}
+				echo '</div>';
 				echo '<div class="preview-headline">' . esc_html( $item->get_wire_headline() ) . '</div>';
-				echo '<div class="preview-content">' . wp_kses_post( $item->get_wire_content() );
-				if($item->get_wire_media() != new stdClass()) {
-					$media = $item->get_wire_media();
-					$img = (isset($media->preview)) ? $media->preview : $media->thumbnail;
-					?>
-					<ul id="mediaTab" class="nav nav-tabs">
-						<li class="nav-item">
-							<a class="nav-link active" data-target="photo" href="#photo">Photo</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" data-target="videos" href="#videos">Videos</a>
-						</li>
-					</ul>
-					<div class="tab-content">
-					  <div class="tab-pane active photo" id="photo" role="tabpanel">
-							<h2>Image Preview</h2>
-							<img src="<?=$img?>" width="100%"/>
-						</div>
-					  <div class="tab-pane videos" id="videos" role="tabpanel"></div>
-					</div>
-					<script type="text/javascript">
-						jQuery(function($) {
-							$('#mediaTab a').live('click',function (e) {
-								e.preventDefault();
-								$(this).tab('show');
-								var target = $(e.currentTarget).data('target');
-								$('.tab-pane').removeClass("active");
-								$('.'+target).addClass('active');
-							});
-						});
-					</script>
+				echo '<div class="preview-content">';
+				$fCon = wp_kses_post( $item->get_wire_content());
+				echo $item->get_wire_content()? "<div class=\"tab-pane text active\">{$fCon}</div>" : '';
+				$imageTabActive = (!$item->get_wire_content())? 'active' : '';
+				?>
+				<div class="tab-pane images <?=$imageTabActive?>">
 					<?php
-				}
-				$create_args = array(
-					'action'        => 'cst_create_from_wire_item',
-					'nonce'         => wp_create_nonce( 'cst_create_from_wire_item' ),
-					'wire_item_id'  => $item->get_id(),
-					);
-				$create_url = add_query_arg( $create_args, admin_url( 'admin-ajax.php' ) );
-				if ( $item->get_wire_content() ) {
+						if(!empty($item->get_wire_media('photo'))) {
+							$media = $item->get_wire_media('photo');
+							?>
+							<ul class="photo_list">
+								<?php foreach($media as $photo): ?>
+									<? $preview_img = isset($photo->preview)? $photo->preview->file : $photo->main->file; ?>
+									<li>
+										<div class="thumbnail">
+											<img src="<?=$photo->thumbnail->file?>"/>
+										</div>
+										<div class="on-hover">
+											<label class="set-default">
+												Set default
+												<input type="radio" class="set_default" name="set_default" value="<?=$photo->main->name?>"/>
+											</label>
+											<label class="add-to-media">
+												Add media
+												<input type="checkbox" class="add_to_media" name="add_to_media" value="<?=$photo->main->name?>"/>
+											</label>
+											<a class="preview-btn">Preivew</a>
+										</div>
+										<div class="preview" data-target="<?=$preview_img?>">
+											<a class="close"></a>
+										</div>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+							<?php
+						} else {
+							?>
+								<p>No images available.</p>
+							<?php
+						}
+					?>
+				</div>
+				<div class="tab-pane videos"></div>
+				<script type="text/javascript">
+					jQuery(function($){
+						/**
+						* Tab method
+						*/
+						$('a.apwire-tab').on('click', function(e) {
+							e.preventDefault();
+							var tab = $(e.currentTarget).data('target');
+							$('.tab-pane').removeClass('active');
+							$('.'+tab).addClass('active');
+						});
+						/**
+						 * Image preview
+						 */
+						$('a.preview-btn').on('click', function(e) {
+							e.preventDefault();
+							var preview = $(e.target).closest('li').find('.preview');
+							var target = $(preview).data('target');
+							preview.append('<img src="' + target + '"/>');
+							preview.css('display', 'block');
+						});
 
-					if ( $article = $item->get_article_post() ) {
-						echo '<a class="btn btn-default" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
-					} else {
-						echo '<a class="btn btn-default" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create Article', 'chicagosuntimes' ) . '</a>';
-					}
+						$('a.close').on('click', function(e) {
+							e.preventDefault();
+							var preview = $(e.target).closest('.preview');
+							preview.find('img').remove();
+							preview.css('display', 'none');
+						});
 
-				}
-
-				if ( $item->get_external_url() ) {
-
-					if ( $link = $item->get_link_post() ) {
-						echo '<a class="btn btn-default" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
-					} else {
-						echo '<a class="btn btn-default" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Create Link', 'chicagosuntimes' ) . '</a>';
-					}
-
-				}
+						$('input.set_default').on('click', function(e) {
+							var value = $(e.currentTarget).val();
+							var url = $('.save-draft');
+							var href = new URL(url.attr('href'));
+							var search = new URLSearchParams(href.search);
+							search.set('default', value);
+							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
+							url.attr('href', newURL);
+						});
+					});
+				</script>
+				<?php
 				echo '</div>';
 				echo '</div>';
 				break;
@@ -518,7 +577,7 @@ class CST_Wire_Curator {
 			}
 
 			$item = new \CST\Objects\AP_Wire_Item( $post );
-			$mainImg = $item->get_wire_media()->main;
+			$mainImg = $item->get_media_by_key($_GET['default']);
 
 			switch ( $_GET['create'] ) {
 

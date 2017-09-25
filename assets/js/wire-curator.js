@@ -16,8 +16,8 @@
 			this.wrap = $( '#cst-wire-curator-preview-item-modal-wrap' );
 			this.backdrop = $( '#cst-wire-curator-preview-item-modal-backdrop' );
 			this.previewHeadline = $('#cst-wire-curator-preview-item-headline h2');
+			this.buttonGroup = $('#cst-wire-curator-button-group');
 			this.previewContent = $('#cst-wire-curator-preview-item-content');
-
 			this.bindEvents();
 
 		},
@@ -41,7 +41,6 @@
 				}
 
 			}, this ) );
-
 		},
 
 		/**
@@ -120,8 +119,8 @@
 			this.backdrop.show();
 
 			var previewData = el.closest('tr').find('.cst-preview-data');
-
 			this.previewHeadline.text( previewData.find('.preview-headline').text() );
+			this.buttonGroup.html(previewData.find('.button-group').html());
 			this.previewContent.html( previewData.find('.preview-content').html() );
 
 		},
@@ -136,8 +135,7 @@
 			this.wrap.hide();
 			this.backdrop.hide();
 
-		}
-
+		},
 	};
 
 	$(document).ready(function(){
