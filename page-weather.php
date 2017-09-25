@@ -21,8 +21,6 @@
 						<source src="https://dig.abclocal.go.com/wls/video/SunTimes/wls_vid_wx_planner.ogv?vs=20141101 21:16:01" type='video/ogg' />
 					</video>
 				</div>
-<<<<<<< HEAD
-=======
 				<div class="weather-radar-container">
 					<h2><?php echo esc_html_e( 'Weather Radar', 'chicagosuntimes' ); ?></h2>
 					<div class="image-container">
@@ -32,25 +30,29 @@
 						<div class="columns">
 							<hr>
 						</div>
+						<div id="circularhub_module_10897"></div>
+						<script src="//api.circularhub.com/10897/2e2e1d92cebdcba9/circularhub_module.js"></script>
 						<?php
-						if ( is_active_sidebar( 'undermorefrom' ) ) :
-							dynamic_sidebar( 'undermorefrom' );
-						endif;
-						$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-						$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
-		$attrs = CST()->frontend->article_dimensions( $obj );
+							$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+							$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
+							$attrs = CST()->frontend->article_dimensions( $obj );
 						?>
 					</div>
 					<article <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
-					<?php 
-	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); ?>
-		</article>
+								<?php 
+									echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); 
+								?>
+
+					</article>
+					<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
+					</div>
 				</div>
->>>>>>> c416e69eec8f95bbba54772f10192fb96cc6f39e
 			</div>
 			<div class="large-4 columns weather-sidebar">
 				<script src="https://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&#038;type=dynamic_group_weather&#038;style=standard"></script>
+				<?php echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sky-scraper', 'dfp' ), CST()->dfp_kses ); ?>
 			</div>
+
 		</div>
 	</section>
 
