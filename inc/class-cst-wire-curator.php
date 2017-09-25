@@ -311,7 +311,7 @@ class CST_Wire_Curator {
 										<div class="on-hover">
 											<input type="hidden" class="post_id" name="post_id" value="<?=$item->get_id()?>"/>
 											<label class="set-default">
-												Set default
+												Featured
 												<input type="radio" class="set_default" name="set_default" value="<?=$photo->main->name?>"/>
 											</label>
 											<label class="add-to-media">
