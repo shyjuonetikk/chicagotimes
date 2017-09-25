@@ -4853,18 +4853,3 @@ body#tinymce {
 
 .widget .cb-articles {
   width: 100%; }
-<<<<<<< HEAD
-=======
-
-/* New styles */
-
-.image-container{
-  width: 100%;
-  height: 458px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-.image-container img{
-  width: 100%;
-}
->>>>>>> c416e69eec8f95bbba54772f10192fb96cc6f39e
