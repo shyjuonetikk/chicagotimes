@@ -378,6 +378,20 @@ class CST_Wire_Curator {
 							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
 							url.attr('href', newURL);
 						});
+
+						$('input.add_to_media').on('click', function(e) {
+							var value = [];
+							$.each($("input[name='add_to_media']:checked"), function(){
+	                value.push($(this).val());
+	            });
+							var post_id = $(e.currentTarget).closest('li').find('.post_id').val();
+							var url = $('.save-draft-'+post_id);
+							var href = new URL(url.attr('href'));
+							var search = new URLSearchParams(href.search);
+							search.set('media', value.join(','));
+							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
+							url.attr('href', newURL);
+						});
 					});
 				</script>
 				<?php
@@ -592,6 +606,10 @@ class CST_Wire_Curator {
 					$link = $item->create_link_post();
 					$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
 					set_post_thumbnail( $link->get_id(), $thumbnail_id );
+					$media = explode(',',$_GET['media']);
+					foreach ($media as $img) {
+						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
+					}
 
 					if ( $link ) {
 						wp_safe_redirect( $link->get_edit_link() );
@@ -607,6 +625,10 @@ class CST_Wire_Curator {
 					$article = $item->create_article_post();
 					$thumbnail_id = media_sideload_image( $mainImg, $article->get_id(), 'Main image', 'id');
 					set_post_thumbnail( $article->get_id(), $thumbnail_id );
+					$media = explode(',',$_GET['media']);
+					foreach ($media as $img) {
+						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
+					}
 					if ( $article ) {
 						wp_safe_redirect( $article->get_edit_link() );
 						exit;
