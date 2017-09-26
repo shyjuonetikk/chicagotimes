@@ -2275,7 +2275,6 @@ function getData( $url ) {
 	$username = 'ILCHS_webfeeds';
 	$password = 'ap116';
 	$server = $url;
-
 	$context = stream_context_create(array(
 	        'http' => array(
 	            'header'  => "Authorization: Basic " . base64_encode("$username:$password")
@@ -2283,7 +2282,6 @@ function getData( $url ) {
 	    )
 	);
 	$source = file_get_contents("$server", false, $context);
-
 	$xml = new SimpleXMLElement($source);
  	return $xml;
 }
