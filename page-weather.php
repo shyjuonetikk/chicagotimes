@@ -44,8 +44,8 @@
 								?>
 
 					</article>
-					<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
-					</div>
+					<?php get_template_part( 'parts/taboola/taboola-weather' ); ?>
+
 				</div>
 			</div>
 			<div class="large-4 columns weather-sidebar">

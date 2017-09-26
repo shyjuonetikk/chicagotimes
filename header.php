@@ -37,6 +37,7 @@
 <meta name="msapplication-wide310x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x150.png" />
 <meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
 <script type="text/javascript" async src="//mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
+<script type="text/javascript" src="<?php echo esc_url( get_template_directory_uri());?>/assets/js/vendor/taboola-header-weather.js"></script>
 <script type="text/javascript">
 (function() {
 	var gads = document.createElement('script');

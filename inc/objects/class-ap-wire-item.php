@@ -303,39 +303,39 @@ class AP_Wire_Item extends Post {
 		return '';
 	}
 
-	public function saveMedia($ntif) {
-		if(empty($ntif))
+	public function saveMedia( $ntif ) {
+		if(empty( $ntif ))
 			return false;
-		if(!is_array($ntif)) {
+		if(!is_array( $ntif )) {
 			$media_list = $ntif->xpath('body/body.content/media');
 		} else {
 			$media_list = $ntif;
 		}
 
-		$mediaFields = ['OriginalFileName', 'Format', 'Role', 'IngestLink'];
+		$mediaFields = [ 'OriginalFileName', 'Format', 'Role', 'IngestLink' ];
 		if($media_list) {
 			$media_data = [];
-	    foreach ($media_list as $media) {
-	      $media_type = strtolower($media->attributes()->{'media-type'});
-	      foreach($media->xpath('media-metadata') as $meta) {
-	        if(in_array($meta->attributes()->{'name'}->__toString(), $mediaFields)) {
+	    foreach ( $media_list as $media ) {
+	      $media_type = strtolower( $media->attributes()->{'media-type'} );
+	      foreach( $media->xpath('media-metadata') as $meta ) {
+	        if(in_array( $meta->attributes()->{'name'}->__toString(), $mediaFields) ) {
 	          $uniqueID = explode(":",$meta->attributes()->{'id'}->__toString())[1];
 	          $media_data[$uniqueID][$meta->attributes()->{'name'}->__toString()] = $meta->attributes()->{'value'}->__toString();
 	        }
 	      }
-	      foreach($media->xpath('media-reference') as $meta) {
+	      foreach( $media->xpath('media-reference') as $meta ) {
 	        $uniqueID = explode(":",$meta->attributes()->{'id'}->__toString())[1];
 	        $media_data[$uniqueID][$media_type] = new \stdClass;
 	        $media_data[$uniqueID]['type'] = $media_type;
-	        foreach($meta->attributes() as $key => $value) {
+	        foreach( $meta->attributes() as $key => $value ) {
 	          $media_data[$uniqueID][$media_type]->{$key} = $value->__toString();
 	        }
 	      }
 	    }
 			$photolist = [];
 			$videolist = [];
-			if(!empty($media_data)) {
-				foreach($media_data as $media) {
+			if(!empty( $media_data )) {
+				foreach( $media_data as $media ) {
 					$OriginalFileName = strtolower($media['OriginalFileName']);
 					if(!in_array($OriginalFileName, $photolist) && $media['type'] === 'photo') {
 							$photolist[] = $OriginalFileName;
@@ -358,17 +358,17 @@ class AP_Wire_Item extends Post {
 	 *
 	 * @return Object
 	 */
-	public function get_wire_media($type) {
+	public function get_wire_media( $type ) {
 		if(!isset($type) || $type=='')
 			return [];
 		if(!$this->get_meta($type))
 			return [];
 
 		$media = [];
-		$mediaList = explode(',', $this->get_meta($type));
+		$mediaList = explode( ',', $this->get_meta($type) );
 		foreach($mediaList as $key) {
 			$mediaItem = new \stdClass;
-			foreach(['main','preivew','thumbnail'] as $item) {
+			foreach( ['main','preivew','thumbnail'] as $item ) {
 				if($this->get_meta( $item . '_' . $key )) {
 					$mediaItem->{$item} = (object) [
 						"name" => $item . '_' . $key,
@@ -381,8 +381,8 @@ class AP_Wire_Item extends Post {
 		return $media;
 	}
 
-	public function get_media_by_key($key) {
-		return $this->get_meta($key);
+	public function get_media_by_key( $key ) {
+		return $this->get_meta( $key );
 	}
 
 }
