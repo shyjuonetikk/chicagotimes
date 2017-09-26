@@ -1,4 +1,8 @@
 <?php get_header(); ?>
+<div class="section_front_wrapper">
+	<div class="row">
+	<?php \CST\CST_Section_Front::get_instance()->five_block( 'cubs' );?>
+	</div>
 	<section class="row grey-background">
 		<div id="main" class="wire columns medium-8 large-8 small-12">
 			<div id="fixed-back-to-top" class="hide-back-to-top">
@@ -44,5 +48,5 @@
 		</div>
 
 	</section>
-
+</div>
 <?php get_footer();

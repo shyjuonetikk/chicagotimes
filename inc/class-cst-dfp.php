@@ -41,6 +41,9 @@ class CST_DFP_Handler {
 	 * Create a generic markup unit
 	 */
 	public function unit( $index, $type = '', $class = '' ) {
+		if ( is_customize_preview() ) {
+			return '';
+		}
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-atf-leaderboard';
 		}
@@ -80,6 +83,9 @@ class CST_DFP_Handler {
 	 * Create a dynamic generic markup unit
 	 */
 	public function dynamic_unit( $index, $type = '', $class = '', $mapping = '', $targeting_name = 'atf leaderboard', $default_size = '300,250' ) {
+		if ( is_customize_preview() ) {
+			return '';
+		}
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-placement';
 		}
@@ -130,6 +136,9 @@ googletag.cmd.push(function() {
 	 * Create a DFP cube unit
 	 */
 	public function cube( $index, $type = '', $class = '' ) {
+		if ( is_customize_preview() ) {
+			return '';
+		}
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-rr-cube';
 		}
@@ -151,6 +160,9 @@ googletag.cmd.push(function() {
 	 * Create a sliding billboard unit
 	 */
 	public function sbb( $index ) {
+		if ( is_customize_preview() ) {
+			return '';
+		}
 
 		return sprintf(
 			'
@@ -177,6 +189,9 @@ googletag.cmd.push(function() {
 	 * Create a custom sliding billboard unit
 	 */
 	public function sbb_pushdown( $index ) {
+		if ( is_customize_preview() ) {
+			return '';
+		}
 
 		return sprintf(
 			'

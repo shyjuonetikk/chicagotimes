@@ -196,7 +196,7 @@ class CST_Customizer {
 			'description'     => __( 'Choose entertainment stories', 'chicagosuntimes' ),
 			'priority'        => 240,
 			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
+			'active_callback' => 'is_sports_tax',
 		] );
 		$wp_customize->add_section( 'featured_obits_section_stories', [
 			'title'           => __( 'Featured Obits', 'chicagosuntimes' ),
@@ -211,6 +211,13 @@ class CST_Customizer {
 			'priority'        => 260,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
+		] );
+		$wp_customize->add_section( 'sports_section_stories_1', [
+			'title'           => __( 'Sports SF', 'chicagosuntimes' ),
+			'description'     => __( 'Choose Sports SF stories', 'chicagosuntimes' ),
+			'priority'        => 400,
+			'capability'      => $this->capability,
+			'active_callback' => [ $this, 'is_sports_tax' ],
 		] );
 		/**
 		 * Add settings within each section
@@ -309,31 +316,31 @@ class CST_Customizer {
 		$this->_generate_choices();
 		$sports_customizer = [
 			'sport_section_lead'    => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_1',
 				'label'    => 'Choose sport lead section',
 				'priority' => 19,
 				'choices'  => $this->section_choices,
 			],
 			'sport_other_section_1' => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_2',
 				'label'    => 'Choose sport other section 1',
 				'priority' => 20,
 				'choices'  => $this->sports_section_choices,
 			],
 			'sport_other_section_2' => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_3',
 				'label'    => 'Choose sport other section 2',
 				'priority' => 21,
 				'choices'  => $this->sports_section_choices,
 			],
 			'sport_other_section_3' => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_4',
 				'label'    => 'Choose sport other section 3',
 				'priority' => 22,
 				'choices'  => $this->sports_section_choices,
 			],
 			'sport_other_section_4' => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_5',
 				'label'    => 'Choose sport other section 4',
 				'priority' => 23,
 				'choices'  => $this->sports_section_choices,
@@ -525,6 +532,17 @@ class CST_Customizer {
 
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function is_sports_tax() {
+		if ( is_tax() ) {
+			if ( array_key_exists( get_queried_object()->slug, CST()->frontend->send_to_news_embeds ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 	/**
 	 * @param \WP_Customize_Manager $wp_customize
 	 *

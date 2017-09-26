@@ -11,7 +11,7 @@ class CST_Frontend {
 
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
-	private $send_to_news_embeds = array(
+	public $send_to_news_embeds = array(
 		'cubs'              => 'xXrmaE8c',
 		'cubs-baseball'     => 'xXrmaE8c',
 		'white-sox'         => 'TR8jtM5y',
@@ -2915,10 +2915,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	/**
 	* Provide Chicago Sport heading, markup and link to section for homepage
 	*/
-	public function sports_heading() {
-		$sports_term = wpcom_vip_get_term_link( 'sports','cst_section' );
+	public function sports_heading( $team ) {
+		$sports_term = wpcom_vip_get_term_link( $team,'cst_section' );
 		if ( ! is_wp_error( $sports_term ) ) { ?>
-			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h2>
+			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>"><?php echo esc_html( ucfirst( $team ) ); ?></a></h2>
 		<?php }
 	}
 
