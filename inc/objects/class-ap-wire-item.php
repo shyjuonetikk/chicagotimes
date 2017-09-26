@@ -368,7 +368,7 @@ class AP_Wire_Item extends Post {
 		$mediaList = explode(',', $this->get_meta($type));
 		foreach($mediaList as $key) {
 			$mediaItem = new \stdClass;
-			foreach(['main','preivew','thumbnail'] as $item) {
+			foreach(['main','preview','thumbnail'] as $item) {
 				if($this->get_meta( $item . '_' . $key )) {
 					$mediaItem->{$item} = (object) [
 						"name" => $item . '_' . $key,
