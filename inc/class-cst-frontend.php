@@ -150,7 +150,7 @@ class CST_Frontend {
 			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,400i,600,600i,700,700i|Merriweather:300,300i,400,400i,700,700i,900,900i&amp;subset=latin' );
 		}
 		if ( is_page_template( 'page-flipp.php' ) ) {
-			wp_enqueue_script( 'cst_ad_flipp_page', 'http://circulars.chicago.suntimes.com/distribution_services/iframe.js' );
+			wp_enqueue_script( 'cst_ad_flipp_page', 'https://circulars-chicago.suntimes.com/distribution_services/iframe.js' );
 		}
 
 		if ( is_page_template( 'page-monster.php' ) ) {
