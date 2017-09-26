@@ -49,7 +49,9 @@
 			</div>
 			<div class="large-4 columns weather-sidebar">
 				<script src="https://content.synapsys.us/embeds/placement.js?p=VSUE4YV38U&#038;type=dynamic_group_weather&#038;style=standard"></script>
-				<?php echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sky-scraper', 'dfp' ), CST()->dfp_kses ); ?>
+				<div class="sidebar-weather">
+					<?php echo wp_kses( CST()->dfp_handler->unit( 1, 'div-gpt-sky-scraper', 'dfp' ), CST()->dfp_kses ); ?>
+				</div>
 			</div>
 
 		</div>
