@@ -701,7 +701,7 @@ class CST_Wire_Curator {
 						// Only handle articles right now
 						$is_article = false;
 						foreach ( $entry->link as $link ) {
-							if ('AP Article' === (string) $link['title'] ) {
+							if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
 								$is_article = true;
 								break;
 							}
