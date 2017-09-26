@@ -44,8 +44,6 @@ class AP_Wire_Item extends Post {
 		}
 
 		$post = new AP_Wire_Item( $post_id );
-		// Save media
-		$post->saveMedia($feed_entry->content->nitf);
 
 		// Process attributes
 		foreach ( $feed_entry->link as $link ) {
@@ -56,6 +54,8 @@ class AP_Wire_Item extends Post {
 
 			switch ( (string) $link['rel'] ) {
 				case 'alternate':
+					// Save media
+					$post->saveMedia($feed_entry->content->nitf);
 					$post->set_external_url( esc_url_raw( (string) $link['href'] ) );
 					break;
 
@@ -70,6 +70,7 @@ class AP_Wire_Item extends Post {
 					}
 
 					$nitf_data = wp_remote_retrieve_body( $response );
+					$post->saveMedia($post->get_nitf_field( $nitf_data, 'body/body.content/media' ));
 					$headline = $post->get_nitf_field( $nitf_data, 'body/body.head/hedline/hl1' );
 					if ( ! empty( $headline ) ) {
 						$post->set_wire_headline( sanitize_text_field( (string) $headline[0] ) );
@@ -305,8 +306,13 @@ class AP_Wire_Item extends Post {
 	public function saveMedia($ntif) {
 		if(empty($ntif))
 			return false;
+		if(!is_array($ntif)) {
+			$media_list = $ntif->xpath('body/body.content/media');
+		} else {
+			$media_list = $ntif;
+		}
+
 		$mediaFields = ['OriginalFileName', 'Format', 'Role', 'IngestLink'];
-		$media_list = $ntif->xpath('body/body.content/media');
 		if($media_list) {
 			$media_data = [];
 	    foreach ($media_list as $media) {
