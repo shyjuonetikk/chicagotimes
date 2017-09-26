@@ -14,7 +14,7 @@ class AP_Wire_Item extends Post {
 	 *
 	 * @return AP_Wire_Item|int|\WP_Error|\WP_Post
 	 */
-	public static function create_from_simplexml( $feed_entry ) {
+	public static function create_from_simplexml( $feed_entry, $articleId = '' ) {
 		global $edit_flow;
 
 		$gmt_published = date( 'Y-m-d H:i:s', strtotime( $feed_entry->published ) );
@@ -23,6 +23,23 @@ class AP_Wire_Item extends Post {
 		// Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
 		if ( is_object( $edit_flow ) ) {
 			$_POST['post_type'] = 'cst_wire_item';
+		}
+		$is_exist = 0;
+		if(isset($articleId) && !empty($articleId)) {
+			$args = array(
+			    'meta_query' => array(
+			        array(
+			            'key' => 'article_id',
+			            'value' => $articleId
+			        )
+			    ),
+			    'post_type' => 'cst_wire_item',
+			    'posts_per_page' => -1
+			);
+			echo '<pre>';
+			print_r(get_posts($args));
+			echo '</pre>';
+			$is_exist = get_posts($args)[0]->ID;
 		}
 
 		$post_args = array(
@@ -38,13 +55,18 @@ class AP_Wire_Item extends Post {
 			'post_modified_gmt' => $gmt_modified,
 			);
 
-		$post_id = wp_insert_post( $post_args, true );
+		if($is_exist) {
+			$post_args['ID'] = $is_exist;
+			$post_id = wp_update_post($post_args, true );
+		} else {
+			$post_id = wp_insert_post( $post_args, true );
+		}
 		if ( is_wp_error( $post_id ) ) {
 			return $post_id;
 		}
 
 		$post = new AP_Wire_Item( $post_id );
-
+		$post->set_meta('article_id', $articleId);
 		// Process attributes
 		foreach ( $feed_entry->link as $link ) {
 
@@ -383,6 +405,10 @@ class AP_Wire_Item extends Post {
 
 	public function get_media_by_key($key) {
 		return $this->get_meta($key);
+	}
+
+	public function get_article_id() {
+		return $this->get_meta('article_id');
 	}
 
 }
