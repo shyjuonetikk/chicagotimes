@@ -258,11 +258,10 @@ class CST_Wire_Curator {
 				echo $item->get_content();
 				echo '<div class="cst-preview-data">';
 				echo '<div class="button-group">';
-				echo $item->get_wire_content()? '<a class="btn btn-inverse apwire-tab" data-target="text">Text</a>' : '';
-				$imageTab = (!$item->get_wire_content())? 'btn-inverse' : 'btn-default';
 				?>
-						<a class="btn <?=$imageTab?> apwire-tab" data-target="images">Images</a>
-						<a class="btn btn-default apwire-tab" data-target="videos">Videos</a>
+					<a class="btn btn-inverse apwire-tab" data-target="text">Text</a>
+					<a class="btn btn-default apwire-tab" data-target="images">Images</a>
+					<a class="btn btn-default apwire-tab" data-target="videos">Videos</a>
 				<?php
 					$create_args = array(
 						'action'        => 'cst_create_from_wire_item',
@@ -292,11 +291,18 @@ class CST_Wire_Curator {
 				echo '</div>';
 				echo '<div class="preview-headline">' . esc_html( $item->get_wire_headline() ) . '</div>';
 				echo '<div class="preview-content">';
-				$fCon = wp_kses_post( $item->get_wire_content());
-				echo $item->get_wire_content()? "<div class=\"tab-pane text active\">{$fCon}</div>" : '';
-				$imageTabActive = (!$item->get_wire_content())? 'active' : '';
 				?>
-				<div class="tab-pane images <?=$imageTabActive?>">
+				<div class="tab-pane text active">
+					<?php
+						$fCon = wp_kses_post( $item->get_wire_content());
+						if($fCon) {
+							echo $fCon;
+						} else {
+							echo 'No content available!';
+						}
+					?>
+				</div>
+				<div class="tab-pane images">
 					<?php
 						if(!empty($item->get_wire_media('photo'))) {
 							$media = $item->get_wire_media('photo');
