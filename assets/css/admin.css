@@ -209,7 +209,7 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 }
 
 .active {
-	display: block;
+	display: inline-block;
 }
 
 .photo_list {

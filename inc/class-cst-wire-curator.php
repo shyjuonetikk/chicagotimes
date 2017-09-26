@@ -258,7 +258,7 @@ class CST_Wire_Curator {
 				echo $item->get_content();
 				echo '<div class="cst-preview-data">';
 				echo '<div class="button-group">';
-				echo $item->get_wire_content()? '<a class="btn btn-inverse active apwire-tab" data-target="text">Text</a>' : '';
+				echo $item->get_wire_content()? '<a class="btn btn-inverse apwire-tab" data-target="text">Text</a>' : '';
 				$imageTab = (!$item->get_wire_content())? 'btn-inverse' : 'btn-default';
 				?>
 						<a class="btn <?=$imageTab?> apwire-tab" data-target="images">Images</a>
@@ -273,9 +273,9 @@ class CST_Wire_Curator {
 					if ( $item->get_wire_content() ) {
 
 						if ( $article = $item->get_article_post() ) {
-							echo '<a class="btn btn-default apwire-save-draft" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
+							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-default apwire-save-draft" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft Article', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -283,9 +283,9 @@ class CST_Wire_Curator {
 					if ( $item->get_external_url() ) {
 
 						if ( $link = $item->get_link_post() ) {
-							echo '<a class="btn btn-default save-draft" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
+							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-default save-draft" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft Link', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -309,8 +309,9 @@ class CST_Wire_Curator {
 											<img src="<?=$photo->thumbnail->file?>"/>
 										</div>
 										<div class="on-hover">
+											<input type="hidden" class="post_id" name="post_id" value="<?=$item->get_id()?>"/>
 											<label class="set-default">
-												Set default
+												Featured
 												<input type="radio" class="set_default" name="set_default" value="<?=$photo->main->name?>"/>
 											</label>
 											<label class="add-to-media">
@@ -333,7 +334,7 @@ class CST_Wire_Curator {
 						}
 					?>
 				</div>
-				<div class="tab-pane videos"></div>
+				<div class="tab-pane videos"><p>No videos available.</p></div>
 				<script type="text/javascript">
 					jQuery(function($){
 						/**
@@ -343,7 +344,11 @@ class CST_Wire_Curator {
 							e.preventDefault();
 							var tab = $(e.currentTarget).data('target');
 							$('.tab-pane').removeClass('active');
+							$('.apwire-tab').removeClass('btn-inverse');
+							$('.apwire-tab').addClass('btn-default');
 							$('.'+tab).addClass('active');
+							$(e.currentTarget).removeClass('btn-inverse');
+							$(e.currentTarget).addClass('btn-inverse');
 						});
 						/**
 						 * Image preview
@@ -365,10 +370,25 @@ class CST_Wire_Curator {
 
 						$('input.set_default').on('click', function(e) {
 							var value = $(e.currentTarget).val();
-							var url = $('.save-draft');
+							var post_id = $(e.currentTarget).closest('li').find('.post_id').val();
+							var url = $('.save-draft-'+post_id);
 							var href = new URL(url.attr('href'));
 							var search = new URLSearchParams(href.search);
 							search.set('default', value);
+							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
+							url.attr('href', newURL);
+						});
+
+						$('input.add_to_media').on('click', function(e) {
+							var value = [];
+							$.each($("input[name='add_to_media']:checked"), function(){
+	                value.push($(this).val());
+	            });
+							var post_id = $(e.currentTarget).closest('li').find('.post_id').val();
+							var url = $('.save-draft-'+post_id);
+							var href = new URL(url.attr('href'));
+							var search = new URLSearchParams(href.search);
+							search.set('media', value.join(','));
 							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
 							url.attr('href', newURL);
 						});
@@ -586,6 +606,10 @@ class CST_Wire_Curator {
 					$link = $item->create_link_post();
 					$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
 					set_post_thumbnail( $link->get_id(), $thumbnail_id );
+					$media = explode(',',$_GET['media']);
+					foreach ($media as $img) {
+						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
+					}
 
 					if ( $link ) {
 						wp_safe_redirect( $link->get_edit_link() );
@@ -601,6 +625,10 @@ class CST_Wire_Curator {
 					$article = $item->create_article_post();
 					$thumbnail_id = media_sideload_image( $mainImg, $article->get_id(), 'Main image', 'id');
 					set_post_thumbnail( $article->get_id(), $thumbnail_id );
+					$media = explode(',',$_GET['media']);
+					foreach ($media as $img) {
+						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
+					}
 					if ( $article ) {
 						wp_safe_redirect( $article->get_edit_link() );
 						exit;
