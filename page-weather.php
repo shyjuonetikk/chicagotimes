@@ -45,7 +45,6 @@
 
 					</article>
 					<?php get_template_part( 'parts/taboola/taboola-weather' ); ?>
-
 				</div>
 			</div>
 			<div class="large-4 columns weather-sidebar">
