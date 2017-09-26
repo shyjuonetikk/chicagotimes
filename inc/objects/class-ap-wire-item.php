@@ -36,9 +36,6 @@ class AP_Wire_Item extends Post {
 			    'post_type' => 'cst_wire_item',
 			    'posts_per_page' => -1
 			);
-			echo '<pre>';
-			print_r(get_posts($args));
-			echo '</pre>';
 			$is_exist = get_posts($args)[0]->ID;
 		}
 
