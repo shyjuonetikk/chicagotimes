@@ -43,16 +43,6 @@
       </div>
       <div id="navbar6" class="navbar-collapse collapse">
         <?php wp_nav_menu( array( 'theme_location' => 'candidates-menu', 'items_wrap' => '<ul class="nav navbar-nav pull-right">%3$s</ul>' ) ); ?>
-          <li class="active"><a href="#">2016 General Election</a>
-          </li>
-          <li><a href="#">2015 Chicago Election</a>
-          </li>
-          <li><a href="#">Print</a>
-          </li>
-          <li><a href="#">2017 4th Ward</a>
-          </li>
-
-        </ul>
       </div>
       <!--/.nav-collapse -->
     </nav>
