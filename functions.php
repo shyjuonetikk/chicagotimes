@@ -2291,11 +2291,11 @@ function getData( $url ) {
 
 function getWeatherImage( $locationname ){
 	$url = "http://apidev.accuweather.com/locations/v1/search?q=".$locationname."&apikey=". CST_ACCUWEATHER_API_KEY;
-	$json_data = file_get_contents($url);
+	$json_data = wpcom_vip_file_get_contents($url);
 	$json = json_decode($json_data);
 	$location_key = $json[0]->Key;
 	$radar_api_url = "http://api.accuweather.com/imagery/v1/maps/radsat/1024x1024/".$location_key."?apikey=".CST_ACCUWEATHER_API_KEY;
-	$response = file_get_contents($radar_api_url);
+	$response = wpcom_vip_file_get_contents($radar_api_url);
 	$decode_response = json_decode($response);
 	$radar = $decode_response->Radar;
 	$satellite = $decode_response->Satellite;
@@ -2308,9 +2308,3 @@ function getWeatherImage( $locationname ){
 	$SatImageSrc = $satImage[0]->Url;
 	return $SatImageSrc;
 }
-// Add a Bootstrap files to WP Admin Area
-function admin_bootstrap_scripts() {
-    wp_enqueue_style('bootstrap-admin-style', get_template_directory_uri() . '/assets/css/bootstrap.min.css');
-		wp_enqueue_script('bootstrap-admin-script', get_template_directory_uri() . '/assets/js/bootstrap.min.js');
-}
-// add_action('admin_enqueue_scripts', 'admin_bootstrap_scripts');

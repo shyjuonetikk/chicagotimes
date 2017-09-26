@@ -32,7 +32,9 @@ if ( $sponsored ) {
 
 				<?php if ( 'cst_embed' !== $obj->get_post_type() || 'twitter' !== $obj->get_embed_type() ) : ?>
 					<div class="post-meta post-meta-social show-for-medium-up">
-						<?php echo wp_kses_post( CST()->get_template_part( 'post/social-share', array( 'obj' => $obj ) ) ); ?>
+						<?php 
+							echo wp_kses_post( CST()->get_template_part( 'post/social-share', array( 'obj' => $obj ) ) );
+						?>
 					</div>
 				<?php endif; ?>
 

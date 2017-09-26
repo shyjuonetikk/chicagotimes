@@ -308,28 +308,42 @@ class AP_Wire_Item extends Post {
 		$mediaFields = ['OriginalFileName', 'Format', 'Role', 'IngestLink'];
 		$media_list = $ntif->xpath('body/body.content/media');
 		if($media_list) {
-			foreach ($media_list as $media) {
+			$media_data = [];
+	    foreach ($media_list as $media) {
 	      $media_type = strtolower($media->attributes()->{'media-type'});
-	      $media_data = [];
 	      foreach($media->xpath('media-metadata') as $meta) {
 	        if(in_array($meta->attributes()->{'name'}->__toString(), $mediaFields)) {
 	          $uniqueID = explode(":",$meta->attributes()->{'id'}->__toString())[1];
 	          $media_data[$uniqueID][$meta->attributes()->{'name'}->__toString()] = $meta->attributes()->{'value'}->__toString();
 	        }
 	      }
-
 	      foreach($media->xpath('media-reference') as $meta) {
 	        $uniqueID = explode(":",$meta->attributes()->{'id'}->__toString())[1];
 	        $media_data[$uniqueID][$media_type] = new \stdClass;
+	        $media_data[$uniqueID]['type'] = $media_type;
 	        foreach($meta->attributes() as $key => $value) {
 	          $media_data[$uniqueID][$media_type]->{$key} = $value->__toString();
 	        }
 	      }
-
-	      foreach($media_data as $media) {
-					$this->set_meta( strtolower($media['Role']), $media['photo']->source );
-	      }
 	    }
+			$photolist = [];
+			$videolist = [];
+			if(!empty($media_data)) {
+				foreach($media_data as $media) {
+					$OriginalFileName = strtolower($media['OriginalFileName']);
+					if(!in_array($OriginalFileName, $photolist) && $media['type'] === 'photo') {
+							$photolist[] = $OriginalFileName;
+					}
+
+					if(!in_array($OriginalFileName, $videolist) && $media['type'] === 'video') {
+							$videolist[] = $OriginalFileName;
+					}
+					$this->set_meta( strtolower($media['Role']."_".$OriginalFileName), $media['photo']->source );
+				}
+
+				$this->set_meta( 'photo', implode(',', $photolist) );
+				$this->set_meta( 'videos', implode(',', $videolist) );
+			}
 		}
 	}
 
@@ -338,14 +352,31 @@ class AP_Wire_Item extends Post {
 	 *
 	 * @return Object
 	 */
-	public function get_wire_media() {
-		$media = new \stdClass;
-		foreach(['main','preivew','thumbnail'] as $item) {
-			if($this->get_meta( $item )) {
-				$media->{$item} = $this->get_meta( $item );
+	public function get_wire_media($type) {
+		if(!isset($type) || $type=='')
+			return [];
+		if(!$this->get_meta($type))
+			return [];
+
+		$media = [];
+		$mediaList = explode(',', $this->get_meta($type));
+		foreach($mediaList as $key) {
+			$mediaItem = new \stdClass;
+			foreach(['main','preivew','thumbnail'] as $item) {
+				if($this->get_meta( $item . '_' . $key )) {
+					$mediaItem->{$item} = (object) [
+						"name" => $item . '_' . $key,
+						"file" => $this->get_meta( $item . '_' . $key )
+					];
+				}
 			}
+			$media[] = $mediaItem;
 		}
 		return $media;
+	}
+
+	public function get_media_by_key($key) {
+		return $this->get_meta($key);
 	}
 
 }
