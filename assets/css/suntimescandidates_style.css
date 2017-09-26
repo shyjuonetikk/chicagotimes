@@ -1,0 +1,274 @@
+@import url('http://fonts.googleapis.com/css?family=Open+Sans:400,600,700');
+body {
+    background-color: #f1f1f1 !important;
+    margin-bottom: 70px;
+}
+.navbar-brand img {
+    width: 250px;
+}
+#main-logo {
+    margin: 60px 0;
+    width: 100%;
+}
+.main-logo-box {
+    text-align: center;
+    display: block;
+}
+.sidebar {
+    background: #fff;
+    height: 300px;
+    margin-left: 20px;
+    width: 28%;
+    float: left;
+    padding: 20px;
+     margin-top: 20px;
+}
+.sidebar:nth-child(even) {
+    margin-top: 0;
+}
+.main-content {
+    background: #fff;
+    height: auto;
+    width: 70%;
+    float: left;
+    padding: 20px;
+}
+.navbar-inverse {
+    background-color: #000;
+    border-color: #000000;
+}
+.main-top-content .main-title {
+    font-size: 36px;
+    text-align: center;
+    margin: 30px 0;
+}
+.main-parag {
+    font-size: 18px;
+    line-height: 1.8;
+}
+.suntimes-lbox {
+    padding: 0;
+    margin-top: 30px;
+}
+.lbox-title {
+    text-align: center;
+    margin-bottom: 0;
+}
+.lbox-lbox-6 {
+    background: #f3f1f2;
+    padding: 10px;
+    width: 48%;
+    float: left;
+    text-align: center;
+}
+.lbox-lbox-6:nth-child(even) {
+    margin-left: 30px;
+}
+.lbox-lbox-6 ul,
+.lbox-lbox-4 ul,
+.lbox-lbox-8 ul {
+    -webkit-padding-start: 0px;
+}
+.lbox-lbox-6 li,
+.lbox-lbox-4 li,
+.lbox-lbox-8 li {
+    list-style: none;
+    line-height: 1.8;
+}
+.lbox-ul-2 {
+    float: left;
+    width: 50%;
+}
+.lbox-lbox-6 h3,
+.lbox-lbox-4 h3,
+.lbox-lbox-8 h3 {
+    font-weight: bold;
+}
+.blue {
+    color: #2135ee;
+}
+.red {
+    color: #ef001f;
+}
+.green {
+    color: #008000;
+}
+.lbox-lbox-4 {
+    background: #f3f1f2;
+    padding: 10px;
+    width: 32%;
+    float: left;
+    text-align: center;
+}
+.US-House .lbox-lbox-4 {
+    min-height: 285px;
+}
+.Illinois-state-senate .lbox-lbox-4 {
+    min-height: 220px;
+}
+.spc-height {
+    min-height: 355px;
+}
+.suntimes-lbox .row {
+    margin-right: 0;
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+.lbox-lbox-4:nth-child(2),
+.lbox-lbox-4:nth-child(3) {
+    margin-left: 15px;
+}
+.lbox-lbox-4 h4 {
+    margin: 20px 0 2px 0;
+}
+.Cook-County .row hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 15px solid #fff;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+.lbox-lbox-8 {
+    background: #f3f1f2;
+    padding: 10px;
+    width: 64%;
+    float: left;
+    text-align: center;
+    margin-right: 30px;
+}
+.copyright {
+    display: block;
+    text-align: center;
+    margin-left: 20px;
+    width: 28%;
+    float: left;
+    padding: 20px;
+}
+@media only screen and (max-width: 1024px) {
+    .suntimes-lbox .row {
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 15px;
+        display: flex;
+    }
+    .lbox-lbox-6:nth-child(even) {
+        margin-left: 18px;
+    }
+    .main-logo-box img {
+        width: 75%;
+    }
+    .lbox-lbox-8 {
+        margin-right: 15px;
+    }
+    .sidebar {
+        margin-left: 13px;
+    }
+    .navbar-brand img {
+        width: 170px;
+        padding-top: 3px;
+    }
+    .lbox-lbox-6 h3,
+    .lbox-lbox-4 h3,
+    .lbox-lbox-8 h3 {
+        font-size: 18px;
+    }
+    .lbox-title {
+        font-size: 22px;
+        font-weight: 700;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .suntimes-lbox {
+        float: left;
+        width: 100%;
+    }
+    .main-content {
+        width: 100%;
+        padding: 10px;
+    }
+    .main-top-content .main-title {
+        font-size: 28px;
+    }
+    .lbox-lbox-6,
+    .lbox-lbox-4 {
+        width: 100%;
+    }
+    .lbox-lbox-6:nth-child(even) {
+        margin-left: 0px;
+    }
+    .lbox-lbox-4:nth-child(2),
+    .lbox-lbox-4:nth-child(3) {
+        margin-left: 0px;
+        margin-top: 5px;
+    }
+    .US-House .lbox-lbox-4,
+    .Illinois-state-senate .lbox-lbox-4,
+    .spc-height {
+        min-height: auto;
+    }
+    .suntimes-lbox .row {
+        margin-bottom: 5px;
+        display: block;
+    }
+    .lbox-lbox-8 {
+        width: 100%;
+        margin-right: 0px;
+    }
+    .sidebar {
+        height: 300px;
+        margin-left: 0px;
+        width: 100%;
+        float: left;
+        padding: 10px;
+        margin-top: 10px;
+    }
+    .main-logo-box img {
+        width: 100%;
+    }
+    .navbar-brand img {
+        width: 200px;
+        padding-top: 3px;
+    }
+    .lbox-ul-2 {
+        float: left;
+        width: 100%;
+    }
+    .Cook-County .row hr {
+        border-top: 5px solid #fff;
+    }
+    .navbar-nav {
+        margin: 7.5px -15px;
+        width: 100%;
+    }
+    .copyright {
+    display: block;
+    text-align: center;
+    margin-left: 0;
+    width: 100%;
+    float: left;
+    padding: 20px;
+    }
+    body {
+    margin-bottom: 20px;
+}
+}
+@media only screen and (min-width: 414px) and (max-width: 736px) and (orientation: landscape) {
+    .suntimes-lbox {
+        float: left;
+        width: 100%;
+    }
+    .main-content {
+        width: 100%;
+        padding: 10px;
+    }
+    .sidebar {
+        margin-left: 0;
+        width: 100%;
+        margin-top: 20px;
+    }
+    .navbar-nav {
+        margin: 7.5px -15px;
+        width: 100%;
+    }
+}

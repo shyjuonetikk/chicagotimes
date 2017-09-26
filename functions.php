@@ -1032,6 +1032,7 @@ class CST {
 				'page-footer-3'              => esc_html__( 'Page Footer 3', 'chicagosuntimes' ),
 				'page-footer-4'              => esc_html__( 'Page Footer 4', 'chicagosuntimes' ),
 				'election-page'              => esc_html__( 'Election Page', 'chicagosuntimes' ),
+				'candidates-menu'            => esc_html__( 'Candidates Menu', 'chicagosuntimes' ),
 			)
 		);
 
