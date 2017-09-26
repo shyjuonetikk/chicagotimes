@@ -312,7 +312,7 @@ class CST_Wire_Curator {
 									<? $preview_img = isset($photo->preview)? $photo->preview->file : $photo->main->file; ?>
 									<li>
 										<div class="thumbnail">
-											<img src="<?=$photo->thumbnail->file?>"/>
+											<img src="<?=$photo->preview->file?>"/>
 										</div>
 										<div class="on-hover">
 											<input type="hidden" class="post_id" name="post_id" value="<?=$item->get_id()?>"/>
