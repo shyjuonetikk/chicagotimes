@@ -2181,7 +2181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		if ( function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
 			$site = CST()->dfp_handler->get_parent_dfp_inventory();
 			if ( 'chicago.suntimes.com' === $site ) {
-				$chartbeat_file_name = 'main.54a95b28-cb-prod.js';
+				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
 			} else {
 				$chartbeat_file_name = 'main.81b31ab6-cb-dev-test.js';
 			}
