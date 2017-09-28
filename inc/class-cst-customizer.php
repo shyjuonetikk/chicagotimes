@@ -50,6 +50,13 @@ class CST_Customizer {
 		'cst_homepage_lower_section_headlines_4' => true,
 		'cst_homepage_lower_section_headlines_5' => true,
 	];
+	private $sports_section_stories = [
+		'cst_sports_section_headlines_1' => true,
+		'cst_sports_section_headlines_2' => true,
+		'cst_sports_section_headlines_3' => true,
+		'cst_sports_section_headlines_4' => true,
+		'cst_sports_section_headlines_5' => true,
+	];
 	private $entertainment_section_stories = [
 		'cst_homepage_entertainment_section_headlines_1' => true,
 		'cst_homepage_entertainment_section_headlines_2' => true,
@@ -219,6 +226,29 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => [ $this, 'is_sports_tax' ],
 		] );
+		$this->set_setting( $wp_customize, 'cst[sports]sports_story_1', 'esc_html' );
+		$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, 'cst[sports]sports_story_1', [
+			'type'        => 'cst_select_control',
+			'priority'    => 20,
+			'section'     => 'sports_section_stories_1',
+			'label'       => __( 'Lead Article', 'chicagosuntimes' ),
+			'input_attrs' => [
+				'placeholder'          => esc_attr__( 'Choose other article' ),
+				'data-related-section' => 'sports',
+			],
+		] ));
+		foreach ( array_keys( $this->sports_section_stories ) as $other_story ) {
+			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
+			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
+				'type'        => 'cst_select_control',
+				'priority'    => 11,
+				'section'     => 'sports_section_stories_1',
+				'label'       => __( 'Lead Article', 'chicagosuntimes' ),
+				'input_attrs' => [
+					'placeholder' => esc_attr__( 'Choose other article' ),
+				],
+			] ) );
+		}
 		/**
 		 * Add settings within each section
 		 */
