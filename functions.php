@@ -2279,7 +2279,7 @@ function filter_load_morpheus() {
 }
 // Register script for Amazon/A9
 function register_amazona9() {
-	wp_register_script( 'amazona9_handler', '//https://www.googletagservices.com/tag/js/gpt.js#asyncload', false, false, false );
+	wp_register_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload', false, false, false );
 	wp_enqueue_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload' , false, false, false );
 }
 add_action( 'wp_enqueue_scripts', 'register_amazona9' );
