@@ -2184,7 +2184,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			$site = CST()->dfp_handler->get_parent_dfp_inventory();
 			$chartbeat_file_name = 'main.3f878c34-cb-dev-test.js';
 			if ( 'chicago.suntimes.com' === $site ) {
-				$chartbeat_file_name = 'main.54a95b28-cb-prod.js';
+				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
 			}
 			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), [], null, true );
 		}
@@ -2197,7 +2197,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	*/
 	public function inject_nativo_mobile2( $content ) {
 		if ( is_singular( 'cst_article' ) ) {
-			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { 
+			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
 				$nativo_mobile = '<div id="nativo-sponsored">' . '<h4>Sponsored Content</h4>' . '<ul class="nativo-sponsored-articles">';
 				$nativo_mobile = $nativo_mobile . '<div id="nativo-sponsored-article-image"></div><li id="News1"></li><li id="News2"></li></ul></div>';
 
@@ -2210,7 +2210,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			}
 		}
 		return $content;
-	}	
+	}
 	/**
 	*
 	* Inject supplied TCX tag if singular and mobile and over 16 paragraphs
