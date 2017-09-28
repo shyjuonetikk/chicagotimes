@@ -2186,6 +2186,14 @@ class CST {
 				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'apstag', array(
+			'header' => 'apstag-header.js',
+			'footer' => false,
+			'container' => false,
+			'logic' => array( 'is_singular' ),
+			)
+		);
+
 	}
 
 	/**
@@ -2269,3 +2277,9 @@ function filter_include_nativo_on_certain_pages() {
 function filter_load_morpheus() {
 	return ! is_404();
 }
+// Register script for Amazon/A9
+function register_amazona9() {
+	wp_register_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload', false, false, false );
+	wp_enqueue_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload' , false, false, false );
+}
+add_action( 'wp_enqueue_scripts', 'register_amazona9' );
