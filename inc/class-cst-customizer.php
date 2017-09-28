@@ -125,6 +125,77 @@ class CST_Customizer {
 	 * @param $wp_customize
 	 */
 	public function action_customize_register( \WP_Customize_Manager $wp_customize ) {
+
+		$this->homepage_customizer( $wp_customize );
+		$this->section_front_customizer( $wp_customize );
+
+	}
+
+	/**
+	 * @param WP_Customize_Manager $wp_customize
+	 * Handle all the registration and settings for Section based customizer options
+	 */
+	public function section_front_customizer(\WP_Customize_Manager $wp_customize) {
+		/**
+		 * Handle sections - Sports to start - section based stories, custom heading
+		 *
+		 * Section - Sports
+		 * Slottable 5 blocks for Cubs, Sox, Bears, Bulls, Blackhawks, Fire, Wolves etc
+		 * section-1
+		 * lead with pic (select2 lookup) -> 2 x 2 of supporting articles
+		 * section-2
+		 * lead with pic -> 2 x 2 of supporting articles
+		 * section-n
+		 * lead with pic -> 2 x 2 of supporting articles
+		 * $this->section_choices = all sections
+		 * if is_tax is sports parent? Use related
+		 * $this->sports_section_choices = all sections with sport as a parent
+		 *
+		 * For team sections only have five block at the top and allow that to be slottable.
+		 */
+		// Holder array
+		$five_block = [
+			'story_1',
+			'story_2',
+			'story_3',
+			'story_4',
+			'story_5',
+		];
+		$this->_generate_choices();
+		// Use conditional to check is_tax or queried_object to only set up the needed control for this section
+		// Setup all sections OR detect section and set that up
+		foreach ( $this->section_choices as $section_choice ) {
+			$sanitized_section_title = sanitize_title( $section_choice );
+			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
+			$wp_customize->add_section( $section_name, [
+				'title'           => __( $section_choice . ' section', 'chicagosuntimes' ),
+				'description'     => __( 'Choose ' . $section_choice . ' stories', 'chicagosuntimes' ),
+				'priority'        => 400,
+				'capability'      => $this->capability,
+				'active_callback' => 'is_tax',
+			] );
+			// Add control and setting for each section
+			foreach ( $five_block as $story_title ) {
+				$this->set_setting( $wp_customize, $section_name . '_' . $story_title , 'absint' );
+				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_choice, [
+					'type'        => 'cst_select_control',
+					'priority'    => 20,
+					'section'     => $section_name,
+					'label'       => __( 'Choose ' . $section_choice . ' story ', 'chicagosuntimes' ),
+					'input_attrs' => [
+						'placeholder'          => esc_attr__( 'Choose  article' ),
+						'data-related-section' => $section_choice,
+					],
+				] ) );
+			}
+		}
+	}
+
+	/**
+	 * @param WP_Customize_Manager $wp_customize
+	 * Handle all the registration and settings for Homepage based customizer options
+	 */
+	public function homepage_customizer(\WP_Customize_Manager $wp_customize) {
 		$transport = ( $wp_customize->selective_refresh ? 'postMessage' : 'refresh' );
 		// Don't need to be able to edit blog title or description
 		// and we don't want the homepage to change
@@ -304,7 +375,7 @@ class CST_Customizer {
 			'label'    => __( 'Choose title', 'chicagosuntimes' ),
 		] );
 		/**
-		 * Upper - Sports - section based stories, custom heading
+		 * Upper - Homepage Sports - section based stories, custom heading
 		 */
 		$this->_generate_choices();
 		$sports_customizer = [
@@ -522,9 +593,7 @@ class CST_Customizer {
 			'choices'  => $this->section_choices,
 			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
 		] ) );
-
 	}
-
 	/**
 	 * @param \WP_Customize_Manager $wp_customize
 	 *
