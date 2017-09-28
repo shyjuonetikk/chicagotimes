@@ -1,5 +1,9 @@
 <?php get_header(); ?>
-	<section class="row grey-background">
+	<section class="section_front_wrapper">
+		<div class="row">
+			<?php \CST\CST_Section_Front::get_instance()->five_block( \CST_Frontend::get_instance()->slug_detection() );?>
+		</div>
+		<div class="row">
 		<div id="main" class="wire columns medium-8 large-8 small-12">
 			<div id="fixed-back-to-top" class="hide-back-to-top">
 				<a id="back-to-top" href="#">
@@ -42,6 +46,8 @@
 		<div class="right-rail columns medium-4 large-4 show-for-medium-up">
 			<?php get_sidebar(); ?>
 		</div>
+		</div>
+
 
 	</section>
 

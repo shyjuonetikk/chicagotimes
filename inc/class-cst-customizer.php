@@ -79,7 +79,14 @@ class CST_Customizer {
 		'featured_story_block_headlines_5' => true,
 	];
 	private $capability = 'edit_others_posts';
-	private $sports_section_choices, $section_choices;
+	private $sports_section_choices, $section_choices, $section_ids;
+	private $five_block = [
+		'story_1',
+		'story_2',
+		'story_3',
+		'story_4',
+		'story_5',
+	];
 
 	public static function get_instance() {
 
@@ -101,6 +108,13 @@ class CST_Customizer {
 		add_action( 'customize_preview_init', [ $this, 'action_customizer_live_preview' ] );
 	}
 
+	public function setup_filters(  ) {
+		add_filter( 'customize_section_active', [ $this, 'filter_customize_section_active' ] );
+	}
+
+	public function filter_customize_section_active( $active, $section ) {
+		$b = $active;
+	}
 	public function action_customizer_live_preview() {
 		wp_enqueue_script(
 			'chicagosuntimes-themecustomizer',
@@ -126,6 +140,7 @@ class CST_Customizer {
 	 */
 	public function action_customize_register( \WP_Customize_Manager $wp_customize ) {
 
+		$this->_generate_all_sections();
 		$this->homepage_customizer( $wp_customize );
 		$this->section_front_customizer( $wp_customize );
 
@@ -135,7 +150,7 @@ class CST_Customizer {
 	 * @param WP_Customize_Manager $wp_customize
 	 * Handle all the registration and settings for Section based customizer options
 	 */
-	public function section_front_customizer(\WP_Customize_Manager $wp_customize) {
+	public function section_front_customizer( \WP_Customize_Manager $wp_customize)  {
 		/**
 		 * Handle sections - Sports to start - section based stories, custom heading
 		 *
@@ -153,34 +168,29 @@ class CST_Customizer {
 		 *
 		 * For team sections only have five block at the top and allow that to be slottable.
 		 */
-		// Holder array
-		$five_block = [
-			'story_1',
-			'story_2',
-			'story_3',
-			'story_4',
-			'story_5',
-		];
-		$this->_generate_choices();
+
+		// https://css-tricks.com/getting-started-wordpress-customizer/
 		// Use conditional to check is_tax or queried_object to only set up the needed control for this section
 		// Setup all sections OR detect section and set that up
-		foreach ( $this->section_choices as $section_choice ) {
-			$sanitized_section_title = sanitize_title( $section_choice );
+		foreach ( $this->section_choices as $section_id => $section_name) {
+			$sanitized_section_title = sanitize_title( $this->section_choices[ $section_id ] );
+			$section_choice = $this->section_choices[ $section_id ];
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
 			$wp_customize->add_section( $section_name, [
 				'title'           => __( $section_choice . ' section', 'chicagosuntimes' ),
 				'description'     => __( 'Choose ' . $section_choice . ' stories', 'chicagosuntimes' ),
 				'priority'        => 400,
 				'capability'      => $this->capability,
-				'active_callback' => 'is_tax',
+				'active_callback' => [ $this, 'tax_section' ],
 			] );
 			// Add control and setting for each section
-			foreach ( $five_block as $story_title ) {
+			foreach ( $this->five_block as $story_title ) {
 				$this->set_setting( $wp_customize, $section_name . '_' . $story_title , 'absint' );
 				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_choice, [
 					'type'        => 'cst_select_control',
 					'priority'    => 20,
 					'section'     => $section_name,
+					'active_callback' => [ $this, 'tax_section' ],
 					'label'       => __( 'Choose ' . $section_choice . ' story ', 'chicagosuntimes' ),
 					'input_attrs' => [
 						'placeholder'          => esc_attr__( 'Choose  article' ),
@@ -191,11 +201,19 @@ class CST_Customizer {
 		}
 	}
 
+	public function tax_section( $section ) {
+		$get_section_name = preg_match( '/\[(.*)\]/', $section->id, $matches );
+
+		if ( $get_section_name && is_tax( 'cst_section', $matches[1] ) ) {
+			return true;
+		}
+		return false;
+	}
 	/**
 	 * @param WP_Customize_Manager $wp_customize
 	 * Handle all the registration and settings for Homepage based customizer options
 	 */
-	public function homepage_customizer(\WP_Customize_Manager $wp_customize) {
+	public function homepage_customizer( \WP_Customize_Manager $wp_customize ) {
 		$transport = ( $wp_customize->selective_refresh ? 'postMessage' : 'refresh' );
 		// Don't need to be able to edit blog title or description
 		// and we don't want the homepage to change
@@ -377,7 +395,7 @@ class CST_Customizer {
 		/**
 		 * Upper - Homepage Sports - section based stories, custom heading
 		 */
-		$this->_generate_choices();
+		$this->_generate_sports_choices();
 		$sports_customizer = [
 			'sport_section_lead'    => [
 				'section'  => 'upper_section_stories',
@@ -599,12 +617,17 @@ class CST_Customizer {
 	 *
 	 * Setup the partials
 	 */
-	public function action_customize_refresh( WP_Customize_Manager $wp_customize ) {
+	public function action_customize_refresh( \WP_Customize_Manager $wp_customize ) {
 		// Abort if selective refresh is not available.
 		if ( ! isset( $wp_customize->selective_refresh ) ) {
 			return;
 		}
 
+		foreach ( $this->section_choices as $section_choice ) {
+			foreach ( $this->five_block as $partial_title ) {
+				$section_partials[ 'cst[' . sanitize_title( $section_choice ) . ']_section' . '_' . $partial_title ] = true;
+			}
+		}
 		$combined_arrays = array_merge(
 			array_keys( $this->column_one_stories ),
 			array_keys( $this->other_stories ),
@@ -615,6 +638,7 @@ class CST_Customizer {
 			array_keys( $this->politics_list_section_stories ),
 			array_keys( $this->entertainment_section_stories ),
 			array_keys( $this->featured_obits_section_stories ),
+			array_keys( $section_partials ),
 			array_keys( $this->featured_story_block_headlines )
 		);
 		foreach ( $combined_arrays as $customizer_element_id ) {
@@ -666,12 +690,8 @@ class CST_Customizer {
 	/**
 	 * Internal function to generate select drop down choices
 	 */
-	private function _generate_choices() {
-		$this->section_choices        = get_terms( [
-			'taxonomy'   => 'cst_section',
-			'hide_empty' => false,
-			'fields'     => 'id=>name',
-		] );
+	private function _generate_sports_choices() {
+
 		$sports_term                  = wpcom_vip_get_term_by( 'name', 'Sports', 'cst_section' );
 		$sports_child_terms           = new WP_Term_Query( [
 			'taxonomy'   => 'cst_section',
@@ -695,6 +715,17 @@ class CST_Customizer {
 		}
 	}
 
+	/**
+	 * Generate all section names
+	 */
+	public function _generate_all_sections() {
+		$this->section_choices        = get_terms( [
+			'taxonomy'   => 'cst_section',
+			'hide_empty' => false,
+			'fields'     => 'id=>name',
+		] );
+		$this->section_ids = array_flip( $this->section_choices );
+	}
 	/**
 	 * @param $element
 	 *
@@ -793,6 +824,18 @@ class CST_Customizer {
 				break;
 			case 'chartbeat_section_title':
 				return CST()->frontend->render_section_text_title( $element->id );
+				break;
+			case 'cst[politics]_section_story_2':
+			case 'cst[politics]_section_story_3':
+			case 'cst[politics]_section_story_4':
+			case 'cst[politics]_section_story_5':
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes', '', true );
+				break;
+			case 'cst[politics]_section_story_1':
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+
+				return CST()->frontend->single_mini_story( $obj, 'prime', $element->id, 'yes' );
 				break;
 		}
 

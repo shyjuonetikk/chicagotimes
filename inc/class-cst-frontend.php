@@ -1985,6 +1985,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @return bool|mixed
 	*/
 	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
+		if ( is_tax() ) {
+			return '<h3>is_tax</h3>';
+		}
 		$custom_subnavigation = array(
 			'sports' => array(),
 			'opinion' => array(),
