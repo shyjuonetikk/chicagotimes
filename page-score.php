@@ -29,6 +29,16 @@ for($i = -1; $i <= 1; $i++) {
     setupCalendars()
   });
 
+  jQuery(function($){
+    var url = new URL(window.location.href);
+    var search = url.searchParams;
+    if(search.get('refresh')) {
+      setTimeout(function(){
+        window.location.href = url.href;
+      }, (1 * 60000));
+    }
+  });
+
   function loadData(date) {
     // var minDate = new Date(date + ' 00:00:01');
     // var maxDate = new Date(date + ' 11:59:59');
@@ -120,7 +130,7 @@ for($i = -1; $i <= 1; $i++) {
       <div id="Scoreboard_5">
         <div id="Scoreboard_5_National_League">
           <div class="s_team-divScoreColumn_1-2">
-            
+
           </div>
         </div>
         <div id="Scoreboard_5_American_League">
