@@ -115,16 +115,12 @@ for($i = -1; $i <= 1; $i++) {
         $block = $row->xpath("//body/body.content/block");
       ?>
       <? foreach($block as $item): ?>
-        <? foreach($item->children() as $tag => $child): ?>
-          <? if($tag == "h12"): ?>
-          <h6><?print_r($child)?></h6>
-          <? endif;?>
-        <? endforeach; ?>
+        <h6><?=$item->xpath('hl2')[0]->__toString()?></h6>
       <? endforeach; ?>
       <div id="Scoreboard_5">
         <div id="Scoreboard_5_National_League">
           <div class="s_team-divScoreColumn_1-2">
-
+            
           </div>
         </div>
         <div id="Scoreboard_5_American_League">
