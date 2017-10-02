@@ -97,7 +97,7 @@ class CST_Frontend {
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_nativo_mobile2' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
-		add_filter( 'the_content', [ $this, 'inject_a9' ] );		
+		add_filter( 'the_content', [ $this, 'inject_a9' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
 		add_filter( 'the_content', [ $this, 'inject_nativo_mobile' ],99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
@@ -1725,7 +1725,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			$authors = array( $byline );
 		} else {
 			foreach ( $obj->get_authors() as $author ) {
-				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '" 
+				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '"
 				data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
 				$author->get_display_name() . '</a>';
 			}
@@ -2349,10 +2349,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @return string $article_content
 	*/
 	public function inject_nativo_mobile( $article_content ) {
-		#if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
-		#	return $article_content;
-		#}
+
 		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( ! is_object( $obj ) ) {
+			return $article_content;
+		}
+
 		if ( 'cst_article' !== $obj->get_post_type() ) {
 			return $article_content;
 		}
