@@ -398,6 +398,17 @@ class CST {
 	}
 
 	/**
+	 * Expose the Google Newsstand analytics content as https://chicago.suntimes.com/analytics.txt
+	 *
+	 * Create a page and use the Template "Rewrite Me"
+	 * Add a rule for your custom rewrite
+	 * Remove add_action (in $this->setup_actions() ) to disable.
+	 */
+	public function temporary_rewrite_rules() {
+		add_rewrite_rule( '^(analytics.txt)$', 'index.php?pagename=rewrite-me&where=analytics.txt', 'top' );
+		add_rewrite_tag('%where%', '([^&]+)');
+	}
+	/**
 	 * Set up any actions for the theme
 	 */
 	private function setup_actions() {
@@ -405,6 +416,7 @@ class CST {
 		add_action( 'init', [ $this, 'action_init_early' ], 2 );
 		add_action( 'widgets_init', [ $this, 'action_widgets_init' ], 11 );
 		add_action( 'init', [ $this, 'admin_roles_for_customizer' ], 10, 3 );
+		add_action( 'init', [ $this, 'temporary_rewrite_rules' ], 10, 4 ); // See $this->temporary_rewrite_rules()
 
 		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
@@ -2186,6 +2198,14 @@ class CST {
 				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'apstag', array(
+			'header' => 'apstag-header.js',
+			'footer' => false,
+			'container' => false,
+			'logic' => array( 'is_singular' ),
+			)
+		);
+
 	}
 
 	/**
@@ -2269,3 +2289,9 @@ function filter_include_nativo_on_certain_pages() {
 function filter_load_morpheus() {
 	return ! is_404();
 }
+// Register script for Amazon/A9
+function register_amazona9() {
+	wp_register_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload', false, false, false );
+	wp_enqueue_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload' , false, false, false );
+}
+add_action( 'wp_enqueue_scripts', 'register_amazona9' );
