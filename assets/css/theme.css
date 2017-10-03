@@ -4864,3 +4864,7 @@ body#tinymce {
 .image-container img{
   width: 100%;
 }
+.sidebar-weather{
+  margin-top: 15px;
+  margin-left: 15px;
+}

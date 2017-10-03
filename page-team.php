@@ -9,9 +9,6 @@ get_header();
 
 
 
-<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/assets/css/s_team_suntimes.css">
-
-
 <div id="s_team-midsection" class="s_team-mid">
 
   <form method="post" action="" id="frmPageLoader">

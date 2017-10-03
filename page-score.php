@@ -1,9 +1,11 @@
-<?php /** Template name: Chicago-score */ 
+<?php 
+/** 
+Template name: Chicago-score 
+*/ 
 get_header(); ?>
 
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/prototype.js"></script>
 <script src="<?php echo get_template_directory_uri(); ?>/assets/js/calendarview.js"></script>
-<link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/assets/css/s_team_suntimes.css">
 
 
 <script>

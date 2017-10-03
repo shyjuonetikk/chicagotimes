@@ -12,6 +12,9 @@ class CST_Slack {
 	private $payload_url = 'https://hooks.slack.com/services/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';
 	private $api_notification_payload_url = 'https://hooks.slack.com/services/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';
 
+	// private $payload_url = 'https://hooks.slack.com/services/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';
+	// private $api_notification_payload_url = 'https://hooks.slack.com/services/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';
+
 	private static $instance;
 
 	public static function get_instance() {

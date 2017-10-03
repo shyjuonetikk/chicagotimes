@@ -3,7 +3,6 @@
 <a class="exit-off-canvas"></a>
 </main>
 </div><!-- /off-canvas-wrap -->
-<script type="text/javascript" src="<?php echo esc_url( get_template_directory_uri());?>/assets/js/vendor/taboola-header-weather.js" ></script>
 <?php
 if ( is_singular() ) {
 	get_template_part( 'parts/vendors/yieldmo-footer' );

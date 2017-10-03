@@ -2273,22 +2273,24 @@ function filter_load_morpheus() {
 
 
 function getData( $url ) {
-	$username = 'ILCHS_webfeeds';
-	$password = 'ap116';
-	$server = $url;
-	$context = stream_context_create(array(
-	        'http' => array(
-	            'header'  => "Authorization: Basic " . base64_encode("$username:$password")
-	        )
-	    )
-	);
-	$source = file_get_contents("$server", false, $context);
-	$xml = new SimpleXMLElement($source);
- 	return $xml;
+	$feed = $url;
+	$args = array();
+
+	// Associated Press requires HTTP Basic Auth
+	if ( 'syndication.ap.org' === parse_url( $feed, PHP_URL_HOST ) ) {
+			$args['headers'] = array(
+				'Authorization' => 'Basic ' . base64_encode( CST_AP_SYNDICATION_USERNAME . ':' .CST_AP_SYNDICATION_PASSWORD ),
+					);
+			}
+
+		$response = vip_safe_wp_remote_get( $feed, '', 3, 3, 20, $args );
+		$feed_data = wp_remote_retrieve_body( $response );
+		return $feed_data;
 }
 
 function getWeatherImage( $locationname ){
-	$url = "http://apidev.accuweather.com/locations/v1/search?q=".$locationname."&apikey=". CST_ACCUWEATHER_API_KEY;
+	$location_name = esc_attr( $locationname );
+	$url = "http://apidev.accuweather.com/locations/v1/search?q=".$location_name."&apikey=". CST_ACCUWEATHER_API_KEY;
 	$json_data = wpcom_vip_file_get_contents($url);
 	$json = json_decode($json_data);
 	$location_key = $json[0]->Key;
