@@ -34,16 +34,17 @@
 						<script src="//api.circularhub.com/10897/2e2e1d92cebdcba9/circularhub_module.js"></script>
 						<?php
 							$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-							$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
+							$classes = array( 'single-view', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
 							$attrs = CST()->frontend->article_dimensions( $obj );
 						?>
-					</div>
-					<article <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
-								<?php 
-									echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); 
-								?>
+						<article <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
+							<?php
+							echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses );
+							?>
 
-					</article>
+						</article>
+					</div>
+
 					<?php get_template_part( 'parts/taboola/taboola-weather' ); ?>
 				</div>
 			</div>
