@@ -24,16 +24,8 @@ class CST_Section_Front {
 	}
 
 	public function create_headline_link( $team ) {
-		$five_block = [
-			'headlines_1',
-			'headlines_2',
-			'headlines_3',
-			'headlines_4',
-			'headlines_5',
-		];
-		// Link above to array in class-cst-customizer.php
 		$headlines = [];
-		foreach ( $five_block as $item ) {
+		foreach ( \CST_Customizer::get_instance()->five_block as $item ) {
 			$headlines['cst_' . sanitize_title( $team ) . '_section_' . $item] = true;
 		}
 		return $headlines;

@@ -79,13 +79,13 @@ class CST_Customizer {
 		'featured_story_block_headlines_5' => true,
 	];
 	private $capability = 'edit_others_posts';
-	private $sports_section_choices, $section_choices, $section_ids;
-	private $five_block = [
-		'headlines_1',
-		'headlines_2',
-		'headlines_3',
-		'headlines_4',
-		'headlines_5',
+	private $sports_section_choices, $section_choices, $section_ids, $sections;
+	public $five_block = [
+		'five_block_1',
+		'five_block_2',
+		'five_block_3',
+		'five_block_4',
+		'five_block_5',
 	];
 
 	public static function get_instance() {
@@ -195,7 +195,6 @@ class CST_Customizer {
 					'label'       => __( 'Choose ' . $section_choice . ' story ', 'chicagosuntimes' ),
 					'input_attrs' => [
 						'placeholder'          => esc_attr__( 'Choose  article' ),
-						'data-related-section' => $section_choice,
 					],
 				] ) );
 			}
@@ -205,7 +204,11 @@ class CST_Customizer {
 	public function partial_in_section( $partial ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
 		if ( is_array( $matches ) && ! empty( $matches ) ) {
-			$section_to_display = is_tax( 'cst_section', $matches[1] );
+			$section_name = $matches[1];
+			if ( 'chicago-news' === $matches[1] ) {
+				$section_name = 'news';
+			}
+			$section_to_display = is_tax( 'cst_section', $section_name );
 			if ( $get_section_name && $section_to_display ) {
 				return true;
 			}
@@ -215,7 +218,11 @@ class CST_Customizer {
 	public function tax_section( $section ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $section->id, $matches );
 		if ( is_array( $matches ) && ! empty( $matches ) ) {
-			$section_to_display = is_tax( 'cst_section', $matches[1] );
+			$section_name = $matches[1];
+			if ( 'chicago-news' === $matches[1] ) {
+				$section_name = 'news';
+			}
+			$section_to_display = is_tax( 'cst_section', $section_name );
 			if ( $get_section_name && $section_to_display ) {
 				return true;
 			}
@@ -730,13 +737,17 @@ class CST_Customizer {
 
 	/**
 	 * Generate all section names
+	 *
+	 * Then generate two lists of Section Name with ID and ID with Section Name
+	 * Keep the original list to allow access to slug or other meta for some exceptions
 	 */
 	public function _generate_all_sections() {
-		$this->section_choices        = get_terms( [
+		$this->sections = get_terms( [
 			'taxonomy'   => 'cst_section',
 			'hide_empty' => false,
-			'fields'     => 'id=>name',
+			'fields'     => 'all_with_object_id',
 		] );
+		$this->section_choices = wp_list_pluck( $this->sections, 'name', 'term_id' );
 		$this->section_ids = array_flip( $this->section_choices );
 	}
 	/**
@@ -746,111 +757,126 @@ class CST_Customizer {
 	 *
 	 * Decide and trigger content rendering function
 	 */
-	public function render_callback( $element ) {
-		switch ( $element->id ) {
-			case 'cst_homepage_headlines_one':
-				return CST()->frontend->homepage_hero_story( $element->id );
-				break;
-			case 'cst_homepage_headlines_two':
-			case 'cst_homepage_headlines_three':
-				return CST()->frontend->homepage_lead_story( $element->id );
-				break;
-			case 'cst_homepage_other_headlines_1':
-				return CST()->frontend->homepage_mini_story_lead( $element->id );
-				break;
-			case 'cst_homepage_other_headlines_2':
-			case 'cst_homepage_other_headlines_3':
-			case 'cst_homepage_other_headlines_4':
-			case 'cst_homepage_other_headlines_5':
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+	public function render_callback( $partial ) {
+		$matches = [];
+		if ( is_front_page() ) {
+//			$partials = preg_match( '/cst\_(homepage|podcast)\_(top_story|other|section|lower_section|entertainment_section|related)?\_?headlines?\_(\d*|one|two|three)/', $partial->id, $matches );
+			switch ( $partial->id ) {
+				case 'cst_homepage_headlines_one':
+					return CST()->frontend->homepage_hero_story( $partial->id );
+					break;
+				case 'cst_homepage_headlines_two':
+				case 'cst_homepage_headlines_three':
+					return CST()->frontend->homepage_lead_story( $partial->id );
+					break;
+				case 'cst_homepage_other_headlines_1':
+					return CST()->frontend->homepage_mini_story_lead( $partial->id );
+					break;
+				case 'cst_homepage_other_headlines_2':
+				case 'cst_homepage_other_headlines_3':
+				case 'cst_homepage_other_headlines_4':
+				case 'cst_homepage_other_headlines_5':
+					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 
-				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id );
-				break;
-			case 'cst_homepage_top_story_headline_1':
-			case 'cst_homepage_top_story_headline_2':
-			case 'cst_homepage_top_story_headline_3':
-			case 'cst_homepage_top_story_headline_4':
-			case 'cst_homepage_top_story_headline_5':
-			case 'cst_homepage_top_story_headline_6':
-			case 'cst_homepage_top_story_headline_7':
-			case 'cst_homepage_top_story_headline_8':
-			case 'cst_homepage_top_story_headline_9':
-			case 'cst_homepage_top_story_headline_10':
-				return CST()->frontend->top_story( $element->id, 'columns' );
-				break;
-			case 'cst_homepage_section_headlines_2':
-			case 'cst_homepage_section_headlines_3':
-			case 'cst_homepage_section_headlines_4':
-			case 'cst_homepage_section_headlines_5':
-			case 'cst_homepage_lower_section_headlines_2':
-			case 'cst_homepage_lower_section_headlines_3':
-			case 'cst_homepage_lower_section_headlines_4':
-			case 'cst_homepage_lower_section_headlines_5':
-			case 'cst_podcast_section_headlines_2':
-			case 'cst_podcast_section_headlines_3':
-			case 'cst_podcast_section_headlines_4':
-			case 'cst_podcast_section_headlines_5':
-			case 'cst_homepage_entertainment_section_headlines_2':
-			case 'cst_homepage_entertainment_section_headlines_3':
-			case 'cst_homepage_entertainment_section_headlines_4':
-			case 'cst_homepage_entertainment_section_headlines_5':
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+					return CST()->frontend->single_mini_story( $obj, 'regular', $partial->id );
+					break;
+				case 'cst_homepage_top_story_headline_1':
+				case 'cst_homepage_top_story_headline_2':
+				case 'cst_homepage_top_story_headline_3':
+				case 'cst_homepage_top_story_headline_4':
+				case 'cst_homepage_top_story_headline_5':
+				case 'cst_homepage_top_story_headline_6':
+				case 'cst_homepage_top_story_headline_7':
+				case 'cst_homepage_top_story_headline_8':
+				case 'cst_homepage_top_story_headline_9':
+				case 'cst_homepage_top_story_headline_10':
+					return CST()->frontend->top_story( $partial->id, 'columns' );
+					break;
+				case 'cst_homepage_section_headlines_2':
+				case 'cst_homepage_section_headlines_3':
+				case 'cst_homepage_section_headlines_4':
+				case 'cst_homepage_section_headlines_5':
+				case 'cst_homepage_lower_section_headlines_2':
+				case 'cst_homepage_lower_section_headlines_3':
+				case 'cst_homepage_lower_section_headlines_4':
+				case 'cst_homepage_lower_section_headlines_5':
+				case 'cst_podcast_section_headlines_2':
+				case 'cst_podcast_section_headlines_3':
+				case 'cst_podcast_section_headlines_4':
+				case 'cst_podcast_section_headlines_5':
+				case 'cst_homepage_entertainment_section_headlines_2':
+				case 'cst_homepage_entertainment_section_headlines_3':
+				case 'cst_homepage_entertainment_section_headlines_4':
+				case 'cst_homepage_entertainment_section_headlines_5':
+					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 
-				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes', '', true );
-				break;
-			case 'cst_homepage_section_headlines_1':
-			case 'cst_podcast_section_headlines_1':
-			case 'cst_homepage_lower_section_headlines_1':
-			case 'cst_homepage_entertainment_section_headlines_1':
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+					return CST()->frontend->single_mini_story( $obj, 'regular', $partial->id, 'yes', '', true );
+					break;
+				case 'cst_homepage_section_headlines_1':
+				case 'cst_podcast_section_headlines_1':
+				case 'cst_homepage_lower_section_headlines_1':
+				case 'cst_homepage_entertainment_section_headlines_1':
+					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 
-				return CST()->frontend->single_mini_story( $obj, 'prime', $element->id, 'yes' );
-				break;
-			case 'featured_story_block_headlines_1':
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+					return CST()->frontend->single_mini_story( $obj, 'prime', $partial->id, 'yes' );
+					break;
+				case 'featured_story_block_headlines_1':
+					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 
-				return CST()->frontend->featured_story_lead( $obj );
-				break;
-			case 'hero_related_posts':
-				return CST()->frontend->handle_related_content();
-				break;
-			case 'cst_homepage_related_headlines_one':
-			case 'cst_homepage_related_headlines_two':
-			case 'cst_homepage_related_headlines_three':
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+					return CST()->frontend->featured_story_lead( $obj );
+					break;
+				case 'hero_related_posts':
+					return CST()->frontend->handle_related_content();
+					break;
+				case 'cst_homepage_related_headlines_one':
+				case 'cst_homepage_related_headlines_two':
+				case 'cst_homepage_related_headlines_three':
+					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 
-				return CST()->frontend->single_hero_related_story( $obj );
-				break;
-			case 'featured_story_block_headlines_2':
-			case 'featured_story_block_headlines_3':
-			case 'featured_story_block_headlines_4':
-			case 'featured_story_block_headlines_5':
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+					return CST()->frontend->single_hero_related_story( $obj );
+					break;
+				case 'featured_story_block_headlines_2':
+				case 'featured_story_block_headlines_3':
+				case 'featured_story_block_headlines_4':
+				case 'featured_story_block_headlines_5':
+					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 
-				return CST()->frontend->single_mini_story( $obj, 'vertical', $element->id, 'feature-landscape', true );
-				break;
-			case 'lower_section_section_title':
-			case 'entertainment_section_section_title':
-			case 'featured_obit_section_section_title':
-			case 'top_stories_block_title':
-				return CST()->frontend->render_section_title( $element->id );
-				break;
-			case 'chartbeat_section_title':
-				return CST()->frontend->render_section_text_title( $element->id );
-				break;
-			case 'cst[politics]_section_headlines_2':
-			case 'cst[politics]_section_headlines_3':
-			case 'cst[politics]_section_headlines_4':
-			case 'cst[politics]_section_headlines_5':
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes', '', true );
-				break;
-			case 'cst[politics]_section_headlines_1':
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+					return CST()->frontend->single_mini_story( $obj, 'vertical', $partial->id, 'feature-landscape', true );
+					break;
+				case 'lower_section_section_title':
+				case 'entertainment_section_section_title':
+				case 'featured_obit_section_section_title':
+				case 'top_stories_block_title':
+					return CST()->frontend->render_section_title( $partial->id );
+					break;
+				case 'chartbeat_section_title':
+					return CST()->frontend->render_section_text_title( $partial->id );
+					break;
 
-				return CST()->frontend->single_mini_story( $obj, 'prime', $element->id, 'yes' );
-				break;
+			}
 		}
+		if ( is_tax( 'cst_section' ) ) {
+			$partials = preg_match( '/cst\_(.+)\_section_headlines\_(\d+)/', $partial->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				$article_position = 'five_block_' . $matches[2];
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
+				switch ( $article_position ) {
+					case 'five_block_1':
+						return CST()->frontend->single_mini_story( $obj, 'prime', $partial->id, 'yes' );
+						break;
+					case 'five_block_2':
+					case 'five_block_3':
+					case 'five_block_4':
+					case 'five_block_5':
+						return CST()->frontend->single_mini_story( $obj, 'regular', $partial->id, 'yes', '', true );
+						break;
+				}
+			}
+		}
+		if ( empty( $matches ) ) {
+			return '';
+		}
+
 
 		return '';
 	}
