@@ -31,7 +31,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		 * in cst-customize-control.js we initialize the field based on this->id naming
 		 */
 		public function render_content() {
-			$related_section = 'no-related-section';
+			$related_section = '';
 			$headline = get_theme_mod( $this->id );
 			$obj      = get_post( $headline );
 			if ( $obj ) {
