@@ -3682,7 +3682,7 @@ body.post-gallery-lightbox-active {
   .post .post-meta-bottom .post-meta-taxonomy-terms:hover a:hover .fa {
     color: #7d7e7e; }
 
-.homepage_wrapper .stories .post-meta-author a, .section_front_wrapper .stories .post-meta-author a {
+.homepage_wrapper .stories .post-meta-author a, .homepage_wrapper .mini-stories .post-meta-author a, .section_front_wrapper .stories .post-meta-author a, .section_front_wrapper .mini-stories .post-meta-author a {
   color: #231f20; }
 .homepage_wrapper .single-mini-story, .section_front_wrapper .single-mini-story {
   float: left;

@@ -32,12 +32,13 @@ class CST_Section_Front {
 	}
 	/**
 	 * Provide Chicago Sport heading, markup and link to section for homepage
-	 * @param $team
+	 * @param $title
+	 * @param $term
 	 */
-	public function sports_heading( $team = 'Chicago Sports' ) {
-		$sports_term = wpcom_vip_get_term_link( $team,'cst_section' );
+	public function sports_heading( $title = 'Chicago Sports', $term = '' ) {
+		$sports_term = wpcom_vip_get_term_link( $term,'cst_section' );
 		if ( ! is_wp_error( $sports_term ) ) { ?>
-			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>"><?php echo esc_html( ucfirst( $team ) ); ?></a></h2>
+			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>"><?php echo esc_html( ucfirst( $title ) ); ?></a></h2>
 		<?php }
 	}
 
@@ -49,6 +50,18 @@ class CST_Section_Front {
 				<?php $this->sports_heading( $team ); ?>
 				<?php $headlines = $this->create_headline_link( $team ); ?>
 				<?php \CST_Frontend::get_instance()->mini_stories_content_block( $headlines ); ?>
+			</div><!-- /#sf-section-lead -->
+		</div>
+		<?php
+	}
+	public function sports_five_block( $headlines ) {
+		?>
+		<div class="stories-container">
+			<div class="small-12 columns more-stories-container" id="sf-section-lead">
+				<?php $this->sports_heading( 'Chicago Sports Headlines', 'sports' ); ?>
+				<hr>
+				<?php \CST_Frontend::get_instance()->mini_stories_content_block( $headlines ); ?>
+				<hr>
 			</div><!-- /#sf-section-lead -->
 		</div>
 		<?php
