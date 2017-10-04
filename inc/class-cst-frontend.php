@@ -209,7 +209,7 @@ class CST_Frontend {
 						'is_singular'     => is_singular(),
 					);
 					if ( is_singular() && $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() ) ) {
-						for ( $i = 1;  $i <= 9;  $i++ ) {
+						for ( $i = 1;  $i <= 10;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
 					}
@@ -2795,7 +2795,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			'wp-title'  => wp_title( '|', false, 'right' ),
 			);
 
-		for ( $i = 1;  $i <= 5;  $i++) {
+		for ( $i = 1;  $i <= 9;  $i++) {
 			$data[ 'ga-dimension-' . $i ] = $obj->get_ga_dimension( $i );
 		}
 
