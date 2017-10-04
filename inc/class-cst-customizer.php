@@ -81,11 +81,11 @@ class CST_Customizer {
 	private $capability = 'edit_others_posts';
 	private $sports_section_choices, $section_choices, $section_ids;
 	private $five_block = [
-		'story_1',
-		'story_2',
-		'story_3',
-		'story_4',
-		'story_5',
+		'headlines_1',
+		'headlines_2',
+		'headlines_3',
+		'headlines_4',
+		'headlines_5',
 	];
 
 	public static function get_instance() {
@@ -185,12 +185,13 @@ class CST_Customizer {
 			] );
 			// Add control and setting for each section
 			foreach ( $this->five_block as $story_title ) {
-				$this->set_setting( $wp_customize, $section_name . '_' . $story_title , 'absint' );
-				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_choice, [
+				$section_customizer_name = 'cst_' . $sanitized_section_title . '_section_' . $story_title;
+				$this->set_setting( $wp_customize, $section_customizer_name , 'absint' );
+				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_customizer_name, [
 					'type'        => 'cst_select_control',
 					'priority'    => 20,
 					'section'     => $section_name,
-					'active_callback' => [ $this, 'tax_section' ],
+					'active_callback' => [ $this, 'partial_in_section' ],
 					'label'       => __( 'Choose ' . $section_choice . ' story ', 'chicagosuntimes' ),
 					'input_attrs' => [
 						'placeholder'          => esc_attr__( 'Choose  article' ),
@@ -201,11 +202,23 @@ class CST_Customizer {
 		}
 	}
 
+	public function partial_in_section( $partial ) {
+		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
+		if ( is_array( $matches ) && ! empty( $matches ) ) {
+			$section_to_display = is_tax( 'cst_section', $matches[1] );
+			if ( $get_section_name && $section_to_display ) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public function tax_section( $section ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $section->id, $matches );
-
-		if ( $get_section_name && is_tax( 'cst_section', $matches[1] ) ) {
-			return true;
+		if ( is_array( $matches ) && ! empty( $matches ) ) {
+			$section_to_display = is_tax( 'cst_section', $matches[1] );
+			if ( $get_section_name && $section_to_display ) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -625,10 +638,11 @@ class CST_Customizer {
 
 		foreach ( $this->section_choices as $section_choice ) {
 			foreach ( $this->five_block as $partial_title ) {
-				$section_partials[ 'cst[' . sanitize_title( $section_choice ) . ']_section' . '_' . $partial_title ] = true;
+				$section_partials[ 'cst_' . sanitize_title( $section_choice ) . '_section' . '_' . $partial_title ] = true;
 			}
 		}
 		$combined_arrays = array_merge(
+			array_keys( $section_partials ),
 			array_keys( $this->column_one_stories ),
 			array_keys( $this->other_stories ),
 			array_keys( $this->upper_section_stories ),
@@ -638,7 +652,6 @@ class CST_Customizer {
 			array_keys( $this->politics_list_section_stories ),
 			array_keys( $this->entertainment_section_stories ),
 			array_keys( $this->featured_obits_section_stories ),
-			array_keys( $section_partials ),
 			array_keys( $this->featured_story_block_headlines )
 		);
 		foreach ( $combined_arrays as $customizer_element_id ) {
@@ -825,14 +838,14 @@ class CST_Customizer {
 			case 'chartbeat_section_title':
 				return CST()->frontend->render_section_text_title( $element->id );
 				break;
-			case 'cst[politics]_section_story_2':
-			case 'cst[politics]_section_story_3':
-			case 'cst[politics]_section_story_4':
-			case 'cst[politics]_section_story_5':
+			case 'cst[politics]_section_headlines_2':
+			case 'cst[politics]_section_headlines_3':
+			case 'cst[politics]_section_headlines_4':
+			case 'cst[politics]_section_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes', '', true );
 				break;
-			case 'cst[politics]_section_story_1':
+			case 'cst[politics]_section_headlines_1':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 
 				return CST()->frontend->single_mini_story( $obj, 'prime', $element->id, 'yes' );

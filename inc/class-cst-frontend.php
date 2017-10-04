@@ -1747,6 +1747,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	 */
 	function cst_section_front_video( $counter ) {
 		if ( 3 === $counter ) {
+			if ( is_customize_preview() ) {
+				return '<h3>Video injection disabled when in customizer</h3>';
+			}
 			if ( is_tax() ) {
 				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
 					return $this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
@@ -1986,7 +1989,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	*/
 	public function get_sections_nav_markup( $parent = 0, $off_canvas = true ) {
 		if ( is_tax() ) {
-			return '<h3>is_tax</h3>';
+			return '<h3 class="cst-front-end-get-sections-nav-markup-remove-me">is_tax</h3>';
 		}
 		$custom_subnavigation = array(
 			'sports' => array(),
