@@ -18,8 +18,7 @@ body, .grey-background {
   background-color: #f8f8f8;
   color: #282828;
   height: auto;
-  position: relative;
-  z-index: 2; }
+  position: relative; }
 
 body.single {
   background-color: white; }
@@ -993,8 +992,7 @@ ul#menu-sun-times-network {
   box-shadow: 0; }
 
 .wire {
-  position: relative;
-  z-index: 2; }
+  position: relative; }
   .wire .cst-ad-container {
     position: relative;
     display: block;
