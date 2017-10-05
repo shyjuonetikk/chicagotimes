@@ -96,6 +96,7 @@ class CST_Frontend {
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
+		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
@@ -2189,6 +2190,28 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
 			}
 		}
+	}
+	/**
+	*
+	* Inject supplied Yieldmo tag if singular and mobile and over 9 paragraphs
+	* Only do this on article pages
+	*
+	* @param $content string
+	* @return string
+	*/
+	public function inject_yieldmo_mobile( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+       			$yieldmo_unit = '<div id="ym_1555064078586984494" class="ym"></div><script type="text/javascript">(function(e,t){if(t._ym===void 0){t._ym="";var m=e.createElement("script");m.type="text/javascript",m.async=!0,m.src="//static.yieldmo.com/ym.m5.js",(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(m)}else t._ym instanceof String||void 0===t._ym.chkPls||t._ym.chkPls()})(document,window);</script>';
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 9) {
+					array_splice( $exploded, 10, 0, $yieldmo_unit );
+					$content = join( '</p>', $exploded );
+				}
+			}
+		}
+		return $content;
 	}
 	/**
 	*
