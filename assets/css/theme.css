@@ -2823,7 +2823,7 @@ body.page-id-682082 section .page-content {
 .weather {
   padding: 10px 0;
   max-width: 126px;
-  line-height: 24px;
+  line-height: 19px;
   color: white;
   background-color: transparent;
   height: auto;
@@ -2975,7 +2975,7 @@ header .contain-to-grid .top-bar {
         max-width: 73.4rem; } }
     @media screen and (max-width: 89em) and (min-width: 83em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
-        max-width: 66.9rem; } }
+        max-width: 66rem; } }
     @media screen and (max-width: 82.99em) and (min-width: 77em) and (orientation: landscape) {
       header .contain-to-grid .top-bar .masthead-sections {
         max-width: 61rem; } }
@@ -3058,6 +3058,9 @@ header .contain-to-grid .top-bar {
     padding: 0; }
   header .contain-to-grid .top-bar .info-container {
     min-width: 126px; }
+    @media only screen and (max-width: 40em) {
+      header .contain-to-grid .top-bar .info-container {
+        min-width: 80px; } }
   header .contain-to-grid .top-bar .top-bar-section {
     background: #f8f8f8; }
     header .contain-to-grid .top-bar .top-bar-section .main-nav-holder {
