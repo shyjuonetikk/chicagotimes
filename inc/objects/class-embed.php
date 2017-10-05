@@ -141,7 +141,7 @@ class Embed extends Post {
 
 			case 'instagram':
 
-				$response = vip_safe_wp_remote_get( 'http://api.instagram.com/oembed?url=' . urlencode( $embed_url ) );
+				$response = vip_safe_wp_remote_get( 'https://api.instagram.com/oembed?url=' . urlencode( $embed_url ) );
 
 				if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
 					break;
@@ -153,7 +153,7 @@ class Embed extends Post {
 					break;
 				}
 
-				if( preg_match( "#http://instagr(\.am|am\.com)/p/([a-zA-Z0-9-^/]+)#i", $embed_url, $matches ) ) {
+				if( preg_match( "#https?://instagr(\.am|am\.com)/p/([a-zA-Z0-9-^/]+)#i", $embed_url, $matches ) ) {
 					$instagram_data->instagram_id = sanitize_text_field( trim( $matches[2], '/' ) );
 				} else {
 					// Need the instagram ID for the frontend

@@ -76,7 +76,6 @@ class CST_Frontend {
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_distroscale_injection' ] );
 		add_action( 'head_early_elements', [ $this, 'action_head_early_elements' ] );
 		add_action( 'body_start', [ $this, 'action_body_start' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'section_front_dequeue_devicepx' ] );
 
 	}
 
@@ -151,7 +150,7 @@ class CST_Frontend {
 			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,400i,600,600i,700,700i|Merriweather:300,300i,400,400i,700,700i,900,900i&amp;subset=latin' );
 		}
 		if ( is_page_template( 'page-flipp.php' ) ) {
-			wp_enqueue_script( 'cst_ad_flipp_page', 'http://circulars.chicago.suntimes.com/distribution_services/iframe.js' );
+			wp_enqueue_script( 'cst_ad_flipp_page', 'https://circulars-chicago.suntimes.com/distribution_services/iframe.js' );
 		}
 
 		if ( is_page_template( 'page-monster.php' ) ) {
@@ -233,6 +232,9 @@ class CST_Frontend {
 			}
 			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
 
+		}
+		if ( is_page() ) {
+			wp_enqueue_script( 'page-iframe-reponsify', get_template_directory_uri() . '/assets/js/theme-page.js', array(), null, true );
 		}
 		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
@@ -2179,7 +2181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		if ( function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
 			$site = CST()->dfp_handler->get_parent_dfp_inventory();
 			if ( 'chicago.suntimes.com' === $site ) {
-				$chartbeat_file_name = 'main.54a95b28-cb-prod.js';
+				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
 			} else {
 				$chartbeat_file_name = 'main.81b31ab6-cb-dev-test.js';
 			}
