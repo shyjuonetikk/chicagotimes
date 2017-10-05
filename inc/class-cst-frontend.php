@@ -2193,7 +2193,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	}
 	/**
 	*
-	* Inject supplied TCX tag if singular and mobile and over 16 paragraphs
+	* Inject supplied Yieldmo tag if singular and mobile and over 9 paragraphs
 	* Only do this on article pages
 	*
 	* @param $content string
