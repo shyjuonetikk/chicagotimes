@@ -48,10 +48,10 @@ ul.amp-wp-meta li:first-child:before {display: none;}
 .amp-wp-meta .screen-reader-text {/* from twentyfifteen */clip: rect(1px, 1px, 1px, 1px);height: 1px;overflow: hidden;position: absolute;width: 1px;}
 .amp-wp-byline amp-img {border-radius: 50%;border: 0;background: #f3f6f8;position: relative;top: 6px;margin-right: 6px;}
 /* Titlebar */
-.amp-wp-title-bar {background: #0a89c0;padding: 12px 16px;background: #000;height: 40px;}
+.amp-wp-title-bar {background: #0a89c0;padding: 10px 16px;background: #000;height: 42px;}
 .amp-wp-title-bar div {line-height: 54px;color: #fff;}
-.amp-wp-title-bar .site-logo {max-width: 300px;width: 200px;height: 38px;float: left;display: block;}
-.site-logo img {max-width: 200px;}
+.amp-wp-title-bar .site-logo {max-width: 300px;width: 219px;height: 40px;float: left;display: block;}
+.site-logo img {max-width: 219px;}
 .amp-wp-title-bar button {padding: 1px;border: 0;color: #fff;background: #000;}
 .amp-wp-title-bar a {color: #fff;text-decoration: none;}
 .amp-wp-title-bar .amp-wp-site-icon {/** site icon is 32px **/float: left;margin: 11px 8px 0 0;border-radius: 50%;}
