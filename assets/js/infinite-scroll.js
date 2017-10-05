@@ -104,6 +104,7 @@
 				}
 
 				uri = post.data("cst-post-uri");
+				post_id = post.data("cst-post-id");
         active_post = jQuery(".cst-active-scroll-post");
         var trigger = active_post.find(".post-meta-social")||null;
         if ( trigger ) {
@@ -124,7 +125,7 @@
 					CSTAnalytics.currentURL = window.location.origin + uri;
 				}
 
-        CSTInfiniteScroll.fireTaboola(uri);
+        CSTInfiniteScroll.fireTaboola(uri,post_id);
         CSTInfiniteScroll.fireYieldmo();
 
         wp_title = post.data("cst-wp-title");
@@ -198,11 +199,11 @@
 		supportsPushState: function() {
 			return typeof history.pushState !== "undefined";
 		},
-		fireTaboola: function(uri) {
+		fireTaboola: function(uri,post_id) {
       /* global taboola_container_id */
-      if( ! $("#" + CSTData.taboola_container_id).hasClass("trc_related_container") ) {
+      if( ! $("#" + CSTData.taboola_container_id+post_id).hasClass("trc_related_container") ) {
         window._taboola = window._taboola || [];
-        _taboola.push({mode:"thumbnails-c", container: CSTData.taboola_container_id, placement: "Below Article Thumbnails", target_type: "mix"});
+        _taboola.push({mode:"thumbnails-c", container: CSTData.taboola_container_id+post_id, placement: "Below Article Thumbnails", target_type: "mix"});
         _taboola.push({article:"auto", url:uri});
       }
     },
