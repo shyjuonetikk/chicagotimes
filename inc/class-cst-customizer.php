@@ -605,7 +605,7 @@ class CST_Customizer {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
 				'type'        => 'cst_select_control',
-				'priority'    => 20,
+				'priority'    => 30,
 				'section'     => 'featured_obits_section_stories',
 				'label'       => 0 === $lead_counter ++ ? __( 'Lead Obit', 'chicagosuntimes' ) : __( 'Other Obit', 'chicagosuntimes' ),
 				'input_attrs' => [
@@ -621,7 +621,7 @@ class CST_Customizer {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
 				'type'        => 'cst_select_control',
-				'priority'    => 30,
+				'priority'    => 50,
 				'section'     => 'podcast_section_stories',
 				'label'       => 0 === $lead_counter ++ ? __( 'Lead Podcast', 'chicagosuntimes' ) : __( 'Other Podcast', 'chicagosuntimes' ),
 				'input_attrs' => [
@@ -650,7 +650,7 @@ class CST_Customizer {
 		$this->set_setting( $wp_customize, 'entertainment_section_section_title', 'absint' );
 		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'entertainment_section_section_title', [
 			'type'     => 'select',
-			'priority' => 10,
+			'priority' => 20,
 			'section'  => 'entertainment_section_stories',
 			'settings' => 'entertainment_section_section_title',
 			'choices'  => $this->section_choices,
@@ -663,7 +663,7 @@ class CST_Customizer {
 		$this->set_setting( $wp_customize, 'featured_obit_section_section_title', 'absint' );
 		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'featured_obit_section_section_title', [
 			'type'     => 'select',
-			'priority' => 10,
+			'priority' => 30,
 			'section'  => 'featured_obits_section_stories',
 			'settings' => 'featured_obit_section_section_title',
 			'choices'  => $this->section_choices,
