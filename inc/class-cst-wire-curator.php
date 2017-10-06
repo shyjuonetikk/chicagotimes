@@ -312,7 +312,7 @@ class CST_Wire_Curator {
 									<? $preview_img = isset($photo->preview)? $photo->preview->file : $photo->main->file; ?>
 									<li>
 										<div class="thumbnail">
-											<?php $thumbnail = $photo->preview? $photo->preview->file : $photo->thumbnail->file?>
+											<?php $thumbnail = isset($photo->preview)? $photo->preview->file : $photo->main->file; ?>
 											<img src="<?=$thumbnail?>"/>
 										</div>
 										<div class="on-hover">
