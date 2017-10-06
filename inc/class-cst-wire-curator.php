@@ -641,7 +641,7 @@ class CST_Wire_Curator {
 					set_post_thumbnail( $article->get_id(), $thumbnail_id );
 					$media = explode(',',$_GET['media']);
 					foreach ($media as $img) {
-						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
+						media_sideload_image( $item->get_media_by_key($img), $article->get_id(), $img, 'id');
 					}
 					if ( $article ) {
 						wp_safe_redirect( $article->get_edit_link() );
