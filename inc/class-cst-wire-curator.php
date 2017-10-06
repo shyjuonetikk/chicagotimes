@@ -399,6 +399,13 @@ class CST_Wire_Curator {
 							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
 							url.attr('href', newURL);
 						});
+
+						$('.cst-wire-curator-preview-item-cancel').on('click', function(){
+							$('.tab-pane').removeClass('active');
+							$('.apwire-tab').removeClass('btn-inverse');
+							$('.button-group').find('.a:first').addClass('btn-inverse');
+							$('.text').addClass('active');
+						});
 					});
 				</script>
 				<?php
@@ -634,7 +641,7 @@ class CST_Wire_Curator {
 					set_post_thumbnail( $article->get_id(), $thumbnail_id );
 					$media = explode(',',$_GET['media']);
 					foreach ($media as $img) {
-						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
+						media_sideload_image( $item->get_media_by_key($img), $article->get_id(), $img, 'id');
 					}
 					if ( $article ) {
 						wp_safe_redirect( $article->get_edit_link() );
@@ -701,9 +708,13 @@ class CST_Wire_Curator {
 
 						// Only handle articles right now
 						$is_article = false;
+						$articleId = '';
 						foreach ( $entry->link as $link ) {
 							if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
 								$is_article = true;
+								$parts = parse_url($link['href']);
+								parse_str($parts['query'], $query);
+								$articleId = $query['iid'];
 								break;
 							}
 						}
@@ -720,7 +731,7 @@ class CST_Wire_Curator {
 						$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
 						$blog_id = get_current_blog_id();
 						if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
-							\CST\Objects\AP_Wire_Item::create_from_simplexml( $entry );
+							\CST\Objects\AP_Wire_Item::create_from_simplexml( $entry, $articleId );
 						}
 
 					}

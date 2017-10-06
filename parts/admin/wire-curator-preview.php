@@ -3,6 +3,7 @@
 
 	<div id="cst-wire-curator-preview-item-modal-title">
 		Wire Item Preview
+		<div id="cst-wire-curator-button-group"></div>
 		<div id="cst-wire-curator-close-preview-item-modal" class="cst-wire-curator-preview-item-cancel"></div>
 	</div>
 
