@@ -116,10 +116,10 @@ class CST_Wire_Curator {
 		$fm = new Fieldmanager_Link( array(
 			'name'           => 'wire_curator_feed_url',
 			'label'          => false,
-			'limit'          => 0,
+			'limit'          => 1,
 			'add_more_label' => esc_attr__( 'Import Another Feed', 'chicagosuntimes' ),
 			'attributes'     => array(
-			'placeholder' => esc_attr__( 'Enter WebFeed URL for AP Content Explorer saved search', 'chicagosuntimes' ),
+			'placeholder' => esc_attr__( 'Enter API URL for AP Content Explorer saved search', 'chicagosuntimes' ),
 			'size'        => 100,
 			),
 		) );
@@ -175,7 +175,7 @@ class CST_Wire_Curator {
 			return $out;
 		}
 
-		$out .= '<p>' . sprintf( __( 'Wire Curator accepts WebFeeds from WebFeeds manager Products or Save Searches. You can <a target="_blank" href="%s">log in</a> with these credentials: %s / %s', 'chicagosuntimes' ), 'https://wfm.ap.org/Admin/', CST_AP_SYNDICATION_USERNAME, CST_AP_SYNDICATION_PASSWORD ) . '</p>';
+		$out .= '<p>' . __( 'Wire Curator accepts from API', 'chicagosuntimes' ) . '</p>';
 
 		return $out;
 	}
@@ -677,70 +677,83 @@ class CST_Wire_Curator {
 	 * @param bool $manually_triggered_from_ajax
 	 */
 	public function refresh_wire_items( $manually_triggered_from_ajax = false ) {
+		$response = vip_safe_wp_remote_get( $this->get_feeds(), '', 3, 3, 20, [] );
 
-		foreach ( $this->get_feeds() as $feed ) {
+		$response_code = wp_remote_retrieve_response_code( $response );
 
-			// Failsafe
-			if ( empty( $feed ) ) {
-				continue;
-			}
-
-			$args = array();
-
-			// Associated Press requires HTTP Basic Auth
-			if ( 'syndication.ap.org' === parse_url( $feed, PHP_URL_HOST ) ) {
-				$args['headers'] = array(
-						'Authorization' => 'Basic ' . base64_encode( CST_AP_SYNDICATION_USERNAME . ':' . CST_AP_SYNDICATION_PASSWORD ),
-					);
-			}
-
-			$response = vip_safe_wp_remote_get( $feed, '', 3, 3, 20, $args );
-
-			if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-				continue;
-			}
-
-			$feed_data = wp_remote_retrieve_body( $response );
-			if ( $feed_data ) {
-				$xml = simplexml_load_string( $feed_data );
-				if ( $xml ) {
-					foreach ( $xml->entry as $entry ) {
-
-						// Only handle articles right now
-						$is_article = false;
-						$articleId = '';
-						foreach ( $entry->link as $link ) {
-							if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
-								$is_article = true;
-								$parts = parse_url($link['href']);
-								parse_str($parts['query'], $query);
-								$articleId = $query['iid'];
-								break;
-							}
-						}
-
-						if ( ! $is_article ) {
-							continue;
-						}
-
-						// See if this was already imported, otherwise create
-						if ( \CST\Objects\AP_Wire_Item::get_by_original_id( sanitize_text_field( $entry->id ) ) ) {
-							continue;
-						}
-
-						$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
-						$blog_id = get_current_blog_id();
-						if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
-							\CST\Objects\AP_Wire_Item::create_from_simplexml( $entry, $articleId );
-						}
-
-					}
-				}
-			}
-
-			$this->set_last_refresh( time() );
-
+		if ( 200 != $response_code ) {
+			continue;
 		}
+
+		// $feed_data = wp_remote_retrieve_body( $response );
+		//
+		// echo "<pre>";
+		// print_r($response);
+		// echo "</pre>";
+
+		// foreach ( $this->get_feeds() as $feed ) {
+		//
+		// 	// Failsafe
+		// 	if ( empty( $feed ) ) {
+		// 		continue;
+		// 	}
+		//
+		// 	$args = array();
+		//
+		// 	// Associated Press requires HTTP Basic Auth
+		// 	if ( 'syndication.ap.org' === parse_url( $feed, PHP_URL_HOST ) ) {
+		// 		$args['headers'] = array(
+		// 				'Authorization' => 'Basic ' . base64_encode( CST_AP_SYNDICATION_USERNAME . ':' . CST_AP_SYNDICATION_PASSWORD ),
+		// 			);
+		// 	}
+		//
+		// 	$response = vip_safe_wp_remote_get( $feed, '', 3, 3, 20, $args );
+		//
+		// 	if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		// 		continue;
+		// 	}
+		//
+		// 	$feed_data = wp_remote_retrieve_body( $response );
+		// 	if ( $feed_data ) {
+		// 		$xml = simplexml_load_string( $feed_data );
+		// 		if ( $xml ) {
+		// 			foreach ( $xml->entry as $entry ) {
+		//
+		// 				// Only handle articles right now
+		// 				$is_article = false;
+		// 				$articleId = '';
+		// 				foreach ( $entry->link as $link ) {
+		// 					if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
+		// 						$is_article = true;
+		// 						$parts = parse_url($link['href']);
+		// 						parse_str($parts['query'], $query);
+		// 						$articleId = $query['iid'];
+		// 						break;
+		// 					}
+		// 				}
+		//
+		// 				if ( ! $is_article ) {
+		// 					continue;
+		// 				}
+		//
+		// 				// See if this was already imported, otherwise create
+		// 				if ( \CST\Objects\AP_Wire_Item::get_by_original_id( sanitize_text_field( $entry->id ) ) ) {
+		// 					continue;
+		// 				}
+		//
+		// 				$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
+		// 				$blog_id = get_current_blog_id();
+		// 				if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
+		// 					\CST\Objects\AP_Wire_Item::create_from_simplexml( $entry, $articleId );
+		// 				}
+		//
+		// 			}
+		// 		}
+		// 	}
+		//
+		// 	$this->set_last_refresh( time() );
+		//
+		// }
 
 	}
 
