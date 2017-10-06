@@ -147,6 +147,7 @@ class CST_Customizer {
 	 */
 	public function action_customize_register( \WP_Customize_Manager $wp_customize ) {
 
+		$wp_customize->register_control_type( 'WP_Customize_CST_Select_Control' );
 		$this->_generate_all_sections();
 		$this->homepage_customizer( $wp_customize );
 		$this->section_front_customizer( $wp_customize );
@@ -201,7 +202,7 @@ class CST_Customizer {
 					'active_callback' => [ $this, 'partial_in_section' ],
 					'label'       => __( 'Choose ' . $section_choice . ' story ', 'chicagosuntimes' ),
 					'input_attrs' => [
-						'placeholder'          => esc_attr__( 'Choose  article' ),
+						'placeholder'          => esc_attr__( 'Choose article' ),
 					],
 				] ) );
 			}
