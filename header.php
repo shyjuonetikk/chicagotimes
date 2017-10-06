@@ -52,7 +52,6 @@
 <?php if ( ! is_404() ) { ?>
 	<?php do_action( 'cst_dfp_ad_settings' ); ?>
 <?php } ?>
-<meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
 <?php
 CST()->dfp_handler->generate_header_definitions();
