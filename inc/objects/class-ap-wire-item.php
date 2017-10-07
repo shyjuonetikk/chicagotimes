@@ -377,30 +377,29 @@ class AP_Wire_Item extends Post {
 	 *
 	 * @return Object
 	 */
-	public function get_wire_media( $type ) {
-		if(!isset($type) || $type=='')
-			return [];
-		if(!$this->get_meta($type))
-			return [];
+	 public function get_wire_media( $type ) {
+ 		if(!isset($type) || $type=='')
+ 			return [];
+ 		if(!$this->get_meta($type))
+ 			return [];
 
-		$media = [];
-		$mediaList = explode( ',', $this->get_meta($type) );
-		foreach($mediaList as $key) {
-			$mediaItem = new \stdClass;
-			foreach( ['main','preivew','thumbnail'] as $item ) {
-			foreach(['main','preview','thumbnail'] as $item) {
-				if($this->get_meta( $item . '_' . $key )) {
-					$mediaItem->{$item} = (object) [
-						"name" => $item . '_' . $key,
-						"file" => $this->get_meta( $item . '_' . $key )
-					];
-				}
-			}
-			$media[] = $mediaItem;
-		}
-		return $media;
-	}
-}
+ 		$media = [];
+ 		$mediaList = explode( ',', $this->get_meta($type) );
+ 		foreach($mediaList as $key) {
+ 			$mediaItem = new \stdClass;
+ 			foreach( ['main','preivew','thumbnail'] as $item ) {
+ 				if($this->get_meta( $item . '_' . $key )) {
+ 					$mediaItem->{$item} = (object) [
+ 						"name" => $item . '_' . $key,
+ 						"file" => $this->get_meta( $item . '_' . $key )
+ 					];
+ 				}
+ 			}
+ 			$media[] = $mediaItem;
+ 		}
+ 		return $media;
+ 	}
+
 	public function get_media_by_key( $key ) {
 		return $this->get_meta( $key );
 	}
