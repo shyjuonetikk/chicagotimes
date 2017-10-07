@@ -1,6 +1,7 @@
 <?php
 
 namespace CST\Objects;
+defined('API_ENDPOINT') || define('API_ENDPOINT', get_option( 'wire_curator_feed_url' ));
 
 /**
  * Base class to represent an AP wire item
@@ -14,11 +15,15 @@ class AP_Wire_Item extends Post {
 	 *
 	 * @return AP_Wire_Item|int|\WP_Error|\WP_Post
 	 */
-	public static function create_from_simplexml( $feed_entry, $articleId = '' ) {
+	public static function create_from_simpleobject( $feed_entry, $articleId = '' ) {
 		global $edit_flow;
+		$response = vip_safe_wp_remote_get( API_ENDPOINT . '/api/' . $feed_entry->id , '', 3, 3, 20, [] );
+		$feed_data = json_decode(wp_remote_retrieve_body( $response ));
+		$feed_entry = (object) array_merge((array) $feed_entry, (array) $feed_data);
 
-		$gmt_published = date( 'Y-m-d H:i:s', strtotime( $feed_entry->published ) );
-		$gmt_modified = date( 'Y-m-d H:i:s', strtotime( $feed_entry->updated ) );
+		$pub_date = date('c');
+		$gmt_published = date( 'Y-m-d H:i:s', strtotime( isset($feed_entry->published) ? $feed_entry->published : $pub_date ) );
+		$gmt_modified = date( 'Y-m-d H:i:s', strtotime( isset($feed_entry->updated) ? $feed_entry->updated  : $pub_date ) );
 
 		// Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
 		if ( is_object( $edit_flow ) ) {
@@ -41,7 +46,7 @@ class AP_Wire_Item extends Post {
 
 		$post_args = array(
 			'post_title'        => sanitize_text_field( $feed_entry->title ),
-			'post_content'      => wp_filter_post_kses( $feed_entry->content ),
+			'post_content'      => wp_filter_post_kses( $feed_entry->summary ),
 			'post_type'         => 'cst_wire_item',
 			'post_author'       => 0,
 			'post_status'       => 'publish',
@@ -64,50 +69,12 @@ class AP_Wire_Item extends Post {
 
 		$post = new AP_Wire_Item( $post_id );
 		$post->set_meta('article_id', $articleId);
-		// Process attributes
-		foreach ( $feed_entry->link as $link ) {
-
-			if ( 'AP Article' !== (string) $link['title'] ) {
-				continue;
-			}
-
-			switch ( (string) $link['rel'] ) {
-				case 'alternate':
-					// Save media
-					$post->saveMedia($feed_entry->content->nitf);
-					$post->set_external_url( esc_url_raw( (string) $link['href'] ) );
-					break;
-
-				case 'enclosure':
-
-					$response = vip_safe_wp_remote_get( (string) $link['href'], '', 3, 3, 20 );
-					if ( is_wp_error( $response ) ) {
-						break;
-					}
-					if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-						break;
-					}
-
-					$nitf_data = wp_remote_retrieve_body( $response );
-					$post->saveMedia($post->get_nitf_field( $nitf_data, 'body/body.content/media' ));
-					$headline = $post->get_nitf_field( $nitf_data, 'body/body.head/hedline/hl1' );
-					if ( ! empty( $headline ) ) {
-						$post->set_wire_headline( sanitize_text_field( (string) $headline[0] ) );
-					}
-
-					$dateline = $post->get_nitf_field( $nitf_data, 'body/body.head/dateline' );
-					if ( ! empty( $dateline[0] ) ) {
-						$post->set_wire_dateline( sanitize_text_field( (string) $dateline[0]->location ) );
-					}
-
-					$content = $post->get_nitf_field( $nitf_data, 'body/body.content/block' );
-					if ( ! empty( $content ) ) {
-						$post->set_wire_content( wp_filter_post_kses( $content[0]->asXML() ) );
-					}
-
-					break;
-			}
-
+		$post->saveMedia($feed_entry->media);
+		if(!empty($feed_entry->title)) {
+			$post->set_wire_headline( sanitize_text_field( (string) $feed_entry->title ) );
+		}
+		if(!empty($feed_entry->blocks)) {
+			$post->set_wire_content( wp_filter_post_kses( implode('', $feed_entry->blocks) ) );
 		}
 
 		return $post;
@@ -183,24 +150,6 @@ class AP_Wire_Item extends Post {
 	 */
 	public function set_wire_content( $wire_content ) {
 		$this->set_meta( 'wire_content', $wire_content );
-	}
-
-	/**
-	 * Get a given field from the NITF data
-	 *
-	 * @param $nitf_data
-	 * @param $xpath
-	 *
-	 * @return \SimpleXMLElement[]|string
-	 */
-	public function get_nitf_field( $nitf_data, $xpath ) {
-
-		if ( empty( $nitf_data ) ) {
-			return '';
-		}
-
-		$obj = simplexml_load_string( $nitf_data );
-		return $obj->xpath( $xpath );
 	}
 
 	/**
@@ -322,54 +271,31 @@ class AP_Wire_Item extends Post {
 		return '';
 	}
 
-	public function saveMedia( $ntif ) {
-		if(empty( $ntif ))
-			return false;
-		if(!is_array( $ntif )) {
-			$media_list = $ntif->xpath('body/body.content/media');
-		} else {
-			$media_list = $ntif;
-		}
-
-		$mediaFields = [ 'OriginalFileName', 'Format', 'Role', 'IngestLink' ];
-		if($media_list) {
-			$media_data = [];
-	    foreach ( $media_list as $media ) {
-	      $media_type = strtolower( $media->attributes()->{'media-type'} );
-	      foreach( $media->xpath('media-metadata') as $meta ) {
-	        if(in_array( $meta->attributes()->{'name'}->__toString(), $mediaFields) ) {
-	          $uniqueID = explode(":",$meta->attributes()->{'id'}->__toString())[1];
-	          $media_data[$uniqueID][$meta->attributes()->{'name'}->__toString()] = $meta->attributes()->{'value'}->__toString();
-	        }
-	      }
-	      foreach( $media->xpath('media-reference') as $meta ) {
-	        $uniqueID = explode(":",$meta->attributes()->{'id'}->__toString())[1];
-	        $media_data[$uniqueID][$media_type] = new \stdClass;
-	        $media_data[$uniqueID]['type'] = $media_type;
-	        foreach( $meta->attributes() as $key => $value ) {
-	          $media_data[$uniqueID][$media_type]->{$key} = $value->__toString();
-	        }
-	      }
-	    }
-			$photolist = [];
-			$videolist = [];
-			if(!empty( $media_data )) {
-				foreach( $media_data as $media ) {
-					$OriginalFileName = strtolower($media['OriginalFileName']);
-					if(!in_array($OriginalFileName, $photolist) && $media['type'] === 'photo') {
-							$photolist[] = $OriginalFileName;
-					}
-
-					if(!in_array($OriginalFileName, $videolist) && $media['type'] === 'video') {
-							$videolist[] = $OriginalFileName;
-					}
-					$this->set_meta( strtolower($media['Role']."_".$OriginalFileName), $media['photo']->source );
+	public function saveMedia( $media ) {
+		$photolist = [];
+		$videolist = [];
+		$mediaObj = [
+			(object) array('name' => 'Main', 'code' => 'photo'),
+			(object) array('name' => 'Preview', 'code' => 'pr'),
+			(object) array('name' => 'Thumbnail', 'code' => 'tb')
+		];
+		foreach($media as $item) {
+			$fileName = $item->fileName;
+			foreach( $mediaObj as $role) {
+				$url =  "https://s3.amazonaws.com/cst-apfeed/{$role->code}_{$fileName}";
+				if(!in_array($fileName, $photolist) && $item->type === 'Photo') {
+						$photolist[] = $fileName;
 				}
 
-				$this->set_meta( 'photo', implode(',', $photolist) );
-				$this->set_meta( 'videos', implode(',', $videolist) );
+				if(!in_array($fileName, $videolist) && $item->type === 'Video') {
+						$videolist[] = $fileName;
+				}
+				$this->set_meta( $role->name . "_" . $fileName, $url );
 			}
 		}
+
+		$this->set_meta( 'photo', implode(',', $photolist) );
+		$this->set_meta( 'videos', implode(',', $videolist) );
 	}
 
 	/**
@@ -387,9 +313,9 @@ class AP_Wire_Item extends Post {
  		$mediaList = explode( ',', $this->get_meta($type) );
  		foreach($mediaList as $key) {
  			$mediaItem = new \stdClass;
- 			foreach( ['main','preivew','thumbnail'] as $item ) {
+ 			foreach( ['Main','Preview','Thumbnail'] as $item ) {
  				if($this->get_meta( $item . '_' . $key )) {
- 					$mediaItem->{$item} = (object) [
+ 					$mediaItem->{strtolower($item)} = (object) [
  						"name" => $item . '_' . $key,
  						"file" => $this->get_meta( $item . '_' . $key )
  					];
