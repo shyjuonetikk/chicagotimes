@@ -16,7 +16,7 @@
 						<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_two' ) ?>
 						<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_three' ) ?>
 						<div class="show-for-large-up">
-							<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+							<?php CST()->frontend->inject_newsletter_signup( [ 'newsletter' => 'news' ] ); ?>
 						</div>
 					</div><!-- /hp-main-lead -->
 					<div class="columns small-12 large-8 more-stories-container other-lead-stories">

@@ -1569,7 +1569,7 @@ class CST_Frontend {
 	 *
 	 * Determine and return the slug for use in headlines slider, sidebar and other template files.
 	 */
-	public function slug_detection() {
+	public function primary_slug_detection() {
 		if ( is_author() ) {
 			$primary_slug = 'news';
 		} elseif ( is_single() ) {
@@ -1748,7 +1748,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	 */
 	function cst_section_front_video( $counter ) {
 		if ( 3 === $counter ) {
-			if ( is_tax() ) {
+			if ( is_customize_preview() ) {
+				return '<h3>Video injection disabled when in customizer</h3>';
+			}
+		if ( is_tax() ) {
 				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
 					return $this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
 				}
@@ -2513,15 +2516,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		);
 		return array_merge( $allowed_html, $cst_custom_element_attributes );
 	}
-	public function inject_newsletter_signup( $newsletter ) {
+	public function inject_newsletter_signup( $args ) {
 
+		$defaults = [
+			'newsletter' => 'news',
+			'wrapper_class' => 'large-7 medium-8 small-12 columns newsletter-box',
+		];
+		$args = wp_parse_args( $args, $defaults );
 		$newsletter_codes = array(
 			'news' => array( 'title' => 'News &amp; Politics', 'code' => '062jcp97-2819pvaa' ),
 			'entertainment' => array( 'title' => 'Entertainment', 'code' => '062jcp97-bf1s1y92' ),
 			'sports' => array( 'title' => 'Sports', 'code' => '062jcp97-06149p3a' ),
 		);
 		$template = '
-<div class="large-7 medium-8 small-12 columns newsletter-box">
+<div class="%3$s">
 	<div class="newsletter-sign-up">
 		<h3>Sign-Up for our %1$s Newsletter&nbsp;
 			<a href="https://r1.surveysandforms.com/%2$s" data-on="click" data-event-category="newsletter" data-event-action="subscribe to %1$s" target="_blank" class="button tiny info">
@@ -2532,8 +2540,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 ';
 		echo wp_kses_post( sprintf( $template,
-			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
-			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
+			esc_attr( $newsletter_codes[ $args['newsletter'] ]['title'] ),
+			esc_attr( $newsletter_codes[ $args['newsletter'] ]['code'] ),
+			esc_attr( $args['wrapper_class'] )
 		) );
 	}
 

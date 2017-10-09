@@ -8,7 +8,6 @@
 					</a>
 				</div>
 				<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
-				<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
 				<div class="row">
 					<div class="stories-container">
 						<div class="small-12 columns more-stories-container" id="sf-section-lead">
@@ -24,42 +23,36 @@
 						<div class="columns small-12 large-4 stories">
 							<?php CST()->frontend->homepage_hero_story( 'cst_sports_section_five_block_1' ) ?>
 							<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_five_block_2' ) ?>
-							<div class="show-for-large-up">
-								<?php CST()->frontend->inject_newsletter_signup( 'sports' ); ?>
-							</div>
 						</div><!-- /hp-main-lead -->
 						<div class="columns small-12 large-8 more-stories-container other-lead-stories">
 							<img src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/images/video-sample-image-01.jpg' ) ; ?>" alt="">
+							<div class="show-for-large-up">
+								<?php CST()->frontend->inject_newsletter_signup( [ 'newsletter' => 'sports', 'wrapper_class' => 'small-12 newsletter-box' ] ); ?>
+							</div>
 						</div>
 					</div>
 				</div>
+				<?php foreach ( \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs as $chicago_sports_team_slug ) {
+					$term_link = wpcom_vip_get_term_link( $chicago_sports_team_slug,'cst_section' );
+					if ( ! is_wp_error( $term_link ) ) {
+						?>
+						<div class="row">
+							<div class="stories-container">
+								<div class="small-12 columns more-stories-container <?php echo esc_attr( $chicago_sports_team_slug); ?>" id="individual-sports-section-<?php echo esc_attr( $chicago_sports_team_slug); ?>">
+									<?php \CST\CST_Section_Front::get_instance()->heading( $chicago_sports_team_slug . ' Headlines', $chicago_sports_team_slug ); ?>
+									<hr>
+									<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST\CST_Section_Front::get_instance()->create_partials( $chicago_sports_team_slug ) ); ?>
+									<hr>
+								</div><!-- /individual-sports-section-{sport} -->
+							</div>
+						</div>
 
-				<div class="row">
-					<div class="stories-container">
-						<div class="small-12 columns more-stories-container" id="sf-section-lead">
-							<?php \CST\CST_Section_Front::get_instance()->heading( 'Chicago Cubs Headlines', 'cubs' ); ?>
-							<hr>
-							<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST\CST_Section_Front::get_instance()->create_partials( 'cubs' ) ); ?>
-							<hr>
-						</div><!-- /#sf-section-lead -->
-					</div>
-				</div>
-				<hr>
-				<h3>Ad injection here perhaps?</h3>
-				<hr>
-				<div class="row">
-					<div class="stories-container">
-						<div class="small-12 columns more-stories-container" id="sf-section-lead">
-							<?php \CST\CST_Section_Front::get_instance()->heading( 'Chicago Bulls Headlines', 'bulls' ); ?>
-							<hr>
-							<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST\CST_Section_Front::get_instance()->create_partials( 'bulls' ) ); ?>
-							<hr>
-						</div><!-- /#sf-section-lead -->
-					</div>
-				</div>
-				<hr>
-				<h3>Ad injection here perhaps?</h3>
-				<hr>
+						<hr>
+						<h3>Ad injection here perhaps?</h3>
+						<hr>
+						<?php
+					}
+				}?>
 			</div>
 
 			<div class="right-rail columns medium-4 large-4 show-for-medium-up">

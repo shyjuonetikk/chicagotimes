@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 	<section class="section_front_wrapper">
 		<div class="row">
-			<?php \CST\CST_Section_Front::get_instance()->five_block( \CST_Frontend::get_instance()->slug_detection() );?>
+			<?php \CST\CST_Section_Front::get_instance()->five_block( \CST_Frontend::get_instance()->primary_slug_detection() );?>
 		</div>
 		<div class="row">
 		<div id="main" class="wire columns medium-8 large-8 small-12">

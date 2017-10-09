@@ -5,6 +5,16 @@ namespace CST;
 class CST_Section_Front {
 	private static $instance;
 
+	public $chicago_sports_team_slugs = [
+		'cubs-baseball',
+		'cubs',
+		'white-sox',
+		'bulls',
+		'bears-football',
+		'blackhawks-hockey',
+		'blackhawks',
+		'fire-soccer',
+	];
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -42,6 +52,13 @@ class CST_Section_Front {
 		<?php }
 	}
 
+	/**
+	 * @param $title_slug
+	 *
+	 * Title markup based on slug
+	 * Get slotted content based on slug
+	 *
+	 */
 	public function five_block( $title_slug ) {
 		?>
 		<div class="stories-container">
@@ -50,7 +67,7 @@ class CST_Section_Front {
 				<?php $this->heading( 'Leading ' . get_queried_object()->name . ' stories', $title_slug ); ?>
 				<?php $customizer_partials = $this->create_partials( $title_slug ); ?>
 				<?php \CST_Frontend::get_instance()->mini_stories_content_block( $customizer_partials ); ?>
-			</div><!-- /#sf-section-lead -->
+			</div><!-- /five-block -->
 		</div>
 		<?php
 	}
@@ -62,7 +79,7 @@ class CST_Section_Front {
 				<hr>
 				<?php \CST_Frontend::get_instance()->mini_stories_content_block( $headlines ); ?>
 				<hr>
-			</div><!-- /#sf-section-lead -->
+			</div><!-- /sports-five-block -->
 		</div>
 		<?php
 	}
