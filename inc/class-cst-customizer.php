@@ -237,6 +237,10 @@ class CST_Customizer {
 		}
 		return false;
 	}
+
+	public function show_sports_sections() {
+		return is_front_page() || is_tax( 'cst_section', 'sports' );
+	}
 	/**
 	 * @param WP_Customize_Manager $wp_customize
 	 * Handle all the registration and settings for Homepage based customizer options
@@ -285,7 +289,7 @@ class CST_Customizer {
 			'description'     => __( 'Choose sports stories', 'chicagosuntimes' ),
 			'priority'        => 200,
 			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
+			'active_callback' => [ $this, 'show_sports_sections' ],
 		] );
 		$wp_customize->add_section( 'politics_section_stories', [
 			'title'           => __( 'Politics', 'chicagosuntimes' ),
@@ -313,7 +317,7 @@ class CST_Customizer {
 			'description'     => __( 'Choose entertainment stories', 'chicagosuntimes' ),
 			'priority'        => 240,
 			'capability'      => $this->capability,
-			'active_callback' => 'is_sports_tax',
+			'active_callback' => 'is_front_page',
 		] );
 		$wp_customize->add_section( 'featured_obits_section_stories', [
 			'title'           => __( 'Featured Obits', 'chicagosuntimes' ),
@@ -329,36 +333,7 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		] );
-		$wp_customize->add_section( 'sports_section_stories_1', [
-			'title'           => __( 'Sports SF', 'chicagosuntimes' ),
-			'description'     => __( 'Choose Sports SF stories', 'chicagosuntimes' ),
-			'priority'        => 400,
-			'capability'      => $this->capability,
-			'active_callback' => [ $this, 'is_sports_tax' ],
-		] );
-		$this->set_setting( $wp_customize, 'cst[sports]sports_story_1', 'esc_html' );
-		$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, 'cst[sports]sports_story_1', [
-			'type'        => 'cst_select_control',
-			'priority'    => 20,
-			'section'     => 'sports_section_stories_1',
-			'label'       => __( 'Lead Article', 'chicagosuntimes' ),
-			'input_attrs' => [
-				'placeholder'          => esc_attr__( 'Choose other article' ),
-				'data-related-section' => 'sports',
-			],
-		] ));
-		foreach ( array_keys( $this->sports_section_stories ) as $other_story ) {
-			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
-			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
-				'type'        => 'cst_select_control',
-				'priority'    => 11,
-				'section'     => 'sports_section_stories_1',
-				'label'       => __( 'Lead Article', 'chicagosuntimes' ),
-				'input_attrs' => [
-					'placeholder' => esc_attr__( 'Choose other article' ),
-				],
-			] ) );
-		}
+
 		/**
 		 * Add settings within each section
 		 */
@@ -1011,6 +986,11 @@ class CST_Customizer {
 		return ( ( isset( $checked ) && true === $checked ) ? true : false );
 	}
 
+	public function get_section_name_stories( $section_name ) {
+		if ( is_tax( 'cst_section' ) ) {
+			$partials = preg_match( '/cst\_(.+)\_section_headlines\_(\d+)/', $section_name, $matches );
+		}
+	}
 	/**
 	 * Getter for top stories array
 	 * @return array
