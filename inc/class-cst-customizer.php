@@ -209,6 +209,13 @@ class CST_Customizer {
 		}
 	}
 
+	/**
+	 * @param $partial
+	 *
+	 * @return bool
+	 *
+	 * Generate partial theme_mod variable based on section
+	 */
 	public function partial_in_section( $partial ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
 		if ( is_array( $matches ) && ! empty( $matches ) ) {
@@ -223,6 +230,14 @@ class CST_Customizer {
 		}
 		return false;
 	}
+
+	/**
+	 * @param $section
+	 *
+	 * @return bool
+	 *
+	 * Return whether we are in a taxonomy or not based on the section requested
+	 */
 	public function tax_section( $section ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $section->id, $matches );
 		if ( is_array( $matches ) && ! empty( $matches ) ) {
@@ -284,8 +299,9 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		] );
+		$sports_title = is_front_page() ? 'Sports' : 'Sports - from homepage';
 		$wp_customize->add_section( 'upper_section_stories', [
-			'title'           => __( 'Sports', 'chicagosuntimes' ),
+			'title'           => __( $sports_title, 'chicagosuntimes' ),
 			'description'     => __( 'Choose sports stories', 'chicagosuntimes' ),
 			'priority'        => 200,
 			'capability'      => $this->capability,
@@ -645,17 +661,7 @@ class CST_Customizer {
 			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
 		] ) );
 	}
-	/**
-	 * @return bool
-	 */
-	public function is_sports_tax() {
-		if ( is_tax() ) {
-			if ( array_key_exists( get_queried_object()->slug, CST()->frontend->send_to_news_embeds ) ) {
-				return true;
-			}
-		}
-		return false;
-	}
+
 	/**
 	 * @param \WP_Customize_Manager $wp_customize
 	 *
@@ -784,7 +790,6 @@ class CST_Customizer {
 	public function render_callback( $partial ) {
 		$matches = [];
 		if ( is_front_page() ) {
-//			$partials = preg_match( '/cst\_(homepage|podcast)\_(top_story|other|section|lower_section|entertainment_section|related)?\_?headlines?\_(\d*|one|two|three)/', $partial->id, $matches );
 			switch ( $partial->id ) {
 				case 'cst_homepage_headlines_one':
 					return CST()->frontend->homepage_hero_story( $partial->id );
