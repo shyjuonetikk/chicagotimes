@@ -83,4 +83,56 @@ class CST_Section_Front {
 		</div>
 		<?php
 	}
+	/**
+	 * Section front Hero story markup generation and display
+	 * Used by the customizer render callback
+	 *
+	 * @param string $headline
+	 */
+	public function section_hero_story( $headline ) {
+		$obj = Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+			$author          = \CST_Frontend::get_instance()->hp_get_article_authors( $obj );
+			remove_filter( 'the_excerpt', 'wpautop' );
+			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
+			add_filter( 'the_excerpt', 'wpautop' );
+			?>
+			<div class="hero-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-sf-hero-story-title" >
+					<h3 class="hero-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
+				</a>
+				<div class="columns small-12 medium-6 large-12">
+					<div class="row">
+						<div class="hidden-for-large-up">
+							<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-sf-hero-story-image" >
+				<span class="image">
+				<?php
+				$featured_image_id = $obj->get_featured_image_id();
+				if ( $featured_image_id ) {
+					$attachment = wp_get_attachment_metadata( $featured_image_id );
+					if ( $attachment ) {
+						$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'left', 'chiwire-header-small' );
+						echo wp_kses_post( $image_markup );
+					}
+				}
+				?>
+				</span></a>
+						</div>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="columns small-12 medium-6 large-12 large-offset-0">
+						<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-sf-hero-story-excerpt" >
+							<p class="excerpt">
+								<?php echo wp_kses_post( $story_long_excerpt ); ?>
+							</p>
+						</a>
+						<?php \CST_Frontend::get_instance()->homepage_byline( $obj, $author ); ?>
+					</div>
+				</div>
+			</div>
+			<?php
+		}
+	}
 }

@@ -888,16 +888,24 @@ class CST_Customizer {
 			$partials = preg_match( '/cst\_(.+)\_section_headlines\_(\d+)/', $partial->id, $matches );
 			if ( $partials && ! empty( $matches ) ) {
 				$article_position = 'five_block_' . $matches[2];
+				$defaults = [
+					'layout_type' => 'prime',
+					'partial_id' => '',
+					'watch' => 'no',
+					'custom_landscape_class' => '',
+					'render_partial' => false,
+					'display_relative_timestamp' => true,
+				];
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 				switch ( $article_position ) {
 					case 'five_block_1':
-						return CST()->frontend->single_mini_story( $obj, 'prime', $partial->id, 'yes' );
+						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes' ] );
 						break;
 					case 'five_block_2':
 					case 'five_block_3':
 					case 'five_block_4':
 					case 'five_block_5':
-						return CST()->frontend->single_mini_story( $obj, 'regular', $partial->id, 'yes', '', true );
+						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'regular', 'partial_id' => $partial->id, 'watch' => 'yes', 'render_partial' => true ] );
 						break;
 				}
 			}

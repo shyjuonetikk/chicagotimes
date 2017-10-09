@@ -29,7 +29,10 @@
       if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
 			}
-			this.taboola();},
+			if ('false' === CSTData.customize_preview) {
+			  this.taboola();
+      }
+			},
 
         /**
          * Cache elements to object-level variables

@@ -21,7 +21,7 @@
 				<div class="row">
 					<div class="stories-container">
 						<div class="columns small-12 large-4 stories">
-							<?php CST()->frontend->homepage_hero_story( 'cst_sports_section_five_block_1' ) ?>
+							<?php \CST\CST_Section_Front::get_instance()->section_hero_story( 'cst_sports_section_five_block_1' ) ?>
 							<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_five_block_2' ) ?>
 						</div><!-- /hp-main-lead -->
 						<div class="columns small-12 large-8 more-stories-container other-lead-stories">
@@ -56,7 +56,7 @@
 			</div>
 
 			<div class="right-rail columns medium-4 large-4 show-for-medium-up">
-				<?php get_sidebar(); ?>
+				<?php //get_sidebar(); ?>
 			</div>
 		</div>
 

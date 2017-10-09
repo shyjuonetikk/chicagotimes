@@ -241,6 +241,7 @@ class CST_Frontend {
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
 			'disqus_shortname' => CST_DISQUS_SHORTNAME,
 			'taboola_container_id' => 'taboola-below-article-thumbnails-',
+			'customize_preview' => wp_json_encode( is_customize_preview() ),
 		) );
 
 	}
@@ -1210,6 +1211,15 @@ class CST_Frontend {
 
 	/**
 	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
+	* @param array $args
+	* @param $defaults = [
+	*	'layout_type' => 'prime',
+	*	'partial_id' => '',
+	*	'watch' => 'no',
+	*	'custom_landscape_class' => '',
+	*	'render_partial' => false,
+	*	'display_relative_timestamp' => true,
+	*		];
 	*/
 	public function single_mini_story( $args) {
 		$obj = $args['story'];
@@ -2953,7 +2963,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	/**
 	* Provide Chicago Sport heading, markup and link to section for homepage
 	*/
-	public function sports_heading( $team ) {
+	public function sports_heading() {
+		$sports_term = wpcom_vip_get_term_link( 'sports','cst_section' );
+		if ( ! is_wp_error( $sports_term ) ) { ?>
+			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h2>
+		<?php }
+	}
+
+	/**
+	* Provide news block heading, markup and link to section for homepage
+	* @param string $team
+	*/
+	public function heading( $team ) {
 		$sports_term = wpcom_vip_get_term_link( $team,'cst_section' );
 		if ( ! is_wp_error( $sports_term ) ) { ?>
 			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>"><?php echo esc_html( ucfirst( $team ) ); ?></a></h2>
