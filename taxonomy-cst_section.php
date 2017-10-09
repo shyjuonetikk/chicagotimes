@@ -10,13 +10,8 @@
 					<p><i class="fa fa-arrow-circle-up"></i><?php esc_html_e( 'Back To Top', 'chicagosuntimes' ); ?></p>
 				</a>
 			</div>
-			<?php if ( is_tax() ) : ?>
-				<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
-			<?php elseif ( is_author() ) : ?>
-				<?php get_template_part( 'parts/section/author-top' ); ?>
-			<?php else : ?>
-				<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
-			<?php endif; ?>
+			<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
+			<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
 
 			<?php if ( have_posts() ) : ?>
 
@@ -30,7 +25,7 @@
 
 			<?php if ( have_posts() ) : ?>
 				<?php do_action( 'cst_section_head' ); ?>
-				<?php $video_position_counter = 1; ?>
+				<?php $video_position_counter = 1; //@TODO change to key off wp_query->current_post poss with wp_query->in_the_loop ?>
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php get_template_part( 'content' ); ?>
 					<?php

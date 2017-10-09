@@ -7,13 +7,8 @@
 						<p><i class="fa fa-arrow-circle-up"></i><?php esc_html_e( 'Back To Top', 'chicagosuntimes' ); ?></p>
 					</a>
 				</div>
-				<?php if ( is_tax() ) : ?>
-					<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
-				<?php elseif ( is_author() ) : ?>
-					<?php get_template_part( 'parts/section/author-top' ); ?>
-				<?php else : ?>
-					<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
-				<?php endif; ?>
+				<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
+				<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
 				<div class="row">
 					<div class="stories-container">
 						<div class="small-12 columns more-stories-container" id="sf-section-lead">
