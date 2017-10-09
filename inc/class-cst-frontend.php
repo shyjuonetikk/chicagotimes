@@ -2002,8 +2002,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			}
 			$child_parent = wpcom_vip_get_term_by( 'id', $current_obj->parent, 'cst_section' );
 			// Custom nav handling here
+			// This check fails : $custom_subnavigation[$current_obj->slug]->term_id;
+			// For slugs that are not in the array set false
+			$term_id_to_check = false;
+			if ( isset( $custom_subnavigation[$current_obj->slug] ) ) {
+				$term_id_to_check = $custom_subnavigation[$current_obj->slug]->term_id;
+			}
 			if ( isset( $custom_subnavigation[$current_obj->slug] )
-			|| $custom_subnavigation[$current_obj->slug]->term_id === $current_obj->parent
+			|| $term_id_to_check === $current_obj->parent
 			|| ( false !== $child_parent ? $child_parent->parent : $current_obj->parent ) ) {
 				$conditional_nav = $current_obj->slug . '-subnav';
 				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
