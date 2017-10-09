@@ -116,10 +116,10 @@ class CST_Wire_Curator {
 		$fm = new Fieldmanager_Link( array(
 			'name'           => 'wire_curator_feed_url',
 			'label'          => false,
-			'limit'          => 0,
+			'limit'          => 1,
 			'add_more_label' => esc_attr__( 'Import Another Feed', 'chicagosuntimes' ),
 			'attributes'     => array(
-			'placeholder' => esc_attr__( 'Enter WebFeed URL for AP Content Explorer saved search', 'chicagosuntimes' ),
+			'placeholder' => esc_attr__( 'Enter API URL for AP Content Explorer saved search', 'chicagosuntimes' ),
 			'size'        => 100,
 			),
 		) );
@@ -136,7 +136,7 @@ class CST_Wire_Curator {
 		$screen = get_current_screen();
 		if ( ! empty( $screen->post_type ) && 'cst_wire_item' === $screen->post_type ) {
 
-			$feeds = $this->get_feeds();
+			$feeds = $this->get_api_endpoint();
 			if ( empty( $feeds ) ) {
 				add_action( 'admin_notices', array( $this, 'action_admin_notices_feed_warning' ) );
 			}
@@ -175,7 +175,7 @@ class CST_Wire_Curator {
 			return $out;
 		}
 
-		$out .= '<p>' . sprintf( __( 'Wire Curator accepts WebFeeds from WebFeeds manager Products or Save Searches. You can <a target="_blank" href="%s">log in</a> with these credentials: %s / %s', 'chicagosuntimes' ), 'https://wfm.ap.org/Admin/', CST_AP_SYNDICATION_USERNAME, CST_AP_SYNDICATION_PASSWORD ) . '</p>';
+		$out .= '<p>' . __( 'Wire Curator accepts from API Endpoint (Eg. :- https://cstapfeed.somedomain.com)', 'chicagosuntimes' ) . '</p>';
 
 		return $out;
 	}
@@ -185,7 +185,7 @@ class CST_Wire_Curator {
 	 */
 	public function action_restrict_manage_posts_refresh_button() {
 
-		$feeds = $this->get_feeds();
+		$feeds = $this->get_api_endpoint();
 		if ( empty( $feeds ) ) {
 			return;
 		}
@@ -309,10 +309,10 @@ class CST_Wire_Curator {
 							?>
 							<ul class="photo_list">
 								<?php foreach($media as $photo): ?>
-									<? $preview_img = isset($photo->preview)? $photo->preview->file : $photo->main->file; ?>
+									<? $preview_img = isset($photo->preview) ? $photo->preview->file : $photo->main->file; ?>
 									<li>
 										<div class="thumbnail">
-											<?php $thumbnail = isset($photo->preview)? $photo->preview->file : $photo->main->file; ?>
+											<?php $thumbnail = isset($photo->preview) ? $photo->preview->file : $photo->thumbnail->file?>
 											<img src="<?=$thumbnail?>"/>
 										</div>
 										<div class="on-hover">
@@ -511,10 +511,10 @@ class CST_Wire_Curator {
 	/**
 	 * Get the feeds we're pulling data from
 	 *
-	 * @return array
+	 * @return String
 	 */
-	public function get_feeds() {
-		return get_option( 'wire_curator_feed_url', array() );
+	public function get_api_endpoint() {
+		return get_option( 'wire_curator_feed_url', String );
 	}
 
 	/**
@@ -677,71 +677,41 @@ class CST_Wire_Curator {
 	 * @param bool $manually_triggered_from_ajax
 	 */
 	public function refresh_wire_items( $manually_triggered_from_ajax = false ) {
+		$response = vip_safe_wp_remote_get( $this->get_api_endpoint() . '/api/news/list', '', 3, 3, 20, [] );
 
-		foreach ( $this->get_feeds() as $feed ) {
+		$response_code = wp_remote_retrieve_response_code( $response );
 
-			// Failsafe
-			if ( empty( $feed ) ) {
-				continue;
-			}
-
-			$args = array();
-
-			// Associated Press requires HTTP Basic Auth
-			if ( 'syndication.ap.org' === parse_url( $feed, PHP_URL_HOST ) ) {
-				$args['headers'] = array(
-						'Authorization' => 'Basic ' . base64_encode( CST_AP_SYNDICATION_USERNAME . ':' . CST_AP_SYNDICATION_PASSWORD ),
-					);
-			}
-
-			$response = vip_safe_wp_remote_get( $feed, '', 3, 3, 20, $args );
-
-			if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-				continue;
-			}
-
-			$feed_data = wp_remote_retrieve_body( $response );
-			if ( $feed_data ) {
-				$xml = simplexml_load_string( $feed_data );
-				if ( $xml ) {
-					foreach ( $xml->entry as $entry ) {
-
-						// Only handle articles right now
-						$is_article = false;
-						$articleId = '';
-						foreach ( $entry->link as $link ) {
-							if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
-								$is_article = true;
-								$parts = parse_url($link['href']);
-								parse_str($parts['query'], $query);
-								$articleId = $query['iid'];
-								break;
-							}
-						}
-
-						if ( ! $is_article ) {
-							continue;
-						}
-
-						// See if this was already imported, otherwise create
-						if ( \CST\Objects\AP_Wire_Item::get_by_original_id( sanitize_text_field( $entry->id ) ) ) {
-							continue;
-						}
-
-						$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
-						$blog_id = get_current_blog_id();
-						if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
-							\CST\Objects\AP_Wire_Item::create_from_simplexml( $entry, $articleId );
-						}
-
-					}
-				}
-			}
-
-			$this->set_last_refresh( time() );
-
+		if ( 200 != $response_code ) {
+			return false;
 		}
 
+		$feed_data = json_decode(wp_remote_retrieve_body( $response ));
+
+		if ( $feed_data ) {
+			foreach ( $feed_data as $entry ) {
+				// Item value
+				// stdClass Object
+				// (
+				//     [_id] => 59d3d40bb8cc8b0012ff089e
+				//     [id] => urn:publicid:ap.org:248f88f890684f859573b662d0c459a3
+				//     [title] => EU-REL--Vatican-Child Porn
+				//     [summary] => Vatican urges online protections for kids amid porn scandal
+				// )
+				// Only handle articles right now
+				$articleId = $entry->_id;
+				// See if this was already imported, otherwise create
+				if ( \CST\Objects\AP_Wire_Item::get_by_original_id( sanitize_text_field( $entry->_id ) ) ) {
+					continue;
+				}
+
+				$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
+				$blog_id = get_current_blog_id();
+				if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
+					\CST\Objects\AP_Wire_Item::create_from_simpleobject( $entry, $articleId );
+				}
+			}
+		}
+		$this->set_last_refresh( time() );
 	}
 
 	/**
