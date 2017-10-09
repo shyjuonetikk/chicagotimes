@@ -677,7 +677,7 @@ class CST_Wire_Curator {
 	 * @param bool $manually_triggered_from_ajax
 	 */
 	public function refresh_wire_items( $manually_triggered_from_ajax = false ) {
-		$response = vip_safe_wp_remote_get( $this->get_api_endpoint() . '/api/list', '', 3, 3, 20, [] );
+		$response = vip_safe_wp_remote_get( $this->get_api_endpoint() . '/api/news/list', '', 3, 3, 20, [] );
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
