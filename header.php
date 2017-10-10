@@ -18,7 +18,7 @@
 <meta name="msvalidate.01" content="BAFD24499E1109D8CDDBC001C799A2A2" />
 <?php } ?>
 <title><?php wp_title( '|', true, 'right' ); ?></title>
-<link rel="profile" href="http://gmpg.org/xfn/11">
+<link rel="profile" href="https://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php echo esc_url( get_bloginfo( 'pingback_url' ) ); ?>">
 <link rel="apple-touch-icon" sizes="57x57" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-60x60.png">
@@ -52,7 +52,6 @@
 <?php if ( ! is_404() ) { ?>
 	<?php do_action( 'cst_dfp_ad_settings' ); ?>
 <?php } ?>
-<meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
 <?php
 CST()->dfp_handler->generate_header_definitions();

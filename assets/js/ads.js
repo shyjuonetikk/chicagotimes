@@ -139,7 +139,7 @@ var CSTAds;
           if (ad_slot.match(/rr-cube-[0-9]{1,3}$/)) {
               CSTAds.triggerUnitRefresh(ad_slot)
           }
-        })
+        });
         CSTAds.refreshing = false;
       }
     },

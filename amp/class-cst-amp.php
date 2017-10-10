@@ -33,7 +33,7 @@ class CST_AMP {
 		add_filter( 'amp_post_template_file', array( $this, 'amp_set_custom_template' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
 		add_filter( 'amp_post_template_body_start', array( $this, 'amp_set_google_tag_manager' ), 10, 3 );
-		add_filter( 'amp_post_template_head', array( $this, 'amp_smart_banner' ) );
+		add_filter( 'amp_post_template_head', array( $this, 'amp_inject_favicon_markup' ) );
 		add_filter( 'amp_post_template_data', [ $this, 'amp_set_site_icon_url' ] );
 		add_filter( 'amp_site_icon_url', [ $this, 'amp_set_site_icon_url' ] );
 
@@ -81,6 +81,7 @@ class CST_AMP {
 	 */
 	function amp_cst_cpt() {
 		add_post_type_support( 'cst_article', AMP_QUERY_VAR );
+		add_post_type_support( 'cst_feature', AMP_QUERY_VAR );
 		add_post_type_support( 'cst_gallery', AMP_QUERY_VAR );
 	}
 
@@ -166,13 +167,11 @@ class CST_AMP {
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-public-good-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-social-share-embed.php' );
 		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-sidebar-embed.php' );
-		require_once( get_stylesheet_directory() .  '/amp/amp-tools/classes/class-amp-banner-embed.php' );
 		$embed_handler_classes['CST_AMP_Gallery_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Related_Posts_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Public_Good_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Social_Share_Embed'] = array();
 		$embed_handler_classes['CST_AMP_Sidebar_Embed'] = array();
-		$embed_handler_classes['CST_AMP_Banner_Embed'] = array();
 		return $embed_handler_classes;
 	}
 	/**
@@ -200,39 +199,39 @@ class CST_AMP {
 				'layout' => 'nodisplay',
 				'side'   => 'left',
 			), sprintf( '
-	<ul class="section-menu">
-		<li class="header">Sections</li>
-		<li class="section-break"></li>
-	</ul>
-	%2$s
-	<ul class="section-menu">
-		<li class="section-break"></li>
-		<li class="colophon"><a href="%3$s/terms-of-use/">Terms of Use</a></li>
-		<li class="colophon"><a href="%3$s/privacy-policy/">Privacy Policy</a></li>
-		<li class="colophon"><a href="%3$s/contact-us/">Contact Us</a></li>
-		<li class="copyright">%1$d Chicago Sun-Times</li>
-	</ul>
-
+<ul class="section-menu">
+	<li class="header">Sections</li>
+	<li class="section-break"></li>
+</ul>
+%2$s
+<ul class="section-menu">
+	<li class="section-break"></li>
+	<li class="colophon"><a href="%3$s/terms-of-use/">Terms of Use</a></li>
+	<li class="colophon"><a href="%3$s/privacy-policy/">Privacy Policy</a></li>
+	<li class="colophon"><a href="%3$s/contact-us/">Contact Us</a></li>
+	<li class="copyright">%1$d Chicago Sun-Times</li>
+</ul>
 ', date( 'Y' ), CST()->amp_nav_markup(), esc_url( get_bloginfo( 'url' ) ) )
 		);
 		?>
-		<footer>
-			<hr>
-			<div class="footer-container">
-				<ul class="footer-nav">
-					<li><a href="<?php echo esc_url( '/about-us' ); ?>">About us</a></li>
-					<li><a href="<?php echo esc_url( '/contact-us' ); ?>">Contact us</a></li>
-					<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>">Terms of use</a></li>
-					<li><a href="<?php echo esc_url( 'https://payments.suntimes.com' ); ?>" target="_blank">Order Back Issues</a>&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></li>
-					<li><a href="<?php echo esc_url( '/privacy-policy/' ); ?>">Privacy Policy</a></li>
-					<li><a href="<?php echo esc_url( '/about-our-ads/' ); ?>">About Our Ads</a></li>
-				</ul>
-			</div>
-			<hr>
-			<ul class="footer-nav">
-					<li class="copyright"><?php echo esc_html( sprintf( 'Copyright &copy; 2005-%d Chicago Sun-Times' , date( 'Y' ) ) ); ?></li>
-				</ul>
-		</footer>
+
+<footer>
+	<hr>
+	<div class="footer-container">
+		<ul class="footer-nav">
+			<li><a href="<?php echo esc_url( '/about-us' ); ?>">About us</a></li>
+			<li><a href="<?php echo esc_url( '/contact-us' ); ?>">Contact us</a></li>
+			<li><a href="<?php echo esc_url( '/terms-of-use' ); ?>">Terms of use</a></li>
+			<li><a href="<?php echo esc_url( '//suntimes.com/backissues' ); ?>" target="_blank">Order Back Issues</a>&nbsp;<i class="fa fa-external-link" aria-hidden="true"></i></li>
+			<li><a href="<?php echo esc_url( '/privacy-policy/' ); ?>">Privacy Policy</a></li>
+			<li><a href="<?php echo esc_url( '/about-our-ads/' ); ?>">About Our Ads</a></li>
+		</ul>
+	</div>
+	<hr>
+	<ul class="footer-nav">
+		<li class="copyright"><?php echo esc_html( sprintf( 'Copyright &copy; 2005-%d Chicago Sun-Times' , date( 'Y' ) ) ); ?></li>
+	</ul>
+</footer>
 		<?php
 	}
 
@@ -306,7 +305,7 @@ class CST_AMP {
 	 */
 	function amp_set_custom_fonts() {
 	?>
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300">
 	<?php
 
 	}
@@ -322,16 +321,6 @@ class CST_AMP {
 	}
 
 	/**
-	 * Perhaps convert to use amp-font directive.
-	 */
-	function amp_smart_banner() {
-	?>
-		<meta name="apple-itunes-app" content="app-id=930568136">
-	<?php
-
-	}
-
-	/**
 	 * @param $data
 	 *
 	 * @return mixed
@@ -342,6 +331,28 @@ class CST_AMP {
 		// Ideally a 32x32 image
 		$data['site_icon_url'] = esc_url( get_stylesheet_directory_uri() . '/assets/images/favicons/favicon-32x32.png' );
 		return $data;
+	}
+
+	function amp_inject_favicon_markup() {
+		?>
+
+<link rel="apple-touch-icon" sizes="57x57" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-57x57.png">
+<link rel="apple-touch-icon" sizes="60x60" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="72x72" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="76x76" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="114x114" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="120x120" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="144x144" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="152x152" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/apple-touch-icon-152x152.png">
+<link rel="icon" type="image/png" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/favicon-16x16.png" sizes="16x16" />
+<meta name="msapplication-TileColor" content="#282828" />
+<meta name="msapplication-TileImage" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
+<?php
 	}
 }
 

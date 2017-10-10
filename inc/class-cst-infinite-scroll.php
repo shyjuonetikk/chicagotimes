@@ -20,11 +20,11 @@ class CST_Infinite_Scroll {
 	 */
 	private function setup_actions() {
 
-		add_action( 'wp_enqueue_scripts', array( $this, 'action_wp_enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', [ $this, 'action_wp_enqueue_scripts' ] );
 
-		add_action( 'template_redirect', array( $this, 'bypass_is_last_batch_in_footer' ), 9, 0 );
+		add_action( 'template_redirect', [ $this, 'bypass_is_last_batch_in_footer' ], 9, 0 );
 
-		add_action( 'template_redirect', array( $this, 'remove_bypass_is_last_batch_in_footer' ), 11, 0 );
+		add_action( 'template_redirect', [ $this, 'remove_bypass_is_last_batch_in_footer' ], 11, 0 );
 	}
 
 	/**
@@ -44,13 +44,14 @@ class CST_Infinite_Scroll {
 		add_filter( 'infinite_scroll_settings', function( $settings ) {
 			if ( is_singular() ) {
 				$settings['posts_per_page'] = 1;
+				$settings['type'] = 'scroll';
 			}
 			return $settings;
 		});
 
 		add_filter( 'infinite_scroll_js_settings', function( $settings ) {
 			$settings['google_analytics'] = false;
-			$settings['offset'] = 251;
+			$settings['text'] = '<a class="cst-load-more" data-on="click" data-event-category="navigation" data-event-action="sf-load-more">Load more.</a>';
 			return $settings;
 		});
 
@@ -140,9 +141,11 @@ class CST_Infinite_Scroll {
 		if ( is_page_template( 'page-monster.php' ) || is_front_page() || is_post_type_archive( 'cst_feature' ) || is_singular( 'cst_feature' ) ) {
 			return;
 		}
+		$is_mobile = function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ? true : false;
 		wp_enqueue_script( 'cst-infinite-scroll', get_template_directory_uri() . '/assets/js/infinite-scroll.js', array( 'chicagosuntimes', 'the-neverending-homepage', 'cst-ga-custom-actions' ), false, true );
 		wp_localize_script( 'cst-infinite-scroll', 'CSTInfiniteScrollData', array(
 			'readMoreLabel'           => esc_html__( 'Read More', 'chicagosuntimes' ),
+			'isMobile'           => wp_json_encode( $is_mobile ),
 		) );
 		$post_sections = array_map( 'strtolower', CST_Frontend::$post_sections );
 		$post_sections = array_map( 'esc_attr', $post_sections );

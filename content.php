@@ -18,7 +18,7 @@ if ( $obj && is_singular( 'cst_article' ) ) {
 		$classes = array( 'single-view', 'columns', 'small-12', 'column-adjust', 'end', 'cst-sharing-relative' );
 		$attrs = CST()->frontend->article_dimensions( $obj );
 	} else {
-		$classes = array( 'index-view' );
+		$classes = array( 'columns index-view' );
 	}
 if ( $sponsored ) {
 	$classes[] = 'sponsored-content';
@@ -45,7 +45,7 @@ if ( $sponsored ) { ?>
 	<?php }
 if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) {
 	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); ?>
-	<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
+	<div id="taboola-below-article-thumbnails-<?php echo esc_attr( $obj->get_id() ); ?>" class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
 	</div>
 <?php } ?>
 		</article>

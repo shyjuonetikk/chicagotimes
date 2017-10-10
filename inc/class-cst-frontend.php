@@ -97,6 +97,7 @@ class CST_Frontend {
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
+		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
@@ -151,7 +152,7 @@ class CST_Frontend {
 			wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Libre+Franklin:400,400i,600,600i,700,700i|Merriweather:300,300i,400,400i,700,700i,900,900i&amp;subset=latin' );
 		}
 		if ( is_page_template( 'page-flipp.php' ) ) {
-			wp_enqueue_script( 'cst_ad_flipp_page', 'http://circulars.chicago.suntimes.com/distribution_services/iframe.js' );
+			wp_enqueue_script( 'cst_ad_flipp_page', 'https://circulars-chicago.suntimes.com/distribution_services/iframe.js' );
 		}
 
 		if ( is_page_template( 'page-monster.php' ) ) {
@@ -207,7 +208,7 @@ class CST_Frontend {
 						'is_singular'     => is_singular(),
 					);
 					if ( is_singular() && $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() ) ) {
-						for ( $i = 1;  $i <= 9;  $i++ ) {
+						for ( $i = 1;  $i <= 10;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
 					}
@@ -233,6 +234,9 @@ class CST_Frontend {
 			}
 			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
 
+		}
+		if ( is_page() ) {
+			wp_enqueue_script( 'page-iframe-reponsify', get_template_directory_uri() . '/assets/js/theme-page.js', array(), null, true );
 		}
 		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
@@ -2176,14 +2180,39 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* Display Chartbeat engagement based article list on home page
 	*/
 	public function enqueue_chartbeat_react_engagement_script() {
-		if ( is_front_page() && function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
+		if ( function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
 			$site = CST()->dfp_handler->get_parent_dfp_inventory();
-			$chartbeat_file_name = 'main.3f878c34-cb-dev-test.js';
 			if ( 'chicago.suntimes.com' === $site ) {
-				$chartbeat_file_name = 'main.54a95b28-cb-prod.js';
+				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
+			} else {
+				$chartbeat_file_name = 'main.81b31ab6-cb-dev-test.js';
 			}
-			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), [], null, true );
+			if ( is_front_page() ) {
+				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
+			}
 		}
+	}
+	/**
+	*
+	* Inject supplied Yieldmo tag if singular and mobile and over 9 paragraphs
+	* Only do this on article pages
+	*
+	* @param $content string
+	* @return string
+	*/
+	public function inject_yieldmo_mobile( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+       			$yieldmo_unit = '<div id="ym_1555064078586984494" class="ym"></div><script type="text/javascript">(function(e,t){if(t._ym===void 0){t._ym="";var m=e.createElement("script");m.type="text/javascript",m.async=!0,m.src="//static.yieldmo.com/ym.m5.js",(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(m)}else t._ym instanceof String||void 0===t._ym.chkPls||t._ym.chkPls()})(document,window);</script>';
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 9) {
+					array_splice( $exploded, 10, 0, $yieldmo_unit );
+					$content = join( '</p>', $exploded );
+				}
+			}
+		}
+		return $content;
 	}
 	/**
 	*
@@ -2688,7 +2717,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			'wp-title'  => wp_title( '|', false, 'right' ),
 			);
 
-		for ( $i = 1;  $i <= 5;  $i++) {
+		for ( $i = 1;  $i <= 9;  $i++) {
 			$data[ 'ga-dimension-' . $i ] = $obj->get_ga_dimension( $i );
 		}
 
