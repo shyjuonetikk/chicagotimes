@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<?php echo wp_kses( CST()->dfp_handler->dynamic_unit( 1234, '', 'dfp onebyone dfp-centered', '', '1x1', '[320,50],[300,50]' ), CST()->dfp_kses ); ?>
 	<div class="homepage-content stories-container">
 		<div class="row stories-container">
 			<div class="columns small-12 medium-8 large-9 stories">
