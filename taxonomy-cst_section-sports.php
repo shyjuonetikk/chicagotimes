@@ -12,9 +12,7 @@
 					<div class="stories-container">
 						<div class="small-12 columns more-stories-container" id="sf-section-lead">
 							<?php \CST\CST_Section_Front::get_instance()->heading( 'Chicago Sports Headlines', 'sports' ); ?>
-							<hr>
 							<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST_Customizer::get_instance()->get_upper_section_stories() ); ?>
-							<hr>
 						</div><!-- /#sf-section-lead -->
 					</div>
 				</div>
@@ -22,7 +20,6 @@
 					<div class="stories-container">
 						<div class="columns small-12 more-stories-container">
 							<h2 class="more-sub-head"><a href="#">What Headline here - new video player below</a></h2>
-							<hr>
 						</div>
 						<div class="columns small-12 large-4 stories">
 							<?php \CST\CST_Section_Front::get_instance()->section_hero_story( 'cst_sports_section_five_block_1' ) ?>
@@ -44,13 +41,10 @@
 							<div class="stories-container">
 								<div class="small-12 columns more-stories-container <?php echo esc_attr( $chicago_sports_team_slug); ?>" id="individual-sports-section-<?php echo esc_attr( $chicago_sports_team_slug); ?>">
 									<?php \CST\CST_Section_Front::get_instance()->heading( $chicago_sports_team_slug . ' Headlines', $chicago_sports_team_slug ); ?>
-									<hr>
 									<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST\CST_Section_Front::get_instance()->create_partials( $chicago_sports_team_slug ) ); ?>
-									<hr>
 								</div><!-- /individual-sports-section-{sport} -->
 							</div>
 						</div>
-
 						<hr>
 						<h5>Ad injection here perhaps?</h5>
 						<hr>

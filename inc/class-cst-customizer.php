@@ -186,7 +186,7 @@ class CST_Customizer {
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
 			$wp_customize->add_section( $section_name, [
 				'title'           => __( $section_choice . ' section', 'chicagosuntimes' ),
-				'description'     => __( 'Choose ' . $section_choice . ' stories', 'chicagosuntimes' ),
+				'description'     => __( 'Choose ' . $section_choice . ' (SF) stories', 'chicagosuntimes' ),
 				'priority'        => 400,
 				'capability'      => $this->capability,
 				'active_callback' => [ $this, 'tax_section' ],
@@ -199,8 +199,8 @@ class CST_Customizer {
 					'type'        => 'cst_select_control',
 					'priority'    => 20,
 					'section'     => $section_name,
-					'active_callback' => [ $this, 'partial_in_section' ],
-					'label'       => __( 'Choose ' . $section_choice . ' story ', 'chicagosuntimes' ),
+					'active_callback' => [ $this, 'tax_partial_in_section' ],
+					'label'       => __( 'Choose ' . $section_choice . ' (SF) story ', 'chicagosuntimes' ),
 					'input_attrs' => [
 						'placeholder'          => esc_attr__( 'Choose article' ),
 					],
@@ -221,8 +221,19 @@ class CST_Customizer {
 			if ( 'chicago-news' === $matches[1] ) {
 				$section_name = 'news';
 			}
-			// is_* functions not available so this is unlikely to work but stays as a placeholder / reminder
 			$section_to_display = is_tax( 'cst_section', $section_name );
+			// handle sports children
+			$current_obj = get_queried_object();
+			if ( is_object( $current_obj ) && 'sports' === $current_obj->slug ) {
+				// Am I displaying sport sf?
+				// What section_name am I being asked to display
+				// Is this section_name a child of Sports
+				// If so enable this control
+				// Could limit sports / teams displayed - compare to teams in an array perhaps
+				$child_section = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
+				return term_is_ancestor_of( $current_obj, $child_section, 'cst_section' );
+			}
+			//
 			if ( $get_section_name && $section_to_display ) {
 				return true;
 			}
@@ -237,7 +248,7 @@ class CST_Customizer {
 	 * Generate partial theme_mod variable if matched and based on section
 	 * Partial id is based on sanitized title of Section name
 	 */
-	public function partial_in_section( $partial ) {
+	public function tax_partial_in_section( $partial ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
 		return $this->section_callback( $get_section_name, $matches );
 	}
@@ -301,7 +312,7 @@ class CST_Customizer {
 			'active_callback' => 'is_front_page',
 		] );
 		$wp_customize->add_section( 'upper_section_stories', [
-			'title'           => __( 'Sports', 'chicagosuntimes' ),
+			'title'           => __( 'Sports (Homepage)', 'chicagosuntimes' ),
 			'description'     => __( 'Choose sports stories', 'chicagosuntimes' ),
 			'priority'        => 200,
 			'capability'      => $this->capability,
