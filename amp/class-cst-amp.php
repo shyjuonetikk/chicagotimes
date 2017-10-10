@@ -81,6 +81,7 @@ class CST_AMP {
 	 */
 	function amp_cst_cpt() {
 		add_post_type_support( 'cst_article', AMP_QUERY_VAR );
+		add_post_type_support( 'cst_feature', AMP_QUERY_VAR );
 		add_post_type_support( 'cst_gallery', AMP_QUERY_VAR );
 	}
 
