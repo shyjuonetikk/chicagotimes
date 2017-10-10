@@ -48,7 +48,7 @@
 						</div>
 
 						<hr>
-						<h3>Ad injection here perhaps?</h3>
+						<h4>Ad injection here perhaps?</h4>
 						<hr>
 						<?php
 					}

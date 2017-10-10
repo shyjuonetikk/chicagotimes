@@ -299,9 +299,8 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		] );
-		$sports_title = is_front_page() ? 'Sports' : 'Sports - from homepage';
 		$wp_customize->add_section( 'upper_section_stories', [
-			'title'           => __( $sports_title, 'chicagosuntimes' ),
+			'title'           => __( 'Sports', 'chicagosuntimes' ),
 			'description'     => __( 'Choose sports stories', 'chicagosuntimes' ),
 			'priority'        => 200,
 			'capability'      => $this->capability,
