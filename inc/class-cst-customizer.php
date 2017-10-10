@@ -210,6 +210,26 @@ class CST_Customizer {
 	}
 
 	/**
+	 * @param $get_section_name
+	 * @param $matches
+	 *
+	 * @return bool
+	 */
+	public function section_callback(  $get_section_name, $matches ) {
+		if ( is_array( $matches ) && ! empty( $matches ) ) {
+			$section_name = $matches[1];
+			if ( 'chicago-news' === $matches[1] ) {
+				$section_name = 'news';
+			}
+			// is_* functions not available so this is unlikely to work but stays as a placeholder / reminder
+			$section_to_display = is_tax( 'cst_section', $section_name );
+			if ( $get_section_name && $section_to_display ) {
+				return true;
+			}
+		}
+		return false;
+	}
+	/**
 	 * @param $partial
 	 *
 	 * @return bool
@@ -219,17 +239,7 @@ class CST_Customizer {
 	 */
 	public function partial_in_section( $partial ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
-		if ( is_array( $matches ) && ! empty( $matches ) ) {
-			$section_name = $matches[1];
-			if ( 'chicago-news' === $matches[1] ) {
-				$section_name = 'news';
-			}
-			$section_to_display = is_tax( 'cst_section', $section_name );
-			if ( $get_section_name && $section_to_display ) {
-				return true;
-			}
-		}
-		return false;
+		return $this->section_callback( $get_section_name, $matches );
 	}
 
 	/**
@@ -241,17 +251,7 @@ class CST_Customizer {
 	 */
 	public function tax_section( $section ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $section->id, $matches );
-		if ( is_array( $matches ) && ! empty( $matches ) ) {
-			$section_name = $matches[1];
-			if ( 'chicago-news' === $matches[1] ) {
-				$section_name = 'news';
-			}
-			$section_to_display = is_tax( 'cst_section', $section_name );
-			if ( $get_section_name && $section_to_display ) {
-				return true;
-			}
-		}
-		return false;
+		return $this->section_callback( $get_section_name, $matches );
 	}
 
 	public function show_sports_sections() {

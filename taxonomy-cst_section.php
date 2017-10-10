@@ -39,7 +39,8 @@
 		</div>
 
 		<div class="right-rail columns medium-4 large-4 show-for-medium-up">
-			<?php get_sidebar(); ?>
+			<h3>Sidebar temporarily disabled due to TCX widget loading lag</h3>
+<!--			--><?php //get_sidebar(); ?>
 		</div>
 		</div>
 

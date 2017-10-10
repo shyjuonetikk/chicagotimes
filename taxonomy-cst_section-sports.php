@@ -20,6 +20,10 @@
 				</div>
 				<div class="row">
 					<div class="stories-container">
+						<div class="columns small-12 more-stories-container">
+							<h2 class="more-sub-head"><a href="#">What Headline here - new video player below</a></h2>
+							<hr>
+						</div>
 						<div class="columns small-12 large-4 stories">
 							<?php \CST\CST_Section_Front::get_instance()->section_hero_story( 'cst_sports_section_five_block_1' ) ?>
 							<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_five_block_2' ) ?>
@@ -48,7 +52,7 @@
 						</div>
 
 						<hr>
-						<h4>Ad injection here perhaps?</h4>
+						<h5>Ad injection here perhaps?</h5>
 						<hr>
 						<?php
 					}
@@ -56,6 +60,7 @@
 			</div>
 
 			<div class="right-rail columns medium-4 large-4 show-for-medium-up">
+				<h3>Sidebar temporarily disabled due to TCX widget loading lag</h3>
 				<?php //get_sidebar(); ?>
 			</div>
 		</div>
