@@ -214,7 +214,8 @@ class CST_Customizer {
 	 *
 	 * @return bool
 	 *
-	 * Generate partial theme_mod variable based on section
+	 * Generate partial theme_mod variable if matched and based on section
+	 * Partial id is based on sanitized title of Section name
 	 */
 	public function partial_in_section( $partial ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
@@ -664,7 +665,7 @@ class CST_Customizer {
 	/**
 	 * @param \WP_Customize_Manager $wp_customize
 	 *
-	 * Setup the partials
+	 * Setup the refresh for the partials
 	 */
 	public function action_customize_refresh( \WP_Customize_Manager $wp_customize ) {
 		// Abort if selective refresh is not available.
@@ -707,7 +708,7 @@ class CST_Customizer {
 	 *
 	 * Helper function to set selective refresh partial
 	 */
-	private function set_selective_refresh( $wp_customize, $partial ) {
+	private function set_selective_refresh( \WP_Customize_Manager $wp_customize, $partial ) {
 		$wp_customize->selective_refresh->add_partial( $partial, [
 			'selector'            => '.js-' . str_replace( '_', '-', $partial ),
 			'settings'            => $partial,
@@ -738,6 +739,9 @@ class CST_Customizer {
 
 	/**
 	 * Internal function to generate select drop down choices
+	 * And save to a class variable
+	 *
+	 * Used in homepage sports section slotting
 	 */
 	private function _generate_sports_choices() {
 
@@ -887,14 +891,6 @@ class CST_Customizer {
 			$partials = preg_match( '/cst\_(.+)\_section_headlines\_(\d+)/', $partial->id, $matches );
 			if ( $partials && ! empty( $matches ) ) {
 				$article_position = 'five_block_' . $matches[2];
-				$defaults = [
-					'layout_type' => 'prime',
-					'partial_id' => '',
-					'watch' => 'no',
-					'custom_landscape_class' => '',
-					'render_partial' => false,
-					'display_relative_timestamp' => true,
-				];
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 				switch ( $article_position ) {
 					case 'five_block_1':
@@ -913,12 +909,15 @@ class CST_Customizer {
 			return '';
 		}
 
-
 		return '';
 	}
 
 	/**
 	 * Get all published posts to display in Select2 dropdown
+	 *
+	 * JavaScript action to respond to customizer Select2 search requests
+	 *
+	 * @return json object
 	 */
 	public function action_get_posts() {
 		global $wp_customize;
@@ -997,11 +996,6 @@ class CST_Customizer {
 		return ( ( isset( $checked ) && true === $checked ) ? true : false );
 	}
 
-	public function get_section_name_stories( $section_name ) {
-		if ( is_tax( 'cst_section' ) ) {
-			$partials = preg_match( '/cst\_(.+)\_section_headlines\_(\d+)/', $section_name, $matches );
-		}
-	}
 	/**
 	 * Getter for top stories array
 	 * @return array

@@ -1,6 +1,7 @@
 (function(api, $) {
   "use strict";
   var cst_customizer_preview = function(e) {
+    // Basic window width / responsive settings to improve display during Customizer
     var window_width = $( window ).width();
     var sports_stories_section = $("#hp-sports-section-lead");
     var featured_stories_section = $("#featured-stories");
