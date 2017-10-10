@@ -1587,9 +1587,9 @@ class CST {
 		// Rewrite rules for our custom post types
 		$post_types = '';
 		foreach ( $this->get_post_types() as $ptype ) {
-			if ( 'cst_feature' !== $ptype ) {
+//			if ( 'cst_feature' !== $ptype ) {
 				$post_types .= '&post_type[]=' . $ptype;
-			}
+//			}
 		}
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
@@ -1600,6 +1600,7 @@ class CST {
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/liveblog/(.*)/?$' ] = 'index.php?index.php?cst_section=$matches[1]&name=$matches[2]&liveblog=$matches[3]' . $post_types;
 
 		$rewrites[ '([^/]+)/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?pagename=$matches[1]&name=$matches[2]&page=$matches[3]&post_type[]=cst_feature';
+		$rewrites[ '([^/]+)/([^/]+)/amp/?$' ] = 'index.php?pagename=$matches[1]&name=$matches[2]&amp=$matches[3]&post_type[]=cst_feature';
 		return $rewrites;
 	}
 
