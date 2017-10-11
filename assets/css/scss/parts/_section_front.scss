@@ -1,14 +1,6 @@
 .section_front_wrapper {
-	@include stories;
-	.stories-container {
-		.stories {
-			.hero-story {
-				h3.hero-title {
-					font-size: 1.1rem;
-					line-height: 1rem;
-					font-weight:700;
-				}
-			}
-		}
+	.row {
+		max-width:$page_width;
 	}
+	@include stories;
 }

@@ -1,9 +1,6 @@
 <?php get_header(); ?>
 	<section class="section_front_wrapper">
 		<div class="row">
-			<?php \CST\CST_Section_Front::get_instance()->five_block( get_queried_object()->slug );?>
-		</div>
-		<div class="row">
 		<div id="main" class="wire columns medium-8 large-8 small-12">
 			<div id="fixed-back-to-top" class="hide-back-to-top">
 				<a id="back-to-top" href="#">
@@ -11,6 +8,9 @@
 				</a>
 			</div>
 			<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
+			<div class="row">
+				<?php \CST\CST_Section_Front::get_instance()->five_block( get_queried_object()->slug );?>
+			</div>
 			<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
 
 			<?php if ( have_posts() ) : ?>

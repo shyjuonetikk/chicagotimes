@@ -3,7 +3,8 @@
 } ?>
 <div class="spacer"></div>
 <?php if ( is_tax() ) { ?>
-	<div class="row sf-head">
+	<div class="section_front_wrapper">
+	<div class="row">
 		<?php do_action( 'cst_section_front_heading' ); ?>
 	</div>
 	<?php

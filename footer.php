@@ -1,4 +1,6 @@
-<!--homepage_wrapper-->
+<?php if ( is_tax() ) { ?>
+	</div><!-- section_front_wrapper -->
+<?php } ?><!--homepage_wrapper-->
 <div class="clear-both"></div>
 <a class="exit-off-canvas"></a>
 </main>

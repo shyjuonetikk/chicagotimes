@@ -4215,6 +4215,8 @@ body.post-gallery-lightbox-active {
 .customize-partial-edit-shortcuts-shown .homepage_wrapper .stories-container .mini-stories .single-mini-story.ipad-customizer {
   width: 100%; }
 
+.section_front_wrapper .row {
+  max-width: 83.4rem; }
 .section_front_wrapper .stories .post-meta-author a, .section_front_wrapper .mini-stories .post-meta-author a {
   color: #231f20; }
 .section_front_wrapper .stories-container {
@@ -4480,10 +4482,6 @@ body.post-gallery-lightbox-active {
   .section_front_wrapper .magic-link-size {
     font-size: 0.8rem;
     line-height: 1.2rem; } }
-.section_front_wrapper .stories-container .stories .hero-story h3.hero-title {
-  font-size: 1.1rem;
-  line-height: 1rem;
-  font-weight: 700; }
 
 .page_wrapper {
   width: 100%;

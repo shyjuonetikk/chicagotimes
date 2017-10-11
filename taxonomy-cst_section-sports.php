@@ -33,7 +33,10 @@
 						</div>
 					</div>
 				</div>
-				<?php foreach ( \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs as $chicago_sports_team_slug ) {
+				<hr>
+				<div class="cst-ad-container" id="nativo-cst-homepage-01"></div>
+				<hr>
+				<?php $counter = 1; foreach ( \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs as $chicago_sports_team_slug ) {
 					$term_link = wpcom_vip_get_term_link( $chicago_sports_team_slug,'cst_section' );
 					if ( ! is_wp_error( $term_link ) ) {
 						?>
@@ -46,11 +49,36 @@
 							</div>
 						</div>
 						<hr>
-						<h5>Ad injection here perhaps?</h5>
+						<?php $placement = 'div-gpt-placement-s';$ad_template = '<div class="cst-ad-container">%s</div>';
+						$mapping = 'sf_inline_mapping';$targeting = 'rr cube 2';
+						$ad_unit_definition = CST()->dfp_handler->dynamic_unit(
+							get_the_ID(),
+							esc_attr( $placement ),
+							esc_attr( 'dfp-placement' ),
+							esc_attr( $mapping ),
+							esc_attr( $targeting )
+						);
+						echo sprintf(
+							wp_kses( $ad_template, array( 'div' => array( 'class' => array() ) ) ),
+							wp_kses( $ad_unit_definition, CST()->dfp_kses )
+						);
+						?>
 						<hr>
 						<?php
 					}
+					$counter++;
 				}?>
+				<!-- circular flipp -->
+				<div class="row">
+					<div class="columns">
+						<hr>
+					</div>
+					<?php
+					if ( is_active_sidebar( 'undermorefrom' ) ) :
+						dynamic_sidebar( 'undermorefrom' );
+					endif;
+					?>
+				</div>
 			</div>
 
 			<div class="right-rail columns medium-4 large-4 show-for-medium-up">
