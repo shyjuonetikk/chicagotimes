@@ -277,10 +277,7 @@ class CST_AMP {
 			$analytics = array();
 			$authors = array();
 		}
-		$obj = new CST\Objects\Article( get_queried_object_id() );
-		foreach ( $obj->get_authors() as $author ) {
-			$authors[] = $author->get_display_name();
-		}
+		$authors = $this->get_authors();
 
 		// http://support.chartbeat.com/docs/integrations.html#ampimpl
 		$analytics['cst-chartbeatanalytics'] = array(
@@ -310,6 +307,19 @@ class CST_AMP {
 	}
 
 	/**
+	 * @return array
+	 *
+	 * Get and return authors for this content
+	 */
+	public function get_authors() {
+		$authors = [];
+		$obj = new CST\Objects\Article( get_queried_object_id() );
+		foreach ( $obj->get_authors() as $author ) {
+			$authors[] = $author->get_display_name();
+		}
+		return $authors;
+	}
+	/**
 	 * Beginning of body tag for Google Tag Manager as per GTM implementation
 	 */
 	function amp_set_google_tag_manager() {
@@ -333,6 +343,7 @@ class CST_AMP {
 		$data['metadata']['publisher']['logo']['height'] = 60;
 		$data['metadata']['publisher']['logo']['width'] = 314;
 		$data['metadata']['@type'] = 'NewsArticle';
+		$data['metadata']['author']['name'] = implode( ', ', $this->get_authors() );
 		return $data;
 	}
 
