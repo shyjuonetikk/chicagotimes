@@ -34,8 +34,7 @@ class CST_AMP {
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
 		add_filter( 'amp_post_template_body_start', array( $this, 'amp_set_google_tag_manager' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_inject_favicon_markup' ) );
-		add_filter( 'amp_post_template_data', [ $this, 'amp_set_site_icon_url' ] );
-		add_filter( 'amp_site_icon_url', [ $this, 'amp_set_site_icon_url' ] );
+		add_filter( 'amp_post_template_data', [ $this, 'amp_set_post_template_data' ] );
 
 	}
 
@@ -325,11 +324,15 @@ class CST_AMP {
 	 *
 	 * @return mixed
 	 *
-	 * Set site icon for AMP
+	 * Set post template data for AMP
+	 * @link https://developers.google.com/search/docs/guides/about-amp
 	 */
-	function amp_set_site_icon_url( $data ) {
-		// Ideally a 32x32 image
-		$data['site_icon_url'] = esc_url( get_stylesheet_directory_uri() . '/assets/images/favicons/favicon-32x32.png' );
+	function amp_set_post_template_data( $data ) {
+		$data['metadata']['publisher']['logo']['@type'] = 'ImageObject';
+		$data['metadata']['publisher']['logo']['url'] = esc_url( get_stylesheet_directory_uri() . '/assets/images/chicago-sun-times-logo.png' );
+		$data['metadata']['publisher']['logo']['height'] = 60;
+		$data['metadata']['publisher']['logo']['width'] = 314;
+		$data['metadata']['@type'] = 'NewsArticle';
 		return $data;
 	}
 
