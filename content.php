@@ -44,7 +44,8 @@ if ( $sponsored ) { ?>
 	</div>
 	<?php }
 if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) {
-	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); ?>
+	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses );?>
+	<?php echo flipp_kses( CST()->frontend->inject_flipp2( )); ?>
 	<div id="taboola-below-article-thumbnails-<?php echo esc_attr( $obj->get_id() ); ?>" class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
 	</div>
 <?php } ?>
