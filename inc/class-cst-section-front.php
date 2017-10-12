@@ -15,12 +15,14 @@ class CST_Section_Front {
 		'blackhawks',
 		'fire-soccer',
 	];
+	public $sports_object;
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new CST_Section_Front;
 			self::$instance->setup_actions();
 			self::$instance->setup_filters();
+			self::$instance->setup_constants();
 		}
 		return self::$instance;
 	}
@@ -31,6 +33,10 @@ class CST_Section_Front {
 
 	public function setup_filters(  ) {
 
+	}
+
+	public function setup_constants(  ) {
+		$this->sports_object = wpcom_vip_get_term_by( 'name', 'sports', 'cst_section' );
 	}
 
 	public function create_partials( $team ) {
@@ -57,19 +63,28 @@ class CST_Section_Front {
 	 *
 	 * Title markup based on slug
 	 * Get slotted content based on slug
+	 * Render only if content slotted
 	 *
 	 */
 	public function five_block( $title_slug ) {
-		?>
-		<div class="stories-container">
-			<div class="small-12 columns more-stories-container" id="sf-section-lead">
-				<hr>
-				<?php $this->heading( 'Leading ' . get_queried_object()->name . ' stories', $title_slug ); ?>
-				<?php $customizer_partials = $this->create_partials( $title_slug ); ?>
-				<?php \CST_Frontend::get_instance()->mini_stories_content_block( $customizer_partials ); ?>
-			</div><!-- /five-block -->
-		</div>
-		<?php
+		$customizer_partials = $this->create_partials( $title_slug );
+		$render = false;
+		foreach ( $customizer_partials as $customizer_partial => $value ) {
+			if ( get_theme_mod( $customizer_partial ) ) {
+				$render = true;
+			}
+		}
+		if ( $customizer_partials && $render ) {
+			?>
+			<div class="stories-container">
+				<div class="small-12 columns more-stories-container" id="sf-section-lead">
+					<hr>
+					<?php $this->heading( 'Leading ' . get_queried_object()->name . ' stories', $title_slug ); ?>
+					<?php \CST_Frontend::get_instance()->mini_stories_content_block( $customizer_partials ); ?>
+				</div><!-- /five-block -->
+			</div>
+			<?php
+		}
 	}
 	public function sports_five_block( $headlines ) {
 		?>
@@ -78,7 +93,6 @@ class CST_Section_Front {
 				<?php $this->heading( 'Chicago Sports Headlines', 'sports' ); ?>
 				<hr>
 				<?php \CST_Frontend::get_instance()->mini_stories_content_block( $headlines ); ?>
-				<hr>
 			</div><!-- /sports-five-block -->
 		</div>
 		<?php
@@ -134,5 +148,44 @@ class CST_Section_Front {
 			</div>
 			<?php
 		}
+	}
+
+	/**
+	 *
+	 * Inject ad markup and script call within section front
+	 * @param string $counter
+	 */
+	public function section_ad_injection( $counter ) {
+		$placement          = 'div-gpt-placement-s';
+		$ad_template        = '<div class="cst-ad-container sf">%s</div>';
+		$mapping            = 'sf_new_inline_mapping';
+		$targeting          = 'rr cube 2';
+		$every_two = $counter % 2;
+		if ( $every_two ) {
+			$targeting = 'rr cube 3';
+		}
+		$ad_unit_definition = CST()->dfp_handler->dynamic_unit(
+			$counter,
+			esc_attr( $placement ),
+			esc_attr( 'dfp-placement' ),
+			esc_attr( $mapping ),
+			esc_attr( $targeting ),
+			''
+		);
+		echo sprintf(
+			wp_kses( $ad_template, array( 'div' => array( 'class' => array() ) ) ),
+			wp_kses( $ad_unit_definition, CST()->dfp_kses )
+		);
+
+	}
+
+	/**
+	 * @param $id
+	 *
+	 * @return bool
+	 * Determine and return if on a sports or sports child section front
+	 */
+	public function is_sports_or_child( $id ) {
+		return is_tax( 'cst_section', 'sports' ) || term_is_ancestor_of( $this->sports_object, $id, 'cst_section' );
 	}
 }

@@ -76,7 +76,7 @@ class CST_DFP_Handler {
 		}
 	}
 	/**
-	 * @param $index
+	 * @param int $index
 	 * @param string $type
 	 * @param string $class
 	 * @param string $mapping
@@ -304,7 +304,7 @@ var dfp = {
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, sf_super_leaderboard_mapping, super_leaderboard_mapping, hp_upper_super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
+  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, sf_new_inline_mapping, article_mapping, sf_super_leaderboard_mapping, super_leaderboard_mapping, hp_upper_super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -396,6 +396,14 @@ var dfp = {
       .build();
     sf_inline_mapping = googletag.sizeMapping()
       .addSize([992, 0], [[300, 250]]) //desktop
+      .addSize([768, 0], [[300, 250]]) //tablet
+      .addSize([640, 0], [[300, 250], [320, 50]]) //phone
+      .addSize([414, 0], [[300, 250], [320, 50]]) //phone
+      .addSize([375, 0], [[300, 250], [320, 50]]) //phone
+      .addSize([0, 0], [320, 50]) //other
+      .build();
+    sf_new_inline_mapping = googletag.sizeMapping()
+      .addSize([992, 0], [[728,90],[300, 250]]) //desktop
       .addSize([768, 0], [[300, 250]]) //tablet
       .addSize([640, 0], [[300, 250], [320, 50]]) //phone
       .addSize([414, 0], [[300, 250], [320, 50]]) //phone

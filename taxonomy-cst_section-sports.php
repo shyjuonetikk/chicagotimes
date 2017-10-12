@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	<section class="section_front_wrapper">
+	<section class="section_front_wrapper sports">
 		<div class="row">
 			<div id="main" class="wire columns medium-8 large-8 small-12">
 				<div id="fixed-back-to-top" class="hide-back-to-top">
@@ -49,20 +49,7 @@
 							</div>
 						</div>
 						<hr>
-						<?php $placement = 'div-gpt-placement-s';$ad_template = '<div class="cst-ad-container">%s</div>';
-						$mapping = 'sf_inline_mapping';$targeting = 'rr cube 2';
-						$ad_unit_definition = CST()->dfp_handler->dynamic_unit(
-							get_the_ID(),
-							esc_attr( $placement ),
-							esc_attr( 'dfp-placement' ),
-							esc_attr( $mapping ),
-							esc_attr( $targeting )
-						);
-						echo sprintf(
-							wp_kses( $ad_template, array( 'div' => array( 'class' => array() ) ) ),
-							wp_kses( $ad_unit_definition, CST()->dfp_kses )
-						);
-						?>
+						<?php \CST\CST_Section_Front::get_instance()->section_ad_injection( $counter ); ?>
 						<hr>
 						<?php
 					}

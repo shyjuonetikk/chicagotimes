@@ -24,7 +24,7 @@ if ( $sponsored ) {
 	$classes[] = 'sponsored-content';
 }
 		?>
-		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
+		<article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
 			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
@@ -50,7 +50,12 @@ if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) {
 <?php } ?>
 		</article>
 
-		<?php CST()->frontend->content_ad_injection( $paged ); ?>
+	<?php if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) ) {
+		\CST\CST_Section_Front::get_instance()->section_ad_injection( $counter );
+	} else {
+		CST()->frontend->content_ad_injection( $paged );
+	}
+	?>
 
 		<?php if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) : ?>
 		</div>

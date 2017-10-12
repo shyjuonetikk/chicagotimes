@@ -1,4 +1,4 @@
-<?php if ( is_tax() ) { ?>
+<?php if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) ) { ?>
 	</div><!-- section_front_wrapper -->
 <?php } ?><!--homepage_wrapper-->
 <div class="clear-both"></div>
