@@ -25,6 +25,17 @@ class CST {
 		'span' => [ 'class' => [] ],
 		'i' => [ 'class' => [] ],
 	];
+	public $flipp_kses = [
+		'script' => [ 
+			'class' => [] ,
+			'src' => [],
+			'type' => [] 
+		],
+		'div' => [ 
+			'id' => [], 
+			'class' => [], 
+		],
+	];
 	public $slider_kses = [
 		'h3' => [],
 		'h4' => [],
