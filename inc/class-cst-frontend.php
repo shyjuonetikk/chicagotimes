@@ -96,6 +96,8 @@ class CST_Frontend {
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_a9' ] );		
+		add_filter( 'the_content', [ $this, 'inject_nativo_mobile' ] );
+		add_filter( 'the_content', [ $this, 'inject_nativo_mobile2' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
