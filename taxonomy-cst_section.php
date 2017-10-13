@@ -29,7 +29,7 @@
 				<?php $video_position_counter = 1; //@TODO change to key off wp_query->current_post poss with wp_query->in_the_loop ?>
 				<?php while ( have_posts() ) : the_post(); ?>
 					<?php global $wp_query; CST()->get_template_part( 'content', [ 'counter' => $wp_query->current_post ] ); ?>
-					<?php get_template_part( 'content' ); ?>
+						<?php //get_template_part( 'content' ); ?>
 					<?php
 						$video_position_counter++;
 						echo CST()->frontend->cst_section_front_video( $video_position_counter );

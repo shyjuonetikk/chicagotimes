@@ -86,7 +86,7 @@ class CST_Customizer {
 		'featured_story_block_headlines_5' => true,
 	];
 	private $capability = 'edit_others_posts';
-	private $sports_section_choices, $section_choices, $section_ids, $sections;
+	private $sports_section_choices, $section_choices, $section_ids, $sections, $sports_section_names;
 	public $five_block = [
 		'five_block_1',
 		'five_block_2',
@@ -238,13 +238,18 @@ class CST_Customizer {
 					if ( 'sports' === $section_name ) {
 						return true;
 					}
-					// If we are on a child of Sports display just the child
-					$child_term = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
-					return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
+ 					if ( in_array( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
+						return true;
+					}
+//					// If we are on a child of Sports display just the child
+//					$child_term = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
+//					return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
 				}
+				$term_id = $this->section_ids;
 				$child_term = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
 				if ( $child_term ) {
 					if ( $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' ) ) {
+						error_log( $current_obj->name . ' SF ' );
 						return true;
 					}
 				}
@@ -790,6 +795,7 @@ class CST_Customizer {
 				}
 			}
 		}
+		$this->sports_section_names = array_map( 'sanitize_title', $this->sports_section_choices );
 	}
 
 	/**
