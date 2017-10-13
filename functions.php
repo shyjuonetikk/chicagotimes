@@ -301,7 +301,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-section-front.php';
-		require_once dirname( __FILE__ ) . '/inc/cst-customizer-controls.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';

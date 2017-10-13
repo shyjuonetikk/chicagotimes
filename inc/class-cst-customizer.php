@@ -100,6 +100,7 @@ class CST_Customizer {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new CST_Customizer;
+			self::$instance->require_files();
 			self::$instance->setup_actions();
 		}
 
@@ -116,6 +117,10 @@ class CST_Customizer {
 		add_action( 'customize_preview_init', [ $this, 'action_customizer_live_preview' ] );
 	}
 
+	public function require_files() {
+		require_once dirname( __FILE__ ) . '/controls/class-cst-select-control.php';
+		require_once dirname( __FILE__ ) . '/controls/class-cst-sf-sorter-control.php';
+	}
 	public function setup_filters(  ) {
 		add_filter( 'customize_section_active', [ $this, 'filter_customize_section_active' ] );
 	}
@@ -149,6 +154,7 @@ class CST_Customizer {
 	public function action_customize_register( \WP_Customize_Manager $wp_customize ) {
 
 		$wp_customize->register_control_type( 'WP_Customize_CST_Select_Control' );
+		$wp_customize->register_control_type( 'WP_Customize_CST_SF_Sorter_Control' );
 		$this->_generate_all_sections();
 		$this->homepage_customizer( $wp_customize );
 		$this->section_front_customizer( $wp_customize );
@@ -208,6 +214,17 @@ class CST_Customizer {
 				] ) );
 			}
 		}
+		/**
+		 * Section sports sorter
+		 */
+		$this->set_setting( $wp_customize, 'section_sorter' , 'absint' );
+		$wp_customize->add_control( new WP_Customize_CST_SF_Sorter_Control( $wp_customize, 'section_sorter', [
+			'type'        => 'cst_sf_sorter_control',
+			'priority'    => 47,
+			'section'     => 'cst[sports]_section',
+			'active_callback' => [ $this, 'show_sports_sections' ],
+			'label'       => __( 'Set SF sort order', 'chicagosuntimes' ),
+		] ) );
 	}
 
 	/**
@@ -216,7 +233,7 @@ class CST_Customizer {
 	 *
 	 * @return bool
 	 */
-	public function section_callback( $get_section_name, $matches ) {
+	public function section_callback( $matches ) {
 		if ( ! $this->sports_term ) {
 			$this->sports_term = wpcom_vip_get_term_by( 'name', 'sports', 'cst_section' );
 		}
@@ -262,7 +279,7 @@ class CST_Customizer {
 	 */
 	public function tax_partial_in_section( $partial ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
-		return $this->section_callback( $get_section_name, $matches );
+		return $this->section_callback( $matches );
 	}
 
 	/**
@@ -274,7 +291,7 @@ class CST_Customizer {
 	 */
 	public function tax_section( $section ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $section->id, $matches );
-		return $this->section_callback( $get_section_name, $matches );
+		return $this->section_callback( $matches );
 	}
 
 	public function show_sports_sections() {
