@@ -10,12 +10,13 @@ class CST_Section_Front {
 		'blackhawks',
 		'cubs-baseball',
 		'bears',
+		'bears-football',
 		'cubs',
 		'white-sox',
-		'white-sox-baseball',
 		'bulls',
 		'fire-soccer',
 	];
+
 	public $sports_object;
 	public static function get_instance() {
 
