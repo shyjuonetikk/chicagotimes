@@ -227,7 +227,6 @@ class CST_Customizer {
 			}
 			// Handle Sports section
 			$current_obj = get_queried_object();
-//			$child_term = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
 			// What section_name am I being asked to display
 			// Is this section_name a child of Sports
 			// If so enable this control
@@ -241,9 +240,11 @@ class CST_Customizer {
  					if ( in_array( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
 						return true;
 					}
-					// If we are on a child of Sports display just the child
-					$child_term = wpcom_vip_get_term_by( 'slug', $section_name, 'cst_section' );
-					return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
+					if ( $current_obj->slug === $section_name ) {
+						// If we are on a child of Sports display just the child
+						$child_term = wpcom_vip_get_term_by( 'slug', $section_name, 'cst_section' );
+						return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
+					}
 				}
 				$child_term = wpcom_vip_get_term_by( 'slug', $section_name, 'cst_section' );
 				return $child_term && $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $current_obj, 'cst_section' );
