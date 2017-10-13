@@ -233,43 +233,23 @@ class CST_Customizer {
 			// If so enable this control
 			// Could limit sports / teams displayed - compare to teams in an array perhaps
 			if ( null !== $current_obj ) {
-				// Is current term Sports
+				// Is current term Sports and we are displaying Sports
 				if ( 'sports' === $current_obj->slug ) {
-					// If we are on a child of Sports display just the child
 					if ( 'sports' === $section_name ) {
 						return true;
 					}
-//					$sports_term = wpcom_vip_get_term_by( 'name', 'sports', 'cst_section' );
+					// If we are on a child of Sports display just the child
 					$child_term = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
 					return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
-//					if ( term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' ) ) {
-//						error_log('Sports is parent of ' . $child_term->name . '.' );
-//						return true;
-//					}
-//					return false;
 				}
-//				$sports_term = wpcom_vip_get_term_by( 'name', 'sports', 'cst_section' );
 				$child_term = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
 				if ( $child_term ) {
 					if ( $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' ) ) {
-						error_log('Sports is parent of ' . $child_term->name . '.' );
 						return true;
 					}
 				}
 				return false;
-
-				// If we are on Sports display Sports and children
-//				$is_ancestor = term_is_ancestor_of( $sports_term, $child_term, 'cst_section' );
-//				if ( $is_ancestor ) {
-//					error_log ( 'Sports is parent of '.$child_term->name . '. Current term ' . $current_obj->name );
-//					return true;
-//				}
 			}
-//			if ( null !== $current_obj && false !== $child_term ) {
-//				if ( 'sports' === $current_obj->slug || $is_ancestor ) {
-//					return true;
-//				}
-//			}
 		}
 		return false;
 	}
