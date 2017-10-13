@@ -33,6 +33,7 @@ class CST {
 		],
 		'div' => [ 
 			'id' => [], 
+			'style' => [],
 			'class' => [], 
 		],
 	];
