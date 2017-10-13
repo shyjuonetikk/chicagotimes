@@ -241,19 +241,12 @@ class CST_Customizer {
  					if ( in_array( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
 						return true;
 					}
-//					// If we are on a child of Sports display just the child
-//					$child_term = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
-//					return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
+					// If we are on a child of Sports display just the child
+					$child_term = wpcom_vip_get_term_by( 'slug', $section_name, 'cst_section' );
+					return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
 				}
-				$term_id = $this->section_ids;
-				$child_term = wpcom_vip_get_term_by( 'name', $section_name, 'cst_section' );
-				if ( $child_term ) {
-					if ( $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' ) ) {
-						error_log( $current_obj->name . ' SF ' );
-						return true;
-					}
-				}
-				return false;
+				$child_term = wpcom_vip_get_term_by( 'slug', $section_name, 'cst_section' );
+				return $child_term && $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $current_obj, 'cst_section' );
 			}
 		}
 		return false;
