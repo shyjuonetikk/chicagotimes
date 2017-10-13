@@ -36,7 +36,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		}
 
 		public function custom_control_enqueue() {
-			wp_enqueue_script( 'cst_customizer_control', esc_url( get_stylesheet_directory_uri() . '/assets/js/cst-customize-control.js' ), array( 'customize-controls', 'select2' ), '1.0', true );
+			wp_enqueue_script( 'cst_customizer_sf_sorter_control', esc_url( get_stylesheet_directory_uri() . '/assets/js/cst-customize-control-sorter.js' ), [ 'customize-controls' ], '3.1.0', true );
 		}
 		/**
 		 * Refresh the parameters passed to JavaScript via JSON.
@@ -56,7 +56,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 		public function content_template() {
 			parent::content_template();
 			?>
-			<label for="{{ data.id }}" class="{{ data.banana }}">
+			<label for="{{ data.id }}">
 				<# if ( data.label ) { #>
 					<span class="customize-control-title">{{ data.label }}</span>
 					<# } #>
