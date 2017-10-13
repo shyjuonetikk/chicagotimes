@@ -27,14 +27,11 @@ class CST {
 	];
 	public $flipp_kses = [
 		'script' => [ 
-			'class' => [] ,
 			'src' => [],
-			'type' => [] 
 		],
 		'div' => [ 
 			'id' => [], 
 			'style' => [],
-			'class' => [], 
 		],
 	];
 	public $slider_kses = [
