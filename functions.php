@@ -20,16 +20,21 @@ class CST {
 	];
 
 	public $dfp_kses = [
-		'script' => [ 'src' => [] ],
-		'div' => [ 'id' => [], 'style' => [] ],
+		'script' => [ 'class' => [] , 'src' => [], 'type' => [] ],
+		'div' => [ 'id' => [], 'class' => [], 'data-visual-index' => [], 'data-target' => [], 'onclick' => [] ],
 		'span' => [ 'class' => [] ],
 		'i' => [ 'class' => [] ],
 	];
-		public $flipp_kses = [
-		'script' => [ 'class' => [] , 'src' => [], 'type' => [] ],
-		'div' => [ 'id' => [], 'style' => [], 'class' => [], 'data-visual-index' => [], 'data-target' => [], 'onclick' => [] ],
-		'span' => [ 'class' => [] ],
-		'i' => [ 'class' => [] ],
+	public $flipp_kses = [
+		'script' => [ 
+			'class' => [] ,
+			'src' => [],
+			'type' => [] 
+		],
+		'div' => [ 
+			'id' => [], 
+			'class' => [], 
+		],
 	];
 	public $slider_kses = [
 		'h3' => [],
