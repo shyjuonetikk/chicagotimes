@@ -6,13 +6,14 @@ class CST_Section_Front {
 	private static $instance;
 
 	public $chicago_sports_team_slugs = [
-		'cubs-baseball',
-		'cubs',
-		'white-sox',
-		'bulls',
-		'bears-football',
 		'blackhawks-hockey',
 		'blackhawks',
+		'cubs-baseball',
+		'bears',
+		'cubs',
+		'white-sox',
+		'white-sox-baseball',
+		'bulls',
 		'fire-soccer',
 	];
 	public $sports_object;
@@ -173,7 +174,7 @@ class CST_Section_Front {
 			''
 		);
 		echo sprintf(
-			wp_kses( $ad_template, array( 'div' => array( 'class' => array() ) ) ),
+			wp_kses( $ad_template, [ 'div' => ['class' => [] ] ] ),
 			wp_kses( $ad_unit_definition, CST()->dfp_kses )
 		);
 
