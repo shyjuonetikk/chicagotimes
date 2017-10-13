@@ -95,10 +95,13 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+
 		add_filter( 'the_content', [ $this, 'inject_a9' ] );		
 		add_filter( 'the_content', [ $this, 'inject_nativo_mobile' ] );
+
 		add_filter( 'the_content', [ $this, 'inject_nativo_mobile2' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
+
 		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
@@ -1725,7 +1728,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			$authors = array( $byline );
 		} else {
 			foreach ( $obj->get_authors() as $author ) {
-				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '" 
+				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '"
 				data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
 				$author->get_display_name() . '</a>';
 			}
@@ -2181,17 +2184,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* Display Chartbeat engagement based article list on home page
 	*/
 	public function enqueue_chartbeat_react_engagement_script() {
-		if ( function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
+		if ( is_front_page() && function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
 			$site = CST()->dfp_handler->get_parent_dfp_inventory();
+			$chartbeat_file_name = 'main.3f878c34-cb-dev-test.js';
 			if ( 'chicago.suntimes.com' === $site ) {
 				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
-			} else {
-				$chartbeat_file_name = 'main.81b31ab6-cb-dev-test.js';
 			}
-			if ( is_front_page() ) {
-				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
+			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), [], null, true );
+		}
+	}
+	/**
+	*
+	* Inject Nativo mobile if singular and mobile and over 16 paragraphs
+	* Only do this on article pages
+	*
+	*/
+	public function inject_nativo_mobile2( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+				$nativo_mobile = '<div id="nativo-sponsored">' . '<h4>Sponsored Content</h4>' . '<ul class="nativo-sponsored-articles">';
+				$nativo_mobile = $nativo_mobile . '<div id="nativo-sponsored-article-image"></div><li id="News1"></li><li id="News2"></li></ul></div>';
+
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 5) {
+					array_splice( $exploded, 6, 0, $nativo_mobile );
+					$content = join( '</p>', $exploded );
+				}
 			}
 		}
+		return $content;
 	}
 	/**
 	*
@@ -2237,6 +2259,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}
 		return $content;
 	}
+
+	public function inject_a9( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+				#$a9tag = '<div id="google_ads_iframe_/61924087/slot1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/61924087/slot1_0" title="3rd party ad content" name="google_ads_iframe_/61924087/slot1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>';
+				$a9tag = "<div id='div-gpt-ad-test-a9'><script>googletag.cmd.push(function() { googletag.display('div-gpt-ad-test-a9'); });</script></div>";
+
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 3) {
+					array_splice( $exploded, 4, 0, $a9tag );
+					$content = join( '</p>', $exploded );
+			}
+		}
+		return $content;
+	}
+
 	/**
 	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
@@ -2282,6 +2320,56 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
 			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';		
 		return $flipp_ad;
+ 	}
+
+
+	/**
+	* Determine paragraph position exists and whether to inject Nativo into content
+	* Check if this content is sponsored and abort as appropriate.
+	* This function is run as part of the_content filter - enqueuing the script does not provide
+	* the same functionality
+	*
+	* @param string $article_content
+	* @return string $article_content
+	*/
+	public function inject_nativo_mobile( $article_content ) {
+
+		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
+		if ( ! is_object( $obj ) ) {
+			return $article_content;
+		}
+
+		if ( 'cst_article' !== $obj->get_post_type() ) {
+			return $article_content;
+		}
+		if ( $obj->get_sponsored_content() ) {
+			return $article_content;
+		}
+		if ( '' === $article_content ) {
+			return $article_content;
+		}
+		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
+		#$postnum = get_query_var( 'paged' );
+		// flipp recommends no more than 5 circulars per page
+		#if ( $postnum < 5 ) {
+		#	$div_id_suffix = 10635 + $postnum;
+
+			#$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+			#$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
+
+			$nativo_ad = '<div id="nativo-sponsored">' . '<h4>Sponsored Content</h4>' . '<ul class="nativo-sponsored-articles">';
+			$nativo_ad = $nativo_ad . '<div id="nativo-sponsored-article-image"></div><li id="News1"></li><li id="News2"></li></ul></div>';
+
+			if ( count( $article_array ) > 1 ) {
+				$last_item = array_pop( $article_array );
+				array_push( $article_array, $nativo_ad );
+				array_push( $article_array, $last_item );
+			} else {
+				array_push( $article_array, $nativo_ad );
+			}
+			$article_content = implode( $article_array );
+		#}
+		return $article_content;
  	}
 
 	/**
