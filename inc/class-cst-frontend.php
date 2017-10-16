@@ -66,6 +66,7 @@ class CST_Frontend {
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
 		add_action( 'closing_body', [ $this, 'enqueue_chartbeat_react_engagement_script' ] );
+		add_action( 'closing_body', [ $this, 'enqueue_inspectlet_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'cst_tracking_pixels' ] );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
@@ -97,7 +98,6 @@ class CST_Frontend {
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
-		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
@@ -2211,6 +2211,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}
 	}
 	/**
+	* Add inspectlet script to all pages
+	*/
+	public function enqueue_inspectlet_script(){
+	    wp_enqueue_script( 'inspectlet', esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/inspectlet-script.js' ), [], null, true );
+	}
+	/**
 	*
 	* Inject supplied Yieldmo tag if singular and mobile and over 9 paragraphs
 	* Only do this on article pages
@@ -2295,46 +2301,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	}
 
 	/**
-	* Determine paragraph position exists and whether to inject Flipp into content
-	* Check if this content is sponsored and abort as appropriate.
-	* This function is run as part of the_content filter - enqueuing the script does not provide
-	* the same functionality
-	*
-	* @param string $article_content
-	* @return string $article_content
-	*/
-	public function inject_flipp( $article_content ) {
-		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
-			return $article_content;
-		}
-		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
-		if ( 'cst_article' !== $obj->get_post_type() ) {
-			return $article_content;
-		}
-		if ( $obj->get_sponsored_content() ) {
-			return $article_content;
-		}
-		if ( '' === $article_content ) {
-			return $article_content;
-		}
-		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
-		$postnum = get_query_var( 'paged' );
-		// flipp recommends no more than 5 circulars per page
-		if ( $postnum < 5 ) {
-			$div_id_suffix = 10635 + $postnum;
-			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
-			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
-			if ( count( $article_array ) > 1 ) {
-				$last_item = array_pop( $article_array );
-				array_push( $article_array, $flipp_ad );
-				array_push( $article_array, $last_item );
-			} else {
-				array_push( $article_array, $flipp_ad );
-			}
-			$article_content = implode( $article_array );
-		}
-		return $article_content;
+ 	* @param $paged
+ 	 *
+ 	 * @return string
+ 	 *
+ 	 * Inject Flipp circular ad
+ 	 */
+	public function inject_flipp( $paged ) {
+		$div_id_suffix = 10635 + $paged;
+		$flipp_ad_markup = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+		$flipp_ad_src_escaped = esc_url( '//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) );
+		$flipp_ad_safe = $flipp_ad_markup . '<script src="' . $flipp_ad_src_escaped . '"></script>';
+		echo $flipp_ad_safe;
  	}
+
 	/**
 	 * Determine if content destined for the display is partnership or we have
 	 * an arrangement or not
