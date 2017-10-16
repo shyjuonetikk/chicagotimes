@@ -63,7 +63,7 @@ class CST_Infinite_Scroll {
 			$unset_feature = array_keys( $section_based_post_types, 'cst_feature' );
 			unset( $section_based_post_types[ $unset_feature[0] ] );
 			$post_types = $section_based_post_types;
-			if ( ! empty( $query_args['post_type'] ) && ! empty( $query_args['name'] ) && ( in_array( $query_args['post_type'], $post_types ) || ( is_array( $query_args['post_type'] ) && $query_args['post_type'] == $post_types ) ) ) {
+			if ( ! empty( $query_args['post_type'] ) && ! empty( $query_args['name'] ) && ( array_intersect( $query_args['post_type'], $post_types ) || ( is_array( $query_args['post_type'] ) && $query_args['post_type'] == $post_types ) ) ) {
 
 				$key = array_search( 'cst_link', $post_types );
 				unset( $post_types[ $key ] );

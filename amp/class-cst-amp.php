@@ -34,8 +34,7 @@ class CST_AMP {
 		add_filter( 'amp_post_template_head', array( $this, 'amp_set_custom_fonts' ), 10, 3 );
 		add_filter( 'amp_post_template_body_start', array( $this, 'amp_set_google_tag_manager' ), 10, 3 );
 		add_filter( 'amp_post_template_head', array( $this, 'amp_inject_favicon_markup' ) );
-		add_filter( 'amp_post_template_data', [ $this, 'amp_set_site_icon_url' ] );
-		add_filter( 'amp_site_icon_url', [ $this, 'amp_set_site_icon_url' ] );
+		add_filter( 'amp_post_template_data', [ $this, 'amp_set_post_template_data' ] );
 
 	}
 
@@ -81,6 +80,7 @@ class CST_AMP {
 	 */
 	function amp_cst_cpt() {
 		add_post_type_support( 'cst_article', AMP_QUERY_VAR );
+		add_post_type_support( 'cst_feature', AMP_QUERY_VAR );
 		add_post_type_support( 'cst_gallery', AMP_QUERY_VAR );
 	}
 
@@ -277,10 +277,7 @@ class CST_AMP {
 			$analytics = array();
 			$authors = array();
 		}
-		$obj = new CST\Objects\Article( get_queried_object_id() );
-		foreach ( $obj->get_authors() as $author ) {
-			$authors[] = $author->get_display_name();
-		}
+		$authors = $this->get_authors();
 
 		// http://support.chartbeat.com/docs/integrations.html#ampimpl
 		$analytics['cst-chartbeatanalytics'] = array(
@@ -310,6 +307,19 @@ class CST_AMP {
 	}
 
 	/**
+	 * @return array
+	 *
+	 * Get and return authors for this content
+	 */
+	public function get_authors() {
+		$authors = [];
+		$obj = new CST\Objects\Article( get_queried_object_id() );
+		foreach ( $obj->get_authors() as $author ) {
+			$authors[] = $author->get_display_name();
+		}
+		return $authors;
+	}
+	/**
 	 * Beginning of body tag for Google Tag Manager as per GTM implementation
 	 */
 	function amp_set_google_tag_manager() {
@@ -324,11 +334,16 @@ class CST_AMP {
 	 *
 	 * @return mixed
 	 *
-	 * Set site icon for AMP
+	 * Set post template data for AMP
+	 * @link https://developers.google.com/search/docs/guides/about-amp
 	 */
-	function amp_set_site_icon_url( $data ) {
-		// Ideally a 32x32 image
-		$data['site_icon_url'] = esc_url( get_stylesheet_directory_uri() . '/assets/images/favicons/favicon-32x32.png' );
+	function amp_set_post_template_data( $data ) {
+		$data['metadata']['publisher']['logo']['@type'] = 'ImageObject';
+		$data['metadata']['publisher']['logo']['url'] = esc_url( get_stylesheet_directory_uri() . '/assets/images/chicago-sun-times-logo.png' );
+		$data['metadata']['publisher']['logo']['height'] = 60;
+		$data['metadata']['publisher']['logo']['width'] = 314;
+		$data['metadata']['@type'] = 'NewsArticle';
+		$data['metadata']['author']['name'] = implode( ', ', $this->get_authors() );
 		return $data;
 	}
 
