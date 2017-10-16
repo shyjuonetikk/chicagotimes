@@ -2214,7 +2214,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* Add inspectlet script to all pages
 	*/
 	public function enqueue_inspectlet_script(){
-	    wp_enqueue_script( 'inspectlet', esc_url( get_stylesheet_directory_uri() . 'assets/js/vendor/inspectlet-script.js' ), [], null, true );
+	    wp_enqueue_script( 'inspectlet', esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/inspectlet-script.js' ), [], null, true );
 	}
 	/**
 	*
