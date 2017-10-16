@@ -19,7 +19,7 @@
 				<div class="row">
 					<div class="stories-container">
 						<div class="columns small-12 more-stories-container">
-							<h2 class="more-sub-head"><a href="#">What Headline here - new video player below</a></h2>
+							<h2 class="more-sub-head"><a href="#">Slottable Sports Section Front Stories and Video Player</a></h2>
 						</div>
 						<div class="columns small-12 large-4 stories">
 							<?php \CST\CST_Section_Front::get_instance()->section_hero_story( 'cst_sports_section_five_block_1' ) ?>

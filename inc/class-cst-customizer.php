@@ -191,8 +191,9 @@ class CST_Customizer {
 			$sanitized_section_title = sanitize_title( $this->section_choices[ $section_id ] );
 			$section_choice = $this->section_choices[ $section_id ];
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
+			'Sports' === $section_choice ? $section_title = '2 slottable ' . $section_choice . ' stories ' : $section_title = $section_choice . ' section.';
 			$wp_customize->add_section( $section_name, [
-				'title'           => __( $section_choice . ' section.', 'chicagosuntimes' ),
+				'title'           => __( $section_title, 'chicagosuntimes' ),
 				'description'     => __( 'Choose ' . $section_choice . ' (SF) stories', 'chicagosuntimes' ),
 				'priority'        => 400,
 				'capability'      => $this->capability,
@@ -204,7 +205,6 @@ class CST_Customizer {
 				$this->set_setting( $wp_customize, $section_customizer_name , 'absint' );
 				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_customizer_name, [
 					'type'        => 'cst_select_control',
-					'priority'    => 20,
 					'section'     => $section_name,
 					'active_callback' => [ $this, 'tax_partial_in_section' ],
 					'label'       => __( 'Choose ' . $section_choice . ' (SF) story ', 'chicagosuntimes' ),
@@ -220,10 +220,10 @@ class CST_Customizer {
 		$this->set_setting( $wp_customize, 'section_sorter' , 'absint' );
 		$wp_customize->add_control( new WP_Customize_CST_SF_Sorter_Control( $wp_customize, 'section_sorter', [
 			'type'        => 'cst_sf_sorter_control',
-			'priority'    => 47,
+			'priority'    => 37,
 			'section'     => 'cst[sports]_section',
 			'active_callback' => [ $this, 'show_sports_sections' ],
-			'label'       => __( 'Set SF sort order', 'chicagosuntimes' ),
+			'label'       => __( 'Set Sports SF sort order', 'chicagosuntimes' ),
 		] ) );
 	}
 
@@ -825,7 +825,7 @@ class CST_Customizer {
 		$this->section_ids = array_flip( $this->section_choices );
 	}
 	/**
-	 * @param $element
+	 * @param $partial
 	 *
 	 * @return string
 	 *
