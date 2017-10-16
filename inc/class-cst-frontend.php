@@ -2317,9 +2317,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	public function inject_flipp( $paged ) {
 		if ( $paged < 5 ) {
 			$div_id_suffix = 10635 + $paged;
-			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
-			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';		
-			return $flipp_ad;
+			$flipp_ad_markup = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+			$flipp_ad_src_escaped = esc_url( '//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) );
+			$flipp_ad_safe = $flipp_ad_markup . '<script src="' . $flipp_ad_src_escaped . '"></script>';
+			echo $flipp_ad_safe;
 		}
 	}
 	/**
