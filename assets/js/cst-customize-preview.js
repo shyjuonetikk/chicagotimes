@@ -1,12 +1,12 @@
 (function(api, $) {
   "use strict";
-  var cst_customizer_preview = function(e) {
+  let cst_customizer_preview = function(e) {
     // Basic window width / responsive settings to improve display during Customizer
-    var window_width = $( window ).width();
-    var sports_stories_section = $("#hp-sports-section-lead");
-    var featured_stories_section = $("#featured-stories");
-    var top_stories_section = $("#top-stories-section-lead");
-    var podcast_stories_section = $("#hp-podcasts-section-lead");
+    let window_width = $( window ).width();
+    let sports_stories_section = $("#hp-sports-section-lead");
+    let featured_stories_section = $("#featured-stories");
+    let top_stories_section = $("#top-stories-section-lead");
+    let podcast_stories_section = $("#hp-podcasts-section-lead");
 
     if (724 === window_width) {
       sports_stories_section.find('.prime-lead-story').addClass("preview-prime-lead-story");
@@ -38,7 +38,7 @@
   api.bind( 'ready', cst_customizer_preview);
   api("upper_section_section_title", function (setting) {
     setting.bind(function (to) {
-      var updateMe = function (newval) {
+      let updateMe = function (newval) {
         setting.set(newval);
       };
       updateMe(to);
@@ -48,12 +48,12 @@
   * Sports section select auto update
   * Pull this value when Select2 fires and pass with query request for section constraints
   */
-  var section_select = [
+  let section_select = [
     "sport_section_lead", "sport_other_section_1", "sport_other_section_2", "sport_other_section_3", "sport_other_section_4"
   ];
   _.each(section_select, function (setting) {
     api.bind(setting, function (to) {
-      var updateMe = function (newval) {
+      let updateMe = function (newval) {
         setting.set(newval);
       };
       updateMe(to);

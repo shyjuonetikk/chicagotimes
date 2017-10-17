@@ -226,6 +226,7 @@ class CST_Customizer {
 			'label'       => __( 'Set Sports SF sort order', 'chicagosuntimes' ),
 		] ) );
 		$this->set_setting( $wp_customize, 'section_sorter-collection', 'wp_kses_post' );
+		$this->set_selective_refresh( $wp_customize, 'section_sorter-collection' );
 	}
 
 	/**
@@ -943,6 +944,16 @@ class CST_Customizer {
 					case 'five_block_4':
 					case 'five_block_5':
 						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'regular', 'partial_id' => $partial->id, 'watch' => 'yes', 'render_partial' => true ] );
+						break;
+				}
+			}
+			unset($matches);
+			unset($partials);
+			$partials = preg_match( '/(.+)_sorter\-collection/', $partial->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				switch ( $matches[1] ) {
+					case 'section':
+						\CST\CST_Section_Front::get_instance()->render_section_blocks( $partial->id );
 						break;
 				}
 			}

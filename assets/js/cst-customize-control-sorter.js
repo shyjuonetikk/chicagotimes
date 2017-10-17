@@ -2,13 +2,13 @@
 (function(api, $) {
   "use strict";
   let cstSorterControl = {
-    update: function (element,ui,collection) {
+    update: function (element,ui,$collection) {
       console.log( ui.item[0].innerText + ' changed' );
       let list = element.find('.cst-item');
       let inputValues = list.map(function() {
         return $(this).data('index');
       }).toArray();
-      collection.val(inputValues);
+      $collection.val(inputValues);
       element.trigger( 'change' );
     }
   }

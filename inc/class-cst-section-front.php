@@ -154,6 +154,34 @@ class CST_Section_Front {
 	}
 
 	/**
+	 * Render Sports section content blocks in sort order
+	 */
+	public function render_section_blocks( $section_block_partial ) {
+		$ad_counter = 1;
+		$team_sections = $this->chicago_sports_team_slugs;
+		$this->sort_order = get_theme_mod( $section_block_partial ); // Used during render to get the latest order
+		$team_display_order = explode( ',', $this->sort_order );
+		foreach ( $team_display_order as $index ) {
+			$term_link = wpcom_vip_get_term_link( $team_sections[$index],'cst_section' );
+			if ( ! is_wp_error( $term_link ) ) {
+				?>
+				<div class="row">
+					<div class="stories-container">
+						<div class="small-12 columns more-stories-container <?php echo esc_attr( $team_sections[$index]); ?> <?php echo esc_attr( $team_sections[$index]); ?>" id="individual-sports-section-<?php echo esc_attr( $team_sections[$index] ); ?>">
+							<?php $this->heading( $team_sections[$index] . ' Headlines', $team_sections[$index] ); ?>
+							<?php \CST_Frontend::get_instance()->mini_stories_content_block( $this->create_partials( $team_sections[$index] ) ); ?>
+						</div><!-- /individual-sports-section-{sport} -->
+					</div>
+				</div>
+				<hr>-Ad-
+				<?php $this->section_ad_injection( $ad_counter ); ?>
+				<hr>
+				<?php
+			}
+			$ad_counter++;
+		}
+	}
+	/**
 	 *
 	 * Inject ad markup and script call within section front
 	 * @param string $counter
