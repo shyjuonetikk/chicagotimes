@@ -34,28 +34,30 @@
 					</div>
 				</div>
 				<hr>
-				<div class="cst-ad-container" id="nativo-cst-homepage-01"></div>
+				<div class="cst-ad-container" id="nativo-cst-homepage-01">Nativo position here</div>
 				<hr>
-				<?php $counter = 1; foreach ( \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs as $chicago_sports_team_slug ) {
-					$term_link = wpcom_vip_get_term_link( $chicago_sports_team_slug,'cst_section' );
+				<?php $ad_counter = 1;
+				$team_sections = \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs;
+				$team_display_order = explode( ',', \CST\CST_Section_Front::get_instance()->sort_order );
+				foreach ( $team_display_order as $index ) {
+					$term_link = wpcom_vip_get_term_link( $team_sections[$index],'cst_section' );
 					if ( ! is_wp_error( $term_link ) ) {
 						?>
 						<div class="row">
 							<div class="stories-container">
-								<div class="small-12 columns more-stories-container <?php echo esc_attr( $chicago_sports_team_slug); ?>" id="individual-sports-section-<?php echo esc_attr( $chicago_sports_team_slug); ?>">
-									<?php \CST\CST_Section_Front::get_instance()->heading( $chicago_sports_team_slug . ' Headlines', $chicago_sports_team_slug ); ?>
-									<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST\CST_Section_Front::get_instance()->create_partials( $chicago_sports_team_slug ) ); ?>
+								<div class="small-12 columns more-stories-container <?php echo esc_attr( $team_sections[$index]); ?>" id="individual-sports-section-<?php echo esc_attr( $team_sections[$index] ); ?>">
+									<?php \CST\CST_Section_Front::get_instance()->heading( $team_sections[$index] . ' Headlines', $team_sections[$index] ); ?>
+									<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST\CST_Section_Front::get_instance()->create_partials( $team_sections[$index] ) ); ?>
 								</div><!-- /individual-sports-section-{sport} -->
 							</div>
 						</div>
-						<hr>
-						<?php \CST\CST_Section_Front::get_instance()->section_ad_injection( $counter ); ?>
+						<hr>-Ad-
+						<?php \CST\CST_Section_Front::get_instance()->section_ad_injection( $ad_counter ); ?>
 						<hr>
 						<?php
 					}
-					$counter++;
+					$ad_counter++;
 				}?>
-				<!-- circular flipp -->
 				<div class="row">
 					<div class="columns">
 						<hr>

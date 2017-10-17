@@ -17,7 +17,7 @@ class CST_Section_Front {
 		'fire-soccer',
 	];
 
-	public $sports_object;
+	public $sports_object, $sort_order;
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -39,6 +39,7 @@ class CST_Section_Front {
 
 	public function setup_constants(  ) {
 		$this->sports_object = wpcom_vip_get_term_by( 'name', 'sports', 'cst_section' );
+		$this->sort_order = get_theme_mod( 'section_sorter-collection' );
 	}
 
 	public function create_partials( $team ) {

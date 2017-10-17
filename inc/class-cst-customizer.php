@@ -215,7 +215,7 @@ class CST_Customizer {
 			}
 		}
 		/**
-		 * Section sports sorter
+		 * Section sports sorter ONLY
 		 */
 		$this->set_setting( $wp_customize, 'section_sorter' , 'absint' );
 		$wp_customize->add_control( new WP_Customize_CST_SF_Sorter_Control( $wp_customize, 'section_sorter', [
@@ -225,6 +225,7 @@ class CST_Customizer {
 			'active_callback' => [ $this, 'show_sports_sections' ],
 			'label'       => __( 'Set Sports SF sort order', 'chicagosuntimes' ),
 		] ) );
+		$this->set_setting( $wp_customize, 'section_sorter-collection', 'wp_kses_post' );
 	}
 
 	/**
