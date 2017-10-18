@@ -37,7 +37,7 @@
 				<div class="cst-ad-container" id="nativo-cst-homepage-01">Nativo position here</div>
 				<hr>
 				<?php $current_obj = get_queried_object();
-				\CST\CST_Section_Front::get_instance()->render_section_blocks( $current_obj->slug . '_sorter-collection' ); ?>
+				\CST\CST_Section_Front::get_instance()->render_section_blocks( $current_obj->slug . '_section_sorter-collection' ); ?>
 				<div class="row">
 					<div class="columns">
 						<hr>

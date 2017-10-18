@@ -35,10 +35,12 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			parent::__construct( $manager, $id, $args );
 			$this->sort_values = $args['setting']['list'];
 			$this->sort_order = get_theme_mod( $this->id . '-collection' );
+			$list_items = [];
 			if ( empty( $this->sort_order ) ) {
 				for ( $i = 0; $i < count( $this->sort_values ); $i++ ) {
-					$this->sort_order[] = $i;
+					$list_items[]= $i;
 				}
+				$this->sort_order = join( ',', $list_items );
 			}
 		}
 

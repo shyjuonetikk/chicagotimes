@@ -1,6 +1,6 @@
-#section_sorter {
+.cst-section-sort {
     background: #fff;
 }
-#section_sorter li.cst-item {
+.cst-section-sort li.cst-item {
     padding:10px;
 }

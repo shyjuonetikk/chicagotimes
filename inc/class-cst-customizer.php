@@ -191,11 +191,16 @@ class CST_Customizer {
 			$sanitized_section_title = sanitize_title( $this->section_choices[ $section_id ] );
 			$section_choice = $this->section_choices[ $section_id ];
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
-			'Sports' === $section_choice ? $section_title = '2 slottable ' . $section_choice . ' stories ' : $section_title = $section_choice . ' section.';
+			$section_title = $section_choice . ' section.';
+			$priority = 400;
+			if ( 'Sports' === $section_choice ) {
+				$section_title = '2 slottable ' . $section_choice . ' stories ';
+				$priority = 320;
+			}
 			$wp_customize->add_section( $section_name, [
 				'title'           => __( $section_title, 'chicagosuntimes' ),
 				'description'     => __( 'Choose ' . $section_choice . ' (SF) stories', 'chicagosuntimes' ),
-				'priority'        => 400,
+				'priority'        => $priority,
 				'capability'      => $this->capability,
 				'active_callback' => [ $this, 'tax_section' ],
 			] );
@@ -940,7 +945,7 @@ class CST_Customizer {
 			$partials = preg_match( '/(.+)_sorter\-collection/', $partial->id, $matches );
 			if ( $partials && ! empty( $matches ) ) {
 				switch ( $matches[1] ) {
-					case 'section':
+					case 'sports_section':
 						\CST\CST_Section_Front::get_instance()->render_section_blocks( $partial->id );
 						break;
 				}
@@ -1057,8 +1062,8 @@ class CST_Customizer {
 					'list' => $sortable_section['list']
 				]
 			] ) );
-			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_sorter-collection', 'wp_kses_post' );
-			$this->set_selective_refresh( $wp_customize, $sortable_section['slug'] . '_sorter-collection' );
+			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter-collection', 'wp_kses_post' );
+			$this->set_selective_refresh( $wp_customize, $sortable_section['slug'] . '_section_sorter-collection' );
 		}
 	}
 	/**
