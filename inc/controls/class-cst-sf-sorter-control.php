@@ -33,11 +33,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 		public function __construct( WP_Customize_Manager $manager, $id, array $args = [] ) {
 			parent::__construct( $manager, $id, $args );
-			$this->setup_actions();
-		}
-
-		public function setup_actions() {
-			$this->sort_values = \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs;
+			$this->sort_values = $args['setting']['list'];
 			$this->sort_order = get_theme_mod( $this->id . '-collection' );
 			if ( empty( $this->sort_order ) ) {
 				for ( $i = 0; $i < count( $this->sort_values ); $i++ ) {
@@ -67,6 +63,13 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			$this->json['sortValues'] = $this->sort_values;
 		}
 
+		/**
+		 * Generate list item markup for sorter
+		 *
+		 * Includes hidden field used to collect the options into a comma separated
+		 * list that is saved to the Customizer and used to declare the sort
+		 * order when a section front is rendered
+		 */
 		public function content_template() {
 			parent::content_template();
 			?>

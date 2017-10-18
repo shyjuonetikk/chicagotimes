@@ -18,6 +18,7 @@ class CST_Section_Front {
 	];
 
 	public $sports_object, $sort_order;
+	public $sortable_sections = [];
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -27,6 +28,17 @@ class CST_Section_Front {
 			self::$instance->setup_constants();
 		}
 		return self::$instance;
+	}
+
+	public function __construct() {
+		$this->sortable_sections = [
+			[
+				'slug' => 'sports',
+				'callback' => 'show_sports_sections',
+				'label' => 'Set Sports SF sort order',
+				'list' => $this->chicago_sports_team_slugs,
+			]
+		];
 	}
 
 	public function setup_actions(  ) {
@@ -155,6 +167,8 @@ class CST_Section_Front {
 
 	/**
 	 * Render Sports section content blocks in sort order
+	 *
+	 * @param $section_block_partial
 	 */
 	public function render_section_blocks( $section_block_partial ) {
 		$ad_counter = 1;

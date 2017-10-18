@@ -214,23 +214,11 @@ class CST_Customizer {
 				] ) );
 			}
 		}
-		/**
-		 * Section sports sorter ONLY
-		 */
-		$this->set_setting( $wp_customize, 'section_sorter' , 'absint' );
-		$wp_customize->add_control( new WP_Customize_CST_SF_Sorter_Control( $wp_customize, 'section_sorter', [
-			'type'        => 'cst_sf_sorter_control',
-			'priority'    => 37,
-			'section'     => 'cst[sports]_section',
-			'active_callback' => [ $this, 'show_sports_sections' ],
-			'label'       => __( 'Set Sports SF sort order', 'chicagosuntimes' ),
-		] ) );
-		$this->set_setting( $wp_customize, 'section_sorter-collection', 'wp_kses_post' );
-		$this->set_selective_refresh( $wp_customize, 'section_sorter-collection' );
+		$this->setup_sorters( $wp_customize );
+
 	}
 
 	/**
-	 * @param $get_section_name
 	 * @param $matches
 	 *
 	 * @return bool
@@ -1049,6 +1037,30 @@ class CST_Customizer {
 		return ( ( isset( $checked ) && true === $checked ) ? true : false );
 	}
 
+	/**
+	 * @param WP_Customize_Manager $wp_customize
+	 * @uses $sortable_sections
+	 *
+	 * Setup section child sorting - predominantly for Sports
+	 */
+	public function setup_sorters( \WP_Customize_Manager $wp_customize ) {
+
+		foreach ( \CST\CST_Section_Front::get_instance()->sortable_sections as $sortable_section ) {
+			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter' , 'absint' );
+			$wp_customize->add_control( new WP_Customize_CST_SF_Sorter_Control( $wp_customize, $sortable_section['slug'] . '_section_sorter', [
+				'type'        => 'cst_sf_sorter_control',
+				'priority'    => 42,
+				'section'     => 'cst[' . $sortable_section['slug'] . ']_section',
+				'active_callback' => [ $this, $sortable_section['callback'] ],
+				'label'       => __( $sortable_section['label'], 'chicagosuntimes' ),
+				'setting' => [
+					'list' => $sortable_section['list']
+				]
+			] ) );
+			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_sorter-collection', 'wp_kses_post' );
+			$this->set_selective_refresh( $wp_customize, $sortable_section['slug'] . '_sorter-collection' );
+		}
+	}
 	/**
 	 * Getter for top stories array
 	 * @return array
