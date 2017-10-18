@@ -2185,30 +2185,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			if ( 'chicago.suntimes.com' === $site ) {
 				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
 			}
-			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), [], null, true );
-		}
-	}
-	/**
-	*
-	* Inject Nativo mobile if singular and mobile and over 16 paragraphs
-	* Only do this on article pages
-	*
-	*/
-	public function inject_nativo_mobile2( $content ) {
-		if ( is_singular( 'cst_article' ) ) {
-			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
-				$nativo_mobile = '<div id="nativo-sponsored">' . '<h4>Sponsored Content</h4>' . '<ul class="nativo-sponsored-articles">';
-				$nativo_mobile = $nativo_mobile . '<div id="nativo-sponsored-article-image"></div><li id="News1"></li><li id="News2"></li></ul></div>';
-
-				$exploded = explode( '</p>', $content );
-				$num_exploded = count( $exploded );
-				if ( $num_exploded > 5) {
-					array_splice( $exploded, 6, 0, $nativo_mobile );
-					$content = join( '</p>', $exploded );
-				}
+			if ( is_front_page() ) {
+				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
 			}
 		}
-		return $content;
 	}
 	/**
 	* Add inspectlet script to all pages
@@ -2289,6 +2269,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			wp_enqueue_script( 'teads', '//a.teads.tv/page/53230/tag', [], null, true );
 		}
 	}
+
 	/**
 	* Determine if we should append the Public Good Take Action button
 	* @param \CST\Objects\Article $obj
