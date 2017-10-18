@@ -66,6 +66,7 @@ class CST_Frontend {
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
 		add_action( 'closing_body', [ $this, 'enqueue_chartbeat_react_engagement_script' ] );
+		add_action( 'closing_body', [ $this, 'enqueue_inspectlet_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'cst_tracking_pixels' ] );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
@@ -93,13 +94,13 @@ class CST_Frontend {
 
 		add_filter( 'nav_menu_link_attributes', array( $this, 'filter_nav_menu_link_attributes' ), 10, 3 );
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
-
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+		add_filter( 'the_content', [ $this, 'inject_a9' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_a9' ] );	
 		add_filter( 'the_content', [ $this, 'inject_a92' ] );	
 		add_filter( 'the_content', [ $this, 'inject_a9_leaderboard' ] );	
-		add_filter( 'the_content', [ $this, 'inject_flipp' ], 99 );
+		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
@@ -209,7 +210,7 @@ class CST_Frontend {
 						'is_singular'     => is_singular(),
 					);
 					if ( is_singular() && $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() ) ) {
-						for ( $i = 1;  $i <= 9;  $i++ ) {
+						for ( $i = 1;  $i <= 10;  $i++ ) {
 							$analytics_data[ 'dimension' . $i ] = $obj->get_ga_dimension( $i );
 						}
 					}
@@ -1725,7 +1726,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			$authors = array( $byline );
 		} else {
 			foreach ( $obj->get_authors() as $author ) {
-				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '" 
+				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '"
 				data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
 				$author->get_display_name() . '</a>';
 			}
@@ -2181,17 +2182,64 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* Display Chartbeat engagement based article list on home page
 	*/
 	public function enqueue_chartbeat_react_engagement_script() {
-		if ( function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
+		if ( is_front_page() && function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
 			$site = CST()->dfp_handler->get_parent_dfp_inventory();
+			$chartbeat_file_name = 'main.3f878c34-cb-dev-test.js';
 			if ( 'chicago.suntimes.com' === $site ) {
 				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
-			} else {
-				$chartbeat_file_name = 'main.81b31ab6-cb-dev-test.js';
 			}
-			if ( is_front_page() ) {
-				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
+			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), [], null, true );
+		}
+	}
+	/**
+	*
+	* Inject Nativo mobile if singular and mobile and over 16 paragraphs
+	* Only do this on article pages
+	*
+	*/
+	public function inject_nativo_mobile2( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+				$nativo_mobile = '<div id="nativo-sponsored">' . '<h4>Sponsored Content</h4>' . '<ul class="nativo-sponsored-articles">';
+				$nativo_mobile = $nativo_mobile . '<div id="nativo-sponsored-article-image"></div><li id="News1"></li><li id="News2"></li></ul></div>';
+
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 5) {
+					array_splice( $exploded, 6, 0, $nativo_mobile );
+					$content = join( '</p>', $exploded );
+				}
 			}
 		}
+		return $content;
+	}
+	/**
+	* Add inspectlet script to all pages
+	*/
+	public function enqueue_inspectlet_script(){
+	    wp_enqueue_script( 'inspectlet', esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/inspectlet-script.js' ), [], null, true );
+	}
+	/**
+	*
+	* Inject supplied Yieldmo tag if singular and mobile and over 9 paragraphs
+	* Only do this on article pages
+	*
+	* @param $content string
+	* @return string
+	*/
+	public function inject_yieldmo_mobile( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
+       			$yieldmo_unit = '<div id="ym_1555064078586984494" class="ym"></div><script type="text/javascript">(function(e,t){if(t._ym===void 0){t._ym="";var m=e.createElement("script");m.type="text/javascript",m.async=!0,m.src="//static.yieldmo.com/ym.m5.js",(e.getElementsByTagName("head")[0]||e.getElementsByTagName("body")[0]).appendChild(m)}else t._ym instanceof String||void 0===t._ym.chkPls||t._ym.chkPls()})(document,window);</script>';
+				$exploded = explode( '</p>', $content );
+				$num_exploded = count( $exploded );
+				if ( $num_exploded > 9) {
+					array_splice( $exploded, 10, 0, $yieldmo_unit );
+					$content = join( '</p>', $exploded );
+				}
+			}
+		}
+		return $content;
 	}
 	/**
 	*
@@ -2230,7 +2278,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}
 		return $content;
 	}
-
 	public function inject_a92( $content ) {
 		if ( is_singular( 'cst_article' ) ) {
 				#$a9tag = '<div id="google_ads_iframe_/61924087/slot1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/61924087/slot1_0" title="3rd party ad content" name="google_ads_iframe_/61924087/slot1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>';
@@ -2273,7 +2320,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			wp_enqueue_script( 'teads', '//a.teads.tv/page/53230/tag', [], null, true );
 		}
 	}
-
 	/**
 	* Determine if we should append the Public Good Take Action button
 	* @param \CST\Objects\Article $obj
@@ -2300,46 +2346,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	}
 
 	/**
-	* Determine paragraph position exists and whether to inject Flipp into content
-	* Check if this content is sponsored and abort as appropriate.
-	* This function is run as part of the_content filter - enqueuing the script does not provide
-	* the same functionality
-	*
-	* @param string $article_content
-	* @return string $article_content
-	*/
-	public function inject_flipp( $article_content ) {
-		if ( is_feed() || is_admin() || null === get_queried_object() || 0 === get_queried_object_id() ) {
-			return $article_content;
+	* @param $paged
+	 *
+	 * @return string
+	 *
+	 * Inject Flipp circular ad
+	 */
+	public function inject_flipp( $paged ) {
+		if ( $paged < 5 ) {
+			$div_id_suffix = 10635 + $paged;
+			$flipp_ad_markup = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+			$flipp_ad_src_escaped = esc_url( '//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) );
+			$flipp_ad_safe = $flipp_ad_markup . '<script src="' . $flipp_ad_src_escaped . '"></script>';
+			echo $flipp_ad_safe;
 		}
-		$obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() );
-		if ( 'cst_article' !== $obj->get_post_type() ) {
-			return $article_content;
-		}
-		if ( $obj->get_sponsored_content() ) {
-			return $article_content;
-		}
-		if ( '' === $article_content ) {
-			return $article_content;
-		}
-		$article_array = preg_split( '|(?<=</p>)\s+(?=<p)|', $article_content, -1, PREG_SPLIT_DELIM_CAPTURE);
-		$postnum = get_query_var( 'paged' );
-		// flipp recommends no more than 5 circulars per page
-		if ( $postnum < 5 ) {
-			$div_id_suffix = 10635 + $postnum;
-			$flipp_ad = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
-			$flipp_ad = $flipp_ad . '<script src="//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) . '"></script>';
-			if ( count( $article_array ) > 1 ) {
-				$last_item = array_pop( $article_array );
-				array_push( $article_array, $flipp_ad );
-				array_push( $article_array, $last_item );
-			} else {
-				array_push( $article_array, $flipp_ad );
-			}
-			$article_content = implode( $article_array );
-		}
-		return $article_content;
- 	}
+	}
 	/**
 	 * Determine if content destined for the display is partnership or we have
 	 * an arrangement or not
@@ -2740,7 +2761,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			'wp-title'  => wp_title( '|', false, 'right' ),
 			);
 
-		for ( $i = 1;  $i <= 5;  $i++) {
+		for ( $i = 1;  $i <= 9;  $i++) {
 			$data[ 'ga-dimension-' . $i ] = $obj->get_ga_dimension( $i );
 		}
 
