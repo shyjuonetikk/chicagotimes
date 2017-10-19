@@ -173,7 +173,14 @@ class CST_Section_Front {
 		$this->sort_order = get_theme_mod( $section_block_partial ); // Used during render to get the latest order
 		$team_display_order = explode( ',', $this->sort_order );
 		foreach ( $team_display_order as $index ) {
-			if ( isset( $team_sections[$index] ) ) {
+			$slotted = $this->create_partials( $team_sections[$index] );
+			$show_section = false;
+			foreach ( $slotted as $partial_id => $value ) { // Do we have items to display?
+				if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
+					$show_section = true;
+				}
+			}
+			if ( $show_section && isset( $team_sections[$index] ) ) {
 				$term_link = wpcom_vip_get_term_link( $team_sections[$index],'cst_section' );
 				if ( ! is_wp_error( $term_link ) ) {
 					?>
@@ -181,7 +188,7 @@ class CST_Section_Front {
 						<div class="stories-container">
 							<div class="small-12 columns more-stories-container <?php echo esc_attr( $team_sections[$index]); ?> <?php echo esc_attr( $team_sections[$index]); ?>" id="individual-sports-section-<?php echo esc_attr( $team_sections[$index] ); ?>">
 								<?php $this->heading( $team_sections[$index] . ' Headlines', $team_sections[$index] ); ?>
-								<?php \CST_Frontend::get_instance()->mini_stories_content_block( $this->create_partials( $team_sections[$index] ) ); ?>
+								<?php \CST_Frontend::get_instance()->mini_stories_content_block( $slotted ); ?>
 							</div><!-- /individual-sports-section-{sport} -->
 						</div>
 					</div>
