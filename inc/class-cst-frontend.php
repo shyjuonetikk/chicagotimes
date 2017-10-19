@@ -2053,7 +2053,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @param $parent
 	* @param $current_obj
 	* @param $off_canvas
-	* return $string
+	* @return string $section_navigation
+	*
 	* Subnav below section title above section content - typically child section links
 	*/
 	public function generate_section_subnav( $parent, $current_obj, $off_canvas ) {
