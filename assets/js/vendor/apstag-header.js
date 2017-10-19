@@ -3,7 +3,7 @@ googletag.cmd.push(function() {
 var sizeMappingBoxes = googletag.sizeMapping().
 /*addSize([300,250]).*/
 /*addSize([160, 600], [[300, 250], [300, 600]], [320, 50], [728, 90], [970, 90]).*/
-addSize([300, 250], [728, 90]).
+addSize([300, 250]).
 addSize([300, 600]).
 addSize([728, 90]).
 addSize([[728, 90], [970, 90]]).
@@ -14,14 +14,14 @@ addSize([320, 50]).
 
 build();
 /* Defing the slot sizes here. If allowed here it overrides the sizes in the fetchBids*/
-googletag.defineSlot('/61924087/slot1', [[300, 250], [728, 90]], 'div-gpt-ad-test-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());  
+googletag.defineSlot('/61924087/slot1', [300, 250], 'div-gpt-ad-test-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());  
 googletag.defineSlot('/61924087/slot2', [300, 600], 'div-gpt-ad-test2-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());  
 googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
 googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-atf-leaderboard-1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());
 // DFP matched slots
 googletag.defineSlot('/61924087/slot4', [[728, 90], [970, 90]], 'div-gpt-ad-top-leaderboard').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot5', [[300, 250], [300, 600]], 'div-gpt-ad-cube1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot5', [[300, 250], [300, 600]], 'div-gpt-ad-cube2').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot5', [[300, 250], [300, 600]], 'div-gpt-rr-cube-133').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot5', [[300, 250], [300, 600]], 'div-gpt-rr-cube-137').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
 googletag.defineSlot('/61924087/slot6', [160, 600], 'div-gpt-ad-sky1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
 googletag.defineSlot('/61924087/slot6', [160, 600], 'div-gpt-ad-sky2').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
 googletag.defineSlot('/61924087/slot7', [970, 250], 'div-gpt-ad-need-defined').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
