@@ -96,10 +96,9 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_a9' ] );
-		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
-		add_filter( 'the_content', [ $this, 'inject_a9' ] );	
 		add_filter( 'the_content', [ $this, 'inject_a92' ] );	
 		add_filter( 'the_content', [ $this, 'inject_a9_leaderboard' ] );	
+		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
@@ -2188,30 +2187,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			if ( 'chicago.suntimes.com' === $site ) {
 				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
 			}
-			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), [], null, true );
-		}
-	}
-	/**
-	*
-	* Inject Nativo mobile if singular and mobile and over 16 paragraphs
-	* Only do this on article pages
-	*
-	*/
-	public function inject_nativo_mobile2( $content ) {
-		if ( is_singular( 'cst_article' ) ) {
-			if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) {
-				$nativo_mobile = '<div id="nativo-sponsored">' . '<h4>Sponsored Content</h4>' . '<ul class="nativo-sponsored-articles">';
-				$nativo_mobile = $nativo_mobile . '<div id="nativo-sponsored-article-image"></div><li id="News1"></li><li id="News2"></li></ul></div>';
-
-				$exploded = explode( '</p>', $content );
-				$num_exploded = count( $exploded );
-				if ( $num_exploded > 5) {
-					array_splice( $exploded, 6, 0, $nativo_mobile );
-					$content = join( '</p>', $exploded );
-				}
+			if ( is_front_page() ) {
+				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
 			}
 		}
-		return $content;
 	}
 	/**
 	* Add inspectlet script to all pages
@@ -2263,7 +2242,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}
 		return $content;
 	}
-
+	/**
+	*
+	* Inject A9 Tests for multiple slots of single article pages
+	*
+	*/
 	public function inject_a9( $content ) {
 		if ( is_singular( 'cst_article' ) ) {
 				#$a9tag = '<div id="google_ads_iframe_/61924087/slot1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/61924087/slot1_0" title="3rd party ad content" name="google_ads_iframe_/61924087/slot1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>';
@@ -2278,7 +2261,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}
 		return $content;
 	}
-	public function inject_a92( $content ) {
+		public function inject_a92( $content ) {
 		if ( is_singular( 'cst_article' ) ) {
 				#$a9tag = '<div id="google_ads_iframe_/61924087/slot1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/61924087/slot1_0" title="3rd party ad content" name="google_ads_iframe_/61924087/slot1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>';
 				$a9tag2 = "<div id='div-gpt-ad-test2-a9'><script>googletag.cmd.push(function() { googletag.display('div-gpt-ad-test-a9'); });</script></div>";
@@ -2320,6 +2303,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			wp_enqueue_script( 'teads', '//a.teads.tv/page/53230/tag', [], null, true );
 		}
 	}
+
 	/**
 	* Determine if we should append the Public Good Take Action button
 	* @param \CST\Objects\Article $obj
