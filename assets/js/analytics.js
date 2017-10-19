@@ -33,7 +33,7 @@ var CSTAnalytics;
 				// Document isn't ready yet, so we take our dimensions via JS variable
 				if ( this.initialPageview ) {
 
-					for ( i = 1; i <= 5; i++ ) {
+					for ( i = 1; i <= 9; i++ ) {
 						if ( typeof CSTAnalyticsData['dimension'+i] != 'undefined' ) {
 							data['dimension'+i] = CSTAnalyticsData['dimension'+i];
 						}
@@ -47,7 +47,7 @@ var CSTAnalytics;
 					}
 
 					var activeScrollPost = this.main.find('.cst-active-scroll-post');
-					for ( i = 1; i <= 5; i++ ) {
+					for ( i = 1; i <= 9; i++ ) {
 						if ( activeScrollPost.data('cst-ga-dimension-'+i).length ) {
 							data['dimension'+i] = activeScrollPost.data('cst-ga-dimension-'+i);
 						}

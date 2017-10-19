@@ -24,7 +24,7 @@ if ( $sponsored ) {
 	$classes[] = 'sponsored-content';
 }
 		?>
-		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
+		<article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
 			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
@@ -44,8 +44,10 @@ if ( $sponsored ) { ?>
 	</div>
 	<?php }
 if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) {
-	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); ?>
-	<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
+	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses );
+	CST()->frontend->inject_flipp( $paged );
+	?>
+	<div id="taboola-below-article-thumbnails-<?php echo esc_attr( $obj->get_id() ); ?>" class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
 	</div>
 <?php } ?>
 		</article>
