@@ -7,11 +7,8 @@ class CST_Section_Front {
 
 	public $chicago_sports_team_slugs = [
 		'blackhawks-hockey',
-		'blackhawks',
 		'cubs-baseball',
-		'bears',
 		'bears-football',
-		'cubs',
 		'white-sox',
 		'bulls',
 		'fire-soccer',
