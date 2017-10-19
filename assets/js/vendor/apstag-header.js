@@ -1,27 +1,32 @@
 var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];
 googletag.cmd.push(function() {
 var sizeMappingBoxes = googletag.sizeMapping().
-addSize([300,250]).
-/*
-addSize([980, 690], [[300, 250], [300,600]]).
-addSize([500, 500], [300, 250]).
-addSize([0,0], []).
-*/
+/*addSize([300,250]).*/
+/*addSize([160, 600], [[300, 250], [300, 600]], [320, 50], [728, 90], [970, 90]).*/
+addSize([300, 250]).
+addSize([300, 600]).
+addSize([728, 90]).
+addSize([[728, 90], [970, 90]]).
+addSize([[300, 250], [300, 600]]).
+addSize([160, 600]).
+addSize([970, 250]).
+addSize([320, 50]).
+
 build();
 /* Defing the slot sizes here. If allowed here it overrides the sizes in the fetchBids*/
-googletag.defineSlot('/61924087/slot1', [[300, 250], [728, 90]], 'div-gpt-ad-test-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());  
-googletag.defineSlot('/61924087/slot2', [[300, 600]], 'div-gpt-ad-test2-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());  
-googletag.defineSlot('/61924087/slot3', [[728, 90]], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot4', [728, 90], 'div-gpt-atf-leaderboard-1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());
+googletag.defineSlot('/61924087/slot1', [300, 250], 'div-gpt-ad-test-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());  
+googletag.defineSlot('/61924087/slot2', [300, 600], 'div-gpt-ad-test2-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());  
+googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-atf-leaderboard-1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads());
 // DFP matched slots
-googletag.defineSlot('/61924087/slot1', [[728, 90], [970, 90]], 'div-gpt-ad-top-leaderboard').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot2', [[300, 250], [300, 600]], 'div-gpt-ad-cube1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot3', [[300, 250], [300, 600]], 'div-gpt-ad-cube2').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot4', [[160, 600]], 'div-gpt-ad-sky1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot5', [[160, 600]], 'div-gpt-ad-sky2').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot6', [[970, 250]], 'div-gpt-ad-need-defined').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot7', [[320, 50]], 'div-gpt-atf-leaderboard-1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
-googletag.defineSlot('/61924087/slot8', [[320, 50]], 'div-gpt-placement-a-535').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot4', [[728, 90], [970, 90]], 'div-gpt-ad-top-leaderboard').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot5', [[300, 250], [300, 600]], 'div-gpt-rr-cube-133').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot5', [[300, 250], [300, 600]], 'div-gpt-rr-cube-137').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot6', [160, 600], 'div-gpt-ad-sky1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot6', [160, 600], 'div-gpt-ad-sky2').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot7', [970, 250], 'div-gpt-ad-need-defined').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot8', [320, 50], 'div-gpt-atf-leaderboard-1').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
+googletag.defineSlot('/61924087/slot8', [320, 50], 'div-gpt-placement-a-535').defineSizeMapping(sizeMappingBoxes).addService(googletag.pubads()); 
 
 googletag.pubads().disableInitialLoad(); 
 googletag.pubads().enableSingleRequest(); 
@@ -35,7 +40,7 @@ googletag.enableServices();
 
 
 apstag.init({
-pubID: '3443', adServer: 'googletag', bidTimeout: 2e3
+pubID: '3443', adServer: 'googletag', videoAdServer: 'DFP', bidTimeout: 2e3
 });
 // End Step 1 
 
@@ -45,31 +50,35 @@ apstag.fetchBids({
 	slots: [
 		{
 		slotID: 'div-gpt-ad-test-a9',
-		sizes: [[300, 250]],
-		slotName: 'test-a9'  
+		slotName: 'test-a9',
+		sizes: [[300, 250]] 
 		},
 		{
 		slotID: 'div-gpt-ad-test2-a9',
-		sizes: [[300, 600]],
-		slotName: 'test2-a9'   
+		slotName: 'test2-a9', 
+		sizes: [[300, 600]]  
 		},
 		{
 		slotID: 'div-gpt-ad-leaderboard-a9',
-		sizes: [[728, 90]],
-		slotName: 'leaderboard-a9'   
+		slotName: 'leaderboard-a9',
+		sizes: [[728, 90]]  
 		},
 		{
 		slotID: 'div-gpt-atf-leaderboard-1',
-		sizes: [[970, 90], [728, 90]],
-		slotName: 'atf-leaderboard-1'   
+		slotName: 'atf-leaderboard-1',
+		sizes: [[970, 90], [728, 90]] 
 		},
 		{
 		slotID: 'div-gpt-placement-a-535',
-		sizes: [[728, 90]],
-		slotName: 'placement-a-535'   
+		slotName: 'placement-a-535',
+		sizes: [[728, 90]]  
 		},
 	]
-}, function(bids) {
+	//timeout: 2e3	// Leave commented out for now. Then we can see the white space for non delivered ads
+},
+
+
+function(bids) {
 
 // Begin Step 3
 // trigger the first request to DFP
