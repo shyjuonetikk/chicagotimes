@@ -86,7 +86,7 @@ class CST_Customizer {
 		'featured_story_block_headlines_5' => true,
 	];
 	private $capability = 'edit_others_posts';
-	private $sports_section_choices, $section_choices, $section_ids, $sections, $sports_section_names;
+	private $sports_section_choices, $section_choices, $section_choice_slugs, $section_ids, $sections, $sports_section_names;
 	public $five_block = [
 		'five_block_1',
 		'five_block_2',
@@ -187,8 +187,8 @@ class CST_Customizer {
 		// https://css-tricks.com/getting-started-wordpress-customizer/
 		// Use conditional to check is_tax or queried_object to only set up the needed control for this section
 		// Setup all sections OR detect section and set that up
-		foreach ( $this->section_choices as $section_id => $section_name) {
-			$sanitized_section_title = sanitize_title( $this->section_choices[ $section_id ] );
+		foreach ( $this->section_choice_slugs as $section_id => $section_name) {
+			$sanitized_section_title = sanitize_title( $this->section_choice_slugs[ $section_id ] );
 			$section_choice = $this->section_choices[ $section_id ];
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
 			$section_title = $section_choice . ' section.';
@@ -708,7 +708,7 @@ class CST_Customizer {
 			return;
 		}
 
-		foreach ( $this->section_choices as $section_choice ) {
+		foreach ( $this->section_choice_slugs as $section_choice ) {
 			foreach ( $this->five_block as $partial_title ) {
 				$section_partials[ 'cst_' . sanitize_title( $section_choice ) . '_section' . '_' . $partial_title ] = true;
 			}
@@ -817,6 +817,7 @@ class CST_Customizer {
 			'fields'     => 'all_with_object_id',
 		] );
 		$this->section_choices = wp_list_pluck( $this->sections, 'name', 'term_id' );
+		$this->section_choice_slugs = wp_list_pluck( $this->sections, 'slug', 'term_id' );
 		$this->section_ids = array_flip( $this->section_choices );
 	}
 	/**
