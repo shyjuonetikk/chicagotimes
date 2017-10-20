@@ -33,7 +33,9 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 
 		public function __construct( WP_Customize_Manager $manager, $id, array $args = [] ) {
 			parent::__construct( $manager, $id, $args );
-			$this->sort_values = $args['setting']['list'];
+			if ( isset( $args['setting']['list'] ) ) {
+				$this->sort_values = $args['setting']['list'];
+			}
 			$this->sort_order = get_theme_mod( $this->id . '-collection' );
 			$list_items = [];
 			if ( empty( $this->sort_order ) ) {
@@ -88,9 +90,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 					} #>
 				<ul id="{{ data.id }}" class="widget-area-select cst-section-sort">
 
-					<# for ( key in data.sortOrder ) { #>
-						<# index = data.sortOrder[key] #>
-						<li class="ui-state-default cst-item" data-key="{{{ key }}}" data-index="{{{ index }}}"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{ data.sortValues[index] }}</li>
+					<# for ( slug in data.sortValues ) { #>
+						<li class="ui-state-default cst-item" data-slug="{{{ slug }}}"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{ data.sortValues[slug] }}</li>
 					<# } #>
 				</ul>
 			<input type="hidden" id="{{ data.id }}-collection" value="{{ data.sortOrder }}" class="cst-customize-control-sorter"/>

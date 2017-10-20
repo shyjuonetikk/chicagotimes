@@ -6,7 +6,7 @@
       console.log( ui.item[0].innerText + ' changed' );
       let list = element.find('.cst-item');
       let inputValues = list.map(function() {
-        return $(this).data('index');
+        return $(this).data('slug');
       }).toArray();
       $collection.val(inputValues);
       element.trigger( 'change' );
