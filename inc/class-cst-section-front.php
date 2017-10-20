@@ -116,6 +116,9 @@ class CST_Section_Front {
 	 * @param string $headline
 	 */
 	public function section_hero_story( $headline ) {
+		?>
+		<div class="hero-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
+		<?php
 		$obj = Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = \CST_Frontend::get_instance()->hp_get_article_authors( $obj );
@@ -123,7 +126,6 @@ class CST_Section_Front {
 			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 			add_filter( 'the_excerpt', 'wpautop' );
 			?>
-			<div class="hero-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-sf-hero-story-title" >
 					<h3 class="hero-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 				</a>
@@ -157,10 +159,12 @@ class CST_Section_Front {
 						<?php \CST_Frontend::get_instance()->homepage_byline( $obj, $author ); ?>
 					</div>
 				</div>
-			</div>
 			<?php
 		}
-	}
+		?>
+		</div>
+<?php
+		}
 
 	/**
 	 * Render Sports section content blocks in sort order
@@ -173,31 +177,33 @@ class CST_Section_Front {
 		$this->sort_order = get_theme_mod( $section_block_partial ); // Used during render to get the latest order
 		$team_display_order = explode( ',', $this->sort_order );
 		foreach ( $team_display_order as $index ) {
-			$slotted = $this->create_partials( $team_sections[$index] );
-			$show_section = false;
-			foreach ( $slotted as $partial_id => $value ) { // Do we have items to display?
-				if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
-					$show_section = true;
+			if ( isset( $team_sections[$index]) )  {
+				$slotted = $this->create_partials( $team_sections[$index] );
+				$show_section = false;
+				foreach ( $slotted as $partial_id => $value ) { // Do we have items to display?
+					if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
+						$show_section = true;
+					}
 				}
-			}
-			if ( $show_section && isset( $team_sections[$index] ) ) {
-				$term_link = wpcom_vip_get_term_link( $team_sections[$index],'cst_section' );
-				if ( ! is_wp_error( $term_link ) ) {
-					?>
-					<div class="row">
-						<div class="stories-container">
-							<div class="small-12 columns more-stories-container <?php echo esc_attr( $team_sections[$index]); ?> <?php echo esc_attr( $team_sections[$index]); ?>" id="individual-sports-section-<?php echo esc_attr( $team_sections[$index] ); ?>">
-								<?php $this->heading( $team_sections[$index] . ' Headlines', $team_sections[$index] ); ?>
-								<?php \CST_Frontend::get_instance()->mini_stories_content_block( $slotted ); ?>
-							</div><!-- /individual-sports-section-{sport} -->
+				if ( $show_section && isset( $team_sections[$index] ) ) {
+					$term_link = wpcom_vip_get_term_link( $team_sections[$index],'cst_section' );
+					if ( ! is_wp_error( $term_link ) ) {
+						?>
+						<div class="row">
+							<div class="stories-container">
+								<div class="small-12 columns more-stories-container <?php echo esc_attr( $team_sections[$index]); ?> <?php echo esc_attr( $team_sections[$index]); ?>" id="individual-sports-section-<?php echo esc_attr( $team_sections[$index] ); ?>">
+									<?php $this->heading( $team_sections[$index] . ' Headlines', $team_sections[$index] ); ?>
+									<?php \CST_Frontend::get_instance()->mini_stories_content_block( $slotted ); ?>
+								</div><!-- /individual-sports-section-{sport} -->
+							</div>
 						</div>
-					</div>
-					<hr>-Ad-
-					<?php $this->section_ad_injection( $ad_counter ); ?>
-					<hr>
-					<?php
+						<hr>-Ad-
+						<?php $this->section_ad_injection( $ad_counter ); ?>
+						<hr>
+						<?php
+					}
+					$ad_counter++;
 				}
-				$ad_counter++;
 			}
 		}
 	}

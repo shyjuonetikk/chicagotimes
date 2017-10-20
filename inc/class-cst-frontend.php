@@ -1212,7 +1212,8 @@ class CST_Frontend {
 	/**
 	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
 	* @param array $args
-	* @param $defaults = [
+	* @param $args = [
+	*	'story' => $obj,
 	*	'layout_type' => 'prime',
 	*	'partial_id' => '',
 	*	'watch' => 'no',
@@ -1230,6 +1231,7 @@ class CST_Frontend {
 			'custom_landscape_class' => '',
 			'render_partial' => false,
 			'display_relative_timestamp' => true,
+			'custom_image_size' => false,
 		];
 		$args = wp_parse_args( $args, $defaults );
 		$layout['prime'] = array(
@@ -1250,74 +1252,81 @@ class CST_Frontend {
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-12 large-8',
 		);
-		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-			$author          = $this->hp_get_article_authors( $obj );
-			remove_filter( 'the_excerpt', 'wpautop' );
-			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
-			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
-			add_filter( 'the_excerpt', 'wpautop' );
+		if ( $args['custom_image_size'] ) {
+			$layout[$args['layout_type']]['image_size'] = $args['custom_image_size'];
 		}
 		?>
 		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $args['partial_id'] ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $args['layout_type'] ]['wrapper_class'] ); ?>" <?php echo 'yes' === $args['watch'] ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
-		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['image_class'] ); ?>">
-			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
-			<?php
-				$featured_image_id = $obj->get_featured_image_id();
-		if ( $featured_image_id ) {
-			$attachment = wp_get_attachment_metadata( $featured_image_id );
-			if ( $attachment ) {
-				$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $args['layout_type'] ]['image_size'] );
-				echo wp_kses_post( $image_markup );
+<?php
+		if ( $obj ) {
+			if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+				$author          = $this->hp_get_article_authors( $obj );
+				remove_filter( 'the_excerpt', 'wpautop' );
+				$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+				$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
+				add_filter( 'the_excerpt', 'wpautop' );
 			}
-		}
 			?>
-			</a>
-		</div>
-		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-portrait">
-			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
-			</a>
-			<?php if ( 'prime' === $args['layout_type'] ) { ?>
-			<div class="prime-excerpt">
-				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<div class="show-for-medium hide-for-large-up">
-					<p class="excerpt">
-						<?php echo wp_kses_post( $story_excerpt ); ?>
-					</p>
-					</div>
-					<div class="show-for-large">
-						<p class="excerpt">
-							<?php echo wp_kses_post( $story_long_excerpt ); ?>
-						</p>
-					</div>
+			<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['image_class'] ); ?>">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
+				<?php
+					$featured_image_id = $obj->get_featured_image_id();
+			if ( $featured_image_id ) {
+				$attachment = wp_get_attachment_metadata( $featured_image_id );
+				if ( $attachment ) {
+					$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $args['layout_type'] ]['image_size'] );
+					echo wp_kses_post( $image_markup );
+				}
+			}
+				?>
 				</a>
 			</div>
-			<?php } ?>
-		</div>
-		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $args['custom_landscape_class'] ); ?>">
-			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
-			</a>
-			<?php if ( 'prime' === $args['layout_type'] ) { ?>
-			<div class="prime-excerpt">
-				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<div class="hide-for-medium hide-for-large-up">
+			<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-portrait">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+					<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+				</a>
+				<?php if ( 'prime' === $args['layout_type'] ) { ?>
+				<div class="prime-excerpt">
+					<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+						<div class="show-for-medium hide-for-large-up">
 						<p class="excerpt">
 							<?php echo wp_kses_post( $story_excerpt ); ?>
 						</p>
-					</div>
-					<div class="show-for-medium">
-						<p class="excerpt">
-							<?php echo wp_kses_post( $story_long_excerpt ); ?>
-						</p>
-					</div>
-				</a>
+						</div>
+						<div class="show-for-large">
+							<p class="excerpt">
+								<?php echo wp_kses_post( $story_long_excerpt ); ?>
+							</p>
+						</div>
+					</a>
+				</div>
+				<?php } ?>
 			</div>
-			<?php } ?>
-		</div>
-		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author, $args['display_relative_timestamp'] ); ?></div>
-		</div>
-		<?php
+			<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $args['custom_landscape_class'] ); ?>">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+					<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+				</a>
+				<?php if ( 'prime' === $args['layout_type'] ) { ?>
+				<div class="prime-excerpt">
+					<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+						<div class="hide-for-medium hide-for-large-up">
+							<p class="excerpt">
+								<?php echo wp_kses_post( $story_excerpt ); ?>
+							</p>
+						</div>
+						<div class="show-for-medium">
+							<p class="excerpt">
+								<?php echo wp_kses_post( $story_long_excerpt ); ?>
+							</p>
+						</div>
+					</a>
+				</div>
+				<?php } ?>
+			</div>
+			<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author, $args['display_relative_timestamp'] ); ?></div>
+			</div>
+			<?php
+		}
 	}
 	/**
 	 * Fetch and output content from the specified section
@@ -2906,7 +2915,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @param $headline
 	*/
 	public function homepage_lead_story( $headline ) {
-		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+		?>
+		<div class="lead-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
+<?php	$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
@@ -2922,7 +2933,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				}
 			}
 		?>
-		<div class="lead-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
 <a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
 	<h3 class="title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 	<span class="image show-for-landscape hidden-for-medium-up show-for-xlarge-up">
@@ -2936,9 +2946,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	</p>
 </a>
 <?php $this->homepage_byline( $obj, $author ); ?>
-		</div>
 <?php
 		}
+		?>
+		</div>
+<?php
 	}
 
 	/**

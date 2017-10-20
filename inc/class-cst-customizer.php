@@ -217,6 +217,7 @@ class CST_Customizer {
 			foreach ( $block_type as $story_title ) {
 				$section_customizer_name = 'cst_' . $sanitized_section_title . '_section_' . $story_title;
 				$this->set_setting( $wp_customize, $section_customizer_name , 'absint' );
+				$this->set_selective_refresh( $wp_customize, $section_customizer_name );
 				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_customizer_name, [
 					'type'        => 'cst_select_control',
 					'section'     => $section_name,
@@ -958,6 +959,20 @@ class CST_Customizer {
 					case 'sports_section':
 						\CST\CST_Section_Front::get_instance()->render_section_blocks( $partial->id );
 						break;
+				}
+			}
+			unset($matches);
+			unset($partials);
+			$partials = preg_match( '/cst\_(.+)_section\_(.+)/', $partial->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
+				switch ( $matches[2] ) {
+					case 'three_block_two_one_1':
+					case 'three_block_two_one_2':
+						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes' ] );
+						break;
+					case 'three_block_two_one_3':
+						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes', 'custom_image_size' => 'chiwire-header-large' ] );
 				}
 			}
 		}
