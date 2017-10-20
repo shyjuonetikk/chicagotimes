@@ -94,6 +94,11 @@ class CST_Customizer {
 		'five_block_4',
 		'five_block_5',
 	];
+	public $three_block_two_one = [
+		'three_block_two_one_1',
+		'three_block_two_one_2',
+		'three_block_two_one_3',
+	];
 	private $sports_term = false;
 
 	public static function get_instance() {
@@ -204,8 +209,12 @@ class CST_Customizer {
 				'capability'      => $this->capability,
 				'active_callback' => [ $this, 'tax_section' ],
 			] );
+			$block_type = $this->five_block;
 			// Add control and setting for each section
-			foreach ( $this->five_block as $story_title ) {
+			if ( 'Sports' === $section_choice ) {
+				$block_type = $this->three_block_two_one;
+			}
+			foreach ( $block_type as $story_title ) {
 				$section_customizer_name = 'cst_' . $sanitized_section_title . '_section_' . $story_title;
 				$this->set_setting( $wp_customize, $section_customizer_name , 'absint' );
 				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_customizer_name, [
