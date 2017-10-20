@@ -216,6 +216,7 @@ class CST_Customizer {
 					'label' => 'Choose SendToNews Video',
 					'description' => 'SendToNews description',
 					'choices' => [
+						'smart' => 'Smart Player',
 						'cubs-baseball' => 'Cubs',
 						'bulls' => 'Bulls',
 						'bears-football' => 'Bears',

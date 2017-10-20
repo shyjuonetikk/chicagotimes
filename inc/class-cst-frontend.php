@@ -26,6 +26,7 @@ class CST_Frontend {
 		'blackhawks' 		=> 'uy7k8sat',
 		'blackhawks-hockey' => 'uy7k8sat',
 		'sports'            => 'uDnVEu1d',
+		'smart'            => 'ugWFJC3t',
 	);
 
 	private $headlines_network_slugs = array(
