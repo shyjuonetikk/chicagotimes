@@ -26,12 +26,15 @@
 							<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_three_block_two_one_2' ) ?>
 						</div><!-- /hp-main-lead -->
 						<div class="columns small-12 large-8 more-stories-container other-lead-stories">
-							<?php $obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( 'cst_sports_section_three_block_two_one_3' ) );
-							\CST_Frontend::get_instance()->single_mini_story( [
-									'story' => $obj,
-									'partial_id' => 'cst_sports_section_three_block_two_one_3',
-									'custom_image_size' => 'chiwire-header-large',
-							]); ?>
+							<?php
+								CST_Customizer::get_instance()->send_to_news_render_callback( 'cst_sports_section_three_block_two_one_3' );
+							?>
+<!--							--><?php //$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( 'cst_sports_section_three_block_two_one_3' ) );
+//							\CST_Frontend::get_instance()->single_mini_story( [
+//									'story' => $obj,
+//									'partial_id' => 'cst_sports_section_three_block_two_one_3',
+//									'custom_image_size' => 'chiwire-header-large',
+//							]); ?>
 							<div class="show-for-large-up">
 								<?php CST()->frontend->inject_newsletter_signup( [ 'newsletter' => 'sports', 'wrapper_class' => 'small-12 newsletter-box' ] ); ?>
 							</div>

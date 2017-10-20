@@ -97,7 +97,6 @@ class CST_Customizer {
 	public $three_block_two_one = [
 		'three_block_two_one_1',
 		'three_block_two_one_2',
-		'three_block_two_one_3',
 	];
 	private $sports_term = false;
 
@@ -201,6 +200,32 @@ class CST_Customizer {
 			if ( 'Sports' === $section_choice ) {
 				$section_title = '2 slottable ' . $section_choice . ' stories ';
 				$priority = 320;
+				$this->set_setting( $wp_customize, 'cst_sports_section_three_block_two_one_3', 'sanitize_text_field' );
+				$this->set_selective_refresh( $wp_customize, 'cst_sports_section_three_block_two_one_3' );
+				$wp_customize->selective_refresh->add_partial( 'cst_sports_section_three_block_two_one_3', [
+					'selector'            => '.js-' . str_replace( '_', '-', 'cst_sports_section_three_block_two_one_3' ),
+					'settings'            => 'cst_sports_section_three_block_two_one_3',
+					'container_inclusive' => false,
+					'sanitize_callback'   => 'sanitize_text_field',
+					'render_callback'     => [ $this, 'send_to_news_render_callback' ],
+				] );
+				$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'cst_sports_section_three_block_two_one_3',
+				[
+					'type' => 'select',
+					'section' => $section_name,
+					'label' => 'Choose SendToNews Video',
+					'description' => 'SendToNews description',
+					'choices' => [
+						'cubs-baseball' => 'Cubs',
+						'bulls' => 'Bulls',
+						'bears-football' => 'Bears',
+						'blackhawks-hockey' => 'Blackhawks',
+						'white-sox' => 'White Sox',
+						'sports' => 'Sports',
+						'fire-soccer' => 'Fire',
+					]
+				]
+				));
 			}
 			$wp_customize->add_section( $section_name, [
 				'title'           => __( $section_title, 'chicagosuntimes' ),
@@ -983,6 +1008,12 @@ class CST_Customizer {
 		return '';
 	}
 
+	public function send_to_news_render_callback( $partial ) {
+		$video_embed_slug = get_theme_mod( $partial );
+		if ( $video_embed_slug ) {
+			echo CST_Frontend::get_instance()->inject_send_to_news_video_player( $video_embed_slug, 'stn-video-embed' );
+		}
+	}
 	/**
 	 * Get all published posts to display in Select2 dropdown
 	 *
