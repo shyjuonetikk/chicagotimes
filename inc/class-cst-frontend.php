@@ -1267,7 +1267,7 @@ class CST_Frontend {
 				add_filter( 'the_excerpt', 'wpautop' );
 			}
 			?>
-			<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['image_class'] ); ?>">
+			<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['image_class'] ); ?> outdent">
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
 				<?php
 					$featured_image_id = $obj->get_featured_image_id();
@@ -1324,9 +1324,11 @@ class CST_Frontend {
 				<?php } ?>
 			</div>
 			<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author, $args['display_relative_timestamp'] ); ?></div>
-			</div>
 			<?php
 		}
+		?>
+		</div>
+<?php
 	}
 	/**
 	 * Fetch and output content from the specified section

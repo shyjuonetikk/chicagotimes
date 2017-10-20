@@ -117,7 +117,7 @@ class CST_Section_Front {
 	 */
 	public function section_hero_story( $headline ) {
 		?>
-		<div class="hero-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
+		<div class="hero-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?> prime">
 		<?php
 		$obj = Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
@@ -129,7 +129,7 @@ class CST_Section_Front {
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-sf-hero-story-title" >
 					<h3 class="hero-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 				</a>
-				<div class="columns small-12 medium-6 large-12">
+				<div class="columns small-12 medium-6 large-12 outdent">
 					<div class="row">
 						<div class="hidden-for-large-up">
 							<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-sf-hero-story-image" >

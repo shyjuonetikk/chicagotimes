@@ -30,6 +30,7 @@
 							\CST_Frontend::get_instance()->single_mini_story( [
 									'story' => $obj,
 									'partial_id' => 'cst_sports_section_three_block_two_one_3',
+									'custom_image_size' => 'chiwire-header-large',
 							]); ?>
 							<div class="show-for-large-up">
 								<?php CST()->frontend->inject_newsletter_signup( [ 'newsletter' => 'sports', 'wrapper_class' => 'small-12 newsletter-box' ] ); ?>
