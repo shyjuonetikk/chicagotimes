@@ -959,19 +959,19 @@ class CST_Customizer {
 			}
 		}
 		if ( is_tax( 'cst_section' ) ) {
-			$partials = preg_match( '/cst\_(.+)\_section_headlines\_(\d+)/', $partial->id, $matches );
+			$partials = preg_match( '/cst\_(.+)\_section_five_block\_(\d+)/', $partial->id, $matches );
 			if ( $partials && ! empty( $matches ) ) {
 				$article_position = 'five_block_' . $matches[2];
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 				switch ( $article_position ) {
 					case 'five_block_1':
-						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes' ] );
+						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout_type' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes' ] );
 						break;
 					case 'five_block_2':
 					case 'five_block_3':
 					case 'five_block_4':
 					case 'five_block_5':
-						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'regular', 'partial_id' => $partial->id, 'watch' => 'yes', 'render_partial' => true ] );
+						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout_type' => 'regular', 'partial_id' => $partial->id, 'watch' => 'yes', 'render_partial' => true ] );
 						break;
 				}
 			}
@@ -993,10 +993,10 @@ class CST_Customizer {
 				switch ( $matches[2] ) {
 					case 'three_block_two_one_1':
 					case 'three_block_two_one_2':
-						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes' ] );
+						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout_type' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes' ] );
 						break;
 					case 'three_block_two_one_3':
-						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes', 'custom_image_size' => 'chiwire-header-large' ] );
+						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout_type' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes', 'custom_image_size' => 'chiwire-header-large' ] );
 				}
 			}
 		}
