@@ -41,7 +41,7 @@ class Article extends Post {
 			if ( 'video' === $media_type && '--disable--' !== $video_type ) {
 				return $media_type;
 			}
-			return 'image';
+			return $media_type;
 		} else {
 			return 'image';
 		}
