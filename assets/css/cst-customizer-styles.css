@@ -4,3 +4,6 @@
 #customize-theme-controls .cst-section-sort li.cst-item {
     padding:10px;
 }
+#customize-theme-controls .cst-section-sort li.cst-item.highlight {
+    background-color: #f0f0f0;
+}

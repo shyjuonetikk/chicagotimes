@@ -15,12 +15,20 @@
   api.controlConstructor.cst_sf_sorter_control = api.Control.extend({
     ready: function() {
       let control = this;
-      let list;
+      let list, itemMoved, $item;
       let element = $("#" + control.id);
       let $collection = $("#" + control.id + '-collection');
       let collection = control.id + '-collection';
       api.Control.prototype.ready.call(control);
       element.sortable({
+        change: function (event, ui) {
+          console.log(ui.item[0] + ' changed.');
+          itemMoved = setTimeout( $.proxy( function(){
+            $(this).find('.highlight').removeClass('highlight');
+            itemMoved = 0;
+          }, this ), 3000 );
+          ui.item.addClass('highlight');
+        },
         update: function (event, ui) {
           cstSorterControl.update(element,ui,$collection);
         }
