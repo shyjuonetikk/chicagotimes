@@ -199,7 +199,7 @@ class CST_Customizer {
 			$priority = 400;
 			$block_type = $this->five_block;
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
-				$section_title = '2 slottable ' . $section_choice . ' stories ';
+				$section_title = '2 slottable ' . $section_choice . ' stories &amp; ordering';
 				$priority = 320;
 				$this->set_setting( $wp_customize, 'cst_sports_section_three_block_two_one_3', 'sanitize_text_field' );
 				$this->set_selective_refresh( $wp_customize, 'cst_sports_section_three_block_two_one_3' );
