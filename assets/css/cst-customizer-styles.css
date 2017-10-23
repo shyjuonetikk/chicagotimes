@@ -3,7 +3,10 @@
 }
 #customize-theme-controls .cst-section-sort li.cst-item {
     padding:10px;
+    transition: background-color 2s ease;
+    background: #fff;
 }
 #customize-theme-controls .cst-section-sort li.cst-item.highlight {
-    background-color: #f0f0f0;
+    background-color: #d0d0d0;
+    transition: background-color 2s ease;
 }
