@@ -24,7 +24,6 @@
 		<?php echo wp_kses_post( CST()->get_template_part( 'post/meta-byline', array( 'obj' => $obj ) ) ); ?>
 		<div class="post-content columns small-12 large-12 p402_premium end" itemprop="articleBody">
 		<?php
-		CST()->frontend->inject_chatter_parameters( $obj );
 		$yieldmo_tag = $obj->get_yieldmo_tag();
 		if ( $yieldmo_tag ) {
 			$yieldmo_printed_tag = CST()->yieldmo_tags->ym_get_demo_tag( $yieldmo_tag );
@@ -46,7 +45,7 @@
 		</div>
 		<?php echo wp_kses_post( CST()->get_template_part( 'post/meta-bottom', array( 'obj' => $obj, 'is_main_query' => true ) ) ); ?>
 	<?php } else { ?>
-		<div class="section-front small-12">
+		<div class="section-front row">
 		<?php
 		if ( $obj->get_featured_image_id() ) { ?>
 			<div class="section-image small-4">

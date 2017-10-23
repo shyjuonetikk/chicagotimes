@@ -398,6 +398,17 @@ class CST {
 	}
 
 	/**
+	 * Expose the Google Newsstand analytics content as https://chicago.suntimes.com/analytics.txt
+	 *
+	 * Create a page and use the Template "Rewrite Me"
+	 * Add a rule for your custom rewrite
+	 * Remove add_action (in $this->setup_actions() ) to disable.
+	 */
+	public function temporary_rewrite_rules() {
+		add_rewrite_rule( '^(analytics.txt)$', 'index.php?pagename=rewrite-me&where=analytics.txt', 'top' );
+		add_rewrite_tag('%where%', '([^&]+)');
+	}
+	/**
 	 * Set up any actions for the theme
 	 */
 	private function setup_actions() {
@@ -405,6 +416,7 @@ class CST {
 		add_action( 'init', [ $this, 'action_init_early' ], 2 );
 		add_action( 'widgets_init', [ $this, 'action_widgets_init' ], 11 );
 		add_action( 'init', [ $this, 'admin_roles_for_customizer' ], 10, 3 );
+		add_action( 'init', [ $this, 'temporary_rewrite_rules' ], 10, 4 ); // See $this->temporary_rewrite_rules()
 
 		//VIP: Rewrite rules of random blogs were being flushed since a term id is passed to that hook and the function accepts a blog_id
 
@@ -1575,9 +1587,9 @@ class CST {
 		// Rewrite rules for our custom post types
 		$post_types = '';
 		foreach ( $this->get_post_types() as $ptype ) {
-			if ( 'cst_feature' !== $ptype ) {
+//			if ( 'cst_feature' !== $ptype ) {
 				$post_types .= '&post_type[]=' . $ptype;
-			}
+//			}
 		}
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
@@ -1588,6 +1600,7 @@ class CST {
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/liveblog/(.*)/?$' ] = 'index.php?index.php?cst_section=$matches[1]&name=$matches[2]&liveblog=$matches[3]' . $post_types;
 
 		$rewrites[ '([^/]+)/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?pagename=$matches[1]&name=$matches[2]&page=$matches[3]&post_type[]=cst_feature';
+		$rewrites[ '([^/]+)/([^/]+)/amp/?$' ] = 'index.php?pagename=$matches[1]&name=$matches[2]&amp=$matches[3]&post_type[]=cst_feature';
 		return $rewrites;
 	}
 

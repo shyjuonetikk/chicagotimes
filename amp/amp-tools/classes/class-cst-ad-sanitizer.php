@@ -68,7 +68,7 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		$ad_node_nativo = AMP_DOM_Utils::create_node( $this->dom, 'amp-ad', [
 			// Taken from example at https://github.com/ampproject/amphtml/blob/master/ads/nativo.md
 			'width'            => 300,
-			'height'           => 200,
+			'height'           => 250,
 			'type'             => 'nativo',
 			'layout'           => 'responsive',
 			'src'              => '//s.ntv.io/serve/load.js'
@@ -106,12 +106,18 @@ class CST_AMP_Ad_Injection_Sanitizer extends AMP_Base_Sanitizer {
 		] );
 
 		// Add in Teads based on paragraph count
-		if ( $number_of_paragraph_blocks > 1 ) {
-			$paragraph_nodes->item( 2 )->parentNode->insertBefore( $ad_node_teads, $paragraph_nodes->item( 2 ) );
+		if ( $number_of_paragraph_blocks >= 2 ) {
+			// Zendesk 69406 - prevent fatal errors
+			if ( is_callable( array( $paragraph_nodes->item( 2 )->parentNode, 'insertBefore' ) ) ) {
+				$paragraph_nodes->item( 2 )->parentNode->insertBefore( $ad_node_teads, $paragraph_nodes->item( 2 ) );
+			}
 		}
 		// Now add in the Nativo unit
 		if ( $number_of_paragraph_blocks > 5 ) {
-			$paragraph_nodes->item( 6 )->parentNode->insertBefore( $ad_node_nativo, $paragraph_nodes->item( 6 ) );
+			// VIP: Stopping fatal error "Uncaught Error: Call to a member function insertBefore() on null"
+			if ( is_callable( array( $paragraph_nodes->item( 6 )->parentNode, 'insertBefore' ) ) ) {
+				$paragraph_nodes->item( 6 )->parentNode->insertBefore( $ad_node_nativo, $paragraph_nodes->item( 6 ) );
+			}
 		}
 		// Now add in multiple cubes spaced as best possible
 		if ( $paras_to_inject_ad_into >= 1 ) {
