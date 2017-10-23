@@ -178,7 +178,7 @@ class CST_Section_Front {
 		$team_display_order = explode( ',', $this->sort_order );
 		foreach ( $team_display_order as $index ) {
 			if ( isset( $team_sections[$index]) )  {
-				$slotted = $this->create_partials( $team_sections[$index] );
+				$slotted = $this->create_partials( $index );
 				$show_section = false;
 				foreach ( $slotted as $partial_id => $value ) { // Do we have items to display?
 					if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
