@@ -12,7 +12,6 @@
 				<?php \CST\CST_Section_Front::get_instance()->five_block( get_queried_object()->slug );?>
 			</div>
 			<? } ?>
-			<a id="newsfeed-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php get_template_part( 'parts/images/main-site-logo' ); ?></a>
 
 			<?php if ( have_posts() ) : ?>
 
