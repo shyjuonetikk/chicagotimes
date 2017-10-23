@@ -4,10 +4,11 @@
 <div class="spacer"></div>
 <?php
 $sf_class = '';
-if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) && is_tax( 'cst_section' ) ) {
-	$sf_class = "section_front_wrapper";
-}
-if ( is_tax() ) { ?>
+if ( is_tax() ) {
+	if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) && is_tax( 'cst_section' ) ) {
+		$sf_class = "section_front_wrapper stories-container";
+	}
+?>
 <div class="<?php echo esc_attr( $sf_class ); ?>">
 	<div class="row">
 		<?php do_action( 'cst_section_front_heading' ); ?>
