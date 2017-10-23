@@ -183,6 +183,7 @@ class CST_Section_Front {
 				foreach ( $slotted as $partial_id => $value ) { // Do we have items to display?
 					if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
 						$show_section = true;
+						continue;
 					}
 				}
 				if ( $show_section && isset( $team_sections[$index] ) ) {

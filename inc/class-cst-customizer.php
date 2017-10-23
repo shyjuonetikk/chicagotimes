@@ -283,7 +283,7 @@ class CST_Customizer {
 					if ( 'sports' === $section_name ) {
 						return true;
 					}
- 					if ( in_array( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
+ 					if ( array_key_exists( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
 						return true;
 					}
 					if ( $current_obj->slug === $section_name ) {
