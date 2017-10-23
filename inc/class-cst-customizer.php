@@ -197,8 +197,9 @@ class CST_Customizer {
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
 			$section_title = $section_choice . ' section.';
 			$priority = 400;
-			if ( 'Sports' === $section_choice ) {
-				$section_title = '2 slottable ' . $section_choice . ' stories ';
+			$block_type = $this->five_block;
+			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
+				$section_title = '2 slottable ' . $section_choice . ' stories &amp; ordering';
 				$priority = 320;
 				$this->set_setting( $wp_customize, 'cst_sports_section_three_block_two_one_3', 'sanitize_text_field' );
 				$this->set_selective_refresh( $wp_customize, 'cst_sports_section_three_block_two_one_3' );
@@ -214,9 +215,9 @@ class CST_Customizer {
 					'type' => 'select',
 					'section' => $section_name,
 					'label' => 'Choose SendToNews Video',
-					'description' => 'SendToNews description',
+					'priority' => 321,
+					'description' => 'Show relevant video clips:',
 					'choices' => [
-						'smart' => 'Smart Player',
 						'cubs-baseball' => 'Cubs',
 						'bulls' => 'Bulls',
 						'bears-football' => 'Bears',
@@ -227,6 +228,7 @@ class CST_Customizer {
 					]
 				]
 				));
+				$block_type = $this->three_block_two_one;
 			}
 			$wp_customize->add_section( $section_name, [
 				'title'           => __( $section_title, 'chicagosuntimes' ),
@@ -235,11 +237,7 @@ class CST_Customizer {
 				'capability'      => $this->capability,
 				'active_callback' => [ $this, 'tax_section' ],
 			] );
-			$block_type = $this->five_block;
-			// Add control and setting for each section
-			if ( 'Sports' === $section_choice ) {
-				$block_type = $this->three_block_two_one;
-			}
+
 			foreach ( $block_type as $story_title ) {
 				$section_customizer_name = 'cst_' . $sanitized_section_title . '_section_' . $story_title;
 				$this->set_setting( $wp_customize, $section_customizer_name , 'absint' );
@@ -285,7 +283,7 @@ class CST_Customizer {
 					if ( 'sports' === $section_name ) {
 						return true;
 					}
- 					if ( in_array( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
+ 					if ( array_key_exists( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
 						return true;
 					}
 					if ( $current_obj->slug === $section_name ) {
@@ -1010,6 +1008,9 @@ class CST_Customizer {
 	}
 
 	public function send_to_news_render_callback( $partial ) {
+		if ( $partial instanceof WP_Customize_Partial ) {
+			$partial = $partial->id;
+		}
 		$video_embed_slug = get_theme_mod( $partial );
 		if ( $video_embed_slug ) {
 			echo CST_Frontend::get_instance()->inject_send_to_news_video_player( $video_embed_slug, 'stn-video-embed' );
@@ -1107,11 +1108,11 @@ class CST_Customizer {
 	 */
 	public function setup_sorters( \WP_Customize_Manager $wp_customize ) {
 
-		foreach ( \CST\CST_Section_Front::get_instance()->sortable_sections as $sortable_section ) {
+		foreach ( \CST\CST_Section_Front::get_instance()->sortable_sections as $name => $sortable_section ) {
 			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter' , 'absint' );
 			$wp_customize->add_control( new WP_Customize_CST_SF_Sorter_Control( $wp_customize, $sortable_section['slug'] . '_section_sorter', [
 				'type'        => 'cst_sf_sorter_control',
-				'priority'    => 42,
+				'priority'    => 460,
 				'section'     => 'cst[' . $sortable_section['slug'] . ']_section',
 				'active_callback' => [ $this, $sortable_section['callback'] ],
 				'label'       => __( $sortable_section['label'], 'chicagosuntimes' ),

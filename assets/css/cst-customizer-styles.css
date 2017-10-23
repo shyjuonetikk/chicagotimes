@@ -1,6 +1,6 @@
 .cst-section-sort {
     background: #fff;
 }
-.cst-section-sort li.cst-item {
+#customize-theme-controls .cst-section-sort li.cst-item {
     padding:10px;
 }
