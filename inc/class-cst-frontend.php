@@ -1169,7 +1169,7 @@ class CST_Frontend {
 		$count_headlines = count( $headlines );
 		$counter = 0;
 		$close_me = false; ?>
-		<div class="row mini-stories small-collapse" >
+		<div class="row mini-stories small-collapse stories" >
 		<?php $partials = array_keys( $headlines ); ?>
 			<?php foreach ( $partials as $partial_id ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
@@ -1177,7 +1177,7 @@ class CST_Frontend {
 				if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
 						// First item and odd total
 						?>
-						<div class="prime-lead-story small-12 medium-4">
+						<div class="prime-lead-story small-12 medium-4 lead-story">
 							<?php
 							$this->single_mini_story( [
 								'story' => $obj,

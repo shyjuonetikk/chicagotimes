@@ -3992,7 +3992,9 @@ body.post-gallery-lightbox-active {
     width: 100%; }
   .homepage_wrapper .magic-link-size {
     font-size: 0.8rem;
-    line-height: 1.2rem; } }
+    line-height: 1.2rem; }
+  .homepage_wrapper .section_front_wrapper.stories-container .sidebar {
+    width: auto; } }
 @media only screen and (max-width: 40em) {
   .homepage_wrapper .sidebar {
     clear: both; } }
@@ -4492,7 +4494,9 @@ body.post-gallery-lightbox-active {
     width: 100%; }
   .section_front_wrapper .magic-link-size {
     font-size: 0.8rem;
-    line-height: 1.2rem; } }
+    line-height: 1.2rem; }
+  .section_front_wrapper .section_front_wrapper.stories-container .sidebar {
+    width: auto; } }
 
 .page_wrapper {
   width: 100%;
