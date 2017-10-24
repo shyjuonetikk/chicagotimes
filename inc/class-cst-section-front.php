@@ -169,9 +169,12 @@ class CST_Section_Front {
 	/**
 	 * Render Sports section content blocks in sort order
 	 *
+	 * Name of partial to display and whether to display the relative timestamp or not.
+	 *
 	 * @param $section_block_partial
+	 * @param $display_relative_timestamp
 	 */
-	public function render_section_blocks( $section_block_partial ) {
+	public function render_section_blocks( $section_block_partial, $display_relative_timestamp = false ) {
 		$ad_counter = 1;
 		$team_sections = $this->chicago_sports_team_slugs;
 		$this->sort_order = get_theme_mod( $section_block_partial ); // Used during render to get the latest order
@@ -189,6 +192,7 @@ class CST_Section_Front {
 				if ( $show_section && isset( $team_sections[$index] ) ) {
 					$term_link = wpcom_vip_get_term_link( $index,'cst_section' );
 					if ( ! is_wp_error( $term_link ) ) {
+						$slotted['display_relative_timestamp'] = $display_relative_timestamp;
 						?>
 						<div class="row">
 							<div class="stories-container">

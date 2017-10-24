@@ -1161,11 +1161,12 @@ class CST_Frontend {
 	* @param $headlines array
 	*/
 	public function mini_stories_content_block( $headlines ) {
-		$count_headlines = count( $headlines );
 		$display_relative_timestamp = true;
 		if ( isset( $headlines['display_relative_timestamp'] ) && false === $headlines['display_relative_timestamp'] ){
 			$display_relative_timestamp = false;
 		}
+		unset( $headlines['display_relative_timestamp'] );
+		$count_headlines = count( $headlines );
 		$counter = 0;
 		$close_me = false; ?>
 		<div class="row mini-stories small-collapse" >
