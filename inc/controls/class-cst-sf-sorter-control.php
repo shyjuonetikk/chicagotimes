@@ -80,18 +80,17 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			<label for="{{ data.id }}">
 				<# if ( data.label ) { #>
 					<span class="customize-control-title">{{ data.label }}</span>
-					<# } #>
-						<# if ( data.description ) { #>
-							<span class="description customize-control-description">{{ data.description }}</span>
-							<# } #>
+				<# } #>
+				<# if ( data.description ) { #>
+					<span class="description customize-control-description">{{ data.description }}</span>
+				<# } #>
 			</label>
 				<# if ( ! data.sortOrder ) {
 					return;
-					} #>
+				} #>
 				<ul id="{{ data.id }}" class="widget-area-select cst-section-sort">
-
-					<# for ( slug in data.sortValues ) { #>
-						<li class="ui-state-default cst-item" data-slug="{{{ slug }}}"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>{{ data.sortValues[slug] }}</li>
+					<# for ( slug in data.sortOrder ) { #>
+						<li class="ui-state-default cst-item" data-slug="{{{ slug }}}">{{ data.sortValues[data.sortOrder[slug]] }}</li>
 					<# } #>
 				</ul>
 			<input type="hidden" id="{{ data.id }}-collection" value="{{ data.sortOrder }}" class="cst-customize-control-sorter"/>
