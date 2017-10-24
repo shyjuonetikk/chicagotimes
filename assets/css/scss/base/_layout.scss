@@ -42,7 +42,6 @@
 		margin-bottom: 0.5rem;
 	}
 	.stories-container {
-		padding-top: 10px;
 		.stories {
 			p,
 			li {
@@ -130,6 +129,7 @@
 				background-color: $homepage_border_grey;
 				color: $cst_black;
 				padding: 0.25rem;
+				margin-top:0;
 				a {
 					color: $cst_black;
 				}
