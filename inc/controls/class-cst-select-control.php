@@ -43,7 +43,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 							<# } #>
 			</label>
 			<input class="widefat {{{ data.id }}}" id="{{{ data.id }}}" name="{{{ data.id }}}" value="{{{ data.headline }}}"
-				   placeholder="Choosey choose" data-story-title="{{{ data.story_title }}}" data-related-section="{{{ data.related_section }}}"/>
+			       placeholder="Choosey choose" data-story-title="{{{ data.story_title }}}" data-related-section="{{{ data.related_section }}}"/>
 			<?php
 		}
 
