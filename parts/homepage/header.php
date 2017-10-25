@@ -1,12 +1,12 @@
 <?php
 get_template_part( 'parts/header-brand-navigation' );
 ?>
-<div class="homepage_wrapper">
+	<div class="homepage_wrapper">
 <?php
 if ( is_active_sidebar( 'homepage_breaking_news' ) ) { ?>
 	<div class="hp-bn-wrapper" >
 		<ul >
-		<?php dynamic_sidebar( 'homepage_breaking_news' ); ?>
+			<?php dynamic_sidebar( 'homepage_breaking_news' ); ?>
 		</ul>
 	</div>
 <?php } ?>
