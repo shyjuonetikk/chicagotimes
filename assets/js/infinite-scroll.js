@@ -133,7 +133,6 @@
 				document.title = wp_title;
 
         window.CSTAds && CSTAds.refreshAllArticleAds();
-        window.CSTTripleLift && CSTTripleLift.inject()
 				CSTAnalytics.triggerPageview();
 				
 			} else {
