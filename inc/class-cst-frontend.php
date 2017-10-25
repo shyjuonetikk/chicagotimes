@@ -38,9 +38,6 @@ class CST_Frontend {
 	public static $pgs_section_slugs = array();
 	private $default_image_partial_url = '/assets/images/favicons/mstile-144x144.png';
 
-	public static $triple_lift_section_slugs = array(
-		'dear-abby',
-	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
