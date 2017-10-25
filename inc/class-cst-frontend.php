@@ -2544,28 +2544,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	}
 
 	/**
-	* Determine whether to include the Triplelift ad element.
-	* @param $obj \CST\Objects\Article | \CST\Objects\Post
-	*
-	* @return bool
-	*
-	*/
-	public function include_triple_lift( $obj ) {
-		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
-
-		if ( $article_section_slugs ) {
-			if ( array_intersect( CST_Frontend::$triple_lift_section_slugs, $article_section_slugs ) ) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-
-	}
-
-	/**
 	 * Handle ad injection logic for section fronts and article pages and related infinite scrolling
 	 *
 	 * @param $paged page number within infinite scroll
