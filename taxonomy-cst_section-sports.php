@@ -14,6 +14,11 @@
 						<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST_Customizer::get_instance()->get_upper_section_stories() ); ?>
 					</div><!-- /#sf-section-lead -->
 				</div>
+				<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { ?>
+					<div class="columns small-12 sidebar sf-inline-sidebar widgets mobile">
+						<?php the_widget( 'CST_Ad_Widget', [], 'dfp-rr-cube-1' ); ?>
+					</div>
+				<?php } ?>
 				<div class="row">
 					<div class="columns small-12 more-stories-container">
 						<h2 class="more-sub-head"><a href="#">Slottable Sports Section Front Stories and Video Player</a></h2>
@@ -31,6 +36,13 @@
 						</div>
 					</div>
 				</div>
+				<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() && is_active_sidebar( 'sports_sf_sidebar' ) ) { ?>
+					<div class="columns small-12 sidebar sf-inline-sidebar widgets mobile">
+						<ul class="widgets">
+						<?php dynamic_sidebar( 'sports_sf_sidebar' ); ?>
+						</ul>
+					</div>
+				<?php } ?>
 				<hr>
 				<div class="cst-ad-container" id="nativo-cst-homepage-01">Nativo position here</div>
 				<hr>
@@ -48,11 +60,19 @@
 					endif;
 					?>
 				</div>
+				<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() && is_active_sidebar( 'sports_sf_bottom_sidebar' ) ) { ?>
+					<div class="columns small-12 sidebar sf-inline-sidebar widgets mobile">
+						<ul class="widgets">
+						<?php dynamic_sidebar( 'sports_sf_bottom_sidebar' ); ?>
+						</ul>
+					</div>
+				<?php } ?>
 			</div>
-
-			<div class="right-rail columns medium-4 large-3 show-for-medium-up">
-				<?php get_sidebar(); ?>
-			</div>
+			<?php if ( function_exists( 'jetpack_is_mobile' ) && ! jetpack_is_mobile() ) { ?>
+				<div class="right-rail columns medium-4 large-3 show-for-medium-up">
+					<?php get_sidebar(); ?>
+				</div>
+			<?php } ?>
 		</div>
 
 

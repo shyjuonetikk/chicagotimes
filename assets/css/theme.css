@@ -4234,6 +4234,17 @@ body.post-gallery-lightbox-active {
 
 .section_front_wrapper .row {
   max-width: 83.4rem; }
+.section_front_wrapper .sf-inline-sidebar {
+  padding-left: 0.6rem;
+  padding-right: 0.6rem; }
+  .section_front_wrapper .sf-inline-sidebar.mobile {
+    padding-bottom: 0.6rem;
+    padding-left: 0;
+    padding-right: 0; }
+  .section_front_wrapper .sf-inline-sidebar .cst-ad-container {
+    text-align: right;
+    max-width: 320px;
+    margin: 0 auto; }
 .section_front_wrapper .stories .post-meta-author a, .section_front_wrapper .mini-stories .post-meta-author a {
   color: #231f20; }
 .section_front_wrapper .single-mini-story {

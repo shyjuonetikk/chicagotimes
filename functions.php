@@ -882,6 +882,14 @@ class CST {
 			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
+			'id'          => 'sports_sf_sidebar',
+			'name'        => esc_html__( 'Sports SF widgets', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
+			'id'          => 'sports_sf_bottom_sidebar',
+			'name'        => esc_html__( 'Sports SF bottom widgets', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
 			'id'          => 'entertainment_headlines',
 			'name'        => esc_html__( 'Entertainment Headlines', 'chicagosuntimes' ),
 		] );
