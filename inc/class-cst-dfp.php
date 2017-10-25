@@ -343,10 +343,10 @@ var dfp = {
     addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
-    addSize([640, 480], [[320, 50], [300, 50]]). //phone
-    addSize([414, 0], [[320, 50], [300, 50]]). //phone
-    addSize([375, 667], [[320, 50], [300, 50]]). //phone
-    addSize([0, 0], [[320, 50], [300, 50]]). //other
+    addSize([640, 480], [[320, 50]]). //phone
+    addSize([414, 0], [[320, 50]]). //phone
+    addSize([375, 667], [[320, 50]]). //phone
+    addSize([0, 0], [[320, 50]]). //other
 	  build();
     article_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
