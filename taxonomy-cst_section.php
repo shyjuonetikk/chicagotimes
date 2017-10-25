@@ -21,7 +21,7 @@ if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_obj
 			<div class="row">
 				<?php \CST\CST_Section_Front::get_instance()->five_block( get_queried_object()->slug );?>
 			</div>
-			<? } ?>
+			<?php } ?>
 
 			<?php if ( have_posts() ) : ?>
 
