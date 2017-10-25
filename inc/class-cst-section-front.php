@@ -221,10 +221,9 @@ class CST_Section_Front {
 		$placement          = 'div-gpt-placement-s';
 		$ad_template        = '<div class="cst-ad-container sf">%s</div>';
 		$mapping            = 'sf_new_inline_mapping';
-		$targeting          = 'rr cube 2';
-		$every_two = $counter % 2;
-		if ( $every_two ) {
-			$targeting = 'rr cube 3';
+		$targeting          = 'atf-leaderboard';
+		if ( 1 !== $counter ) {
+			$targeting .= ' ' . $counter;
 		}
 		$ad_unit_definition = CST()->dfp_handler->dynamic_unit(
 			$counter,
@@ -248,6 +247,7 @@ class CST_Section_Front {
 	 * Determine and return if on a sports or sports child section front
 	 */
 	public function is_sports_or_child( $id ) {
+		// @todo would this benefit from being cached?
 		return is_tax( 'cst_section', 'sports' ) || term_is_ancestor_of( $this->sports_object, $id, 'cst_section' );
 	}
 }

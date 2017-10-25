@@ -403,7 +403,8 @@ var dfp = {
       .addSize([0, 0], [320, 50]) //other
       .build();
     sf_new_inline_mapping = googletag.sizeMapping()
-      .addSize([992, 0], [[728,90],[300, 250]]) //desktop
+      .addSize([1025, 0], [[728,90],[300, 250]])
+      .addSize([992, 0], [[300, 250], [320, 50]]) //desktop
       .addSize([768, 0], [[300, 250]]) //tablet
       .addSize([640, 0], [[300, 250], [320, 50]]) //phone
       .addSize([414, 0], [[300, 250], [320, 50]]) //phone

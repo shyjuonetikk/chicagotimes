@@ -457,6 +457,19 @@
 				.sidebar {
 					width:auto;
 				}
+				.three-block {
+					width: 100%;
+				}
+			}
+			.more-stories-container {
+				.stories {
+					width: 100%;
+				}
+				.mini-stories {
+					.lead-story {
+						border-bottom:none;
+					}
+				}
 			}
 		}
 	}

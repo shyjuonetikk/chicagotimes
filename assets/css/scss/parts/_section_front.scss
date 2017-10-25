@@ -3,4 +3,12 @@
 		max-width:$page_width;
 	}
 	@include stories;
+	.stories-container {
+		.mini-stories {
+			.prime-lead-story {
+				border-bottom: none;
+				margin-bottom: 0;
+			}
+		}
+	}
 }

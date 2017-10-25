@@ -53,7 +53,7 @@ if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) {
 <?php } ?>
 		</article>
 
-	<?php if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) ) {
+	<?php if ( is_tax( 'cst_section', 'sports' ) ) {
 		\CST\CST_Section_Front::get_instance()->section_ad_injection( $current_post );
 	} else {
 		CST()->frontend->content_ad_injection( $paged );
