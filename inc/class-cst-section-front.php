@@ -118,14 +118,14 @@ class CST_Section_Front {
 	public function section_hero_story( $headline ) {
 		?>
 		<div class="hero-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?> prime">
-		<?php
-		$obj = Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
-		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-			$author          = \CST_Frontend::get_instance()->hp_get_article_authors( $obj );
-			remove_filter( 'the_excerpt', 'wpautop' );
-			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
-			add_filter( 'the_excerpt', 'wpautop' );
-			?>
+			<?php
+			$obj = Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+			if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+				$author          = \CST_Frontend::get_instance()->hp_get_article_authors( $obj );
+				remove_filter( 'the_excerpt', 'wpautop' );
+				$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
+				add_filter( 'the_excerpt', 'wpautop' );
+				?>
 				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-sf-hero-story-title" >
 					<h3 class="hero-title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 				</a>
@@ -159,12 +159,12 @@ class CST_Section_Front {
 						<?php \CST_Frontend::get_instance()->homepage_byline( $obj, $author ); ?>
 					</div>
 				</div>
-			<?php
-		}
-		?>
+				<?php
+			}
+			?>
 		</div>
-<?php
-		}
+		<?php
+	}
 
 	/**
 	 * Render Sports section content blocks in sort order
