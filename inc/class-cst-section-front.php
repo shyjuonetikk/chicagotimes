@@ -47,7 +47,7 @@ class CST_Section_Front {
 	}
 
 	public function setup_constants(  ) {
-		$this->sports_object = wpcom_vip_get_term_by( 'name', 'sports', 'cst_section' );
+		$this->sports_object = get_term_by( 'name', 'sports', 'cst_section' );
 		$this->sort_order = get_theme_mod( 'section_sorter-collection' );
 	}
 
@@ -64,7 +64,7 @@ class CST_Section_Front {
 	 * @param $term
 	 */
 	public function heading( $title = '', $term = '' ) {
-		$term_link = wpcom_vip_get_term_link( $term,'cst_section' );
+		$term_link = get_term_by( $term,'cst_section' );
 		if ( ! is_wp_error( $term_link ) ) { ?>
 			<h2 class="more-sub-head"><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( ucfirst( $title ) ); ?></a></h2>
 		<?php }
@@ -190,7 +190,7 @@ class CST_Section_Front {
 					}
 				}
 				if ( $show_section && isset( $team_sections[$index] ) ) {
-					$term_link = wpcom_vip_get_term_link( $index,'cst_section' );
+					$term_link = get_term_by( $index,'cst_section' );
 					if ( ! is_wp_error( $term_link ) ) {
 						$slotted['display_relative_timestamp'] = $display_relative_timestamp;
 						?>
