@@ -15,9 +15,11 @@
 					</div><!-- /#sf-section-lead -->
 				</div>
 				<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { ?>
+				<hr>
 					<div class="columns small-12 sidebar sf-inline-sidebar widgets mobile">
-						<?php the_widget( 'CST_Ad_Widget', [], 'dfp-rr-cube-1' ); ?>
+						<?php the_widget( 'CST_Ad_Widget', [], ['slot'=>'dfp-rr-cube-1','mapping'=>'sports_sf_mobile'] ); ?>
 					</div>
+				<hr>
 				<?php } ?>
 				<div class="row">
 					<div class="columns small-12 more-stories-container">
@@ -37,7 +39,7 @@
 					</div>
 				</div>
 				<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() && is_active_sidebar( 'sports_sf_sidebar' ) ) { ?>
-					<div class="columns small-12 sidebar sf-inline-sidebar widgets mobile">
+					<div class="small-12 sidebar widgets mobile">
 						<ul class="widgets">
 						<?php dynamic_sidebar( 'sports_sf_sidebar' ); ?>
 						</ul>
@@ -61,7 +63,7 @@
 					?>
 				</div>
 				<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() && is_active_sidebar( 'sports_sf_bottom_sidebar' ) ) { ?>
-					<div class="columns small-12 sidebar sf-inline-sidebar widgets mobile">
+					<div class="small-12 sidebar widgets mobile">
 						<ul class="widgets">
 						<?php dynamic_sidebar( 'sports_sf_bottom_sidebar' ); ?>
 						</ul>

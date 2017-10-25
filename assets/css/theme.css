@@ -4236,7 +4236,10 @@ body.post-gallery-lightbox-active {
   max-width: 83.4rem; }
 .section_front_wrapper .sf-inline-sidebar {
   padding-left: 0.6rem;
-  padding-right: 0.6rem; }
+  padding-right: 0.6rem;
+  float: none;
+  margin: auto;
+  width: 300px; }
   .section_front_wrapper .sf-inline-sidebar.mobile {
     padding-bottom: 0.6rem;
     padding-left: 0;
