@@ -31,7 +31,7 @@ class CST_TCX_Widget extends WP_Widget {
                     ?>
                     <li class="tcx_entertainment_widget tcx_widget widget">
                         <div class="large-12 medium-6 small-6">
-                        <script defer src=<?php echo esc_url( $url ) ?>></script>
+                        <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
                 <?php
@@ -40,7 +40,7 @@ class CST_TCX_Widget extends WP_Widget {
                     ?>
                    <li class="tcx_entertainment_widget tcx_widget widget">
                         <div class="large-12 medium-6 small-6">
-                        <script defer src=<?php echo esc_url( $url ) ?>></script>
+                        <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
                     <?php
@@ -53,7 +53,7 @@ class CST_TCX_Widget extends WP_Widget {
                 ?>
                     <li class="tcx_entertainment_widget tcx_widget widget">
                         <div class="large-12 medium-6 small-6">
-                        <script defer src=<?php echo esc_url( $url ) ?>></script>
+                        <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
                 <?php
@@ -63,7 +63,7 @@ class CST_TCX_Widget extends WP_Widget {
 
                    <li class="tcx_entertainment_widget tcx_widget widget">
                         <div class="large-12 medium-6 small-6">
-                        <script defer src=<?php echo esc_url( $url ) ?>></script>
+                        <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
                 <?php
@@ -76,7 +76,7 @@ class CST_TCX_Widget extends WP_Widget {
                     ?>
                     <li class="tcx_entertainment_widget tcx_widget widget">
                         <div class="large-12 medium-6 small-6">
-                        <script defer src=<?php echo esc_url( $url ) ?>></script>
+                        <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
                 <?php
@@ -85,7 +85,7 @@ class CST_TCX_Widget extends WP_Widget {
                     ?>
                    <li class="tcx_entertainment_widget tcx_widget widget">
                         <div class="large-12 medium-6 small-6">
-                        <script defer src=<?php echo esc_url( $url ) ?>></script>
+                        <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
                 <?php
@@ -98,7 +98,7 @@ class CST_TCX_Widget extends WP_Widget {
                     ?>
                     <li class="tcx_entertainment_widget tcx_widget widget">
                         <div class="large-12 medium-6 small-6">
-                        <script defer src=<?php echo esc_url( $url ) ?>></script>
+                        <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
                 <?php
@@ -108,7 +108,7 @@ class CST_TCX_Widget extends WP_Widget {
 
                    <li class="tcx_entertainment_widget tcx_widget widget">
                         <div class="large-12 medium-6 small-6">
-                        <script defer src=<?php echo esc_url( $url ) ?>></script>
+                        <script src=<?php echo esc_url( $url ) ?>></script>
                         </div>
                     </li>
                 <?php
