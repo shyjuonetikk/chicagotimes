@@ -81,7 +81,7 @@ class CST_Section_Front {
 	public function five_block( $title_slug ) {
 		$customizer_partials = $this->create_partials( $title_slug );
 		$render = false;
-		foreach ( $customizer_partials as $customizer_partial => $value ) {
+		foreach ( array_keys( $customizer_partials ) as $customizer_partial ) {
 			if ( get_theme_mod( $customizer_partial ) ) {
 				$render = true;
 			}
@@ -183,7 +183,7 @@ class CST_Section_Front {
 			if ( isset( $team_sections[$index]) )  {
 				$slotted = $this->create_partials( $index );
 				$show_section = false;
-				foreach ( $slotted as $partial_id => $value ) { // Do we have items to display?
+				foreach ( array_keys( $slotted ) as $partial_id ) { // Do we have items to display?
 					if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
 						$show_section = true;
 						continue;
