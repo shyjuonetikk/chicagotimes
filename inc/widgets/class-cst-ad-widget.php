@@ -45,6 +45,9 @@ class CST_Ad_Widget extends WP_Widget {
 		} else {
 			$mapping = 'sf_mapping';
 		}
+		if ( isset( $args['mapping'] ) ) {
+			$mapping = $args['mapping'];
+		}
 		echo wp_kses( CST()->dfp_handler->dynamic_unit( $ad_unit_index , 'div-gpt-rr-cube', 'dfp dfp-cube', $mapping, $targeting_name ),
 			CST()->dfp_kses
 		);
