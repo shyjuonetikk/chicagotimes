@@ -38,9 +38,6 @@ class CST_Frontend {
 	public static $pgs_section_slugs = array();
 	private $default_image_partial_url = '/assets/images/favicons/mstile-144x144.png';
 
-	public static $triple_lift_section_slugs = array(
-		'dear-abby',
-	);
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -2541,28 +2538,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			}
 		}
 		return $section_list;
-	}
-
-	/**
-	* Determine whether to include the Triplelift ad element.
-	* @param $obj \CST\Objects\Article | \CST\Objects\Post
-	*
-	* @return bool
-	*
-	*/
-	public function include_triple_lift( $obj ) {
-		$article_section_slugs = wp_list_pluck( $obj->get_sections(), 'slug' );
-
-		if ( $article_section_slugs ) {
-			if ( array_intersect( CST_Frontend::$triple_lift_section_slugs, $article_section_slugs ) ) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
-
 	}
 
 	/**
