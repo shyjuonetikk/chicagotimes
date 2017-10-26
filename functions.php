@@ -2167,13 +2167,6 @@ class CST {
 			'logic' => 'ads/limit_ads_on_features',
 			)
 		);
-		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
-			'header' => false,
-			'footer' => 'triplelift-footer.js',
-			'container' => false,
-			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
-			)
-		);
 		$this->ad_vendor_handler->register_vendor( 'adsupply', array(
 				'header' => 'adsupply-popunder-header.js',
 				'footer' => false,

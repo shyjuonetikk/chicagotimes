@@ -24,7 +24,6 @@
         this.headerSlider();
         this.rescaleHeadlinesImages();
         this.positionAndSizePostSidebar();
-        window.CSTTripleLift && CSTTripleLift.inject();
       }
       if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
