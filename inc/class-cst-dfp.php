@@ -69,7 +69,16 @@ class CST_DFP_Handler {
 		);
 	}
 
-	public function test_one_by_one( $index, $type = '', $class='' ) {
+	/**
+	 * @param $index
+	 * @param string $type
+	 * @param string $class
+	 *
+	 * @return string
+	 *
+	 * Setup to inject a 1x1 DFP definition primarily for Undertone
+	 */
+	public function one_by_one_unit( $index, $type = '', $class='' ) {
 		if ( empty( $type ) ) {
 			$type = 'div-gpt-placement';
 		}

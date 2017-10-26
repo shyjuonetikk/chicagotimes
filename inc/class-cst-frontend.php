@@ -69,7 +69,8 @@ class CST_Frontend {
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', [ $this, 'render_hp_footer_ad_unit' ], 99 );
 
-		add_action( 'cst_dfp_ad_settings', array( $this, 'setup_dfp_header_ad_settings' ) );
+		add_action( 'cst_dfp_ad_settings', [ $this, 'setup_dfp_header_ad_settings' ] );
+		add_action( 'wp_head', [ $this, 'setup_one_by_one_ad_definition' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_cst_openx_header_bidding_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_distroscale_injection' ] );
 		add_action( 'head_early_elements', [ $this, 'action_head_early_elements' ] );
@@ -2172,6 +2173,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		}
 	}
 
+	/**
+	* #1162 adding 1x1 DFP definition - hooked to wp_head
+	*/
+	public function setup_one_by_one_ad_definition(){
+		echo wp_kses( CST()->dfp_handler->one_by_one_unit( 1234, '', 'dfp onebyone dfp-centered' ), CST()->dfp_kses );
+	}
 	/**
 	* Display Chartbeat engagement based article list on home page
 	*/
