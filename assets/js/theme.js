@@ -28,7 +28,10 @@
       if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
 			}
-			this.taboola();},
+			if ('false' === CSTData.customize_preview) {
+			  this.taboola();
+      }
+			},
 
         /**
          * Cache elements to object-level variables
@@ -479,6 +482,10 @@
     $(document).ready(function(){
 
         $(document).foundation({
+          equalizer : {
+// Specify if Equalizer should make elements equal height once they become stacked.
+            equalize_on_stack: true
+          },
           offcanvas: {
             open_method: "move"
           },

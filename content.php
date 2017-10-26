@@ -1,4 +1,5 @@
 <?php $obj = \CST\Objects\Post::get_by_post_id( get_the_ID() ); ?>
+<?php global $wp_query; $current_post = $wp_query->current_post + 1; ?>
 <?php
 $sponsored = false;
 $attrs = '';
@@ -52,7 +53,12 @@ if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) {
 <?php } ?>
 		</article>
 
-		<?php CST()->frontend->content_ad_injection( $paged ); ?>
+	<?php if ( is_tax( 'cst_section', 'sports' ) ) {
+		\CST\CST_Section_Front::get_instance()->section_ad_injection( $current_post );
+	} else {
+		CST()->frontend->content_ad_injection( $paged );
+	}
+	?>
 
 		<?php if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) : ?>
 		</div>

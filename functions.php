@@ -309,6 +309,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-section-front.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -370,7 +371,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/class-cst-customizer-controls.php';
 
 		// Vendor plugins
 		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
@@ -889,6 +889,14 @@ class CST {
 		register_sidebar( [
 			'id'          => 'sportswire',
 			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
+			'id'          => 'sports_sf_sidebar',
+			'name'        => esc_html__( 'Sports SF widgets', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
+			'id'          => 'sports_sf_bottom_sidebar',
+			'name'        => esc_html__( 'Sports SF bottom widgets', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
 			'id'          => 'entertainment_headlines',

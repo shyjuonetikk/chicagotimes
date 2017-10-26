@@ -2,12 +2,19 @@
 	get_template_part( 'parts/header-brand-navigation' );
 } ?>
 <div class="spacer"></div>
-<?php if ( is_tax() ) { ?>
-	<div class="row sf-head">
+<?php
+$sf_class = '';
+if ( is_tax() ) {
+	if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) && is_tax( 'cst_section' ) ) {
+		$sf_class = "section_front_wrapper stories-container";
+	}
+?>
+<div class="<?php echo esc_attr( $sf_class ); ?>">
+	<div class="row">
 		<?php do_action( 'cst_section_front_heading' ); ?>
 	</div>
-	<?php
-}
+<?php }
+
 if ( is_home() || is_front_page() ) {
 	echo wp_kses( CST()->dfp_handler->dynamic_unit( 2, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered', 'hp_upper_super_leaderboard_mapping', 'Super leaderboard 2 970x90' ),
 		CST()->dfp_kses

@@ -22,9 +22,11 @@
             var related_section_element = el.data("related-section");
             if (related_section_element) {
               var constraining_section = api.control(related_section_element);
-              var constraining_section_id = constraining_section.settings.default.get();
-              if (constraining_section_id) {
-                data_object.cst_section = constraining_section_id;
+              if ( 'undefined' !== typeof constraining_section_id ) {
+                var constraining_section_id = constraining_section.settings.default.get();
+                if (constraining_section_id) {
+                  data_object.cst_section = constraining_section_id;
+                }
               }
             }
             return data_object;

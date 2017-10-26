@@ -17,7 +17,7 @@
 						<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_two' ) ?>
 						<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_three' ) ?>
 						<div class="show-for-large-up">
-							<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+							<?php CST()->frontend->inject_newsletter_signup( [ 'newsletter' => 'news' ] ); ?>
 						</div>
 					</div><!-- /hp-main-lead -->
 					<div class="columns small-12 large-8 more-stories-container other-lead-stories">
@@ -46,13 +46,13 @@
 </div>
 <?php } ?>
 						<div class="other-stories more-stories-container hide-for-xlarge-up" id="hp-sports-section-lead">
-							<?php CST()->frontend->sports_heading(); ?>
+							<?php CST()->frontend->sports_heading( 'Chicago Sports' ); ?>
 							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 						</div>
 					</div>
 					<div class="small-12 columns more-stories-container show-for-xlarge-up" id="hp-section-lead">
 					<hr>
-						<?php CST()->frontend->sports_heading(); ?>
+						<?php CST()->frontend->sports_heading( 'Chicago Sports' ); ?>
 						<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 					</div><!-- /#hp-section-lead -->
 				</div>
