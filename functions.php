@@ -517,7 +517,7 @@ class CST {
 		add_action( 'do_feed_AP_atom', [ $this, 'cst_rss_AP_atom' ], 10, 1 );
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
-			add_action( 'above-homepage-headlines', [ CST_Elections::get_instance(), 'election_shortcode' ] );
+			add_action( 'above_homepage_headlines', [ CST_Elections::get_instance(), 'election_shortcode' ] );
 		}
 
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
