@@ -1122,7 +1122,8 @@ class CST_Customizer {
 				'active_callback' => [ $this, $sortable_section['callback'] ],
 				'label'       => __( $sortable_section['label'], 'chicagosuntimes' ),
 				'setting' => [
-					'list' => $sortable_section['list']
+					'list' => $sortable_section['list'],
+					'defaults' => \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs,
 				]
 			] ) );
 			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter-collection', 'wp_kses_post' );
