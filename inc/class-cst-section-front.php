@@ -179,25 +179,36 @@ class CST_Section_Front {
 		$team_sections = $this->chicago_sports_team_slugs;
 		$this->sort_order = get_theme_mod( $section_block_partial ); // Used during render to get the latest order
 		$team_display_order = explode( ',', $this->sort_order );
+		// Reset to default order - based on $this->chicago_sports_team_slugs
+		$reset = false;
 		foreach ( $team_display_order as $index ) {
-			if ( isset( $team_sections[$index]) )  {
-				$slotted = $this->create_partials( $index );
+			if ( ! isset( $team_sections[ $index ] ) ) { // legacy settings were numeric not slug based
+				$reset = true; // reset as $team_sections[<number>] will not exist
+				break;
+			}
+		}
+		if ( $reset ) {
+			$team_display_order = $this->chicago_sports_team_slugs;
+		}
+		foreach ( $team_display_order as $index => $slug ) {
+			if ( isset( $team_sections[ $slug ] ) ) {
+				$slotted = $this->create_partials( $slug );
 				$show_section = false;
 				foreach ( array_keys( $slotted ) as $partial_id ) { // Do we have items to display?
 					if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
 						$show_section = true;
-						continue;
+						break;
 					}
 				}
-				if ( $show_section && isset( $team_sections[$index] ) ) {
-					$term_link = get_term_by( $index,'cst_section' );
+				if ( $show_section && isset( $team_sections[ $slug ] ) ) {
+					$term_link = get_term_link( $slug,'cst_section' );
 					if ( ! is_wp_error( $term_link ) ) {
 						$slotted['display_relative_timestamp'] = $display_relative_timestamp;
 						?>
 						<div class="row">
 							<div class="stories-container">
 								<div class="small-12 columns more-stories-container <?php echo esc_attr( $index ); ?>" id="individual-sports-section-<?php echo esc_attr( $ad_counter ); ?>">
-									<h2 class="more-sub-head"><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $team_sections[$index] ) . ' Headlines'; ?></a></h2>
+									<h2 class="more-sub-head"><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $team_sections[ $slug ] ) . ' Headlines'; ?></a></h2>
 									<?php \CST_Frontend::get_instance()->mini_stories_content_block( $slotted ); ?>
 								</div><!-- /individual-sports-section-{sport} -->
 							</div>
