@@ -3006,7 +3006,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @param string $team
 	*/
 	public function heading( $team ) {
-		$sports_term = wpcom_vip_get_term_link( $team,'cst_section' );
+		$sports_term = get_term_link( $team,'cst_section' );
 		if ( ! is_wp_error( $sports_term ) ) { ?>
 			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>"><?php echo esc_html( ucfirst( $team ) ); ?></a></h2>
 		<?php }
