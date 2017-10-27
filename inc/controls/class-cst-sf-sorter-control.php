@@ -78,7 +78,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 } #>
 <ul id="{{ data.id }}" class="widget-area-select cst-section-sort">
 <# for ( slug in data.sortOrder ) { #>
-	<li class="ui-state-default cst-item" data-slug="{{{ data.sortOrder[slug] }}}">{{ data.sortValues[data.sortOrder[slug]] }}</li>
+	<li class="ui-state-default cst-item" data-slug="{{ data.sortOrder[slug] }}">{{ data.sortValues[data.sortOrder[slug]] }}</li>
 <# } #>
 </ul>
 <input type="hidden" id="{{ data.id }}-collection" value="{{ data.sortOrder }}" class="cst-customize-control-sorter"/>
