@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+<?php
+get_header();
+?>
 	<section class="section_front_wrapper stories-container sports">
 		<div class="row">
 			<div id="main" class="wire columns medium-8 large-9 small-12">
@@ -49,8 +51,10 @@
 				<div class="cst-ad-container" id="nativo-cst-homepage-01">Nativo position here</div>
 				<hr>
 				<div class="team-stories">
-				<?php $current_obj = get_queried_object();
-				\CST\CST_Section_Front::get_instance()->render_section_blocks( $current_obj->slug . '_section_sorter-collection' ); ?>
+				<?php
+				$current_obj = get_queried_object();
+				\CST\CST_Section_Front::get_instance()->render_section_blocks( $current_obj->slug . '_section_sorter-collection' );
+				?>
 				</div>
 					<div class="row">
 					<div class="columns">
@@ -72,7 +76,11 @@
 			</div>
 			<?php if ( function_exists( 'jetpack_is_mobile' ) && ! jetpack_is_mobile() ) { ?>
 				<div class="right-rail columns medium-4 large-3 show-for-medium-up">
-					<?php get_sidebar(); ?>
+					<?php
+					if ( ! WP_DEBUG ) {
+						get_sidebar();
+					}
+					?>
 				</div>
 			<?php } ?>
 		</div>
@@ -80,4 +88,5 @@
 
 	</section>
 
-<?php get_footer();
+<?php
+get_footer();

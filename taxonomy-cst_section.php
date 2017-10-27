@@ -1,4 +1,6 @@
-<?php get_header(); ?>
+<?php
+get_header();
+?>
 <?php
 $sports_sf = '';
 $content_block_class = 'wire columns medium-8 large-8 small-12' ;
@@ -40,7 +42,7 @@ if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_obj
 						<?php get_template_part( 'content' ); ?>
 					<?php
 						$video_position_counter++;
-						echo CST()->frontend->cst_section_front_video( $video_position_counter );
+						CST()->frontend->cst_section_front_video( $video_position_counter );
 					?>
 				<?php endwhile; ?>
 
@@ -49,7 +51,9 @@ if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_obj
 		</div>
 
 		<div class="<?php echo esc_attr( $right_rail_class ); ?>">
-			<?php get_sidebar(); ?>
+			<?php
+				get_sidebar();
+			?>
 		</div>
 
 

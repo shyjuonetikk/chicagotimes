@@ -33,7 +33,7 @@ class CST_Infinite_Scroll {
 	private function setup_filters() {
 
 
-		add_filter( 'infinite_scroll_archive_supported', function( $val ){
+		add_filter( 'infinite_scroll_archive_supported', function( $val ) {
 			if ( is_singular() ) {
 				return true;
 			} else {
@@ -60,12 +60,12 @@ class CST_Infinite_Scroll {
 
 			// Figure out the next post in relation to this post
 			$section_based_post_types = CST()->get_post_types();
-			$unset_feature = array_keys( $section_based_post_types, 'cst_feature' );
+			$unset_feature = array_keys( $section_based_post_types, 'cst_feature', true );
 			unset( $section_based_post_types[ $unset_feature[0] ] );
 			$post_types = $section_based_post_types;
-			if ( ! empty( $query_args['post_type'] ) && ! empty( $query_args['name'] ) && ( array_intersect( $query_args['post_type'], $post_types ) || ( is_array( $query_args['post_type'] ) && $query_args['post_type'] == $post_types ) ) ) {
+			if ( ! empty( $query_args['post_type'] ) && ! empty( $query_args['name'] ) && ( array_intersect( $query_args['post_type'], $post_types ) || ( is_array( $query_args['post_type'] ) && $query_args['post_type'] === $post_types ) ) ) {
 
-				$key = array_search( 'cst_link', $post_types );
+				$key = array_search( 'cst_link', $post_types, true );
 				unset( $post_types[ $key ] );
 
 				if ( is_string( $query_args['post_type'] ) && isset( $query_args[ $query_args['post_type'] ] ) ) {
@@ -85,7 +85,7 @@ class CST_Infinite_Scroll {
 					'order'                  => 'DESC',
 					'date_query'             => array(
 						'before'             => sanitize_text_field( $_POST['last_post_date'] ),
-						),
+					),
 					'no_found_rows'          => true,
 					'update_post_meta_cache' => false,
 					'update_post_term_cache' => false,
@@ -96,9 +96,9 @@ class CST_Infinite_Scroll {
 							'field'     => 'slug',
 							'terms'     => $query_args['cst_section'],
 							'include_children' => false,
-							),
 						),
-					);
+					),
+				);
 				$temp_query = new WP_Query( $temp_query_args );
 
 				// No post means the end of the query

@@ -264,7 +264,7 @@ class CST_Customizer {
 	 */
 	public function section_callback( $matches ) {
 		if ( ! $this->sports_term ) {
-			$this->sports_term = wpcom_vip_get_term_by( 'name', 'sports', 'cst_section' );
+			$this->sports_term = get_term_by( 'name', 'sports', 'cst_section' );
 		}
 		if ( is_array( $matches ) && ! empty( $matches ) ) {
 			$section_name = $matches[1];
@@ -288,11 +288,11 @@ class CST_Customizer {
 					}
 					if ( $current_obj->slug === $section_name ) {
 						// If we are on a child of Sports display just the child
-						$child_term = wpcom_vip_get_term_by( 'slug', $section_name, 'cst_section' );
+						$child_term = get_term_by( 'slug', $section_name, 'cst_section' );
 						return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
 					}
 				}
-				$child_term = wpcom_vip_get_term_by( 'slug', $section_name, 'cst_section' );
+				$child_term = get_term_by( 'slug', $section_name, 'cst_section' );
 				return $child_term && $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $current_obj, 'cst_section' );
 			}
 		}
@@ -814,7 +814,7 @@ class CST_Customizer {
 	 */
 	private function _generate_sports_choices() {
 
-		$sports_term                  = wpcom_vip_get_term_by( 'name', 'Sports', 'cst_section' );
+		$sports_term                  = get_term_by( 'name', 'Sports', 'cst_section' );
 		$sports_child_terms           = new WP_Term_Query( [
 			'taxonomy'   => 'cst_section',
 			'parent'     => $sports_term->term_id,
@@ -1007,13 +1007,18 @@ class CST_Customizer {
 		return '';
 	}
 
+	/**
+	 * @param $partial
+	 * @return string
+	 */
 	public function send_to_news_render_callback( $partial ) {
 		if ( $partial instanceof WP_Customize_Partial ) {
 			$partial = $partial->id;
 		}
 		$video_embed_slug = get_theme_mod( $partial );
 		if ( $video_embed_slug ) {
-			echo CST_Frontend::get_instance()->inject_send_to_news_video_player( $video_embed_slug, 'stn-video-embed' );
+			// Escaping done in inject_send_to_news_video_player in accordance
+			CST_Frontend::get_instance()->inject_send_to_news_video_player( $video_embed_slug, 'stn-video-embed' );
 		}
 	}
 	/**
