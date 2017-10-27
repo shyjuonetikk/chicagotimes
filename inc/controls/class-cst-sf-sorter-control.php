@@ -32,7 +32,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			}
 			$this->sort_order = get_theme_mod( $this->id . '-collection' );
 			if ( empty( $this->sort_order ) ) {
-				$this->sort_order = join( ',', $args['setting']['defaults'] );
+				$this->sort_order = join( ',', array_keys( $args['setting']['defaults'] ) );
 			}
 		}
 		public function enqueue() {
@@ -76,14 +76,11 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 <# if ( ! data.sortOrder ) {
 	return;
 } #>
-	<# console.log('Values :'+data.sortValues);
-			console.log('Order :'+data.sortOrder);
-		#>
-	<ul id="{{ data.id }}" class="widget-area-select cst-section-sort">
-	<# for ( slug in data.sortOrder ) { #>
-		<li class="ui-state-default cst-item" data-slug="{{{ data.sortOrder[slug] }}}">{{ data.sortValues[data.sortOrder[slug]] }}</li>
-	<# } #>
-	</ul>
+<ul id="{{ data.id }}" class="widget-area-select cst-section-sort">
+<# for ( slug in data.sortOrder ) { #>
+	<li class="ui-state-default cst-item" data-slug="{{{ data.sortOrder[slug] }}}">{{ data.sortValues[data.sortOrder[slug]] }}</li>
+<# } #>
+</ul>
 <input type="hidden" id="{{ data.id }}-collection" value="{{ data.sortOrder }}" class="cst-customize-control-sorter"/>
 
 			<?php
