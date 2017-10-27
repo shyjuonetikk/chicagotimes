@@ -31,12 +31,8 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 				$this->sort_values = $args['setting']['list'];
 			}
 			$this->sort_order = get_theme_mod( $this->id . '-collection' );
-			$list_items = [];
 			if ( empty( $this->sort_order ) ) {
-				for ( $i = 0; $i < count( $this->sort_values ); $i++ ) {
-					$list_items[] = $i;
-				}
-				$this->sort_order = join( ',', $list_items );
+				$this->sort_order = join( ',', $args['setting']['defaults'] );
 			}
 		}
 		public function enqueue() {
