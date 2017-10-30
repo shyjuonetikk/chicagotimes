@@ -31,7 +31,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 				$this->sort_values = $args['setting']['list'];
 			}
 			$this->sort_order = get_theme_mod( $this->id . '-collection' );
-			if ( empty( $this->sort_order ) ) {
+			if ( empty( $this->sort_order ) && isset( $args['setting']['defaults'] ) ) {
 				$this->sort_order = join( ',', array_keys( $args['setting']['defaults'] ) );
 			}
 		}
@@ -53,7 +53,7 @@ if ( class_exists( 'WP_Customize_Control' ) ) {
 			$this->json['sortOrder']   = explode( ',', $this->sort_order );
 			$this->json['id']          = $this->id;
 			$this->json['description'] = $this->description;
-			$this->json['sortValues'] = $this->sort_values;
+			$this->json['sortValues']  = $this->sort_values;
 		}
 		/**
 		 * Generate list item markup for sorter
