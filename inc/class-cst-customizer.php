@@ -191,12 +191,13 @@ class CST_Customizer {
 		// https://css-tricks.com/getting-started-wordpress-customizer/
 		// Use conditional to check is_tax or queried_object to only set up the needed control for this section
 		// Setup all sections OR detect section and set that up
+		$section_counter = 0;
 		foreach ( $this->section_choice_slugs as $section_id => $section_name ) {
 			$sanitized_section_title = sanitize_title( $this->section_choice_slugs[ $section_id ] );
 			$section_choice          = $this->section_choices[ $section_id ];
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
 			$section_title           = $section_choice . ' section.';
-			$priority                = 400;
+			$priority                = 400 + $section_counter++;
 			$block_type              = $this->five_block;
 			$section_description     = 'Choose ' . $section_choice . ' (SF) stories';
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
