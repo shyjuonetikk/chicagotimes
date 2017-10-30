@@ -1040,7 +1040,6 @@ class CST_Customizer {
 		if ( $partial instanceof WP_Customize_Partial ) {
 			$partial = $partial->id;
 		}
-		$video_embed_slug = '';
 		$video_embed_slug = get_theme_mod( $partial );
 		if ( '--empty--' === $video_embed_slug ) {
 			$video_embed_slug = 'sports';
