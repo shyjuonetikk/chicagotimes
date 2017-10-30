@@ -198,6 +198,7 @@ class CST_Customizer {
 			$section_title           = $section_choice . ' section.';
 			$priority                = 400;
 			$block_type              = $this->five_block;
+			$section_description     = 'Choose ' . $section_choice . ' (SF) stories';
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
 				$section_title = 'Sports section front';
 				$priority      = 320;
@@ -218,37 +219,23 @@ class CST_Customizer {
 						'label'       => 'Choose SendToNews Video',
 						'priority'    => 321,
 						'description' => 'Show relevant video clips:',
-						'choices'     => [
-							'--empty--'         => 'Choose team',
-							'cubs-baseball'     => 'Cubs',
-							'bulls'             => 'Bulls',
-							'bears-football'    => 'Bears',
-							'blackhawks-hockey' => 'Blackhawks',
-							'white-sox'         => 'White Sox',
-							'sports'            => 'Sports',
-							'fire-soccer'       => 'Fire',
-						],
+						'choices'     =>
+							array_merge(
+								[ 'sports' => 'Choose team (or leave for generic sports)' ],
+								\CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs
+							),
 					]
-				));
-				$block_type = $this->three_block_two_one;
-				//'2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
-				$wp_customize->add_section( $section_name, [
-					'title'           => esc_html( $section_title ),
-					'description'     => esc_html( '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering' ),
-					'priority'        => $priority,
-					'capability'      => $this->capability,
-					'active_callback' => [ $this, 'tax_section' ],
-				] );
-
-			} else { // all other sections
-				$wp_customize->add_section( $section_name, [
-					'title'           => esc_html( $section_title ),
-					'description'     => esc_html( 'Choose ' . $section_choice . ' (SF) stories' ),
-					'priority'        => $priority,
-					'capability'      => $this->capability,
-					'active_callback' => [ $this, 'tax_section' ],
-				] );
+				) );
+				$block_type          = $this->three_block_two_one;
+				$section_description = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
 			}
+			$wp_customize->add_section( $section_name, [
+				'title'           => esc_html( $section_title ),
+				'description'     => esc_html( $section_description ),
+				'priority'        => $priority,
+				'capability'      => $this->capability,
+				'active_callback' => [ $this, 'tax_section' ],
+			] );
 
 			foreach ( $block_type as $story_title ) {
 				$section_customizer_name = 'cst_' . $sanitized_section_title . '_section_' . $story_title;
@@ -1157,17 +1144,17 @@ class CST_Customizer {
 	public function setup_sorters( \WP_Customize_Manager $wp_customize ) {
 
 		foreach ( \CST\CST_Section_Front::get_instance()->sortable_sections as $name => $sortable_section ) {
-			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter' , 'absint' );
+			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter', 'absint' );
 			$wp_customize->add_control( new WP_Customize_CST_SF_Sorter_Control( $wp_customize, $sortable_section['slug'] . '_section_sorter', [
-				'type'        => 'cst_sf_sorter_control',
-				'priority'    => 460,
-				'section'     => 'cst[' . $sortable_section['slug'] . ']_section',
+				'type'            => 'cst_sf_sorter_control',
+				'priority'        => 460,
+				'section'         => 'cst[' . $sortable_section['slug'] . ']_section',
 				'active_callback' => [ $this, $sortable_section['callback'] ],
-				'label'       => __( $sortable_section['label'], 'chicagosuntimes' ),
-				'setting' => [
-					'list' => $sortable_section['list'],
+				'label'           => esc_html( $sortable_section['label'] ),
+				'setting'         => [
+					'list'     => $sortable_section['list'],
 					'defaults' => \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs,
-				]
+				],
 			] ) );
 			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter-collection', 'wp_kses_post' );
 			$this->set_selective_refresh( $wp_customize, $sortable_section['slug'] . '_section_sorter-collection' );
