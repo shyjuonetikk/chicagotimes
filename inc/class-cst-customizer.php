@@ -50,14 +50,14 @@ class CST_Customizer {
 		'cst_homepage_lower_section_headlines_4' => true,
 		'cst_homepage_lower_section_headlines_5' => true,
 	];
-	private $sports_section_stories = [
+	private $sports_section_stories         = [
 		'cst_sports_section_headlines_1' => true,
 		'cst_sports_section_headlines_2' => true,
 		'cst_sports_section_headlines_3' => true,
 		'cst_sports_section_headlines_4' => true,
 		'cst_sports_section_headlines_5' => true,
 	];
-	private $entertainment_section_stories = [
+	private $entertainment_section_stories  = [
 		'cst_homepage_entertainment_section_headlines_1' => true,
 		'cst_homepage_entertainment_section_headlines_2' => true,
 		'cst_homepage_entertainment_section_headlines_3' => true,
@@ -71,7 +71,7 @@ class CST_Customizer {
 		'cst_featured_obits_section_headlines_4' => true,
 		'cst_featured_obits_section_headlines_5' => true,
 	];
-	private $podcast_section_stories = [
+	private $podcast_section_stories        = [
 		'cst_podcast_section_headlines_1' => true,
 		'cst_podcast_section_headlines_2' => true,
 		'cst_podcast_section_headlines_3' => true,
@@ -85,9 +85,9 @@ class CST_Customizer {
 		'featured_story_block_headlines_4' => true,
 		'featured_story_block_headlines_5' => true,
 	];
-	private $capability = 'edit_others_posts';
+	private $capability         = 'edit_others_posts';
 	private $sports_section_choices, $section_choices, $section_choice_slugs, $section_ids, $sections, $sports_section_names;
-	public $five_block = [
+	public $five_block          = [
 		'five_block_1',
 		'five_block_2',
 		'five_block_3',
@@ -98,7 +98,7 @@ class CST_Customizer {
 		'three_block_two_one_1',
 		'three_block_two_one_2',
 	];
-	private $sports_term = false;
+	private $sports_term        = false;
 
 	public static function get_instance() {
 
@@ -125,7 +125,7 @@ class CST_Customizer {
 		require_once dirname( __FILE__ ) . '/controls/class-cst-select-control.php';
 		require_once dirname( __FILE__ ) . '/controls/class-cst-sf-sorter-control.php';
 	}
-	public function setup_filters(  ) {
+	public function setup_filters() {
 		add_filter( 'customize_section_active', [ $this, 'filter_customize_section_active' ] );
 	}
 
@@ -169,7 +169,7 @@ class CST_Customizer {
 	 * @param WP_Customize_Manager $wp_customize
 	 * Handle all the registration and settings for Section based customizer options
 	 */
-	public function section_front_customizer( \WP_Customize_Manager $wp_customize)  {
+	public function section_front_customizer( \WP_Customize_Manager $wp_customize ) {
 		/**
 		 * Handle sections - Sports to start - section based stories, custom heading
 		 *
@@ -284,7 +284,7 @@ class CST_Customizer {
 					if ( 'sports' === $section_name ) {
 						return true;
 					}
- 					if ( array_key_exists( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
+					if ( array_key_exists( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
 						return true;
 					}
 					if ( $current_obj->slug === $section_name ) {
@@ -846,14 +846,14 @@ class CST_Customizer {
 	 * Keep the original list to allow access to slug or other meta for some exceptions
 	 */
 	public function _generate_all_sections() {
-		$this->sections = get_terms( [
+		$this->sections             = get_terms( [
 			'taxonomy'   => 'cst_section',
 			'hide_empty' => false,
 			'fields'     => 'all_with_object_id',
 		] );
-		$this->section_choices = wp_list_pluck( $this->sections, 'name', 'term_id' );
+		$this->section_choices      = wp_list_pluck( $this->sections, 'name', 'term_id' );
 		$this->section_choice_slugs = wp_list_pluck( $this->sections, 'slug', 'term_id' );
-		$this->section_ids = array_flip( $this->section_choices );
+		$this->section_ids          = array_flip( $this->section_choices );
 	}
 	/**
 	 * @param $partial
@@ -963,21 +963,34 @@ class CST_Customizer {
 			$partials = preg_match( '/cst\_(.+)\_section_five_block\_(\d+)/', $partial->id, $matches );
 			if ( $partials && ! empty( $matches ) ) {
 				$article_position = 'five_block_' . $matches[2];
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
+				$obj              = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 				switch ( $article_position ) {
 					case 'five_block_1':
-						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout_type' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes' ] );
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'prime',
+							'partial_id'  => $partial->id,
+							'watch'       => 'yes',
+						] );
 						break;
 					case 'five_block_2':
 					case 'five_block_3':
 					case 'five_block_4':
 					case 'five_block_5':
-						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout_type' => 'regular', 'partial_id' => $partial->id, 'watch' => 'yes', 'render_partial' => true ] );
+						return CST()->frontend->single_mini_story(
+							[
+								'story'          => $obj,
+								'layout_type'    => 'regular',
+								'partial_id'     => $partial->id,
+								'watch'          => 'yes',
+								'render_partial' => true,
+							]
+						);
 						break;
 				}
 			}
-			unset($matches);
-			unset($partials);
+			unset( $matches );
+			unset( $partials );
 			$partials = preg_match( '/(.+)_sorter\-collection/', $partial->id, $matches );
 			if ( $partials && ! empty( $matches ) ) {
 				switch ( $matches[1] ) {
@@ -986,18 +999,33 @@ class CST_Customizer {
 						break;
 				}
 			}
-			unset($matches);
-			unset($partials);
+			unset( $matches );
+			unset( $partials );
 			$partials = preg_match( '/cst\_(.+)_section\_(.+)/', $partial->id, $matches );
 			if ( $partials && ! empty( $matches ) ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
 				switch ( $matches[2] ) {
 					case 'three_block_two_one_1':
 					case 'three_block_two_one_2':
-						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout_type' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes' ] );
+						return CST()->frontend->single_mini_story(
+							[
+								'story'       => $obj,
+								'layout_type' => 'prime',
+								'partial_id'  => $partial->id,
+								'watch'       => 'yes',
+							]
+						);
 						break;
 					case 'three_block_two_one_3':
-						return CST()->frontend->single_mini_story( [ 'story' => $obj, 'layout_type' => 'prime', 'partial_id' => $partial->id, 'watch' => 'yes', 'custom_image_size' => 'chiwire-header-large' ] );
+						return CST()->frontend->single_mini_story(
+							[
+								'story'             => $obj,
+								'layout_type'       => 'prime',
+								'partial_id'        => $partial->id,
+								'watch'             => 'yes',
+								'custom_image_size' => 'chiwire-header-large',
+							]
+						);
 				}
 			}
 		}
