@@ -213,12 +213,13 @@ class CST_Customizer {
 				] );
 				$wp_customize->add_control( new WP_Customize_Control( $wp_customize, $video_slot,
 					[
-						'type'        => 'select',
-						'section'     => $section_name,
-						'label'       => 'Choose SendToNews Video',
-						'priority'    => 321,
-						'description' => 'Show relevant video clips:',
-						'choices'     =>
+						'type'            => 'select',
+						'section'         => $section_name,
+						'label'           => 'Choose SendToNews Video',
+						'active_callback' => [ $this, 'tax_partial_in_section' ],
+						'priority'        => 321,
+						'description'     => 'Show relevant video clips:',
+						'choices'         =>
 							array_merge(
 								[ 'sports' => 'Choose team (or leave for generic sports)' ],
 								\CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs
