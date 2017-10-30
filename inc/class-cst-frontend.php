@@ -1784,8 +1784,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	/**
 	* @param $slug
 	* @param $id
-	* Inject SendToNews responsive video player into markup.
-	* @return string
+	*
+	* Inject SendToNews responsive video player markup.
 	*/
 	function inject_send_to_news_video_player( $slug, $id ) {
 		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="%3$s" data-type="s2nScript"></script></div>';
