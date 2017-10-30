@@ -31,7 +31,7 @@ get_header();
 						<?php \CST\CST_Section_Front::get_instance()->section_hero_story( 'cst_sports_section_three_block_two_one_1' ) ?>
 						<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_three_block_two_one_2' ) ?>
 					</div><!-- /hp-main-lead -->
-					<div class="columns small-12 large-8 more-stories-container other-lead-stories sf-video-container">
+					<div class="columns small-12 large-8 more-stories-container other-lead-stories sf-video-container js-cst-sports-section-three-block-two-one-3">
 						<?php
 							CST_Customizer::get_instance()->send_to_news_render_callback( 'cst_sports_section_three_block_two_one_3' );
 						?>
