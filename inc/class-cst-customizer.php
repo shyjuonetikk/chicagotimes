@@ -219,6 +219,7 @@ class CST_Customizer {
 						'priority'    => 321,
 						'description' => 'Show relevant video clips:',
 						'choices'     => [
+							'--empty--'         => 'Choose team',
 							'cubs-baseball'     => 'Cubs',
 							'bulls'             => 'Bulls',
 							'bears-football'    => 'Bears',
@@ -1038,14 +1039,17 @@ class CST_Customizer {
 
 	/**
 	 * @param $partial
-	 * @return string
 	 */
 	public function send_to_news_render_callback( $partial ) {
 		if ( $partial instanceof WP_Customize_Partial ) {
 			$partial = $partial->id;
 		}
+		$video_embed_slug = '';
 		$video_embed_slug = get_theme_mod( $partial );
-		if ( $video_embed_slug ) {
+		if ( '--empty--' === $video_embed_slug ) {
+			$video_embed_slug = 'sports';
+		}
+		if ( ! empty( $video_embed_slug ) ) {
 			// Escaping done in inject_send_to_news_video_player in accordance
 			CST_Frontend::get_instance()->inject_send_to_news_video_player( $video_embed_slug, 'stn-video-embed' );
 		}
