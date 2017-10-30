@@ -3289,6 +3289,7 @@ body:not(.home) header .contain-to-grid .top-bar .masthead-sections {
       background: #59adeb; }
 
 footer {
+  min-height: 300px;
   background-color: #231f20; }
   footer .back-to-top a {
     color: white; }

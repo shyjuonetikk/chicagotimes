@@ -191,16 +191,16 @@ class CST_Customizer {
 		// https://css-tricks.com/getting-started-wordpress-customizer/
 		// Use conditional to check is_tax or queried_object to only set up the needed control for this section
 		// Setup all sections OR detect section and set that up
-		foreach ( $this->section_choice_slugs as $section_id => $section_name) {
+		foreach ( $this->section_choice_slugs as $section_id => $section_name ) {
 			$sanitized_section_title = sanitize_title( $this->section_choice_slugs[ $section_id ] );
-			$section_choice = $this->section_choices[ $section_id ];
+			$section_choice          = $this->section_choices[ $section_id ];
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
-			$section_title = $section_choice . ' section.';
-			$priority = 400;
-			$block_type = $this->five_block;
+			$section_title           = $section_choice . ' section.';
+			$priority                = 400;
+			$block_type              = $this->five_block;
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
 				$section_title = '2 slottable ' . $section_choice . ' stories &amp; ordering';
-				$priority = 320;
+				$priority      = 320;
 				$this->set_setting( $wp_customize, 'cst_sports_section_three_block_two_one_3', 'sanitize_text_field' );
 				$this->set_selective_refresh( $wp_customize, 'cst_sports_section_three_block_two_one_3' );
 				$wp_customize->selective_refresh->add_partial( 'cst_sports_section_three_block_two_one_3', [
@@ -211,28 +211,28 @@ class CST_Customizer {
 					'render_callback'     => [ $this, 'send_to_news_render_callback' ],
 				] );
 				$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'cst_sports_section_three_block_two_one_3',
-				[
-					'type' => 'select',
-					'section' => $section_name,
-					'label' => 'Choose SendToNews Video',
-					'priority' => 321,
-					'description' => 'Show relevant video clips:',
-					'choices' => [
-						'cubs-baseball' => 'Cubs',
-						'bulls' => 'Bulls',
-						'bears-football' => 'Bears',
-						'blackhawks-hockey' => 'Blackhawks',
-						'white-sox' => 'White Sox',
-						'sports' => 'Sports',
-						'fire-soccer' => 'Fire',
+					[
+						'type'        => 'select',
+						'section'     => $section_name,
+						'label'       => 'Choose SendToNews Video',
+						'priority'    => 321,
+						'description' => 'Show relevant video clips:',
+						'choices'     => [
+							'cubs-baseball'     => 'Cubs',
+							'bulls'             => 'Bulls',
+							'bears-football'    => 'Bears',
+							'blackhawks-hockey' => 'Blackhawks',
+							'white-sox'         => 'White Sox',
+							'sports'            => 'Sports',
+							'fire-soccer'       => 'Fire',
+						],
 					]
-				]
 				));
 				$block_type = $this->three_block_two_one;
 			}
 			$wp_customize->add_section( $section_name, [
-				'title'           => __( $section_title, 'chicagosuntimes' ),
-				'description'     => __( 'Choose ' . $section_choice . ' (SF) stories', 'chicagosuntimes' ),
+				'title'           => esc_html( $section_title ),
+				'description'     => esc_html( 'Choose ' . $section_choice . ' (SF) stories' ),
 				'priority'        => $priority,
 				'capability'      => $this->capability,
 				'active_callback' => [ $this, 'tax_section' ],
@@ -240,15 +240,15 @@ class CST_Customizer {
 
 			foreach ( $block_type as $story_title ) {
 				$section_customizer_name = 'cst_' . $sanitized_section_title . '_section_' . $story_title;
-				$this->set_setting( $wp_customize, $section_customizer_name , 'absint' );
+				$this->set_setting( $wp_customize, $section_customizer_name, 'absint' );
 				$this->set_selective_refresh( $wp_customize, $section_customizer_name );
 				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_customizer_name, [
-					'type'        => 'cst_select_control',
-					'section'     => $section_name,
+					'type'            => 'cst_select_control',
+					'section'         => $section_name,
 					'active_callback' => [ $this, 'tax_partial_in_section' ],
-					'label'       => __( 'Choose ' . $section_choice . ' (SF) story ', 'chicagosuntimes' ),
-					'input_attrs' => [
-						'placeholder'          => esc_attr__( 'Choose article' ),
+					'label'           => esc_html( 'Choose ' . $section_choice . ' (SF) story ' ),
+					'input_attrs'     => [
+						'placeholder' => esc_attr__( 'Choose article' ),
 					],
 				] ) );
 			}
