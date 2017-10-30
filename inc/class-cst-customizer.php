@@ -204,7 +204,6 @@ class CST_Customizer {
 				$priority      = 320;
 				$video_slot    = 'cst_sports_section_three_block_two_one_3';
 				$this->set_setting( $wp_customize, $video_slot, 'sanitize_text_field' );
-				$this->set_selective_refresh( $wp_customize, $video_slot );
 				$wp_customize->selective_refresh->add_partial( $video_slot, [
 					'selector'            => '.js-' . str_replace( '_', '-', $video_slot ),
 					'settings'            => $video_slot,
@@ -1041,7 +1040,6 @@ class CST_Customizer {
 		if ( $partial instanceof WP_Customize_Partial ) {
 			$partial = $partial->id;
 		}
-		$video_embed_slug = '';
 		$video_embed_slug = get_theme_mod( $partial );
 		if ( '--empty--' === $video_embed_slug ) {
 			$video_embed_slug = 'sports';
