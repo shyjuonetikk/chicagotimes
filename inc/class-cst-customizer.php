@@ -199,7 +199,7 @@ class CST_Customizer {
 			$priority                = 400;
 			$block_type              = $this->five_block;
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
-				$section_title = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
+				$section_title = 'Sports section front';
 				$priority      = 320;
 				$video_slot    = 'cst_sports_section_three_block_two_one_3';
 				$this->set_setting( $wp_customize, $video_slot, 'sanitize_text_field' );
@@ -231,14 +231,24 @@ class CST_Customizer {
 					]
 				));
 				$block_type = $this->three_block_two_one;
+				//'2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
+				$wp_customize->add_section( $section_name, [
+					'title'           => esc_html( $section_title ),
+					'description'     => esc_html( '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering' ),
+					'priority'        => $priority,
+					'capability'      => $this->capability,
+					'active_callback' => [ $this, 'tax_section' ],
+				] );
+
+			} else { // all other sections
+				$wp_customize->add_section( $section_name, [
+					'title'           => esc_html( $section_title ),
+					'description'     => esc_html( 'Choose ' . $section_choice . ' (SF) stories' ),
+					'priority'        => $priority,
+					'capability'      => $this->capability,
+					'active_callback' => [ $this, 'tax_section' ],
+				] );
 			}
-			$wp_customize->add_section( $section_name, [
-				'title'           => esc_html( $section_title ),
-				'description'     => esc_html( 'Choose ' . $section_choice . ' (SF) stories' ),
-				'priority'        => $priority,
-				'capability'      => $this->capability,
-				'active_callback' => [ $this, 'tax_section' ],
-			] );
 
 			foreach ( $block_type as $story_title ) {
 				$section_customizer_name = 'cst_' . $sanitized_section_title . '_section_' . $story_title;
