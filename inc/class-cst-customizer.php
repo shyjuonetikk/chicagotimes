@@ -199,18 +199,19 @@ class CST_Customizer {
 			$priority                = 400;
 			$block_type              = $this->five_block;
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
-				$section_title = '2 slottable ' . $section_choice . ' stories &amp; ordering';
+				$section_title = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
 				$priority      = 320;
-				$this->set_setting( $wp_customize, 'cst_sports_section_three_block_two_one_3', 'sanitize_text_field' );
-				$this->set_selective_refresh( $wp_customize, 'cst_sports_section_three_block_two_one_3' );
-				$wp_customize->selective_refresh->add_partial( 'cst_sports_section_three_block_two_one_3', [
-					'selector'            => '.js-' . str_replace( '_', '-', 'cst_sports_section_three_block_two_one_3' ),
-					'settings'            => 'cst_sports_section_three_block_two_one_3',
+				$video_slot    = 'cst_sports_section_three_block_two_one_3';
+				$this->set_setting( $wp_customize, $video_slot, 'sanitize_text_field' );
+				$this->set_selective_refresh( $wp_customize, $video_slot );
+				$wp_customize->selective_refresh->add_partial( $video_slot, [
+					'selector'            => '.js-' . str_replace( '_', '-', $video_slot ),
+					'settings'            => $video_slot,
 					'container_inclusive' => false,
 					'sanitize_callback'   => 'sanitize_text_field',
 					'render_callback'     => [ $this, 'send_to_news_render_callback' ],
 				] );
-				$wp_customize->add_control( new WP_Customize_Control( $wp_customize, 'cst_sports_section_three_block_two_one_3',
+				$wp_customize->add_control( new WP_Customize_Control( $wp_customize, $video_slot,
 					[
 						'type'        => 'select',
 						'section'     => $section_name,
