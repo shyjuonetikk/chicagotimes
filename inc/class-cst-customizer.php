@@ -203,10 +203,11 @@ class CST_Customizer {
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
 				$video_slot    = 'cst_sports_section_three_block_two_one_3';
 				$this->set_setting( $wp_customize, $video_slot, 'sanitize_text_field' );
+				$section_description = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
 				$wp_customize->add_section( $section_name, [
 					'title'           => esc_html( 'Sports section front' ),
 					'description'     => esc_html( $section_description ),
-					'priority'        => $priority,
+					'priority'        => 200,
 					'capability'      => $this->capability,
 					'active_callback' => [ $this, 'tax_section' ],
 				] );
@@ -233,7 +234,6 @@ class CST_Customizer {
 					]
 				) );
 				$block_type          = $this->three_block_two_one;
-				$section_description = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
 			} else {
 				$wp_customize->add_section( $section_name, [
 					'title'           => esc_html( $section_title ),
@@ -270,7 +270,7 @@ class CST_Customizer {
 	 */
 	public function section_callback( $matches ) {
 		if ( ! $this->sports_term ) {
-			$this->sports_term = get_term_by( 'name', 'sports', 'cst_section' );
+			$this->sports_term = get_term_by( 'name', 'Sports', 'cst_section' );
 		}
 		if ( is_array( $matches ) && ! empty( $matches ) ) {
 			$section_name = $matches[1];
@@ -286,7 +286,7 @@ class CST_Customizer {
 			if ( null !== $current_obj ) {
 				// Is current term Sports and we are displaying Sports
 				if ( 'sports' === $current_obj->slug ) {
-					if ( 'sports' === $section_name ) {
+					if ( 'Sports' === $section_name ) {
 						return true;
 					}
 					if ( array_key_exists( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
