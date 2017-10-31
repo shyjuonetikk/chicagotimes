@@ -207,7 +207,7 @@ class CST_Customizer {
 				$wp_customize->add_section( $section_name, [
 					'title'           => esc_html( 'Sports section front' ),
 					'description'     => esc_html( $section_description ),
-					'priority'        => 200,
+					'priority'        => $priority,
 					'capability'      => $this->capability,
 					'active_callback' => [ $this, 'tax_section' ],
 				] );
@@ -270,7 +270,7 @@ class CST_Customizer {
 	 */
 	public function section_callback( $matches ) {
 		if ( ! $this->sports_term ) {
-			$this->sports_term = get_term_by( 'name', 'Sports', 'cst_section' );
+			$this->sports_term = get_term_by( 'name', 'sports', 'cst_section' );
 		}
 		if ( is_array( $matches ) && ! empty( $matches ) ) {
 			$section_name = $matches[1];
@@ -286,7 +286,7 @@ class CST_Customizer {
 			if ( null !== $current_obj ) {
 				// Is current term Sports and we are displaying Sports
 				if ( 'sports' === $current_obj->slug ) {
-					if ( 'Sports' === $section_name ) {
+					if ( 'sports' === $section_name ) {
 						return true;
 					}
 					if ( array_key_exists( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
