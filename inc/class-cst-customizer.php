@@ -86,7 +86,7 @@ class CST_Customizer {
 		'featured_story_block_headlines_5' => true,
 	];
 	private $capability                     = 'edit_others_posts';
-	private $sports_section_choices, $section_choices, $section_choice_slugs, $section_ids, $sections, $sports_section_names;
+	private $sports_section_choices, $section_choices, $section_choice_slugs, $sports_section_choice_slugs, $sections, $sports_section_names;
 	public $five_block          = [
 		'five_block_1',
 		'five_block_2',
@@ -111,11 +111,6 @@ class CST_Customizer {
 		return self::$instance;
 	}
 
-	public function __construct() {
-		if ( ! $this->sports_term ) {
-			$this->sports_term = get_term_by( 'name', 'sports', 'cst_section' );
-		}
-	}
 	/**
 	 * Set up Customizer actions
 	 */
@@ -162,9 +157,34 @@ class CST_Customizer {
 	 */
 	public function action_customize_register( \WP_Customize_Manager $wp_customize ) {
 
+		/**
+		 * Set up custom controls
+		 */
 		$wp_customize->register_control_type( 'WP_Customize_CST_Select_Control' );
 		$wp_customize->register_control_type( 'WP_Customize_CST_SF_Sorter_Control' );
+
+		/**
+		 * Remove core Customizer sections that we won't be using
+		 */
+		$this->_remove_unneeded_customizer_sections( $wp_customize );
+
+		/**
+		 * Set up Sports specific settings
+		 */
+		if ( ! $this->sports_term ) {
+			$this->sports_term = get_term_by( 'name', 'Sports', 'cst_section' );
+		}
+		$this->sports_section_choice_slugs[ $this->sports_term->term_id ] = $this->sports_term->slug;
+
+		/**
+		 * Set up our customizer variables
+		 */
+
 		$this->_generate_all_sections();
+
+		/**
+		 * Customize!
+		 */
 		$this->homepage_customizer( $wp_customize );
 		$this->section_front_customizer( $wp_customize );
 
@@ -197,7 +217,8 @@ class CST_Customizer {
 		// Use conditional to check is_tax or queried_object to only set up the needed control for this section
 		// Setup all sections OR detect section and set that up
 		$section_counter = 0;
-		foreach ( $this->section_choice_slugs as $section_id => $section_name ) {
+		//section_choice_slugs for all sections
+		foreach ( $this->sports_section_choice_slugs as $section_id => $section_name ) {
 			$sanitized_section_title = sanitize_title( $this->section_choice_slugs[ $section_id ] );
 			$section_choice          = $this->section_choices[ $section_id ];
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
@@ -263,6 +284,7 @@ class CST_Customizer {
 	}
 
 	/**
+	 * Determine what section we are being asked to display
 	 * @param $matches
 	 *
 	 * @return bool
@@ -301,12 +323,12 @@ class CST_Customizer {
 		return false;
 	}
 	/**
+	 * Generate partial theme_mod variable if matched and based on section
+	 * Partial id is based on sanitized title of Section name
 	 * @param $partial
 	 *
 	 * @return bool
 	 *
-	 * Generate partial theme_mod variable if matched and based on section
-	 * Partial id is based on sanitized title of Section name
 	 */
 	public function tax_partial_in_section( $partial ) {
 		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
@@ -334,12 +356,6 @@ class CST_Customizer {
 	 */
 	public function homepage_customizer( \WP_Customize_Manager $wp_customize ) {
 		$transport = ( $wp_customize->selective_refresh ? 'postMessage' : 'refresh' );
-		// Don't need to be able to edit blog title or description
-		// and we don't want the homepage to change
-		$wp_customize->remove_section( 'title_tagline' );
-		$wp_customize->remove_section( 'static_front_page' );
-		$wp_customize->remove_section( 'colors' );
-		$wp_customize->remove_section( 'custom_css' );
 		/**
 		 * Add sections we want
 		 */
@@ -733,6 +749,14 @@ class CST_Customizer {
 		] ) );
 	}
 
+	public function _remove_unneeded_customizer_sections( \WP_Customize_Manager $wp_customize ) {
+		// Don't need to be able to edit blog title or description
+		// and we don't want the homepage to change
+		$wp_customize->remove_section( 'title_tagline' );
+		$wp_customize->remove_section( 'static_front_page' );
+		$wp_customize->remove_section( 'colors' );
+		$wp_customize->remove_section( 'custom_css' );
+	}
 	/**
 	 * @param \WP_Customize_Manager $wp_customize
 	 *
@@ -854,7 +878,11 @@ class CST_Customizer {
 		] );
 		$this->section_choices      = wp_list_pluck( $this->sections, 'name', 'term_id' );
 		$this->section_choice_slugs = wp_list_pluck( $this->sections, 'slug', 'term_id' );
-		$this->section_ids          = array_flip( $this->section_choices );
+		foreach ( $this->sections as $sections ) {
+			if ( term_is_ancestor_of( $this->sports_term, $sections->term_id, 'cst_section' ) ) {
+				$this->sports_section_choice_slugs[ $sections->term_id ] = $sections->slug;
+			}
+		}
 	}
 	/**
 	 * @param $partial
