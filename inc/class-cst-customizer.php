@@ -211,8 +211,8 @@ class CST_Customizer {
 				'active_callback' => [ $this, 'tax_section' ],
 			] );
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
-				$video_slot    = 'cst_sports_section_three_block_two_one_3';
-				$this->set_setting( $wp_customize, $video_slot, 'sanitize_text_field' );
+				$video_slot = 'cst_sports_section_three_block_two_one_3';
+				$this->set_setting( $wp_customize, $video_slot, 'sanitize_key' );
 				$wp_customize->selective_refresh->add_partial( $video_slot, [
 					'selector'            => '.js-' . str_replace( '_', '-', $video_slot ),
 					'settings'            => $video_slot,
