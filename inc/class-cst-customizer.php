@@ -6,31 +6,31 @@
 class CST_Customizer {
 
 	private static $instance;
-	private $column_one_stories = [
+	private $column_one_stories             = [
 		'cst_homepage_headlines_one'   => true,
 		'cst_homepage_headlines_two'   => true,
 		'cst_homepage_headlines_three' => true,
 	];
-	private $related_column_one_stories = [
+	private $related_column_one_stories     = [
 		'cst_homepage_related_headlines_one'   => true,
 		'cst_homepage_related_headlines_two'   => true,
 		'cst_homepage_related_headlines_three' => true,
 	];
-	private $other_stories = [
+	private $other_stories                  = [
 		'cst_homepage_other_headlines_1' => true,
 		'cst_homepage_other_headlines_2' => true,
 		'cst_homepage_other_headlines_3' => true,
 		'cst_homepage_other_headlines_4' => true,
 		'cst_homepage_other_headlines_5' => true,
 	];
-	private $upper_section_stories = [
+	private $upper_section_stories          = [
 		'cst_homepage_section_headlines_1' => true,
 		'cst_homepage_section_headlines_2' => true,
 		'cst_homepage_section_headlines_3' => true,
 		'cst_homepage_section_headlines_4' => true,
 		'cst_homepage_section_headlines_5' => true,
 	];
-	private $politics_list_section_stories = [
+	private $politics_list_section_stories  = [
 		'cst_homepage_top_story_headline_1'  => true,
 		'cst_homepage_top_story_headline_2'  => true,
 		'cst_homepage_top_story_headline_3'  => true,
@@ -42,8 +42,8 @@ class CST_Customizer {
 		'cst_homepage_top_story_headline_9'  => true,
 		'cst_homepage_top_story_headline_10' => true,
 	];
-	private $widget_top_story_list_stub = 'cst_homepage_widget_more_headlines_';
-	private $lower_section_stories = [
+	private $widget_top_story_list_stub     = 'cst_homepage_widget_more_headlines_';
+	private $lower_section_stories          = [
 		'cst_homepage_lower_section_headlines_1' => true,
 		'cst_homepage_lower_section_headlines_2' => true,
 		'cst_homepage_lower_section_headlines_3' => true,
@@ -85,7 +85,7 @@ class CST_Customizer {
 		'featured_story_block_headlines_4' => true,
 		'featured_story_block_headlines_5' => true,
 	];
-	private $capability         = 'edit_others_posts';
+	private $capability                     = 'edit_others_posts';
 	private $sports_section_choices, $section_choices, $section_choice_slugs, $section_ids, $sections, $sports_section_names;
 	public $five_block          = [
 		'five_block_1',
@@ -111,6 +111,11 @@ class CST_Customizer {
 		return self::$instance;
 	}
 
+	public function __construct() {
+		if ( ! $this->sports_term ) {
+			$this->sports_term = get_term_by( 'name', 'sports', 'cst_section' );
+		}
+	}
 	/**
 	 * Set up Customizer actions
 	 */
@@ -263,9 +268,6 @@ class CST_Customizer {
 	 * @return bool
 	 */
 	public function section_callback( $matches ) {
-		if ( ! $this->sports_term ) {
-			$this->sports_term = get_term_by( 'name', 'sports', 'cst_section' );
-		}
 		if ( is_array( $matches ) && ! empty( $matches ) ) {
 			$section_name = $matches[1];
 			if ( 'chicago-news' === $matches[1] ) {
