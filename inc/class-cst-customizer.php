@@ -200,17 +200,19 @@ class CST_Customizer {
 			$priority                = 400 + $section_counter++;
 			$block_type              = $this->five_block;
 			$section_description     = 'Choose ' . $section_choice . ' (SF) stories';
+			if ( 'Sports' === $section_choice ) {
+				$section_description = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
+			}
+			$wp_customize->add_section( $section_name, [
+				'title'           => esc_html( $section_title ),
+				'description'     => esc_html( $section_description ),
+				'priority'        => $priority,
+				'capability'      => $this->capability,
+				'active_callback' => [ $this, 'tax_section' ],
+			] );
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
 				$video_slot    = 'cst_sports_section_three_block_two_one_3';
 				$this->set_setting( $wp_customize, $video_slot, 'sanitize_text_field' );
-				$section_description = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
-				$wp_customize->add_section( $section_name, [
-					'title'           => esc_html( 'Sports section front' ),
-					'description'     => esc_html( $section_description ),
-					'priority'        => $priority,
-					'capability'      => $this->capability,
-					'active_callback' => [ $this, 'tax_section' ],
-				] );
 				$wp_customize->selective_refresh->add_partial( $video_slot, [
 					'selector'            => '.js-' . str_replace( '_', '-', $video_slot ),
 					'settings'            => $video_slot,
@@ -233,15 +235,7 @@ class CST_Customizer {
 							),
 					]
 				) );
-				$block_type          = $this->three_block_two_one;
-			} else {
-				$wp_customize->add_section( $section_name, [
-					'title'           => esc_html( $section_title ),
-					'description'     => esc_html( $section_description ),
-					'priority'        => $priority,
-					'capability'      => $this->capability,
-					'active_callback' => [ $this, 'tax_section' ],
-				] );
+				$block_type = $this->three_block_two_one;
 			}
 
 			foreach ( $block_type as $story_title ) {
