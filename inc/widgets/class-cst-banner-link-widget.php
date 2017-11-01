@@ -12,8 +12,10 @@ class CST_Banner_Link_Widget extends WP_Widget {
 				'customize_selective_refresh' => true,
 			] // Args
 		);
-
-		add_action( 'sidebar_admin_setup', array( $this, 'admin_setup' ) );
+		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
+			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		}
+		add_action( 'sidebar_admin_setup', [ $this, 'admin_setup' ] );
 
 	}
 
