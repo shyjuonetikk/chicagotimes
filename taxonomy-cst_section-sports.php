@@ -68,16 +68,6 @@ get_header();
 				\CST\CST_Section_Front::get_instance()->render_section_blocks( $current_obj->slug . '_section_sorter-collection' );
 				?>
 				</div>
-					<div class="row">
-					<div class="columns">
-						<hr>
-					</div>
-					<?php
-					if ( is_active_sidebar( 'undermorefrom' ) ) :
-						dynamic_sidebar( 'undermorefrom' );
-					endif;
-					?>
-				</div>
 				<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() && is_active_sidebar( 'sports_sf_bottom_sidebar' ) ) { ?>
 					<div class="small-12 sidebar widgets mobile">
 						<ul class="widgets">

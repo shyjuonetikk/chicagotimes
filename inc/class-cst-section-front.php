@@ -196,7 +196,7 @@ class CST_Section_Front {
 						$slotted['display_relative_timestamp'] = $display_relative_timestamp;
 						$this->render_section_five_block( $slotted, $slug, $term_link, $ad_counter );
 						?>
-						<hr>-Ad-
+						<hr>
 						<?php $this->section_ad_injection( $ad_counter ); ?>
 						<hr>
 						<?php
@@ -248,10 +248,14 @@ class CST_Section_Front {
 	}
 	/**
 	 *
-	 * Inject ad markup and script call within section front
+	 * Inject ad markup and script call within sports section front
 	 * @param string $counter
 	 */
 	public function section_ad_injection( $counter ) {
+		if ( 1 === $counter ) {
+			the_widget( 'CST_Ad_Flipp_Section_Widget', [] );
+			return;
+		}
 		$placement   = 'div-gpt-placement-s';
 		$ad_template = '<div class="cst-ad-container sf">%s</div>';
 		$mapping     = 'sf_new_inline_mapping';
