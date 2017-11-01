@@ -1772,8 +1772,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		if ( 3 === $counter ) {
 			if ( is_customize_preview() ) {
 				echo '<h3>Video injection disabled when in customizer</h3>';
+				return;
 			}
-		if ( is_tax() ) {
+			if ( is_tax() ) {
 				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
 					$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
 				}

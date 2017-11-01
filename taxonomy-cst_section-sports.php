@@ -19,7 +19,12 @@ get_header();
 				<?php if ( function_exists( 'jetpack_is_mobile' ) && jetpack_is_mobile() ) { ?>
 				<hr>
 					<div class="columns small-12 sidebar sf-inline-sidebar widgets mobile">
-						<?php the_widget( 'CST_Ad_Widget', [], ['slot'=>'dfp-rr-cube-1','mapping'=>'sports_sf_mobile'] ); ?>
+						<?php
+						the_widget( 'CST_Ad_Widget', [], [
+							'slot'    => 'dfp-rr-cube-1',
+							'mapping' => 'sports_sf_mobile',
+						] );
+						?>
 					</div>
 				<hr>
 				<?php } ?>
@@ -28,8 +33,8 @@ get_header();
 						<h2 class="more-sub-head"><a href="#">Slottable Sports Section Front Stories and Video Player</a></h2>
 					</div>
 					<div class="columns small-12 medium-12 large-4 three-block stories">
-						<?php \CST\CST_Section_Front::get_instance()->section_hero_story( 'cst_sports_section_three_block_two_one_1' ) ?>
-						<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_three_block_two_one_2' ) ?>
+						<?php \CST\CST_Section_Front::get_instance()->section_hero_story( 'cst_sports_section_three_block_two_one_1' ); ?>
+						<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_three_block_two_one_2' ); ?>
 					</div><!-- /hp-main-lead -->
 					<div class="columns small-12 large-8 more-stories-container other-lead-stories sf-video-container">
 						<div class="js-cst-sports-section-three-block-two-one-3">
@@ -38,7 +43,12 @@ get_header();
 							?>
 						</div>
 						<div class="show-for-large-up">
-							<?php CST()->frontend->inject_newsletter_signup( [ 'newsletter' => 'sports', 'wrapper_class' => 'small-12 newsletter-box' ] ); ?>
+							<?php
+							CST()->frontend->inject_newsletter_signup( [
+								'newsletter'    => 'sports',
+								'wrapper_class' => 'small-12 newsletter-box',
+							] );
+							?>
 						</div>
 					</div>
 				</div>

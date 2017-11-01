@@ -30,32 +30,33 @@ class CST_Section_Front {
 	public function __construct() {
 		$this->sortable_sections = [
 			[
-				'slug' => 'sports',
+				'slug'     => 'sports',
 				'callback' => 'show_sports_sections',
-				'label' => 'Set Sports SF sort order',
-				'list' => $this->chicago_sports_team_slugs,
-			]
+				'label'    => 'Set Sports SF sort order',
+				'list'     => $this->chicago_sports_team_slugs,
+			],
 		];
 	}
 
-	public function setup_actions(  ) {
+	public function setup_actions() {
 
 	}
 
-	public function setup_filters(  ) {
+	public function setup_filters() {
 
 	}
 
-	public function setup_constants(  ) {
+	public function setup_constants() {
 		$this->sports_object = get_term_by( 'name', 'sports', 'cst_section' );
-		$this->sort_order = get_theme_mod( 'section_sorter-collection' );
+		$this->sort_order    = get_theme_mod( 'section_sorter-collection' );
 	}
 
 	public function create_partials( $team ) {
 		$headlines = [];
 		foreach ( \CST_Customizer::get_instance()->five_block as $item ) {
-			$headlines['cst_' . sanitize_title( $team ) . '_section_' . $item] = true;
+			$headlines[ 'cst_' . sanitize_title( $team ) . '_section_' . $item ] = true;
 		}
+
 		return $headlines;
 	}
 	/**
@@ -64,10 +65,11 @@ class CST_Section_Front {
 	 * @param $term
 	 */
 	public function heading( $title = '', $term = '' ) {
-		$term_link = get_term_by( $term,'cst_section' );
+		$term_link = get_term_by( $term, 'cst_section' );
 		if ( ! is_wp_error( $term_link ) ) { ?>
-			<h2 class="more-sub-head"><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( ucfirst( $title ) ); ?></a></h2>
-		<?php }
+<h2 class="more-sub-head"><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( ucfirst( $title ) ); ?></a></h2>
+		<?php
+		}
 	}
 
 	/**
@@ -80,7 +82,7 @@ class CST_Section_Front {
 	 */
 	public function five_block( $title_slug ) {
 		$customizer_partials = $this->create_partials( $title_slug );
-		$render = false;
+		$render              = false;
 		foreach ( array_keys( $customizer_partials ) as $customizer_partial ) {
 			if ( get_theme_mod( $customizer_partial ) ) {
 				$render = true;
@@ -121,7 +123,7 @@ class CST_Section_Front {
 			<?php
 			$obj = Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 			if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-				$author          = \CST_Frontend::get_instance()->hp_get_article_authors( $obj );
+				$author = \CST_Frontend::get_instance()->hp_get_article_authors( $obj );
 				remove_filter( 'the_excerpt', 'wpautop' );
 				$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
 				add_filter( 'the_excerpt', 'wpautop' );
@@ -175,24 +177,12 @@ class CST_Section_Front {
 	 * @param $display_relative_timestamp
 	 */
 	public function render_section_blocks( $section_block_partial, $display_relative_timestamp = false ) {
-		$ad_counter = 1;
-		$team_sections = $this->chicago_sports_team_slugs;
+		$ad_counter       = 1;
 		$this->sort_order = get_theme_mod( $section_block_partial ); // Used during render to get the latest order
-		$team_display_order = explode( ',', $this->sort_order );
-		// Reset to default order - based on $this->chicago_sports_team_slugs
-		$reset = false;
-		foreach ( $team_display_order as $index ) {
-			if ( ! isset( $team_sections[ $index ] ) ) { // legacy settings were numeric not slug based
-				$reset = true; // reset as $team_sections[<number>] will not exist
-				break;
-			}
-		}
-		if ( $reset ) {
-			$team_display_order = $this->chicago_sports_team_slugs;
-		}
-		foreach ( $team_display_order as $index => $slug ) {
-			if ( isset( $team_sections[ $slug ] ) ) {
-				$slotted = $this->create_partials( $slug );
+		$display_order    = $this->_section_block_determine_display_order();
+		foreach ( array_values( $display_order ) as $slug ) {
+			if ( isset( $this->chicago_sports_team_slugs[ $slug ] ) ) {
+				$slotted      = $this->create_partials( $slug );
 				$show_section = false;
 				foreach ( array_keys( $slotted ) as $partial_id ) { // Do we have items to display?
 					if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
@@ -200,19 +190,12 @@ class CST_Section_Front {
 						break;
 					}
 				}
-				if ( $show_section && isset( $team_sections[ $slug ] ) ) {
-					$term_link = get_term_link( $slug,'cst_section' );
+				if ( $show_section && isset( $this->chicago_sports_team_slugs[ $slug ] ) ) {
+					$term_link = get_term_link( $slug, 'cst_section' );
 					if ( ! is_wp_error( $term_link ) ) {
 						$slotted['display_relative_timestamp'] = $display_relative_timestamp;
+						$this->render_section_five_block( $slotted, $slug, $term_link, $ad_counter );
 						?>
-						<div class="row">
-							<div class="stories-container">
-								<div class="small-12 columns more-stories-container <?php echo esc_attr( $index ); ?>" id="individual-sports-section-<?php echo esc_attr( $ad_counter ); ?>">
-									<h2 class="more-sub-head"><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $team_sections[ $slug ] ) . ' Headlines'; ?></a></h2>
-									<?php \CST_Frontend::get_instance()->mini_stories_content_block( $slotted ); ?>
-								</div><!-- /individual-sports-section-{sport} -->
-							</div>
-						</div>
 						<hr>-Ad-
 						<?php $this->section_ad_injection( $ad_counter ); ?>
 						<hr>
@@ -223,16 +206,56 @@ class CST_Section_Front {
 			}
 		}
 	}
+
+	/**
+	 * Determine and return the display order for section front blocks
+	 * As set by the drag an drop selector in the Customizer
+	 * @return array
+	 */
+	private function _section_block_determine_display_order() {
+		$team_display_order = explode( ',', $this->sort_order );
+		// Reset to default order - based on $this->chicago_sports_team_slugs
+		$reset = false;
+		foreach ( $team_display_order as $index ) {
+			if ( ! isset( $this->chicago_sports_team_slugs[ $index ] ) ) { // legacy settings were numeric not slug based
+				$reset = true; // reset as $team_sections[<number>] will not exist
+				break;
+			}
+		}
+		if ( $reset ) {
+			$team_display_order = $this->chicago_sports_team_slugs;
+		}
+		return $team_display_order;
+	}
+	/**
+	 * Render one 5 block of headlines
+	 * @param $slotted
+	 * @param $slug
+	 * @param $term_link
+	 * @param $ad_counter
+	 */
+	public function render_section_five_block( $slotted, $slug, $term_link, $ad_counter ) {
+	?>
+<div class="row">
+	<div class="stories-container">
+		<div class="small-12 columns more-stories-container <?php echo esc_attr( $slug ); ?>" id="individual-sports-section-<?php echo esc_attr( $ad_counter ); ?>">
+			<h2 class="more-sub-head"><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $this->chicago_sports_team_slugs[ $slug ] ) . ' Headlines'; ?></a></h2>
+				<?php \CST_Frontend::get_instance()->mini_stories_content_block( $slotted ); ?>
+		</div><!-- /individual-sports-section-{sport} -->
+	</div>
+</div>
+<?php
+	}
 	/**
 	 *
 	 * Inject ad markup and script call within section front
 	 * @param string $counter
 	 */
 	public function section_ad_injection( $counter ) {
-		$placement          = 'div-gpt-placement-s';
-		$ad_template        = '<div class="cst-ad-container sf">%s</div>';
-		$mapping            = 'sf_new_inline_mapping';
-		$targeting          = 'atf-leaderboard';
+		$placement   = 'div-gpt-placement-s';
+		$ad_template = '<div class="cst-ad-container sf">%s</div>';
+		$mapping     = 'sf_new_inline_mapping';
+		$targeting   = 'atf-leaderboard';
 		if ( 1 !== $counter ) {
 			$targeting .= ' ' . $counter;
 		}
@@ -245,7 +268,7 @@ class CST_Section_Front {
 			''
 		);
 		echo sprintf(
-			wp_kses( $ad_template, [ 'div' => ['class' => [] ] ] ),
+			wp_kses( $ad_template, [ 'div' => [ 'class' => [] ] ] ),
 			wp_kses( $ad_unit_definition, CST()->dfp_kses )
 		);
 
