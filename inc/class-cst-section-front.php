@@ -178,11 +178,10 @@ class CST_Section_Front {
 	 */
 	public function render_section_blocks( $section_block_partial, $display_relative_timestamp = false ) {
 		$ad_counter       = 1;
-		$team_sections    = $this->chicago_sports_team_slugs;
 		$this->sort_order = get_theme_mod( $section_block_partial ); // Used during render to get the latest order
 		$display_order    = $this->_section_block_determine_display_order();
-		foreach ( $display_order as $slug => $name ) {
-			if ( isset( $team_sections[ $slug ] ) ) {
+		foreach ( array_values( $display_order ) as $slug ) {
+			if ( isset( $this->chicago_sports_team_slugs[ $slug ] ) ) {
 				$slotted      = $this->create_partials( $slug );
 				$show_section = false;
 				foreach ( array_keys( $slotted ) as $partial_id ) { // Do we have items to display?
@@ -191,7 +190,7 @@ class CST_Section_Front {
 						break;
 					}
 				}
-				if ( $show_section && isset( $team_sections[ $slug ] ) ) {
+				if ( $show_section && isset( $this->chicago_sports_team_slugs[ $slug ] ) ) {
 					$term_link = get_term_link( $slug, 'cst_section' );
 					if ( ! is_wp_error( $term_link ) ) {
 						$slotted['display_relative_timestamp'] = $display_relative_timestamp;
@@ -218,7 +217,7 @@ class CST_Section_Front {
 		// Reset to default order - based on $this->chicago_sports_team_slugs
 		$reset = false;
 		foreach ( $team_display_order as $index ) {
-			if ( ! isset( $team_sections[ $index ] ) ) { // legacy settings were numeric not slug based
+			if ( ! isset( $this->chicago_sports_team_slugs[ $index ] ) ) { // legacy settings were numeric not slug based
 				$reset = true; // reset as $team_sections[<number>] will not exist
 				break;
 			}
