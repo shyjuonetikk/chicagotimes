@@ -2067,7 +2067,7 @@ class CST {
 	public function jetpack_infinite_support() {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) || is_tax() );
+			( is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) || ! is_tax( 'cst_section', 'Sports' ) );
 	}
 
 	/**
@@ -2290,7 +2290,7 @@ function filter_limit_ads_on_features() {
  * Ad Vendor filter to inject Nativo
  */
 function filter_include_nativo_on_certain_pages() {
-	return is_front_page() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_page_template( 'page-sponsored.php') && ! is_404();
+	return is_front_page()  || is_tax( 'cst_section', 'Sports' ) || is_singular( [ 'cst_article', 'cst_gallery' ] ) || is_page_template( 'page-sponsored.php') && ! is_404();
 }
 /**
  * @return bool
