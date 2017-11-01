@@ -63,7 +63,6 @@ class CST_Frontend {
 		add_action( 'cst_section_front_heading', array( $this, 'action_cst_section_front_heading' ) );
 		add_action( 'closing_body', array( $this, 'inject_teads_tag' ) );
 		add_action( 'closing_body', [ $this, 'enqueue_chartbeat_react_engagement_script' ] );
-		add_action( 'closing_body', [ $this, 'enqueue_inspectlet_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'cst_tracking_pixels' ] );
 		add_action( 'wp_enqueue_scripts', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
 		add_action( 'wp_footer', array( $this, 'cst_remove_extra_twitter_js' ), 15 );
@@ -2231,12 +2230,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
 			}
 		}
-	}
-	/**
-	* Add inspectlet script to all pages
-	*/
-	public function enqueue_inspectlet_script(){
-	    wp_enqueue_script( 'inspectlet', esc_url( get_stylesheet_directory_uri() . '/assets/js/vendor/inspectlet-script.js' ), [], null, true );
 	}
 	/**
 	*
