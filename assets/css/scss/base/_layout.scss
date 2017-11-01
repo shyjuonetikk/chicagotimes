@@ -42,6 +42,12 @@
 		margin-bottom: 0.5rem;
 	}
 	.stories-container {
+		.lead-stories {
+			.lead-story,
+			.hero-story {
+				border-bottom: 1px solid $homepage_border_grey;
+			}
+		}
 		.stories {
 			p,
 			li {
@@ -86,7 +92,6 @@
 						}
 					}
 				}
-				border-bottom: 1px solid $homepage_border_grey;
 				float: left;
 				padding-bottom: 1rem;
 				margin-bottom: 0.25rem;
@@ -218,7 +223,6 @@
 			}
 		}
 		.mini-stories {
-			.prime-lead-story,
 			.remaining-stories {
 				float:left;
 				margin-bottom: 0.5rem;

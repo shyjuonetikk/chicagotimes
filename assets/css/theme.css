@@ -3731,6 +3731,8 @@ body.post-gallery-lightbox-active {
 .homepage_wrapper .single-mini-story {
   float: left;
   margin-bottom: 0.5rem; }
+.homepage_wrapper .stories-container .lead-stories .lead-story, .homepage_wrapper .stories-container .lead-stories .hero-story {
+  border-bottom: 1px solid #dedede; }
 .homepage_wrapper .stories-container .stories p, .homepage_wrapper .stories-container .stories li {
   font-size: 0.9rem;
   line-height: 1.3;
@@ -3749,7 +3751,6 @@ body.post-gallery-lightbox-active {
     .homepage_wrapper .stories-container .stories .lead-related-stories-collection li:last-child {
       border-bottom: none; }
 .homepage_wrapper .stories-container .stories .lead-story, .homepage_wrapper .stories-container .stories .hero-story {
-  border-bottom: 1px solid #dedede;
   float: left;
   padding-bottom: 1rem;
   margin-bottom: 0.25rem; }
@@ -3851,7 +3852,7 @@ body.post-gallery-lightbox-active {
       .homepage_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-title h3 {
         font-size: 0.8rem;
         line-height: 1rem; } }
-.homepage_wrapper .stories-container .mini-stories .prime-lead-story, .homepage_wrapper .stories-container .mini-stories .remaining-stories {
+.homepage_wrapper .stories-container .mini-stories .remaining-stories {
   float: left;
   margin-bottom: 0.5rem; }
 @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
@@ -4253,6 +4254,8 @@ body.post-gallery-lightbox-active {
 .section_front_wrapper .single-mini-story {
   float: left;
   margin-bottom: 0.5rem; }
+.section_front_wrapper .stories-container .lead-stories .lead-story, .section_front_wrapper .stories-container .lead-stories .hero-story {
+  border-bottom: 1px solid #dedede; }
 .section_front_wrapper .stories-container .stories p, .section_front_wrapper .stories-container .stories li {
   font-size: 0.9rem;
   line-height: 1.3;
@@ -4271,7 +4274,6 @@ body.post-gallery-lightbox-active {
     .section_front_wrapper .stories-container .stories .lead-related-stories-collection li:last-child {
       border-bottom: none; }
 .section_front_wrapper .stories-container .stories .lead-story, .section_front_wrapper .stories-container .stories .hero-story {
-  border-bottom: 1px solid #dedede;
   float: left;
   padding-bottom: 1rem;
   margin-bottom: 0.25rem; }
@@ -4373,7 +4375,7 @@ body.post-gallery-lightbox-active {
       .section_front_wrapper .stories-container .more-stories-container .mini-featured-stories .single-mini-story .mini-title h3 {
         font-size: 0.8rem;
         line-height: 1rem; } }
-.section_front_wrapper .stories-container .mini-stories .prime-lead-story, .section_front_wrapper .stories-container .mini-stories .remaining-stories {
+.section_front_wrapper .stories-container .mini-stories .remaining-stories {
   float: left;
   margin-bottom: 0.5rem; }
 @media only screen and (min-width:48em) and (max-width:64em) and (orientation: portrait) {
