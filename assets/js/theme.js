@@ -90,7 +90,7 @@
                 }, this ), 30 );
             }, this ) );
 
-            if ( this.body.hasClass("single") ||  this.body.hasClass("archive") ) {
+            if ( this.body.hasClass("single") || this.body.hasClass("archive") ) {
               $(window).scroll($.proxy(function () {
                 clearTimeout(throttleScroll);
                 throttleScroll = setTimeout(function () {
@@ -163,20 +163,19 @@
             // Sticky sharing tools on the articles, as well as logic for the currently viewing post
             if ( $( 'body.single' ).length ) {
               var mainPost = $('#main .post');
-            mainPost.each( $.proxy( function( key, value ) {
-                        var el = $(value);
-                        var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
-                        var bottomBreakPoint = topBreakPoint + el.height() - 80;
+              mainPost.each( $.proxy( function( key, value ) {
+                var el = $(value);
+                var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
+                var bottomBreakPoint = topBreakPoint + el.height() - 80;
 
-                        if ( ! el.hasClass('cst-active-scroll-post') ) {
-                          if ( scrollTop > topBreakPoint &&  scrollTop < bottomBreakPoint ) {
-                            mainPost.removeClass('cst-active-scroll-post');
-                            el.addClass('cst-active-scroll-post');
-                          }
-                        }
-                    }, this ) );
-
+                if ( ! el.hasClass('cst-active-scroll-post') ) {
+                  if ( scrollTop > topBreakPoint &&  scrollTop < bottomBreakPoint ) {
+                    mainPost.removeClass('cst-active-scroll-post');
+                    el.addClass('cst-active-scroll-post');
+                  }
                 }
+              }, this ) );
+            }
             this.positionAndSizePostSidebar(scrollTop);
             this.stickSectionSidebar();
             },
@@ -280,7 +279,13 @@
         },
 
       stickSectionSidebar: function() {
-          if('false' === CSTInfiniteScrollData.isMobile && this.body.hasClass("tax-cst_section")) {
+        let displaySidebar = true;
+        if ( 'object' === typeof CSTInfiniteScrollData ) {
+          if ( 'false' === CSTInfiniteScrollData.displaySidebar ) {
+            displaySidebar = false;
+          }
+        }
+          if ( displaySidebar && this.body.hasClass("tax-cst_section")) {
             if (!this.anchorMe.hasClass('is_stuck')) {
               this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10});
             }
