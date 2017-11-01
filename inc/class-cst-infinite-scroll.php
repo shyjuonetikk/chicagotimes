@@ -32,7 +32,7 @@ class CST_Infinite_Scroll {
 	 */
 	private function setup_filters() {
 
-
+		// See jetpack_infinite_support() first.
 		add_filter( 'infinite_scroll_archive_supported', function( $val ) {
 			if ( is_singular() ) {
 				return true;
@@ -44,14 +44,14 @@ class CST_Infinite_Scroll {
 		add_filter( 'infinite_scroll_settings', function( $settings ) {
 			if ( is_singular() ) {
 				$settings['posts_per_page'] = 1;
-				$settings['type'] = 'scroll';
+				$settings['type']           = 'scroll';
 			}
 			return $settings;
 		});
 
 		add_filter( 'infinite_scroll_js_settings', function( $settings ) {
 			$settings['google_analytics'] = false;
-			$settings['text'] = '<a class="cst-load-more" data-on="click" data-event-category="navigation" data-event-action="sf-load-more">Load more.</a>';
+			$settings['text']             = '<a class="cst-load-more" data-on="click" data-event-category="navigation" data-event-action="sf-load-more">Load more.</a>';
 			return $settings;
 		});
 
