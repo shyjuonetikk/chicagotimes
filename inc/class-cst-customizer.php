@@ -1036,14 +1036,7 @@ class CST_Customizer {
 				switch ( $matches[2] ) {
 					case 'three_block_two_one_1':
 					case 'three_block_two_one_2':
-						return CST()->frontend->single_mini_story(
-							[
-								'story'       => $obj,
-								'layout_type' => 'prime',
-								'partial_id'  => $partial->id,
-								'watch'       => 'yes',
-							]
-						);
+						return CST()->frontend->homepage_lead_story( $partial->id );
 						break;
 					case 'three_block_two_one_3':
 						return CST()->frontend->single_mini_story(

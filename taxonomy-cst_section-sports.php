@@ -33,7 +33,7 @@ get_header();
 						<h2 class="more-sub-head"><a href="#">Slottable Sports Section Front Stories and Video Player</a></h2>
 					</div>
 					<div class="columns small-12 medium-12 large-4 three-block stories">
-						<?php \CST\CST_Section_Front::get_instance()->section_hero_story( 'cst_sports_section_three_block_two_one_1' ); ?>
+						<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_three_block_two_one_1' ); ?>
 						<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_three_block_two_one_2' ); ?>
 					</div><!-- /hp-main-lead -->
 					<div class="columns small-12 large-8 more-stories-container other-lead-stories sf-video-container">
