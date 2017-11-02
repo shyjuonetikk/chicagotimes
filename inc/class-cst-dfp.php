@@ -100,10 +100,13 @@ class CST_DFP_Handler {
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="one_by_one"></div>
 <script class="dfp">
 	googletag.cmd.push(function() {
-		CSTAdTags[\'%1$s\'] = googletag.defineSlot(dfp.adunitpath, [1,1], \'%1$s\')
+		var oneByOne = googletag.defineSlot(dfp.adunitpath, [1,1], \'%1$s\')
 		.addService(googletag.pubads())
-		.setTargeting("pos", "1x1")
+		.setTargeting("pos", "1x1");
 		googletag.display("%1$s");
+		if ( "object" === typeof(CSTAdTags) ) {
+			CSTAdTags[\'%1$s\'] = oneByOne;
+		}
 	})
 </script>
 
