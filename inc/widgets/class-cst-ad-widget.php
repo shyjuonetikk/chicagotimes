@@ -19,18 +19,15 @@ class CST_Ad_Widget extends WP_Widget {
 	];
 
 	public function __construct() {
-
+		$widget_ops = [
+			'description'                 => esc_html__( 'Displays a right rail ad unit.', 'chicagosuntimes' ),
+			'customize_selective_refresh' => true,
+		];
 		parent::__construct(
 			'cst_ad_widget',
 			esc_html__( 'CST Right Rail Ad Widget', 'chicagosuntimes' ),
-			[
-				'description'                 => esc_html__( 'Displays a right rail ad unit.', 'chicagosuntimes' ),
-				'customize_selective_refresh' => true,
-			]
+			$widget_ops
 		);
-		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
-			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		}
 	}
 
 	public function widget( $args, $instance ) {
