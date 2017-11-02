@@ -3,19 +3,17 @@
 class CST_Banner_Link_Widget extends WP_Widget {
 
 	function __construct() {
-
+		$widget_ops = [
+			'description'                 => esc_html__( 'Display a banner image with article link', 'chicagosuntimes' ),
+			'customize_selective_refresh' => true,
+		];
 		parent::__construct(
 			'CST_Banner_Link_Widget',
 			esc_html__( 'CST Banner Link Widget', 'chicagosuntimes' ),
-			[
-				'description'                 => esc_html__( 'Display a banner image with article link', 'chicagosuntimes' ),
-				'customize_selective_refresh' => true,
-			] // Args
+			$widget_ops
 		);
-		if ( is_active_widget( false, false, $this->id_base ) || is_customize_preview() ) {
-			add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		}
-		add_action( 'sidebar_admin_setup', [ $this, 'admin_setup' ] );
+
+		add_action( 'sidebar_admin_setup', array( $this, 'admin_setup' ) );
 
 	}
 
