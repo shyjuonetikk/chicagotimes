@@ -257,7 +257,7 @@ class CST_Customizer {
 						'choices'         =>
 							array_merge(
 								[ 'sports' => 'Choose team (or leave for generic sports)' ],
-								\CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs
+								array_intersect_key( \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs, \CST_Frontend::get_instance()->send_to_news_embeds )
 							),
 					]
 				) );
