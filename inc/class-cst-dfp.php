@@ -26,7 +26,7 @@ class CST_DFP_Handler {
 	;
 	public static function get_instance() {
 
-		if ( is_customize_preview() ) {
+		if ( WP_DEBUG && is_customize_preview() ) {
 			self::$active = false;
 		}
 		if ( ! isset( self::$instance ) ) {

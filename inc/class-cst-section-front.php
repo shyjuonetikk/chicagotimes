@@ -238,7 +238,7 @@ class CST_Section_Front {
 	?>
 <div class="row">
 	<div class="stories-container">
-		<div class="small-12 columns more-stories-container <?php echo esc_attr( $slug ); ?>" id="individual-sports-section-<?php echo esc_attr( $ad_counter ); ?>">
+		<div class="small-12 columns more-stories-container <?php echo esc_attr( $slug ); ?> js-section-<?php echo esc_attr( $slug ); ?>" id="individual-sports-section-<?php echo esc_attr( $ad_counter ); ?>">
 			<h2 class="more-sub-head"><a href="<?php echo esc_url( $term_link ); ?>"><?php echo esc_html( $this->chicago_sports_team_slugs[ $slug ] ) . ' Headlines'; ?></a></h2>
 				<?php \CST_Frontend::get_instance()->mini_stories_content_block( $slotted ); ?>
 		</div><!-- /individual-sports-section-{sport} -->
