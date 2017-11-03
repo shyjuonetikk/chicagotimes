@@ -60,7 +60,7 @@ get_header();
 					</div>
 				<?php } ?>
 				<hr>
-				<div class="cst-ad-container" id="nativo-cst-homepage-01">Nativo position here</div>
+				<div class="cst-ad-container" id="nativo-cst-homepage-01"></div>
 				<hr>
 				<div class="team-stories">
 				<?php
