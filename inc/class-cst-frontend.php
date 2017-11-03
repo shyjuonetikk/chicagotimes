@@ -2222,7 +2222,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			if ( 'chicago.suntimes.com' === $site ) {
 				$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
 			} else {
-				$chartbeat_file_name = 'main.81b31ab6-cb-dev-test.js';
+				$chartbeat_file_name = 'main.3f878c34-cb-dev-test.js';
 			}
 			if ( is_front_page() ) {
 				wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
