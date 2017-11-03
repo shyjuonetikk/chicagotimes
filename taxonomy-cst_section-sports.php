@@ -30,7 +30,7 @@ get_header();
 				<?php } ?>
 				<div class="row">
 					<div class="columns small-12 more-stories-container">
-						<h2 class="more-sub-head"><a href="#">Slottable Sports Section Front Stories and Video Player</a></h2>
+						<h2 class="more-sub-head"><a href="#">Featured Sports Stories</a></h2>
 					</div>
 					<div class="columns small-12 medium-12 large-4 three-block stories">
 						<?php CST()->frontend->homepage_lead_story( 'cst_sports_section_three_block_two_one_1' ); ?>
