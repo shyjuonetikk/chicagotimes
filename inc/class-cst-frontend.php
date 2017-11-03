@@ -2221,7 +2221,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	public function enqueue_chartbeat_react_engagement_script() {
 		if ( is_front_page() && function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
 			$site = CST()->dfp_handler->get_parent_dfp_inventory();
-			$chartbeat_file_name = 'main.b8f7cb34-cb-prod.js';
+			$chartbeat_file_name = 'main.cb-stats-e701538a.js';
 			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/' . $chartbeat_file_name ), array(), null, true );
 		}
 	}
