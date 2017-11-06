@@ -182,15 +182,11 @@ class CST_Section_Front {
 		$display_order    = $this->_section_block_determine_display_order();
 		foreach ( array_values( $display_order ) as $slug ) {
 			if ( isset( $this->chicago_sports_team_slugs[ $slug ] ) ) {
-				$slotted      = $this->create_partials( $slug );
-				$show_section = false;
-				foreach ( array_keys( $slotted ) as $partial_id ) { // Do we have items to display?
-					if ( Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) ) ) {
-						$show_section = true;
-						break;
-					}
-				}
-				if ( $show_section && isset( $this->chicago_sports_team_slugs[ $slug ] ) ) {
+				$slotted   = $this->create_partials( $slug );
+				$posts_inn = array_filter( array_map( 'absint', array_map( 'get_theme_mod', array_keys( $slotted ) ) ), function( $element ) {
+					return $element > 0;
+				});
+				if ( ! empty( $posts_inn ) && isset( $this->chicago_sports_team_slugs[ $slug ] ) ) {
 					$term_link = get_term_link( $slug, 'cst_section' );
 					if ( ! is_wp_error( $term_link ) ) {
 						$slotted['display_relative_timestamp'] = $display_relative_timestamp;

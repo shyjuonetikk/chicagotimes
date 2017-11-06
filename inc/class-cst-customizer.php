@@ -126,13 +126,9 @@ class CST_Customizer {
 		require_once dirname( __FILE__ ) . '/controls/class-cst-sf-sorter-control.php';
 	}
 	public function setup_filters() {
-		add_filter( 'customize_section_active', [ $this, 'filter_customize_section_active' ] );
 		add_filter( 'customize_allowed_urls', [ $this, 'filter_allowed_urls' ] );
 	}
 
-	public function filter_customize_section_active( $active, $section ) {
-		$b = $active;
-	}
 	public function action_customizer_live_preview() {
 		global $wp_customize;
 		remove_action( 'wp_head', array( $wp_customize, 'customize_preview_loading_style' ) );
@@ -148,6 +144,15 @@ class CST_Customizer {
 			get_theme_file_uri( '/assets/css/cst-customizer-preview.css' )
 		);
 	}
+
+	/**
+	 * Add our urls to the whitelist when using the Customizer - links with these
+	 * base urls will not be restricted during Customizer Preview
+	 * @param $allowed_urls
+	 *
+	 * @return array
+	 *
+	 */
 	public function filter_allowed_urls( $allowed_urls ) {
 		$allowed_urls[] = 'https://dev.suntimes.com/';
 		$allowed_urls[] = 'https://suntimesmediapreprod.wordpress.com/';
@@ -1061,11 +1066,6 @@ class CST_Customizer {
 				}
 			}
 		}
-		if ( empty( $matches ) ) {
-			return '';
-		}
-
-		return '';
 	}
 
 	/**
