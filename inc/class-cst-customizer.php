@@ -127,6 +127,7 @@ class CST_Customizer {
 	}
 	public function setup_filters() {
 		add_filter( 'customize_section_active', [ $this, 'filter_customize_section_active' ] );
+		add_filter( 'customize_allowed_urls', [ $this, 'filter_allowed_urls' ] );
 	}
 
 	public function filter_customize_section_active( $active, $section ) {
@@ -146,6 +147,13 @@ class CST_Customizer {
 			'chicagosuntimes-customizer-preview',
 			get_theme_file_uri( '/assets/css/cst-customizer-preview.css' )
 		);
+	}
+	public function filter_allowed_urls( $allowed_urls ) {
+		$allowed_urls[] = 'https://dev.suntimes.com/';
+		$allowed_urls[] = 'https://suntimesmediapreprod.wordpress.com/';
+		$allowed_urls[] = 'https://chicago.suntimes.com/';
+		$allowed_urls[] = 'https://suntimesmedia.wordpress.com/';
+		return $allowed_urls;
 	}
 
 	/**
