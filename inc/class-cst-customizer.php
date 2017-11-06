@@ -1066,11 +1066,6 @@ class CST_Customizer {
 				}
 			}
 		}
-		if ( empty( $matches ) ) {
-			return '';
-		}
-
-		return '';
 	}
 
 	/**
