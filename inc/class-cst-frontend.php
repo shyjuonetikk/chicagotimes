@@ -2220,7 +2220,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	*/
 	public function enqueue_chartbeat_react_engagement_script() {
 		if ( is_front_page() && function_exists('jetpack_is_mobile') && ! jetpack_is_mobile() ) {
-			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/main.cb-stats.js' ), [], null, true );
+			wp_enqueue_script( 'chartbeat_engagement', esc_url( get_stylesheet_directory_uri() . '/assets/js/main-cb-stats.js' ), [], null, true );
 		}
 	}
 	/**
