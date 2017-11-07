@@ -233,7 +233,7 @@ class CST_Frontend {
 
 		}
 		wp_enqueue_script( 'sailthru', 'https://ak.sail-horizon.com/spm/spm.v1.min.js', [], null );
-		wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: cb2dcb87070aeb54eddb31b0362745ed });' );
+		wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: "cb2dcb87070aeb54eddb31b0362745ed" });' );
 		if ( is_page() ) {
 			wp_enqueue_script( 'page-iframe-reponsify', get_template_directory_uri() . '/assets/js/theme-page.js', array(), null, true );
 		}
