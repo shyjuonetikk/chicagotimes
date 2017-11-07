@@ -382,6 +382,7 @@ class CST {
 		wpcom_vip_load_plugin( 'zoninator' );
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
+		wpcom_vip_load_plugin( 'sailthru' );
 		if ( ! defined( 'WP_CLI' ) ) {
 			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
 			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '3.0' );
