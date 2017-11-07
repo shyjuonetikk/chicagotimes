@@ -91,10 +91,11 @@ class CST_Frontend {
 
 		add_filter( 'nav_menu_link_attributes', array( $this, 'filter_nav_menu_link_attributes' ), 10, 3 );
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
+
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
 		add_filter( 'the_content', [ $this, 'inject_a9' ] );
-		add_filter( 'the_content', [ $this, 'inject_a92' ] );	
-		add_filter( 'the_content', [ $this, 'inject_a9_leaderboard' ] );	
+		add_filter( 'the_content', [ $this, 'inject_a92' ] );
+		add_filter( 'the_content', [ $this, 'inject_a9_leaderboard' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
