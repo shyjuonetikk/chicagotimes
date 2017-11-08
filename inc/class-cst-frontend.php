@@ -2695,6 +2695,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 					$horizon_tags['sailthru.tags'] = implode( ',', $result );
 				}
 			}
+			$horizon_tags['sailthru.author'] = $obj->get_ga_dimension( 1 );
 		}
 		return $horizon_tags;
 	}
