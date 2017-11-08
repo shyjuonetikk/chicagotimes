@@ -2684,25 +2684,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @return mixed
 	*/
 	public function cst_sailthru_horizon_meta_tags( $horizon_tags, $post_object ) {
-		$site = CST()->dfp_handler->get_parent_dfp_inventory();
-		if ( 'chicago.suntimes.com' === $site ) {
-			$obj = \CST\Objects\Post::get_by_post_id( $post_object->ID );
-			if ( $obj ) {
-				$dimensions_to_retrieve = [
-					2,3,4,9
-				];
-				foreach ( $dimensions_to_retrieve as $dimension ) {
-					$temp[] = $obj->get_ga_dimension( $dimension );
-				}
-				if ( ! empty( $temp ) ) {
-					$result = str_replace( ':', ',', array_filter( $temp, 'strlen' ) );
-					if ( ! empty( $result ) ) {
-						$horizon_tags['sailthru.tags'] = implode( ',', $result );
-					}
-				}
-				$horizon_tags['sailthru.author'] = str_replace( ':', ',', $obj->get_ga_dimension( 1 ) );
+		$obj = \CST\Objects\Post::get_by_post_id( $post_object->ID );
+		if ( $obj ) {
+			$dimensions_to_retrieve = [
+				2,3,4,9
+			];
+			foreach ( $dimensions_to_retrieve as $dimension ) {
+				$temp[] = $obj->get_ga_dimension( $dimension );
 			}
+			if ( ! empty( $temp ) ) {
+				$result = str_replace( ':', ',', array_filter( $temp, 'strlen' ) );
+				if ( ! empty( $result ) ) {
+					$horizon_tags['sailthru.tags'] = implode( ',', $result );
+				}
 			}
+			$horizon_tags['sailthru.author'] = str_replace( ':', ',', $obj->get_ga_dimension( 1 ) );
+		}
 		return $horizon_tags;
 	}
 	/**
