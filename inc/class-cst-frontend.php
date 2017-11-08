@@ -2682,16 +2682,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	*/
 	public function cst_sailthru_horizon_meta_tags( $horizon_tags, $post_object ) {
 		$obj = \CST\Objects\Post::get_by_post_id( $post_object->ID );
-		$dimensions_to_retrieve = [
-			2,3,4,9
-		];
-		foreach ( $dimensions_to_retrieve as $dimension ) {
-			$temp[] = $obj->get_ga_dimension( $dimension );
-		}
-		if ( ! empty( $temp ) ) {
-			$result = array_filter( $temp, 'strlen' );
-			if ( ! empty( $result ) ) {
-				$horizon_tags['sailthru.tags'] = implode( ',', $result );
+		if ( $obj ) {
+			$dimensions_to_retrieve = [
+				2,3,4,9
+			];
+			foreach ( $dimensions_to_retrieve as $dimension ) {
+				$temp[] = $obj->get_ga_dimension( $dimension );
+			}
+			if ( ! empty( $temp ) ) {
+				$result = array_filter( $temp, 'strlen' );
+				if ( ! empty( $result ) ) {
+					$horizon_tags['sailthru.tags'] = implode( ',', $result );
+				}
 			}
 		}
 		return $horizon_tags;
