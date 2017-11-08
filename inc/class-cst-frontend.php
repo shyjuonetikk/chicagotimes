@@ -2690,12 +2690,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				$temp[] = $obj->get_ga_dimension( $dimension );
 			}
 			if ( ! empty( $temp ) ) {
-				$result = array_filter( $temp, 'strlen' );
+				$result = str_replace( ':', ',', array_filter( $temp, 'strlen' ) );
 				if ( ! empty( $result ) ) {
 					$horizon_tags['sailthru.tags'] = implode( ',', $result );
 				}
 			}
-			$horizon_tags['sailthru.author'] = $obj->get_ga_dimension( 1 );
+			$horizon_tags['sailthru.author'] = str_replace( ':', ',', $obj->get_ga_dimension( 1 ) );
 		}
 		return $horizon_tags;
 	}
