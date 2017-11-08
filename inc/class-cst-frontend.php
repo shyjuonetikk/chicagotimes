@@ -1224,7 +1224,7 @@ class CST_Frontend {
 	*	'display_relative_timestamp' => true,
 	*		];
 	*/
-	public function single_mini_story( $args) {
+	public function single_mini_story( $args ) {
 		$obj = $args['story'];
 		$defaults = [
 			'layout_type' => 'prime',
@@ -2872,12 +2872,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	public function render_section_title( $section_theme_mod ) {
 		$section_title_id = get_theme_mod( $section_theme_mod );
 		// Check for no value and put a default - can't make get_theme_mod $default option work :-(
-		if ( ! $section_title_id  ){
-			$section_title = 'In other news';
-			$section_term = wpcom_vip_get_term_by( 'slug', 'news', 'cst_section' );
-		} else {
+		if ( intval( $section_title_id ) ) {
 			$section_term = wpcom_vip_get_term_by( 'id', $section_title_id, 'cst_section' );
 			$section_title = $section_term->name;
+		} else {
+			$section_title = 'In other news';
+			$section_term = wpcom_vip_get_term_by( 'slug', 'news', 'cst_section' );
 		}
 		if ( $section_term ) {
 		$link = wpcom_vip_get_term_link( $section_term->slug, 'cst_section' );
