@@ -98,6 +98,7 @@ class CST_Frontend {
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
+		add_filter( 'sailthru_horizon_meta_tags', [ $this, 'cst_sailthru_horizon_meta_tags' ], 10, 2 );
 	}
 
 	/**
@@ -2671,6 +2672,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			$attrs .= ' data-cst-' . sanitize_key( $key ) . '="' . $val . '"';
 		}
 		return $attrs;
+	}
+	/**
+	* Provide Sailthru tags content based on Section, Topics, Location, People/Person
+	* @param $horizon_tags
+	* @param $post_object
+	*
+	* @return mixed
+	*/
+	public function cst_sailthru_horizon_meta_tags( $horizon_tags, $post_object ) {
+		$obj = \CST\Objects\Post::get_by_post_id( $post_object->ID );
+		$dimensions_to_retrieve = [
+			2,3,4,9
+		];
+		foreach ( $dimensions_to_retrieve as $dimension ) {
+			$temp[] = $obj->get_ga_dimension( $dimension );
+		}
+		if ( ! empty( $temp ) ) {
+			$result = array_filter( $temp, 'strlen' );
+			if ( ! empty( $result ) ) {
+				$horizon_tags['sailthru.tags'] = implode( ',', $result );
+			}
+		}
+		return $horizon_tags;
 	}
 	/**
 	 * For third party vendor templates just display basic navigational links
