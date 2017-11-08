@@ -12,7 +12,7 @@ get_header();
 				<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
 				<div class="row">
 					<div class="small-12 columns more-stories-container" id="sf-section-lead">
-						<?php \CST\CST_Section_Front::get_instance()->heading( 'Chicago Sports Headlines', 'sports' ); ?>
+						<h2 class="more-sub-head">&nbsp;</h2>
 						<?php \CST_Frontend::get_instance()->mini_stories_content_block( \CST_Customizer::get_instance()->get_upper_section_stories() ); ?>
 					</div><!-- /#sf-section-lead -->
 				</div>

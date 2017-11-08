@@ -925,8 +925,11 @@ class CST_Customizer {
 				case 'cst_homepage_other_headlines_4':
 				case 'cst_homepage_other_headlines_5':
 					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
-
-					return CST()->frontend->single_mini_story( $obj, 'regular', $partial->id );
+					return CST()->frontend->single_mini_story( [
+						'story'       => $obj,
+						'layout_type' => 'regular',
+						'partial_id'  => $partial->id,
+					] );
 					break;
 				case 'cst_homepage_top_story_headline_1':
 				case 'cst_homepage_top_story_headline_2':
@@ -957,16 +960,24 @@ class CST_Customizer {
 				case 'cst_homepage_entertainment_section_headlines_4':
 				case 'cst_homepage_entertainment_section_headlines_5':
 					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
-
-					return CST()->frontend->single_mini_story( $obj, 'regular', $partial->id, 'yes', '', true );
+					return CST()->frontend->single_mini_story( [
+						'story'       => $obj,
+						'layout_type' => 'regular',
+						'partial_id'  => $partial->id,
+						'watch'       => 'yes',
+					] );
 					break;
 				case 'cst_homepage_section_headlines_1':
 				case 'cst_podcast_section_headlines_1':
 				case 'cst_homepage_lower_section_headlines_1':
 				case 'cst_homepage_entertainment_section_headlines_1':
 					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
-
-					return CST()->frontend->single_mini_story( $obj, 'prime', $partial->id, 'yes' );
+					return CST()->frontend->single_mini_story( [
+						'story'       => $obj,
+						'layout_type' => 'prime',
+						'partial_id'  => $partial->id,
+						'watch'       => 'yes',
+					] );
 					break;
 				case 'featured_story_block_headlines_1':
 					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
@@ -988,8 +999,12 @@ class CST_Customizer {
 				case 'featured_story_block_headlines_4':
 				case 'featured_story_block_headlines_5':
 					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
-
-					return CST()->frontend->single_mini_story( $obj, 'vertical', $partial->id, 'feature-landscape', true );
+					return CST()->frontend->single_mini_story( [
+						'story'                  => $obj,
+						'layout_type'            => 'vertical',
+						'partial_id'             => $partial->id,
+						'custom_landscape_class' => 'feature-landscape',
+					] );
 					break;
 				case 'lower_section_section_title':
 				case 'entertainment_section_section_title':
@@ -1063,6 +1078,27 @@ class CST_Customizer {
 								'custom_image_size' => 'chiwire-header-large',
 							]
 						);
+					case 'headlines_1':
+						$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'prime',
+							'partial_id'  => $partial->id,
+							'watch'       => 'yes',
+						] );
+						break;
+					case 'headlines_2':
+					case 'headlines_3':
+					case 'headlines_4':
+					case 'headlines_5':
+						$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial->id ) );
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'regular',
+							'partial_id'  => $partial->id,
+							'watch'       => 'yes',
+						] );
+						break;
 				}
 			}
 		}
