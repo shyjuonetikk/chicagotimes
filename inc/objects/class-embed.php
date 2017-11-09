@@ -13,7 +13,7 @@ class Embed extends Post {
 		$icons = array(
 			'twitter'    => 'twitter',
 			'instagram'  => 'instagram'
-			);
+		);
 		if ( isset( $icons[ $this->get_embed_type() ] ) ) {
 			return $icons[ $this->get_embed_type() ];
 		} else {
@@ -38,7 +38,7 @@ class Embed extends Post {
 			'twitter.com'    => 'twitter',
 			'instagram.com'  => 'instagram',
 			'instagr.am'     => 'instagram',
-			);
+		);
 		if ( isset( $types[ $domain ] ) ) {
 			return $types[ $domain ];
 		} else {
@@ -186,5 +186,16 @@ class Embed extends Post {
 			return $excerpt;
 		}
 	}
-
+	/**
+	 * Get the long excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_long_excerpt() {
+		if ( $excerpt = $this->get_fm_field( 'cst_long_excerpt' ) ) {
+			return $excerpt;
+		} else {
+			return $this->get_excerpt();
+		}
+	}
 }
