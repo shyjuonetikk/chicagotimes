@@ -69,7 +69,7 @@ class CST_Frontend {
 		add_action( 'wp_footer', [ $this, 'render_hp_footer_ad_unit' ], 99 );
 
 		add_action( 'cst_dfp_ad_settings', [ $this, 'setup_dfp_header_ad_settings' ] );
-		add_action( 'wp_head', [ $this, 'setup_one_by_one_ad_definition' ] );
+		add_action( 'closing_body', [ $this, 'setup_one_by_one_ad_definition' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_cst_openx_header_bidding_script' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'action_distroscale_injection' ] );
 		add_action( 'head_early_elements', [ $this, 'action_head_early_elements' ] );
