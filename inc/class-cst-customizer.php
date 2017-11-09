@@ -747,7 +747,6 @@ class CST_Customizer {
 		}
 
 		$term    = sanitize_text_field( $_GET['searchTerm'] );
-		$section = sanitize_text_field( $_GET['cst_section'] );
 
 		$search_args = [
 			'post_type'     => CST()->get_post_types(),
@@ -756,7 +755,7 @@ class CST_Customizer {
 			'no_found_rows' => true,
 		];
 
-		if ( $section ) {
+		if ( isset( $_GET['cst_section'] ) && $section = sanitize_text_field( $_GET['cst_section'] ) ) {
 			$search_args['tax_query'] = [
 				[
 					'taxonomy'         => 'cst_section',
