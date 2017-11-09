@@ -54,7 +54,7 @@ class CST_Ad_Widget extends WP_Widget {
 		echo wp_kses_post( $args['after_widget'] );
 
 		if ( 'dfp-polar' === $instance['ad_unit'] ) {
-			wp_enqueue_script( 'cst-polar-ads', get_template_directory_uri() . '/assets/js/polar.js', array( 'jquery' ) );
+			wp_enqueue_script( 'cst-polar-ads', get_template_directory_uri() . '/assets/js/polar.js', [ 'jquery' ] );
 		}
 
 	}
