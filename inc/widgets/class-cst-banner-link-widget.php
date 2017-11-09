@@ -13,7 +13,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 			$widget_ops
 		);
 
-		add_action( 'sidebar_admin_setup', array( $this, 'admin_setup' ) );
+		add_action( 'sidebar_admin_setup', [ $this, 'admin_setup' ] );
 
 	}
 
@@ -123,7 +123,7 @@ class CST_Banner_Link_Widget extends WP_Widget {
 
 	public function update( $new_instance, $old_instance ) {
 
-		$instance                          = array();
+		$instance                          = [];
 		$instance['cst_banner_link_title'] = ( ! empty( $new_instance['cst_banner_link_title'] ) ) ? strip_tags( $new_instance['cst_banner_link_title'] ) : '';
 		$instance['cst_banner_link_url']   = ( ! empty( $new_instance['cst_banner_link_url'] ) ) ? strip_tags( $new_instance['cst_banner_link_url'] ) : '';
 		$instance['cst_banner_link_id']    = ( ! empty( $new_instance['cst_banner_link_id'] ) ) ? strip_tags( $new_instance['cst_banner_link_id'] ) : '';
