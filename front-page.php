@@ -167,7 +167,7 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 <?php } ?>
 		</div>
 		<?php
-		do_action( 'above-homepage-headlines' );
+		do_action( 'above_homepage_headlines' );
 		if ( is_active_sidebar( 'homepage_headlines' ) ) :
 			dynamic_sidebar( 'homepage_headlines' );
 		endif;
