@@ -31,7 +31,7 @@ class CST_Ad_Flipp_Section_Widget extends WP_Widget {
 		echo wp_kses_post( $args['before_widget'] );
 		?>
 
-        <div id="circularhub_module_10381" style="background-color: #ffffff; margin: 5px; padding: 5px;"></div>
+		<div id="circularhub_module_10381" style="background-color: #ffffff; margin: 5px; padding: 5px;"></div>
 
 		<?php
 
