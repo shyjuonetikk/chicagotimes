@@ -1017,6 +1017,92 @@ class CST_Customizer {
 				return CST()->frontend->render_section_text_title( $element->id );
 				break;
 		}
+		if ( is_tax( 'cst_section' ) ) {
+			$partials = preg_match( '/cst\_(.+)\_section_five_block\_(\d+)/', $element->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				$article_position = 'five_block_' . $matches[2];
+				$obj              = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+				switch ( $article_position ) {
+					case 'five_block_1':
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'prime',
+							'partial_id'  => $element->id,
+							'watch'       => 'yes',
+						] );
+						break;
+					case 'five_block_2':
+					case 'five_block_3':
+					case 'five_block_4':
+					case 'five_block_5':
+						return CST()->frontend->single_mini_story(
+							[
+								'story'          => $obj,
+								'layout_type'    => 'regular',
+								'partial_id'     => $element->id,
+								'watch'          => 'yes',
+								'render_partial' => true,
+							]
+						);
+						break;
+				}
+			}
+			unset( $matches );
+			unset( $partials );
+			$partials = preg_match( '/(.+)_sorter\-collection/', $element->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				switch ( $matches[1] ) {
+					case 'sports_section':
+						\CST\CST_Section_Front::get_instance()->render_section_blocks( $element->id );
+						break;
+				}
+			}
+			unset( $matches );
+			unset( $partials );
+			$partials = preg_match( '/cst\_(.+)_section\_(.+)/', $element->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+				switch ( $matches[2] ) {
+					case 'three_block_two_one_1':
+					case 'three_block_two_one_2':
+						return CST()->frontend->homepage_lead_story( $element->id );
+						break;
+					case 'three_block_two_one_3':
+						return CST()->frontend->single_mini_story(
+							[
+								'story'             => $obj,
+								'layout_type'       => 'prime',
+								'partial_id'        => $element->id,
+								'watch'             => 'yes',
+								'custom_image_size' => 'chiwire-header-large',
+							]
+						);
+					case 'headlines_1':
+						$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'prime',
+							'partial_id'  => $element->id,
+							'watch'       => 'yes',
+						] );
+						break;
+					case 'headlines_2':
+					case 'headlines_3':
+					case 'headlines_4':
+					case 'headlines_5':
+						$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'regular',
+							'partial_id'  => $element->id,
+							'watch'       => 'yes',
+						] );
+						break;
+				}
+			}
+		}
 	}
 
 	/**
