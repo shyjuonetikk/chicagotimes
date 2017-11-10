@@ -651,9 +651,10 @@ class CST_Customizer {
 			case 'cst_homepage_other_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 				return CST()->frontend->single_mini_story( [
-					'story'       => $obj,
-					'layout_type' => 'regular',
-					'partial_id'  => $element->id,
+					'story'          => $obj,
+					'layout_type'    => 'regular',
+					'partial_id'     => $element->id,
+					'render_partial' => true,
 				] );
 				break;
 			case 'cst_homepage_top_story_headline_1':
@@ -716,8 +717,9 @@ class CST_Customizer {
 			case 'cst_homepage_related_headlines_two':
 			case 'cst_homepage_related_headlines_three':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-
-				return CST()->frontend->single_hero_related_story( $obj );
+				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+					return CST()->frontend->single_hero_related_story( $obj );
+				}
 				break;
 			case 'featured_story_block_headlines_2':
 			case 'featured_story_block_headlines_3':
