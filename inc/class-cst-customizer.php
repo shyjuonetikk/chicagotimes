@@ -929,6 +929,7 @@ class CST_Customizer {
 						'story'       => $obj,
 						'layout_type' => 'regular',
 						'partial_id'  => $partial->id,
+						'render_partial' => true,
 					] );
 					break;
 				case 'cst_homepage_top_story_headline_1':
@@ -1003,6 +1004,7 @@ class CST_Customizer {
 						'story'                  => $obj,
 						'layout_type'            => 'vertical',
 						'partial_id'             => $partial->id,
+						'watch'                  => 'yes',
 						'custom_landscape_class' => 'feature-landscape',
 					] );
 					break;
