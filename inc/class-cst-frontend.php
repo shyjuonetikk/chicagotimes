@@ -2885,16 +2885,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			<ul class="related-title">
 				<?php $related_hero_stories = array_keys( CST()->customizer->get_column_one_related_stories() ); ?>
 				<?php foreach ( $related_hero_stories as $story ) {
-				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
-				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) { ?>
-				<li class="js-<?php echo esc_attr( str_replace( '_', '-', $story ) ); ?>"><a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story"><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
-					<?php } ?>
-				<?php } ?>
+					$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $story ) );
+					if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+						$this->single_hero_related_story( $obj, $story );
+					}
+				}
+				?>
 			</ul>
 		</div>
 		<?php }
 	}
 
+	/**
+	 * Render a single related story in column 1
+	 * @param $obj
+	 * @param $story
+	 */
+	public function single_hero_related_story( $obj, $story ){ ?>
+<li class="js-<?php echo esc_attr( str_replace( '_', '-', $story ) ); ?>"><a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-related-story"><h3><?php echo esc_html( $obj->get_title() ); ?></h3></a>
+<?php
+	}
 	/**
 	* Inject a dfp div for a mobile adhesion ad unit
 	*/
