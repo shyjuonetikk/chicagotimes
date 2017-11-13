@@ -263,7 +263,12 @@ class CST_AMP {
 				),
 			),
 		);
-
+		$obj                              = new CST\Objects\Article( get_queried_object_id() );
+		if ( $obj ) {
+			for ( $i = 1; $i <= 10; $i ++ ) {
+				$analytics['cst-googleanalytics']['config_data']['extraUrlParams'][ 'cd' . $i ] = $obj->get_ga_dimension( $i );
+			}
+		}
 		return $analytics;
 	}
 	/**
