@@ -106,6 +106,7 @@ class CST_Customizer {
 			self::$instance = new CST_Customizer;
 			self::$instance->require_files();
 			self::$instance->setup_actions();
+			self::$instance->setup_filters();
 		}
 
 		return self::$instance;
