@@ -1,6 +1,7 @@
 <?php
-	if ( class_exists( 'WP_Customize_Control' ) ) {
-		class WP_Customize_CST_Select_Control extends \WP_Customize_Control {
+
+if ( class_exists( 'WP_Customize_Control' ) ) {
+	class WP_Customize_CST_Select_Control extends \WP_Customize_Control {
 
 			/**
 			 * Control type.

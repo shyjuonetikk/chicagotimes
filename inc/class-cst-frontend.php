@@ -11,7 +11,7 @@ class CST_Frontend {
 
 	public static $post_sections = array( 'news', 'sports', 'politics', 'entertainment', 'lifestyles', 'opinion', 'columnists', 'obituaries', 'sponsored', 'autos' );
 
-	private $send_to_news_embeds = array(
+	public $send_to_news_embeds = array(
 		'cubs'              => 'xXrmaE8c',
 		'cubs-baseball'     => 'xXrmaE8c',
 		'white-sox'         => 'TR8jtM5y',
@@ -239,6 +239,7 @@ class CST_Frontend {
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
 			'disqus_shortname' => CST_DISQUS_SHORTNAME,
 			'taboola_container_id' => 'taboola-below-article-thumbnails-',
+			'customize_preview' => wp_json_encode( is_customize_preview() ),
 		) );
 
 	}
@@ -1155,17 +1156,18 @@ class CST_Frontend {
 	/**
 	* A 2 x 2 block of content, each have image with title and anchored
 	* Optionally a 5th piece of content on left of 2 x 2 block of content
-	* @param $headlines array
+	* @param $headlines array of Customizer partial names
 	*/
 	public function mini_stories_content_block( $headlines ) {
-		$count_headlines = count( $headlines );
 		$display_relative_timestamp = true;
 		if ( isset( $headlines['display_relative_timestamp'] ) && false === $headlines['display_relative_timestamp'] ){
 			$display_relative_timestamp = false;
 		}
+		unset( $headlines['display_relative_timestamp'] );
+		$count_headlines = count( $headlines );
 		$counter = 0;
 		$close_me = false; ?>
-		<div class="row mini-stories small-collapse" >
+		<div class="row mini-stories small-collapse stories" >
 		<?php $partials = array_keys( $headlines ); ?>
 			<?php foreach ( $partials as $partial_id ) {
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $partial_id ) );
@@ -1173,7 +1175,7 @@ class CST_Frontend {
 				if ( 0 === $counter && ( 0 !== $count_headlines % 2 ) ) {
 						// First item and odd total
 						?>
-						<div class="prime-lead-story small-12 medium-4">
+						<div class="prime-lead-story small-12 medium-4 lead-story">
 							<?php
 							$this->single_mini_story( [
 								'story' => $obj,
@@ -1208,8 +1210,18 @@ class CST_Frontend {
 
 	/**
 	* A mini single story content block as part of 2 x 2 or 1 + 2 x 2 (5)
+	* @param array $args
+	* @param $args = [
+	*	'story' => $obj,
+	*	'layout_type' => 'prime',
+	*	'partial_id' => '',
+	*	'watch' => 'no',
+	*	'custom_landscape_class' => '',
+	*	'render_partial' => false,
+	*	'display_relative_timestamp' => true,
+	*		];
 	*/
-	public function single_mini_story( $args) {
+	public function single_mini_story( $args ) {
 		$obj = $args['story'];
 		$defaults = [
 			'layout_type' => 'prime',
@@ -1218,6 +1230,7 @@ class CST_Frontend {
 			'custom_landscape_class' => '',
 			'render_partial' => false,
 			'display_relative_timestamp' => true,
+			'custom_image_size' => false,
 		];
 		$args = wp_parse_args( $args, $defaults );
 		$layout['prime'] = array(
@@ -1238,74 +1251,83 @@ class CST_Frontend {
 			'image_size' => 'chiwire-small-square',
 			'title_class' => 'small-9 medium-12 large-8',
 		);
-		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
-			$author          = $this->hp_get_article_authors( $obj );
-			remove_filter( 'the_excerpt', 'wpautop' );
-			$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
-			$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
-			add_filter( 'the_excerpt', 'wpautop' );
+		if ( $args['custom_image_size'] ) {
+			$layout[$args['layout_type']]['image_size'] = $args['custom_image_size'];
 		}
 		?>
 		<div class="js-<?php echo esc_attr( str_replace( '_', '-', $args['partial_id'] ) ); ?> single-mini-story  <?php echo esc_attr( $layout[ $args['layout_type'] ]['wrapper_class'] ); ?>" <?php echo 'yes' === $args['watch'] ? esc_attr( 'data-equalizer-watch' ) : esc_attr( '' ); ?>>
-		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['image_class'] ); ?>">
-			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
-			<?php
-				$featured_image_id = $obj->get_featured_image_id();
-		if ( $featured_image_id ) {
-			$attachment = wp_get_attachment_metadata( $featured_image_id );
-			if ( $attachment ) {
-				$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $args['layout_type'] ]['image_size'] );
-				echo wp_kses_post( $image_markup );
+<?php
+		if ( $obj ) {
+			if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+				$author          = $this->hp_get_article_authors( $obj );
+				remove_filter( 'the_excerpt', 'wpautop' );
+				$story_excerpt = apply_filters( 'the_excerpt', $obj->get_excerpt() );
+				$story_long_excerpt = apply_filters( 'the_excerpt', $obj->get_long_excerpt() );
+				add_filter( 'the_excerpt', 'wpautop' );
 			}
-		}
 			?>
-			</a>
-		</div>
-		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-portrait">
-			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
-			</a>
-			<?php if ( 'prime' === $args['layout_type'] ) { ?>
-			<div class="prime-excerpt">
-				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<div class="show-for-medium hide-for-large-up">
-					<p class="excerpt">
-						<?php echo wp_kses_post( $story_excerpt ); ?>
-					</p>
-					</div>
-					<div class="show-for-large">
-						<p class="excerpt">
-							<?php echo wp_kses_post( $story_long_excerpt ); ?>
-						</p>
-					</div>
+			<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['image_class'] ); ?> outdent">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="image" data-event-action="navigate-hp-mini-story-wells">
+				<?php
+					$featured_image_id = $obj->get_featured_image_id();
+			if ( $featured_image_id ) {
+				$attachment = wp_get_attachment_metadata( $featured_image_id );
+				if ( $attachment ) {
+					$image_markup = get_image_tag( $featured_image_id, $attachment['image_meta']['caption'], '', 'right', $layout[ $args['layout_type'] ]['image_size'] );
+					echo wp_kses_post( $image_markup );
+				}
+			}
+				?>
 				</a>
 			</div>
-			<?php } ?>
-		</div>
-		<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $args['custom_landscape_class'] ); ?>">
-			<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
-				<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
-			</a>
-			<?php if ( 'prime' === $args['layout_type'] ) { ?>
-			<div class="prime-excerpt">
-				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
-					<div class="hide-for-medium hide-for-large-up">
+			<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-portrait">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+					<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+				</a>
+				<?php if ( 'prime' === $args['layout_type'] ) { ?>
+				<div class="prime-excerpt">
+					<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+						<div class="show-for-medium hide-for-large-up">
 						<p class="excerpt">
 							<?php echo wp_kses_post( $story_excerpt ); ?>
 						</p>
-					</div>
-					<div class="show-for-medium">
-						<p class="excerpt">
-							<?php echo wp_kses_post( $story_long_excerpt ); ?>
-						</p>
-					</div>
-				</a>
+						</div>
+						<div class="show-for-large">
+							<p class="excerpt">
+								<?php echo wp_kses_post( $story_long_excerpt ); ?>
+							</p>
+						</div>
+					</a>
+				</div>
+				<?php } ?>
 			</div>
-			<?php } ?>
+			<div class="columns <?php echo esc_attr( $layout[ $args['layout_type'] ]['title_class'] ); ?> show-for-landscape <?php echo esc_attr( $args['custom_landscape_class'] ); ?>">
+				<a href="<?php echo esc_url( $obj->get_permalink() ); ?>" data-on="click" data-event-category="content" data-event-action="navigate-hp-mini-story-wells">
+					<h3><?php echo esc_html( $obj->get_title() ); ?></h3>
+				</a>
+				<?php if ( 'prime' === $args['layout_type'] ) { ?>
+				<div class="prime-excerpt">
+					<a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-hero-story" >
+						<div class="hide-for-medium hide-for-large-up">
+							<p class="excerpt">
+								<?php echo wp_kses_post( $story_excerpt ); ?>
+							</p>
+						</div>
+						<div class="show-for-medium">
+							<p class="excerpt">
+								<?php echo wp_kses_post( $story_long_excerpt ); ?>
+							</p>
+						</div>
+					</a>
+				</div>
+				<?php } ?>
+			</div>
+			<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author, $args['display_relative_timestamp'] ); ?></div>
+			<?php
+		}
+		?>
 		</div>
-		<div class="columns small-12 show-for-large-up byline"><?php $this->homepage_byline( $obj, $author, $args['display_relative_timestamp'] ); ?></div>
-		</div>
-		<?php
+<?php
 	}
 	/**
 	 * Fetch and output content from the specified section
@@ -1567,7 +1589,7 @@ class CST_Frontend {
 	 *
 	 * Determine and return the slug for use in headlines slider, sidebar and other template files.
 	 */
-	public function slug_detection() {
+	public function primary_slug_detection() {
 		if ( is_author() ) {
 			$primary_slug = 'news';
 		} elseif ( is_single() ) {
@@ -1746,25 +1768,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	 */
 	function cst_section_front_video( $counter ) {
 		if ( 3 === $counter ) {
+			if ( is_customize_preview() ) {
+				echo '<h3>Video injection disabled when in customizer</h3>';
+				return;
+			}
 			if ( is_tax() ) {
 				if ( array_key_exists( get_queried_object()->slug, $this->send_to_news_embeds ) ) {
-					return $this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
+					$this->inject_send_to_news_video_player( get_queried_object()->slug, get_queried_object_id() );
 				}
 			}
 		}
-
 	}
 
 	/**
 	* @param $slug
 	* @param $id
-	* Inject SendToNews responsive video player into markup.
-	* @return string
+	*
+	* Inject SendToNews responsive video player markup.
 	*/
 	function inject_send_to_news_video_player( $slug, $id ) {
-		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="'. esc_url( 'https://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left' ) . '" data-type="s2nScript"></script></div>';
-		$markup     = sprintf( $template, esc_attr( $this->send_to_news_embeds[ $slug ] ), esc_attr( $id ) );
-		return $markup;
+		$template   = '<div class="video-injection"><div class="s2nPlayer k-%1$s %2$s" data-type="float"></div><script type="text/javascript" src="%3$s" data-type="s2nScript"></script></div>';
+		$markup_escaped     = sprintf(
+				$template,
+				esc_attr( $this->send_to_news_embeds[ $slug ] ),
+				esc_attr( $id ),
+				sprintf( 'https://embed.sendtonews.com/player3/embedcode.js?fk=%1$s&cid=4661&offsetx=0&offsety=50&floatwidth=300&floatposition=top-left', esc_attr( $this->send_to_news_embeds[ $slug ] ) )
+				);
+		echo $markup_escaped;
 	}
 	/**
 	 * Do not display section heading in the regular place
@@ -1997,8 +2027,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			}
 			$child_parent = wpcom_vip_get_term_by( 'id', $current_obj->parent, 'cst_section' );
 			// Custom nav handling here
+			// This check fails : $custom_subnavigation[$current_obj->slug]->term_id;
+			// For slugs that are not in the array set false
+			$term_id_to_check = false;
+			if ( isset( $custom_subnavigation[$current_obj->slug] ) ) {
+				$term_id_to_check = $custom_subnavigation[$current_obj->slug]->term_id;
+			}
 			if ( isset( $custom_subnavigation[$current_obj->slug] )
-			|| $custom_subnavigation[$current_obj->slug]->term_id === $current_obj->parent
+			|| $term_id_to_check === $current_obj->parent
 			|| ( false !== $child_parent ? $child_parent->parent : $current_obj->parent ) ) {
 				$conditional_nav = $current_obj->slug . '-subnav';
 				if ( array_key_exists( $conditional_nav.'-menu', get_registered_nav_menus() ) ) {
@@ -2032,7 +2068,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @param $parent
 	* @param $current_obj
 	* @param $off_canvas
-	* return $string
+	* @return string $section_navigation
+	*
 	* Subnav below section title above section content - typically child section links
 	*/
 	public function generate_section_subnav( $parent, $current_obj, $off_canvas ) {
@@ -2483,15 +2520,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		);
 		return array_merge( $allowed_html, $cst_custom_element_attributes );
 	}
-	public function inject_newsletter_signup( $newsletter ) {
+	public function inject_newsletter_signup( $args ) {
 
+		$defaults = [
+			'newsletter' => 'news',
+			'wrapper_class' => 'large-7 medium-8 small-12 columns newsletter-box',
+		];
+		$args = wp_parse_args( $args, $defaults );
 		$newsletter_codes = array(
 			'news' => array( 'title' => 'News &amp; Politics', 'code' => '062jcp97-2819pvaa' ),
 			'entertainment' => array( 'title' => 'Entertainment', 'code' => '062jcp97-bf1s1y92' ),
 			'sports' => array( 'title' => 'Sports', 'code' => '062jcp97-06149p3a' ),
 		);
 		$template = '
-<div class="large-7 medium-8 small-12 columns newsletter-box">
+<div class="%3$s">
 	<div class="newsletter-sign-up">
 		<h3>Sign-Up for our %1$s Newsletter&nbsp;
 			<a href="https://r1.surveysandforms.com/%2$s" data-on="click" data-event-category="newsletter" data-event-action="subscribe to %1$s" target="_blank" class="button tiny info">
@@ -2502,8 +2544,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 ';
 		echo wp_kses_post( sprintf( $template,
-			esc_attr( $newsletter_codes[ $newsletter ]['title'] ),
-			esc_attr( $newsletter_codes[ $newsletter ]['code'] )
+			esc_attr( $newsletter_codes[ $args['newsletter'] ]['title'] ),
+			esc_attr( $newsletter_codes[ $args['newsletter'] ]['code'] ),
+			esc_attr( $args['wrapper_class'] )
 		) );
 	}
 
@@ -2778,12 +2821,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	public function render_section_title( $section_theme_mod ) {
 		$section_title_id = get_theme_mod( $section_theme_mod );
 		// Check for no value and put a default - can't make get_theme_mod $default option work :-(
-		if ( ! $section_title_id  ){
-			$section_title = 'In other news';
-			$section_term = wpcom_vip_get_term_by( 'slug', 'news', 'cst_section' );
-		} else {
+		if ( intval( $section_title_id ) ) {
 			$section_term = wpcom_vip_get_term_by( 'id', $section_title_id, 'cst_section' );
 			$section_title = $section_term->name;
+		} else {
+			$section_title = 'In other news';
+			$section_term = wpcom_vip_get_term_by( 'slug', 'news', 'cst_section' );
 		}
 		if ( $section_term ) {
 		$link = wpcom_vip_get_term_link( $section_term->slug, 'cst_section' );
@@ -2884,7 +2927,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	* @param $headline
 	*/
 	public function homepage_lead_story( $headline ) {
-		$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
+		?>
+		<div class="lead-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
+<?php	$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $headline ) );
 		if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
 			$author          = CST()->frontend->hp_get_article_authors( $obj );
 			remove_filter( 'the_excerpt', 'wpautop' );
@@ -2900,7 +2945,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 				}
 			}
 		?>
-		<div class="lead-story js-<?php echo esc_attr( str_replace( '_', '-', $headline ) ); ?>">
 <a href="<?php echo esc_url( $obj->get_permalink() ); ?>"  data-on="click" data-event-category="content" data-event-action="navigate-hp-lead-story" >
 	<h3 class="title"><?php echo esc_html( $obj->get_title() ); ?></h3>
 	<span class="image show-for-landscape hidden-for-medium-up show-for-xlarge-up">
@@ -2914,9 +2958,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	</p>
 </a>
 <?php $this->homepage_byline( $obj, $author ); ?>
-		</div>
 <?php
 		}
+		?>
+		</div>
+<?php
 	}
 
 	/**
@@ -2926,6 +2972,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		$sports_term = wpcom_vip_get_term_link( 'sports','cst_section' );
 		if ( ! is_wp_error( $sports_term ) ) { ?>
 			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>">Chicago Sports</a></h2>
+		<?php }
+	}
+
+	/**
+	* Provide news block heading, markup and link to section for homepage
+	* @param string $team
+	*/
+	public function heading( $team ) {
+		$sports_term = get_term_link( $team,'cst_section' );
+		if ( ! is_wp_error( $sports_term ) ) { ?>
+			<h2 class="more-sub-head"><a href="<?php echo esc_url( $sports_term ); ?>"><?php echo esc_html( ucfirst( $team ) ); ?></a></h2>
 		<?php }
 	}
 

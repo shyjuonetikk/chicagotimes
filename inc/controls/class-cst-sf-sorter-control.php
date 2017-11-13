@@ -1,4 +1,5 @@
 <?php
+
 	if ( class_exists( 'WP_Customize_Control' ) ) {
 		class WP_Customize_CST_SF_Sorter_Control extends \WP_Customize_Control {
 			// https://github.com/maddisondesigns/customizer-custom-controls/blob/master/js/customizer.js
@@ -83,14 +84,14 @@
 				</ul>
 				<input type="hidden" id="{{ data.id }}-collection" value="{{ data.sortOrder }}" class="cst-customize-control-sorter"/>
 
-				<?php
-			}
-			/**
-			 * Render content just like a normal select control.
-			 *
-			 * @since 3.1.0
-			 * @access public
-			 */
-			public function render_content() {}
+			<?php
 		}
+		/**
+		 * Render content just like a normal select control.
+		 *
+		 * @since 3.1.0
+		 * @access public
+		 */
+		public function render_content() {}
 	}
+}

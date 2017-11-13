@@ -65,15 +65,15 @@ class CST_Ad_Widget extends WP_Widget {
 
 		?>
 
-        <p>
-            <label for="<?php echo esc_attr( $this->get_field_id( 'ad_unit' ) ); ?>"><?php esc_html_e( 'Ad Unit', 'chicagosuntimes' ); ?>:</label>
-            <select class="widefat cst-ad-widget" id="<?php echo esc_attr( $this->get_field_id( 'ad_unit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ad_unit' ) ); ?>"
-                    data-current-unit="<?php echo esc_attr( $current_unit ); ?>">
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'ad_unit' ) ); ?>"><?php esc_html_e( 'Ad Unit', 'chicagosuntimes' ); ?>:</label>
+			<select class="widefat cst-ad-widget" id="<?php echo esc_attr( $this->get_field_id( 'ad_unit' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'ad_unit' ) ); ?>"
+					data-current-unit="<?php echo esc_attr( $current_unit ); ?>">
 				<?php foreach ( $this->ad_units as $ad_unit => $ad_target ) : ?>
-                    <option value="<?php echo esc_attr( $ad_unit ); ?>" <?php selected( $ad_unit, $current_unit ); ?>><?php echo esc_html( $ad_unit ); ?></option>
+					<option value="<?php echo esc_attr( $ad_unit ); ?>" <?php selected( $ad_unit, $current_unit ); ?>><?php echo esc_html( $ad_unit ); ?></option>
 				<?php endforeach; ?>
-            </select>
-        </p>
+			</select>
+		</p>
 
 	<?php }
 

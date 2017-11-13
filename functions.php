@@ -300,6 +300,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-section-front.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -361,7 +362,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/class-cst-customizer-controls.php';
 
 		// Vendor plugins
 		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
@@ -881,6 +881,14 @@ class CST {
 		register_sidebar( [
 			'id'          => 'sportswire',
 			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
+			'id'          => 'sports_sf_sidebar',
+			'name'        => esc_html__( 'Sports SF widgets', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
+			'id'          => 'sports_sf_bottom_sidebar',
+			'name'        => esc_html__( 'Sports SF bottom widgets', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
 			'id'          => 'entertainment_headlines',
@@ -2051,7 +2059,7 @@ class CST {
 	public function jetpack_infinite_support() {
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) || is_tax() );
+			( is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) || ! is_tax( 'cst_section', 'Sports' ) );
 	}
 
 	/**
@@ -2266,7 +2274,7 @@ function filter_limit_ads_on_features() {
  * Ad Vendor filter to inject Nativo
  */
 function filter_include_nativo_on_certain_pages() {
-	return is_front_page() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_page_template( 'page-sponsored.php') && ! is_404();
+	return is_front_page()  || is_tax( 'cst_section', 'Sports' ) || is_singular( [ 'cst_article', 'cst_gallery' ] ) || is_page_template( 'page-sponsored.php') && ! is_404();
 }
 /**
  * @return bool

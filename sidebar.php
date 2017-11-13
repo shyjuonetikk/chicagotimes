@@ -5,7 +5,7 @@
 	<ul class="widgets">
 		<?php
 		$cst = CST_Frontend::get_instance();
-		$primary_slug = $cst->slug_detection();
+		$primary_slug = $cst->primary_slug_detection();
 
 			switch ($primary_slug) {
 				case 'news' :
