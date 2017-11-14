@@ -85,18 +85,19 @@ class CST_DFP_Handler {
 	 *
 	 * Setup to inject a 1x1 DFP definition primarily for Undertone
 	 */
-	public function one_by_one_unit( $index, $type = '', $class='' ) {
-		if ( empty( $type ) ) {
-			$type = 'div-gpt-placement';
-		}
-		if ( empty( $class ) ) {
-			$class = 'dfp-placement';
-		}
-		if ( ! isset( $index ) ) {
-			$index = 1;
-		}
-		return sprintf(
-			'
+	public function one_by_one_unit( $index, $type = '', $class = '' ) {
+		if ( self::$active ) {
+			if ( empty( $type ) ) {
+				$type = 'div-gpt-placement';
+			}
+			if ( empty( $class ) ) {
+				$class = 'dfp-placement';
+			}
+			if ( ! isset( $index ) ) {
+				$index = 1;
+			}
+			return sprintf(
+				'
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="one_by_one"></div>
 <script class="dfp">
 	googletag.cmd.push(function() {
@@ -111,11 +112,12 @@ class CST_DFP_Handler {
 </script>
 
 ',
-			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $class ),
-			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $type . '-' . intval( $index ) )
-		);
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $class ),
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $type . '-' . intval( $index ) )
+			);
+		}
 	}
 	/**
 	 * @param int $index
