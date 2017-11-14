@@ -1762,7 +1762,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	*/
 
 	public function action_cst_openx_header_bidding_script() {
-		if ( is_page() || is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
+		if ( is_customize_preview() || is_page() || is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
 			return;
 		}
 		wp_enqueue_script( 'openx-async', '//suntimes-d.openx.net/w/1.0/jstag?nc=61924087-suntimes', array(), null, false );
