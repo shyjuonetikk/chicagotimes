@@ -249,7 +249,9 @@ class CST_Section_Front {
 	 */
 	public function section_ad_injection( $counter ) {
 		if ( 1 === $counter ) {
-			the_widget( 'CST_Ad_Flipp_Section_Widget', [] );
+			if ( ! is_customize_preview() ) {
+				the_widget( 'CST_Ad_Flipp_Section_Widget', [] );
+			}
 			return;
 		}
 		$placement   = 'div-gpt-placement-s';
