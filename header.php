@@ -36,7 +36,9 @@
 <meta name="msapplication-square150x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-150x150.png" />
 <meta name="msapplication-wide310x150logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x150.png" />
 <meta name="msapplication-square310x310logo" content="<?php echo esc_url( get_template_directory_uri() ); ?>/assets/images/favicons/mstile-310x310.png" />
+<?php if ( is_customize_preview() ) { ?>
 <script type="text/javascript" async src="//mtrx.go.sonobi.com/morpheus.chicagosuntimes.5552.js"></script>
+<?php } ?>
 <script type="text/javascript">
 (function() {
 	var gads = document.createElement('script');
