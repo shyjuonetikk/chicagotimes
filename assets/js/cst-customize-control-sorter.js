@@ -21,6 +21,7 @@
       let collection = control.id + '-collection';
       api.Control.prototype.ready.call(control);
       element.sortable({
+          placeholder: "ui-state-highlight",
         change: function (event, ui) {
           console.log(ui.item[0] + ' changed.');
           itemMoved = setTimeout( $.proxy( function(){
