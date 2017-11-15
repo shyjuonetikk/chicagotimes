@@ -132,7 +132,6 @@ class CST_Customizer {
 
 	public function action_customizer_live_preview() {
 		global $wp_customize;
-		remove_action( 'wp_head', array( $wp_customize, 'customize_preview_loading_style' ) );
 		wp_enqueue_script(
 			'chicagosuntimes-themecustomizer',
 			get_theme_file_uri( '/assets/js/cst-customize-preview.js' ),
