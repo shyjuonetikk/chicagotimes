@@ -287,7 +287,7 @@
         }
           if ( displaySidebar && this.body.hasClass("tax-cst_section")) {
             if (!this.anchorMe.hasClass('is_stuck')) {
-              this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10});
+              this.anchorMe.stick_in_parent({"parent" : $(".off-canvas-wrap"), "offset_top": this.adminBar.height() + this.header.height() + 10});
             }
           }
       },
