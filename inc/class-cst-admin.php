@@ -139,8 +139,8 @@ class CST_Admin {
 
 		add_filter( 'enter_title_here', array( $this, 'filter_custom_enter_title' ) );
 		add_filter( 'admin_post_thumbnail_html', array( $this, 'filter_featured_image_instruction' ) );
-		add_filter( 'customize_previewable_devices', [ $this, 'manage_previewable_devices' ]);
-
+		add_filter( 'customize_previewable_devices', [ $this, 'manage_previewable_devices' ] );
+		add_filter( 'wp_nav_menu', [ $this, 'convert_anchors_to_base_url' ] );
 	}
 
 	/**
@@ -1372,5 +1372,20 @@ class CST_Admin {
 			'label' => 'Enter tablet preview mode (landscape)',
 		);
 		return $devices;
+	}
+
+	/**
+	 * Address issue where some urls mapped to vanity domains cannot be clicked in Customizer
+	 * Convert urls from vanity to base and see if that removes the non click issue
+	 * @param $nav_menu
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	function convert_anchors_to_base_url( $nav_menu, $args ) {
+		if ( is_customize_preview() ) {
+			$nav_menu = str_replace( 'dev.suntimes.com', 'suntimesmedia.wordpress.com', $nav_menu );
+		}
+		return $nav_menu;
 	}
 }
