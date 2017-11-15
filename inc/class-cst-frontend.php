@@ -185,6 +185,8 @@ class CST_Frontend {
 				if ( is_singular() || is_tax() ) {
 					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) ) {
 						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
+						wp_enqueue_script( 'sailthru', 'https://ak.sail-horizon.com/spm/spm.v1.min.js', [], null );
+						wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: "cb2dcb87070aeb54eddb31b0362745ed" });' );
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
@@ -230,8 +232,6 @@ class CST_Frontend {
 			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
 
 		}
-		wp_enqueue_script( 'sailthru', 'https://ak.sail-horizon.com/spm/spm.v1.min.js', [], null );
-		wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: "cb2dcb87070aeb54eddb31b0362745ed" });' );
 		if ( is_page() ) {
 			wp_enqueue_script( 'page-iframe-reponsify', get_template_directory_uri() . '/assets/js/theme-page.js', array(), null, true );
 		}
