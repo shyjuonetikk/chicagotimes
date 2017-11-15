@@ -2150,7 +2150,7 @@ class CST {
 		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return;
 		}
-		if ( is_admin() ) {
+		if ( is_customize_preview() || is_admin() ) {
 			return;
 		}
 		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
