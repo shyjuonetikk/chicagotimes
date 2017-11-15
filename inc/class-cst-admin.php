@@ -1384,7 +1384,7 @@ class CST_Admin {
 	 */
 	function convert_anchors_to_base_url( $nav_menu, $args ) {
 		if ( is_customize_preview() ) {
-			$nav_menu = str_replace( 'dev.suntimes.com', 'suntimesmedia.wordpress.com', $nav_menu );
+			$nav_menu = str_replace( 'dev.suntimes.com', 'suntimesmediapreprod.wordpress.com', $nav_menu );
 		}
 		return $nav_menu;
 	}
