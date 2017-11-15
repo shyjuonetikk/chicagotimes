@@ -79,9 +79,7 @@ get_header();
 			<?php if ( function_exists( 'jetpack_is_mobile' ) && ! jetpack_is_mobile() ) { ?>
 				<div class="right-rail columns medium-4 large-3 show-for-medium-up">
 					<?php
-					if ( ! WP_DEBUG ) {
 						get_sidebar();
-					}
 					?>
 				</div>
 			<?php } ?>

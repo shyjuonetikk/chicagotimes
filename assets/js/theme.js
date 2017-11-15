@@ -53,6 +53,7 @@
             this.leftSidebar = $('.stick-sidebar-left');
             this.dfpSBB = $('#div-gpt-sbb');
           this.header = $('#header');
+          this.stickyParent = $(".off-canvas-wrap");
             this.articleUpperAdUnit = $('.article-upper-ad-unit');
             this.spacer = $(".spacer");
       this.adminBar = $('#wpadminbar');
@@ -287,7 +288,7 @@
         }
           if ( displaySidebar && this.body.hasClass("tax-cst_section")) {
             if (!this.anchorMe.hasClass('is_stuck')) {
-              this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10});
+              this.anchorMe.stick_in_parent({"parent" : this.stickyParent, "offset_top": this.adminBar.height() + this.header.height() + 10});
             }
           }
       },
