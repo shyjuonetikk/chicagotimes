@@ -26,7 +26,7 @@ class CST_DFP_Handler {
 	;
 	public static function get_instance() {
 
-		if ( WP_DEBUG && is_customize_preview() ) {
+		if ( WP_DEBUG || is_customize_preview() ) {
 			self::$active = false;
 		}
 		if ( ! isset( self::$instance ) ) {
@@ -85,18 +85,19 @@ class CST_DFP_Handler {
 	 *
 	 * Setup to inject a 1x1 DFP definition primarily for Undertone
 	 */
-	public function one_by_one_unit( $index, $type = '', $class='' ) {
-		if ( empty( $type ) ) {
-			$type = 'div-gpt-placement';
-		}
-		if ( empty( $class ) ) {
-			$class = 'dfp-placement';
-		}
-		if ( ! isset( $index ) ) {
-			$index = 1;
-		}
-		return sprintf(
-			'
+	public function one_by_one_unit( $index, $type = '', $class = '' ) {
+		if ( self::$active ) {
+			if ( empty( $type ) ) {
+				$type = 'div-gpt-placement';
+			}
+			if ( empty( $class ) ) {
+				$class = 'dfp-placement';
+			}
+			if ( ! isset( $index ) ) {
+				$index = 1;
+			}
+			return sprintf(
+				'
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="one_by_one"></div>
 <script class="dfp">
 	googletag.cmd.push(function() {
@@ -111,11 +112,12 @@ class CST_DFP_Handler {
 </script>
 
 ',
-			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $class ),
-			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $type . '-' . intval( $index ) )
-		);
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $class ),
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $type . '-' . intval( $index ) )
+			);
+		}
 	}
 	/**
 	 * @param int $index
@@ -259,59 +261,60 @@ googletag.cmd.push(function() {
 	 * @return string
 	 */
 	public function ad_header_settings( $amp = false ) {
-		$parent_inventory = $this->get_parent_dfp_inventory();
-		if ( $amp ) {
-			return '/61924087/' . 'AMP_CST';
-		}
-		$dfp_slug         = 'news';
-		$dfp_parent = '';
-		$dfp_child = '';
-		$dfp_grandchild = '';
-		$ad_unit_path = '';
-		if ( is_front_page() ) {
-			$ad_unit_path = '/61924087/' .  $parent_inventory  . '/chicago.suntimes.com.index';
-		}
-		if ( is_singular() || is_author() ) {
-			$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-
-			if ( $obj ) {
-				$parent_section = $obj->get_primary_parent_section();
-
-				if ( $parent_section ) {
-					$dfp_slug = $parent_section->slug;
-				}
+		if ( self::$active ) {
+			$parent_inventory = $this->get_parent_dfp_inventory();
+			if ( $amp ) {
+				return '/61924087/' . 'AMP_CST';
 			}
-			$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
-		}
-		if ( is_tax() ) {
-			$dfp_obj = get_queried_object();
-			if ( 'cst_section' === $dfp_obj->taxonomy ) {
-				if ( 0 === $dfp_obj->parent ) {
-					$dfp_slug = $dfp_obj->slug;
-					$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
-				} else {
-					$dfp_parent = $dfp_obj->parent;
-					$dfp_term   = get_term( $dfp_parent, 'cst_section' );
-					$dfp_slug 	= $dfp_term->slug;
-					if ( 0 !== $dfp_term->parent ) {
-						$dfp_parent_term   	= get_term( $dfp_term->parent, 'cst_section' );
-						if ( 0 === $dfp_parent_term->parent ) {
-							$dfp_parent 		= $dfp_parent_term->slug;
-							$dfp_child 			= $dfp_term->slug;
-							$dfp_grandchild 	= str_replace( '-', '', $dfp_obj->slug );
-							$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child .'.' . $dfp_grandchild;
-						} else {
-							$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
-						}
+			$dfp_slug       = 'news';
+			$dfp_parent     = '';
+			$dfp_child      = '';
+			$dfp_grandchild = '';
+			$ad_unit_path   = '';
+			if ( is_front_page() ) {
+				$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index';
+			}
+			if ( is_singular() || is_author() ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+
+				if ( $obj ) {
+					$parent_section = $obj->get_primary_parent_section();
+
+					if ( $parent_section ) {
+						$dfp_slug = $parent_section->slug;
+					}
+				}
+				$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
+			}
+			if ( is_tax() ) {
+				$dfp_obj = get_queried_object();
+				if ( 'cst_section' === $dfp_obj->taxonomy ) {
+					if ( 0 === $dfp_obj->parent ) {
+						$dfp_slug     = $dfp_obj->slug;
+						$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
 					} else {
-						$dfp_parent = $dfp_term->slug;
-						$dfp_child  = $dfp_obj->slug;
-						$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child;
+						$dfp_parent = $dfp_obj->parent;
+						$dfp_term   = get_term( $dfp_parent, 'cst_section' );
+						$dfp_slug   = $dfp_term->slug;
+						if ( 0 !== $dfp_term->parent ) {
+							$dfp_parent_term = get_term( $dfp_term->parent, 'cst_section' );
+							if ( 0 === $dfp_parent_term->parent ) {
+								$dfp_parent     = $dfp_parent_term->slug;
+								$dfp_child      = $dfp_term->slug;
+								$dfp_grandchild = str_replace( '-', '', $dfp_obj->slug );
+								$ad_unit_path   = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child . '.' . $dfp_grandchild;
+							} else {
+								$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
+							}
+						} else {
+							$dfp_parent   = $dfp_term->slug;
+							$dfp_child    = $dfp_obj->slug;
+							$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child;
+						}
 					}
 				}
 			}
-		}
-		?>
+			?>
 <script>/* <![CDATA[ */
 var dfp = {
 	"account_id":"/61924087/",
@@ -331,7 +334,8 @@ var dfp = {
 };
 /* ]]> */
 </script>
-		<?php
+			<?php
+		}
 	}
 
 	/**
