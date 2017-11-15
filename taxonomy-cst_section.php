@@ -2,14 +2,9 @@
 get_header();
 ?>
 <?php
-$sports_sf = '';
-$content_block_class = 'wire columns medium-8 large-8 small-12' ;
-$right_rail_class = 'right-rail columns medium-4 large-4 show-for-medium-up' ;
-if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) && is_tax( 'cst_section' ) ) {
-	$sports_sf = "section_front_wrapper stories-container";
-	$content_block_class = 'wire columns medium-8 large-9 small-12' ;
-	$right_rail_class = 'right-rail columns medium-4 large-3 show-for-medium-up' ;
-}
+$sports_sf           = 'section_front_wrapper stories-container';
+$content_block_class = 'wire columns medium-8 large-9 small-12';
+$right_rail_class    = 'right-rail columns medium-4 large-3 show-for-medium-up';
 ?>
 	<section class="row grey-background <?php echo esc_attr( $sports_sf ); ?>">
 		<div id="main" class="<?php echo esc_attr( $content_block_class ); ?>">
@@ -21,7 +16,7 @@ if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_obj
 			<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
 			<?php if ( ! empty( $sports_sf ) ) { ?>
 			<div class="row">
-				<?php \CST\CST_Section_Front::get_instance()->five_block( get_queried_object()->slug );?>
+				<?php \CST\CST_Section_Front::get_instance()->five_block( get_queried_object()->slug ); ?>
 			</div>
 			<?php } ?>
 
@@ -41,8 +36,10 @@ if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_obj
 				<?php while ( have_posts() ) : the_post(); ?>
 						<?php get_template_part( 'content' ); ?>
 					<?php
+					if ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) ) {
 						$video_position_counter++;
 						CST()->frontend->cst_section_front_video( $video_position_counter );
+					}
 					?>
 				<?php endwhile; ?>
 
