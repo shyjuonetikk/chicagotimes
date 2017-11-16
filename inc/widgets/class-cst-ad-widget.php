@@ -12,7 +12,6 @@ class CST_Ad_Widget extends WP_Widget {
 		'dfp-rr-cube-6' => 'rr cube 6',
 		'dfp-rr-cube-promo-7' => 'rr cube 7',
 		'dfp-polar-8' => 'rr cube 8',
-		'dfp-pro300x600' => 'pro 300x600',
 		);
 
 	protected $defaults = array(
