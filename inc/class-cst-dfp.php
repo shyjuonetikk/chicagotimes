@@ -525,6 +525,7 @@ var dfp = {
       googletag.pubads().addEventListener('slotVisibilityChanged', CSTAds.handleGptVisibility);
       googletag.pubads().addEventListener('impressionViewable', CSTAds.handleGptImpressionViewability);
 	}
+	googletag.pubads().disableInitialLoad();
     googletag.enableServices();
 });
 
