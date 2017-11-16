@@ -43,7 +43,9 @@ function parseSizeMappings(sizeMappings) {
   googletag.cmd.push(function() {
     //var sizeMappingBoxes = googletag.sizeMapping().
     var sizeMappings = googletag.sizeMapping().
-    addSize([1100, 500], [300, 250], [300,600], [728, 90]).
+    addSize([0, 0], []).
+    addSize([320, 700], [300, 250]). //tablet
+    addSize([1050, 200], [300, 250], [300,600], [728, 90]). //desktop
     //addSize([300, 600]).
     //addSize([728, 90]).
     //addSize([980, 690], [[300, 250], [300,600]]).
