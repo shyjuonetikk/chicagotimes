@@ -234,23 +234,7 @@ class CST_Customizer {
 		// Setup all sections OR detect section and set that up
 		$section_counter = 0;
 		//section_choice_slugs for all sections
-		//Add these in preparation for activating all sections
-		//Crime, Entertainment, Featured Obits, Podcasts
-		$this->additional_sections             = get_terms( [
-			'taxonomy'   => 'cst_section',
-			'hide_empty' => false,
-			'fields'     => 'all_with_object_id',
-			'name'       => [
-				'Crime',
-				'Entertainment',
-				'Featured Obits',
-				'Podcasts',
-			],
-		] );
-		$this->additional_section_choices      = wp_list_pluck( $this->additional_sections, 'name', 'term_id' );
-		$this->additional_section_choice_slugs = wp_list_pluck( $this->additional_sections, 'slug', 'term_id' );
-		$sections_to_use                       = array_merge( $this->additional_section_choice_slugs, $this->sports_section_choice_slugs );
-		foreach ( $sections_to_use as $section_id => $section_name ) {
+		foreach ( $this->section_choices as $section_id => $section_name ) {
 			$sanitized_section_title = sanitize_title( $this->section_choice_slugs[ $section_id ] );
 			$section_choice          = $this->section_choices[ $section_id ];
 			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
@@ -350,7 +334,7 @@ class CST_Customizer {
 				}
 				$child_term = get_term_by( 'slug', $section_name, 'cst_section' );
 //				Legacy Sports logic return $child_term && $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $current_obj, 'cst_section' );
-				return $child_term;
+				return is_tax( 'cst_section', $child_term );
 			}
 		}
 		return false;
