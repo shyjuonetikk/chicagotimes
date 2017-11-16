@@ -680,7 +680,7 @@ class CST_Customizer {
 		 * Entertainment section based stories, custom heading
 		 */
 		$lead_counter = 0;
-		foreach ( array_keys( $this->entertainment_section_stories ) as $other_story ) {
+		foreach ( array_keys( $this->get_entertainment_stories() ) as $other_story ) {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
 				'type'        => 'cst_select_control',
@@ -1237,6 +1237,29 @@ class CST_Customizer {
 	 * @return array
 	 */
 	public function get_entertainment_stories() {
+		//'cst_homepage_entertainment_section_headlines_1' => true,
+		//'cst_' . $sanitized_section_title . '_section_' . $story_title
+		// Migrate existing slotted content from homepage key based setting to section based key
+
+		foreach ( $this->five_block as $story_title ) {
+			$key_to_check = substr( $story_title, -2 );
+			if ( isset( $this->entertainment_section_stories[ 'cst_homepage_entertainment_section_headlines' . $key_to_check ] ) ) {
+				$entertainment_key = 'cst_entertainment_section_' . $story_title;
+//				$this->entertainment_section_stories[ $entertainment_key ] = true;
+				$var = get_theme_mod( $entertainment_key, false );
+				if ( 'cst_entertainment_section_' . $story_title !== $var ) {
+					// If unset then copy over existing setting to new section based variable
+					error_log( 'Setting ' . $entertainment_key . ' from ' . get_theme_mod( 'cst_homepage_entertainment_section_headlines' . $key_to_check ) );
+//					set_theme_mod(
+//						'cst_entertainment_section_' . $story_title,
+//						get_theme_mod( 'cst_homepage_entertainment_section_headlines' . $key_to_check )
+//					);
+				}
+				//Retire old theme mod setting as a result
+//				unset( $this->entertainment_section_stories[ 'cst_homepage_entertainment_section_headlines' . $key_to_check ] );
+			}
+		}
+		//Return settings migrated or otherwise for use on the homepage
 		return $this->entertainment_section_stories;
 	}
 

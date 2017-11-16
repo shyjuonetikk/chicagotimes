@@ -14,11 +14,9 @@ $right_rail_class    = 'right-rail columns medium-4 large-3 show-for-medium-up';
 				</a>
 			</div>
 			<?php get_template_part( 'parts/section/taxonomy-top' ); ?>
-			<?php if ( ! empty( $sports_sf ) ) { ?>
 			<div class="row">
-				<?php \CST\CST_Section_Front::get_instance()->five_block( get_queried_object()->slug ); ?>
+				<?php \CST\CST_Section_Front::get_instance()->five_block(); ?>
 			</div>
-			<?php } ?>
 
 			<?php if ( have_posts() ) : ?>
 

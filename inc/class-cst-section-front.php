@@ -15,7 +15,13 @@ class CST_Section_Front {
 	];
 
 	public $sports_object, $sort_order;
-	public $sortable_sections = [];
+	public $sortable_sections   = [];
+	public $additional_sections = [
+		'Crime',
+		'Entertainment',
+		'Featured Obits',
+		'Podcasts',
+	];
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -73,18 +79,34 @@ class CST_Section_Front {
 	}
 
 	/**
-	 * @param $title_slug
-	 *
 	 * Title markup based on slug
 	 * Get slotted content based on slug
 	 * Render only if content slotted
 	 *
 	 */
-	public function five_block( $title_slug ) {
+	public function five_block() {
+		// Handle sections that are used on homepage
+		$title_slug          = get_queried_object()->slug;
 		$customizer_partials = $this->create_partials( $title_slug );
-		$render              = false;
+		if ( in_array( get_queried_object()->name, $this->additional_sections, true ) ) {
+			switch ( get_queried_object()->name ) {
+				case 'Entertainment':
+					$customizer_partials = \CST_Customizer::get_instance()->get_entertainment_stories();
+					break;
+				case 'Podcasts':
+					$customizer_partials = \CST_Customizer::get_instance()->get_podcast_section_stories();
+					break;
+				case 'Featured Obits':
+					$customizer_partials = \CST_Customizer::get_instance()->get_featured_obits_section_stories();
+					break;
+				case 'Crime':
+					$customizer_partials = \CST_Customizer::get_instance()->get_lower_section_stories();
+					break;
+			}
+		}
+		$render = false;
 		foreach ( array_keys( $customizer_partials ) as $customizer_partial ) {
-			if ( get_theme_mod( $customizer_partial ) ) {
+			if ( $customizer_partial !== get_theme_mod( $customizer_partial ) ) {
 				$render = true;
 			}
 		}
