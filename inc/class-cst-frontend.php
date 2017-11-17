@@ -2214,9 +2214,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	}
 
 	/**
-	* #1162 adding 1x1 DFP definition - hooked to wp_head
+	* #1162 adding 1x1 DFP definition - hooked to closing_body
 	*/
-	public function setup_one_by_one_ad_definition(){
+	public function setup_one_by_one_ad_definition() {
+		if ( is_singular( 'cst_feature' ) || is_post_type_archive( 'cst_feature' ) ) {
+			return;
+		}
 		echo wp_kses( CST()->dfp_handler->one_by_one_unit( 1234, '', 'dfp onebyone dfp-centered' ), CST()->dfp_kses );
 	}
 	/**
