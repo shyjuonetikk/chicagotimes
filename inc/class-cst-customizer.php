@@ -85,6 +85,18 @@ class CST_Customizer {
 		'featured_story_block_headlines_4' => true,
 		'featured_story_block_headlines_5' => true,
 	];
+	public $hp_additional_sections          = [
+		'Crime',
+		'Entertainment',
+		'Featured Obits',
+		'Podcasts',
+	];
+	public $hp_additional_section_slugs     = [
+		'crime',
+		'entertainment',
+		'obituaries',
+		'podcasts',
+	];
 	private $capability                     = 'edit_others_posts';
 	private $sports_section_choices, $section_choices, $section_choice_slugs, $sports_section_choice_slugs, $sections, $sports_section_names, $additional_sections, $additional_section_choices, $additional_section_choice_slugs;
 	public $five_block          = [
@@ -201,8 +213,8 @@ class CST_Customizer {
 		/**
 		 * Customize!
 		 */
-		$this->homepage_customizer( $wp_customize );
 		$this->section_front_customizer( $wp_customize );
+		$this->homepage_customizer( $wp_customize );
 
 	}
 
@@ -242,15 +254,19 @@ class CST_Customizer {
 			$priority                = 400 + $section_counter++;
 			$block_type              = $this->five_block;
 			$section_description     = 'Choose ' . $section_choice . ' (SF) stories';
+			$active_callback         = [ $this, 'tax_section' ];
 			if ( 'Sports' === $section_choice ) {
 				$section_description = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
+			}
+			if ( in_array( $section_choice, $this->hp_additional_sections, true ) ) {
+				$active_callback = [ $this, 'hp_custom_sections' ];
 			}
 			$wp_customize->add_section( $section_name, [
 				'title'           => esc_html( $section_title ),
 				'description'     => esc_html( $section_description ),
 				'priority'        => $priority,
 				'capability'      => $this->capability,
-				'active_callback' => [ $this, 'tax_section' ],
+				'active_callback' => $active_callback,
 			] );
 			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
 				$video_slot = 'cst_sports_section_three_block_two_one_3';
@@ -311,6 +327,11 @@ class CST_Customizer {
 			if ( 'chicago-news' === $matches[1] ) {
 				$section_name = 'news';
 			}
+			if ( is_front_page() ) {
+				if ( in_array( $section_name, $this->hp_additional_section_slugs, true ) ) {
+					return true;
+				}
+			}
 			// Handle Sports section
 			$current_obj = get_queried_object();
 			// What section_name am I being asked to display
@@ -364,6 +385,24 @@ class CST_Customizer {
 		return $this->section_callback( $matches );
 	}
 
+	/**
+	 * @param $section
+	 *
+	 * @return bool
+	 *
+	 * Return whether we are on the Homepage and requesting a taxonomy
+	 */
+	public function hp_custom_sections( $section ) {
+		// What section_name am I being asked to display
+		// Is this a custom hp section?
+		if ( is_front_page() || is_tax( 'cst_section' ) ) {
+			$trimmed_title = str_replace( ' section.', '', $section->title );
+			if ( in_array( $trimmed_title, $this->hp_additional_sections, true ) ) {
+				return true;
+			}
+		}
+		return false;
+	}
 	public function show_sports_sections() {
 		return is_front_page() || is_tax( 'cst_section', 'sports' );
 	}
@@ -422,34 +461,6 @@ class CST_Customizer {
 			'title'           => __( 'Features', 'chicagosuntimes' ),
 			'description'     => __( 'Choose Features stories', 'chicagosuntimes' ),
 			'priority'        => 220,
-			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
-		] );
-		$wp_customize->add_section( 'lower_section_stories', [
-			'title'           => __( 'Crime', 'chicagosuntimes' ),
-			'description'     => __( 'Choose crime stories', 'chicagosuntimes' ),
-			'priority'        => 230,
-			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
-		] );
-		$wp_customize->add_section( 'entertainment_section_stories', [
-			'title'           => __( 'Entertainment', 'chicagosuntimes' ),
-			'description'     => __( 'Choose entertainment stories', 'chicagosuntimes' ),
-			'priority'        => 240,
-			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
-		] );
-		$wp_customize->add_section( 'featured_obits_section_stories', [
-			'title'           => __( 'Featured Obits', 'chicagosuntimes' ),
-			'description'     => __( 'Choose Featured obit', 'chicagosuntimes' ),
-			'priority'        => 250,
-			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
-		] );
-		$wp_customize->add_section( 'podcast_section_stories', [
-			'title'           => __( 'Podcasts', 'chicagosuntimes' ),
-			'description'     => __( 'Choose podcast stories', 'chicagosuntimes' ),
-			'priority'        => 260,
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		] );
@@ -676,94 +687,6 @@ class CST_Customizer {
 				],
 			] ) );
 		}
-		/**
-		 * Entertainment section based stories, custom heading
-		 */
-		$lead_counter = 0;
-		foreach ( array_keys( $this->get_entertainment_stories() ) as $other_story ) {
-			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
-			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
-				'type'        => 'cst_select_control',
-				'priority'    => 20,
-				'section'     => 'entertainment_section_stories',
-				'label'       => 0 === $lead_counter ++ ? __( 'Lead Article', 'chicagosuntimes' ) : __( 'Other Article', 'chicagosuntimes' ),
-				'input_attrs' => [
-					'placeholder' => esc_attr__( 'Choose other article' ),
-				],
-			] ) );
-		}
-		/**
-		 * Podcast section based stories, custom heading
-		 */
-		$lead_counter = 0;
-		foreach ( array_keys( $this->featured_obits_section_stories ) as $other_story ) {
-			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
-			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
-				'type'        => 'cst_select_control',
-				'priority'    => 30,
-				'section'     => 'featured_obits_section_stories',
-				'label'       => 0 === $lead_counter ++ ? __( 'Lead Obit', 'chicagosuntimes' ) : __( 'Other Obit', 'chicagosuntimes' ),
-				'input_attrs' => [
-					'placeholder' => esc_attr__( 'Choose other obit' ),
-				],
-			] ) );
-		}
-		/**
-		 * Podcast section based stories, custom heading
-		 */
-		$lead_counter = 0;
-		foreach ( array_keys( $this->podcast_section_stories ) as $other_story ) {
-			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
-			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
-				'type'        => 'cst_select_control',
-				'priority'    => 50,
-				'section'     => 'podcast_section_stories',
-				'label'       => 0 === $lead_counter ++ ? __( 'Lead Podcast', 'chicagosuntimes' ) : __( 'Other Podcast', 'chicagosuntimes' ),
-				'input_attrs' => [
-					'placeholder' => esc_attr__( 'Choose other podcast' ),
-				],
-			] ) );
-		}
-
-		/**
-		 * Add a section choice for the five block of stories
-		 * Perhaps create a CST version of this control for reuse
-		 */
-		$this->set_setting( $wp_customize, 'lower_section_section_title', 'absint' );
-		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'lower_section_section_title', [
-			'type'     => 'select',
-			'priority' => 10,
-			'section'  => 'lower_section_stories',
-			'settings' => 'lower_section_section_title',
-			'choices'  => $this->section_choices,
-			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
-		] ) );
-		/**
-		 * Add a section choice for the five block of stories
-		 * Perhaps create a CST version of this control for reuse
-		 */
-		$this->set_setting( $wp_customize, 'entertainment_section_section_title', 'absint' );
-		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'entertainment_section_section_title', [
-			'type'     => 'select',
-			'priority' => 20,
-			'section'  => 'entertainment_section_stories',
-			'settings' => 'entertainment_section_section_title',
-			'choices'  => $this->section_choices,
-			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
-		] ) );
-		/**
-		 * Add a section choice for the five block of stories
-		 * Perhaps create a CST version of this control for reuse
-		 */
-		$this->set_setting( $wp_customize, 'featured_obit_section_section_title', 'absint' );
-		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'featured_obit_section_section_title', [
-			'type'     => 'select',
-			'priority' => 30,
-			'section'  => 'featured_obits_section_stories',
-			'settings' => 'featured_obit_section_section_title',
-			'choices'  => $this->section_choices,
-			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
-		] ) );
 	}
 
 	public function _remove_unneeded_customizer_sections( \WP_Customize_Manager $wp_customize ) {
@@ -1019,7 +942,7 @@ class CST_Customizer {
 				return CST()->frontend->render_section_text_title( $element->id );
 				break;
 		}
-		if ( is_tax( 'cst_section' ) ) {
+		if ( is_front_page() || is_tax( 'cst_section' ) ) {
 			$partials = preg_match( '/cst\_(.+)\_section_five_block\_(\d+)/', $element->id, $matches );
 			if ( $partials && ! empty( $matches ) ) {
 				$article_position = 'five_block_' . $matches[2];
@@ -1245,18 +1168,23 @@ class CST_Customizer {
 			$key_to_check = substr( $story_title, -2 );
 			if ( isset( $this->entertainment_section_stories[ 'cst_homepage_entertainment_section_headlines' . $key_to_check ] ) ) {
 				$entertainment_key = 'cst_entertainment_section_' . $story_title;
-//				$this->entertainment_section_stories[ $entertainment_key ] = true;
-				$var = get_theme_mod( $entertainment_key, false );
-				if ( 'cst_entertainment_section_' . $story_title !== $var ) {
+				$var               = (int) get_theme_mod( $entertainment_key, false );
+				if ( is_int( $var ) ) {
+					$this->entertainment_section_stories[ $entertainment_key ] = true;
+				}
+				if ( 'cst_entertainment_section_' . $story_title === $var ) {
+					$legacy_value = get_theme_mod( 'cst_homepage_entertainment_section_headlines' . $key_to_check );
 					// If unset then copy over existing setting to new section based variable
-					error_log( 'Setting ' . $entertainment_key . ' from ' . get_theme_mod( 'cst_homepage_entertainment_section_headlines' . $key_to_check ) );
-//					set_theme_mod(
-//						'cst_entertainment_section_' . $story_title,
-//						get_theme_mod( 'cst_homepage_entertainment_section_headlines' . $key_to_check )
-//					);
+					set_theme_mod(
+						$entertainment_key,
+						$legacy_value
+					);
+					// Match values
+					set_theme_mod( 'cst_homepage_entertainment_section_headlines' . $key_to_check, $var );
+					$this->entertainment_section_stories[ $entertainment_key ] = true;
 				}
 				//Retire old theme mod setting as a result
-//				unset( $this->entertainment_section_stories[ 'cst_homepage_entertainment_section_headlines' . $key_to_check ] );
+				unset( $this->entertainment_section_stories[ 'cst_homepage_entertainment_section_headlines' . $key_to_check ] );
 			}
 		}
 		//Return settings migrated or otherwise for use on the homepage
@@ -1292,6 +1220,7 @@ class CST_Customizer {
 	 * @return array
 	 */
 	public function get_lower_section_stories() {
+
 		return $this->lower_section_stories;
 	}
 
