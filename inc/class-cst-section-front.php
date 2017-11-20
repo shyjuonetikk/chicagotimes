@@ -88,9 +88,9 @@ class CST_Section_Front {
 		// Handle sections that are used on homepage
 		$title_slug          = get_queried_object()->slug;
 		$customizer_partials = $this->create_partials( $title_slug );
-		$render = false;
+		$render              = false;
 		foreach ( array_keys( $customizer_partials ) as $customizer_partial ) {
-			if ( $customizer_partial !== get_theme_mod( $customizer_partial ) ) {
+			if ( get_theme_mod( $customizer_partial ) ) {
 				$render = true;
 			}
 		}
