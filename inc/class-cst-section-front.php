@@ -88,22 +88,6 @@ class CST_Section_Front {
 		// Handle sections that are used on homepage
 		$title_slug          = get_queried_object()->slug;
 		$customizer_partials = $this->create_partials( $title_slug );
-		if ( in_array( get_queried_object()->name, $this->additional_sections, true ) ) {
-			switch ( get_queried_object()->name ) {
-				case 'Entertainment':
-					$customizer_partials = \CST_Customizer::get_instance()->get_entertainment_stories();
-					break;
-				case 'Podcasts':
-					$customizer_partials = \CST_Customizer::get_instance()->get_podcast_section_stories();
-					break;
-				case 'Featured Obits':
-					$customizer_partials = \CST_Customizer::get_instance()->get_featured_obits_section_stories();
-					break;
-				case 'Crime':
-					$customizer_partials = \CST_Customizer::get_instance()->get_lower_section_stories();
-					break;
-			}
-		}
 		$render = false;
 		foreach ( array_keys( $customizer_partials ) as $customizer_partial ) {
 			if ( $customizer_partial !== get_theme_mod( $customizer_partial ) ) {
