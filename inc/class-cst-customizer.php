@@ -1253,6 +1253,38 @@ class CST_Customizer {
 	 * @return array
 	 */
 	public function get_podcast_section_stories() {
+		$legacy_section_prefix = 'cst_podcast_section_headlines';
+		$new_section_prefix    = 'cst_podcasts_section_';
+		foreach ( $this->five_block as $story_title ) {
+			$key_to_check     = substr( $story_title, -2 );
+			$legacy_array_key = $legacy_section_prefix . $key_to_check;
+			if ( isset( $this->podcast_section_stories[ $legacy_array_key ] ) ) {
+				$section_key   = $new_section_prefix . $story_title;
+				$section_value = get_theme_mod( $section_key ); // do we have a new value set?
+				// returns new value or section key
+				if ( $section_key === $section_value || false === $section_value ) {
+					$legacy_value = get_theme_mod( $legacy_array_key );
+					// If unset then copy over existing setting to new section based variable
+					set_theme_mod(
+						$section_key,
+						$legacy_value
+					);
+					// Match values
+					set_theme_mod( $legacy_array_key, $section_value );
+					$this->podcast_section_stories[ $section_key ] = true;
+					//Retire old theme mod setting as a result
+					unset( $this->podcast_section_stories[ $legacy_array_key ] );
+				}
+				if ( intval( (int) $section_value ) ) {
+					set_theme_mod( $legacy_array_key, $section_value );
+					$this->podcast_section_stories[ $section_key ] = true;
+				}
+				if ( false !== $section_value && ! empty( $section_value ) ) {
+					//Retire old theme mod setting as a result
+					unset( $this->podcast_section_stories[ $legacy_array_key ] );
+				}
+			}
+		}
 		return $this->podcast_section_stories;
 	}
 	/**
@@ -1260,15 +1292,14 @@ class CST_Customizer {
 	 * @return array
 	 */
 	public function get_featured_obits_section_stories() {
-		//'cst_homepage_entertainment_section_headlines_1' => true,
-		//'cst_' . $sanitized_section_title . '_section_' . $story_title
-		// Migrate existing slotted content from homepage key based setting to section based key
 
+		$legacy_section_prefix = 'cst_featured_obits_section_headlines';
+		$new_section_prefix    = 'cst_obituaries_section_';
 		foreach ( $this->five_block as $story_title ) {
 			$key_to_check     = substr( $story_title, -2 );
-			$legacy_array_key = 'cst_featured_obits_section_headlines' . $key_to_check;
+			$legacy_array_key = $legacy_section_prefix . $key_to_check;
 			if ( isset( $this->featured_obits_section_stories[ $legacy_array_key ] ) ) {
-				$section_key   = 'cst_obituaries_section_' . $story_title;
+				$section_key   = $new_section_prefix . $story_title;
 				$section_value = get_theme_mod( $section_key ); // do we have a new value set?
 				// returns new value or section key
 				if ( $section_key === $section_value || false === $section_value ) {
