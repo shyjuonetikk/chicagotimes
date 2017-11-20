@@ -209,7 +209,7 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 				<hr>
 			</div>
 			<?php
-			if ( is_active_sidebar( 'undermorefrom' ) ) :
+			if ( ! is_customize_preview() && is_active_sidebar( 'undermorefrom' ) ) :
 				dynamic_sidebar( 'undermorefrom' );
 			endif;
 			?>
