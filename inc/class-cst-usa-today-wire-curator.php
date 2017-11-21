@@ -461,13 +461,13 @@ class CST_USA_Today_Wire_Curator {
     public function refresh_usa_today_wire_items( $manually_triggered_from_ajax = false ) {
 
         foreach( $this->get_feeds() as $feed ) {
-            
+
             // Failsafe
             if ( empty( $feed ) ) {
                 continue;
             }
 
-            $response = wp_remote_get( $feed, $args );
+            $response = wp_remote_get( $feed );
 
             if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
                 continue;
