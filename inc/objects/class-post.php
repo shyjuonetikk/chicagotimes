@@ -1239,6 +1239,7 @@ abstract class Post {
 			return true;
 		}
 	}
+
 	/**
 	 * Get the long excerpt for the post
 	 *
