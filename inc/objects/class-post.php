@@ -1239,4 +1239,16 @@ abstract class Post {
 			return true;
 		}
 	}
+	/**
+	 * Get the long excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_long_excerpt() {
+		if ( $excerpt = $this->get_fm_field( 'cst_long_excerpt' ) ) {
+			return $excerpt;
+		} else {
+			return $this->get_excerpt();
+		}
+	}
 }
