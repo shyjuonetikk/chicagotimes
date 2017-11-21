@@ -257,6 +257,7 @@ class CST_Customizer {
 			$active_callback         = [ $this, 'tax_section' ];
 			if ( 'Sports' === $section_choice ) {
 				$section_description = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
+				$priority            = 300;
 			}
 			if ( in_array( $section_choice, $this->hp_additional_sections, true ) ) {
 				$active_callback = [ $this, 'hp_custom_sections' ];
