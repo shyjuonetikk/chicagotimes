@@ -38,7 +38,7 @@ Try viewing this in a modern browser like Chrome, Safari, Firefox or Internet Ex
 		$available_assets = array(
 			'lease-image' => get_template_directory_uri() . '/assets/images/drive-chicago-lease-cube.png',
 			'search-image' => get_template_directory_uri() . '/assets/images/drive-chicago-search-cube.png',
-			'search-widget' => 'http://suntimes.drivechicago.com/searchwidget.aspx',
+			'search-widget' => 'https://suntimes.drivechicago.com/searchwidget.aspx',
 		);
 		$asset = $available_assets[ $instance['chicago_drive_widget'] ];
 		$template = $this->template;
