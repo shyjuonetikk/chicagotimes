@@ -2232,6 +2232,33 @@ class CST {
 		}
 		return $classes;
 	}
+
+	/**
+	 * @param $locationname
+	 *
+	 * @return mixed
+	 *
+	 * Fetch a weather image from the Accuweather API
+	 */
+	function getWeatherImage( $locationname ){
+		$url = "http://apidev.accuweather.com/locations/v1/search?q=".$locationname."&apikey=". CST_ACCUWEATHER_API_KEY;
+		$json_data = wpcom_vip_file_get_contents($url);
+		$json = json_decode($json_data);
+		$location_key = $json[0]->Key;
+		$radar_api_url = "http://api.accuweather.com/imagery/v1/maps/radsat/1024x1024/".$location_key."?apikey=".CST_ACCUWEATHER_API_KEY;
+		$response = wpcom_vip_file_get_contents($radar_api_url);
+		$decode_response = json_decode($response);
+		$radar = $decode_response->Radar;
+		$satellite = $decode_response->Satellite;
+		$radarimage = $radar->Images;
+		$satImage = $satellite->Images;
+		// // foreach ($radarimage as $value) {
+		// // 	echo $value->Url."<br>";
+		// // }
+		$radarImageSrc = $radarimage[0]->Url;
+		$SatImageSrc = $satImage[0]->Url;
+		return $SatImageSrc;
+	}
 }
 
 /**
@@ -2275,40 +2302,6 @@ function filter_load_morpheus() {
 }
 
 
-function getData( $url ) {
-	$username = 'ILCHS_webfeeds';
-	$password = 'ap116';
-	$server = $url;
-	$context = stream_context_create(array(
-	        'http' => array(
-	            'header'  => "Authorization: Basic " . base64_encode("$username:$password")
-	        )
-	    )
-	);
-	$source = file_get_contents("$server", false, $context);
-	$xml = new SimpleXMLElement($source);
- 	return $xml;
-}
-
-function getWeatherImage( $locationname ){
-	$url = "http://apidev.accuweather.com/locations/v1/search?q=".$locationname."&apikey=". CST_ACCUWEATHER_API_KEY;
-	$json_data = wpcom_vip_file_get_contents($url);
-	$json = json_decode($json_data);
-	$location_key = $json[0]->Key;
-	$radar_api_url = "http://api.accuweather.com/imagery/v1/maps/radsat/1024x1024/".$location_key."?apikey=".CST_ACCUWEATHER_API_KEY;
-	$response = wpcom_vip_file_get_contents($radar_api_url);
-	$decode_response = json_decode($response);
-	$radar = $decode_response->Radar;
-	$satellite = $decode_response->Satellite;
-	$radarimage = $radar->Images;
-	$satImage = $satellite->Images;
-	// // foreach ($radarimage as $value) {
-	// // 	echo $value->Url."<br>";
-	// // }
-	$radarImageSrc = $radarimage[0]->Url;
-	$SatImageSrc = $satImage[0]->Url;
-	return $SatImageSrc;
-}
 // Register script for Amazon/A9
 function register_amazona9() {
 	wp_register_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload', false, false, false );
