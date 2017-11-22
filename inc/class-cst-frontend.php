@@ -233,12 +233,9 @@ class CST_Frontend {
 			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
 
 		}
-		if( is_page_template( 'page-score.php' || 'page-team.php' ) ){
-			wp_enqueue_style( 'team_page_styles', get_template_directory_uri().'/assets/css/s_team_suntimes.css' );
-		}
-		if( is_page_template('page-weather.php') ){
-			wp_enqueue_script( 'taboola_header_script', get_template_directory_uri().'/assets/js/taboola-header-weather.js', false );
-			wp_enqueue_script( 'taboola_footer_script', get_template_directory_uri().'/assets/js/taboola-footer-weather.js', true );
+		if ( is_page_template( 'page-weather.php' ) ) {
+			wp_enqueue_script( 'taboola_header_script', get_template_directory_uri() . '/assets/js/taboola-header-weather.js', false );
+			wp_enqueue_script( 'taboola_footer_script', get_template_directory_uri() . '/assets/js/taboola-footer-weather.js', true );
 		}
 		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
