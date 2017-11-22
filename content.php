@@ -1,4 +1,5 @@
 <?php $obj = \CST\Objects\Post::get_by_post_id( get_the_ID() ); ?>
+<?php global $wp_query; $current_post = $wp_query->current_post + 1; ?>
 <?php
 $sponsored = false;
 $attrs = '';
@@ -24,7 +25,7 @@ if ( $sponsored ) {
 	$classes[] = 'sponsored-content';
 }
 		?>
-		<article id="post-<?php the_id(); ?>" <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
+		<article id="post-<?php the_ID(); ?>" <?php post_class( $classes ); ?> <?php echo wp_kses_post( $attrs ); ?>>
 			<?php if ( $sponsored ) { ?>
 				<div class="sponsored-treatment">
 			<?php } ?>
@@ -44,13 +45,20 @@ if ( $sponsored ) { ?>
 	</div>
 	<?php }
 if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) {
-	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses ); ?>
-	<div class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
+	echo wp_kses( CST()->get_template_part( 'post/post-recommendations-chartbeat', array( 'obj' => $obj ) ), CST()->recommendation_kses );
+	CST()->frontend->inject_flipp( $paged );
+	?>
+	<div id="taboola-below-article-thumbnails-<?php echo esc_attr( $obj->get_id() ); ?>" class="taboola-container-<?php echo esc_attr( $obj->get_id() ); ?> medium-12 columns ">
 	</div>
 <?php } ?>
 		</article>
 
-		<?php CST()->frontend->content_ad_injection( $paged ); ?>
+	<?php if ( is_tax( 'cst_section', 'sports' ) ) {
+		\CST\CST_Section_Front::get_instance()->section_ad_injection( $current_post );
+	} else {
+		CST()->frontend->content_ad_injection( $paged );
+	}
+	?>
 
 		<?php if ( is_singular( array( 'cst_article', 'cst_gallery', 'cst_video' ) ) ) : ?>
 		</div>

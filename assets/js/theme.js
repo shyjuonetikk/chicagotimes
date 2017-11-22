@@ -24,12 +24,14 @@
         this.headerSlider();
         this.rescaleHeadlinesImages();
         this.positionAndSizePostSidebar();
-        window.CSTTripleLift && CSTTripleLift.inject();
       }
       if ( this.trendingNav.length ) {
 				this.recalibrateTrendingItems();
 			}
-			this.taboola();},
+			if ('false' === CSTData.customize_preview) {
+			  this.taboola();
+      }
+			},
 
         /**
          * Cache elements to object-level variables
@@ -51,6 +53,7 @@
             this.leftSidebar = $('.stick-sidebar-left');
             this.dfpSBB = $('#div-gpt-sbb');
           this.header = $('#header');
+          this.stickyParent = $(".off-canvas-wrap");
             this.articleUpperAdUnit = $('.article-upper-ad-unit');
             this.spacer = $(".spacer");
       this.adminBar = $('#wpadminbar');
@@ -88,7 +91,7 @@
                 }, this ), 30 );
             }, this ) );
 
-            if ( this.body.hasClass("single") ||  this.body.hasClass("archive") ) {
+            if ( this.body.hasClass("single") || this.body.hasClass("archive") ) {
               $(window).scroll($.proxy(function () {
                 clearTimeout(throttleScroll);
                 throttleScroll = setTimeout(function () {
@@ -161,20 +164,19 @@
             // Sticky sharing tools on the articles, as well as logic for the currently viewing post
             if ( $( 'body.single' ).length ) {
               var mainPost = $('#main .post');
-            mainPost.each( $.proxy( function( key, value ) {
-                        var el = $(value);
-                        var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
-                        var bottomBreakPoint = topBreakPoint + el.height() - 80;
+              mainPost.each( $.proxy( function( key, value ) {
+                var el = $(value);
+                var topBreakPoint = el.offset().top - this.scrollToolbarHeight;
+                var bottomBreakPoint = topBreakPoint + el.height() - 80;
 
-                        if ( ! el.hasClass('cst-active-scroll-post') ) {
-                          if ( scrollTop > topBreakPoint &&  scrollTop < bottomBreakPoint ) {
-                            mainPost.removeClass('cst-active-scroll-post');
-                            el.addClass('cst-active-scroll-post');
-                          }
-                        }
-                    }, this ) );
-
+                if ( ! el.hasClass('cst-active-scroll-post') ) {
+                  if ( scrollTop > topBreakPoint &&  scrollTop < bottomBreakPoint ) {
+                    mainPost.removeClass('cst-active-scroll-post');
+                    el.addClass('cst-active-scroll-post');
+                  }
                 }
+              }, this ) );
+            }
             this.positionAndSizePostSidebar(scrollTop);
             this.stickSectionSidebar();
             },
@@ -278,9 +280,15 @@
         },
 
       stickSectionSidebar: function() {
-          if('false' === CSTInfiniteScrollData.isMobile && this.body.hasClass("tax-cst_section")) {
+        let displaySidebar = true;
+        if ( 'object' === typeof CSTInfiniteScrollData ) {
+          if ( 'false' === CSTInfiniteScrollData.displaySidebar ) {
+            displaySidebar = false;
+          }
+        }
+          if ( displaySidebar && this.body.hasClass("tax-cst_section")) {
             if (!this.anchorMe.hasClass('is_stuck')) {
-              this.anchorMe.stick_in_parent({"bottoming": false, "offset_top": this.adminBar.height() + this.header.height() + 10});
+              this.anchorMe.stick_in_parent({"parent" : this.stickyParent, "offset_top": this.adminBar.height() + this.header.height() + 10});
             }
           }
       },
@@ -480,6 +488,10 @@
     $(document).ready(function(){
 
         $(document).foundation({
+          equalizer : {
+// Specify if Equalizer should make elements equal height once they become stacked.
+            equalize_on_stack: true
+          },
           offcanvas: {
             open_method: "move"
           },

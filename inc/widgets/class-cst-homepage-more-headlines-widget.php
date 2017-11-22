@@ -122,7 +122,8 @@ class CST_Homepage_More_Headlines_Widget extends WP_Widget {
 		global $homepage_more_well_posts;
 		$widget_posts = array();
 		$title = isset( $instance['title'] ) ? $instance['title'] : '';
-		for ( $count = 0; $count < count( $instance ); $count++ ) {
+		$total = count( $instance ) - 1;
+		for ( $count = 0; $count < $total; $count++ ) {
 			if ( $instance[ $count ] ) {
 				$widget_posts[] = absint( $instance[ $count ] );
 			}

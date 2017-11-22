@@ -976,27 +976,24 @@ abstract class Post {
 				foreach ( $this->get_authors() as $author ) {
 					$author_names[] = $author->get_display_name();
 				};
-				$val = implode( ',', $author_names );
+				$val = implode( ':', $author_names );
 				break;
 
 			case 2:
 				if ( $topics = $this->get_topics() ) {
-					$topic = array_shift( $topics );
-					$val = $topic->name;
+					$val = implode( ':', wp_list_pluck( $topics, 'name' ) );
 				}
 				break;
 
 			case 3:
 				if ( $people = $this->get_people() ) {
-					$person = array_shift( $people );
-					$val = $person->name;
+					$val = implode( ':', wp_list_pluck( $people, 'name' ) );
 				}
 				break;
 
 			case 4:
 				if ( $locations = $this->get_locations() ) {
-					$location = array_shift( $locations );
-					$val = $location->name;
+					$val = implode( ':', wp_list_pluck( $locations, 'name' ) );
 				}
 				break;
 
@@ -1006,21 +1003,21 @@ abstract class Post {
 
 			case 6:
 				$datetime = new \DateTime( $this->post->post_date );
-				$val = date_format( $datetime, 'mdY h:i:s' );
+				$val = date_format( $datetime, 'Y-m-d H:i' );
 				break;
 
 			case 7:
 				$datetime = new \DateTime( $this->post->post_modified );
-				$val = date_format( $datetime, 'mdY h:i:s' );
+				$val = date_format( $datetime, 'Y-m-d H:i' );
 				break;
 
 			case 8:
-				$val = false;
+				$val = $this->post->ID;
 				break;
 
 			case 9:
-				if ( $section = $this->get_primary_section() ) {
-					$val = $section->name;
+				if ( $sections = $this->get_sections() ) {
+					$val = implode( ':', wp_list_pluck( $sections, 'name' ) );
 				} else {
 					$val = false;
 				}
@@ -1240,6 +1237,19 @@ abstract class Post {
 			return false;
 		} else {
 			return true;
+		}
+	}
+
+	/**
+	 * Get the long excerpt for the post
+	 *
+	 * @return mixed
+	 */
+	public function get_long_excerpt() {
+		if ( $excerpt = $this->get_fm_field( 'cst_long_excerpt' ) ) {
+			return $excerpt;
+		} else {
+			return $this->get_excerpt();
 		}
 	}
 }
