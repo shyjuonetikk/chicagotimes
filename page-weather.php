@@ -24,7 +24,7 @@
 				<div class="weather-radar-container">
 					<h2><?php echo esc_html_e( 'Weather Radar', 'chicagosuntimes' ); ?></h2>
 					<div class="image-container">
-						<img src="<?php echo getWeatherImage('chicago'); ?>">
+						<img src="<?php echo esc_html( CST()->getWeatherImage( 'chicago' ) ); ?>">
 					</div>
 					<div class="row">
 						<div class="columns">
