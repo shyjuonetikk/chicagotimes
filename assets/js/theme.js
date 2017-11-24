@@ -40,6 +40,7 @@
 
             this.body = $('body');
             this.featuredPosts = $('#headlines-slider');
+            this.mainNav = $(".main-navigation");
             this.trendingNav = $('#trending-container');
             this.fixedBackToTop = $('#fixed-back-to-top');
             this.backToTop = $('#back-to-top');
@@ -145,15 +146,19 @@
                 this.leftOffCanvasList.removeClass("fixed-canvas-menu");
             }
 
-            if ( scrollTop > this.dfpSBB.height() ) {
+            if ( scrollTop > this.mainNav.height() ) {
 
                 // Back to Top element
                 if ( ! this.fixedBackToTop.is(":visible") ) {
                     this.toggleBackToTop();
                 }
-
+                if ( "true" === CSTInfiniteScrollData.isMobile ) {
+                    this.featuredPosts.fadeOut("fast");
+                }
             } else {
-
+                if ( "true" === CSTInfiniteScrollData.isMobile ) {
+                    this.featuredPosts.fadeIn("fast");
+                }
                 // Back to Top element
                 if ( this.fixedBackToTop.is(":visible") ) {
                     this.toggleBackToTop();
