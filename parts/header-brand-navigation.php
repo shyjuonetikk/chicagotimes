@@ -1,6 +1,6 @@
 <header id="header" class="masthead">
 	<div class="contain-to-grid">
-		<nav class="top-bar" data-topbar aria-hidden="true">
+		<nav class="top-bar main-navigation" data-topbar aria-hidden="true">
 			<ul class="title-area">
 			</ul>
 		<div class="top-bar-section">
