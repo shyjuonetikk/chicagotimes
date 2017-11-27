@@ -3135,7 +3135,7 @@ echo $display_relative_timestamp ? ' - ' . esc_html( human_time_diff( $obj->get_
 			'mid_size' => 2,
 		) );
 		$features_nav = str_replace( 'page-numbers', 'page-numbers pagination', $features_nav );
-		$features_nav = str_replace( '><span class=\'page-numbers pagination current', ' class="current"><span class=\'page-numbers pagination current', $features_nav );
+		$features_nav = str_replace( '<span class=\'page-numbers pagination current', ' class="current"><span class=\'page-numbers pagination current', $features_nav );
 		echo wp_kses_post( $features_nav );
 	}
 }

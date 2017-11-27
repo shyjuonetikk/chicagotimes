@@ -32,7 +32,7 @@ class CST_Infinite_Scroll {
 	 */
 	private function setup_filters() {
 
-		// See jetpack_infinite_support() first.
+		// See jetpack_infinite_support() in functions.php first.
 		add_filter( 'infinite_scroll_archive_supported', function( $val ) {
 			if ( is_singular() ) {
 				return true;
