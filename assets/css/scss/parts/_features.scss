@@ -382,6 +382,7 @@ body#tinymce {
 				padding:0.625rem;
 				transition:none;
 				border-radius:0;
+				display: block;
 				&:focus {
 					background-color:$social_grey;
 					color:$white;

@@ -289,7 +289,8 @@ body#tinymce {
     .post-type-archive-cst_feature ul.pagination li a, .post-type-archive-cst_feature ul.pagination li span {
       padding: 0.625rem;
       transition: none;
-      border-radius: 0; }
+      border-radius: 0;
+      display: block; }
       .post-type-archive-cst_feature ul.pagination li a:focus, .post-type-archive-cst_feature ul.pagination li span:focus {
         background-color: #9a9a9a;
         color: white; }
