@@ -378,7 +378,7 @@ body#tinymce {
 			height:auto;
 			background-color: $cst_black;
 			color:$white;
-			a {
+			a,span {
 				padding:0.625rem;
 				transition:none;
 				border-radius:0;
