@@ -15,6 +15,11 @@
 			</div>
 		<?php endif; ?>
 		<div class="row">
+			<div class="post-meta feature-social-container">
+				<?php echo wp_kses_post( CST()->get_template_part( 'post/social-share', array( 'obj' => $obj ) ) ); ?>
+			</div>
+		</div>
+		<div class="row">
 			<?php echo CST()->get_template_part( 'post/feature-meta-byline', array( 'obj' => $obj ) ); ?>
 			<div class="post-content columns small-12 end" itemprop="articleBody">
 				<?php $obj->the_content(); ?>
