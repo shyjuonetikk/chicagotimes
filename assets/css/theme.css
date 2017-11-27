@@ -5075,11 +5075,11 @@ body#tinymce {
     height: auto;
     background-color: #231f20;
     color: white; }
-    .post-type-archive-cst_feature ul.pagination li a {
+    .post-type-archive-cst_feature ul.pagination li a, .post-type-archive-cst_feature ul.pagination li span {
       padding: 0.625rem;
       transition: none;
       border-radius: 0; }
-      .post-type-archive-cst_feature ul.pagination li a:focus {
+      .post-type-archive-cst_feature ul.pagination li a:focus, .post-type-archive-cst_feature ul.pagination li span:focus {
         background-color: #9a9a9a;
         color: white; }
     .post-type-archive-cst_feature ul.pagination li.current {
