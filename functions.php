@@ -2057,12 +2057,13 @@ class CST {
 	 * Declare infinite scroll support on single and taxonomy content / page types.
 	 */
 	public function jetpack_infinite_support() {
+		if ( is_post_type_archive( 'cst_feature' ) ) {
+			return false;
+		}
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] )
-			  || ! is_tax( 'cst_section', 'Sports' )
-			  || ! is_post_type_archive( 'cst_feature' )
-			);
+			( get_queried_object() && is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) );
+
 	}
 
 	/**
