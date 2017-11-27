@@ -1,0 +1,30 @@
+.cst-section-sort {
+    background: #fff;
+}
+#customize-theme-controls .cst-section-sort li.cst-item {
+    padding:10px;
+    transition: background-color 2s ease;
+    background: #fff;
+}
+#customize-theme-controls .cst-section-sort li.cst-item.highlight {
+    background-color: #d0d0d0;
+    transition: background-color 2s ease;
+}
+#customize-theme-controls .cst-section-sort .ui-state-highlight {
+    height: 1.5em;
+    line-height: 1.2em;
+    background: #fff;
+    border: dashed 1px #231f20;
+}
+#customize-theme-controls .cst-section-sort li.cst-item.menu-item-handle {
+    position: relative;
+    height: auto;
+    min-height: 20px;
+    cursor: ns-resize;
+    overflow: hidden;
+    word-wrap: break-word;
+    border-top: none;
+}
+#customize-theme-controls .cst-section-sort li.cst-item.ui-sortable-handle .dashicons-sort {
+    float:right;
+}

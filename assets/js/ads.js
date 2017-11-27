@@ -107,7 +107,7 @@ var CSTAds;
 		 */
 		triggerUnitRefresh: function( unit ) {
 
-			if ( 'undefined' !== typeof CSTAdTags[unit] ) {
+      if ( 'undefined' !== typeof CSTAdTags ) {
         if ( undefined !== CSTAdTags[unit].doNotRefresh && !CSTAdTags[unit].doNotRefresh ) {
           googletag.cmd.push(function () {
             var unitInstance = CSTAdTags[unit];
@@ -119,28 +119,31 @@ var CSTAds;
 
 		},
     refreshAllArticleAds: function() {
-      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! CSTAds.content_body.hasClass( "post-gallery-lightbox-active" ) ) {
-        CSTAds.refreshing = true;
-        var tags_to_refresh = Object.keys(CSTAdTags);
-        tags_to_refresh.forEach(function(ad_slot) {
-          CSTAds.triggerUnitRefresh(ad_slot)
-        })
-        CSTAds.refreshing = false;
-      console.info('All ad units refreshed and interval reset')
-      }
-
+        if ( 'undefined' !== typeof CSTAdTags ) {
+            if (CSTAds.isSingular && !CSTAds.refreshing && !CSTAds.content_body.hasClass("post-gallery-lightbox-active")) {
+                CSTAds.refreshing = true;
+                var tags_to_refresh = Object.keys(CSTAdTags);
+                tags_to_refresh.forEach(function (ad_slot) {
+                    CSTAds.triggerUnitRefresh(ad_slot)
+                })
+                CSTAds.refreshing = false;
+                console.info('All ad units refreshed and interval reset')
+            }
+        }
     },
     refreshArticleCubeAds: function() {
-      if ( CSTAds.isSingular && ! CSTAds.refreshing && ! CSTAds.content_body.hasClass( "post-gallery-lightbox-active" ) ) {
-        console.info('Interval expired. Refreshing Cube Ads');
-        CSTAds.refreshing = true;
-        var tags_to_refresh = Object.keys(CSTAdTags);
-        tags_to_refresh.forEach(function (ad_slot) {
-          if (ad_slot.match(/rr-cube-[0-9]{1,3}$/)) {
-              CSTAds.triggerUnitRefresh(ad_slot)
+      if ( 'undefined' !== typeof CSTAdTags ) {
+          if (CSTAds.isSingular && !CSTAds.refreshing && !CSTAds.content_body.hasClass("post-gallery-lightbox-active")) {
+              console.info('Interval expired. Refreshing Cube Ads');
+              CSTAds.refreshing = true;
+              var tags_to_refresh = Object.keys(CSTAdTags);
+              tags_to_refresh.forEach(function (ad_slot) {
+                  if (ad_slot.match(/rr-cube-[0-9]{1,3}$/)) {
+                      CSTAds.triggerUnitRefresh(ad_slot);
+                  }
+              });
+              CSTAds.refreshing = false;
           }
-        });
-        CSTAds.refreshing = false;
       }
     },
     handleGptVisibility: function(event) {

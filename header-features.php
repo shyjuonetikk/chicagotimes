@@ -44,7 +44,6 @@
 	node.parentNode.insertBefore(gads, node);
 })();
 </script>
-<meta name="apple-itunes-app" content="app-id=930568136">
 <?php get_template_part( 'parts/analytics/google' ); ?>
 
 <?php wp_head(); ?>

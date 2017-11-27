@@ -300,6 +300,7 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/class-cst-dfp.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-ads.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-navigation.php';
+		require_once dirname( __FILE__ ) . '/inc/class-cst-section-front.php';
 		// Disabled 8/26 by DB
 		// require_once dirname( __FILE__ ) . '/inc/class-cst-merlin.php';
 		require_once dirname( __FILE__ ) . '/inc/class-cst-shortcode-manager.php';
@@ -361,7 +362,6 @@ class CST {
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-bears-cube-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-drive-chicago-widget.php';
 		require_once dirname( __FILE__ ) . '/inc/widgets/class-cst-banner-link-widget.php';
-		require_once dirname( __FILE__ ) . '/inc/class-cst-customizer-controls.php';
 
 		// Vendor plugins
 		require_once dirname( __FILE__ ) . '/inc/vendor/public-good/publicgood.php';
@@ -382,6 +382,7 @@ class CST {
 		wpcom_vip_load_plugin( 'zoninator' );
 		wpcom_vip_load_plugin( 'maintenance-mode' );
 		wpcom_vip_load_plugin( 'wpcom-legacy-redirector' );
+		wpcom_vip_load_plugin( 'sailthru' );
 		if ( ! defined( 'WP_CLI' ) ) {
 			// disabling FBIA prevented unnecessary parsing/processing during CLI commands
 			wpcom_vip_load_plugin( 'facebook-instant-articles', 'plugins', '3.0' );
@@ -517,7 +518,7 @@ class CST {
 		add_action( 'do_feed_AP_atom', [ $this, 'cst_rss_AP_atom' ], 10, 1 );
 		// Uses class-cst-elections.php
 		if ( class_exists( 'CST_Elections' ) ) {
-			add_action( 'above-homepage-headlines', [ CST_Elections::get_instance(), 'election_shortcode' ] );
+			add_action( 'above_homepage_headlines', [ CST_Elections::get_instance(), 'election_shortcode' ] );
 		}
 
 		add_action( 'current_screen', [ $this, 'theme_add_editor_styles' ] );
@@ -880,6 +881,14 @@ class CST {
 		register_sidebar( [
 			'id'          => 'sportswire',
 			'name'        => esc_html__( 'SportsWire', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
+			'id'          => 'sports_sf_sidebar',
+			'name'        => esc_html__( 'Sports SF widgets', 'chicagosuntimes' ),
+		] );
+		register_sidebar( [
+			'id'          => 'sports_sf_bottom_sidebar',
+			'name'        => esc_html__( 'Sports SF bottom widgets', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
 			'id'          => 'entertainment_headlines',
@@ -1587,9 +1596,9 @@ class CST {
 		// Rewrite rules for our custom post types
 		$post_types = '';
 		foreach ( $this->get_post_types() as $ptype ) {
-			if ( 'cst_feature' !== $ptype ) {
+//			if ( 'cst_feature' !== $ptype ) {
 				$post_types .= '&post_type[]=' . $ptype;
-			}
+//			}
 		}
 
 		$sections = get_terms( array( 'cst_section' ), array( 'hide_empty' => false, 'fields' => 'id=>slug' ) );
@@ -1600,6 +1609,7 @@ class CST {
 		$rewrites[ '(' . $sections_match . ')/([^/]+)/liveblog/(.*)/?$' ] = 'index.php?index.php?cst_section=$matches[1]&name=$matches[2]&liveblog=$matches[3]' . $post_types;
 
 		$rewrites[ '([^/]+)/([^/]+)(/[0-9]+)?/?$' ] = 'index.php?pagename=$matches[1]&name=$matches[2]&page=$matches[3]&post_type[]=cst_feature';
+		$rewrites[ '([^/]+)/([^/]+)/amp/?$' ] = 'index.php?pagename=$matches[1]&name=$matches[2]&amp=$matches[3]&post_type[]=cst_feature';
 		return $rewrites;
 	}
 
@@ -2047,9 +2057,13 @@ class CST {
 	 * Declare infinite scroll support on single and taxonomy content / page types.
 	 */
 	public function jetpack_infinite_support() {
+		if ( is_post_type_archive( 'cst_feature' ) ) {
+			return false;
+		}
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) || is_tax() );
+			( get_queried_object() && is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) );
+
 	}
 
 	/**
@@ -2140,7 +2154,7 @@ class CST {
 		if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
 			return;
 		}
-		if ( is_admin() ) {
+		if ( is_customize_preview() || is_admin() ) {
 			return;
 		}
 		$this->ad_vendor_handler->register_vendor( 'gum-gum', array(
@@ -2156,13 +2170,6 @@ class CST {
 			'footer' => false,
 			'container' => false,
 			'logic' => 'ads/limit_ads_on_features',
-			)
-		);
-		$this->ad_vendor_handler->register_vendor( 'triplelift', array(
-			'header' => false,
-			'footer' => 'triplelift-footer.js',
-			'container' => false,
-			'logic' => array( 'is_singular', array( 'obj', 'is_not_sponsored_content' ) ),
 			)
 		);
 		$this->ad_vendor_handler->register_vendor( 'adsupply', array(
@@ -2271,7 +2278,7 @@ function filter_limit_ads_on_features() {
  * Ad Vendor filter to inject Nativo
  */
 function filter_include_nativo_on_certain_pages() {
-	return is_front_page() || is_singular( array( 'cst_article', 'cst_gallery' ) ) || is_page_template( 'page-sponsored.php') && ! is_404();
+	return is_front_page()  || is_tax( 'cst_section', 'Sports' ) || is_singular( [ 'cst_article', 'cst_gallery' ] ) || is_page_template( 'page-sponsored.php') && ! is_404();
 }
 /**
  * @return bool

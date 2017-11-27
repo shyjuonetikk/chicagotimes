@@ -1,22 +1,36 @@
-<?php get_header(); ?>
+<?php
+get_header();
+?>
 	<div class="homepage-content stories-container">
 		<div class="row stories-container">
 			<div class="columns small-12 medium-8 large-9 stories">
 				<div class="row" data-equalizer-mq="large-up">
 					<div class="columns small-12 large-4 lead-stories">
-						<?php CST()->frontend->homepage_hero_story( 'cst_homepage_headlines_one' ) ?>
+						<?php
+						CST()->frontend->homepage_hero_story( 'cst_homepage_headlines_one' );
+						?>
 						<div class="show-for-landscape show-for-xlarge-up">
-							<?php CST()->frontend->handle_related_content(); ?>
+							<?php
+							CST()->frontend->handle_related_content();
+							?>
 						</div>
 						<div class="show-for-portrait show-for-large-up">
 							<div class="small-12">
 								<?php CST()->frontend->handle_related_content(); ?>
 							</div>
 						</div>
-						<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_two' ) ?>
-						<?php CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_three' ) ?>
+						<?php
+						CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_two' );
+						?>
+						<?php
+						CST()->frontend->homepage_lead_story( 'cst_homepage_headlines_three' );
+						?>
 						<div class="show-for-large-up">
-							<?php CST()->frontend->inject_newsletter_signup( 'news' ); ?>
+							<?php
+							CST()->frontend->inject_newsletter_signup( [
+								'newsletter' => 'news',
+							] );
+							?>
 						</div>
 					</div><!-- /hp-main-lead -->
 					<div class="columns small-12 large-8 more-stories-container other-lead-stories">
@@ -26,7 +40,8 @@
 								<?php CST()->frontend->homepage_mini_story_lead( 'cst_homepage_other_headlines_1' ); ?>
 							</div><!-- /js-cst-homepage-other-headlines-1 -->
 							<hr>
-							<?php $other_stories = CST()->customizer->get_other_headlines_stories();
+							<?php
+							$other_stories = CST()->customizer->get_other_headlines_stories();
 							array_shift( $other_stories );
 							?>
 							<div class="section-other-stories" data-equalizer>
@@ -45,13 +60,13 @@
 </div>
 <?php } ?>
 						<div class="other-stories more-stories-container hide-for-xlarge-up" id="hp-sports-section-lead">
-							<?php CST()->frontend->sports_heading(); ?>
+							<?php CST()->frontend->sports_heading( 'Chicago Sports' ); ?>
 							<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 						</div>
 					</div>
 					<div class="small-12 columns more-stories-container show-for-xlarge-up" id="hp-section-lead">
 					<hr>
-						<?php CST()->frontend->sports_heading(); ?>
+						<?php CST()->frontend->sports_heading( 'Chicago Sports' ); ?>
 						<?php CST()->frontend->mini_stories_content_block( CST()->customizer->get_upper_section_stories() ); ?>
 					</div><!-- /#hp-section-lead -->
 				</div>
@@ -71,9 +86,11 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 					<hr>
 					<div class="row">
 						<div class="columns small-12">
-							<?php echo wp_kses( CST()->dfp_handler->unit( 3, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+							<?php
+							echo wp_kses( CST()->dfp_handler->unit( 3, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
 								CST()->dfp_kses
-							); ?>
+							);
+							?>
 						</div>
 					</div>
 					<div class="row">
@@ -92,10 +109,13 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 								if ( is_active_sidebar( 'homepage_sidebar_three' ) ) {
 									dynamic_sidebar( 'homepage_sidebar_three' );
 								}
-								if ( is_active_sidebar( 'homepage_sidebar_four' ) ) { ?>
+								if ( is_active_sidebar( 'homepage_sidebar_four' ) ) {
+								?>
 									<hr>
-									<?php dynamic_sidebar( 'homepage_sidebar_four' );
-								} ?>
+								<?php
+									dynamic_sidebar( 'homepage_sidebar_four' );
+								}
+								?>
 							</div>
 						<?php } ?>
 						<div class="small-12 columns more-stories-container">
@@ -107,9 +127,11 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 					<hr>
 					<div class="row">
 						<div class="columns small-12">
-							<?php echo wp_kses( CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+							<?php
+							echo wp_kses( CST()->dfp_handler->unit( 4, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
 								CST()->dfp_kses
-							); ?>
+							);
+							?>
 						</div>
 					</div>
 				</div>
@@ -136,26 +158,34 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 			<div class="columns small-12 medium-4 large-3 sidebar homepage-sidebar widgets">
 				<ul>
 					<?php the_widget( 'CST_Ad_Widget', [], 'dfp-rr-cube-1' ); ?>
-					<?php if ( is_active_sidebar( 'homepage_sidebar' ) ) {
+					<?php
+					if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 						dynamic_sidebar( 'homepage_sidebar' );
-} ?>
+					}
+					?>
 				<li class="more-stories-container two">
 					<hr>
-					<?php if ( is_active_sidebar( 'homepage_sidebar_two' ) ) {
+					<?php
+					if ( is_active_sidebar( 'homepage_sidebar_two' ) ) {
 						dynamic_sidebar( 'homepage_sidebar_two' );
-} ?>
+					}
+					?>
 				</li>
 				<li class="show-for-medium-up three">
 					<hr>
-					<?php if ( is_active_sidebar( 'homepage_sidebar_three' ) ) {
+					<?php
+					if ( is_active_sidebar( 'homepage_sidebar_three' ) ) {
 						dynamic_sidebar( 'homepage_sidebar_three' );
-} ?>
+					}
+?>
 				</li>
 				<li class="show-for-medium-up four">
 					<hr>
-					<?php if ( is_active_sidebar( 'homepage_sidebar_four' ) ) {
+					<?php
+					if ( is_active_sidebar( 'homepage_sidebar_four' ) ) {
 						dynamic_sidebar( 'homepage_sidebar_four' );
-} ?>
+					}
+					?>
 				</li>
 				<li class="hide-for-small-down">
 					<hr>
@@ -167,7 +197,7 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 <?php } ?>
 		</div>
 		<?php
-		do_action( 'above-homepage-headlines' );
+		do_action( 'above_homepage_headlines' );
 		if ( is_active_sidebar( 'homepage_headlines' ) ) :
 			dynamic_sidebar( 'homepage_headlines' );
 		endif;
@@ -179,7 +209,7 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 				<hr>
 			</div>
 			<?php
-			if ( is_active_sidebar( 'undermorefrom' ) ) :
+			if ( ! is_customize_preview() && is_active_sidebar( 'undermorefrom' ) ) :
 				dynamic_sidebar( 'undermorefrom' );
 			endif;
 			?>
@@ -193,10 +223,13 @@ if ( is_active_sidebar( 'homepage_sidebar' ) ) {
 	</div><!-- /stories-container -->
 	<div class="row">
 		<div class="large-12 columns foo">
-			<?php echo wp_kses( CST()->dfp_handler->unit( 5, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
+			<?php
+			echo wp_kses( CST()->dfp_handler->unit( 5, 'div-gpt-super-leaderboard', 'dfp dfp-super-leaderboard dfp-centered' ),
 				CST()->dfp_kses
-			); ?>
+			);
+			?>
 		</div>
 	</div>
 </div>
-<?php get_footer();
+<?php
+get_footer();

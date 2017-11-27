@@ -9,6 +9,7 @@
 class CST_DFP_Handler {
 
 	private static $instance;
+	private static $active = true;
 	private $adhesion_template_begin =
 	'
 <div id="cst-wrapper-%1$d">
@@ -25,6 +26,9 @@ class CST_DFP_Handler {
 	;
 	public static function get_instance() {
 
+		if ( WP_DEBUG || is_customize_preview() ) {
+			self::$active = false;
+		}
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new CST_DFP_Handler();
 		}
@@ -41,17 +45,19 @@ class CST_DFP_Handler {
 	 * Create a generic markup unit
 	 */
 	public function unit( $index, $type = '', $class = '' ) {
-		if ( empty( $type ) ) {
-			$type = 'div-gpt-atf-leaderboard';
-		}
-		if ( empty( $class ) ) {
-			$class = 'dfp dfp-leaderboard dfp-centered show-for-medium-up';
-		}
-		if ( ! isset( $index ) ) {
-			$index = 1;
-		}
-		return sprintf(
-			'
+		if ( self::$active ) {
+			if ( empty( $type ) ) {
+				$type = 'div-gpt-atf-leaderboard';
+			}
+			if ( empty( $class ) ) {
+				$class = 'dfp dfp-leaderboard dfp-centered show-for-medium-up';
+			}
+			if ( ! isset( $index ) ) {
+				$index = 1;
+			}
+
+			return sprintf(
+				'
 <div class="row">
 <div id="%1$s" class="%2$s" data-visual-label="%3$s">
 <script>
@@ -62,14 +68,59 @@ class CST_DFP_Handler {
 </div>
 </div>
 ',
-			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $class ),
-			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $type . '-' . intval( $index ) )
-		);
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $class ),
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $type . '-' . intval( $index ) )
+			);
+		}
 	}
+
 	/**
 	 * @param $index
+	 * @param string $type
+	 * @param string $class
+	 *
+	 * @return string
+	 *
+	 * Setup to inject a 1x1 DFP definition primarily for Undertone
+	 */
+	public function one_by_one_unit( $index, $type = '', $class = '' ) {
+		if ( self::$active ) {
+			if ( empty( $type ) ) {
+				$type = 'div-gpt-placement';
+			}
+			if ( empty( $class ) ) {
+				$class = 'dfp-placement';
+			}
+			if ( ! isset( $index ) ) {
+				$index = 1;
+			}
+			return sprintf(
+				'
+<div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="one_by_one"></div>
+<script class="dfp">
+	googletag.cmd.push(function() {
+		var oneByOne = googletag.defineSlot(dfp.adunitpath, [1,1], \'%1$s\')
+		.addService(googletag.pubads())
+		.setTargeting("pos", "1x1");
+		googletag.display("%1$s");
+		if ( "object" === typeof(CSTAdTags) ) {
+			CSTAdTags[\'%1$s\'] = oneByOne;
+		}
+	})
+</script>
+
+',
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $class ),
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $type . '-' . intval( $index ) )
+			);
+		}
+	}
+	/**
+	 * @param int $index
 	 * @param string $type
 	 * @param string $class
 	 * @param string $mapping
@@ -80,20 +131,22 @@ class CST_DFP_Handler {
 	 * Create a dynamic generic markup unit
 	 */
 	public function dynamic_unit( $index, $type = '', $class = '', $mapping = '', $targeting_name = 'atf leaderboard', $default_size = '300,250' ) {
-		if ( empty( $type ) ) {
-			$type = 'div-gpt-placement';
-		}
-		if ( empty( $class ) ) {
-			$class = 'dfp-placement';
-		}
-		if ( empty( $mapping ) ) {
-			$mapping = 'article_mapping';
-		}
-		if ( ! isset( $index ) ) {
-			$index = 1;
-		}
-		return sprintf(
-			'
+		if ( self::$active ) {
+			if ( empty( $type ) ) {
+				$type = 'div-gpt-placement';
+			}
+			if ( empty( $class ) ) {
+				$class = 'dfp-placement';
+			}
+			if ( empty( $mapping ) ) {
+				$mapping = 'article_mapping';
+			}
+			if ( ! isset( $index ) ) {
+				$index = 1;
+			}
+
+			return sprintf(
+				'
 <div id="%1$s" class="%2$s" data-visual-label="%1$s" data-target="%4$s"></div>
 <script class="dfp">
 googletag.cmd.push(function() {
@@ -106,12 +159,13 @@ googletag.cmd.push(function() {
 	});
 </script>
 ',
-			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $class ),
-			esc_attr( $mapping ),
-			esc_attr( $targeting_name ),
-			esc_attr( $default_size )
-		);
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $class ),
+				esc_attr( $mapping ),
+				esc_attr( $targeting_name ),
+				esc_attr( $default_size )
+			);
+		}
 	}
 
 	public function get_dynamic_adhesion_start() {
@@ -130,17 +184,20 @@ googletag.cmd.push(function() {
 	 * Create a DFP cube unit
 	 */
 	public function cube( $index, $type = '', $class = '' ) {
-		if ( empty( $type ) ) {
-			$type = 'div-gpt-rr-cube';
+		if ( self::$active ) {
+			if ( empty( $type ) ) {
+				$type = 'div-gpt-rr-cube';
+			}
+			if ( empty( $class ) ) {
+				$class = 'dfp dfp-cube';
+			}
+
+			return sprintf(
+				esc_attr( '<div id="%1$s" class="%2$s"></div>' ),
+				esc_attr( $type . '-' . intval( $index ) ),
+				esc_attr( $class )
+			);
 		}
-		if ( empty( $class ) ) {
-			$class = 'dfp dfp-cube';
-		}
-		return sprintf(
-			esc_attr( '<div id="%1$s" class="%2$s"></div>' ),
-			esc_attr( $type . '-' . intval( $index ) ),
-			esc_attr( $class )
-		);
 	}
 
 	/**
@@ -151,9 +208,9 @@ googletag.cmd.push(function() {
 	 * Create a sliding billboard unit
 	 */
 	public function sbb( $index ) {
-
-		return sprintf(
-			'
+		if ( self::$active ) {
+			return sprintf(
+				'
 <div id="%1$s" class="%2$s">
 	<div id="dfp-sbb-top" class="dfp-sbb-minimize"></div>
 	<div id="dfp-sbb-bottom"></div>
@@ -164,9 +221,10 @@ googletag.cmd.push(function() {
 </script>
 </div>
 			',
-			esc_attr( 'div-gpt-sbb' . '-' . $index ),
-			esc_attr( 'dfp dfp-sbb dfp-centered' )
-		);
+				esc_attr( 'div-gpt-sbb' . '-' . $index ),
+				esc_attr( 'dfp dfp-sbb dfp-centered' )
+			);
+		}
 	}
 
 	/**
@@ -177,17 +235,18 @@ googletag.cmd.push(function() {
 	 * Create a custom sliding billboard unit
 	 */
 	public function sbb_pushdown( $index ) {
-
-		return sprintf(
-			'
+		if ( self::$active ) {
+			return sprintf(
+				'
 <div id="%1$s" class="%2$s">
 	<div id="dfp-sbb-pushdown-top" class="dfp-sbb-minimize"></div>
 	<div id="dfp-sbb-pushdown-bottom"></div>
 </div>
 ',
-			esc_attr( 'div-gpt-sbb-pushdown-' . $index ) ,
-			esc_attr( 'dfp dfp-sbb dfp-centered show-for-medium-up' )
-		);
+				esc_attr( 'div-gpt-sbb-pushdown-' . $index ),
+				esc_attr( 'dfp dfp-sbb dfp-centered show-for-medium-up' )
+			);
+		}
 	}
 
 	/**
@@ -202,59 +261,60 @@ googletag.cmd.push(function() {
 	 * @return string
 	 */
 	public function ad_header_settings( $amp = false ) {
-		$parent_inventory = $this->get_parent_dfp_inventory();
-		if ( $amp ) {
-			return '/61924087/' . 'AMP_CST';
-		}
-		$dfp_slug         = 'news';
-		$dfp_parent = '';
-		$dfp_child = '';
-		$dfp_grandchild = '';
-		$ad_unit_path = '';
-		if ( is_front_page() ) {
-			$ad_unit_path = '/61924087/' .  $parent_inventory  . '/chicago.suntimes.com.index';
-		}
-		if ( is_singular() || is_author() ) {
-			$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-
-			if ( $obj ) {
-				$parent_section = $obj->get_primary_parent_section();
-
-				if ( $parent_section ) {
-					$dfp_slug = $parent_section->slug;
-				}
+		if ( self::$active ) {
+			$parent_inventory = $this->get_parent_dfp_inventory();
+			if ( $amp ) {
+				return '/61924087/' . 'AMP_CST';
 			}
-			$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
-		}
-		if ( is_tax() ) {
-			$dfp_obj = get_queried_object();
-			if ( 'cst_section' === $dfp_obj->taxonomy ) {
-				if ( 0 === $dfp_obj->parent ) {
-					$dfp_slug = $dfp_obj->slug;
-					$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
-				} else {
-					$dfp_parent = $dfp_obj->parent;
-					$dfp_term   = get_term( $dfp_parent, 'cst_section' );
-					$dfp_slug 	= $dfp_term->slug;
-					if ( 0 !== $dfp_term->parent ) {
-						$dfp_parent_term   	= get_term( $dfp_term->parent, 'cst_section' );
-						if ( 0 === $dfp_parent_term->parent ) {
-							$dfp_parent 		= $dfp_parent_term->slug;
-							$dfp_child 			= $dfp_term->slug;
-							$dfp_grandchild 	= str_replace( '-', '', $dfp_obj->slug );
-							$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child .'.' . $dfp_grandchild;
-						} else {
-							$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
-						}
+			$dfp_slug       = 'news';
+			$dfp_parent     = '';
+			$dfp_child      = '';
+			$dfp_grandchild = '';
+			$ad_unit_path   = '';
+			if ( is_front_page() ) {
+				$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.index';
+			}
+			if ( is_singular() || is_author() ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
+
+				if ( $obj ) {
+					$parent_section = $obj->get_primary_parent_section();
+
+					if ( $parent_section ) {
+						$dfp_slug = $parent_section->slug;
+					}
+				}
+				$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
+			}
+			if ( is_tax() ) {
+				$dfp_obj = get_queried_object();
+				if ( 'cst_section' === $dfp_obj->taxonomy ) {
+					if ( 0 === $dfp_obj->parent ) {
+						$dfp_slug     = $dfp_obj->slug;
+						$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
 					} else {
-						$dfp_parent = $dfp_term->slug;
-						$dfp_child  = $dfp_obj->slug;
-						$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child;
+						$dfp_parent = $dfp_obj->parent;
+						$dfp_term   = get_term( $dfp_parent, 'cst_section' );
+						$dfp_slug   = $dfp_term->slug;
+						if ( 0 !== $dfp_term->parent ) {
+							$dfp_parent_term = get_term( $dfp_term->parent, 'cst_section' );
+							if ( 0 === $dfp_parent_term->parent ) {
+								$dfp_parent     = $dfp_parent_term->slug;
+								$dfp_child      = $dfp_term->slug;
+								$dfp_grandchild = str_replace( '-', '', $dfp_obj->slug );
+								$ad_unit_path   = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child . '.' . $dfp_grandchild;
+							} else {
+								$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_slug . '/chicago.suntimes.com.' . $dfp_slug . '.index';
+							}
+						} else {
+							$dfp_parent   = $dfp_term->slug;
+							$dfp_child    = $dfp_obj->slug;
+							$ad_unit_path = '/61924087/' . $parent_inventory . '/chicago.suntimes.com.' . $dfp_parent . '/chicago.suntimes.com.' . $dfp_parent . '.' . $dfp_child;
+						}
 					}
 				}
 			}
-		}
-		?>
+			?>
 <script>/* <![CDATA[ */
 var dfp = {
 	"account_id":"/61924087/",
@@ -274,7 +334,8 @@ var dfp = {
 };
 /* ]]> */
 </script>
-		<?php
+			<?php
+		}
 	}
 
 	/**
@@ -283,13 +344,13 @@ var dfp = {
 	 */
 	public function generate_header_definitions() {
 
-		if ( is_page_template( 'page-monster.php' ) ) {
+		if ( is_page_template( 'page-monster.php' ) || ! self::$active ) {
 			return;
 		}
 			?>
 <script type='text/javascript'>
   var adUnitPath = dfp.adunitpath;
-  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, article_mapping, sf_super_leaderboard_mapping, super_leaderboard_mapping, hp_upper_super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
+  var article_skyscraper_mapping, article_lead_unit_mapping, article_cube_mapping, sf_mapping, sf_inline_mapping, sports_sf_mobile, sf_new_inline_mapping, article_mapping, sf_super_leaderboard_mapping, super_leaderboard_mapping, hp_upper_super_leaderboard_mapping, gallery_cube_mapping, hp_cube_mapping, article_leaderboard_mapping, hp_ear_mapping;
   var googletag = googletag || {};
   googletag.cmd = googletag.cmd || [];
   var CSTAdTags = {};
@@ -314,8 +375,8 @@ var dfp = {
     addSize([0, 0], [[320, 50], [300, 50]]). //other
     build();
     hp_upper_super_leaderboard_mapping = googletag.sizeMapping().
-    addSize([1200, 800], [ [970,90], [728,90] ] ). //tablet
-    addSize([992, 0], [ [970, 90], [728, 90] ] ). //desktop
+    addSize([1200, 800], [ [970, 250], [970,90], [728,90] ] ). //tablet
+    addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
     addSize([640, 480], [[320, 50], [300, 50]]). //phone
@@ -328,10 +389,10 @@ var dfp = {
     addSize([992, 0], [ [970, 250], [970, 90], [728, 90] ] ). //desktop
     addSize([800, 1200], [ [728,90] ] ). //tablet
     addSize([768, 1024], [ [728,90] ] ). //tablet
-    addSize([640, 480], [[320, 50], [300, 50]]). //phone
-    addSize([414, 0], [[320, 50], [300, 50]]). //phone
-    addSize([375, 667], [[320, 50], [300, 50]]). //phone
-    addSize([0, 0], [[320, 50], [300, 50]]). //other
+    addSize([640, 480], [[320, 50]]). //phone
+    addSize([414, 0], [[320, 50]]). //phone
+    addSize([375, 667], [[320, 50]]). //phone
+    addSize([0, 0], [[320, 50]]). //other
 	  build();
     article_cube_mapping = googletag.sizeMapping()
       .addSize([0, 0], []) //other
@@ -378,9 +439,26 @@ var dfp = {
       .addSize([0, 0], []) //other
 	  .addSize([992, 0], [[300, 600], [300, 250]]) //desktop
       .addSize([768, 0], [[300, 600], [300, 250]]) //tablet
-      .build();
+      .addSize([640, 0], [[300, 250], [320, 50]]) //phone
+      .addSize([414, 0], [[300, 250], [320, 50]]) //phone
+      .addSize([375, 0], [[300, 250], [320, 50]]) //phone
+	  .build();
+    sports_sf_mobile = googletag.sizeMapping()
+      .addSize([640, 0], [[300, 250]]) //phone
+      .addSize([414, 0], [[300, 250]]) //phone
+      .addSize([375, 0], [[300, 250]]) //phone
+	  .build();
     sf_inline_mapping = googletag.sizeMapping()
       .addSize([992, 0], [[300, 250]]) //desktop
+      .addSize([768, 0], [[300, 250]]) //tablet
+      .addSize([640, 0], [[300, 250], [320, 50]]) //phone
+      .addSize([414, 0], [[300, 250], [320, 50]]) //phone
+      .addSize([375, 0], [[300, 250], [320, 50]]) //phone
+      .addSize([0, 0], [320, 50]) //other
+      .build();
+    sf_new_inline_mapping = googletag.sizeMapping()
+      .addSize([1025, 0], [[728,90],[300, 250]])
+      .addSize([992, 0], [[300, 250], [320, 50]]) //desktop
       .addSize([768, 0], [[300, 250]]) //tablet
       .addSize([640, 0], [[300, 250], [320, 50]]) //phone
       .addSize([414, 0], [[300, 250], [320, 50]]) //phone

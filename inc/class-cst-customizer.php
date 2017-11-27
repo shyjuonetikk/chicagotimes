@@ -6,31 +6,31 @@
 class CST_Customizer {
 
 	private static $instance;
-	private $column_one_stories = [
+	private $column_one_stories             = [
 		'cst_homepage_headlines_one'   => true,
 		'cst_homepage_headlines_two'   => true,
 		'cst_homepage_headlines_three' => true,
 	];
-	private $related_column_one_stories = [
+	private $related_column_one_stories     = [
 		'cst_homepage_related_headlines_one'   => true,
 		'cst_homepage_related_headlines_two'   => true,
 		'cst_homepage_related_headlines_three' => true,
 	];
-	private $other_stories = [
+	private $other_stories                  = [
 		'cst_homepage_other_headlines_1' => true,
 		'cst_homepage_other_headlines_2' => true,
 		'cst_homepage_other_headlines_3' => true,
 		'cst_homepage_other_headlines_4' => true,
 		'cst_homepage_other_headlines_5' => true,
 	];
-	private $upper_section_stories = [
+	private $upper_section_stories          = [
 		'cst_homepage_section_headlines_1' => true,
 		'cst_homepage_section_headlines_2' => true,
 		'cst_homepage_section_headlines_3' => true,
 		'cst_homepage_section_headlines_4' => true,
 		'cst_homepage_section_headlines_5' => true,
 	];
-	private $politics_list_section_stories = [
+	private $politics_list_section_stories  = [
 		'cst_homepage_top_story_headline_1'  => true,
 		'cst_homepage_top_story_headline_2'  => true,
 		'cst_homepage_top_story_headline_3'  => true,
@@ -42,15 +42,22 @@ class CST_Customizer {
 		'cst_homepage_top_story_headline_9'  => true,
 		'cst_homepage_top_story_headline_10' => true,
 	];
-	private $widget_top_story_list_stub = 'cst_homepage_widget_more_headlines_';
-	private $lower_section_stories = [
+	private $widget_top_story_list_stub     = 'cst_homepage_widget_more_headlines_';
+	private $lower_section_stories          = [
 		'cst_homepage_lower_section_headlines_1' => true,
 		'cst_homepage_lower_section_headlines_2' => true,
 		'cst_homepage_lower_section_headlines_3' => true,
 		'cst_homepage_lower_section_headlines_4' => true,
 		'cst_homepage_lower_section_headlines_5' => true,
 	];
-	private $entertainment_section_stories = [
+	private $sports_section_stories         = [
+		'cst_sports_section_headlines_1' => true,
+		'cst_sports_section_headlines_2' => true,
+		'cst_sports_section_headlines_3' => true,
+		'cst_sports_section_headlines_4' => true,
+		'cst_sports_section_headlines_5' => true,
+	];
+	private $entertainment_section_stories  = [
 		'cst_homepage_entertainment_section_headlines_1' => true,
 		'cst_homepage_entertainment_section_headlines_2' => true,
 		'cst_homepage_entertainment_section_headlines_3' => true,
@@ -64,7 +71,7 @@ class CST_Customizer {
 		'cst_featured_obits_section_headlines_4' => true,
 		'cst_featured_obits_section_headlines_5' => true,
 	];
-	private $podcast_section_stories = [
+	private $podcast_section_stories        = [
 		'cst_podcast_section_headlines_1' => true,
 		'cst_podcast_section_headlines_2' => true,
 		'cst_podcast_section_headlines_3' => true,
@@ -78,14 +85,28 @@ class CST_Customizer {
 		'featured_story_block_headlines_4' => true,
 		'featured_story_block_headlines_5' => true,
 	];
-	private $capability = 'edit_others_posts';
-	private $sports_section_choices, $section_choices;
+	private $capability                     = 'edit_others_posts';
+	private $sports_section_choices, $section_choices, $section_choice_slugs, $sports_section_choice_slugs, $sections, $sports_section_names;
+	public $five_block          = [
+		'five_block_1',
+		'five_block_2',
+		'five_block_3',
+		'five_block_4',
+		'five_block_5',
+	];
+	public $three_block_two_one = [
+		'three_block_two_one_1',
+		'three_block_two_one_2',
+	];
+	private $sports_term        = false;
 
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
 			self::$instance = new CST_Customizer;
+			self::$instance->require_files();
 			self::$instance->setup_actions();
+			self::$instance->setup_filters();
 		}
 
 		return self::$instance;
@@ -101,7 +122,16 @@ class CST_Customizer {
 		add_action( 'customize_preview_init', [ $this, 'action_customizer_live_preview' ] );
 	}
 
+	public function require_files() {
+		require_once dirname( __FILE__ ) . '/controls/class-cst-select-control.php';
+		require_once dirname( __FILE__ ) . '/controls/class-cst-sf-sorter-control.php';
+	}
+	public function setup_filters() {
+		add_filter( 'customize_allowed_urls', [ $this, 'filter_allowed_urls' ] );
+	}
+
 	public function action_customizer_live_preview() {
+		global $wp_customize;
 		wp_enqueue_script(
 			'chicagosuntimes-themecustomizer',
 			get_theme_file_uri( '/assets/js/cst-customize-preview.js' ),
@@ -113,6 +143,23 @@ class CST_Customizer {
 			'chicagosuntimes-customizer-preview',
 			get_theme_file_uri( '/assets/css/cst-customizer-preview.css' )
 		);
+		add_filter( 'wp_nav_menu', [ $this, 'convert_anchors_to_base_url' ], 10, 2 );
+	}
+
+	/**
+	 * Add our urls to the whitelist when using the Customizer - links with these
+	 * base urls will not be restricted during Customizer Preview
+	 * @param $allowed_urls
+	 *
+	 * @return array
+	 *
+	 */
+	public function filter_allowed_urls( $allowed_urls ) {
+		$allowed_urls[] = 'https://dev.suntimes.com/';
+		$allowed_urls[] = 'https://suntimesmediapreprod.wordpress.com/';
+		$allowed_urls[] = 'https://chicago.suntimes.com/';
+		$allowed_urls[] = 'https://suntimesmedia.wordpress.com/';
+		return $allowed_urls;
 	}
 
 	/**
@@ -125,13 +172,206 @@ class CST_Customizer {
 	 * @param $wp_customize
 	 */
 	public function action_customize_register( \WP_Customize_Manager $wp_customize ) {
+
+		/**
+		 * Set up custom controls
+		 */
+		$wp_customize->register_control_type( 'WP_Customize_CST_Select_Control' );
+		$wp_customize->register_control_type( 'WP_Customize_CST_SF_Sorter_Control' );
+
+		/**
+		 * Remove core Customizer sections that we won't be using
+		 */
+		$this->_remove_unneeded_customizer_sections( $wp_customize );
+
+		/**
+		 * Set up Sports specific settings
+		 */
+		if ( ! $this->sports_term ) {
+			$this->sports_term = get_term_by( 'name', 'Sports', 'cst_section' );
+		}
+		$this->sports_section_choice_slugs[ $this->sports_term->term_id ] = $this->sports_term->slug;
+
+		/**
+		 * Set up our customizer variables
+		 */
+
+		$this->_generate_all_sections();
+
+		/**
+		 * Customize!
+		 */
+		$this->homepage_customizer( $wp_customize );
+		$this->section_front_customizer( $wp_customize );
+
+	}
+
+	/**
+	 * @param WP_Customize_Manager $wp_customize
+	 * Handle all the registration and settings for Section based customizer options
+	 */
+	public function section_front_customizer( \WP_Customize_Manager $wp_customize ) {
+		/**
+		 * Handle sections - Sports to start - section based stories, custom heading
+		 *
+		 * Section - Sports
+		 * Slottable 5 blocks for Cubs, Sox, Bears, Bulls, Blackhawks, Fire, Wolves etc
+		 * section-1
+		 * lead with pic (select2 lookup) -> 2 x 2 of supporting articles
+		 * section-2
+		 * lead with pic -> 2 x 2 of supporting articles
+		 * section-n
+		 * lead with pic -> 2 x 2 of supporting articles
+		 * $this->section_choices = all sections
+		 * if is_tax is sports parent? Use related
+		 * $this->sports_section_choices = all sections with sport as a parent
+		 *
+		 * For team sections only have five block at the top and allow that to be slottable.
+		 */
+
+		// https://css-tricks.com/getting-started-wordpress-customizer/
+		// Use conditional to check is_tax or queried_object to only set up the needed control for this section
+		// Setup all sections OR detect section and set that up
+		$section_counter = 0;
+		//section_choice_slugs for all sections
+		foreach ( $this->sports_section_choice_slugs as $section_id => $section_name ) {
+			$sanitized_section_title = sanitize_title( $this->section_choice_slugs[ $section_id ] );
+			$section_choice          = $this->section_choices[ $section_id ];
+			$section_name            = 'cst[' . $sanitized_section_title . ']_section';
+			$section_title           = $section_choice . ' section.';
+			$priority                = 400 + $section_counter++;
+			$block_type              = $this->five_block;
+			$section_description     = 'Choose ' . $section_choice . ' (SF) stories';
+			if ( 'Sports' === $section_choice ) {
+				$section_description = '2 slottable ' . $section_choice . ' stories, video selection &amp; ordering';
+			}
+			$wp_customize->add_section( $section_name, [
+				'title'           => esc_html( $section_title ),
+				'description'     => esc_html( $section_description ),
+				'priority'        => $priority,
+				'capability'      => $this->capability,
+				'active_callback' => [ $this, 'tax_section' ],
+			] );
+			if ( 'Sports' === $section_choice ) { // @TODO refactor this section
+				$video_slot = 'cst_sports_section_three_block_two_one_3';
+				$this->set_setting( $wp_customize, $video_slot, 'sanitize_key' );
+				$wp_customize->selective_refresh->add_partial( $video_slot, [
+					'selector'            => '.js-' . str_replace( '_', '-', $video_slot ),
+					'settings'            => $video_slot,
+					'container_inclusive' => false,
+					'sanitize_callback'   => 'sanitize_text_field',
+					'render_callback'     => [ $this, 'send_to_news_render_callback' ],
+				] );
+				$wp_customize->add_control( new WP_Customize_Control( $wp_customize, $video_slot,
+					[
+						'type'            => 'select',
+						'section'         => $section_name,
+						'label'           => 'Choose SendToNews Video',
+						'active_callback' => [ $this, 'tax_partial_in_section' ],
+						'priority'        => 321,
+						'description'     => 'Show relevant video clips:',
+						'choices'         =>
+							array_merge(
+								[ 'sports' => 'Choose team (or leave for generic sports)' ],
+								array_intersect_key( \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs, \CST_Frontend::get_instance()->send_to_news_embeds )
+							),
+					]
+				) );
+				$block_type = $this->three_block_two_one;
+			}
+
+			foreach ( $block_type as $story_title ) {
+				$section_customizer_name = 'cst_' . $sanitized_section_title . '_section_' . $story_title;
+				$this->set_setting( $wp_customize, $section_customizer_name, 'absint' );
+				$this->set_selective_refresh( $wp_customize, $section_customizer_name );
+				$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $section_customizer_name, [
+					'type'            => 'cst_select_control',
+					'section'         => $section_name,
+					'active_callback' => [ $this, 'tax_partial_in_section' ],
+					'label'           => esc_html( 'Choose ' . $section_choice . ' (SF) story ' ),
+					'input_attrs'     => [
+						'placeholder' => esc_attr__( 'Choose article' ),
+					],
+				] ) );
+			}
+		}
+		$this->setup_sorters( $wp_customize );
+
+	}
+
+	/**
+	 * Determine what section we are being asked to display
+	 * @param $matches
+	 *
+	 * @return bool
+	 */
+	public function section_callback( $matches ) {
+		if ( is_array( $matches ) && ! empty( $matches ) ) {
+			$section_name = $matches[1];
+			if ( 'chicago-news' === $matches[1] ) {
+				$section_name = 'news';
+			}
+			// Handle Sports section
+			$current_obj = get_queried_object();
+			// What section_name am I being asked to display
+			// Is this section_name a child of Sports
+			// If so enable this control
+			// Could limit sports / teams displayed - compare to teams in an array perhaps
+			if ( null !== $current_obj ) {
+				// Is current term Sports and we are displaying Sports
+				if ( 'sports' === $current_obj->slug ) {
+					if ( 'sports' === $section_name ) {
+						return true;
+					}
+					if ( array_key_exists( $section_name, \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs ) ) {
+						return true;
+					}
+					if ( $current_obj->slug === $section_name ) {
+						// If we are on a child of Sports display just the child
+						$child_term = get_term_by( 'slug', $section_name, 'cst_section' );
+						return term_is_ancestor_of( $this->sports_term, $child_term, 'cst_section' );
+					}
+				}
+				$child_term = get_term_by( 'slug', $section_name, 'cst_section' );
+				return $child_term && $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $current_obj, 'cst_section' );
+			}
+		}
+		return false;
+	}
+	/**
+	 * Generate partial theme_mod variable if matched and based on section
+	 * Partial id is based on sanitized title of Section name
+	 * @param $partial
+	 *
+	 * @return bool
+	 *
+	 */
+	public function tax_partial_in_section( $partial ) {
+		$get_section_name = preg_match( '/\[(.*)\]/', $partial->section, $matches );
+		return $this->section_callback( $matches );
+	}
+
+	/**
+	 * @param $section
+	 *
+	 * @return bool
+	 *
+	 * Return whether we are in a taxonomy or not based on the section requested
+	 */
+	public function tax_section( $section ) {
+		$get_section_name = preg_match( '/\[(.*)\]/', $section->id, $matches );
+		return $this->section_callback( $matches );
+	}
+
+	public function show_sports_sections() {
+		return is_front_page() || is_tax( 'cst_section', 'sports' );
+	}
+	/**
+	 * @param WP_Customize_Manager $wp_customize
+	 * Handle all the registration and settings for Homepage based customizer options
+	 */
+	public function homepage_customizer( \WP_Customize_Manager $wp_customize ) {
 		$transport = ( $wp_customize->selective_refresh ? 'postMessage' : 'refresh' );
-		// Don't need to be able to edit blog title or description
-		// and we don't want the homepage to change
-		$wp_customize->remove_section( 'title_tagline' );
-		$wp_customize->remove_section( 'static_front_page' );
-		$wp_customize->remove_section( 'colors' );
-		$wp_customize->remove_section( 'custom_css' );
 		/**
 		 * Add sections we want
 		 */
@@ -164,11 +404,11 @@ class CST_Customizer {
 			'active_callback' => 'is_front_page',
 		] );
 		$wp_customize->add_section( 'upper_section_stories', [
-			'title'           => __( 'Sports', 'chicagosuntimes' ),
+			'title'           => __( 'Sports (Homepage)', 'chicagosuntimes' ),
 			'description'     => __( 'Choose sports stories', 'chicagosuntimes' ),
 			'priority'        => 200,
 			'capability'      => $this->capability,
-			'active_callback' => 'is_front_page',
+			'active_callback' => [ $this, 'show_sports_sections' ],
 		] );
 		$wp_customize->add_section( 'politics_section_stories', [
 			'title'           => __( 'Politics', 'chicagosuntimes' ),
@@ -212,6 +452,7 @@ class CST_Customizer {
 			'capability'      => $this->capability,
 			'active_callback' => 'is_front_page',
 		] );
+
 		/**
 		 * Add settings within each section
 		 */
@@ -304,36 +545,36 @@ class CST_Customizer {
 			'label'    => __( 'Choose title', 'chicagosuntimes' ),
 		] );
 		/**
-		 * Upper - Sports - section based stories, custom heading
+		 * Upper - Homepage Sports - section based stories, custom heading
 		 */
-		$this->_generate_choices();
+		$this->_generate_sports_choices();
 		$sports_customizer = [
 			'sport_section_lead'    => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_1',
 				'label'    => 'Choose sport lead section',
 				'priority' => 19,
 				'choices'  => $this->section_choices,
 			],
 			'sport_other_section_1' => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_2',
 				'label'    => 'Choose sport other section 1',
 				'priority' => 20,
 				'choices'  => $this->sports_section_choices,
 			],
 			'sport_other_section_2' => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_3',
 				'label'    => 'Choose sport other section 2',
 				'priority' => 21,
 				'choices'  => $this->sports_section_choices,
 			],
 			'sport_other_section_3' => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_4',
 				'label'    => 'Choose sport other section 3',
 				'priority' => 22,
 				'choices'  => $this->sports_section_choices,
 			],
 			'sport_other_section_4' => [
-				'section'  => 'upper_section_stories',
+				'section'  => 'sports_section_stories_5',
 				'label'    => 'Choose sport other section 4',
 				'priority' => 23,
 				'choices'  => $this->sports_section_choices,
@@ -458,7 +699,7 @@ class CST_Customizer {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
 				'type'        => 'cst_select_control',
-				'priority'    => 20,
+				'priority'    => 30,
 				'section'     => 'featured_obits_section_stories',
 				'label'       => 0 === $lead_counter ++ ? __( 'Lead Obit', 'chicagosuntimes' ) : __( 'Other Obit', 'chicagosuntimes' ),
 				'input_attrs' => [
@@ -474,7 +715,7 @@ class CST_Customizer {
 			$this->set_setting( $wp_customize, $other_story, 'esc_html' );
 			$wp_customize->add_control( new WP_Customize_CST_Select_Control( $wp_customize, $other_story, [
 				'type'        => 'cst_select_control',
-				'priority'    => 30,
+				'priority'    => 50,
 				'section'     => 'podcast_section_stories',
 				'label'       => 0 === $lead_counter ++ ? __( 'Lead Podcast', 'chicagosuntimes' ) : __( 'Other Podcast', 'chicagosuntimes' ),
 				'input_attrs' => [
@@ -503,7 +744,7 @@ class CST_Customizer {
 		$this->set_setting( $wp_customize, 'entertainment_section_section_title', 'absint' );
 		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'entertainment_section_section_title', [
 			'type'     => 'select',
-			'priority' => 10,
+			'priority' => 20,
 			'section'  => 'entertainment_section_stories',
 			'settings' => 'entertainment_section_section_title',
 			'choices'  => $this->section_choices,
@@ -516,27 +757,40 @@ class CST_Customizer {
 		$this->set_setting( $wp_customize, 'featured_obit_section_section_title', 'absint' );
 		$wp_customize->add_control( new \WP_Customize_Control( $wp_customize, 'featured_obit_section_section_title', [
 			'type'     => 'select',
-			'priority' => 10,
+			'priority' => 30,
 			'section'  => 'featured_obits_section_stories',
 			'settings' => 'featured_obit_section_section_title',
 			'choices'  => $this->section_choices,
 			'label'    => __( 'Choose section title', 'chicagosuntimes' ),
 		] ) );
-
 	}
 
+	public function _remove_unneeded_customizer_sections( \WP_Customize_Manager $wp_customize ) {
+		// Don't need to be able to edit blog title or description
+		// and we don't want the homepage to change
+		$wp_customize->remove_section( 'title_tagline' );
+		$wp_customize->remove_section( 'static_front_page' );
+		$wp_customize->remove_section( 'colors' );
+		$wp_customize->remove_section( 'custom_css' );
+	}
 	/**
 	 * @param \WP_Customize_Manager $wp_customize
 	 *
-	 * Setup the partials
+	 * Setup the refresh for the partials
 	 */
-	public function action_customize_refresh( WP_Customize_Manager $wp_customize ) {
+	public function action_customize_refresh( \WP_Customize_Manager $wp_customize ) {
 		// Abort if selective refresh is not available.
 		if ( ! isset( $wp_customize->selective_refresh ) ) {
 			return;
 		}
 
+		foreach ( $this->section_choice_slugs as $section_choice ) {
+			foreach ( $this->five_block as $partial_title ) {
+				$section_partials[ 'cst_' . sanitize_title( $section_choice ) . '_section' . '_' . $partial_title ] = true;
+			}
+		}
 		$combined_arrays = array_merge(
+			array_keys( $section_partials ),
 			array_keys( $this->column_one_stories ),
 			array_keys( $this->other_stories ),
 			array_keys( $this->upper_section_stories ),
@@ -565,7 +819,7 @@ class CST_Customizer {
 	 *
 	 * Helper function to set selective refresh partial
 	 */
-	private function set_selective_refresh( $wp_customize, $partial ) {
+	private function set_selective_refresh( \WP_Customize_Manager $wp_customize, $partial ) {
 		$wp_customize->selective_refresh->add_partial( $partial, [
 			'selector'            => '.js-' . str_replace( '_', '-', $partial ),
 			'settings'            => $partial,
@@ -596,14 +850,13 @@ class CST_Customizer {
 
 	/**
 	 * Internal function to generate select drop down choices
+	 * And save to a class variable
+	 *
+	 * Used in homepage sports section slotting
 	 */
-	private function _generate_choices() {
-		$this->section_choices        = get_terms( [
-			'taxonomy'   => 'cst_section',
-			'hide_empty' => false,
-			'fields'     => 'id=>name',
-		] );
-		$sports_term                  = wpcom_vip_get_term_by( 'name', 'Sports', 'cst_section' );
+	private function _generate_sports_choices() {
+
+		$sports_term                  = get_term_by( 'name', 'Sports', 'cst_section' );
 		$sports_child_terms           = new WP_Term_Query( [
 			'taxonomy'   => 'cst_section',
 			'parent'     => $sports_term->term_id,
@@ -624,10 +877,31 @@ class CST_Customizer {
 				}
 			}
 		}
+		$this->sports_section_names = array_map( 'sanitize_title', $this->sports_section_choices );
 	}
 
 	/**
-	 * @param $element
+	 * Generate all section names
+	 *
+	 * Then generate two lists of Section Name with ID and ID with Section Name
+	 * Keep the original list to allow access to slug or other meta for some exceptions
+	 */
+	public function _generate_all_sections() {
+		$this->sections             = get_terms( [
+			'taxonomy'   => 'cst_section',
+			'hide_empty' => false,
+			'fields'     => 'all_with_object_id',
+		] );
+		$this->section_choices      = wp_list_pluck( $this->sections, 'name', 'term_id' );
+		$this->section_choice_slugs = wp_list_pluck( $this->sections, 'slug', 'term_id' );
+		foreach ( $this->sections as $sections ) {
+			if ( term_is_ancestor_of( $this->sports_term, $sections->term_id, 'cst_section' ) ) {
+				$this->sports_section_choice_slugs[ $sections->term_id ] = $sections->slug;
+			}
+		}
+	}
+	/**
+	 * @param $partial
 	 *
 	 * @return string
 	 *
@@ -650,8 +924,12 @@ class CST_Customizer {
 			case 'cst_homepage_other_headlines_4':
 			case 'cst_homepage_other_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-
-				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id );
+				return CST()->frontend->single_mini_story( [
+					'story'          => $obj,
+					'layout_type'    => 'regular',
+					'partial_id'     => $element->id,
+					'render_partial' => true,
+				] );
 				break;
 			case 'cst_homepage_top_story_headline_1':
 			case 'cst_homepage_top_story_headline_2':
@@ -682,16 +960,24 @@ class CST_Customizer {
 			case 'cst_homepage_entertainment_section_headlines_4':
 			case 'cst_homepage_entertainment_section_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-
-				return CST()->frontend->single_mini_story( $obj, 'regular', $element->id, 'yes', '', true );
+				return CST()->frontend->single_mini_story( [
+					'story'       => $obj,
+					'layout_type' => 'regular',
+					'partial_id'  => $element->id,
+					'watch'       => 'yes',
+				] );
 				break;
 			case 'cst_homepage_section_headlines_1':
 			case 'cst_podcast_section_headlines_1':
 			case 'cst_homepage_lower_section_headlines_1':
 			case 'cst_homepage_entertainment_section_headlines_1':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-
-				return CST()->frontend->single_mini_story( $obj, 'prime', $element->id, 'yes' );
+				return CST()->frontend->single_mini_story( [
+					'story'       => $obj,
+					'layout_type' => 'prime',
+					'partial_id'  => $element->id,
+					'watch'       => 'yes',
+				] );
 				break;
 			case 'featured_story_block_headlines_1':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
@@ -705,16 +991,22 @@ class CST_Customizer {
 			case 'cst_homepage_related_headlines_two':
 			case 'cst_homepage_related_headlines_three':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-
-				return CST()->frontend->single_hero_related_story( $obj );
+				if ( ! empty( $obj ) && ! is_wp_error( $obj ) ) {
+					return CST()->frontend->single_hero_related_story( $obj );
+				}
 				break;
 			case 'featured_story_block_headlines_2':
 			case 'featured_story_block_headlines_3':
 			case 'featured_story_block_headlines_4':
 			case 'featured_story_block_headlines_5':
 				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
-
-				return CST()->frontend->single_mini_story( $obj, 'vertical', $element->id, 'feature-landscape', true );
+				return CST()->frontend->single_mini_story( [
+					'story'                  => $obj,
+					'layout_type'            => 'vertical',
+					'partial_id'             => $element->id,
+					'watch'                  => 'yes',
+					'custom_landscape_class' => 'feature-landscape',
+				] );
 				break;
 			case 'lower_section_section_title':
 			case 'entertainment_section_section_title':
@@ -726,12 +1018,116 @@ class CST_Customizer {
 				return CST()->frontend->render_section_text_title( $element->id );
 				break;
 		}
+		if ( is_tax( 'cst_section' ) ) {
+			$partials = preg_match( '/cst\_(.+)\_section_five_block\_(\d+)/', $element->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				$article_position = 'five_block_' . $matches[2];
+				$obj              = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+				switch ( $article_position ) {
+					case 'five_block_1':
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'prime',
+							'partial_id'  => $element->id,
+							'watch'       => 'yes',
+						] );
+						break;
+					case 'five_block_2':
+					case 'five_block_3':
+					case 'five_block_4':
+					case 'five_block_5':
+						return CST()->frontend->single_mini_story(
+							[
+								'story'          => $obj,
+								'layout_type'    => 'regular',
+								'partial_id'     => $element->id,
+								'watch'          => 'yes',
+								'render_partial' => true,
+							]
+						);
+						break;
+				}
+			}
+			unset( $matches );
+			unset( $partials );
+			$partials = preg_match( '/(.+)_sorter\-collection/', $element->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				switch ( $matches[1] ) {
+					case 'sports_section':
+						\CST\CST_Section_Front::get_instance()->render_section_blocks( $element->id );
+						break;
+				}
+			}
+			unset( $matches );
+			unset( $partials );
+			$partials = preg_match( '/cst\_(.+)_section\_(.+)/', $element->id, $matches );
+			if ( $partials && ! empty( $matches ) ) {
+				$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+				switch ( $matches[2] ) {
+					case 'three_block_two_one_1':
+					case 'three_block_two_one_2':
+						return CST()->frontend->homepage_lead_story( $element->id );
+						break;
+					case 'three_block_two_one_3':
+						return CST()->frontend->single_mini_story(
+							[
+								'story'             => $obj,
+								'layout_type'       => 'prime',
+								'partial_id'        => $element->id,
+								'watch'             => 'yes',
+								'custom_image_size' => 'chiwire-header-large',
+							]
+						);
+					case 'headlines_1':
+						$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
 
-		return '';
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'prime',
+							'partial_id'  => $element->id,
+							'watch'       => 'yes',
+						] );
+						break;
+					case 'headlines_2':
+					case 'headlines_3':
+					case 'headlines_4':
+					case 'headlines_5':
+						$obj = \CST\Objects\Post::get_by_post_id( get_theme_mod( $element->id ) );
+
+						return CST()->frontend->single_mini_story( [
+							'story'       => $obj,
+							'layout_type' => 'regular',
+							'partial_id'  => $element->id,
+							'watch'       => 'yes',
+						] );
+						break;
+				}
+			}
+		}
 	}
 
 	/**
+	 * @param $partial
+	 */
+	public function send_to_news_render_callback( $partial ) {
+		if ( $partial instanceof WP_Customize_Partial ) {
+			$partial = $partial->id;
+		}
+		$video_embed_slug = get_theme_mod( $partial );
+		if ( '--empty--' === $video_embed_slug ) {
+			$video_embed_slug = 'sports';
+		}
+		if ( ! empty( $video_embed_slug ) ) {
+			// Escaping done in inject_send_to_news_video_player in accordance
+			CST_Frontend::get_instance()->inject_send_to_news_video_player( $video_embed_slug, 'stn-video-embed' );
+		}
+	}
+	/**
 	 * Get all published posts to display in Select2 dropdown
+	 *
+	 * JavaScript action to respond to customizer Select2 search requests
+	 *
+	 * @return json object
 	 */
 	public function action_get_posts() {
 		global $wp_customize;
@@ -747,7 +1143,6 @@ class CST_Customizer {
 		}
 
 		$term    = sanitize_text_field( $_GET['searchTerm'] );
-		$section = sanitize_text_field( $_GET['cst_section'] );
 
 		$search_args = [
 			'post_type'     => CST()->get_post_types(),
@@ -756,7 +1151,7 @@ class CST_Customizer {
 			'no_found_rows' => true,
 		];
 
-		if ( $section ) {
+		if ( isset( $_GET['cst_section'] ) && $section = sanitize_text_field( $_GET['cst_section'] ) ) {
 			$search_args['tax_query'] = [
 				[
 					'taxonomy'         => 'cst_section',
@@ -811,6 +1206,31 @@ class CST_Customizer {
 		return ( ( isset( $checked ) && true === $checked ) ? true : false );
 	}
 
+	/**
+	 * @param WP_Customize_Manager $wp_customize
+	 * @uses $sortable_sections
+	 *
+	 * Setup section child sorting - predominantly for Sports
+	 */
+	public function setup_sorters( \WP_Customize_Manager $wp_customize ) {
+
+		foreach ( \CST\CST_Section_Front::get_instance()->sortable_sections as $name => $sortable_section ) {
+			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter', 'absint' );
+			$wp_customize->add_control( new WP_Customize_CST_SF_Sorter_Control( $wp_customize, $sortable_section['slug'] . '_section_sorter', [
+				'type'            => 'cst_sf_sorter_control',
+				'priority'        => 460,
+				'section'         => 'cst[' . $sortable_section['slug'] . ']_section',
+				'active_callback' => [ $this, $sortable_section['callback'] ],
+				'label'           => esc_html( $sortable_section['label'] ),
+				'setting'         => [
+					'list'     => $sortable_section['list'],
+					'defaults' => \CST\CST_Section_Front::get_instance()->chicago_sports_team_slugs,
+				],
+			] ) );
+			$this->set_setting( $wp_customize, $sortable_section['slug'] . '_section_sorter-collection', 'wp_kses_post' );
+			$this->set_selective_refresh( $wp_customize, $sortable_section['slug'] . '_section_sorter-collection' );
+		}
+	}
 	/**
 	 * Getter for top stories array
 	 * @return array
@@ -888,5 +1308,21 @@ class CST_Customizer {
 	 */
 	public function get_featured_obits_section_stories() {
 		return $this->featured_obits_section_stories;
+	}
+
+	/**
+	 * Address issue where some urls mapped to vanity domains cannot be clicked in Customizer
+	 * Convert urls from vanity to base and see if that removes the non click issue
+	 * @param $nav_menu
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	function convert_anchors_to_base_url( $nav_menu, $args ) {
+		if ( is_customize_preview() ) {
+			$nav_menu = str_replace( 'dev.suntimes.com', 'suntimesmediapreprod.wordpress.com', $nav_menu );
+			$nav_menu = str_replace( 'chicago.suntimes.com', 'suntimesmedia.wordpress.com', $nav_menu );
+		}
+		return $nav_menu;
 	}
 }
