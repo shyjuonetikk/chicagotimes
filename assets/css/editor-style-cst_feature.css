@@ -92,22 +92,18 @@
   height: 65px; }
 .cst_feature-template-default .feature-social-container, .single-cst_feature .feature-social-container {
   float: right;
-  padding-right: 1.975rem;
-  padding-top: 0.3rem; }
+  opacity: 0.7; }
   .cst_feature-template-default .feature-social-container .post-social, .single-cst_feature .feature-social-container .post-social {
     padding: 8px;
     height: 45px;
     width: 45px;
     display: inline-block; }
-    .cst_feature-template-default .feature-social-container .post-social.twitter, .single-cst_feature .feature-social-container .post-social.twitter {
-      background-color: #59adeb; }
-    .cst_feature-template-default .feature-social-container .post-social.facebook, .single-cst_feature .feature-social-container .post-social.facebook {
-      background-color: #3c5a96; }
     .cst_feature-template-default .feature-social-container .post-social .fa, .single-cst_feature .feature-social-container .post-social .fa {
-      color: white; }
-    .cst_feature-template-default .feature-social-container .post-social .fa, .single-cst_feature .feature-social-container .post-social .fa {
-      font-size: 1.9rem;
-      color: white; }
+      width: 100%;
+      text-align: center;
+      color: white;
+      padding: 3px;
+      font-size: 1.9rem; }
 .cst_feature-template-default .post-lead-media, .single-cst_feature .post-lead-media {
   position: relative; }
   .cst_feature-template-default .post-lead-media .hero-image, .single-cst_feature .post-lead-media .hero-image {

@@ -107,29 +107,19 @@
 	}
 	.feature-social-container {
 		float: right;
-		padding-right: 1.975rem;
-		padding-top: 0.3rem;
+		opacity: 0.7;
 		.post-social{
-			padding: 8px;
+			padding: 6px;
 			height: 45px;
 			width: 45px;
 			display: inline-block;
-			&.twitter {
-				background-color: $twitter_blue;
-			}
-
-			&.facebook {
-				background-color: $facebook_blue;
-			}
-
 			.fa {
+				width: 100%;
+				text-align: center;
 				color: $white;
-			}
-			.fa {
+				padding:3px;
 				font-size: 1.9rem;
-				color: white;
 			}
-
 		}
 	}
 	.post-lead-media {
