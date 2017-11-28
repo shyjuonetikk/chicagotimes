@@ -190,7 +190,7 @@ class CST_Frontend {
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
-					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) || is_tax() || is_author() ) {
+					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) ) {
 						// Slick
 						wp_enqueue_script( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.min.js', array( 'jquery' ), '1.3.6' );
 						wp_enqueue_style( 'slick', get_template_directory_uri() . '/assets/js/vendor/slick/slick.css', false, '1.3.6' );
@@ -199,10 +199,10 @@ class CST_Frontend {
 						}
 					}
 					wp_enqueue_script( 'cst-events', get_template_directory_uri() . '/assets/js/event-tracking.js', array( 'jquery' ) );
-					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri(). '/assets/js/analytics.js', array( 'jquery' ) );
-					wp_enqueue_script( 'cst-ga-autotrack', get_template_directory_uri(). '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-ga-custom-actions', get_template_directory_uri() . '/assets/js/analytics.js', array( 'jquery' ) );
+					wp_enqueue_script( 'cst-ga-autotrack', get_template_directory_uri() . '/assets/js/vendor/autotrack.js', array( 'jquery' ) );
 					$analytics_data = array(
-						'is_singular'     => is_singular(),
+						'is_singular' => is_singular(),
 					);
 					if ( is_singular() && $obj = \CST\Objects\Post::get_by_post_id( get_queried_object_id() ) ) {
 						for ( $i = 1;  $i <= 10;  $i++ ) {
