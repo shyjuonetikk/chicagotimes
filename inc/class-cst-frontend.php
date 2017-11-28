@@ -1372,7 +1372,7 @@ class CST_Frontend {
 
 		$cache_key = md5( $feed_url );
 		$result = wpcom_vip_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
-		if ( false === $result ) {
+		if ( WP_DEBUG || ( false === $result ) ) {
 			$response = wpcom_vip_file_get_contents( $feed_url );
 			if ( ! is_wp_error( $response ) ) {
 				$result = json_decode( $response );
@@ -1385,10 +1385,10 @@ class CST_Frontend {
 			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
 			<hr>
 			<div class="row">
-		<?php foreach ( $result->pages as $item ) {
+		<?php $counter = 0;
+			foreach ( $result->pages as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$image_url = false;
-			$image_markup = '';
 			if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
 				$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
 				if ( isset( $top_item[0] ) ) {
@@ -1402,9 +1402,16 @@ class CST_Frontend {
 					}
 				}
 			}
-			$temporary_title       = strtok( $item->title, '|' );
-			$temporary_title       = strtok( $temporary_title, '–' );
-			$article_curated_title = trim( $temporary_title );
+			$abby = preg_match( "!Dear Abby\:!", $item->title, $matches );
+			if ( 1 === $abby ) {
+				continue;
+			}
+			$found = preg_match( "!(.*)\s+[\||\-|\–|\—\–]\s+Chicago Sun-Times!", $item->title, $matches );
+			if ( 1 === $found ) {
+				$article_curated_title = $matches[1];
+			} else {
+				$article_curated_title = $item->title;
+			}
 			if ( $image_url ) {
 				$image_markup = sprintf( '<img class="-amp-fill-content -amp-replaced-content" src="%1$s" width="80" height="80" >', esc_url( $image_url ) );
 			} else {
@@ -1426,7 +1433,11 @@ class CST_Frontend {
 						<?php echo wp_kses_post( $sponsored_markup ); ?>
 				</div>
 			</div>
-		<?php } ?>
+		<?php $counter++;
+			if ( 4 === $counter ) {
+				break;
+			}
+			} ?>
 			</div>
 		</div>
 <?php
