@@ -15,7 +15,6 @@
 		activePage: 0,
 		activeURI: window.location.href.replace( window.location.origin, "" ),
 		baseURLWithoutPage: window.location.href.replace(/page\/[\d]+\//,"").replace( window.location.hash, "" ),
-    featuredPosts: $('#headlines-slider').height(),
 
 		init: function() {
 
