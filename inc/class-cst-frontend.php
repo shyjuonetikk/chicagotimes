@@ -1386,7 +1386,10 @@ class CST_Frontend {
 			<hr>
 			<div class="row">
 		<?php $counter = 0;
-			foreach ( $result->pages as $item ) {
+			$more_items = array_filter( $result->pages, function( $item ) {
+				return 0 === preg_match( "!Dear Abby\:!", $item->title );
+			});
+			foreach ( $more_items as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
 			$image_url = false;
 			if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
@@ -1401,9 +1404,6 @@ class CST_Frontend {
 						}
 					}
 				}
-			}
-			if ( 1 === preg_match( "!Dear Abby\:!", $item->title ) ) {
-				continue;
 			}
 			$article_curated_title = $item->title;
 			if ( 1 === preg_match( "!(.*)\s+[\||\-|\–|\—\–]\s+Chicago Sun-Times!", $item->title, $matches ) ) {
