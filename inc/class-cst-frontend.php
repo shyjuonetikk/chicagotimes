@@ -1382,7 +1382,7 @@ class CST_Frontend {
 		?>
 		<div class="cst-recommendations columns">
 			<hr>
-			<h3>Previously from <?php esc_html_e( $section_name ); ?></h3>
+			<h3>More from the Chicago Sun-Times</h3>
 			<hr>
 			<div class="row">
 		<?php $counter = 0;
