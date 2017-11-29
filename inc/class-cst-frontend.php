@@ -102,6 +102,7 @@ class CST_Frontend {
 		add_filter( 'wp_nav_menu_objects', [ $this, 'remove_current_nav_item' ], 10, 2 );
 		add_filter( 'wp_kses_allowed_html', [ $this, 'filter_wp_kses_allowed_custom_attributes' ] );
 		add_filter( 'sailthru_horizon_meta_tags', [ $this, 'cst_sailthru_horizon_meta_tags' ], 10, 2 );
+		add_filter( 'wp_nav_menu', [ $this, 'convert_anchors_to_base_url' ], 100, 2 );
 	}
 
 	/**
@@ -3134,5 +3135,21 @@ echo $display_relative_timestamp ? ' - ' . esc_html( human_time_diff( $obj->get_
 		$features_nav = str_replace( 'page-numbers', 'page-numbers pagination', $features_nav );
 		$features_nav = str_replace( '<span class=\'page-numbers pagination current', ' class="current"><span class=\'page-numbers pagination current', $features_nav );
 		echo wp_kses_post( $features_nav );
+	}
+
+	/**
+	 * Address issue where some urls mapped to vanity domains cannot be clicked in Customizer
+	 * Convert urls from vanity to base and see if that removes the non click issue
+	 * @param $nav_menu
+	 * @param $args
+	 *
+	 * @return mixed
+	 */
+	function convert_anchors_to_base_url( $nav_menu, $args ) {
+		if ( is_customize_preview() && 'homepage-masthead' === $args->theme_location ) {
+			$nav_menu = str_replace( 'dev.suntimes.com', 'suntimesmediapreprod.wordpress.com', $nav_menu );
+			$nav_menu = str_replace( 'chicago.suntimes.com', 'suntimesmedia.wordpress.com', $nav_menu );
+		}
+		return $nav_menu;
 	}
 }
