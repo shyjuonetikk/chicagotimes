@@ -1402,15 +1402,12 @@ class CST_Frontend {
 					}
 				}
 			}
-			$abby = preg_match( "!Dear Abby\:!", $item->title, $matches );
-			if ( 1 === $abby ) {
+			if ( 1 === preg_match( "!Dear Abby\:!", $item->title ) ) {
 				continue;
 			}
-			$found = preg_match( "!(.*)\s+[\||\-|\–|\—\–]\s+Chicago Sun-Times!", $item->title, $matches );
-			if ( 1 === $found ) {
+			$article_curated_title = $item->title;
+			if ( 1 === preg_match( "!(.*)\s+[\||\-|\–|\—\–]\s+Chicago Sun-Times!", $item->title, $matches ) ) {
 				$article_curated_title = $matches[1];
-			} else {
-				$article_curated_title = $item->title;
 			}
 			if ( $image_url ) {
 				$image_markup = sprintf( '<img class="-amp-fill-content -amp-replaced-content" src="%1$s" width="80" height="80" >', esc_url( $image_url ) );
