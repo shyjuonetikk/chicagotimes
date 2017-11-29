@@ -400,6 +400,7 @@ class CST {
 
 	/**
 	 * Expose the Google Newsstand analytics content as https://chicago.suntimes.com/analytics.txt
+	 * Expose the YouTube verification html file as https://chicago.suntimes.com/googleddb5b02478e7d794.html
 	 *
 	 * Create a page and use the Template "Rewrite Me"
 	 * Add a rule for your custom rewrite
@@ -407,6 +408,7 @@ class CST {
 	 */
 	public function temporary_rewrite_rules() {
 		add_rewrite_rule( '^(analytics.txt)$', 'index.php?pagename=rewrite-me&where=analytics.txt', 'top' );
+		add_rewrite_rule( '^(googleddb5b02478e7d794.html)$', 'index.php?pagename=rewrite-me&where=googleddb5b02478e7d794.html', 'top' );
 		add_rewrite_tag('%where%', '([^&]+)');
 	}
 	/**
@@ -2062,7 +2064,8 @@ class CST {
 		}
 		return
 			current_theme_supports( 'infinite-scroll' ) &&
-			( get_queried_object() && is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) );
+			( get_queried_object() && is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) )
+			|| ! is_tax( 'cst_section', 'Sports' );
 
 	}
 
