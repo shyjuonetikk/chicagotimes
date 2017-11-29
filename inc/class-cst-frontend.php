@@ -3098,8 +3098,7 @@ echo $display_relative_timestamp ? ' - ' . esc_html( human_time_diff( $obj->get_
 	 */
 	function convert_anchors_to_base_url( $nav_menu, $args ) {
 		if ( is_customize_preview() && 'homepage-masthead' === $args->theme_location ) {
-			$nav_menu = str_replace( 'dev.suntimes.com', 'suntimesmediapreprod.wordpress.com', $nav_menu );
-			$nav_menu = str_replace( 'chicago.suntimes.com', 'suntimesmedia.wordpress.com', $nav_menu );
+			$nav_menu = str_replace( [ 'dev.suntimes.com', 'chicago.suntimes.com' ], [ 'suntimesmediapreprod.wordpress.com', 'suntimesmedia.wordpress.com' ], $nav_menu );
 		}
 		return $nav_menu;
 	}
