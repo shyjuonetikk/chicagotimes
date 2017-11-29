@@ -155,7 +155,6 @@ class CST_Customizer {
 			'chicagosuntimes-customizer-preview',
 			get_theme_file_uri( '/assets/css/cst-customizer-preview.css' )
 		);
-		add_filter( 'wp_nav_menu', [ $this, 'convert_anchors_to_base_url' ], 10, 2 );
 	}
 
 	/**
@@ -1361,19 +1360,4 @@ class CST_Customizer {
 		return $this->featured_obits_section_stories;
 	}
 
-	/**
-	 * Address issue where some urls mapped to vanity domains cannot be clicked in Customizer
-	 * Convert urls from vanity to base and see if that removes the non click issue
-	 * @param $nav_menu
-	 * @param $args
-	 *
-	 * @return mixed
-	 */
-	function convert_anchors_to_base_url( $nav_menu, $args ) {
-		if ( is_customize_preview() ) {
-			$nav_menu = str_replace( 'dev.suntimes.com', 'suntimesmediapreprod.wordpress.com', $nav_menu );
-			$nav_menu = str_replace( 'chicago.suntimes.com', 'suntimesmedia.wordpress.com', $nav_menu );
-		}
-		return $nav_menu;
-	}
 }
