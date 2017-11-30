@@ -98,7 +98,7 @@ class CST_Section_Front {
 			?>
 			<div class="stories-container">
 				<div class="small-12 columns more-stories-container" id="sf-section-lead">
-					<?php $this->heading( 'Leading ' . get_queried_object()->name . ' stories', $title_slug ); ?>
+					<h2 class="more-sub-head">&nbsp;</h2>
 					<?php \CST_Frontend::get_instance()->mini_stories_content_block( $customizer_partials ); ?>
 					<hr>
 				</div><!-- /five-block -->
