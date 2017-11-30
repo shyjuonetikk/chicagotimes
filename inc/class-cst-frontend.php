@@ -1406,7 +1406,7 @@ class CST_Frontend {
 				}
 			}
 			$article_curated_title = $item->title;
-			if ( 1 === preg_match( "!(.*)\s+[\||\-|\–|\—]\s+Chicago Sun-Times!", $item->title, $matches ) ) {
+			if ( 1 === preg_match( "!(.*)(\s+[\||\-|\–|\—]\s+Chicago Sun-Times)!", $item->title, $matches ) ) {
 				$article_curated_title = $matches[1];
 			}
 			if ( $image_url ) {
