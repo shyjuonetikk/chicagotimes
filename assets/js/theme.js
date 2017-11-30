@@ -21,8 +21,6 @@
 
 			this.responsiveIframes();
 			if ( this.body.hasClass("single") ) {
-        this.headerSlider();
-        this.rescaleHeadlinesImages();
         this.positionAndSizePostSidebar();
       }
       if ( this.trendingNav.length ) {
@@ -84,7 +82,6 @@
                 delayedTimer = setTimeout( $.proxy( function(){
                     this.responsiveIframes();
                     this.positionAndSizePostSidebar();
-                    this.rescaleHeadlinesImages();
                     if ( this.trendingNav.length ) {
                         this.recalibrateTrendingItems();
                     }
@@ -290,55 +287,7 @@
             }
           }
       },
-        /**
-         * Dynamically rescale headlines images
-         */
-        rescaleHeadlinesImages: function() {
 
-            if ( $(window).width() <= 640 ) {
-                return;
-            }
-
-            $('#featured-posts .featured-post-with-image').each(function() {
-                var el = $(this),
-                    elHeight = el.height(),
-                    elWidth = el.width(),
-                    imageUrl = false;
-                    imageHeight = false,
-                    imageWidth = false;
-                if ( el.hasClass( 'featured-main' ) ) {
-                    imageUrl = el.data('image-medium-url');
-                    imageHeight = el.data('image-medium-height');
-                    imageWidth = el.data('image-medium-width');
-                } else {
-                    imageUrl = el.data('image-small-url');
-                    imageHeight = el.data('image-small-height');
-                    imageWidth = el.data('image-small-width');
-                }
-
-                if ( el.css('background-image') == 'none' && imageUrl ) {
-                    el.css('background-image', 'url("' + imageUrl + '")' );
-                }
-
-                var scaledHeight = elHeight,
-                    scaledWidth = elWidth,
-                    backgroundTopPosition = 0,
-                    backgroundLeftPosition = 0;
-                if ( ( elHeight / elWidth ) < ( imageHeight / imageWidth ) ) {
-                    scaledWidth = elWidth;
-                    scaledHeight = ( imageHeight / imageWidth ) * scaledWidth;
-                    backgroundTopPosition = ( ( scaledHeight - elHeight ) / 2 ) * -1;
-                } else {
-                    scaledHeight = elHeight;
-                    scaledWidth = ( imageWidth / imageHeight ) * scaledHeight;
-                    backgroundLeftPosition = ( ( scaledWidth - elWidth ) / 2 ) * -1;
-                }
-                el.css('background-size', scaledWidth + 'px ' + scaledHeight + 'px' );
-                el.css('background-position', backgroundLeftPosition + 'px ' + backgroundTopPosition + 'px' );
-
-            });
-
-        },
 
         /**
          * Recalibrate the visible Trending menu items based on its available width
