@@ -1,4 +1,4 @@
-<?php $image_size = ( is_tax() || is_author() ) ? 'chiwire-section-small' : 'chiwire-article'; ?>
+<?php $image_size = ( is_tax() || is_author() ) ? 'chiwire-header-small' : 'chiwire-article'; ?>
 <?php $image_size = ( \CST\CST_Section_Front::get_instance()->is_sports_or_child( get_queried_object_id() ) && is_tax( 'cst_section' ) ) ? 'chiwire-section-medium' : $image_size; ?>
 <?php if ( $obj->get_sponsored_content() ) { ?>
 <div class="section-sponsor-banner">
