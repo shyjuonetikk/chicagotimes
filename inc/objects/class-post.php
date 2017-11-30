@@ -870,11 +870,10 @@ abstract class Post {
 				break;
 
 			case 'image':
+				$val      = '';
 				$image_id = $this->get_fm_field( 'cst_distribution', 'twitter', 'image' );
-				if ( $src = wp_get_attachment_image_src( $image_id, 'twitter-card' ) ) {
+				if ( $image_id && $src = wp_get_attachment_image_src( $image_id, 'facebook-open-graph' ) ) {
 					$val = $src[0];
-				} else {
-					$val = '';
 				}
 				break;
 
@@ -930,7 +929,7 @@ abstract class Post {
 				break;
 
 			case 'image':
-				$val = $this->get_featured_image_url( 'twitter-card' );
+				$val = $this->get_featured_image_url( 'facebook-open-graph' );
 				break;
 
 			default:
