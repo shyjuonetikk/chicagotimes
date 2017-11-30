@@ -15,7 +15,13 @@ class CST_Section_Front {
 	];
 
 	public $sports_object, $sort_order;
-	public $sortable_sections = [];
+	public $sortable_sections   = [];
+	public $additional_sections = [
+		'Crime',
+		'Entertainment',
+		'Featured Obits',
+		'Podcasts',
+	];
 	public static function get_instance() {
 
 		if ( ! isset( self::$instance ) ) {
@@ -73,18 +79,18 @@ class CST_Section_Front {
 	}
 
 	/**
-	 * @param $title_slug
-	 *
 	 * Title markup based on slug
 	 * Get slotted content based on slug
 	 * Render only if content slotted
 	 *
 	 */
-	public function five_block( $title_slug ) {
+	public function five_block() {
+		// Handle sections that are used on homepage
+		$title_slug          = get_queried_object()->slug;
 		$customizer_partials = $this->create_partials( $title_slug );
 		$render              = false;
 		foreach ( array_keys( $customizer_partials ) as $customizer_partial ) {
-			if ( get_theme_mod( $customizer_partial ) ) {
+			if ( get_theme_mod( $customizer_partial ) && $customizer_partial !== get_theme_mod( $customizer_partial ) ) {
 				$render = true;
 			}
 		}
@@ -92,7 +98,7 @@ class CST_Section_Front {
 			?>
 			<div class="stories-container">
 				<div class="small-12 columns more-stories-container" id="sf-section-lead">
-					<?php $this->heading( 'Leading ' . get_queried_object()->name . ' stories', $title_slug ); ?>
+					<h2 class="more-sub-head">&nbsp;</h2>
 					<?php \CST_Frontend::get_instance()->mini_stories_content_block( $customizer_partials ); ?>
 					<hr>
 				</div><!-- /five-block -->

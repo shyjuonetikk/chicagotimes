@@ -2066,7 +2066,6 @@ class CST {
 			current_theme_supports( 'infinite-scroll' ) &&
 			( get_queried_object() && is_singular( [ 'cst_article', 'cst_feature', 'cst_video' ] ) )
 			|| ! is_tax( 'cst_section', 'Sports' );
-
 	}
 
 	/**
