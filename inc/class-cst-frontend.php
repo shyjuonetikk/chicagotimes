@@ -2532,9 +2532,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 		];
 		$args = wp_parse_args( $args, $defaults );
 		$template = '
-<div class="%2$s">
+<div class="%1$s">
 	<div class="newsletter-sign-up">
-		<h3>Sign-Up for our %1$s Newsletter&nbsp;
+		<h3>Sign-Up for our Newsletter&nbsp;
 			<a href="http://cb.sailthru.com/join/5py/newslettersignup" data-on="click" data-event-category="newsletter" data-event-action="subscribe to %1$s" target="_blank" class="button tiny info">
 				<i class="fa fa-envelope"></i> Sign-Up
 			</a>
@@ -2543,7 +2543,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 ';
 		echo wp_kses_post( sprintf( $template,
-			esc_attr( $newsletter_codes[ $args['newsletter'] ]['title'] ),
 			esc_attr( $args['wrapper_class'] )
 		) );
 	}
