@@ -1392,7 +1392,7 @@ class CST_Frontend {
 			<div class="row">
 		<?php $counter = 0;
 			$more_items = array_filter( $result->pages, function( $item ) {
-				return 0 === preg_match( "!Dear\sAbby\:|Georgia\sNicols\shoroscopes!", $item->title );
+				return ( $item->stats->type === "Article" && ( 0 === preg_match( "!Dear\sAbby\:|Georgia\sNicols\shoroscopes!", $item->title ) ) );
 			});
 			foreach ( $more_items as $item ) {
 			$chart_beat_top_content = (array) $item->metrics->post_id->top;
