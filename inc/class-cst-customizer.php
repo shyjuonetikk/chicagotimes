@@ -354,7 +354,6 @@ class CST_Customizer {
 					}
 				}
 				$child_term = get_term_by( 'slug', $section_name, 'cst_section' );
-//				Legacy Sports logic return $child_term && $current_obj->name === $child_term->name && term_is_ancestor_of( $this->sports_term, $current_obj, 'cst_section' );
 				return is_tax( 'cst_section', $child_term );
 			}
 		}
