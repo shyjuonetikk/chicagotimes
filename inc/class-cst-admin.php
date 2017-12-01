@@ -37,6 +37,7 @@ class CST_Admin {
 		add_action( 'save_post', array( $this, 'action_save_post_late' ), 100 );
 
 		add_action( 'transition_post_status', array( $this, 'action_save_post_notification' ), 100, 3 );
+		add_action( 'post_updated', array( $this, 'action_save_post_update_sailthru' ), 100, 3 );
 
 		add_action( 'add_meta_boxes', array( $this, 'action_add_meta_boxes' ), 20, 2 );
 
@@ -1029,6 +1030,44 @@ class CST_Admin {
 
 	}
 
+	/**
+	 * @param string  $post_after
+	 * @param string  $post_before
+	 * @param int     $post_ID
+	 *
+	 * @return bool
+	 *
+	 * Upon content and meta updates trigger an update for Sailthru via their Content API
+	 */
+	public function action_save_post_update_sailthru( $post_ID, $post_after, $post_before  ) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return false;
+		}
+		// Compare dates $post_after->modified_date > $post_before->modified_date
+		// Assume that if the after modified date is after the before then something changed
+		// Now package up the relevant content that Sailthru accepts and ping Sailthru
+		// https://getstarted.sailthru.com/developers/api-basics/technical/
+		// https://getstarted.sailthru.com/developers/api-basics/test-page/
+		$obj = \CST\Objects\Post::get_by_post_id( $post_ID );
+		if ( ! $obj ) {
+			return false;
+		}
+		$request_json = [
+			'id'     => get_permalink( $post_ID ),
+			'spider' => '1',
+			'title'  => $obj->get_title(),
+		];
+		$payload =  [
+			'api_key' => SAILTHRU_API_KEY,
+			'format' => 'json',
+			'json' => wp_json_encode( $request_json ),
+		];
+		$package = SAILTHRU_SECRET.SAILTHRU_API_KEY.'json'.wp_json_encode( $request_json );
+		$signature = md5( $package );
+		$request = 'api_key=' . SAILTHRU_API_KEY . '&sig=' . $signature . '&format=json&json=' . wp_json_encode( $request_json );
+		// Now wp_post_content to https://api.sailthru.com/content?$request
+		return false;
+	}
 	/**
 	 * @param $post_id
 	 * @param string $title_prefix
