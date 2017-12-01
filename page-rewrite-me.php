@@ -14,6 +14,10 @@ if ( $where_to && '' !== $where_to ) {
 			echo 'google-site-verification: googleddb5b02478e7d794.html';
 			die( 200 );
 			break;
+		case 'ads.txt':
+			include ('ads.txt'); 
+			die( 200 );
+			break;
 		default:
 			break;
 	}
