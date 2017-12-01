@@ -15,6 +15,7 @@ if ( $where_to && '' !== $where_to ) {
 			die( 200 );
 			break;
 		case 'ads.txt':
+			header( 'Content-Type: text/plain; charset=' . get_option( 'blog_charset' ) );
 			echo wp_kses_post( wpcom_vip_file_get_contents( get_stylesheet_directory_uri() . '/ads.txt' ) );
 			die( 200 );
 			break;
