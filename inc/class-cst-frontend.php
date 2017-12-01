@@ -2318,7 +2318,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	public function inject_a9_leaderboard( $content ) {
 		if ( is_singular( 'cst_article' ) ) {
 			#$a9tag = '<div id="google_ads_iframe_/61924087/slot1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/61924087/slot1_0" title="3rd party ad content" name="google_ads_iframe_/61924087/slot1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>';
-			$a9tag3 = "<div id='div-gpt-ad-leaderboard-1'><script>googletag.cmd.push(function() { googletag.display('div-gpt-ad-leaderboard-1''); });</script></div>";
+			$a9tag3 = "<div id='div-gpt-ad-leaderboard-1'><script>googletag.cmd.push(function() { googletag.display('div-gpt-ad-leaderboard-1'); });</script></div>";
 			$exploded = explode( '</p>', $content );
 			$num_exploded = count( $exploded );
 			if ( $num_exploded > 7) {

@@ -20,7 +20,6 @@ function parseSizeMappings(sizeMappings) {
     // filter mappings that are valid by confirming that the current screen dimensions
     // are both greater than or equal to the breakpoint [x, y] minimums specified in the first position in the mapping
     var validMappings = sizeMappings.filter(function(m) {return  m[0][0] <= sd[0] && m[0][1] <= sd[1]});
-    //document.write("WindowDimensions ", sd, "<br />validMappings ", validMappings, "<br />sizeMappings ", sizeMappings);
 
     // return the leftmost mapping's sizes or an empty array
     return validMappings.length > 0 ? validMappings[0][1] :  [];
@@ -46,12 +45,6 @@ function parseSizeMappings(sizeMappings) {
     //confirmed ad sizes 728x90, 300x250, 300x600, 160x600, 970x90, 970x250, 320x50
 
 parseSizeMappings(sizeMappings);
-//window["parseSizeMappings"](sizeMappings);
-
-    //googletag.defineSlot('/61924087/test-a9', [300, 250], 'div-gpt-ad-test-a9').defineSizeMapping(sizeMappings).addService(googletag.pubads());  
-    //googletag.defineSlot('/61924087/slot2', [300, 600], 'div-gpt-ad-test2-a9').defineSizeMapping(sizeMappings).addService(googletag.pubads());  
-    //googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(sizeMappings).addService(googletag.pubads()); 
-    //googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-atf-leaderboard-1').defineSizeMapping(sizeMappings).addService(googletag.pubads()); 
 
     googletag.defineSlot('/61924087/cube1', [300, 250], 'div-gpt-ad-cube1-a9').defineSizeMapping(googletag.validMappings).addService(googletag.pubads());  
     googletag.defineSlot('/61924087/cube2', [300, 600], 'div-gpt-ad-cube2-a9').defineSizeMapping(googletag.validMappings).addService(googletag.pubads());  
@@ -90,7 +83,6 @@ parseSizeMappings(sizeMappings);
       sizes: [[728, 90]]  
     },
     {
-      //slotID: 'div-gpt-ad-leaderboard-1',
       slotID: 'div-gpt-ad-leaderboard-1',
       slotName: 'slot3',
       sizes: [[728, 90]]  
@@ -99,7 +91,6 @@ parseSizeMappings(sizeMappings);
       slotID: 'div-gpt-ad-leaderboard-2',
       slotName: 'slot4',
       sizes: [[970, 90], [728, 90]] 
-      //sizes: [[320, 50]] 
     }]
   },
 
