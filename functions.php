@@ -281,6 +281,7 @@ class CST {
 
 		define( 'VIP_MAINTENANCE_MODE', false );
 		define( 'CST_GOOGLE_ANALYTICS', 'UA-52083976-1' );
+		define( 'SAILTHRU_API_KEY', 'ed36526e9a864aae8e77425b0f3c52fe' );
 
 	}
 
