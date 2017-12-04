@@ -91,12 +91,13 @@ class CST_Slack {
 	 * a spider request has been triggered with Sailthru.
 	 */
 	public function updated_content_to_sailthru( $post ) {
+		$obj              = new \CST\Objects\Article( $post->ID );
 		$slack_parameters = [
 			'text'         => 'Content updated - Sailthru notified to re-spider',
 			'unfurl_links' => false,
 			'unfurl_media' => false,
 		];
-		if ( 'cst_article' === $post->post_type ) {
+		if ( 'cst_article' === $obj->get_post_type() ) {
 			$payload = $this->new_content_payload_to_json( $post->ID, $post, $slack_parameters );
 			if ( false !== $payload ) {
 				$this->send_payload( [
