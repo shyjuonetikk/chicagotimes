@@ -618,8 +618,10 @@ class CST_Wire_Curator {
 				case 'link':
 
 					$link = $item->create_link_post();
-					$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
-					set_post_thumbnail( $link->get_id(), $thumbnail_id );
+					if($mainImg && $link->get_id()) {
+						$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
+						set_post_thumbnail( $link->get_id(), $thumbnail_id );
+					}
 					$media = explode(',',$_GET['media']);
 					foreach ($media as $img) {
 						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
