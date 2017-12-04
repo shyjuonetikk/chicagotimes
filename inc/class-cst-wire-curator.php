@@ -272,9 +272,9 @@ class CST_Wire_Curator {
 					if ( $item->get_wire_content() ) {
 
 						if ( $article = $item->get_article_post() ) {
-							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
+							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Save draft article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft Article', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft Article', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
