@@ -8,6 +8,7 @@ class CST_Admin {
 	private static $instance;
 
 	private $edit_print_feed_cap = 'edit_others_posts';
+	private $sailthru_endpoint = 'https://api.sailthru.com/';
 
 	public static function get_instance() {
 
@@ -1031,42 +1032,48 @@ class CST_Admin {
 	}
 
 	/**
-	 * @param string  $post_after
-	 * @param string  $post_before
-	 * @param int     $post_ID
-	 *
-	 * @return bool
+	 * @param \WP_Post  $post_after
+	 * @param \WP_Post  $post_before
+	 * @param int       $post_ID
 	 *
 	 * Upon content and meta updates trigger an update for Sailthru via their Content API
 	 */
 	public function action_save_post_update_sailthru( $post_ID, $post_after, $post_before  ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return false;
+			return;
 		}
 		// Compare dates $post_after->modified_date > $post_before->modified_date
 		// Assume that if the after modified date is after the before then something changed
 		// Now package up the relevant content that Sailthru accepts and ping Sailthru
 		// https://getstarted.sailthru.com/developers/api-basics/technical/
 		// https://getstarted.sailthru.com/developers/api-basics/test-page/
-		$obj = \CST\Objects\Post::get_by_post_id( $post_ID );
-		if ( ! $obj ) {
-			return false;
-		}
-		$request_json = [
+		$obj             = new \CST\Objects\Article( $post_ID );
+		$request_json    = [
 			'id'     => get_permalink( $post_ID ),
 			'spider' => '1',
 			'title'  => $obj->get_title(),
 		];
-		$payload =  [
-			'api_key' => SAILTHRU_API_KEY,
-			'format' => 'json',
-			'json' => wp_json_encode( $request_json ),
+		$package         = SAILTHRU_SECRET.SAILTHRU_API_KEY.'json'.wp_json_encode( $request_json );
+		$signature       = md5( $package );
+		$request         = 'api_key=' . SAILTHRU_API_KEY . '&sig=' . $signature . '&format=json&json=' . wp_json_encode( $request_json );
+		$sailthru_method = 'content';
+		$payload_array   = [
+			'method'      => 'POST',
+			'timeout'     => 45,
+			'redirection' => 5,
+			'httpversion' => '1.0',
+			'blocking'    => true,
+			'headers'     => [],
+			'body'        => $request,
+			'cookies'     => [],
 		];
-		$package = SAILTHRU_SECRET.SAILTHRU_API_KEY.'json'.wp_json_encode( $request_json );
-		$signature = md5( $package );
-		$request = 'api_key=' . SAILTHRU_API_KEY . '&sig=' . $signature . '&format=json&json=' . wp_json_encode( $request_json );
-		// Now wp_post_content to https://api.sailthru.com/content?$request
-		return false;
+		$response = wp_remote_post( $this->sailthru_endpoint . $sailthru_method, $payload_array );
+		if ( is_wp_error( $response ) ) {
+			\CST_Slack::get_instance()->notify_development_team_error( $response, $obj, 'Sailthru' );
+		} else {
+			\CST_Slack::get_instance()->notify_development_team_error( $response, $obj, 'Sailthru' );
+			\CST_Slack::get_instance()->updated_content_to_sailthru( $obj );
+		}
 	}
 	/**
 	 * @param $post_id
