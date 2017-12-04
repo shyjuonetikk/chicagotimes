@@ -327,7 +327,7 @@ class CST_Wire_Curator {
 											</label>
 											<a class="preview-btn">Preivew</a>
 										</div>
-										<div class="preview" data-target="<?=$preview_img?>">
+										<div class="preview-box" data-target="<?=$preview_img?>">
 											<a class="close"></a>
 										</div>
 									</li>
@@ -362,7 +362,7 @@ class CST_Wire_Curator {
 						 */
 						$('a.preview-btn').on('click', function(e) {
 							e.preventDefault();
-							var preview = $(e.target).closest('li').find('.preview');
+							var preview = $(e.target).closest('li').find('.preview-box');
 							var target = $(preview).data('target');
 							preview.append('<img src="' + target + '"/>');
 							preview.css('display', 'block');
@@ -370,7 +370,7 @@ class CST_Wire_Curator {
 
 						$('a.close').on('click', function(e) {
 							e.preventDefault();
-							var preview = $(e.target).closest('.preview');
+							var preview = $(e.target).closest('.preview-box');
 							preview.find('img').remove();
 							preview.css('display', 'none');
 						});
