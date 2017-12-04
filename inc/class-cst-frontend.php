@@ -1367,9 +1367,8 @@ class CST_Frontend {
 	/**
 	 * Previously from / recommendations content block
 	 * @param $feed_url
-	 * @param $section_name
 	 */
-	public function cst_post_recommendation_block( $feed_url, $section_name ) {
+	public function cst_post_recommendation_block( $feed_url ) {
 
 		$cache_key = md5( $feed_url );
 		$result = wpcom_vip_cache_get( $cache_key, 'default' ); //VIP: for some reason fetch_feed is not caching this properly.
