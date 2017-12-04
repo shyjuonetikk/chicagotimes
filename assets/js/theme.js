@@ -21,8 +21,6 @@
 
 			this.responsiveIframes();
 			if ( this.body.hasClass("single") ) {
-        this.headerSlider();
-        this.rescaleHeadlinesImages();
         this.positionAndSizePostSidebar();
       }
       if ( this.trendingNav.length ) {
@@ -39,7 +37,6 @@
         cacheElements: function() {
 
             this.body = $('body');
-            this.featuredPosts = $('#headlines-slider');
             this.mainNav = $(".main-navigation");
             this.trendingNav = $('#trending-container');
             this.fixedBackToTop = $('#fixed-back-to-top');
@@ -85,7 +82,6 @@
                 delayedTimer = setTimeout( $.proxy( function(){
                     this.responsiveIframes();
                     this.positionAndSizePostSidebar();
-                    this.rescaleHeadlinesImages();
                     if ( this.trendingNav.length ) {
                         this.recalibrateTrendingItems();
                     }
@@ -137,9 +133,9 @@
 
                 // Specific for IE browser
                 if ( $.browser.msie ) {
-                    this.leftOffCanvasList.css("top", this.primaryNavigation.height() + this.topHeight + this.featuredPosts.height() + 'px');
+                    this.leftOffCanvasList.css("top", this.primaryNavigation.height() + this.topHeight + 'px');
                 } else {
-                    this.leftOffCanvasList.css("top", this.topHeight + this.featuredPosts.height() + 'px');
+                    this.leftOffCanvasList.css("top", this.topHeight + 'px');
                 }
 
             } else {
@@ -152,13 +148,7 @@
                 if ( ! this.fixedBackToTop.is(":visible") ) {
                     this.toggleBackToTop();
                 }
-                if ( "true" === CSTInfiniteScrollData.isMobile ) {
-                    this.featuredPosts.fadeOut("fast");
-                }
             } else {
-                if ( "true" === CSTInfiniteScrollData.isMobile ) {
-                    this.featuredPosts.fadeIn("fast");
-                }
                 // Back to Top element
                 if ( this.fixedBackToTop.is(":visible") ) {
                     this.toggleBackToTop();
@@ -297,55 +287,7 @@
             }
           }
       },
-        /**
-         * Dynamically rescale headlines images
-         */
-        rescaleHeadlinesImages: function() {
 
-            if ( $(window).width() <= 640 ) {
-                return;
-            }
-
-            $('#featured-posts .featured-post-with-image').each(function() {
-                var el = $(this),
-                    elHeight = el.height(),
-                    elWidth = el.width(),
-                    imageUrl = false;
-                    imageHeight = false,
-                    imageWidth = false;
-                if ( el.hasClass( 'featured-main' ) ) {
-                    imageUrl = el.data('image-medium-url');
-                    imageHeight = el.data('image-medium-height');
-                    imageWidth = el.data('image-medium-width');
-                } else {
-                    imageUrl = el.data('image-small-url');
-                    imageHeight = el.data('image-small-height');
-                    imageWidth = el.data('image-small-width');
-                }
-
-                if ( el.css('background-image') == 'none' && imageUrl ) {
-                    el.css('background-image', 'url("' + imageUrl + '")' );
-                }
-
-                var scaledHeight = elHeight,
-                    scaledWidth = elWidth,
-                    backgroundTopPosition = 0,
-                    backgroundLeftPosition = 0;
-                if ( ( elHeight / elWidth ) < ( imageHeight / imageWidth ) ) {
-                    scaledWidth = elWidth;
-                    scaledHeight = ( imageHeight / imageWidth ) * scaledWidth;
-                    backgroundTopPosition = ( ( scaledHeight - elHeight ) / 2 ) * -1;
-                } else {
-                    scaledHeight = elHeight;
-                    scaledWidth = ( imageWidth / imageHeight ) * scaledHeight;
-                    backgroundLeftPosition = ( ( scaledWidth - elWidth ) / 2 ) * -1;
-                }
-                el.css('background-size', scaledWidth + 'px ' + scaledHeight + 'px' );
-                el.css('background-position', backgroundLeftPosition + 'px ' + backgroundTopPosition + 'px' );
-
-            });
-
-        },
 
         /**
          * Recalibrate the visible Trending menu items based on its available width
@@ -381,69 +323,6 @@
         /**
          * Load the header slider
          */
-        headerSlider: function() {
-
-			if(this.featuredPosts) {this.featuredPosts.find('.slider').slick({
-				onInit: $.proxy( function() {
-					this.featuredPosts.find('.slick-slide:not(.slick-cloned)').each( $.proxy( function( index, el ){
-						if ( $(el).hasClass('slick-active') ) {
-							this.featuredPosts.find('.slick-dots li').eq( index ).addClass('slick-active');
-						}
-					}, this ) );
-				}, this ),
-				onBeforeChange: $.proxy( function() {
-					this.featuredPosts.find('.slick-dots').addClass('force-normal-dots');
-				}, this ),
-				onAfterChange: $.proxy( function() {
-					this.featuredPosts.find('.slick-slide:not(.slick-cloned)').each( $.proxy( function( index, el ){
-						if ( $(el).hasClass('slick-active') ) {
-							this.featuredPosts.find('.slick-dots li').eq( index ).addClass('slick-active');
-						}
-					}, this ) );
-					this.featuredPosts.find('.slick-dots').removeClass('force-normal-dots');
-				}, this ),
-				slide: '.slide',
-				slidesToShow: 6,
-				dots: true,
-        customPaging: function(slider, i) {
-          return '<button type="button" data-on="click" data-event-category="slider-dot" data-event-action="dot-navigate">' + (i + 1) + '</button>';
-        },
-				arrows: true,
-				prevArrow: '<button data-on="click" data-event-category="slider-arrow" data-event-action="navigate-prev"><i class="fa fa-chevron-left header-prev"></i></button>',
-				nextArrow: '<button data-on="click" data-event-category="slider-arrow" data-event-action="navigate-next"><i class="fa fa-chevron-right header-next"></i></button>',
-				responsive: [
-					// Small desktop
-					{
-						breakpoint: 1300,
-						settings: {
-							slidesToShow: 5
-						}
-					},
-					// Small desktop
-					{
-						breakpoint: 1100,
-						settings: {
-							slidesToShow: 4
-						}
-					},
-					// Mobile
-					{
-						breakpoint: 768,
-						settings: {
-							slidesToShow: 3
-						}
-					},
-					// Mobile
-					{
-						breakpoint: 580,
-						settings: {
-							slidesToShow: 2
-						}
-					}
-				]
-			});
-}
-		},
 
 		taboola: function() {
       var post = $('#main').find('.cst-active-scroll-post').eq(0);

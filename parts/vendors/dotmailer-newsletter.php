@@ -32,34 +32,34 @@
         }
     }
 
-    $newsletter_link = 'https://r1.surveysandforms.com/062jcp97-8a19pw1c';
+    $newsletter_link = 'http://cb.sailthru.com/join/5py/newslettersignup';
     $newsletter_text = 'Sign up for Morning Edition, the Sun-Times New & Politics newsletter';
     switch( $section_slug ) {
         case 'news':
             $newsletter_text = 'Sign-Up for Morning Edition, the Sun-Times News &amp; Politics Newsletter';
-            $newsletter_link = 'https://r1.surveysandforms.com/062jcp97-2819pvaa';
+            $newsletter_link = 'http://cb.sailthru.com/join/5py/newslettersignup';
             break;
         case 'sports':
             $newsletter_text = 'Sign-Up for the Sun-Times Sports Newsletter and Sports Alerts';
-            $newsletter_link = 'https://r1.surveysandforms.com/062jcp97-06149p3a';
+            $newsletter_link = 'http://cb.sailthru.com/join/5py/newslettersignup';
             break;
         case 'entertainment':
             $newsletter_text = 'Sign-Up for the Sun-Times Entertainment Newsletter';
-            $newsletter_link = 'https://r1.surveysandforms.com/062jcp97-bf1s1y92';
+            $newsletter_link = 'http://cb.sailthru.com/join/5py/newslettersignup';
             break;
         case 'politics':
                 if( is_tax() ) :
                     $newsletter_text = 'Sign-Up for Morning Edition, the Sun-Times News &amp; Politics Newsletter';
-                    $newsletter_link = 'https://r1.surveysandforms.com/062jcp97-2819pvaa';
+                    $newsletter_link = 'http://cb.sailthru.com/join/5py/newslettersignup';
                 endif;
                 if( is_singular() ) :
                     $newsletter_text = 'Sign-Up for Political Breaking News Alerts from the Sun-Times';
-                    $newsletter_link = 'https://r1.surveysandforms.com/062jcp97-87149s11';
+                    $newsletter_link = 'http://cb.sailthru.com/join/5py/newslettersignup';
                 endif;
             break;
         default:
             $newsletter_text = 'Sign-Up for Morning Edition, the Sun-Times New & Politics newsletter';
-            $newsletter_link = 'https://r1.surveysandforms.com/062jcp97-2819pvaa';
+            $newsletter_link = 'http://cb.sailthru.com/join/5py/newslettersignup';
             break;
     }
 ?>
