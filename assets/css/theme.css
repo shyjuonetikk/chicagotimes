@@ -489,7 +489,7 @@ header#header {
       height: 40px; } }
 
 .spacer {
-  height: 135px; }
+  height: 41px; }
 
 body.page .spacer {
   height: auto; }
@@ -3707,6 +3707,7 @@ body.post-gallery-lightbox-active {
     max-width: 970px; }
   .homepage_wrapper .homepage-content .newsletter-box {
     width: 100%;
+    text-align: center;
     background: white;
     margin-bottom: 5px;
     padding: 5px;
@@ -3714,7 +3715,8 @@ body.post-gallery-lightbox-active {
     float: none;
     overflow: hidden; }
     .homepage_wrapper .homepage-content .newsletter-box .button.tiny {
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      padding: 0.5rem; }
   .homepage_wrapper .homepage-content .homepage-sidebar {
     padding-left: 0.6rem;
     padding-right: 0.6rem; }
@@ -4887,7 +4889,7 @@ body.post-gallery-lightbox-active {
   float: right;
   opacity: 0.7; }
   .cst_feature-template-default .feature-social-container .post-social, .single-cst_feature .feature-social-container .post-social {
-    padding: 8px;
+    padding: 6px;
     height: 45px;
     width: 45px;
     display: inline-block; }
