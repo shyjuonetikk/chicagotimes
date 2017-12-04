@@ -3707,6 +3707,7 @@ body.post-gallery-lightbox-active {
     max-width: 970px; }
   .homepage_wrapper .homepage-content .newsletter-box {
     width: 100%;
+    text-align: center;
     background: white;
     margin-bottom: 5px;
     padding: 5px;
@@ -3714,7 +3715,8 @@ body.post-gallery-lightbox-active {
     float: none;
     overflow: hidden; }
     .homepage_wrapper .homepage-content .newsletter-box .button.tiny {
-      margin-bottom: 0; }
+      margin-bottom: 0;
+      padding: 0.5rem; }
   .homepage_wrapper .homepage-content .homepage-sidebar {
     padding-left: 0.6rem;
     padding-right: 0.6rem; }

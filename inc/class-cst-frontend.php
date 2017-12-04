@@ -2531,16 +2531,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			'wrapper_class' => 'large-7 medium-8 small-12 columns newsletter-box',
 		];
 		$args = wp_parse_args( $args, $defaults );
-		$newsletter_codes = array(
-			'news' => array( 'title' => 'News &amp; Politics', 'code' => '062jcp97-2819pvaa' ),
-			'entertainment' => array( 'title' => 'Entertainment', 'code' => '062jcp97-bf1s1y92' ),
-			'sports' => array( 'title' => 'Sports', 'code' => '062jcp97-06149p3a' ),
-		);
 		$template = '
-<div class="%3$s">
+<div class="%1$s">
 	<div class="newsletter-sign-up">
-		<h3>Sign-Up for our %1$s Newsletter&nbsp;
-			<a href="https://r1.surveysandforms.com/%2$s" data-on="click" data-event-category="newsletter" data-event-action="subscribe to %1$s" target="_blank" class="button tiny info">
+		<h3>Sign-Up for our Newsletter&nbsp;
+			<a href="http://cb.sailthru.com/join/5py/newslettersignup" data-on="click" data-event-category="newsletter" data-event-action="subscribe to %1$s" target="_blank" class="button tiny info">
 				<i class="fa fa-envelope"></i> Sign-Up
 			</a>
 		</h3>
@@ -2548,8 +2543,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 ';
 		echo wp_kses_post( sprintf( $template,
-			esc_attr( $newsletter_codes[ $args['newsletter'] ]['title'] ),
-			esc_attr( $newsletter_codes[ $args['newsletter'] ]['code'] ),
 			esc_attr( $args['wrapper_class'] )
 		) );
 	}
