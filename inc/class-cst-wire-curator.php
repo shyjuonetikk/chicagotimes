@@ -514,7 +514,7 @@ class CST_Wire_Curator {
 	 * @return String
 	 */
 	public function get_api_endpoint() {
-		return get_option( 'wire_curator_feed_url', String );
+		return get_option( 'wire_curator_feed_url', String ) || 'http://cstapfeed.azurewebsites.net';
 	}
 
 	/**
