@@ -39,7 +39,8 @@ class AP_Wire_Item extends Post {
 			        )
 			    ),
 			    'post_type' => 'cst_wire_item',
-			    'posts_per_page' => -1
+			    'posts_per_page' => -1,
+					'suppress_filters' => false
 			);
 			$is_exist = get_posts($args)[0]->ID;
 		}

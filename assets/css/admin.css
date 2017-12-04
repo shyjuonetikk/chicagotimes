@@ -248,7 +248,7 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 	color: white;
 }
 
-.preview {
+.preview-box {
 	display: none;
 	position: absolute;
   top: 37px;
@@ -259,7 +259,7 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 	z-index: 1;
 }
 
-.preview .close {
+.preview-box .close {
 	position: absolute;
   right: 0;
   top: 0;
@@ -268,11 +268,11 @@ tr.cst-is-in-print-feed .post-title strong .dashicons.dashicons-welcome-widgets-
 	cursor: pointer;
 }
 
-.preview img {
+.preview-box img {
 	width: 100% !important;
 }
 
-.preview .close:before {
+.preview-box .close:before {
     font: 400 20px/36px dashicons;
     vertical-align: top;
     speak: none;

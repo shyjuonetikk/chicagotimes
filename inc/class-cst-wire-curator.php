@@ -272,9 +272,9 @@ class CST_Wire_Curator {
 					if ( $item->get_wire_content() ) {
 
 						if ( $article = $item->get_article_post() ) {
-							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
+							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Save draft article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft Article', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft Article', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -327,7 +327,7 @@ class CST_Wire_Curator {
 											</label>
 											<a class="preview-btn">Preivew</a>
 										</div>
-										<div class="preview" data-target="<?=$preview_img?>">
+										<div class="preview-box" data-target="<?=$preview_img?>">
 											<a class="close"></a>
 										</div>
 									</li>
@@ -362,7 +362,7 @@ class CST_Wire_Curator {
 						 */
 						$('a.preview-btn').on('click', function(e) {
 							e.preventDefault();
-							var preview = $(e.target).closest('li').find('.preview');
+							var preview = $(e.target).closest('li').find('.preview-box');
 							var target = $(preview).data('target');
 							preview.append('<img src="' + target + '"/>');
 							preview.css('display', 'block');
@@ -370,7 +370,7 @@ class CST_Wire_Curator {
 
 						$('a.close').on('click', function(e) {
 							e.preventDefault();
-							var preview = $(e.target).closest('.preview');
+							var preview = $(e.target).closest('.preview-box');
 							preview.find('img').remove();
 							preview.css('display', 'none');
 						});
@@ -514,7 +514,7 @@ class CST_Wire_Curator {
 	 * @return String
 	 */
 	public function get_api_endpoint() {
-		return get_option( 'wire_curator_feed_url', String );
+		return get_option( 'wire_curator_feed_url', String ) || 'http://cstapfeed.azurewebsites.net';
 	}
 
 	/**
@@ -618,8 +618,10 @@ class CST_Wire_Curator {
 				case 'link':
 
 					$link = $item->create_link_post();
-					$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
-					set_post_thumbnail( $link->get_id(), $thumbnail_id );
+					if($mainImg && $link->get_id()) {
+						$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
+						set_post_thumbnail( $link->get_id(), $thumbnail_id );
+					}
 					$media = explode(',',$_GET['media']);
 					foreach ($media as $img) {
 						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
