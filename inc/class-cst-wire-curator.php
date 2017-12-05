@@ -274,7 +274,7 @@ class CST_Wire_Curator {
 						if ( $article = $item->get_article_post() ) {
 							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Save draft article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Save draft Article', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create draft Article', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -507,14 +507,13 @@ class CST_Wire_Curator {
 
 		return $schedules;
 	}
-
 	/**
 	 * Get the feeds we're pulling data from
 	 *
 	 * @return String
 	 */
 	public function get_api_endpoint() {
-		return get_option( 'wire_curator_feed_url', String ) || 'http://cstapfeed.azurewebsites.net';
+		return get_option( 'wire_curator_feed_url', string ) || 'http://cstapfeed.azurewebsites.net';
 	}
 
 	/**
