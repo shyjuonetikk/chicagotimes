@@ -871,16 +871,8 @@ class CST {
 			'name'        => esc_html__( 'The Right Rail (Basement)', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
-			'id'          => 'news_headlines',
-			'name'        => esc_html__( 'News Headlines', 'chicagosuntimes' ),
-		] );
-		register_sidebar( [
 			'id'          => 'newswire',
 			'name'        => esc_html__( 'NewsWire', 'chicagosuntimes' ),
-		] );
-		register_sidebar( [
-			'id'          => 'sports_headlines',
-			'name'        => esc_html__( 'Sports Headlines', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
 			'id'          => 'sportswire',
@@ -895,48 +887,24 @@ class CST {
 			'name'        => esc_html__( 'Sports SF bottom widgets', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
-			'id'          => 'entertainment_headlines',
-			'name'        => esc_html__( 'Entertainment Headlines', 'chicagosuntimes' ),
-		] );
-		register_sidebar( [
 			'id'          => 'entertainmentwire',
 			'name'        => esc_html__( 'EntertainmentWire', 'chicagosuntimes' ),
-		] );
-		register_sidebar( [
-			'id'          => 'politics_headlines',
-			'name'        => esc_html__( 'Politics Headlines', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
 			'id'          => 'politicswire',
 			'name'        => esc_html__( 'PoliticsWire', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
-			'id'          => 'lifestyles_headlines',
-			'name'        => esc_html__( 'Lifestyles Headlines', 'chicagosuntimes' ),
-		] );
-		register_sidebar( [
 			'id'          => 'lifestyleswire',
 			'name'        => esc_html__( 'LifestylesWire', 'chicagosuntimes' ),
-		] );
-		register_sidebar( [
-			'id'          => 'opinion_headlines',
-			'name'        => esc_html__( 'Opinion Headlines', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
 			'id'          => 'opinionwire',
 			'name'        => esc_html__( 'OpinionWire', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
-			'id'          => 'columnists_headlines',
-			'name'        => esc_html__( 'Columnists Headlines', 'chicagosuntimes' ),
-		] );
-		register_sidebar( [
 			'id'          => 'columnistswire',
 			'name'        => esc_html__( 'ColumnistsWire', 'chicagosuntimes' ),
-		] );
-		register_sidebar( [
-			'id'          => 'autos_headlines',
-			'name'        => esc_html__( 'Autos Headlines', 'chicagosuntimes' ),
 		] );
 		register_sidebar( [
 			'id'          => 'autoswire',
