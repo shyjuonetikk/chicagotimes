@@ -1042,37 +1042,16 @@ class CST_Admin {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
+		$obj                  = new \CST\Objects\Article( $post_ID );
 		$sailthru_environment = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev'] : CST()->sailthru_ids['prod'];
-		// Compare dates $post_after->modified_date > $post_before->modified_date
-		// Assume that if the after modified date is after the before then something changed
-		// Now package up the relevant content that Sailthru accepts and ping Sailthru
-		// https://getstarted.sailthru.com/developers/api-basics/technical/
-		// https://getstarted.sailthru.com/developers/api-basics/test-page/
-		$obj             = new \CST\Objects\Article( $post_ID );
-		$request_json    = [
-			'id'     => get_permalink( $post_ID ),
-			'spider' => '1',
-			'title'  => $obj->get_title(),
-		];
-		$package         = $sailthru_environment['key'] . $sailthru_environment['secret'] . 'json'.wp_json_encode( $request_json );
-		$signature       = md5( $package );
-		$request         = 'api_key=' . $sailthru_environment['key'] . '&sig=' . $signature . '&format=json&json=' . wp_json_encode( $request_json );
-		$sailthru_method = 'content';
-		$payload_array   = [
-			'method'      => 'POST',
-			'timeout'     => 45,
-			'redirection' => 5,
-			'httpversion' => '1.0',
-			'blocking'    => true,
-			'headers'     => [],
-			'body'        => $request,
-			'cookies'     => [],
-		];
-		$response = wp_remote_post( $this->sailthru_endpoint . $sailthru_method, $payload_array );
-		if ( is_wp_error( $response ) ) {
-			\CST_Slack::get_instance()->notify_development_team_error( $response, $obj, 'Sailthru' );
-		} else {
-			\CST_Slack::get_instance()->notify_development_team_error( $response, $obj, 'Sailthru' );
+		if ( class_exists( 'Sailthru_Client' ) ) {
+			$sailthru = new \Sailthru_Client( $sailthru_environment['key'], $sailthru_environment['secret'] );
+			$vars     = [
+				'id'     => get_permalink( $post_ID ),
+				'spider' => '1',
+				'title'  => $obj->get_title(),
+			];
+			$sailthru->pushContent( $obj->get_title(), get_permalink( $post_ID ), date( DATE_RFC2822 ), null, $vars );
 			\CST_Slack::get_instance()->updated_content_to_sailthru( $obj );
 		}
 	}
