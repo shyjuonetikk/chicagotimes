@@ -34,10 +34,7 @@ class CST_Frontend {
 		'entertainment' => 'a5c0c8e47c50c3acd6a8d95d5d1a3939',
 		'opinion' => '82e7629cdb9eb1b0aa1d2d86a52c394e',
 	);
-	private $sailthru_ids = [
-		'prod' => 'cb2dcb87070aeb54eddb31b0362745ed',
-		'dev'  => '86a344aef98d1f7fb5fe33734af64fcc',
-	];
+
 	public static $pgs_section_slugs = array();
 	private $default_image_partial_url = '/assets/images/favicons/mstile-144x144.png';
 
@@ -190,7 +187,7 @@ class CST_Frontend {
 					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) ) {
 						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 						wp_enqueue_script( 'sailthru', 'https://ak.sail-horizon.com/spm/spm.v1.min.js', [], null );
-						$sailthru_customer_id = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? $this->sailthru_ids['dev'] : $this->sailthru_ids['prod'];
+						$sailthru_customer_id = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev']['id'] : CST()->sailthru_ids['prod']['id'];
 						wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: ' . wp_json_encode( $sailthru_customer_id ) . ' });' );
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );

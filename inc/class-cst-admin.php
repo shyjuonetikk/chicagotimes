@@ -1042,6 +1042,7 @@ class CST_Admin {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
+		$sailthru_environment = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev'] : CST()->sailthru_ids['prod'];
 		// Compare dates $post_after->modified_date > $post_before->modified_date
 		// Assume that if the after modified date is after the before then something changed
 		// Now package up the relevant content that Sailthru accepts and ping Sailthru
@@ -1053,9 +1054,9 @@ class CST_Admin {
 			'spider' => '1',
 			'title'  => $obj->get_title(),
 		];
-		$package         = SAILTHRU_SECRET.SAILTHRU_API_KEY.'json'.wp_json_encode( $request_json );
+		$package         = $sailthru_environment['key'] . $sailthru_environment['secret'] . 'json'.wp_json_encode( $request_json );
 		$signature       = md5( $package );
-		$request         = 'api_key=' . SAILTHRU_API_KEY . '&sig=' . $signature . '&format=json&json=' . wp_json_encode( $request_json );
+		$request         = 'api_key=' . $sailthru_environment['key'] . '&sig=' . $signature . '&format=json&json=' . wp_json_encode( $request_json );
 		$sailthru_method = 'content';
 		$payload_array   = [
 			'method'      => 'POST',
