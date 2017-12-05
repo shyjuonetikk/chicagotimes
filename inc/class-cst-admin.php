@@ -8,7 +8,6 @@ class CST_Admin {
 	private static $instance;
 
 	private $edit_print_feed_cap = 'edit_others_posts';
-	private $sailthru_endpoint = 'https://api.sailthru.com/';
 
 	public static function get_instance() {
 
