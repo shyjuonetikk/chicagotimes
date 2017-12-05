@@ -1047,7 +1047,7 @@ class CST_Admin {
 			if ( class_exists( 'Sailthru_Client' ) ) {
 				$sailthru = new \Sailthru_Client( $sailthru_environment['key'], $sailthru_environment['secret'] );
 				$vars     = [
-					'id'     => get_permalink( $post_ID ),
+					'id'     => set_url_scheme( get_permalink( $post_ID ), 'https' ),
 					'spider' => '1',
 					'title'  => $obj->get_title(),
 				];
