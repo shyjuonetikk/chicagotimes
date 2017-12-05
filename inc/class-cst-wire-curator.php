@@ -513,7 +513,7 @@ class CST_Wire_Curator {
 	 * @return String
 	 */
 	public function get_api_endpoint() {
-		return get_option( 'wire_curator_feed_url', string ) || 'http://cstapfeed.azurewebsites.net';
+		return get_option( 'wire_curator_feed_url', 'http://cstapfeed.azurewebsites.net' );
 	}
 
 	/**
