@@ -1041,17 +1041,19 @@ class CST_Admin {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
-		$obj                  = new \CST\Objects\Article( $post_ID );
-		$sailthru_environment = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev'] : CST()->sailthru_ids['prod'];
-		if ( class_exists( 'Sailthru_Client' ) ) {
-			$sailthru = new \Sailthru_Client( $sailthru_environment['key'], $sailthru_environment['secret'] );
-			$vars     = [
-				'id'     => get_permalink( $post_ID ),
-				'spider' => '1',
-				'title'  => $obj->get_title(),
-			];
-			$sailthru->pushContent( $obj->get_title(), get_permalink( $post_ID ), date( DATE_RFC2822 ), null, $vars );
-			\CST_Slack::get_instance()->updated_content_to_sailthru( $obj );
+		if ( 'publish' === $post_before->post_status ) {
+			$obj                  = new \CST\Objects\Article( $post_ID );
+			$sailthru_environment = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev'] : CST()->sailthru_ids['prod'];
+			if ( class_exists( 'Sailthru_Client' ) ) {
+				$sailthru = new \Sailthru_Client( $sailthru_environment['key'], $sailthru_environment['secret'] );
+				$vars     = [
+					'id'     => get_permalink( $post_ID ),
+					'spider' => '1',
+					'title'  => $obj->get_title(),
+				];
+				$sailthru->pushContent( $obj->get_title(), get_permalink( $post_ID ), date( DATE_RFC2822 ), null, $vars );
+				\CST_Slack::get_instance()->updated_content_to_sailthru( $obj );
+			}
 		}
 	}
 	/**

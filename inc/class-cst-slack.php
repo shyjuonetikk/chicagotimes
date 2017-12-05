@@ -90,15 +90,14 @@ class CST_Slack {
 	 * Send a notification to Slack that an item has been updated and
 	 * a spider request has been triggered with Sailthru.
 	 */
-	public function updated_content_to_sailthru( $post ) {
-		$obj              = new \CST\Objects\Article( $post->ID );
+	public function updated_content_to_sailthru( $obj ) {
 		$slack_parameters = [
 			'text'         => 'Content updated - Sailthru notified to re-spider',
 			'unfurl_links' => false,
 			'unfurl_media' => false,
 		];
 		if ( 'cst_article' === $obj->get_post_type() ) {
-			$payload = $this->new_content_payload_to_json( $post->ID, $post, $slack_parameters );
+			$payload = $this->new_content_payload_to_json( $obj->get_id(), $obj, $slack_parameters );
 			if ( false !== $payload ) {
 				$this->send_payload( [
 					'body' => $payload,
@@ -131,7 +130,7 @@ class CST_Slack {
 	 *
 	 * Craft Slack API body payload and return json_encoded
 	 */
-	public function new_content_payload_to_json( $post_id, $post, $slack_parameters = [] ) {
+	public function new_content_payload_to_json( $post_id, $obj, $slack_parameters = [] ) {
 
 		$defaults             = [
 			'text'         => 'Story published',
@@ -139,7 +138,6 @@ class CST_Slack {
 			'unfurl_media' => true,
 		];
 		$payload              = array_merge( $defaults, $slack_parameters );
-		$obj                  = new \CST\Objects\Article( $post_id );
 		$author               = $this->get_author( $obj );
 		$attachment_thumb_url = '';
 		if ( has_post_thumbnail( $post_id ) ) {
@@ -148,7 +146,7 @@ class CST_Slack {
 		}
 		$payload['attachments'] = array(
 			array(
-				'text'        => html_entity_decode( wp_trim_words( $post->post_content, 20 ) . "\n" ),
+				'text'        => html_entity_decode( wp_trim_words( $obj->get_content(), 20 ) . "\n" ),
 				'pretext'     => html_entity_decode( get_the_excerpt( $post_id ) ),
 				'fallback'    => wp_strip_all_tags( get_the_title( $post_id ) ),
 				'thumb_url'   => $attachment_thumb_url,
