@@ -1041,7 +1041,7 @@ class CST_Admin {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
-		if ( 'publish' === $post_before->post_status ) {
+		if ( 'publish' === $post_before->post_status && 'trash' !== $post_after->post_status ) {
 			$obj                  = new \CST\Objects\Article( $post_ID );
 			$sailthru_environment = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev'] : CST()->sailthru_ids['prod'];
 			if ( class_exists( 'Sailthru_Client' ) ) {

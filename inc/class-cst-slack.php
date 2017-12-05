@@ -41,7 +41,7 @@ class CST_Slack {
 	 */
 	public function new_content_payload( $new_status, $old_status, $post ) {
 
-		if ( 'publish' === $old_status ) {
+		if ( 'publish' === $old_status || 'auto-draft' === $new_status || 'draft' === $new_status ) {
 			return;
 		}
 
@@ -85,7 +85,7 @@ class CST_Slack {
 		}
 	}
 	/**
-	 * @param \WP_Post|\CST\Objects\Article $post
+	 * @param \CST\Objects\Article $obj
 	 *
 	 * Send a notification to Slack that an item has been updated and
 	 * a spider request has been triggered with Sailthru.
@@ -123,14 +123,14 @@ class CST_Slack {
 	}
 	/**
 	 * @param $post_id
-	 * @param $post
+	 * @param \WP_Post $post
 	 * @param array $slack_parameters
 	 *
 	 * @return mixed|string
 	 *
 	 * Craft Slack API body payload and return json_encoded
 	 */
-	public function new_content_payload_to_json( $post_id, $obj, $slack_parameters = [] ) {
+	public function new_content_payload_to_json( $post_id, $post, $slack_parameters = [] ) {
 
 		$defaults             = [
 			'text'         => 'Story published',
@@ -138,6 +138,7 @@ class CST_Slack {
 			'unfurl_media' => true,
 		];
 		$payload              = array_merge( $defaults, $slack_parameters );
+		$obj                  = \CST\Objects\Post::get_by_post_id( $post_id );
 		$author               = $this->get_author( $obj );
 		$attachment_thumb_url = '';
 		if ( has_post_thumbnail( $post_id ) ) {
@@ -164,7 +165,7 @@ class CST_Slack {
 	}
 
 	/**
-	 * @param $obj
+	 * @param \CST\Objects\Article $obj
 	 *
 	 * @return mixed
 	 * Get and return an author name
@@ -185,10 +186,10 @@ class CST_Slack {
 	 * Upon content state transition trigger a post to the Slack App API channel
 	 */
 	public function notify_app( $response, $payload_array, $obj ) {
-		$response_code        = wp_remote_retrieve_response_code( $response );
-		$notification_message = '"' . $obj->get_title() . '" added/updated with this response code ' . $response_code;
-		$payload['text']      = html_entity_decode( $obj->get_title() .' published/updated' );
-		$section_array        = $this->notification_message_formatting( $payload_array, $obj );
+		$response_code           = wp_remote_retrieve_response_code( $response );
+		$notification_message    = '"' . $obj->get_title() . '" added/updated with this response code ' . $response_code;
+		$payload['text']         = html_entity_decode( $obj->get_title() . ' published/updated' );
+		$section_array           = $this->notification_message_formatting( $payload_array, $obj );
 		$payload['attachments']  = array(
 			array(
 				'text'        => html_entity_decode( $notification_message ),
