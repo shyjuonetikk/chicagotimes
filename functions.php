@@ -18,6 +18,18 @@ class CST {
 		'prod' => '7B8C6522340440F1',
 		'dev' => '2C63F38287CF46AC',
 	];
+	public $sailthru_ids = [
+		'prod' => [
+			'id'     => 'cb2dcb87070aeb54eddb31b0362745ed',
+			'key'    => 'ed36526e9a864aae8e77425b0f3c52fe',
+			'secret' => '8b40b3f6c6884d7ac072308132a12542',
+		],
+		'dev'  => [
+			'id'     => '86a344aef98d1f7fb5fe33734af64fcc',
+			'key'    => 'b5fbf66b9cc0eabfdfb83473c531bd1a',
+			'secret' => '4df565a1419731c93583912c2fe42096',
+		],
+	];
 
 	public $dfp_kses = [
 		'script' => [ 'class' => [] , 'src' => [], 'type' => [] ],

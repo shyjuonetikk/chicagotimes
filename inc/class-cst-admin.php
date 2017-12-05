@@ -37,6 +37,7 @@ class CST_Admin {
 		add_action( 'save_post', array( $this, 'action_save_post_late' ), 100 );
 
 		add_action( 'transition_post_status', array( $this, 'action_save_post_notification' ), 100, 3 );
+		add_action( 'post_updated', array( $this, 'action_save_post_update_sailthru' ), 100, 3 );
 
 		add_action( 'add_meta_boxes', array( $this, 'action_add_meta_boxes' ), 20, 2 );
 
@@ -1029,6 +1030,32 @@ class CST_Admin {
 
 	}
 
+	/**
+	 * @param \WP_Post  $post_after
+	 * @param \WP_Post  $post_before
+	 * @param int       $post_ID
+	 *
+	 * Upon content and meta updates trigger an update for Sailthru via their Content API
+	 */
+	public function action_save_post_update_sailthru( $post_ID, $post_after, $post_before  ) {
+		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+			return;
+		}
+		if ( 'publish' === $post_before->post_status && 'trash' !== $post_after->post_status ) {
+			$obj                  = new \CST\Objects\Article( $post_ID );
+			$sailthru_environment = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev'] : CST()->sailthru_ids['prod'];
+			if ( class_exists( 'Sailthru_Client' ) ) {
+				$sailthru = new \Sailthru_Client( $sailthru_environment['key'], $sailthru_environment['secret'] );
+				$vars     = [
+					'id'     => get_permalink( $post_ID ),
+					'spider' => '1',
+					'title'  => $obj->get_title(),
+				];
+				$sailthru->pushContent( $obj->get_title(), get_permalink( $post_ID ), date( DATE_RFC2822 ), null, $vars );
+				\CST_Slack::get_instance()->updated_content_to_sailthru( $obj );
+			}
+		}
+	}
 	/**
 	 * @param $post_id
 	 * @param string $title_prefix

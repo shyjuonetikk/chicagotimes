@@ -190,7 +190,8 @@ class CST_Frontend {
 					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) ) {
 						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 						wp_enqueue_script( 'sailthru', 'https://ak.sail-horizon.com/spm/spm.v1.min.js', [], null );
-						wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: "cb2dcb87070aeb54eddb31b0362745ed" });' );
+						$sailthru_customer_id = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev']['id'] : CST()->sailthru_ids['prod']['id'];
+						wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: ' . wp_json_encode( $sailthru_customer_id ) . ' });' );
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
