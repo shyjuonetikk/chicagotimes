@@ -42,6 +42,12 @@ google.com, pub-6694481294649483, RESELLER
 google.com, pub-7439041255533808, RESELLER, f08c47fec0942fa0
 google.com, pub-9242135695870166, RESELLER, f08c47fec0942fa0
 google.com, pub-9505823743978337, RESELLER, f08c47fec0942fa0
+google.com, pub-3848273848634341, RESELLER, f08c47fec0942fa0
+google.com, pub-3851171199385532, DIRECT, f08c47fec0942fa0
+google.com, pub-5905948103615127, DIRECT, f08c47fec0942fa0
+google.com, pub-6694481294649483, RESELLER
+google.com, pub-7439041255533808, RESELLER, f08c47fec0942fa0
+google.com, pub-9242135695870166, RESELLER, f08c47fec0942fa0
 google.com, pub-9557089510405422, RESELLER, f08c47fec0942fa0
 gumgum.com, 11645, RESELLER, ffdef49475d318a9
 gumgum.com, 12703, DIRECT, ffdef49475d318a9
@@ -107,6 +113,12 @@ spotxchange.com, 147949, RESELLER, 7842df1d2fe2db34
 spotxchange.com, 71451, RESELLER, 7842df1d2fe2db34
 synacor.com, 81591, RESELLER
 t.brand-server.com, 2216958,RESELLER
+spotx.tv, 147949, RESELLER, 7842df1d2fe2db34
+spotx.tv, 71451, RESELLER, 7842df1d2fe2db34
+spotxchange.com, 119003,DIRECT,7842df1d2fe2db34
+spotxchange.com, 147949, RESELLER, 7842df1d2fe2db34
+spotxchange.com, 71451, RESELLER, 7842df1d2fe2db34
+synacor.com, 81591, RESELLER
 taboola.com, 1062984, RESELLER, c228e6794e811952
 taboola.com, 1011095,DIRECT,c228e6794e811952
 taboola.com, 1011095,RESELLER,c228e6794e811952

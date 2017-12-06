@@ -1,6 +1,7 @@
 <?php
 
 namespace CST\Objects;
+defined('API_ENDPOINT') || define('API_ENDPOINT', get_option( 'wire_curator_feed_url' ));
 
 /**
  * Base class to represent an AP wire item
@@ -14,81 +15,75 @@ class AP_Wire_Item extends Post {
 	 *
 	 * @return AP_Wire_Item|int|\WP_Error|\WP_Post
 	 */
-	public static function create_from_simplexml( $feed_entry ) {
+	public static function create_from_simpleobject( $feed_entry, $articleId = '' ) {
 		global $edit_flow;
+		$response = vip_safe_wp_remote_get( API_ENDPOINT . '/api/news/' . $feed_entry->id, null, 3, 3, 20, [] );
+		if ( ! is_wp_error( $response ) || 200 === wp_remote_retrieve_response_code( $response ) ) {
+			$feed_data  = json_decode( wp_remote_retrieve_body( $response ) );
+			$feed_entry = (object) array_merge( (array) $feed_entry, (array) $feed_data );
 
-		$gmt_published = date( 'Y-m-d H:i:s', strtotime( $feed_entry->published ) );
-		$gmt_modified = date( 'Y-m-d H:i:s', strtotime( $feed_entry->updated ) );
+			$pub_date      = date( 'c' );
+			$gmt_published = date( 'Y-m-d H:i:s', strtotime( isset( $feed_entry->published ) ? $feed_entry->published : $pub_date ) );
+			$gmt_modified  = date( 'Y-m-d H:i:s', strtotime( isset( $feed_entry->updated ) ? $feed_entry->updated : $pub_date ) );
 
-		// Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
-		if ( is_object( $edit_flow ) ) {
-			$_POST['post_type'] = 'cst_wire_item';
-		}
+			// Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
+			if ( is_object( $edit_flow ) ) {
+				$_POST['post_type'] = 'cst_wire_item';
+			}
+			$is_exist = 0;
+			if ( isset( $articleId ) && ! empty( $articleId ) ) {
+				$args          = array(
+					'meta_query'       => array(
+						array(
+							'key'   => 'article_id',
+							'value' => $articleId,
+						),
+					),
+					'post_type'        => 'cst_wire_item',
+					'posts_per_page'   => - 1,
+					'suppress_filters' => false,
+				);
+				$article_exist = get_posts( $args );
+				if ( is_array( $article_exist ) && ! empty( $article_exist ) ) {
+					$is_exist = $article_exist[0]->ID;
+				}
+			}
 
-		$post_args = array(
-			'post_title'        => sanitize_text_field( $feed_entry->title ),
-			'post_content'      => wp_filter_post_kses( $feed_entry->content ),
-			'post_type'         => 'cst_wire_item',
-			'post_author'       => 0,
-			'post_status'       => 'publish',
-			'post_name'         => md5( 'ap_wire_item' . $feed_entry->id ),
-			'post_date'         => get_date_from_gmt( $gmt_published ),
-			'post_date_gmt'     => $gmt_published,
-			'post_modified'     => get_date_from_gmt( $gmt_modified ),
-			'post_modified_gmt' => $gmt_modified,
+			$post_args = array(
+				'post_title'        => sanitize_text_field( $feed_entry->title ),
+				'post_content'      => wp_filter_post_kses( $feed_entry->summary ),
+				'post_type'         => 'cst_wire_item',
+				'post_author'       => 0,
+				'post_status'       => 'publish',
+				'post_name'         => md5( 'ap_wire_item' . $feed_entry->id ),
+				'post_date'         => get_date_from_gmt( $gmt_published ),
+				'post_date_gmt'     => $gmt_published,
+				'post_modified'     => get_date_from_gmt( $gmt_modified ),
+				'post_modified_gmt' => $gmt_modified,
 			);
 
-		$post_id = wp_insert_post( $post_args, true );
-		if ( is_wp_error( $post_id ) ) {
-			return $post_id;
-		}
-
-		$post = new AP_Wire_Item( $post_id );
-
-		// Process attributes
-		foreach ( $feed_entry->link as $link ) {
-
-			if ( 'AP Article' !== (string) $link['title'] ) {
-				continue;
+			if ( $is_exist ) {
+				$post_args['ID'] = $is_exist;
+				$post_id         = wp_update_post( $post_args, true );
+			} else {
+				$post_id = wp_insert_post( $post_args, true );
+			}
+			if ( is_wp_error( $post_id ) ) {
+				return $post_id;
 			}
 
-			switch ( (string) $link['rel'] ) {
-				case 'alternate':
-					$post->set_external_url( esc_url_raw( (string) $link['href'] ) );
-					break;
-
-				case 'enclosure':
-
-					$response = vip_safe_wp_remote_get( (string) $link['href'], '', 3, 3, 20 );
-					if ( is_wp_error( $response ) ) {
-						break;
-					}
-					if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-						break;
-					}
-
-					$nitf_data = wp_remote_retrieve_body( $response );
-					$headline = $post->get_nitf_field( $nitf_data, 'body/body.head/hedline/hl1' );
-					if ( ! empty( $headline ) ) {
-						$post->set_wire_headline( sanitize_text_field( (string) $headline[0] ) );
-					}
-
-					$dateline = $post->get_nitf_field( $nitf_data, 'body/body.head/dateline' );
-					if ( ! empty( $dateline[0] ) ) {
-						$post->set_wire_dateline( sanitize_text_field( (string) $dateline[0]->location ) );
-					}
-
-					$content = $post->get_nitf_field( $nitf_data, 'body/body.content/block' );
-					if ( ! empty( $content ) ) {
-						$post->set_wire_content( wp_filter_post_kses( $content[0]->asXML() ) );
-					}
-
-					break;
+			$post = new AP_Wire_Item( $post_id );
+			$post->set_meta( 'article_id', $articleId );
+			$post->saveMedia( $feed_entry->media );
+			if ( ! empty( $feed_entry->title ) ) {
+				$post->set_wire_headline( sanitize_text_field( (string) $feed_entry->title ) );
+			}
+			if ( ! empty( $feed_entry->blocks ) ) {
+				$post->set_wire_content( wp_filter_post_kses( implode( '', $feed_entry->blocks ) ) );
 			}
 
+			return $post;
 		}
-
-		return $post;
 	}
 
 	/**
@@ -161,24 +156,6 @@ class AP_Wire_Item extends Post {
 	 */
 	public function set_wire_content( $wire_content ) {
 		$this->set_meta( 'wire_content', $wire_content );
-	}
-
-	/**
-	 * Get a given field from the NITF data
-	 *
-	 * @param $nitf_data
-	 * @param $xpath
-	 *
-	 * @return \SimpleXMLElement[]|string
-	 */
-	public function get_nitf_field( $nitf_data, $xpath ) {
-
-		if ( empty( $nitf_data ) ) {
-			return '';
-		}
-
-		$obj = simplexml_load_string( $nitf_data );
-		return $obj->xpath( $xpath );
 	}
 
 	/**
@@ -298,6 +275,69 @@ class AP_Wire_Item extends Post {
 	 */
 	public function get_font_icon() {
 		return '';
+	}
+
+	public function saveMedia( $media ) {
+		$photolist = [];
+		$videolist = [];
+		$mediaObj  = [
+			(object) [ 'name' => 'Main', 'code' => 'photo' ],
+			(object) [ 'name' => 'Preview', 'code' => 'pr' ],
+			(object) [ 'name' => 'Thumbnail', 'code' => 'tb' ],
+		];
+		foreach ( $media as $item ) {
+			$fileName = $item->fileName;
+			foreach ( $mediaObj as $role ) {
+				$url = "https://s3.amazonaws.com/cst-apfeed/{$role->code}_{$fileName}";
+				if ( ! in_array( $fileName, $photolist, true ) && $item->type === 'Photo' ) {
+					$photolist[] = $fileName;
+				}
+
+				if ( ! in_array( $fileName, $videolist, true ) && $item->type === 'Video' ) {
+					$videolist[] = $fileName;
+				}
+				$this->set_meta( $role->name . '_' . $fileName, $url );
+			}
+		}
+
+		$this->set_meta( 'photo', implode( ',', $photolist ) );
+		$this->set_meta( 'videos', implode( ',', $videolist ) );
+	}
+
+	/**
+	 * Get the media from ntif
+	 *
+	 * @return Object
+	 */
+	 public function get_wire_media( $type ) {
+ 		if(!isset($type) || $type=='')
+ 			return [];
+ 		if(!$this->get_meta($type))
+ 			return [];
+
+ 		$media = [];
+ 		$mediaList = explode( ',', $this->get_meta($type) );
+ 		foreach($mediaList as $key) {
+ 			$mediaItem = new \stdClass;
+ 			foreach( ['Main','Preview','Thumbnail'] as $item ) {
+ 				if($this->get_meta( $item . '_' . $key )) {
+ 					$mediaItem->{strtolower($item)} = (object) [
+ 						"name" => $item . '_' . $key,
+ 						"file" => $this->get_meta( $item . '_' . $key )
+ 					];
+ 				}
+ 			}
+ 			$media[] = $mediaItem;
+ 		}
+ 		return $media;
+ 	}
+
+	public function get_media_by_key( $key ) {
+		return $this->get_meta( $key );
+	}
+
+	public function get_article_id() {
+		return $this->get_meta('article_id');
 	}
 
 }

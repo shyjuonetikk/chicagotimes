@@ -116,10 +116,10 @@ class CST_Wire_Curator {
 		$fm = new Fieldmanager_Link( array(
 			'name'           => 'wire_curator_feed_url',
 			'label'          => false,
-			'limit'          => 0,
+			'limit'          => 1,
 			'add_more_label' => esc_attr__( 'Import Another Feed', 'chicagosuntimes' ),
 			'attributes'     => array(
-			'placeholder' => esc_attr__( 'Enter WebFeed URL for AP Content Explorer saved search', 'chicagosuntimes' ),
+			'placeholder' => esc_attr__( 'Enter API URL for AP Content Explorer saved search', 'chicagosuntimes' ),
 			'size'        => 100,
 			),
 		) );
@@ -136,7 +136,7 @@ class CST_Wire_Curator {
 		$screen = get_current_screen();
 		if ( ! empty( $screen->post_type ) && 'cst_wire_item' === $screen->post_type ) {
 
-			$feeds = $this->get_feeds();
+			$feeds = $this->get_api_endpoint();
 			if ( empty( $feeds ) ) {
 				add_action( 'admin_notices', array( $this, 'action_admin_notices_feed_warning' ) );
 			}
@@ -175,7 +175,7 @@ class CST_Wire_Curator {
 			return $out;
 		}
 
-		$out .= '<p>' . sprintf( __( 'Wire Curator accepts WebFeeds from WebFeeds manager Products or Save Searches. You can <a target="_blank" href="%s">log in</a> with these credentials: %s / %s', 'chicagosuntimes' ), 'https://wfm.ap.org/Admin/', CST_AP_SYNDICATION_USERNAME, CST_AP_SYNDICATION_PASSWORD ) . '</p>';
+		$out .= '<p>' . __( 'Wire Curator accepts from API Endpoint (Eg. :- https://cstapfeed.somedomain.com)', 'chicagosuntimes' ) . '</p>';
 
 		return $out;
 	}
@@ -185,7 +185,7 @@ class CST_Wire_Curator {
 	 */
 	public function action_restrict_manage_posts_refresh_button() {
 
-		$feeds = $this->get_feeds();
+		$feeds = $this->get_api_endpoint();
 		if ( empty( $feeds ) ) {
 			return;
 		}
@@ -257,8 +257,159 @@ class CST_Wire_Curator {
 			case 'cst_wire_item_content':
 				echo $item->get_content();
 				echo '<div class="cst-preview-data">';
+				echo '<div class="button-group">';
+				?>
+					<a class="btn btn-inverse apwire-tab" data-target="text">Text</a>
+					<a class="btn btn-default apwire-tab" data-target="images">Images</a>
+					<a class="btn btn-default apwire-tab" data-target="videos">Videos</a>
+				<?php
+					$create_args = array(
+						'action'        => 'cst_create_from_wire_item',
+						'nonce'         => wp_create_nonce( 'cst_create_from_wire_item' ),
+						'wire_item_id'  => $item->get_id(),
+						);
+					$create_url = add_query_arg( $create_args, admin_url( 'admin-ajax.php' ) );
+					if ( $item->get_wire_content() ) {
+
+						if ( $article = $item->get_article_post() ) {
+							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Save draft article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
+						} else {
+							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create draft Article', 'chicagosuntimes' ) . '</a>';
+						}
+
+					}
+
+					if ( $item->get_external_url() ) {
+
+						if ( $link = $item->get_link_post() ) {
+							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
+						} else {
+							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft Link', 'chicagosuntimes' ) . '</a>';
+						}
+
+					}
+				echo '</div>';
 				echo '<div class="preview-headline">' . esc_html( $item->get_wire_headline() ) . '</div>';
-				echo '<div class="preview-content">' . wp_kses_post( $item->get_wire_content() ) . '</div>';
+				echo '<div class="preview-content">';
+				?>
+				<div class="tab-pane text active">
+					<?php
+						$fCon = wp_kses_post( $item->get_wire_content());
+						if($fCon) {
+							echo $fCon;
+						} else {
+							echo 'No content available!';
+						}
+					?>
+				</div>
+				<div class="tab-pane images">
+					<?php
+						if(!empty($item->get_wire_media('photo'))) {
+							$media = $item->get_wire_media('photo');
+							?>
+							<ul class="photo_list">
+								<?php foreach($media as $photo): ?>
+									<? $preview_img = isset($photo->preview) ? $photo->preview->file : $photo->main->file; ?>
+									<li>
+										<div class="thumbnail">
+											<?php $thumbnail = isset($photo->preview) ? $photo->preview->file : $photo->thumbnail->file?>
+											<img src="<?=$thumbnail?>"/>
+										</div>
+										<div class="on-hover">
+											<input type="hidden" class="post_id" name="post_id" value="<?=$item->get_id()?>"/>
+											<label class="set-default">
+												Featured
+												<input type="radio" class="set_default" name="set_default" value="<?=$photo->main->name?>"/>
+											</label>
+											<label class="add-to-media">
+												Add media
+												<input type="checkbox" class="add_to_media" name="add_to_media" value="<?=$photo->main->name?>"/>
+											</label>
+											<a class="preview-btn">Preivew</a>
+										</div>
+										<div class="preview-box" data-target="<?=$preview_img?>">
+											<a class="close"></a>
+										</div>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+							<?php
+						} else {
+							?>
+								<p>No images available.</p>
+							<?php
+						}
+					?>
+				</div>
+				<div class="tab-pane videos"><p>No videos available.</p></div>
+				<script type="text/javascript">
+					jQuery(function($){
+						/**
+						* Tab method
+						*/
+						$('a.apwire-tab').on('click', function(e) {
+							e.preventDefault();
+							var tab = $(e.currentTarget).data('target');
+							$('.tab-pane').removeClass('active');
+							$('.apwire-tab').removeClass('btn-inverse');
+							$('.apwire-tab').addClass('btn-default');
+							$('.'+tab).addClass('active');
+							$(e.currentTarget).removeClass('btn-inverse');
+							$(e.currentTarget).addClass('btn-inverse');
+						});
+						/**
+						 * Image preview
+						 */
+						$('a.preview-btn').on('click', function(e) {
+							e.preventDefault();
+							var preview = $(e.target).closest('li').find('.preview-box');
+							var target = $(preview).data('target');
+							preview.append('<img src="' + target + '"/>');
+							preview.css('display', 'block');
+						});
+
+						$('a.close').on('click', function(e) {
+							e.preventDefault();
+							var preview = $(e.target).closest('.preview-box');
+							preview.find('img').remove();
+							preview.css('display', 'none');
+						});
+
+						$('input.set_default').on('click', function(e) {
+							var value = $(e.currentTarget).val();
+							var post_id = $(e.currentTarget).closest('li').find('.post_id').val();
+							var url = $('.save-draft-'+post_id);
+							var href = new URL(url.attr('href'));
+							var search = new URLSearchParams(href.search);
+							search.set('default', value);
+							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
+							url.attr('href', newURL);
+						});
+
+						$('input.add_to_media').on('click', function(e) {
+							var value = [];
+							$.each($("input[name='add_to_media']:checked"), function(){
+	                value.push($(this).val());
+	            });
+							var post_id = $(e.currentTarget).closest('li').find('.post_id').val();
+							var url = $('.save-draft-'+post_id);
+							var href = new URL(url.attr('href'));
+							var search = new URLSearchParams(href.search);
+							search.set('media', value.join(','));
+							var newURL = url.attr('href').split('?')[0] + '?' + search.toString();
+							url.attr('href', newURL);
+						});
+
+						$('.cst-wire-curator-preview-item-cancel').on('click', function(){
+							$('.tab-pane').removeClass('active');
+							$('.apwire-tab').removeClass('btn-inverse');
+							$('.button-group').find('.a:first').addClass('btn-inverse');
+							$('.text').addClass('active');
+						});
+					});
+				</script>
+				<?php
+				echo '</div>';
 				echo '</div>';
 				break;
 
@@ -356,14 +507,13 @@ class CST_Wire_Curator {
 
 		return $schedules;
 	}
-
 	/**
 	 * Get the feeds we're pulling data from
 	 *
-	 * @return array
+	 * @return String
 	 */
-	public function get_feeds() {
-		return get_option( 'wire_curator_feed_url', array() );
+	public function get_api_endpoint() {
+		return get_option( 'wire_curator_feed_url', 'http://cstapfeed.azurewebsites.net' );
 	}
 
 	/**
@@ -460,12 +610,29 @@ class CST_Wire_Curator {
 			}
 
 			$item = new \CST\Objects\AP_Wire_Item( $post );
+			$mainImg = false;
+			if ( isset( $_GET['default'] ) ) {
+				$mainImg = $item->get_media_by_key( $_GET['default'] );
+			}
+			$has_media = false;
+			if ( isset( $_GET['media'] ) && ! empty( $_GET['media'] ) && is_string( $_GET['media'] ) ) {
+				$has_media = true;
+			}
 
 			switch ( $_GET['create'] ) {
 
 				case 'link':
 
 					$link = $item->create_link_post();
+					if($mainImg && $link->get_id()) {
+						$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
+						set_post_thumbnail( $link->get_id(), $thumbnail_id );
+					}
+					$media = explode(',',$_GET['media']);
+					foreach ($media as $img) {
+						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
+					}
+
 					if ( $link ) {
 						wp_safe_redirect( $link->get_edit_link() );
 						exit;
@@ -478,6 +645,14 @@ class CST_Wire_Curator {
 				case 'article':
 
 					$article = $item->create_article_post();
+					$thumbnail_id = media_sideload_image( $mainImg, $article->get_id(), 'Main image', 'id');
+					set_post_thumbnail( $article->get_id(), $thumbnail_id );
+					if ( $has_media ) {
+						$media = explode(',',$_GET['media']);
+						foreach ($media as $img) {
+							media_sideload_image( $item->get_media_by_key($img), $article->get_id(), $img, 'id');
+						}
+					}
 					if ( $article ) {
 						wp_safe_redirect( $article->get_edit_link() );
 						exit;
@@ -512,67 +687,41 @@ class CST_Wire_Curator {
 	 * @param bool $manually_triggered_from_ajax
 	 */
 	public function refresh_wire_items( $manually_triggered_from_ajax = false ) {
+		$response = vip_safe_wp_remote_get( $this->get_api_endpoint() . '/api/news/list', '', 3, 3, 20, [] );
 
-		foreach ( $this->get_feeds() as $feed ) {
+		$response_code = wp_remote_retrieve_response_code( $response );
 
-			// Failsafe
-			if ( empty( $feed ) ) {
-				continue;
-			}
-
-			$args = array();
-
-			// Associated Press requires HTTP Basic Auth
-			if ( 'syndication.ap.org' === parse_url( $feed, PHP_URL_HOST ) ) {
-				$args['headers'] = array(
-						'Authorization' => 'Basic ' . base64_encode( CST_AP_SYNDICATION_USERNAME . ':' . CST_AP_SYNDICATION_PASSWORD ),
-					);
-			}
-
-			$response = vip_safe_wp_remote_get( $feed, '', 3, 3, 20, $args );
-
-			if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
-				continue;
-			}
-
-			$feed_data = wp_remote_retrieve_body( $response );
-			if ( $feed_data ) {
-				$xml = simplexml_load_string( $feed_data );
-				if ( $xml ) {
-					foreach ( $xml->entry as $entry ) {
-
-						// Only handle articles right now
-						$is_article = false;
-						foreach ( $entry->link as $link ) {
-							if ( 'enclosure' === (string) $link['rel'] && 'AP Article' === (string) $link['title'] ) {
-								$is_article = true;
-								break;
-							}
-						}
-
-						if ( ! $is_article ) {
-							continue;
-						}
-
-						// See if this was already imported, otherwise create
-						if ( \CST\Objects\AP_Wire_Item::get_by_original_id( sanitize_text_field( $entry->id ) ) ) {
-							continue;
-						}
-
-						$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
-						$blog_id = get_current_blog_id();
-						if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
-							\CST\Objects\AP_Wire_Item::create_from_simplexml( $entry );
-						}
-
-					}
-				}
-			}
-
-			$this->set_last_refresh( time() );
-
+		if ( 200 != $response_code ) {
+			return false;
 		}
 
+		$feed_data = json_decode(wp_remote_retrieve_body( $response ));
+
+		if ( $feed_data ) {
+			foreach ( $feed_data as $entry ) {
+				// Item value
+				// stdClass Object
+				// (
+				//     [_id] => 59d3d40bb8cc8b0012ff089e
+				//     [id] => urn:publicid:ap.org:248f88f890684f859573b662d0c459a3
+				//     [title] => EU-REL--Vatican-Child Porn
+				//     [summary] => Vatican urges online protections for kids amid porn scandal
+				// )
+				// Only handle articles right now
+				$articleId = $entry->_id;
+				// See if this was already imported, otherwise create
+				if ( \CST\Objects\AP_Wire_Item::get_by_original_id( sanitize_text_field( $entry->_id ) ) ) {
+					continue;
+				}
+
+				$user_id = $this->determine_user_id( $manually_triggered_from_ajax );
+				$blog_id = get_current_blog_id();
+				if ( is_user_member_of_blog( $user_id, $blog_id ) ) {
+					\CST\Objects\AP_Wire_Item::create_from_simpleobject( $entry, $articleId );
+				}
+			}
+		}
+		$this->set_last_refresh( time() );
 	}
 
 	/**
@@ -591,6 +740,7 @@ class CST_Wire_Curator {
 		} else {
 			if ( WP_DEBUG ) {
 				$user_id = get_user_by( 'login', $this->local_development_user );
+				$user_id = $user_id->ID;
 			} else {
 				// Production specific user id
 				$user_id = $this->creator;

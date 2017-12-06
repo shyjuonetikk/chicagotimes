@@ -18,12 +18,33 @@ class CST {
 		'prod' => '7B8C6522340440F1',
 		'dev' => '2C63F38287CF46AC',
 	];
+	public $sailthru_ids = [
+		'prod' => [
+			'id'     => 'cb2dcb87070aeb54eddb31b0362745ed',
+			'key'    => 'ed36526e9a864aae8e77425b0f3c52fe',
+			'secret' => '8b40b3f6c6884d7ac072308132a12542',
+		],
+		'dev'  => [
+			'id'     => '86a344aef98d1f7fb5fe33734af64fcc',
+			'key'    => 'b5fbf66b9cc0eabfdfb83473c531bd1a',
+			'secret' => '4df565a1419731c93583912c2fe42096',
+		],
+	];
 
 	public $dfp_kses = [
 		'script' => [ 'class' => [] , 'src' => [], 'type' => [] ],
 		'div' => [ 'id' => [], 'class' => [], 'data-visual-index' => [], 'data-target' => [], 'onclick' => [] ],
 		'span' => [ 'class' => [] ],
 		'i' => [ 'class' => [] ],
+	];
+	public $flipp_kses = [
+		'script' => [
+			'src' => [],
+		],
+		'div' => [
+			'id' => [],
+			'style' => [],
+		],
 	];
 	public $slider_kses = [
 		'h3' => [],
@@ -409,6 +430,7 @@ class CST {
 	public function temporary_rewrite_rules() {
 		add_rewrite_rule( '^(analytics.txt)$', 'index.php?pagename=rewrite-me&where=analytics.txt', 'top' );
 		add_rewrite_rule( '^(googleddb5b02478e7d794.html)$', 'index.php?pagename=rewrite-me&where=googleddb5b02478e7d794.html', 'top' );
+		add_rewrite_rule( '^(ads.txt)$', 'index.php?pagename=rewrite-me&where=ads.txt', 'top' );
 		add_rewrite_tag('%where%', '([^&]+)');
 	}
 	/**
@@ -2175,6 +2197,14 @@ class CST {
 				'logic' => 'ads/limit_ads_on_features',
 			)
 		);
+		$this->ad_vendor_handler->register_vendor( 'apstag', array(
+			'header' => 'apstag-header.js',
+			'footer' => false,
+			'container' => false,
+			'logic' => array( 'is_singular' ),
+			)
+		);
+
 	}
 
 	/**
@@ -2217,6 +2247,33 @@ class CST {
 		}
 		return $classes;
 	}
+
+	/**
+	 * @param $locationname
+	 *
+	 * @return mixed
+	 *
+	 * Fetch a weather image from the Accuweather API
+	 */
+	function getWeatherImage( $locationname ){
+		$url = "http://apidev.accuweather.com/locations/v1/search?q=".$locationname."&apikey=". CST_ACCUWEATHER_API_KEY;
+		$json_data = wpcom_vip_file_get_contents($url);
+		$json = json_decode($json_data);
+		$location_key = $json[0]->Key;
+		$radar_api_url = "http://api.accuweather.com/imagery/v1/maps/radsat/1024x1024/".$location_key."?apikey=".CST_ACCUWEATHER_API_KEY;
+		$response = wpcom_vip_file_get_contents($radar_api_url);
+		$decode_response = json_decode($response);
+		$radar = $decode_response->Radar;
+		$satellite = $decode_response->Satellite;
+		$radarimage = $radar->Images;
+		$satImage = $satellite->Images;
+		// // foreach ($radarimage as $value) {
+		// // 	echo $value->Url."<br>";
+		// // }
+		$radarImageSrc = $radarimage[0]->Url;
+		$SatImageSrc = $satImage[0]->Url;
+		return $SatImageSrc;
+	}
 }
 
 /**
@@ -2258,3 +2315,11 @@ function filter_include_nativo_on_certain_pages() {
 function filter_load_morpheus() {
 	return ! is_404();
 }
+
+
+// Register script for Amazon/A9
+function register_amazona9() {
+	wp_register_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload', false, false, false );
+	wp_enqueue_script( 'amazona9_handler', 'https://www.googletagservices.com/tag/js/gpt.js#asyncload' , false, false, false );
+}
+add_action( 'wp_enqueue_scripts', 'register_amazona9' );

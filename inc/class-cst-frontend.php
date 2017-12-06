@@ -93,6 +93,9 @@ class CST_Frontend {
 		add_filter( 'walker_nav_menu_start_el', array( $this, 'filter_walker_nav_menu_start_el' ) );
 
 		add_filter( 'the_content', [ $this, 'inject_sponsored_content' ] );
+		add_filter( 'the_content', [ $this, 'inject_a9' ] );
+		add_filter( 'the_content', [ $this, 'inject_a92' ] );
+		add_filter( 'the_content', [ $this, 'inject_a9_leaderboard' ] );
 		add_filter( 'the_content', [ $this, 'inject_tcx_mobile' ] );
 		add_filter( 'the_content', [ $this, 'inject_yieldmo_mobile' ] );
 		add_filter( 'wp_nav_menu_objects', [ $this, 'submenu_limit' ], 10, 2 );
@@ -187,7 +190,8 @@ class CST_Frontend {
 					if ( is_singular( [ 'cst_article', 'cst_feature', 'cst_gallery', 'cst_video' ] ) ) {
 						wp_enqueue_script( 'add-this', '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5419af2b250842c9', array(), null, true );
 						wp_enqueue_script( 'sailthru', 'https://ak.sail-horizon.com/spm/spm.v1.min.js', [], null );
-						wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: "cb2dcb87070aeb54eddb31b0362745ed" });' );
+						$sailthru_customer_id = 'chicago.suntimes.com.test' === CST()->dfp_handler->get_parent_dfp_inventory() ? CST()->sailthru_ids['dev']['id'] : CST()->sailthru_ids['prod']['id'];
+						wp_add_inline_script( 'sailthru', 'Sailthru.init({ customerId: ' . wp_json_encode( $sailthru_customer_id ) . ' });' );
 					}
 					wp_enqueue_script( 'twitter-platform', '//platform.twitter.com/widgets.js', array(), null, true );
 
@@ -233,8 +237,9 @@ class CST_Frontend {
 			wp_localize_script( 'chicagosuntimes', 'CSTIE', array( 'cst_theme_url' => get_template_directory_uri() ) );
 
 		}
-		if ( is_page() ) {
-			wp_enqueue_script( 'page-iframe-reponsify', get_template_directory_uri() . '/assets/js/theme-page.js', array(), null, true );
+		if ( is_page_template( 'page-weather.php' ) ) {
+			wp_enqueue_script( 'taboola_header_script', get_template_directory_uri() . '/assets/js/taboola-header-weather.js', false );
+			wp_enqueue_script( 'taboola_footer_script', get_template_directory_uri() . '/assets/js/taboola-footer-weather.js', true );
 		}
 		wp_localize_script( 'chicagosuntimes', 'CSTData', array(
 			'home_url'         => esc_url_raw( home_url( '/' ) ),
@@ -1751,7 +1756,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 			$authors = array( $byline );
 		} else {
 			foreach ( $obj->get_authors() as $author ) {
-				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '" 
+				$authors[]= '<a href="' . esc_url( $author->get_permalink() ) . '"
 				data-on="click" data-event-category="hp-author-byline" data-event-action="view author">' .
 				$author->get_display_name() . '</a>';
 			}
@@ -2281,6 +2286,50 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	}
 	/**
 	*
+	* Inject A9 test slots. Only for testing. Assume at this point the slots will be pointed to dfp
+	*
+	*/
+	public function inject_a9( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			#$a9tag = '<div id="google_ads_iframe_/61924087/slot1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/61924087/slot1_0" title="3rd party ad content" name="google_ads_iframe_/61924087/slot1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>';
+			$a9tag = "<div id='div-gpt-ad-cube1-a9'><script>googletag.cmd.push(function() { googletag.display('div-gpt-ad-cube1-a9'); });</script></div>";
+			$exploded = explode( '</p>', $content );
+			$num_exploded = count( $exploded );
+			if ( $num_exploded > 3) {
+				array_splice( $exploded, 4, 0, $a9tag );
+				$content = join( '</p>', $exploded );
+			}
+		}
+		return $content;
+	}
+	public function inject_a92( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			#$a9tag = '<div id="google_ads_iframe_/61924087/slot1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/61924087/slot1_0" title="3rd party ad content" name="google_ads_iframe_/61924087/slot1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>';
+			$a9tag2 = "<div id='div-gpt-ad-cube2-a9'><script>googletag.cmd.push(function() { googletag.display('div-gpt-ad-cube2-a9'); });</script></div>";
+			$exploded = explode( '</p>', $content );
+			$num_exploded = count( $exploded );
+			if ( $num_exploded > 5) {
+				array_splice( $exploded, 6, 0, $a9tag2 );
+				$content = join( '</p>', $exploded );
+			}
+		}
+		return $content;
+	}
+	public function inject_a9_leaderboard( $content ) {
+		if ( is_singular( 'cst_article' ) ) {
+			#$a9tag = '<div id="google_ads_iframe_/61924087/slot1_0__container__" style="border: 0pt none;"><iframe id="google_ads_iframe_/61924087/slot1_0" title="3rd party ad content" name="google_ads_iframe_/61924087/slot1_0" width="300" height="250" scrolling="no" marginwidth="0" marginheight="0" frameborder="0" srcdoc="" style="border: 0px; vertical-align: bottom;"></iframe></div></div>';
+			$a9tag3 = "<div id='div-gpt-ad-leaderboard-1'><script>googletag.cmd.push(function() { googletag.display('div-gpt-ad-leaderboard-1'); });</script></div>";
+			$exploded = explode( '</p>', $content );
+			$num_exploded = count( $exploded );
+			if ( $num_exploded > 7) {
+				array_splice( $exploded, 8, 0, $a9tag3 );
+				$content = join( '</p>', $exploded );
+			}
+		}
+		return $content;
+	}
+	/**
+	*
 	* Inject supplied Teads tag just before the closing body tag of single article pages
 	*
 	*/
@@ -2320,20 +2369,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 	}
 
 	/**
- 	* @param $paged
- 	 *
- 	 * @return string
- 	 *
- 	 * Inject Flipp circular ad
- 	 */
+	* @param $paged
+	 *
+	 * @return string
+	 *
+	 * Inject Flipp circular ad
+	 */
 	public function inject_flipp( $paged ) {
-		$div_id_suffix = 10635 + $paged;
-		$flipp_ad_markup = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
-		$flipp_ad_src_escaped = esc_url( '//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) );
-		$flipp_ad_safe = $flipp_ad_markup . '<script src="' . $flipp_ad_src_escaped . '"></script>';
-		echo $flipp_ad_safe;
- 	}
-
+		if ( $paged < 5 ) {
+			$div_id_suffix = 10635 + $paged;
+			$flipp_ad_markup = '<div id="circularhub_module_' . esc_attr( $div_id_suffix ) . '" style="background-color: #ffffff; margin-bottom: 10px; padding: 5px 5px 0px 5px;"></div>';
+			$flipp_ad_src_escaped = esc_url( '//api.circularhub.com/' . rawurlencode( $div_id_suffix ) . '/2e2e1d92cebdcba9/circularhub_module.js?p=' . rawurlencode( $div_id_suffix ) );
+			$flipp_ad_safe = $flipp_ad_markup . '<script src="' . $flipp_ad_src_escaped . '"></script>';
+			echo $flipp_ad_safe;
+		}
+	}
 	/**
 	 * Determine if content destined for the display is partnership or we have
 	 * an arrangement or not
