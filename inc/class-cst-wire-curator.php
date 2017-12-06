@@ -740,6 +740,7 @@ class CST_Wire_Curator {
 		} else {
 			if ( WP_DEBUG ) {
 				$user_id = get_user_by( 'login', $this->local_development_user );
+				$user_id = $user_id->ID;
 			} else {
 				// Production specific user id
 				$user_id = $this->creator;
