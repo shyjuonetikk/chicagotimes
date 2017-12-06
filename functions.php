@@ -429,6 +429,7 @@ class CST {
 	 */
 	public function temporary_rewrite_rules() {
 		add_rewrite_rule( '^(analytics.txt)$', 'index.php?pagename=rewrite-me&where=analytics.txt', 'top' );
+		add_rewrite_rule( '^(ads.txt)$', 'index.php?pagename=rewrite-me&where=ads.txt', 'top' );
 		add_rewrite_rule( '^(googleddb5b02478e7d794.html)$', 'index.php?pagename=rewrite-me&where=googleddb5b02478e7d794.html', 'top' );
 		add_rewrite_rule( '^(ads.txt)$', 'index.php?pagename=rewrite-me&where=ads.txt', 'top' );
 		add_rewrite_tag('%where%', '([^&]+)');
