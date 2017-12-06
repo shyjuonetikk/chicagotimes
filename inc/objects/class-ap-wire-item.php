@@ -17,71 +17,73 @@ class AP_Wire_Item extends Post {
 	 */
 	public static function create_from_simpleobject( $feed_entry, $articleId = '' ) {
 		global $edit_flow;
-		$response = vip_safe_wp_remote_get( API_ENDPOINT . '/api/news/' . $feed_entry->id , '', 3, 3, 20, [] );
-		$feed_data = json_decode(wp_remote_retrieve_body( $response ));
-		$feed_entry = (object) array_merge((array) $feed_entry, (array) $feed_data);
+		$response = vip_safe_wp_remote_get( API_ENDPOINT . '/api/news/' . $feed_entry->id, '', 3, 3, 20, [] );
+		if ( ! is_wp_error( $response ) || 200 === wp_remote_retrieve_response_code( $response ) ) {
+			$feed_data  = json_decode( wp_remote_retrieve_body( $response ) );
+			$feed_entry = (object) array_merge( (array) $feed_entry, (array) $feed_data );
 
-		$pub_date = date('c');
-		$gmt_published = date( 'Y-m-d H:i:s', strtotime( isset($feed_entry->published) ? $feed_entry->published : $pub_date ) );
-		$gmt_modified = date( 'Y-m-d H:i:s', strtotime( isset($feed_entry->updated) ? $feed_entry->updated  : $pub_date ) );
+			$pub_date      = date( 'c' );
+			$gmt_published = date( 'Y-m-d H:i:s', strtotime( isset( $feed_entry->published ) ? $feed_entry->published : $pub_date ) );
+			$gmt_modified  = date( 'Y-m-d H:i:s', strtotime( isset( $feed_entry->updated ) ? $feed_entry->updated : $pub_date ) );
 
-		// Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
-		if ( is_object( $edit_flow ) ) {
-			$_POST['post_type'] = 'cst_wire_item';
-		}
-		$is_exist = 0;
-		if(isset($articleId) && !empty($articleId)) {
-			$args = array(
-			    'meta_query' => array(
-			        array(
-			            'key' => 'article_id',
-			            'value' => $articleId
-			        )
-			    ),
-			    'post_type' => 'cst_wire_item',
-			    'posts_per_page' => -1,
-					'suppress_filters' => false
-			);
-			$article_exist = get_posts($args);
-			if ( is_array( $article_exist ) ) {
-				$is_exist = $article_exist[0]->ID;
+			// Hack to fix Edit Flow bug where it resets post_date_gmt and really breaks things
+			if ( is_object( $edit_flow ) ) {
+				$_POST['post_type'] = 'cst_wire_item';
 			}
-		}
+			$is_exist = 0;
+			if ( isset( $articleId ) && ! empty( $articleId ) ) {
+				$args          = array(
+					'meta_query'       => array(
+						array(
+							'key'   => 'article_id',
+							'value' => $articleId
+						)
+					),
+					'post_type'        => 'cst_wire_item',
+					'posts_per_page'   => - 1,
+					'suppress_filters' => false
+				);
+				$article_exist = get_posts( $args );
+				if ( is_array( $article_exist ) ) {
+					$is_exist = $article_exist[0]->ID;
+				}
+			}
 
-		$post_args = array(
-			'post_title'        => sanitize_text_field( $feed_entry->title ),
-			'post_content'      => wp_filter_post_kses( $feed_entry->summary ),
-			'post_type'         => 'cst_wire_item',
-			'post_author'       => 0,
-			'post_status'       => 'publish',
-			'post_name'         => md5( 'ap_wire_item' . $feed_entry->id ),
-			'post_date'         => get_date_from_gmt( $gmt_published ),
-			'post_date_gmt'     => $gmt_published,
-			'post_modified'     => get_date_from_gmt( $gmt_modified ),
-			'post_modified_gmt' => $gmt_modified,
+			$post_args = array(
+				'post_title'        => sanitize_text_field( $feed_entry->title ),
+				'post_content'      => wp_filter_post_kses( $feed_entry->summary ),
+				'post_type'         => 'cst_wire_item',
+				'post_author'       => 0,
+				'post_status'       => 'publish',
+				'post_name'         => md5( 'ap_wire_item' . $feed_entry->id ),
+				'post_date'         => get_date_from_gmt( $gmt_published ),
+				'post_date_gmt'     => $gmt_published,
+				'post_modified'     => get_date_from_gmt( $gmt_modified ),
+				'post_modified_gmt' => $gmt_modified,
 			);
 
-		if($is_exist) {
-			$post_args['ID'] = $is_exist;
-			$post_id = wp_update_post($post_args, true );
-		} else {
-			$post_id = wp_insert_post( $post_args, true );
-		}
-		if ( is_wp_error( $post_id ) ) {
-			return $post_id;
-		}
+			if ( $is_exist ) {
+				$post_args['ID'] = $is_exist;
+				$post_id         = wp_update_post( $post_args, true );
+			} else {
+				$post_id = wp_insert_post( $post_args, true );
+			}
+			if ( is_wp_error( $post_id ) ) {
+				return $post_id;
+			}
 
-		$post = new AP_Wire_Item( $post_id );
-		$post->set_meta('article_id', $articleId);
-		$post->saveMedia($feed_entry->media);
-		if(!empty($feed_entry->title)) {
-			$post->set_wire_headline( sanitize_text_field( (string) $feed_entry->title ) );
-		}
-		if(!empty($feed_entry->blocks)) {
-			$post->set_wire_content( wp_filter_post_kses( implode('', $feed_entry->blocks) ) );
-		}
+			$post = new AP_Wire_Item( $post_id );
+			$post->set_meta( 'article_id', $articleId );
+			$post->saveMedia( $feed_entry->media );
+			if ( ! empty( $feed_entry->title ) ) {
+				$post->set_wire_headline( sanitize_text_field( (string) $feed_entry->title ) );
+			}
+			if ( ! empty( $feed_entry->blocks ) ) {
+				$post->set_wire_content( wp_filter_post_kses( implode( '', $feed_entry->blocks ) ) );
+			}
 
-		return $post;
+			return $post;
+		}
 	}
 
 	/**
