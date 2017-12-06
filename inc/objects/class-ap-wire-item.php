@@ -36,12 +36,12 @@ class AP_Wire_Item extends Post {
 					'meta_query'       => array(
 						array(
 							'key'   => 'article_id',
-							'value' => $articleId
-						)
+							'value' => $articleId,
+						),
 					),
 					'post_type'        => 'cst_wire_item',
 					'posts_per_page'   => - 1,
-					'suppress_filters' => false
+					'suppress_filters' => false,
 				);
 				$article_exist = get_posts( $args );
 				if ( is_array( $article_exist ) && ! empty( $article_exist ) ) {
@@ -280,28 +280,28 @@ class AP_Wire_Item extends Post {
 	public function saveMedia( $media ) {
 		$photolist = [];
 		$videolist = [];
-		$mediaObj = [
-			(object) array('name' => 'Main', 'code' => 'photo'),
-			(object) array('name' => 'Preview', 'code' => 'pr'),
-			(object) array('name' => 'Thumbnail', 'code' => 'tb')
+		$mediaObj  = [
+			(object) [ 'name' => 'Main', 'code' => 'photo' ],
+			(object) [ 'name' => 'Preview', 'code' => 'pr' ],
+			(object) [ 'name' => 'Thumbnail', 'code' => 'tb' ],
 		];
-		foreach($media as $item) {
+		foreach ( $media as $item ) {
 			$fileName = $item->fileName;
-			foreach( $mediaObj as $role) {
-				$url =  "https://s3.amazonaws.com/cst-apfeed/{$role->code}_{$fileName}";
-				if(!in_array($fileName, $photolist) && $item->type === 'Photo') {
-						$photolist[] = $fileName;
+			foreach ( $mediaObj as $role ) {
+				$url = "https://s3.amazonaws.com/cst-apfeed/{$role->code}_{$fileName}";
+				if ( ! in_array( $fileName, $photolist, true ) && $item->type === 'Photo' ) {
+					$photolist[] = $fileName;
 				}
 
-				if(!in_array($fileName, $videolist) && $item->type === 'Video') {
-						$videolist[] = $fileName;
+				if ( ! in_array( $fileName, $videolist, true ) && $item->type === 'Video' ) {
+					$videolist[] = $fileName;
 				}
-				$this->set_meta( $role->name . "_" . $fileName, $url );
+				$this->set_meta( $role->name . '_' . $fileName, $url );
 			}
 		}
 
-		$this->set_meta( 'photo', implode(',', $photolist) );
-		$this->set_meta( 'videos', implode(',', $videolist) );
+		$this->set_meta( 'photo', implode( ',', $photolist ) );
+		$this->set_meta( 'videos', implode( ',', $videolist ) );
 	}
 
 	/**
