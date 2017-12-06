@@ -42,7 +42,10 @@ class AP_Wire_Item extends Post {
 			    'posts_per_page' => -1,
 					'suppress_filters' => false
 			);
-			$is_exist = get_posts($args)[0]->ID;
+			$article_exist = get_posts($args);
+			if ( is_array( $article_exist ) ) {
+				$is_exist = $article_exist[0]->ID;
+			}
 		}
 
 		$post_args = array(
