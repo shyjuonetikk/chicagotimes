@@ -75,8 +75,7 @@ class AP_Wire_Item extends Post {
 			$post->set_wire_headline( sanitize_text_field( (string) $feed_entry->title ) );
 		}
 		if(!empty($feed_entry->blocks)) {
-//			$post->set_wire_content( wp_filter_post_kses( $feed_entry->blocks));
-
+			$post->set_wire_content( wp_filter_post_kses( implode('', $feed_entry->blocks) ) );
 		}
 
 		return $post;
