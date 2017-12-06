@@ -612,7 +612,11 @@ class CST_Wire_Curator {
 			$item = new \CST\Objects\AP_Wire_Item( $post );
 			$mainImg = false;
 			if ( isset( $_GET['default'] ) ) {
-				$mainImg = $item->get_media_by_key($_GET['default']);
+				$mainImg = $item->get_media_by_key( $_GET['default'] );
+			}
+			$has_media = false;
+			if ( isset( $_GET['media'] ) && ! empty( $_GET['media'] ) && is_string( $_GET['media'] ) ) {
+				$has_media = true;
 			}
 
 			switch ( $_GET['create'] ) {
@@ -643,9 +647,11 @@ class CST_Wire_Curator {
 					$article = $item->create_article_post();
 					$thumbnail_id = media_sideload_image( $mainImg, $article->get_id(), 'Main image', 'id');
 					set_post_thumbnail( $article->get_id(), $thumbnail_id );
-					$media = explode(',',$_GET['media']);
-					foreach ($media as $img) {
-						media_sideload_image( $item->get_media_by_key($img), $article->get_id(), $img, 'id');
+					if ( $has_media ) {
+						$media = explode(',',$_GET['media']);
+						foreach ($media as $img) {
+							media_sideload_image( $item->get_media_by_key($img), $article->get_id(), $img, 'id');
+						}
 					}
 					if ( $article ) {
 						wp_safe_redirect( $article->get_edit_link() );
