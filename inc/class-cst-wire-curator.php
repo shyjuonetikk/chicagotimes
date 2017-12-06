@@ -610,7 +610,10 @@ class CST_Wire_Curator {
 			}
 
 			$item = new \CST\Objects\AP_Wire_Item( $post );
-			$mainImg = $item->get_media_by_key($_GET['default']);
+			$mainImg = false;
+			if ( isset( $_GET['default'] ) ) {
+				$mainImg = $item->get_media_by_key($_GET['default']);
+			}
 
 			switch ( $_GET['create'] ) {
 

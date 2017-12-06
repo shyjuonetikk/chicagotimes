@@ -44,7 +44,7 @@ class AP_Wire_Item extends Post {
 					'suppress_filters' => false
 				);
 				$article_exist = get_posts( $args );
-				if ( is_array( $article_exist ) ) {
+				if ( is_array( $article_exist ) && ! empty( $article_exist ) ) {
 					$is_exist = $article_exist[0]->ID;
 				}
 			}
