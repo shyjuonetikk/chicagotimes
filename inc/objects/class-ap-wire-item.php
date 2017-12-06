@@ -308,9 +308,9 @@ class AP_Wire_Item extends Post {
 	 * Get the media from ntif
 	 *
 	 * @return Object
-	 */
-	 public function get_wire_media( $type ) {
- 		if(!isset($type) || $type=='')
+	*/
+	public function get_wire_media( $type ) {
+ 		if( ! isset( $type ) || $type === '' )
  			return [];
  		if(!$this->get_meta($type))
  			return [];

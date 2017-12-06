@@ -272,9 +272,9 @@ class CST_Wire_Curator {
 					if ( $item->get_wire_content() ) {
 
 						if ( $article = $item->get_article_post() ) {
-							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Save draft article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
+							echo '<a class="btn btn-primary save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Save draft article', 'chicagosuntimes' ) . '" href="' . esc_url( get_edit_post_link( $article->get_id() ) ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-primary save-draft-' . $post_id .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create draft Article', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-primary save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create draft Article', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -282,9 +282,9 @@ class CST_Wire_Curator {
 					if ( $item->get_external_url() ) {
 
 						if ( $link = $item->get_link_post() ) {
-							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
+							echo '<a class="btn btn-default save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . esc_url( get_edit_post_link( $link->get_id() ) ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-default save-draft-' . $post_id .'" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft Link', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-default save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft Link', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -309,25 +309,25 @@ class CST_Wire_Curator {
 							?>
 							<ul class="photo_list">
 								<?php foreach($media as $photo): ?>
-									<? $preview_img = isset($photo->preview) ? $photo->preview->file : $photo->main->file; ?>
+									<?php $preview_img = isset($photo->preview) ? $photo->preview->file : $photo->main->file; ?>
 									<li>
 										<div class="thumbnail">
 											<?php $thumbnail = isset($photo->preview) ? $photo->preview->file : $photo->thumbnail->file?>
-											<img src="<?=$thumbnail?>"/>
+											<img src="<?php echo esc_url( $thumbnail ); ?>"/>
 										</div>
 										<div class="on-hover">
-											<input type="hidden" class="post_id" name="post_id" value="<?=$item->get_id()?>"/>
+											<input type="hidden" class="post_id" name="post_id" value="<?php echo esc_attr( $item->get_id() ); ?>"/>
 											<label class="set-default">
 												Featured
-												<input type="radio" class="set_default" name="set_default" value="<?=$photo->main->name?>"/>
+												<input type="radio" class="set_default" name="set_default" value="<?php echo esc_attr( $photo->main->name ); ?>"/>
 											</label>
 											<label class="add-to-media">
 												Add media
-												<input type="checkbox" class="add_to_media" name="add_to_media" value="<?=$photo->main->name?>"/>
+												<input type="checkbox" class="add_to_media" name="add_to_media" value="<?php echo esc_attr( $photo->main->name ); ?>"/>
 											</label>
 											<a class="preview-btn">Preivew</a>
 										</div>
-										<div class="preview-box" data-target="<?=$preview_img?>">
+										<div class="preview-box" data-target="<?php echo esc_attr( $preview_img ); ?>">
 											<a class="close"></a>
 										</div>
 									</li>
@@ -415,10 +415,10 @@ class CST_Wire_Curator {
 
 			case 'cst_wire_item_date':
 				$published = human_time_diff( $item->get_post_date_gmt() );
-				echo sprintf( esc_html__( '%s ago', 'chicagosuntimes' ), $published );
+				echo sprintf( esc_html__( '%s ago', 'chicagosuntimes' ), esc_html( $published ) );
 				$updated = human_time_diff( $item->get_post_modified_gmt() );
-				if ( $updated != $published ) {
-					echo '<br /><em>' . sprintf( esc_html__( 'Updated %s ago', 'chicagosuntimes' ), $updated ) . '</em>';
+				if ( $updated !== $published ) {
+					echo '<br /><em>' . sprintf( esc_html__( 'Updated %s ago', 'chicagosuntimes' ), esc_html( $updated ) ) . '</em>';
 				}
 				break;
 
@@ -479,7 +479,7 @@ class CST_Wire_Curator {
 		$out = '<div class="' . ( $always_visible ? 'row-actions visible' : 'row-actions' ) . '">';
 		foreach ( $actions as $action => $link ) {
 			++$i;
-			( $i == $action_count ) ? $sep = '' : $sep = ' | ';
+			( $i === $action_count ) ? $sep = '' : $sep = ' | ';
 			$out .= "<span class='$action'>$link$sep</span>";
 		}
 		$out .= '</div>';
@@ -691,7 +691,7 @@ class CST_Wire_Curator {
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
-		if ( 200 != $response_code ) {
+		if ( 200 !== $response_code ) {
 			return false;
 		}
 
