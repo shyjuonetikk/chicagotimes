@@ -17,7 +17,7 @@ class AP_Wire_Item extends Post {
 	 */
 	public static function create_from_simpleobject( $feed_entry, $articleId = '' ) {
 		global $edit_flow;
-		$response = vip_safe_wp_remote_get( API_ENDPOINT . '/api/news/' . $feed_entry->id, '', 3, 3, 20, [] );
+		$response = vip_safe_wp_remote_get( API_ENDPOINT . '/api/news/' . $feed_entry->id, null, 3, 3, 20, [] );
 		if ( ! is_wp_error( $response ) || 200 === wp_remote_retrieve_response_code( $response ) ) {
 			$feed_data  = json_decode( wp_remote_retrieve_body( $response ) );
 			$feed_entry = (object) array_merge( (array) $feed_entry, (array) $feed_data );
