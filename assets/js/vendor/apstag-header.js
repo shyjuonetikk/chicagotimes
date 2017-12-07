@@ -22,7 +22,6 @@ function parseSizeMappings(sizeMappings) {
     // filter mappings that are valid by confirming that the current screen dimensions
     // are both greater than or equal to the breakpoint [x, y] minimums specified in the first position in the mapping
     var validMappings = sizeMappings.filter(function(m) {return  m[0][0] <= sd[0] && m[0][1] <= sd[1]});
-    document.write("<br><br><br><br><br><br><br/>validMappings ", validMappings, "<br />sizeMappings ", sizeMappings);
 
     // return the leftmost mapping's sizes or an empty array
     return validMappings.length > 0 ? validMappings[0][1] :  [];
@@ -33,9 +32,7 @@ function parseSizeMappings(sizeMappings) {
     document.write("In catch area ", sizeMappings);
     // fallback to last size mapping supplied 
     return sizeMappings[ sizeMappings.length -1 ][1];
-    document.write("In catch area ", sizeMappings);
-    //document.write(" In catch area sizeMappings ", sizeMappings);
-  } 
+    } 
 }
 //document.write(" In catch area sizeMappings ", sizeMappings);  
 
@@ -49,29 +46,11 @@ function parseSizeMappings(sizeMappings) {
     addSize([320, 560], [300, 250]). //mobile
     addSize([700, 1000], [300, 250]). //tablet
     addSize([1050, 200], [[160, 600], [300, 50], [300, 250], [300,600], [728, 90], [970, 90], [970, 250]]). //desktop
-    //addSize([300, 600]).
-    //addSize([728, 90]).
-    //addSize([980, 690], [[300, 250], [300,600]]).
-    //addSize([500, 500], [300, 250]).
-    //addSize([0,0], []).
+  
     build();
-
     //confirmed ad sizes 728x90, 300x250, 300x600, 160x600, 970x90, 970x250, 320x50
 
-
-//parseSizeMappings();
 var a9mappings = parseSizeMappings(sizeMappings);
-//window["parseSizeMappings"](sizeMappings);
-
-    //googletag.defineSlot('/61924087/test-a9', [300, 250], 'div-gpt-ad-test-a9').defineSizeMapping(sizeMappings).addService(googletag.pubads());  
-    //googletag.defineSlot('/61924087/slot2', [300, 600], 'div-gpt-ad-test2-a9').defineSizeMapping(sizeMappings).addService(googletag.pubads());  
-    //googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(sizeMappings).addService(googletag.pubads()); 
-    //googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-atf-leaderboard-1').defineSizeMapping(sizeMappings).addService(googletag.pubads()); 
-
-    //googletag.defineSlot('/61924087/test-a9', [300, 250], 'div-gpt-ad-cube1-a9').defineSizeMapping(googletag.validMappings).addService(googletag.pubads());  
-    //googletag.defineSlot('/61924087/slot2', [300, 600], 'div-gpt-ad-cube2-a9').defineSizeMapping(googletag.validMappings).addService(googletag.pubads());  
-    //googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(googletag.validMappings).addService(googletag.pubads()); 
-    //googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-atf-leaderboard-1').defineSizeMapping(googletag.sizeMappings).addService(googletag.pubads()); 
 
     googletag.defineSlot('/61924087/test-a9', [300, 250], 'div-gpt-ad-cube1-a9').defineSizeMapping(a9mappings).addService(googletag.pubads());  
     googletag.defineSlot('/61924087/slot2', [300, 600], 'div-gpt-ad-cube2-a9').defineSizeMapping(a9mappings).addService(googletag.pubads());  
@@ -115,7 +94,6 @@ var a9mappings = parseSizeMappings(sizeMappings);
      slotID: 'div-gpt-ad-leaderboard-1',
      slotName: 'leaderboard-1',
      sizes: [[970, 90], [728, 90]] 
-     //sizes: [[728, 90]] 
     }]
   },
 
