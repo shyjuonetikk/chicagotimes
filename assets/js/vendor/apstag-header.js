@@ -27,7 +27,6 @@ function parseSizeMappings(sizeMappings) {
     console.log('error parsing sizeMappings:')
     console.log(sizeMappings);
     console.log(e);
-    document.write("In catch area ", sizeMappings);
     // fallback to last size mapping supplied 
     return sizeMappings[ sizeMappings.length -1 ][1];
     } 
@@ -58,10 +57,8 @@ var a9mappings = parseSizeMappings(sizeMappings);
     googletag.enableServices();
   });  
 
-
   //!function(a9,a,p,s,t,A,g){if(a[a9])return;function q(c,r){a[a9]._Q.push([c,r])}a[a9]={init:function(){q("i",arguments)},fetchBids:function(){q("f",arguments)},setDisplayBids:function(){},targetingKeys:function(){return[]},_Q:[]};A=p.createElement(s);A.async=!0;A.src=t;g=p.getElementsByTagName(s)[0];g.parentNode.insertBefore(A,g)}("apstag",window,document,"script","//c.amazon-adsystem.com/aax2/apstag.js");
   !function(a9,a,p,s,t,A,g){if(a[a9])return;function q(c,r){a[a9]._Q.push([c,r])}a[a9]={init:function(){q("i",arguments)},fetchBids:function(){q("f",arguments)},setDisplayBids:function(){},_Q:[]};A=p.createElement(s);A.async=!0;A.src=t;g=p.getElementsByTagName(s)[0];g.parentNode.insertBefore( A,g)}("apstag",window,document,"script","//c.amazon-adsystem.com/aax2/apstag.js");
-
 
   // initialize apstag and have apstag set bids on the googletag slots when they are returned to the page
   apstag.init({
@@ -72,12 +69,12 @@ var a9mappings = parseSizeMappings(sizeMappings);
   apstag.fetchBids({
     slots: [{
       slotID: 'div-gpt-ad-cube1-a9',
-      slotName: 'test-a9',
+      slotName: 'cube1',
       sizes: [[300, 250]] 
     },
     {
       slotID: 'div-gpt-ad-cube2-a9',
-      slotName: 'test2-a9', 
+      slotName: 'cube2', 
       sizes: [[300, 600]]  
     },
     {
