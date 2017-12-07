@@ -325,7 +325,7 @@ class CST_Wire_Curator {
 												Add media
 												<input type="checkbox" class="add_to_media" name="add_to_media" value="<?php echo esc_attr( $photo->main->name ); ?>"/>
 											</label>
-											<a class="preview-btn">Preivew</a>
+											<a class="preview-btn">Preview</a>
 										</div>
 										<div class="preview-box" data-target="<?php echo esc_attr( $preview_img ); ?>">
 											<a class="close"></a>
