@@ -53,22 +53,7 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 	 */
 	private function get_chartbeat_url() {
 
-		$obj = \CST\Objects\Post::get_by_post_id( get_the_ID() );
-		$post_sections  = $obj->get_section_slugs();
-		if ( $post_sections ) {
-			if ( in_array( 'dear-abby', $post_sections, true ) || in_array( 'dear-abby-lifestyles', $post_sections, true ) ) {
-				$this->chart_beat_slug = 'dear%20abby';
-				$this->section_name   = 'Dear Abby';
-			} else {
-				$primary_section = $obj->get_primary_parent_section();
-				$this->section_name    = $primary_section->name;
-				$this->chart_beat_slug  = $primary_section->slug;
-				if ( 'news' === $this->chart_beat_slug ) {
-					$this->chart_beat_slug = 'chicago%20news';
-				}
-			}
-		}
-		$chart_beat_url = 'https://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=' . $this->chart_beat_slug . '&sort_by=returning&now_on=1&limit=4&metrics=post_id';
+		$chart_beat_url = 'https://api.chartbeat.com/live/toppages/v3/?apikey=' . CST_CHARTBEAT_API_KEY . '&host=chicago.suntimes.com&section=chicago%20news,%20sports,%20entertainment,%20lifestyles,%20columnists,%20politics,features&all_platforms=1&types=1&limit=8&metrics=post_id';
 		return $chart_beat_url;
 	}
 
@@ -91,22 +76,29 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 				AMP_HTML_Utils::build_tag(
 					'h3',
 					array(),
-					esc_html( 'Previously from ' . $this->section_name ) . '<hr>'
+					esc_html( 'More from the Chicago Sun-Times' ) . '<hr>'
 				)
 			);
 			$recommended_article_block = $recommended_article_block_title;
-			foreach ( $pages as $item ) {
+			$counter = 0;
+			$more_items = array_filter( $pages, function( $item ) {
+				return ( $item->stats->type === "Article" && ( 0 === preg_match( "!Dear\sAbby\:|Georgia\sNicols\shoroscopes!", $item->title ) ) );
+			});
+			foreach ( $more_items as $item ) {
 				$chart_beat_top_content = (array) $item->metrics->post_id->top;
 				if ( ! empty( $chart_beat_top_content ) && is_array( $chart_beat_top_content ) ) {
 					$top_item = array_keys( $chart_beat_top_content, max( $chart_beat_top_content ) );
 				}
-				$image_url                            = CST()->frontend->get_remote_featured_image( $top_item[0] );
+				$image_url = CST()->frontend->get_remote_featured_image( $top_item[0] );
 				if ( ! $image_url ) {
 					$image_url = esc_url( get_stylesheet_directory_uri() . $this->default_image_partial_url );
 				}
-				$temporary_title                      = explode( '|', $item->title );
-				$recommended_article_curated_title    = $temporary_title[0];
-				$recommended_article_anchor_image = AMP_HTML_Utils::build_tag(
+				$temporary_title = $item->title;
+				if ( 1 === preg_match( '!(.*)(\s+[\|\-\–]\s+Chicago Sun-Times)!', $item->title, $matches ) ) {
+					$temporary_title = $matches[1];
+				}
+				$recommended_article_curated_title = $temporary_title;
+				$recommended_article_anchor_image  = AMP_HTML_Utils::build_tag(
 					'a',
 					array(
 						'class' => 'cst-rec-anchor',
@@ -148,6 +140,10 @@ class CST_AMP_Related_Posts_Embed extends AMP_Base_Embed_Handler {
 						$recommended_article_anchor_image . $recommended_article_anchor_text_link
 					)
 				);
+				$counter++;
+				if ( 4 === $counter ) {
+					break;
+				}
 			}
 		}
 
