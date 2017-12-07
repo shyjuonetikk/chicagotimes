@@ -1,4 +1,3 @@
-//Helper function
 //Get Browser Window Dimensions -- Used in parseSizeMappings
 function getWindowDimensions() {
   var width = window.innerWidth ||
@@ -9,7 +8,6 @@ function getWindowDimensions() {
     document.body.clientHeight;
   return [width, height];
 }
-
 
 // given a size mapping like: [[[1000, 600], [[300, 250], [300,600]]],[[0,0], [[300,250]]]]
 // return the valid size mapping as an array like: [[300,250]] when the screen dimensions
@@ -34,8 +32,6 @@ function parseSizeMappings(sizeMappings) {
     return sizeMappings[ sizeMappings.length -1 ][1];
     } 
 }
-//document.write(" In catch area sizeMappings ", sizeMappings);  
-
 
  var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];
 
@@ -56,7 +52,6 @@ var a9mappings = parseSizeMappings(sizeMappings);
     googletag.defineSlot('/61924087/slot2', [300, 600], 'div-gpt-ad-cube2-a9').defineSizeMapping(a9mappings).addService(googletag.pubads());  
     googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(a9mappings).addService(googletag.pubads()); 
     googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-1').defineSizeMapping(a9mappings).addService(googletag.pubads()); 
-
 
     googletag.pubads().disableInitialLoad();
     googletag.pubads().enableSingleRequest();
