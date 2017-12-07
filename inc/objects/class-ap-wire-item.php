@@ -71,7 +71,6 @@ class AP_Wire_Item extends Post {
 		$post = new AP_Wire_Item( $post_id );
 		$post->set_meta('article_id', $articleId);
 		$post->saveMedia($feed_entry->media);
-		print_r($feed_entry);
 		if(!empty($feed_entry->summary)) {
 			$post->set_wire_headline( sanitize_text_field( (string) $feed_entry->summary ) );
 		}
