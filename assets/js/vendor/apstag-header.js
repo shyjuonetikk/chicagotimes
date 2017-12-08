@@ -29,28 +29,28 @@ function parseSizeMappings(sizeMappings) {
     console.log(e);
     // fallback to last size mapping supplied 
     return sizeMappings[ sizeMappings.length -1 ][1];
-  } 
-} 
+    } 
+}
 
  var googletag = googletag || {}; googletag.cmd = googletag.cmd || [];
 
   googletag.cmd.push(function() {
     //var sizeMappingBoxes = googletag.sizeMapping().
     var sizeMappings = googletag.sizeMapping().
-    addSize([980, 500], [[970, 90], [970, 250], [728, 90], [320, 50], [300, 250], [300, 600], [160, 600]]). //desktop, iPad Pro
-    addSize([768, 700], [[728, 90], [320, 50], [300, 250], [300, 600], [160, 600]]). //tablet
-    addSize([320, 500], [[320, 50], [300, 250]]). //mobile
-    addSize([0, 0], []).
+    addSize([0, 0], [0, 0]).
+    addSize([320, 560], [300, 250]). //mobile
+    addSize([700, 1000], [300, 250]). //tablet
+    addSize([1050, 200], [[160, 600], [300, 50], [300, 250], [300,600], [728, 90], [970, 90], [970, 250]]). //desktop
+  
     build();
     //confirmed ad sizes 728x90, 300x250, 300x600, 160x600, 970x90, 970x250, 320x50
 
-parseSizeMappings(sizeMappings);
+var a9mappings = parseSizeMappings(sizeMappings);
 
-    googletag.defineSlot('/61924087/cube1', [300, 250], 'div-gpt-ad-cube1-a9').defineSizeMapping(googletag.validMappings).addService(googletag.pubads());  
-    googletag.defineSlot('/61924087/cube2', [300, 600], 'div-gpt-ad-cube2-a9').defineSizeMapping(googletag.validMappings).addService(googletag.pubads());  
-    googletag.defineSlot('/61924087/leaderboard', [728, 90], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(googletag.validMappings).addService(googletag.pubads()); 
-    googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-1').defineSizeMapping(googletag.sizeMappings).addService(googletag.pubads()); 
-    googletag.defineSlot('/61924087/slot4', [320, 50], 'div-gpt-ad-leaderboard-2').defineSizeMapping(googletag.sizeMappings).addService(googletag.pubads()); 
+    googletag.defineSlot('/61924087/test-a9', [300, 250], 'div-gpt-ad-cube1-a9').defineSizeMapping(a9mappings).addService(googletag.pubads());  
+    googletag.defineSlot('/61924087/slot2', [300, 600], 'div-gpt-ad-cube2-a9').defineSizeMapping(a9mappings).addService(googletag.pubads());  
+    googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-a9').defineSizeMapping(a9mappings).addService(googletag.pubads()); 
+    googletag.defineSlot('/61924087/slot3', [728, 90], 'div-gpt-ad-leaderboard-1').defineSizeMapping(a9mappings).addService(googletag.pubads()); 
 
     googletag.pubads().disableInitialLoad();
     googletag.pubads().enableSingleRequest();
@@ -79,18 +79,13 @@ parseSizeMappings(sizeMappings);
     },
     {
       slotID: 'div-gpt-ad-leaderboard-a9',
-      slotName: 'leaderboard',
+      slotName: 'leaderboard-a9',
       sizes: [[728, 90]]  
     },
     {
-      slotID: 'div-gpt-ad-leaderboard-1',
-      slotName: 'slot3',
-      sizes: [[728, 90]]  
-    },
-    {
-      slotID: 'div-gpt-ad-leaderboard-2',
-      slotName: 'slot4',
-      sizes: [[970, 90], [728, 90]] 
+     slotID: 'div-gpt-ad-leaderboard-1',
+     slotName: 'leaderboard-1',
+     sizes: [[970, 90], [728, 90]] 
     }]
   },
 
