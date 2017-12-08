@@ -30,7 +30,7 @@ class AP_Wire_Item extends Post {
 			$_POST['post_type'] = 'cst_wire_item';
 		}
 		$is_exist = 0;
-		if(isset($articleId) && !empty($articleId)) {
+		if( isset($articleId) && !empty( $articleId ) ) {
 			$args = array(
 			    'meta_query' => array(
 			        array(
@@ -39,8 +39,8 @@ class AP_Wire_Item extends Post {
 			        )
 			    ),
 			    'post_type' => 'cst_wire_item',
-			    'posts_per_page' => -1,
-					'suppress_filters' => false
+			    'posts_per_page' => 200,
+				'suppress_filters' => false,
 			);
 			$is_exist = get_posts($args)[0]->ID;
 		}
@@ -58,7 +58,7 @@ class AP_Wire_Item extends Post {
 			'post_modified_gmt' => $gmt_modified,
 			);
 
-		if($is_exist) {
+		if( $is_exist ) {
 			$post_args['ID'] = $is_exist;
 			$post_id = wp_update_post($post_args, true );
 		} else {
@@ -69,13 +69,13 @@ class AP_Wire_Item extends Post {
 		}
 
 		$post = new AP_Wire_Item( $post_id );
-		$post->set_meta('article_id', $articleId);
-		$post->saveMedia($feed_entry->media);
-		if(!empty($feed_entry->summary)) {
+		$post->set_meta( 'article_id', $articleId );
+		$post->saveMedia( $feed_entry->media );
+		if( !empty( $feed_entry->summary )) {
 			$post->set_wire_headline( sanitize_text_field( (string) $feed_entry->summary ) );
 		}
-		if(!empty($feed_entry->blocks)) {
-			$post->set_wire_content( wp_filter_post_kses( implode('', $feed_entry->blocks) ) );
+		if( !empty($feed_entry->blocks )) {
+			$post->set_wire_content( wp_filter_post_kses( implode( '', $feed_entry->blocks ) ) );
 		}
 
 		return $post;
@@ -91,7 +91,7 @@ class AP_Wire_Item extends Post {
 		global $wpdb;
 
 		$key = md5( 'ap_wire_item' . $original_id );
-		$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name=%s LIMIT 0,1", $key ) );
+		$post_id = $wpdb->get_var( $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_name = %s LIMIT 0,1", $key ) );
 		if ( ! $post_id ) {
 			return false;
 		}
@@ -248,9 +248,8 @@ class AP_Wire_Item extends Post {
 			$headline = $this->get_title();
 		}
 
-		$link = Link::create( array(
-			'post_title'     => sanitize_text_field( $headline ),
-		) );
+		$link = Link::create( [ 'post_title'     => sanitize_text_field( $headline ), ] );
+
 		if ( ! $link ) {
 			return false;
 		}
@@ -276,27 +275,27 @@ class AP_Wire_Item extends Post {
 		$photolist = [];
 		$videolist = [];
 		$mediaObj = [
-			(object) array('name' => 'Main', 'code' => 'photo'),
-			(object) array('name' => 'Preview', 'code' => 'pr'),
-			(object) array('name' => 'Thumbnail', 'code' => 'tb')
+			(object) [ 'name' => 'Main', 'code' => 'photo' ],
+			(object) [ 'name' => 'Preview', 'code' => 'pr' ],
+			(object) [ 'name' => 'Thumbnail', 'code' => 'tb' ],
 		];
 		foreach($media as $item) {
 			$fileName = $item->fileName;
 			foreach( $mediaObj as $role) {
 				$url =  "https://s3.amazonaws.com/cst-apfeed/{$role->code}_{$fileName}";
-				if(!in_array($fileName, $photolist) && $item->type === 'Photo') {
+				if( !in_array( $fileName, $photolist, true ) && $item->type === 'Photo' ) {
 						$photolist[] = $fileName;
 				}
 
-				if(!in_array($fileName, $videolist) && $item->type === 'Video') {
+				if( !in_array( $fileName, $videolist, true ) && $item->type === 'Video' ) {
 						$videolist[] = $fileName;
 				}
 				$this->set_meta( $role->name . "_" . $fileName, $url );
 			}
 		}
 
-		$this->set_meta( 'photo', implode(',', $photolist) );
-		$this->set_meta( 'videos', implode(',', $videolist) );
+		$this->set_meta( 'photo', implode( ',', $photolist ) );
+		$this->set_meta( 'videos', implode( ',', $videolist ) );
 	}
 
 	/**
@@ -305,20 +304,20 @@ class AP_Wire_Item extends Post {
 	 * @return Object
 	 */
 	 public function get_wire_media( $type ) {
- 		if(!isset($type) || $type=='')
+ 		if( !isset( $type ) || $type === '')
  			return [];
- 		if(!$this->get_meta($type))
+ 		if( !$this->get_meta( $type ) )
  			return [];
 
  		$media = [];
- 		$mediaList = explode( ',', $this->get_meta($type) );
- 		foreach($mediaList as $key) {
+ 		$mediaList = explode( ',', $this->get_meta( $type ) );
+ 		foreach( $mediaList as $key ) {
  			$mediaItem = new \stdClass;
- 			foreach( ['Main','Preview','Thumbnail'] as $item ) {
- 				if($this->get_meta( $item . '_' . $key )) {
+ 			foreach( [ 'Main','Preview','Thumbnail' ] as $item ) {
+ 				if( $this->get_meta( $item . '_' . $key ) ) {
  					$mediaItem->{strtolower($item)} = (object) [
  						"name" => $item . '_' . $key,
- 						"file" => $this->get_meta( $item . '_' . $key )
+ 						"file" => $this->get_meta( $item . '_' . $key ),
  					];
  				}
  			}
@@ -332,7 +331,7 @@ class AP_Wire_Item extends Post {
 	}
 
 	public function get_article_id() {
-		return $this->get_meta('article_id');
+		return $this->get_meta( 'article_id' );
 	}
 
 }

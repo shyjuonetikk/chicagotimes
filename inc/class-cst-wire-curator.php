@@ -294,8 +294,8 @@ class CST_Wire_Curator {
 				?>
 				<div class="tab-pane text active">
 					<?php
-						$fCon = wp_kses_post( $item->get_wire_content());
-						if($fCon) {
+						$fCon = wp_kses_post( $item->get_wire_content() );
+						if( $fCon ) {
 							echo $fCon;
 						} else {
 							echo 'No content available!';
@@ -304,15 +304,15 @@ class CST_Wire_Curator {
 				</div>
 				<div class="tab-pane images">
 					<?php
-						if(!empty($item->get_wire_media('photo'))) {
-							$media = $item->get_wire_media('photo');
+						if( !empty( $item->get_wire_media( 'photo' ) ) ) {
+							$media = $item->get_wire_media( 'photo' );
 							?>
 							<ul class="photo_list">
-								<?php foreach($media as $photo): ?>
-									<?php $preview_img = isset($photo->preview) ? $photo->preview->file : $photo->main->file; ?>
+								<?php foreach( $media as $photo ): ?>
+									<?php $preview_img = isset( $photo->preview ) ? $photo->preview->file : $photo->main->file; ?>
 									<li>
 										<div class="thumbnail">
-											<?php $thumbnail = isset($photo->preview) ? $photo->preview->file : $photo->thumbnail->file?>
+											<?php $thumbnail = isset( $photo->preview ) ? $photo->preview->file : $photo->thumbnail->file ?>
 											<img src="<?php echo esc_url( $thumbnail ); ?>"/>
 										</div>
 										<div class="on-hover">
