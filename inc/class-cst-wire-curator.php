@@ -345,8 +345,7 @@ class CST_Wire_Curator {
 				<script type="text/javascript">
 					function createArticle(id) {
 						var url = jQuery("."+id).attr('href');
-						jQuery.post(url, {}, function(data, textStatus){
-							console.log('data', data, 'textStatus', textStatus);
+						jQuery.post(url, {}, function(data, textStatus) {
 							window.location.href = data.redirect_url;
 						}, 'json');
 						return false;
