@@ -274,7 +274,7 @@ class CST_Wire_Curator {
 						if ( $article = $item->get_article_post() ) {
 							echo '<a class="btn btn-primary save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Save draft article', 'chicagosuntimes' ) . '" href="' . esc_url( get_edit_post_link( $article->get_id() ) ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-primary save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create draft Article', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-primary create-article save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Create draft article', 'chicagosuntimes' ) . '" onclick="javascript:createArticle(\'save-draft-' . esc_attr( $post_id ) .'\');"  href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create draft Article', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -284,7 +284,7 @@ class CST_Wire_Curator {
 						if ( $link = $item->get_link_post() ) {
 							echo '<a class="btn btn-default save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . esc_url( get_edit_post_link( $link->get_id() ) ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
 						} else {
-							echo '<a class="btn btn-default save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft Link', 'chicagosuntimes' ) . '</a>';
+							echo '<a class="btn btn-default create-article save-draft-' . esc_attr( $post_id ) .'" title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" onclick="javascript:createArticle(\'save-draft-' . esc_attr( $post_id ) .'\');" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Save draft Link', 'chicagosuntimes' ) . '</a>';
 						}
 
 					}
@@ -343,7 +343,19 @@ class CST_Wire_Curator {
 				</div>
 				<div class="tab-pane videos"><p>No videos available.</p></div>
 				<script type="text/javascript">
+					function createArticle(id) {
+						var url = jQuery("."+id).attr('href');
+						jQuery.post(url, {}, function(data, textStatus){
+							console.log('data', data, 'textStatus', textStatus);
+							window.location.href = data.redirect_url;
+						}, 'json');
+						return false;
+					}
+
 					jQuery(function($){
+						$('.create-article').click(function (e) {
+						   e.preventDefault();
+						});
 						/**
 						* Tab method
 						*/
@@ -454,7 +466,7 @@ class CST_Wire_Curator {
 			if ( $article = $item->get_article_post() ) {
 				$actions['wire-item-article'] = '<a title="' . esc_attr__( 'Edit article', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $article->get_id() ) . '">' . esc_html__( 'Edit Article', 'chicagosuntimes' ). '</a>';
 			} else {
-				$actions['wire-item-article'] = '<a title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create Article', 'chicagosuntimes' ) . '</a>';
+				$actions['wire-item-article'] = '<a title="' . esc_attr__( 'Create an article for the wire item', 'chicagosuntimes' ) . '" class="create-article save-draft-' . $item->get_id() . '" onclick="javascript:createArticle(\'save-draft-' . $item->get_id() . '\');" href="' . esc_url( add_query_arg( 'create', 'article', $create_url ) ) . '">' . esc_html__( 'Create Article', 'chicagosuntimes' ) . '</a>';
 			}
 
 		}
@@ -464,7 +476,7 @@ class CST_Wire_Curator {
 			if ( $link = $item->get_link_post() ) {
 				$actions['wire-item-link'] = '<a title="' . esc_attr__( 'Edit link post', 'chicagosuntimes' ) . '" href="' . get_edit_post_link( $link->get_id() ) . '">' . esc_html__( 'Edit Link', 'chicagosuntimes' ). '</a>';
 			} else {
-				$actions['wire-item-link'] = '<a title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Create Link', 'chicagosuntimes' ) . '</a>';
+				$actions['wire-item-link'] = '<a title="' . esc_attr__( 'Create a link post to the external URL for the wire item', 'chicagosuntimes' ) . '" class="create-article save-draft-' . $item->get_id() . '" onclick="javascript:createArticle(\'save-draft-' . $item->get_id() . '\');" href="' . esc_url( add_query_arg( 'create', 'link', $create_url ) ) . '">' . esc_html__( 'Create Link', 'chicagosuntimes' ) . '</a>';
 			}
 
 		}
@@ -596,17 +608,16 @@ class CST_Wire_Curator {
 	 * Create a new Article or Link from a wire item
 	 */
 	public function handle_ajax_create_from_wire_item() {
-
 		if ( wp_verify_nonce( $_GET['nonce'], 'cst_create_from_wire_item' ) ) {
 			if ( ! current_user_can( $this->cap ) ) {
-				wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
+				wp_die( json_encode( array("status" => 500, "message" => esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ))) );
 			}
 
 			$item_id = (int) $_GET['wire_item_id'];
 
 			$post = get_post( $item_id );
 			if ( ! $post || $this->post_type !== $post->post_type ) {
-				wp_die( esc_html__( 'Invalid wire item ID', 'chicagosuntimes' ) );
+				wp_die( json_encode( array("status" => 500, "message" => esc_html__( 'Invalid wire item ID', 'chicagosuntimes' ))) );
 			}
 
 			$item = new \CST\Objects\AP_Wire_Item( $post );
@@ -625,19 +636,19 @@ class CST_Wire_Curator {
 
 					$link = $item->create_link_post();
 					if($mainImg && $link->get_id()) {
-						$thumbnail_id = media_sideload_image( $mainImg, $link->get_id(), 'Main image', 'id');
+						$thumbnail_id = wpcom_vip_download_image( $mainImg, $link->get_id(), 'Main image');
 						set_post_thumbnail( $link->get_id(), $thumbnail_id );
 					}
 					$media = explode(',',$_GET['media']);
 					foreach ($media as $img) {
-						media_sideload_image( $item->get_media_by_key($img), $link->get_id(), $img, 'id');
+						wpcom_vip_download_image( $item->get_media_by_key($img), $link->get_id(), $img);
 					}
 
 					if ( $link ) {
-						wp_safe_redirect( $link->get_edit_link() );
+						wp_die( json_encode( array("status" => 200 , "redirect_url" => $link->get_edit_link())) );
 						exit;
 					} else {
-						wp_die( esc_html__( 'Error creating link?', 'chicagosuntimes' ) );
+						wp_die( json_encode( array("status" => 500, "message" => esc_html__( 'Error creating link?', 'chicagosuntimes' ))) );
 					}
 
 					break;
@@ -645,29 +656,28 @@ class CST_Wire_Curator {
 				case 'article':
 
 					$article = $item->create_article_post();
-					$thumbnail_id = media_sideload_image( $mainImg, $article->get_id(), 'Main image', 'id');
+					$thumbnail_id = wpcom_vip_download_image( $mainImg, $article->get_id(), 'Main image');
 					set_post_thumbnail( $article->get_id(), $thumbnail_id );
 					if ( $has_media ) {
 						$media = explode(',',$_GET['media']);
 						foreach ($media as $img) {
-							media_sideload_image( $item->get_media_by_key($img), $article->get_id(), $img, 'id');
+							wpcom_vip_download_image( $item->get_media_by_key($img), $article->get_id(), $img);
 						}
 					}
 					if ( $article ) {
-						wp_safe_redirect( $article->get_edit_link() );
-						exit;
+						wp_die( json_encode( array("status" => 200 , "redirect_url" => $article->get_edit_link())) );
 					} else {
-						wp_die( esc_html__( 'Error creating article?', 'chicagosuntimes' ) );
+						wp_die( json_encode( array("status" => 500, "message" => esc_html__( 'Error creating article?', 'chicagosuntimes' ))) );
 					}
 
 					break;
 
 				default:
-					wp_die( esc_html__( 'Invalid type to create', 'chicagosuntimes' ) );
+					wp_die( json_encode( array("status" => 500, "message" => esc_html__( 'Invalid type to create', 'chicagosuntimes' ))) );
 					break;
 			}
 		} else {
-			wp_die( esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ) );
+			wp_die( json_encode( array("status" => 500, "message" => esc_html__( "You shouldn't be doing this...", 'chicagosuntimes' ))) );
 		}
 
 	}
